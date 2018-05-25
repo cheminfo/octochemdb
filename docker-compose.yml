@@ -5,22 +5,16 @@ services:
     restart: always
     expose:
       - 27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: cheminfo
-      MONGO_INITDB_ROOT_PASSWORD: lpclpc
     volumes:
-      - ./mongo-data:/var/lib/mongodb
+      - ./mongo-data:/data/db
   
   node-pubchem:
     build: ./node-pubchem
     restart: always
     privileged: true
-    environment:
-      MONGO_USERNAME: cheminfo
-      MONGO_PASSWORD: lpclpc
     ports:
       - 3001:80
     depends_on:
       - mongo
     volumes:
-      - ../node-pubchem:/git/node-pubhcem
+      - ../node-pubchem/src:/git/node-pubchem/src

@@ -1,3 +1,5 @@
-0 2 * * 6 root . /env.sh; cd /git/flavor-builder; (/usr/local/bin/node /git/flavor-builder/node_modules/flavor-builder/bin/build.js --config=/flavor-config.json >> /var/log/cron.log 2>&1)
+# 0 2 * * 6 root . /env.sh; cd /git/flavor-builder; (/usr/local/bin/node /git/flavor-builder/node_modules/flavor-builder/bin/build.js --config=/flavor-config.json >> /var/log/cron.log 2>&1)
 
-0 2 * * 6 (/usr/bin/node /git/node-pubchem/src/sync/update.js >> /git/node-pubchem/update.log 2>&1
+* * * * * /usr/local/bin/node /git/node-pubchem/src/sync/update.js > /proc/1/fd/1 2>&1
+
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /usr/local/bin/node /git/node-pubchem/src/aggregates/aggregates.js > /proc/1/fd/1 2>&1

@@ -1,4 +1,5 @@
 {
-  "mongodb": "mongodb://mongo:27017/pubchem",
-  "data": "./data/gz"
+  "mongodbUrl": "mongodb://mongo:27017",
+  "databaseName": "pubchem",
+  "data": "/pubchem-data/pubchem/Compound/"
 }
