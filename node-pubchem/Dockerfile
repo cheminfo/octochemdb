@@ -15,11 +15,10 @@ COPY config.json /git/node-pubchem
 WORKDIR /git/node-pubchem
 RUN npm i && rm -rf /root/.npm /usr/local/share/.cache /root/.cache
 
-# Install the crotnab file for update in a clean way
-COPY crontab /tmp/crontab
-RUN crontab /tmp/crontab
-
 #COPY on-tabs-config.json /on-tabs-config.json
+
+COPY import.sh /import.sh
+RUN chmod 744 /import.sh
 
 COPY start.sh /start.sh
 RUN chmod 744 /start.sh

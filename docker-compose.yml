@@ -8,13 +8,24 @@ services:
     volumes:
       - ./mongo-data:/data/db
   
-  node-pubchem:
+  node-pubchem-import:
     build: ./node-pubchem
     restart: always
     privileged: true
+    depends_on:
+      - mongo
+    volumes:
+      - ../node-pubchem/src:/git/node-pubchem/src
+    command: bash /import.sh
+
+  node-pubchem:
+    build: ./node-pubchem
+    restart: always
     ports:
       - 3001:80
     depends_on:
       - mongo
     volumes:
       - ../node-pubchem/src:/git/node-pubchem/src
+
+      
