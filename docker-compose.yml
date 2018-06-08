@@ -16,7 +16,7 @@ services:
       - mongo
     volumes:
       - ../node-pubchem/src:/git/node-pubchem/src
-    command: bash /import.sh
+    command: npm run cron
 
   node-pubchem:
     build: ./node-pubchem

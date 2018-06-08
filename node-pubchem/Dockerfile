@@ -17,12 +17,5 @@ RUN npm i && rm -rf /root/.npm /usr/local/share/.cache /root/.cache
 
 #COPY on-tabs-config.json /on-tabs-config.json
 
-COPY import.sh /import.sh
-RUN chmod 744 /import.sh
+CMD npm run server
 
-COPY start.sh /start.sh
-RUN chmod 744 /start.sh
-
-CMD /start.sh
-
- 
