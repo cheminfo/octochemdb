@@ -9,7 +9,7 @@ EXPOSE 80
 
 WORKDIR /git
 
-RUN git clone --branch promisify https://github.com/cheminfo/node-pubchem.git
+RUN git clone https://github.com/cheminfo/node-pubchem.git
 COPY config.json /git/node-pubchem
 
 WORKDIR /git/node-pubchem

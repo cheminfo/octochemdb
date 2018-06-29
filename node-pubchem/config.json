@@ -1,5 +1,9 @@
 {
   "mongodbUrl": "mongodb://mongo:27017",
   "databaseName": "pubchem",
-  "data": "/pubchem-data/pubchem/Compound/"
+  "dataFullDir": "./originalData/full",
+  "dataWeeklyDir": "./originalData/weekly",
+  "ftpServer": "ftp.ncbi.nlm.nih.gov"
 }
+
+
