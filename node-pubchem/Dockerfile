@@ -1,6 +1,6 @@
 FROM node:10
 
-RUN apt-get update && apt-get install -y git curlftpfs
+RUN apt-get update && apt-get install -y git 
 
 EXPOSE 80
 
