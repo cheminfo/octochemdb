@@ -9,7 +9,8 @@ services:
       - ./mongo-data:/data/db
   
   node-pubchem-import:
-    build: ./node-pubchem
+    image: node-pubchem
+#    build: ./node-pubchem
     restart: always
     privileged: true
     depends_on:
@@ -20,7 +21,8 @@ services:
     command: npm run cron
 
   node-pubchem:
-    build: ./node-pubchem
+    image: node-pubchem
+#    build: ./node-pubchem
     restart: always
     ports:
       - 3001:80
