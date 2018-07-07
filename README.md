@@ -14,6 +14,6 @@ http://localhost:3001/mfs/em?em=203.235939
 
 ```
 cd node-pubchem
-docker build . -t pubchem
+docker build . --no-cache -t pubchem
 docker run --privileged -i -t pubchem bash
 ``
