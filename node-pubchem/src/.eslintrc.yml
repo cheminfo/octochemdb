@@ -1,0 +1,4 @@
+extends: 'eslint-config-cheminfo'
+env:
+  jest: true
+  browser: true

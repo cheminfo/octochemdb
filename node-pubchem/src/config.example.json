@@ -1,0 +1,8 @@
+{
+  "mongodbUrl": "mongodb://localhost:27017",
+  "databaseName": "pubchem",
+  "dataFullDir": "./originalData/full",
+  "dataWeeklyDir": "./originalData/weekly",
+  "ftpServer": "ftp.ncbi.nlm.nih.gov"
+}
+

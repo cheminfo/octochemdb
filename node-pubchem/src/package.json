@@ -1,0 +1,54 @@
+{
+  "name": "node-pubchem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "convert-readme": " md2html -w README.md; mkdir -p src/server/staticPages; mv README.html src/server/staticPages/index.html",
+    "first-import": "node src/sync/firstImport.js",
+    "cron": "node src/sync/cron.js",
+    "test": "jest",
+    "server": "npm run convert-readme; node src/server/index.js --port 80",
+    "server8080": "npm run convert-readme; node src/server/index.js --port 8080",
+    "eslint": "eslint src",
+    "eslint-fix": "npm run eslint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheminfo/node-pubchem.git"
+  },
+  "author": "Michaël Zasso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cheminfo/node-pubchem/issues"
+  },
+  "homepage": "https://github.com/cheminfo/node-pubchem#readme",
+  "dependencies": {
+    "array-difference": "0.0.1",
+    "basic-ftp": "^2.13.2",
+    "chemcalc": "^3.3.1",
+    "delay": "^3.0.0",
+    "fs-extra": "^6.0.1",
+    "kcors": "^1.2.1",
+    "koa": "^2.5.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "md2html-plus": "^1.0.1",
+    "mf-parser": "^0.5.12",
+    "mkdirp": "^0.5.1",
+    "ml-stat": "^1.3.3",
+    "mongodb": "^3.1.1",
+    "openchemlib-extended": "^3.2.0",
+    "sdf-parser": "^3.1.0",
+    "tempfile": "^2.0.0",
+    "worker-nodes": "^1.6.1"
+  },
+  "devDependencies": {
+    "cheminfo-tools": "^1.20.2",
+    "eslint": "^4.19.1",
+    "eslint-config-cheminfo": "^1.18.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "jest": "^22.4.4"
+  }
+}
