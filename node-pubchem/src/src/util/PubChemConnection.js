@@ -55,8 +55,8 @@ PubChemConnection.prototype.init = async function init() {
     {
       autoReconnect: true,
       keepAlive: true,
-      connectTimeoutMS: 60 * 60 * 1000,
-      socketTimeoutMS: 60 * 60 * 1000
+      connectTimeoutMS: 6 * 60 * 60 * 1000,
+      socketTimeoutMS: 6 * 60 * 60 * 1000
     }
   );
 };
