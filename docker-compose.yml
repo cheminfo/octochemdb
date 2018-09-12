@@ -3,10 +3,6 @@ services:
   mongo:
     image: mongo:4
     restart: always
-    expose:
-      - 27017
-    #    ports:
-    #      - 27017:27017 # temporary publish port 27017
     volumes:
       - ./mongo-data:/data/db
 
@@ -27,6 +23,3 @@ services:
       - 3001:80
     depends_on:
       - mongo
-#    volumes:
-#      - ../node-pubchem/src:/git/node-pubchem/src
-
