@@ -5,24 +5,23 @@ services:
     restart: always
     expose:
       - 27017
+    #    ports:
+    #      - 27017:27017 # temporary publish port 27017
     volumes:
       - ./mongo-data:/data/db
-  
+
   node-pubchem-import:
-    image: node-pubchem
-#    build: ./node-pubchem
+    build: ./node-pubchem
     restart: always
     privileged: true
     depends_on:
       - mongo
     volumes:
-#      - ../node-pubchem/src:/git/node-pubchem/src  # only for debug and change source code
       - ./originalData:/git/node-pubchem/originalData
     command: npm run cron
 
   node-pubchem:
-    image: node-pubchem
-#    build: ./node-pubchem
+    build: ./node-pubchem
     restart: always
     ports:
       - 3001:80
