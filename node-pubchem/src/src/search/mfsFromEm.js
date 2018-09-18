@@ -23,8 +23,6 @@ module.exports = async function mfsFromEm(em, options = {}) {
   if (limit < 1) limit = 1;
   let error = (em / 1e6) * precision;
 
-  error = 5;
-
   const collection = await pubChemConnection.getMoleculesCollection();
 
   return collection
