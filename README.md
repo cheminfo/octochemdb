@@ -1,9 +1,7 @@
 ## quick start
 
 ```
-cd node-pubchem
-docker build . --no-cache -t pubchem
-docker-compose up -d
+docker-compose up --build -d
 ```
 
 By default the server will rebuild the full database. This process will take several days !
