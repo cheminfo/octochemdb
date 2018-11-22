@@ -31,7 +31,7 @@ module.exports = async function moleculesFromEm(em, options = {}) {
   return collection
     .aggregate([
       { $match: mongoQuery },
-      { $limit: limit },
+      { $limit: Number(limit) },
       {
         $project: {
           id: '$_id',
