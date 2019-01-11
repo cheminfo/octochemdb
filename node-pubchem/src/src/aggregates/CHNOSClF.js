@@ -15,7 +15,7 @@ async function CHNOSClF(pubChemConnection) {
   const collection = await pubChemConnection.getMoleculesCollection();
   console.log(
     'CHNOSClF: Need to aggregate',
-    await collection.count(),
+    await collection.countDocuments(),
     'entries'
   );
   let result = collection.aggregate(

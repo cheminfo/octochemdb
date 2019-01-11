@@ -2,10 +2,10 @@
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-module.exports = async function() {
+module.exports = async function () {
   return MFs(pubChemConnection)
-    .catch(e => console.log(e))
-    .then(result => {
+    .catch((e) => console.log(e))
+    .then((result) => {
       console.log('Done');
       pubChemConnection.close();
     });
@@ -13,7 +13,11 @@ module.exports = async function() {
 
 async function MFs(pubChemConnection) {
   const collection = await pubChemConnection.getMoleculesCollection();
-  console.log('MFs: Need to aggregate', await collection.count(), 'entries');
+  console.log(
+    'MFs: Need to aggregate',
+    await collection.countDocuments(),
+    'entries'
+  );
   let result = await collection.aggregate(
     [
       //    { $limit: 1e4 },
