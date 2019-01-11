@@ -2,10 +2,10 @@
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-module.exports = async function () {
+module.exports = async function() {
   return MFs(pubChemConnection)
-    .catch((e) => console.log(e))
-    .then((result) => {
+    .catch(e => console.log(e))
+    .then(result => {
       console.log('Done');
       pubChemConnection.close();
     });
@@ -36,5 +36,8 @@ async function MFs(pubChemConnection) {
     }
   );
   await result.hasNext();
+
+  await collection.createIndex({ em: 1 });
+
   return result;
 }
