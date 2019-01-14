@@ -43,6 +43,7 @@ async function MFs(pubChemConnection) {
 
   let mfsCollection = await pubChemConnection.getMfsCollection();
   await mfsCollection.createIndex({ em: 1 });
+  await mfsCollection.createIndex({ total: 1 });
 
   return result;
 }
