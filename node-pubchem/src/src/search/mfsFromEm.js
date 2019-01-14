@@ -9,11 +9,11 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
  * @param {object} [options={}]
  * @param {object} [options.limit=1000]
  * @param {object} [options.precision=100]
- *   @param {object} [options.minMolecules=0]
+ * @param {object} [options.minPubchemEntries=0]
  * @return {Array}
  */
 module.exports = async function mfsFromEm(em, options = {}) {
-  let { limit = 1e3, precision = 100, minMolecules = 0 } = options;
+  let { limit = 1e3, precision = 100, minPubchemEntries = 0 } = options;
 
   if (!em) {
     throw new Error('em parameter must be specified');
@@ -31,7 +31,7 @@ module.exports = async function mfsFromEm(em, options = {}) {
       {
         $match: {
           em: { $lt: em + error, $gt: em - error },
-          total: { $gte: Number(minMolecules) }
+          total: { $gte: Number(minPubchemEntries) }
         }
       },
       {
