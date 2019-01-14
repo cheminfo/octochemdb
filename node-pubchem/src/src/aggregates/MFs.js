@@ -21,7 +21,7 @@ async function MFs(pubChemConnection) {
   let result = await collection.aggregate(
     [
       //    { $limit: 1e4 },
-      { $match: { nbFragments: 1, charge: 0 } }, // we don't want charges in MF
+      { $match: { nbFragments: 1, charge: 0, mf: /^[^\]]+$/ } }, // one fragment, no charge and no isotopes
       { $project: { _id: 0, mf: 1, em: 1, unsaturation: 1, atom: 1 } },
       {
         $group: {
