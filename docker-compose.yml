@@ -1,8 +1,10 @@
-version: '2'
+version: '2.2'
 services:
   mongo:
     image: mongo:4
     restart: always
+    mem_limit: 30000m
+    memswap_limit: 30000m
     volumes:
       - ./mongo-data:/data/db
 
@@ -20,6 +22,6 @@ services:
     build: ./node-pubchem
     restart: always
     ports:
-      - 3001:80
+      - 127.0.0.1:3001:80
     depends_on:
       - mongo
