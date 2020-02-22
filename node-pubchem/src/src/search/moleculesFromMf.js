@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 // query for molecules from molecular formula
-const pubChemConnection = new (require("../util/PubChemConnection"))();
+const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 /**
  * Find molecules from a monoisotopic mass
@@ -14,7 +14,7 @@ module.exports = async function moleculesFromMf(mf, options = {}) {
   let { limit = 1e3 } = options;
 
   if (!mf) {
-    throw new Error("mf parameter must be specified");
+    throw new Error('mf parameter must be specified');
   }
 
   if (limit > 1e4) limit = 1e4;
@@ -29,15 +29,15 @@ module.exports = async function moleculesFromMf(mf, options = {}) {
       { $limit: Number(limit) },
       {
         $project: {
-          id: "$_id",
+          id: '$_id',
           iupac: 1,
           ocl: 1,
           mf: 1,
           em: 1,
           nbFragments: 1,
-          charge: 1
-        }
-      }
+          charge: 1,
+        },
+      },
     ])
     .toArray();
 };

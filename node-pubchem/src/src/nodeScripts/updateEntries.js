@@ -9,7 +9,6 @@ update()
     pubChemConnection.close();
   });
 
-
 let done = 0;
 async function update() {
   const collection = (await pubChemConnection.getDatabase()).collection('data');
@@ -21,11 +20,14 @@ async function update() {
     }
     const doc = await cursor.next();
 
-    await collection.findOneAndUpdate({
-      _id: doc._id
-    }, {
-      $set: { update: true }
-    });
+    await collection.findOneAndUpdate(
+      {
+        _id: doc._id,
+      },
+      {
+        $set: { update: true },
+      },
+    );
 
     done++;
   }

@@ -9,11 +9,12 @@ const improveMoleculePool = require('./improveMoleculePool');
 
 const kHalfStringMaxLength = 268435440 / 2;
 
-module.exports = async function importOneFile(filename, pubChemConnection, options = {}) {
-  const {
-    firstID = -1,
-    progress = {}
-  } = options;
+module.exports = async function importOneFile(
+  filename,
+  pubChemConnection,
+  options = {},
+) {
+  const { firstID = -1, progress = {} } = options;
   const adminCollection = await pubChemConnection.getAdminCollection();
   const collection = await pubChemConnection.getMoleculesCollection();
 
@@ -38,11 +39,18 @@ module.exports = async function importOneFile(filename, pubChemConnection, optio
         improveMoleculePool(molecule)
           .then((result) => {
             result.seq = ++progress.seq;
-            return collection.updateOne({ _id: result._id }, { $set: result }, { upsert: true });
+            return collection.updateOne(
+              { _id: result._id },
+              { $set: result },
+              { upsert: true },
+            );
           })
           .then(() => {
-            return adminCollection.updateOne({ _id: progress._id }, { $set: progress });
-          })
+            return adminCollection.updateOne(
+              { _id: progress._id },
+              { $set: progress },
+            );
+          }),
       );
     }
     newMolecules += actions.length;

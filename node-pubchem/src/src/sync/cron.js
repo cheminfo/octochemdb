@@ -2,7 +2,6 @@
 
 const delay = require('delay');
 
-
 const aggregate = require('../aggregates/aggregate');
 
 const firstImport = require('./firstImport');
@@ -26,4 +25,3 @@ async function cron() {
     }
   }
 }
-

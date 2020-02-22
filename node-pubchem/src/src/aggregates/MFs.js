@@ -2,7 +2,7 @@
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-module.exports = async function () {
+module.exports = async function() {
   return MFs(pubChemConnection)
     .catch((e) => console.log(e))
     .then((result) => {
@@ -16,7 +16,7 @@ async function MFs(pubChemConnection) {
   console.log(
     'MFs: Need to aggregate',
     await collection.countDocuments(),
-    'entries'
+    'entries',
   );
   let result = await collection.aggregate(
     [
@@ -29,15 +29,15 @@ async function MFs(pubChemConnection) {
           em: { $first: '$em' },
           unsaturation: { $first: '$unsaturation' },
           atom: { $first: '$atom' },
-          total: { $sum: 1 }
-        }
+          total: { $sum: 1 },
+        },
       },
-      { $out: 'mfs' }
+      { $out: 'mfs' },
     ],
     {
       allowDiskUse: true,
-      maxTimeMS: 60 * 60 * 1000 // 1h
-    }
+      maxTimeMS: 60 * 60 * 1000, // 1h
+    },
   );
   await result.hasNext();
 

@@ -23,7 +23,7 @@ module.exports = async function moleculesFromEm(em, options = {}) {
   let error = (em / 1e6) * precision;
 
   const mongoQuery = {
-    em: { $lt: Number(em) + error, $gt: Number(em) - error }
+    em: { $lt: Number(em) + error, $gt: Number(em) - error },
   };
 
   const collection = await pubChemConnection.getMoleculesCollection();
@@ -40,9 +40,9 @@ module.exports = async function moleculesFromEm(em, options = {}) {
           mf: 1,
           em: 1,
           nbFragments: 1,
-          charge: 1
-        }
-      }
+          charge: 1,
+        },
+      },
     ])
     .toArray();
 };

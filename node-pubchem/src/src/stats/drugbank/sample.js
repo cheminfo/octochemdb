@@ -14,13 +14,13 @@ const stats = require('../../../stats.json');
 const ratioStats = stats.results;
 const data = readJSON(path.join(__dirname, 'data/mfs.json'));
 
-for (var i = 2; i < data.length; i++) {
+for (let i = 2; i < data.length; i++) {
   const folder = path.join(__dirname, `data/range${i}`);
   const thisData = data[i];
   const formulas = thisData.formulas;
   const results = new Array(formulas.length);
-  var total = 0;
-  for (var j = 0; j < formulas.length; j++) {
+  let total = 0;
+  for (let j = 0; j < formulas.length; j++) {
     const formula = readJSON(path.join(folder, `${formulas[j].mf}.json`));
     const candidatesList = formula.results;
     candidatesList.forEach((candidate) => {
@@ -29,7 +29,7 @@ for (var i = 2; i < data.length; i++) {
       candidate.atom = {};
       reg.forEach((atom) => {
         const result = atom.split(/(?=[0-9])/);
-        var number = result.slice(1).join('');
+        let number = result.slice(1).join('');
         candidate.atom[result[0]] = number ? number >> 0 : 1;
       });
       mfUtil.addRatio(candidate);
@@ -41,27 +41,27 @@ for (var i = 2; i < data.length; i++) {
     const result = {
       mf: mf,
       em: em,
-      ppm: new Array(ppm.length)
+      ppm: new Array(ppm.length),
     };
     results[j] = result;
 
-    var end = candidatesList.length - 1;
+    let end = candidatesList.length - 1;
 
-    for (var k = ppm.length - 1; k >= 0; k--) {
-      var ppmValue = ppm[k];
+    for (let k = ppm.length - 1; k >= 0; k--) {
+      let ppmValue = ppm[k];
       while (Math.abs(candidatesList[end].ppm) >= ppmValue && end >= 0) {
         end--;
       }
-      var candidates = candidatesList.slice(0, end + 1);
+      let candidates = candidatesList.slice(0, end + 1);
       candidates.sort((candA, candB) => candB.ratioScore - candA.ratioScore);
-      var sortedIndex = candidates.findIndex((cand) => cand.mf === mf);
+      let sortedIndex = candidates.findIndex((cand) => cand.mf === mf);
 
       result.ppm[k] = {
         ppm: ppmValue,
         numberResults: candidates.length,
         meanIndex: Math.floor(candidates.length / 2) + 1,
         ratioIndex: sortedIndex + 1,
-        ratioScore: candidates[sortedIndex].ratioScore
+        ratioScore: candidates[sortedIndex].ratioScore,
       };
     }
     if (total % 100 === 0) console.log(total);
@@ -72,19 +72,20 @@ for (var i = 2; i < data.length; i++) {
   break;
 }
 
-
 function addScore(candidate) {
-  var em = candidate.em;
-  var ratioStat = ratioStats.find((stat) => em >= stat.minMass && em < stat.maxMass).stats;
-  var score = 1;
-  var totalRatios = 0;
-  for (var j = 0; j < ratioStat.length; j++) {
-    var stat = ratioStat[j];
-    var kind = stat.kind;
-    var ratio = candidate.ratios[kind];
+  let em = candidate.em;
+  let ratioStat = ratioStats.find(
+    (stat) => em >= stat.minMass && em < stat.maxMass,
+  ).stats;
+  let score = 1;
+  let totalRatios = 0;
+  for (let j = 0; j < ratioStat.length; j++) {
+    let stat = ratioStat[j];
+    let kind = stat.kind;
+    let ratio = candidate.ratios[kind];
     if (!Number.isNaN(ratio) && ratio !== -Infinity && ratio !== Infinity) {
       totalRatios++;
-      var distance = Math.abs(ratio - stat.mean) / stat.standardDeviation;
+      let distance = Math.abs(ratio - stat.mean) / stat.standardDeviation;
       score *= Math.pow(penality, distance);
     }
   }

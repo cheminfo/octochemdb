@@ -1,16 +1,22 @@
 'use strict';
 
-const OCLE = require('openchemlib-extended');
-const chemcalc = require('chemcalc');
+const OCL = require('openchemlib');
+const { initOCL, getMF } = require('openchemlib-utils');
+const { MF } = require('mf-parser');
 
-const mfUtil = require('../util/mf');
+initOCL(OCL);
 
 module.exports = function getMolecule(molecule) {
-  const oclMol = OCLE.Molecule.fromMolfile(molecule.molfile);
-  const oclID = oclMol.getIDCodeAndCoordinates();
-  const mfParts = oclMol.getMF().parts;
+  const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
+  const oclID = oclMolecule.getIDCodeAndCoordinates();
+  const oclIndex = oclMolecule.getIndex();
+  const moleculeMF = getMF(oclMolecule);
+  const mfParts = moleculeMF.parts;
   const nbFragments = mfParts.length;
-  const mf = mfParts.join('.');
+  const mf = mfParts.join(' . ');
+  const globalMF = moleculeMF.mf;
+  oclMolecule.stripStereoInformation();
+  const noStereoID = oclMolecule.getIDCode();
 
   const result = {
     _id: +molecule.PUBCHEM_COMPOUND_CID,
@@ -18,20 +24,21 @@ module.exports = function getMolecule(molecule) {
     ocl: {
       id: oclID.idCode,
       coordinates: oclID.coordinates,
-      index: oclMol.getIndex()
+      index: oclIndex,
     },
+    noStereoID,
     iupac: molecule.PUBCHEM_IUPAC_NAME,
     mf: mf,
-    nbFragments
+    nbFragments,
   };
 
   try {
-    const chemcalcMF = chemcalc.analyseMF(mf);
-    result.em = chemcalcMF.em;
-    result.mw = chemcalcMF.mw;
-    result.unsaturation = chemcalcMF.unsaturation;
-    result.charge = chemcalcMF.charge;
-    result.atom = mfUtil.getAtoms(chemcalcMF);
+    const mfInfo = new MF(globalMF).getInfo();
+    result.em = mfInfo.monoisotopicMass;
+    result.mw = mfInfo.mass;
+    result.unsaturation = mfInfo.unsaturation;
+    result.charge = mfInfo.charge;
+    result.atom = mfInfo.atoms;
   } catch (e) {
     console.log(e, mf);
   }

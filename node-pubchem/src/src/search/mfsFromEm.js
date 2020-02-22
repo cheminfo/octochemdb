@@ -31,8 +31,8 @@ module.exports = async function mfsFromEm(em, options = {}) {
       {
         $match: {
           em: { $lt: em + error, $gt: em - error },
-          total: { $gte: Number(minPubchemEntries) }
-        }
+          total: { $gte: Number(minPubchemEntries) },
+        },
       },
       {
         $project: {
@@ -41,21 +41,21 @@ module.exports = async function mfsFromEm(em, options = {}) {
           mf: '$_id',
           total: 1,
           atom: 1,
-          unsaturation: 1
-        }
+          unsaturation: 1,
+        },
       },
       {
         $addFields: {
           ppm: {
             $divide: [
               { $multiply: [{ $abs: { $subtract: ['$em', em] } }, 1e6] },
-              em
-            ]
-          }
-        }
+              em,
+            ],
+          },
+        },
       },
       { $sort: { ppm: 1 } },
-      { $limit: Number(limit) }
+      { $limit: Number(limit) },
     ])
     .toArray();
 };

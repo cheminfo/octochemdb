@@ -4,10 +4,15 @@ const ftp = require('basic-ftp');
 const fs = require('fs-extra');
 const tempfile = require('tempfile');
 
-module.exports = async function getFile(ftpHost, ftpDirectory, destinationFolder, file) {
+module.exports = async function getFile(
+  ftpHost,
+  ftpDirectory,
+  destinationFolder,
+  file,
+) {
   const client = new ftp.Client();
   await client.access({
-    host: ftpHost
+    host: ftpHost,
   });
   await client.cd(ftpDirectory);
 

@@ -1,6 +1,5 @@
 'use strict';
 
-
 const CC = require('chemcalc');
 const functions = require('mf');
 const rules = require('rules');
@@ -17,30 +16,30 @@ console.log(JSON.stringify(result, null, 2));
 function analyseMass(em, ppm) {
   const result = {
     em: em,
-    ppm: ppm
+    ppm: ppm,
   };
 
-  var allCandidates = CC.mfFromMonoisotopicMass(em, {
+  let allCandidates = CC.mfFromMonoisotopicMass(em, {
     mfRange: rules.sampleMfRange,
     massRange: 0.00237,
     useUnsaturation: true,
     integerUnsaturation: true,
     minUnsaturation: -5,
-    maxNumberRows: 1e6
+    maxNumberRows: 1e6,
   });
 
-  var candidatesList = allCandidates.results;
+  let candidatesList = allCandidates.results;
   candidatesList.forEach((candidate) => {
-    var mf = CC.analyseMF(candidate.mf);
+    let mf = CC.analyseMF(candidate.mf);
     candidate.atom = functions.getAtoms(mf);
   });
   functions.addRatios(candidatesList);
   calculateScores(candidatesList);
 
-  var candidates = candidatesList;
-  var unsortedIndex = candidates.findIndex((cand) => cand.em === 474.204924471);
+  let candidates = candidatesList;
+  let unsortedIndex = candidates.findIndex((cand) => cand.em === 474.204924471);
   candidates.sort((candA, candB) => candB.ratioScore - candA.ratioScore);
-  var sortedIndex = candidates.findIndex((cand) => cand.em === 474.204924471);
+  let sortedIndex = candidates.findIndex((cand) => cand.em === 474.204924471);
   console.log(sortedIndex);
 
   result.score = {
@@ -48,27 +47,29 @@ function analyseMass(em, ppm) {
     originalIndex: unsortedIndex,
     ratioIndex: sortedIndex,
     ratioScore: candidates[sortedIndex].ratioScore,
-    thisRatio: candidates[sortedIndex]
+    thisRatio: candidates[sortedIndex],
   };
 
   return result;
 }
 
 function calculateScores(candidates) {
-  for (var i = 0; i < candidates.length; i++) {
-    var candidate = candidates[i];
+  for (let i = 0; i < candidates.length; i++) {
+    let candidate = candidates[i];
     var em = candidate.em;
-    var ratioStat = ratioStats.find((stat) => em >= stat.minMass && em < stat.maxMass).stats;
-    var score = 1;
-    var totalRatios = 0;
-    for (var j = 0; j < ratioStat.length; j++) {
-      var stat = ratioStat[j];
-      var kind = stat.kind;
+    let ratioStat = ratioStats.find(
+      (stat) => em >= stat.minMass && em < stat.maxMass,
+    ).stats;
+    let score = 1;
+    let totalRatios = 0;
+    for (let j = 0; j < ratioStat.length; j++) {
+      let stat = ratioStat[j];
+      let kind = stat.kind;
       if (!elementRatios.includes(kind)) continue;
-      var ratio = candidate.ratios[kind];
+      let ratio = candidate.ratios[kind];
       if (ratio && ratio !== 0 && ratio !== Infinity) {
         totalRatios++;
-        var distance = Math.abs(ratio - stat.mean) / stat.standardDeviation;
+        let distance = Math.abs(ratio - stat.mean) / stat.standardDeviation;
         score *= Math.pow(penality, distance);
       }
     }

@@ -8,26 +8,28 @@ const path = require('path');
 
 const rules = require('rules');
 
-const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/mfs.json'), 'utf8'));
+const data = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'data/mfs.json'), 'utf8'),
+);
 
-for (var i = 2; i < data.length; i++) {
-  var dir = path.join(__dirname, `data/range${i}`);
+for (let i = 2; i < data.length; i++) {
+  let dir = path.join(__dirname, `data/range${i}`);
   mkdirp(dir);
-  var formulas = data[i].formulas;
+  let formulas = data[i].formulas;
   console.log(`total: ${formulas.length}`);
-  var total = 0;
-  for (var j = 0; j < formulas.length; j++) {
-    var formula = formulas[j];
-    var list = CC.mfFromMonoisotopicMass(formula.em, {
+  let total = 0;
+  for (let j = 0; j < formulas.length; j++) {
+    let formula = formulas[j];
+    let list = CC.mfFromMonoisotopicMass(formula.em, {
       mfRange: rules.sampleMfRange,
-      massRange: 100 * formula.em / 1e6,
+      massRange: (100 * formula.em) / 1e6,
       useUnsaturation: true,
       integerUnsaturation: true,
       minUnsaturation: 0,
       maxUnsaturation: 999,
-      maxNumberRows: 1e6
+      maxNumberRows: 1e6,
     });
-    var result = {
+    let result = {
       mf: formula.mf,
       em: formula.em,
       bruteForceIteration: list.bruteForceIteration,
@@ -36,11 +38,14 @@ for (var i = 2; i < data.length; i++) {
         return {
           mf: result.mf,
           em: result.em,
-          ppm: Math.abs(result.ppm)
+          ppm: Math.abs(result.ppm),
         };
-      })
+      }),
     };
-    fs.writeFileSync(path.join(dir, `${formula.mf}.json`), JSON.stringify(result));
+    fs.writeFileSync(
+      path.join(dir, `${formula.mf}.json`),
+      JSON.stringify(result),
+    );
     total++;
     if (total % 100 === 0) console.log(total);
   }

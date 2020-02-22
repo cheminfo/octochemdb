@@ -1,6 +1,6 @@
 'use strict';
 
-process.on('unhandledRejection', function (e) {
+process.on('unhandledRejection', function(e) {
   throw e;
 });
 
@@ -14,7 +14,7 @@ let rules = {
   minMass: 50,
   maxMass: 1000,
   minCount: 3,
-  collection: 'statsCHNOSClF'
+  collection: 'statsCHNOSClF',
 };
 
 let db;
@@ -23,7 +23,9 @@ co(function*() {
   console.error('connected to MongoDB');
 
   const aggregateCHNOSClF = db.collection('aggregateCHNOSClF');
-  const cursor = aggregateCHNOSClF.find({}, { _id: 1, count: 1, em: 1 }).limit(limit);
+  const cursor = aggregateCHNOSClF
+    .find({}, { _id: 1, count: 1, em: 1 })
+    .limit(limit);
   let formulas = [];
   while (yield cursor.hasNext()) {
     const nextValue = yield cursor.next();
@@ -39,35 +41,43 @@ co(function*() {
 
   const info = {
     date: new Date(),
-    totalFormulas: formulas.length
+    totalFormulas: formulas.length,
   };
 
-    // we will save the result in the collection 'stats'
+  // we will save the result in the collection 'stats'
   let id = `${rules.minMass}_${rules.maxMass}_${rules.minCount}`;
   const statsCollection = db.collection(rules.collection);
   let statsEntry = {
     _id: id,
     options: rules,
     formulas,
-    info: info
+    info: info,
   };
 
   fs.writeFileSync(`/tmp/${rules.collection}`, JSON.stringify(statsEntry));
 
-  yield statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, { upsert: true });
+  yield statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
+    upsert: true,
+  });
   console.log(`Statistics saved as ${id} in collection ${rules.collection}`);
 
   // console.log(JSON.stringify(result, null, 2));
-}).catch(function (e) {
-  console.error('error');
-  console.error(e);
-}).then(function () {
-  console.error('closing DB');
-  if (db) db.close();
-});
+})
+  .catch(function(e) {
+    console.error('error');
+    console.error(e);
+  })
+  .then(function() {
+    console.error('closing DB');
+    if (db) db.close();
+  });
 
 function mfAllowed(formula) {
-  if (formula.em > rules.maxMass || formula.em < rules.minMass || formula.count < rules.minCount) {
+  if (
+    formula.em > rules.maxMass ||
+    formula.em < rules.minMass ||
+    formula.count < rules.minCount
+  ) {
     return false;
   }
   return true;

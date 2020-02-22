@@ -2,7 +2,7 @@
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-module.exports = async function () {
+module.exports = async function() {
   return commonMFs(pubChemConnection)
     .catch((e) => console.log(e))
     .then((result) => {
@@ -16,7 +16,7 @@ async function commonMFs(pubChemConnection) {
   console.log(
     'commonMFs: Need to aggregate',
     await collection.countDocuments(),
-    'entries'
+    'entries',
   );
   let result = await collection.aggregate(
     [
@@ -29,21 +29,21 @@ async function commonMFs(pubChemConnection) {
           em: { $first: '$em' },
           unsaturation: { $first: '$unsaturation' },
           atom: { $first: '$atom' },
-          total: { $sum: 1 }
-        }
+          total: { $sum: 1 },
+        },
       },
       { $match: { total: { $gte: 5 } } },
-      { $out: 'commonMFs' }
+      { $out: 'commonMFs' },
     ],
     {
       allowDiskUse: true,
-      maxTimeMS: 60 * 60 * 1000 // 1h
-    }
+      maxTimeMS: 60 * 60 * 1000, // 1h
+    },
   );
   await result.hasNext();
 
   const collectionCommonMFs = await pubChemConnection.getCollection(
-    'commonMFs'
+    'commonMFs',
   );
 
   await collectionCommonMFs.createIndex({ em: 1 });

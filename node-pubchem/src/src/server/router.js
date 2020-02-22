@@ -6,7 +6,7 @@ router.get('/mfs/em', async (ctx) => {
   const search = require('../search/mfsFromEm');
   const result = await search(ctx.request.query.em, ctx.request.query);
   ctx.body = {
-    result
+    result,
   };
 });
 
@@ -14,7 +14,7 @@ router.get('/molecules/em', async (ctx) => {
   const search = require('../search/moleculesFromEm');
   const result = await search(ctx.request.query.em, ctx.request.query);
   ctx.body = {
-    result
+    result,
   };
 });
 
@@ -22,7 +22,7 @@ router.get('/molecules/mf', async (ctx) => {
   const search = require('../search/moleculesFromMf');
   const result = await search(ctx.request.query.mf, ctx.request.query);
   ctx.body = {
-    result
+    result,
   };
 });
 
@@ -41,6 +41,5 @@ router.get('/mfStats/toc', () => {
   };
 });
 */
-
 
 module.exports = router;

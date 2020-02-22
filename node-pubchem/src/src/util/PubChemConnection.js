@@ -42,7 +42,7 @@ PubChemConnection.prototype.getDatabase = async function getDatabase() {
 };
 
 PubChemConnection.prototype.getCollection = async function getCollection(
-  collectionName
+  collectionName,
 ) {
   return (await this.getDatabase()).collection(collectionName);
 };
@@ -50,15 +50,12 @@ PubChemConnection.prototype.getCollection = async function getCollection(
 PubChemConnection.prototype.init = async function init() {
   if (this.connection) return;
 
-  this.connection = await MongoClient.connect(
-    config.mongodbUrl,
-    {
-      autoReconnect: true,
-      keepAlive: true,
-      connectTimeoutMS: 6 * 60 * 60 * 1000,
-      socketTimeoutMS: 6 * 60 * 60 * 1000
-    }
-  );
+  this.connection = await MongoClient.connect(config.mongodbUrl, {
+    autoReconnect: true,
+    keepAlive: true,
+    connectTimeoutMS: 6 * 60 * 60 * 1000,
+    socketTimeoutMS: 6 * 60 * 60 * 1000,
+  });
 };
 
 module.exports = PubChemConnection;

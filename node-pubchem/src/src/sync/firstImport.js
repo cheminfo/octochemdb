@@ -1,11 +1,8 @@
 'use strict';
 
-
 const path = require('path');
 
-
 const fs = require('fs-extra');
-
 
 const config = require('../util/config');
 const pubChemConnection = new (require('../util/PubChemConnection'))();
@@ -13,17 +10,17 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
 const importOneFile = require('./importOneFile');
 const syncFolder = require('./ftp/syncFolder');
 
-
-module.exports = async function () {
-  return firstImport().catch(function (e) {
-    console.log('error');
-    console.error(e);
-  }).then(function () {
-    console.log('closing DB');
-    pubChemConnection.close();
-  });
+module.exports = async function() {
+  return firstImport()
+    .catch(function(e) {
+      console.log('error');
+      console.error(e);
+    })
+    .then(function() {
+      console.log('closing DB');
+      pubChemConnection.close();
+    });
 };
-
 
 async function firstImport() {
   const adminCollection = await pubChemConnection.getAdminCollection();
@@ -36,7 +33,7 @@ async function firstImport() {
       _id: 'main_progress',
       state: 'import',
       seq: 0,
-      date: new Date()
+      date: new Date(),
     };
     await adminCollection.insertOne(progress);
   } else {
@@ -50,10 +47,17 @@ async function firstImport() {
 
   const dataDir = `${__dirname}/../../${config.dataFullDir}`;
 
-  await syncFolder(config.ftpServer, 'pubchem/Compound/CURRENT-Full/SDF', dataDir);
+  await syncFolder(
+    config.ftpServer,
+    'pubchem/Compound/CURRENT-Full/SDF',
+    dataDir,
+  );
 
-
-  const lastDocument = await collection.find({ seq: { $lte: progress.seq } }).sort('_id', -1).limit(1).next();
+  const lastDocument = await collection
+    .find({ seq: { $lte: progress.seq } })
+    .sort('_id', -1)
+    .limit(1)
+    .next();
   let firstID = lastDocument ? lastDocument._id : 0;
 
   const dataFiles = await fs.readdir(dataDir);
@@ -74,9 +78,13 @@ async function firstImport() {
     let newMolecules = await importOneFile(
       path.join(dataDir, dataFiles[i]),
       pubChemConnection,
-      { firstID, progress }
+      { firstID, progress },
     );
-    console.log(`Added ${newMolecules} new molecules at a speed of ${Math.floor(newMolecules / (Date.now() - start) * 1000)} compounds per second`);
+    console.log(
+      `Added ${newMolecules} new molecules at a speed of ${Math.floor(
+        (newMolecules / (Date.now() - start)) * 1000,
+      )} compounds per second`,
+    );
   }
 
   progress.state = 'update';
@@ -98,6 +106,6 @@ function getNextFilename(id) {
 }
 
 function addZeros(value) {
-  var str = String(value);
+  let str = String(value);
   return '0'.repeat(9 - str.length) + str;
 }

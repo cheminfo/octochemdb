@@ -5,18 +5,26 @@ const ftp = require('basic-ftp');
 const arrayDifference = require('array-difference');
 const tempfile = require('tempfile');
 
-module.exports = async function syncFolder(ftpHost, ftpDirectory, destinationFolder) {
+module.exports = async function syncFolder(
+  ftpHost,
+  ftpDirectory,
+  destinationFolder,
+) {
   const client = new ftp.Client();
   await client.access({
-    host: ftpHost
+    host: ftpHost,
   });
 
   await client.cd(ftpDirectory);
 
-  var ftpFiles = (await client.list()).map((f) => f.name).filter((f) => f.endsWith('sdf.gz'));
-  var localFiles = (await fs.readdir(destinationFolder)).filter((f) => f.endsWith('sdf.gz'));
+  let ftpFiles = (await client.list())
+    .map((f) => f.name)
+    .filter((f) => f.endsWith('sdf.gz'));
+  let localFiles = (await fs.readdir(destinationFolder)).filter((f) =>
+    f.endsWith('sdf.gz'),
+  );
 
-  var difference = arrayDifference(ftpFiles, localFiles);
+  let difference = arrayDifference(ftpFiles, localFiles);
   for (let file of difference) {
     console.log(`Downloading ${file}`);
     let tmpFileName = tempfile();
