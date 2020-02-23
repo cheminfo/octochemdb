@@ -100,8 +100,8 @@ async function firstImport() {
 const elementsPerRange = 25000;
 function getNextFilename(id) {
   const factor = Math.floor(id / elementsPerRange);
-  const start = 25000 * factor + 1;
-  const end = 25000 * (factor + 1);
+  const start = elementsPerRange * factor + 1;
+  const end = elementsPerRange * (factor + 1);
   return `Compound_${addZeros(start)}_${addZeros(end)}.sdf.gz`;
 }
 
