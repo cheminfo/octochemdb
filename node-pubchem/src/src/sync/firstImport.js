@@ -97,7 +97,7 @@ async function firstImport() {
   await collection.createIndex({ charge: 1 });
 }
 
-const elementsPerRange = 25000;
+const elementsPerRange = 500000;
 function getNextFilename(id) {
   const factor = Math.floor(id / elementsPerRange);
   const start = elementsPerRange * factor + 1;
