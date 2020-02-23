@@ -62,7 +62,7 @@ async function firstImport() {
 
   const dataFiles = await fs.readdir(dataDir);
   const firstName = getNextFilename(firstID);
-
+  console.log({ firstName });
   const firstIndex = dataFiles.findIndex((n) => n === firstName);
 
   if (firstIndex === -1) {
