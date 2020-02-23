@@ -17,6 +17,10 @@ module.exports = async function syncFolder(
 
   await client.cd(ftpDirectory);
 
+  if (!fs.existsSync(destinationFolder)) {
+    fs.mkdirpSync(destinationFolder);
+  }
+
   let ftpFiles = (await client.list())
     .map((f) => f.name)
     .filter((f) => f.endsWith('sdf.gz'));
