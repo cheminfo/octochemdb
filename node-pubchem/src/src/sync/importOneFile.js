@@ -2,12 +2,10 @@
 
 const zlib = require('zlib');
 
-const fs = require('fs-extra');
+const fs = require('fs');
 const sdfParser = require('sdf-parser');
 
 const improveMoleculePool = require('./improveMoleculePool');
-
-const kHalfStringMaxLength = 268435440 / 2;
 
 module.exports = async function importOneFile(
   filename,
@@ -18,20 +16,26 @@ module.exports = async function importOneFile(
   const adminCollection = await pubChemConnection.getAdminCollection();
   const collection = await pubChemConnection.getMoleculesCollection();
 
-  const gzValue = await fs.readFile(filename);
-  const bufferValue = zlib.gunzipSync(gzValue);
-  let n = 0;
-  let nextIndex = 0;
+  let bufferValue = '';
   let newMolecules = 0;
 
-  while (n < bufferValue.length) {
-    nextIndex = bufferValue.indexOf('$$$$', n + kHalfStringMaxLength);
-    if (nextIndex === -1) nextIndex = bufferValue.length;
-    const strValue = bufferValue.slice(n, nextIndex).toString();
-    const molecules = sdfParser(strValue).molecules;
+  const readStream = fs.createReadStream(filename);
+  const unzipStream = readStream.pipe(zlib.createGunzip());
+  for await (const chunk of unzipStream) {
+    bufferValue += chunk;
+    let lastIndex = bufferValue.lastIndexOf('$$$$');
+    if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
+      newMolecules += await parseSDF(bufferValue.substring(0, lastIndex + 5));
+      bufferValue = bufferValue.substring(lastIndex + 5);
+    }
+  }
+  newMolecules += await parseSDF(bufferValue);
 
+  return newMolecules;
+
+  async function parseSDF(sdf) {
+    const molecules = sdfParser(sdf).molecules;
     const actions = [];
-
     for (let molecule of molecules) {
       if (molecule.PUBCHEM_COMPOUND_CID <= firstID) continue;
 
@@ -55,7 +59,7 @@ module.exports = async function importOneFile(
     }
     newMolecules += actions.length;
     await Promise.all(actions);
-    n = nextIndex;
+    // save the molecules in the database
+    return molecules.length;
   }
-  return newMolecules;
 };
