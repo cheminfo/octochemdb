@@ -10,5 +10,5 @@ COPY config.json /git/node-pubchem
 WORKDIR /git/node-pubchem
 RUN npm i --production && rm -rf /root/.npm /usr/local/share/.cache /root/.cache
 
-CMD npm run server
+CMD npm start
 
