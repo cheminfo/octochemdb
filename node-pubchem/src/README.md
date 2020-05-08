@@ -31,17 +31,31 @@ If must be the exact value of the EM so that is can only be used from the previo
 Parameters:
 
 - em: the target monoisotopic mass, mandatory
+- limit: maximal number of results (default: 1000)
 
 [/molecules/em?em=295.0000687128](molecules/em?em=295.0000687128)
 
 ### /molecules/mf
 
-Search molecules from a molecular fomrula
+Search molecules from a molecular formula
 
 If must be the exact value of the MF so that is can practically only be used from the previous query result
 
 Parameters:
 
 - mf: the target molecular formula, mandatory
+- limit: maximal number of results (default: 1000)
 
 [/molecules/mf?mf=C10H20](/molecules/mf?mf=C10H20)
+
+### /molecules/smiles
+
+Search molecules from exact smiles
+
+Parameters:
+
+- smiles: smiles of the target molecule
+- noStereo: skip stereo information
+- limit: maximal number of results (default: 1000)
+
+[/molecules/smiles?smiles=c1ccccc1](/molecules/smiles?smiles=c1ccccc1)

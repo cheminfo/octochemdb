@@ -26,6 +26,14 @@ router.get('/molecules/mf', async (ctx) => {
   };
 });
 
+router.get('/molecules/smiles', async (ctx) => {
+  const search = require('../search/moleculesFromSmiles');
+  const result = await search(ctx.request.query.smiles, ctx.request.query);
+  ctx.body = {
+    result,
+  };
+});
+
 /*
 router.get('/mfStats/search', async () => {
   this.body = {
