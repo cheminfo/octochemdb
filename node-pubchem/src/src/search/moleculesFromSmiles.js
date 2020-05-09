@@ -35,7 +35,7 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
     };
   } else {
     mongoQuery = {
-      ocl: { id: molecule.getIDCode() },
+      'ocl.id': molecule.getIDCode() },
     };
   }
   debug(JSON.stringify({ mongoQuery }));
