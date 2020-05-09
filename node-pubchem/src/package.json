@@ -8,7 +8,7 @@
     "first-import": "node src/sync/firstImport.js",
     "cron": "node src/sync/cron.js",
     "test": "jest",
-    "start": "npm run convert-readme; node src/server/index.js --port 80",
+    "start": "npm run convert-readme; DEBUG=*  node src/server/index.js --port 80",
     "server8080": "npm run convert-readme; node src/server/index.js --port 8080",
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix"
