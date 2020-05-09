@@ -4,7 +4,7 @@ const debug = require('debug')('getFields');
 
 function getFields(fields = '') {
   let result = { id: '$_id' };
-  for (let field of fields.split(',')) {
+  for (let field of fields.split(',').filter((field) => field)) {
     result[field] = 1;
   }
   debug(`List of required fields: ${JSON.stringify(result)}`);
