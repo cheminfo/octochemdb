@@ -18,19 +18,16 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
   if (!smiles) {
     throw new Error('smiles parameter must be specified');
   }
-
   const molecule = Molecule.fromSmiles(smiles);
   let mongoQuery = {};
   if (noStereo) {
     molecule.stripStereoInformation();
-    idCode = molecule.getIDCode();
     mongoQuery = {
-      noStereoID: idCode,
+      noStereoID: molecule.getIDCode(),
     };
   } else {
-    idCode = molecule.getIDCode();
     mongoQuery = {
-      ocl: { id: idCode },
+      ocl: { id: molecule.getIDCode() },
     };
   }
   debug(JSON.stringify({ mongoQuery }));
