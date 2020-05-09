@@ -21,6 +21,8 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
     fields = 'iupac,ocl,mf,em,nbFragments,charge',
   } = options;
 
+  if (options.noStereo === 'false') noStereo = false;
+
   if (!smiles) {
     throw new Error('smiles parameter must be specified');
   }
