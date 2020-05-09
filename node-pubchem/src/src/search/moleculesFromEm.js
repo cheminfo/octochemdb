@@ -2,7 +2,9 @@
 
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
+
 const getFields = require('./getFields');
+
 const debug = require('debug')('moleculesFromEm');
 
 /**

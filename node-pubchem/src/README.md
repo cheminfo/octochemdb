@@ -21,6 +21,7 @@ Parameters:
 - em: the target monoisotopic mass, mandatory
 - precision: mass precision in ppm (default: 100)
 - limit: maximal number of results (default: 1000)
+- fields: list of fields to retrieve
 
 ### /molecules/em
 
@@ -32,6 +33,7 @@ Parameters:
 
 - em: the target monoisotopic mass, mandatory
 - limit: maximal number of results (default: 1000)
+- fields: list of fields to retrieve
 
 [/molecules/em?em=295.0000687128](molecules/em?em=295.0000687128)
 
@@ -45,6 +47,7 @@ Parameters:
 
 - mf: the target molecular formula, mandatory
 - limit: maximal number of results (default: 1000)
+- fields: list of fields to retrieve
 
 [/molecules/mf?mf=C10H20](/molecules/mf?mf=C10H20)
 
@@ -57,5 +60,6 @@ Parameters:
 - smiles: smiles of the target molecule
 - noStereo: skip stereo information
 - limit: maximal number of results (default: 1000)
+- fields: list of fields to retrieve
 
 [/molecules/smiles?smiles=c1ccccc1](/molecules/smiles?smiles=c1ccccc1)

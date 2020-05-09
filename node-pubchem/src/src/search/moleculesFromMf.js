@@ -1,7 +1,9 @@
 'use strict';
 
 const debug = require('debug')('moleculesFromMf');
+
 const getFields = require('./getFields');
+
 // query for molecules from molecular formula
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
