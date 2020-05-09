@@ -11,4 +11,4 @@ function getFields(fields = '') {
   return result;
 }
 
-module.export = getFields;
+module.exports = getFields;

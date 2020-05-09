@@ -5,7 +5,7 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 const getFields = require('./getFields');
 
-const debug = require('debug')('moleculmfsFromEmsFromMf');
+const debug = require('debug')('mfsFromEm');
 
 /**
  * Find molecular formula from a monoisotopic mass
