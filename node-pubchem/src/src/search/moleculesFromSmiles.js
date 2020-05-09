@@ -2,7 +2,7 @@
 
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
-
+const { Molecule } = require('openchemlib');
 const debug = require('debug')('moleculesFromSmiles');
 
 /**
