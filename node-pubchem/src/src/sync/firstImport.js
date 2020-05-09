@@ -95,6 +95,8 @@ async function firstImport() {
   await collection.createIndex({ mf: 1 });
   await collection.createIndex({ nbFragments: 1 });
   await collection.createIndex({ charge: 1 });
+  await collection.createIndex({ noStereoID: 1 });
+  await collection.createIndex({ 'ocl.id': 1 });
 }
 
 const elementsPerRange = 500000;
