@@ -1,15 +1,15 @@
 'use strict';
 
-process.on('unhandledRejection', function(e) {
+process.on('unhandledRejection', function (e) {
   throw e;
 });
 
 const bluebird = require('bluebird');
-const co = require('co');
 const CC = require('chemcalc');
+const co = require('co');
 const fs = bluebird.promisifyAll(require('fs-extra'));
-const mongo = require('mongo');
 const functions = require('mf');
+const mongo = require('mongo');
 const rules = require('rules');
 
 const ppm = rules.samplePpm;
@@ -21,7 +21,7 @@ const ratioStats = stats.results.filter((stat) => {
 });
 
 let db;
-co(function*() {
+co(function* () {
   db = yield mongo.connect();
   console.error('connected to MongoDB');
 
@@ -57,11 +57,11 @@ co(function*() {
   }
   console.log(JSON.stringify(result, null, 2));
 })
-  .catch(function(e) {
+  .catch(function (e) {
     console.error('error');
     console.error(e);
   })
-  .then(function() {
+  .then(function () {
     console.error('closing DB');
     if (db) db.close();
   });

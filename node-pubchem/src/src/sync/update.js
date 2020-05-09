@@ -1,6 +1,6 @@
 'use strict';
 
-process.on('unhandledRejection', function(e) {
+process.on('unhandledRejection', function (e) {
   throw e;
 });
 
@@ -11,17 +11,17 @@ const fs = require('fs-extra');
 const config = require('../util/config');
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const importOneFile = require('./importOneFile');
 const syncUpdates = require('./ftp/syncUpdates');
+const importOneFile = require('./importOneFile');
 
 const dataDir = `${__dirname}/../../${config.dataWeeklyDir}`;
 
-module.exports = async function() {
+module.exports = async function () {
   return update()
-    .catch(function(e) {
+    .catch(function (e) {
       console.error(e);
     })
-    .then(function() {
+    .then(function () {
       console.log('closing DB');
       if (pubChemConnection) pubChemConnection.close();
     });

@@ -1,5 +1,7 @@
 'use strict';
 
+const debug = require('debug')('moleculesFromMf');
+
 // query for molecules from molecular formula
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
@@ -23,6 +25,7 @@ module.exports = async function moleculesFromMf(mf, options = {}) {
   const collection = await pubChemConnection.getMoleculesCollection();
 
   const mongoQuery = { mf };
+  debug(JSON.stringify({ mongoQuery }));
   return collection
     .aggregate([
       { $match: mongoQuery },

@@ -1,12 +1,12 @@
 'use strict';
 
-process.on('unhandledRejection', function(e) {
+process.on('unhandledRejection', function (e) {
   throw e;
 });
 
-const fs = require('fs-extra');
 const bluebird = require('bluebird');
 const co = require('co');
+const fs = require('fs-extra');
 const mongo = require('mongo');
 
 let limit = 1e10;
@@ -18,7 +18,7 @@ let rules = {
 };
 
 let db;
-co(function*() {
+co(function* () {
   db = yield mongo.connect();
   console.error('connected to MongoDB');
 
@@ -63,11 +63,11 @@ co(function*() {
 
   // console.log(JSON.stringify(result, null, 2));
 })
-  .catch(function(e) {
+  .catch(function (e) {
     console.error('error');
     console.error(e);
   })
-  .then(function() {
+  .then(function () {
     console.error('closing DB');
     if (db) db.close();
   });

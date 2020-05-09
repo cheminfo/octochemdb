@@ -1,7 +1,7 @@
 'use strict';
 
-const Koa = require('koa');
 const kcors = require('kcors');
+const Koa = require('koa');
 const staticKoa = require('koa-static');
 
 const router = require('./router');

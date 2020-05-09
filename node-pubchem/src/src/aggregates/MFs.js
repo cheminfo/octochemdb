@@ -2,7 +2,7 @@
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-module.exports = async function() {
+module.exports = async function () {
   return MFs(pubChemConnection)
     .catch((e) => console.log(e))
     .then((result) => {

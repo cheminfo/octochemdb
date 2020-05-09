@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs-extra');
-const ftp = require('basic-ftp');
 const arrayDifference = require('array-difference');
+const ftp = require('basic-ftp');
+const fs = require('fs-extra');
 const tempfile = require('tempfile');
 
 module.exports = async function syncFolder(

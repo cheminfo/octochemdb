@@ -1,7 +1,7 @@
 'use strict';
 
-const mongo = require('mongo');
 const co = require('co');
+const mongo = require('mongo');
 
 const dataCollection = mongo.connect().then((db) => db.collection('data'));
 const mfStatsCollection = mongo

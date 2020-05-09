@@ -1,3 +1,4 @@
 mongo-data
-originalData
+/originalData
 node_modules
+.DS_Store

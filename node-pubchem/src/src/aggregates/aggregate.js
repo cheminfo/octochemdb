@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = async function() {
+module.exports = async function () {
   return aggregate();
 };
 

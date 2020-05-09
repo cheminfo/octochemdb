@@ -3,6 +3,8 @@
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
+const debug = require('debug')('moleculmfsFromEmsFromMf');
+
 /**
  * Find molecular formula from a monoisotopic mass
  * @param {number} em
@@ -25,6 +27,8 @@ module.exports = async function mfsFromEm(em, options = {}) {
   let error = (em / 1e6) * precision;
 
   const collection = await pubChemConnection.getMfsCollection();
+
+  debug(JSON.stringify({ em, error }));
 
   return collection
     .aggregate([

@@ -2,11 +2,11 @@
 
 const path = require('path');
 
-const fs = require('fs-extra');
 const CC = require('chemcalc');
+const fs = require('fs-extra');
+const mfUtil = require('mf');
 const OCL = require('openchemlib-extended');
 const parse = require('sdf-parser');
-const mfUtil = require('mf');
 
 const fragmentContainer = new Array(1024);
 const theSet = new Set();

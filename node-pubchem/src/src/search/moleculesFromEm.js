@@ -3,6 +3,8 @@
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
+const debug = require('debug')('moleculesFromEm');
+
 /**
  * Find molecules from a monoisotopic mass
  * @param {number} em
@@ -25,7 +27,7 @@ module.exports = async function moleculesFromEm(em, options = {}) {
   const mongoQuery = {
     em: { $lt: Number(em) + error, $gt: Number(em) - error },
   };
-
+  debug(JSON.stringify({ mongoQuery }));
   const collection = await pubChemConnection.getMoleculesCollection();
 
   return collection

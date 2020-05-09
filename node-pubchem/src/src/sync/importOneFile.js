@@ -1,8 +1,8 @@
 'use strict';
 
+const fs = require('fs');
 const zlib = require('zlib');
 
-const fs = require('fs');
 const sdfParser = require('sdf-parser');
 
 const improveMoleculePool = require('./improveMoleculePool');

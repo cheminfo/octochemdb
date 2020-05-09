@@ -2,7 +2,7 @@
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-module.exports = async function() {
+module.exports = async function () {
   CHNOSClF(pubChemConnection)
     .catch((e) => console.log(e))
     .then(() => {

@@ -7,16 +7,16 @@ const fs = require('fs-extra');
 const config = require('../util/config');
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const importOneFile = require('./importOneFile');
 const syncFolder = require('./ftp/syncFolder');
+const importOneFile = require('./importOneFile');
 
-module.exports = async function() {
+module.exports = async function () {
   return firstImport()
-    .catch(function(e) {
+    .catch(function (e) {
       console.log('error');
       console.error(e);
     })
-    .then(function() {
+    .then(function () {
       console.log('closing DB');
       pubChemConnection.close();
     });

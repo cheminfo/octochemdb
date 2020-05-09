@@ -3,6 +3,8 @@
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
+const debug = require('debug')('moleculesFromSmiles');
+
 /**
  * Find molecules from a monoisotopic mass
  * @param {number} smiles
@@ -31,7 +33,7 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
       ocl: { id: idCode },
     };
   }
-
+  debug(JSON.stringify({ mongoQuery }));
   const collection = await pubChemConnection.getMoleculesCollection();
 
   return collection

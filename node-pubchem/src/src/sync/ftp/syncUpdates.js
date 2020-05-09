@@ -4,9 +4,9 @@ const fs = require('fs-extra');
 
 const config = require('../../util/config');
 
-const syncFolder = require('./syncFolder');
 const getFile = require('./getFile');
 const getList = require('./getList');
+const syncFolder = require('./syncFolder');
 
 module.exports = async function syncUpdates(
   ftpHost,

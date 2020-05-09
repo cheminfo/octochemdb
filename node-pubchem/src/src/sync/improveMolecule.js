@@ -1,8 +1,8 @@
 'use strict';
 
+const { MF } = require('mf-parser');
 const OCL = require('openchemlib');
 const { initOCL, getMF } = require('openchemlib-utils');
-const { MF } = require('mf-parser');
 
 initOCL(OCL);
 

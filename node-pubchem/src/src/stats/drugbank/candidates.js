@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require('fs-extra');
 const CC = require('chemcalc');
+const fs = require('fs-extra');
 const mkdirp = require('mkdirp').sync;
 
 const path = require('path');
