@@ -4,7 +4,7 @@
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 const { Molecule } = require('openchemlib');
 const debug = require('debug')('moleculesFromSmiles');
-
+const getFields = require('./getFields');
 /**
  * Find molecules from a monoisotopic mass
  * @param {number} smiles
@@ -13,7 +13,11 @@ const debug = require('debug')('moleculesFromSmiles');
  * @return {Array}
  */
 module.exports = async function moleculesFromSmiles(smiles, options = {}) {
-  let { limit = 1e3, noStereo = true } = options;
+  let {
+    limit = 1e3,
+    noStereo = true,
+    fields = 'iupac,ocl,mf,em,nbFragments,charge',
+  } = options;
 
   if (!smiles) {
     throw new Error('smiles parameter must be specified');
@@ -38,15 +42,7 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
       { $match: mongoQuery },
       { $limit: Number(limit) },
       {
-        $project: {
-          id: '$_id',
-          iupac: 1,
-          ocl: 1,
-          mf: 1,
-          em: 1,
-          nbFragments: 1,
-          charge: 1,
-        },
+        $project: getFields(fields),
       },
     ])
     .toArray();

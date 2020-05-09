@@ -1,7 +1,7 @@
 'use strict';
 
 const debug = require('debug')('moleculesFromMf');
-
+const getFields = require('./getFields');
 // query for molecules from molecular formula
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
@@ -13,7 +13,7 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
  * @return {Array}
  */
 module.exports = async function moleculesFromMf(mf, options = {}) {
-  let { limit = 1e3 } = options;
+  let { limit = 1e3, fields = 'iupac,ocl,mf,em,nbFragments,charge' } = options;
 
   if (!mf) {
     throw new Error('mf parameter must be specified');
@@ -31,15 +31,7 @@ module.exports = async function moleculesFromMf(mf, options = {}) {
       { $match: mongoQuery },
       { $limit: Number(limit) },
       {
-        $project: {
-          id: '$_id',
-          iupac: 1,
-          ocl: 1,
-          mf: 1,
-          em: 1,
-          nbFragments: 1,
-          charge: 1,
-        },
+        $project: getFields(fields),
       },
     ])
     .toArray();

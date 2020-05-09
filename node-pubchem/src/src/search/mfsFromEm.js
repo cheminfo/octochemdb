@@ -2,7 +2,7 @@
 
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
-
+const getFields = require('./getFields');
 const debug = require('debug')('moleculmfsFromEmsFromMf');
 
 /**
@@ -15,7 +15,12 @@ const debug = require('debug')('moleculmfsFromEmsFromMf');
  * @return {Array}
  */
 module.exports = async function mfsFromEm(em, options = {}) {
-  let { limit = 1e3, precision = 100, minPubchemEntries = 0 } = options;
+  let {
+    limit = 1e3,
+    precision = 100,
+    minPubchemEntries = 0,
+    fields = 'em,mf,total,atom,unsaturation',
+  } = options;
 
   if (!em) {
     throw new Error('em parameter must be specified');
@@ -39,14 +44,7 @@ module.exports = async function mfsFromEm(em, options = {}) {
         },
       },
       {
-        $project: {
-          _id: 0,
-          em: 1,
-          mf: '$_id',
-          total: 1,
-          atom: 1,
-          unsaturation: 1,
-        },
+        $project: getFields(fields),
       },
       {
         $addFields: {

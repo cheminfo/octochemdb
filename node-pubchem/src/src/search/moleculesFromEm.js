@@ -2,7 +2,7 @@
 
 // query for molecules from monoisotopic mass
 const pubChemConnection = new (require('../util/PubChemConnection'))();
-
+const getFields = require('./getFields');
 const debug = require('debug')('moleculesFromEm');
 
 /**
@@ -14,7 +14,11 @@ const debug = require('debug')('moleculesFromEm');
  * @return {Array}
  */
 module.exports = async function moleculesFromEm(em, options = {}) {
-  let { limit = 1e3, precision = 0.1 } = options;
+  let {
+    limit = 1e3,
+    precision = 0.1,
+    fields = 'iupac,ocl,mf,em,nbFragments,charge',
+  } = options;
 
   if (!em) {
     throw new Error('em parameter must be specified');
@@ -35,15 +39,7 @@ module.exports = async function moleculesFromEm(em, options = {}) {
       { $match: mongoQuery },
       { $limit: Number(limit) },
       {
-        $project: {
-          id: '$_id',
-          iupac: 1,
-          ocl: 1,
-          mf: 1,
-          em: 1,
-          nbFragments: 1,
-          charge: 1,
-        },
+        $project: getFields(fields),
       },
     ])
     .toArray();
