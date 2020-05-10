@@ -58,7 +58,7 @@ Search molecules from exact smiles
 Parameters:
 
 - smiles: smiles of the target molecule
-- noStereo: skip stereo information
+- stereo: keep stereo information (default: false)
 - limit: maximal number of results (default: 1000)
 - fields: list of fields to retrieve
 
