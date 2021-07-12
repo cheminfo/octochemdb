@@ -2,9 +2,7 @@
 
 const { MF } = require('mf-parser');
 const OCL = require('openchemlib');
-const { initOCL, getMF } = require('openchemlib-utils');
-
-initOCL(OCL);
+const { getMF } = require('openchemlib-utils');
 
 module.exports = function getMolecule(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
