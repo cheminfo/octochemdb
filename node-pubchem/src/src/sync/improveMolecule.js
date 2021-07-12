@@ -7,7 +7,7 @@ const { getMF } = require('openchemlib-utils');
 module.exports = function getMolecule(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
   const oclID = oclMolecule.getIDCodeAndCoordinates();
-  // const oclIndex = oclMolecule.getIndex();
+  const oclIndex = oclMolecule.getIndex();
   const moleculeMF = getMF(oclMolecule);
   const mfParts = moleculeMF.parts;
   const nbFragments = mfParts.length;
@@ -22,7 +22,7 @@ module.exports = function getMolecule(molecule) {
     ocl: {
       id: oclID.idCode,
       coordinates: oclID.coordinates,
-      //     index: oclIndex,
+      index: oclIndex,
     },
     noStereoID,
     iupac: molecule.PUBCHEM_IUPAC_NAME,
