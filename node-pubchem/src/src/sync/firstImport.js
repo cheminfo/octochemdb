@@ -111,3 +111,5 @@ function addZeros(value) {
   let str = String(value);
   return '0'.repeat(9 - str.length) + str;
 }
+
+firstImport();
