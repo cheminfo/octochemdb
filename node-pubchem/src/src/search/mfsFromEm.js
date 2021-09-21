@@ -50,6 +50,7 @@ module.exports = async function mfsFromEm(em, options = {}) {
       },
       {
         $addFields: {
+          mf: '$_id',
           ppm: {
             $divide: [
               { $multiply: [{ $abs: { $subtract: ['$em', em] } }, 1e6] },
