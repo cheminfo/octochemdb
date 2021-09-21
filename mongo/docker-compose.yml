@@ -1,0 +1,11 @@
+version: '2.2'
+services:
+  mongo:
+    image: mongo:4.2
+    restart: always
+    mem_limit: 5000m
+    memswap_limit: 5000m
+    ports:
+      - 27017:27017
+    volumes:
+      - ../mongo-data:/data/db
