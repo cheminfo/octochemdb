@@ -44,6 +44,7 @@
     "openchemlib-utils": "^1.2.0",
     "sdf-parser": "^4.0.2",
     "tempfile": "^3.0.0",
+    "utimes": "^4.1.1",
     "worker-nodes": "^2.3.1"
   },
   "devDependencies": {
