@@ -3,6 +3,5 @@
   "databaseName": "pubchem",
   "dataFullDir": "./originalData/full",
   "dataWeeklyDir": "./originalData/weekly",
-  "ftpServer": "ftp.ncbi.nlm.nih.gov"
+  "sourceServer": "ftp.ncbi.nlm.nih.gov"
 }
-

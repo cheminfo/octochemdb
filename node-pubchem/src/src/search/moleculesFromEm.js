@@ -34,7 +34,7 @@ module.exports = async function moleculesFromEm(em, options = {}) {
     em: { $lt: Number(em) + error, $gt: Number(em) - error },
   };
   debug(JSON.stringify({ mongoQuery }));
-  const collection = await pubChemConnection.getMoleculesCollection();
+  const collection = await pubChemConnection.getCollection('compound');
 
   return collection
     .aggregate([

@@ -1,6 +1,6 @@
 'use strict';
 
-process.on('unhandledRejection', function (e) {
+process.on('unhandledRejection', (e) => {
   throw e;
 });
 
@@ -8,34 +8,35 @@ const path = require('path');
 
 const fs = require('fs-extra');
 
-const config = require('../util/config');
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const syncUpdates = require('./ftp/syncUpdates');
+const debug = require('debug')('update');
+
+const syncUpdates = require('./http/syncUpdates');
 const importOneFile = require('./importOneFile');
 
 const dataDir = `${__dirname}/../../${config.dataWeeklyDir}`;
 
 module.exports = async function () {
-  return update()
-    .catch(function (e) {
+  return incrementalImport()
+    .catch((e) => {
       console.error(e);
     })
-    .then(function () {
-      console.log('closing DB');
+    .then(() => {
+      debug('closingDB');
       if (pubChemConnection) pubChemConnection.close();
     });
 };
 
-async function update() {
+async function incrementalImport() {
   await syncUpdates(
-    config.ftpServer,
+    config.sourceServer,
     'pubchem/Compound/Weekly',
     config.dataWeeklyDir,
   );
 
   const adminCollection = await pubChemConnection.getAdminCollection();
-  const collection = await pubChemConnection.getMoleculesCollection();
+  const collection = await pubChemConnection.getCollection('compound');
 
   let progress = await adminCollection.find({ _id: 'main_progress' }).next();
   if (!progress || progress.state !== 'update') {
@@ -49,10 +50,10 @@ async function update() {
   for (const week of weeklyDirs) {
     const weekDate = new Date(week);
     if (weekDate <= lastDate) continue;
-    console.log(`processing directory ${week}`);
+    debug(`processing directory ${week}`);
     const weekDir = path.join(dataDir, week);
 
-    console.log('weekEdir', weekDir);
+    debug('weekEdir', weekDir);
     // remove killed compounds
     if (!lastFile) {
       let killed;
@@ -66,11 +67,11 @@ async function update() {
         if (e.code !== 'ENOENT') throw e;
       }
       if (killed) {
-        console.log(`removing ${killed.length} killed IDs`);
+        debug(`removing ${killed.length} killed IDs`);
         for (const killedID of killed) {
           await collection.deleteOne({ _id: killedID });
         }
-        console.log('removing done');
+        debug('removing done');
       }
     }
 
@@ -81,11 +82,11 @@ async function update() {
       if (lastFile && lastFile >= sdfFile) continue;
       const sdfPath = path.join(weekDir, sdfFile);
 
-      console.log(`processing file ${sdfFile}`);
+      debug(`processing file ${sdfFile}`);
       let newMolecules = await importOneFile(sdfPath, pubChemConnection, {
         progress,
       });
-      console.log(`Added ${newMolecules} new molecules`);
+      debug(`Added ${newMolecules} new molecules`);
     }
 
     progress.date = weekDate;

@@ -3,21 +3,21 @@
 const path = require('path');
 
 const fs = require('fs-extra');
+const debug = require('debug')('firstImport');
 
-const config = require('../util/config');
-const pubChemConnection = new (require('../util/PubChemConnection'))();
+const pubChemConnection = new (require('../../util/PubChemConnection'))();
 
-const syncFolder = require('./ftp/syncFolder');
+const syncFull = require('../http/syncFull');
 const importOneFile = require('./importOneFile');
 
-module.exports = async function () {
+module.exports = async () => {
   return firstImport()
-    .catch(function (e) {
-      console.log('error');
+    .catch((e) => {
+      debug(`error: ${e.toString()}`);
       console.error(e);
     })
-    .then(function () {
-      console.log('closing DB');
+    .then(() => {
+      debug('closing DB');
       pubChemConnection.close();
     });
 };
@@ -28,7 +28,7 @@ async function firstImport() {
 
   let progress = await adminCollection.find({ _id: 'main_progress' }).next();
   if (progress === null) {
-    console.log('Starting new database construction.');
+    debug('Starting new database construction.');
     progress = {
       _id: 'main_progress',
       state: 'import',
@@ -38,20 +38,14 @@ async function firstImport() {
     await adminCollection.insertOne(progress);
   } else {
     if (progress.state === 'update') {
-      console.log('First importation has been completed. Should only update.');
+      debug('First importation has been completed. Should only update.');
       return;
     } else {
-      console.log(`Continuing first importation from ${progress.seq}.`);
+      debug(`Continuing first importation from ${progress.seq}.`);
     }
   }
 
-  const dataDir = `${__dirname}/../../${config.dataFullDir}`;
-
-  await syncFolder(
-    config.ftpServer,
-    'pubchem/Compound/CURRENT-Full/SDF',
-    dataDir,
-  );
+  await syncFull({ limit: process.env.TEST === 'true' ? 10 : 0 });
 
   const lastDocument = await collection
     .find({ seq: { $lte: progress.seq } })
@@ -60,27 +54,29 @@ async function firstImport() {
     .next();
   let firstID = lastDocument ? lastDocument._id : 0;
 
+  const dataDir = `${__dirname}/../../${config.dataFullDir}`;
+
   const dataFiles = await fs.readdir(dataDir);
   const firstName = getNextFilename(firstID);
-  console.log({ firstName });
+  debug(`firstName: ${firstName}`);
   const firstIndex = dataFiles.findIndex((n) => n === firstName);
 
   if (firstIndex === -1) {
     throw new Error(`file not found: ${firstName}`);
   }
 
-  console.log(`starting with file ${firstName}`);
+  debug(`starting with file ${firstName}`);
   for (let i = firstIndex; i < dataFiles.length; i++) {
     if (!dataFiles[i].endsWith('.sdf.gz')) continue;
 
     let start = Date.now();
-    console.log(`processing file ${dataFiles[i]}`);
+    debug(`processing file ${dataFiles[i]}`);
     let newMolecules = await importOneFile(
       path.join(dataDir, dataFiles[i]),
       pubChemConnection,
       { firstID, progress },
     );
-    console.log(
+    debug(
       `Added ${newMolecules} new molecules at a speed of ${Math.floor(
         (newMolecules / (Date.now() - start)) * 1000,
       )} compounds per second`,
@@ -111,5 +107,3 @@ function addZeros(value) {
   let str = String(value);
   return '0'.repeat(9 - str.length) + str;
 }
-
-firstImport();

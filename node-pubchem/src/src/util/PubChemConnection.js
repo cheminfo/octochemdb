@@ -1,44 +1,20 @@
 'use strict';
 
 const delay = require('delay');
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
+const debug = require('debug')('PubChemConnection');
 
-const config = require('./config');
+function PubChemConnection() {
+  this.client = new MongoClient(process.env.MONGODB_URL, {
+    keepAlive: true,
+    connectTimeoutMS: 6 * 60 * 60 * 1000,
+    socketTimeoutMS: 6 * 60 * 60 * 1000,
+  });
+}
 
-function PubChemConnection() {}
-
-PubChemConnection.prototype.close = function close() {
+PubChemConnection.prototype.close = async function close() {
   if (this.connection) return this.connection.close();
   return undefined;
-};
-
-PubChemConnection.prototype.getMoleculesCollection = async function getDatabase() {
-  return (await this.getDatabase()).collection('molecules');
-};
-
-PubChemConnection.prototype.getAdminCollection = async function getDatabase() {
-  return (await this.getDatabase()).collection('admin');
-};
-
-PubChemConnection.prototype.getMfsCollection = async function getDatabase() {
-  return (await this.getDatabase()).collection('mfs');
-};
-
-PubChemConnection.prototype.getMfStatsCollection = async function getDatabase() {
-  return (await this.getDatabase()).collection('mfstats');
-};
-
-PubChemConnection.prototype.getDatabase = async function getDatabase() {
-  while (true) {
-    try {
-      await this.init();
-      break;
-    } catch (e) {
-      console.log('Connection to mongo failed, waiting 5s');
-      await delay(5000);
-    }
-  }
-  return this.connection.db(config.databaseName);
 };
 
 PubChemConnection.prototype.getCollection = async function getCollection(
@@ -47,15 +23,58 @@ PubChemConnection.prototype.getCollection = async function getCollection(
   return (await this.getDatabase()).collection(collectionName);
 };
 
+PubChemConnection.prototype.getAdminCollection =
+  async function getAdminCollection() {
+    return this.getCollection('admin');
+  };
+
+PubChemConnection.prototype.getProgress = async function getProgress(
+  collectionName,
+) {
+  const adminCollection = await this.getAdminCollection();
+  const _id = `${collectionName}_progress`;
+  let progress = await adminCollection.find({ _id }).next();
+  if (progress === null) {
+    debug('Starting new database construction.');
+    progress = {
+      _id,
+      state: 'import',
+      seq: 0,
+      date: new Date(),
+    };
+    await adminCollection.insertOne(progress);
+  } else {
+    if (progress.state === 'update') {
+      debug('First importation has been completed. Should only update.');
+      return;
+    } else {
+      debug(`Continuing first importation from ${progress.seq}.`);
+    }
+  }
+  return progress;
+};
+
+PubChemConnection.prototype.getDatabase = async function getDatabase() {
+  while (true) {
+    try {
+      await this.init();
+      break;
+    } catch (e) {
+      debug('Connection to mongo failed, waiting 5s');
+      console.log(e);
+      await delay(5000);
+    }
+  }
+  return this.connection.db(process.env.MONGO_DB_NAME);
+};
+
 PubChemConnection.prototype.init = async function init() {
   if (this.connection) return;
 
-  this.connection = await MongoClient.connect(config.mongodbUrl, {
-    autoReconnect: true,
-    keepAlive: true,
-    connectTimeoutMS: 6 * 60 * 60 * 1000,
-    socketTimeoutMS: 6 * 60 * 60 * 1000,
-  });
+  debug(`Trying to connect to: ${process.env.MONGODB_URL}`);
+
+  this.connection = await this.client.connect();
+  debug('Got DB connection');
 };
 
 module.exports = PubChemConnection;

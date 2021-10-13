@@ -24,7 +24,7 @@ module.exports = async function moleculesFromMf(mf, options = {}) {
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
 
-  const collection = await pubChemConnection.getMoleculesCollection();
+  const collection = await pubChemConnection.getCollection('compound');
 
   const mongoQuery = { mf };
   debug(JSON.stringify({ mongoQuery }));

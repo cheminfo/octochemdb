@@ -7,19 +7,14 @@ const sdfParser = require('sdf-parser');
 
 const improveMoleculePool = require('./improveMoleculePool');
 
-module.exports = async function importOneFile(
-  filename,
-  pubChemConnection,
-  options = {},
-) {
-  const { firstID = -1, progress = {} } = options;
-  const adminCollection = await pubChemConnection.getAdminCollection();
-  const collection = await pubChemConnection.getMoleculesCollection();
+module.exports = async function importOneFile(connection, progress, file) {
+  const adminCollection = await connection.getAdminCollection();
+  const collection = await connection.getCollection('compound');
 
   let bufferValue = '';
   let newMolecules = 0;
-
-  const readStream = fs.createReadStream(filename);
+  console.log(file);
+  const readStream = fs.createReadStream(file.path);
   const unzipStream = readStream.pipe(zlib.createGunzip());
   for await (const chunk of unzipStream) {
     bufferValue += chunk;
@@ -37,7 +32,7 @@ module.exports = async function importOneFile(
     const molecules = sdfParser(sdf).molecules;
     const actions = [];
     for (let molecule of molecules) {
-      if (molecule.PUBCHEM_COMPOUND_CID <= firstID) continue;
+      if (molecule.PUBCHEM_COMPOUND_CID <= progress.lastImportedID) continue;
 
       actions.push(
         improveMoleculePool(molecule)

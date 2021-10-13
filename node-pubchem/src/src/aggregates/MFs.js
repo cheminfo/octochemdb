@@ -12,7 +12,7 @@ module.exports = async function () {
 };
 
 async function MFs(pubChemConnection) {
-  const collection = await pubChemConnection.getMoleculesCollection();
+  const collection = await pubChemConnection.getCollection('compound');
   console.log(
     'MFs: Need to aggregate',
     await collection.countDocuments(),

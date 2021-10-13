@@ -1,8 +1,7 @@
 'use strict';
 
 const fetch = require('cross-fetch');
-const Debug = require('debug');
-const debug = Debug('getFilesList');
+const debug = require('debug')('getFilesList');
 
 async function getFilesList(url, options = {}) {
   const { fileFilter = () => true, md5 = false } = options;
@@ -28,8 +27,8 @@ async function getFilesList(url, options = {}) {
           groups.size = parseInt(groups.size);
         }
       }
-      groups.url = url + groups.name;
-      groups.epoch = new Date(groups.date + ' ' + groups.time).getTime();
+      groups.url = `${url}/${groups.name}`;
+      groups.epoch = new Date(`${groups.date} ${groups.time}`).getTime();
       return groups;
     })
     .filter((file) => fileFilter(file));
@@ -37,8 +36,8 @@ async function getFilesList(url, options = {}) {
   // we will try to add all the md5 of all the files
   if (md5) {
     for (let file of files) {
-      debug('Get md5 for ' + file.name);
-      const response = await fetch(file.url + '.md5');
+      debug(`Get md5 for ${file.name}`);
+      const response = await fetch(`${file.url}.md5`);
       file.md5 = (await response.text()).split(' ', 1)[0];
     }
   }
@@ -46,12 +45,3 @@ async function getFilesList(url, options = {}) {
 }
 
 module.exports = getFilesList;
-
-if (false) {
-  getFilesList(
-    'https://ftp.ncbi.nlm.nih.gov/pubchem/Substance/Monthly/2021-06-01/SDF/',
-    {
-      filterName: (file) => file && file.name.endsWith('.gz'),
-    },
-  ).then((files) => console.log(files));
-}
