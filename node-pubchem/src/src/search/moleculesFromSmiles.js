@@ -39,7 +39,7 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
     };
   }
   debug(JSON.stringify({ mongoQuery }));
-  const collection = await pubChemConnection.getCollection('compound');
+  const collection = await pubChemConnection.getCollection('compounds');
 
   return collection
     .aggregate([

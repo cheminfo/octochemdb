@@ -12,7 +12,7 @@ module.exports = async function () {
 };
 
 async function CHNOSClF(pubChemConnection) {
-  const collection = await pubChemConnection.getCollection('compound');
+  const collection = await pubChemConnection.getCollection('compounds');
   console.log(
     'CHNOSClF: Need to aggregate',
     await collection.countDocuments(),

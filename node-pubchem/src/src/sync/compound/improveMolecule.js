@@ -6,8 +6,11 @@ const { getMF } = require('openchemlib-utils');
 
 module.exports = function getMolecule(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
+
+  const oclProperties = new OCL.MoleculeProperties(oclMolecule);
+
   const oclID = oclMolecule.getIDCodeAndCoordinates();
-  const oclIndex = oclMolecule.getIndex();
+  const oclIndex = Array.from(oclMolecule.getIndex());
   const moleculeMF = getMF(oclMolecule);
   const mfParts = moleculeMF.parts;
   const nbFragments = mfParts.length;
@@ -16,15 +19,25 @@ module.exports = function getMolecule(molecule) {
   oclMolecule.stripStereoInformation();
   const noStereoID = oclMolecule.getIDCode();
 
-  const result = {
+  let result = {
     _id: +molecule.PUBCHEM_COMPOUND_CID,
     seq: 0,
     ocl: {
       id: oclID.idCode,
       coordinates: oclID.coordinates,
       index: oclIndex,
+      noStereoID,
+
+      acceptorCount: oclProperties.acceptorCount,
+      donorCount: oclProperties.donorCount,
+      logP: oclProperties.logP,
+      logS: oclProperties.logS,
+      polarSurfaceArea: oclProperties.polarSurfaceArea,
+      rotatableBondCount: oclProperties.rotatableBondCount,
+      stereoCenterCount: oclProperties.stereoCenterCount,
     },
-    noStereoID,
+    inchi: molecule.PUBCHEM_IUPAC_INCHI,
+    inchiKey: molecule.PUBCHEM_IUPAC_INCHIKEY,
     iupac: molecule.PUBCHEM_IUPAC_NAME,
     mf: mf,
     nbFragments,

@@ -7,7 +7,7 @@ const importOneFile = require('./importOneFile');
 
 const debug = require('debug')('firstCompoundImport');
 
-const COLLECTION = 'compound';
+const COLLECTION = 'compounds';
 
 async function firstCompoundImport() {
   const allFiles = await getFullCompoundFolder();
@@ -22,9 +22,14 @@ async function firstCompoundImport() {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
-    const files = await getFilesToImport(connection, progress, allFiles);
-
-    await importCompoundFiles(connection, progress, files);
+    const { files, lastImportedID } = await getFilesToImport(
+      connection,
+      progress,
+      allFiles,
+    );
+    console.log({ lastImportedID });
+    return;
+    await importCompoundFiles(connection, progress, files, { lastImportedID });
   } catch (e) {
     console.log(e);
   } finally {
@@ -32,9 +37,9 @@ async function firstCompoundImport() {
   }
 }
 
-async function importCompoundFiles(connection, progress, files) {
+async function importCompoundFiles(connection, progress, files, options) {
   for (let file of files) {
-    await importOneFile(connection, progress, file);
+    await importOneFile(connection, progress, file, options);
   }
 }
 
@@ -46,13 +51,13 @@ async function getFilesToImport(connection, progress, allFiles) {
     .limit(1)
     .next();
 
-  progress.lastProcessedID = lastDocument ? lastDocument._id : 0;
+  const lastProcessedID = lastDocument ? lastDocument._id : 0;
 
-  if (!progress.lastProcessedID) return allFiles;
+  if (!lastProcessedID) return { files: allFiles };
 
   const firstName = getNextFilename(progress.lastProcessedID);
   debug(`firstName: ${firstName}`);
-  const firstIndex = allFiles.findIndex((n) => n === firstName);
+  const firstIndex = allFiles.findIndex((n) => n.name === firstName);
 
   if (firstIndex === -1) {
     throw new Error(`file not found: ${firstName}`);
@@ -60,7 +65,7 @@ async function getFilesToImport(connection, progress, allFiles) {
 
   debug(`starting with file ${firstName}`);
 
-  return allFiles.slice(firstIndex);
+  return { lastProcessedID, files: allFiles.slice(firstIndex) };
 }
 
 const elementsPerRange = 500000;

@@ -36,7 +36,7 @@ async function incrementalImport() {
   );
 
   const adminCollection = await pubChemConnection.getAdminCollection();
-  const collection = await pubChemConnection.getCollection('compound');
+  const collection = await pubChemConnection.getCollection('compounds');
 
   let progress = await adminCollection.find({ _id: 'main_progress' }).next();
   if (!progress || progress.state !== 'update') {

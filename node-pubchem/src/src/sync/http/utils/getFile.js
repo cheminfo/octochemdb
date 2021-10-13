@@ -8,11 +8,9 @@ const { utimes } = require('utimes');
 
 async function getFile(file, targetFile) {
   try {
-    console.log(file.url);
     const response = await fetch(file.url);
-    const arrayBuffer = await response.text();
+    const arrayBuffer = await response.arrayBuffer();
 
-    console.log(arrayBuffer);
     writeFileSync(targetFile, new Uint8Array(arrayBuffer));
     utimes(targetFile, {
       btime: file.epoch,
