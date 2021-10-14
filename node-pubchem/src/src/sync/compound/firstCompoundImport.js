@@ -3,7 +3,7 @@
 const PubChemConnection = require('../../util/PubChemConnection');
 const syncFolder = require('../http/utils/syncFolder');
 
-const importOneFile = require('./importOneFile');
+const importOneCompoundFile = require('./importOneCompoundFile');
 
 const debug = require('debug')('firstCompoundImport');
 
@@ -22,14 +22,12 @@ async function firstCompoundImport() {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
-    const { files, lastImportedID } = await getFilesToImport(
+    const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
       allFiles,
     );
-    console.log({ lastImportedID });
-    return;
-    await importCompoundFiles(connection, progress, files, { lastImportedID });
+    await importCompoundFiles(connection, progress, files, { lastDocument });
   } catch (e) {
     console.log(e);
   } finally {
@@ -38,8 +36,10 @@ async function firstCompoundImport() {
 }
 
 async function importCompoundFiles(connection, progress, files, options) {
+  options = { shouldImport: false, ...options };
   for (let file of files) {
-    await importOneFile(connection, progress, file, options);
+    await importOneCompoundFile(connection, progress, file, options);
+    options.shouldImport = true;
   }
 }
 
@@ -51,40 +51,27 @@ async function getFilesToImport(connection, progress, allFiles) {
     .limit(1)
     .next();
 
-  const lastProcessedID = lastDocument ? lastDocument._id : 0;
+  if (!lastDocument) return { files: allFiles, lastDocument: {} };
 
-  if (!lastProcessedID) return { files: allFiles };
+  debug(`last file processed: ${lastDocument.source}`);
 
-  const firstName = getNextFilename(progress.lastProcessedID);
-  debug(`firstName: ${firstName}`);
-  const firstIndex = allFiles.findIndex((n) => n.name === firstName);
+  const firstIndex = allFiles.findIndex((n) =>
+    n.path.endsWith(lastDocument.source),
+  );
 
   if (firstIndex === -1) {
-    throw new Error(`file not found: ${firstName}`);
+    throw new Error(`file not found: ${lastDocument.source}`);
   }
 
-  debug(`starting with file ${firstName}`);
+  debug(`starting with file ${lastDocument.source}`);
 
-  return { lastProcessedID, files: allFiles.slice(firstIndex) };
-}
-
-const elementsPerRange = 500000;
-function getNextFilename(id) {
-  const factor = Math.floor(id / elementsPerRange);
-  const start = elementsPerRange * factor + 1;
-  const end = elementsPerRange * (factor + 1);
-  return `Compound_${addZeros(start)}_${addZeros(end)}.sdf.gz`;
-}
-
-function addZeros(value) {
-  let str = String(value);
-  return '0'.repeat(9 - str.length) + str;
+  return { lastDocument, files: allFiles.slice(firstIndex) };
 }
 
 async function getFullCompoundFolder() {
   debug('Synchronize full compound folder');
 
-  const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF`;
+  const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/compound/full`;
 
   debug(`Syncing: ${source} to ${destination}`);
@@ -93,7 +80,11 @@ async function getFullCompoundFolder() {
     fileFilter: (file) => file && file.name.endsWith('.gz'),
   });
 
-  return allFiles;
+  return allFiles.sort((a, b) => {
+    if (a.path < b.path) return -1;
+    if (a.path > b.path) return 1;
+    return 0;
+  });
 }
 
 module.exports = firstCompoundImport;

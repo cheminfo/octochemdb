@@ -4,7 +4,7 @@ const { MF } = require('mf-parser');
 const OCL = require('openchemlib');
 const { getMF } = require('openchemlib-utils');
 
-module.exports = function getMolecule(molecule) {
+function improveCompound(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
 
   const oclProperties = new OCL.MoleculeProperties(oclMolecule);
@@ -55,4 +55,6 @@ module.exports = function getMolecule(molecule) {
   }
 
   return result;
-};
+}
+
+module.exports = improveCompound;

@@ -13,7 +13,7 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
 const debug = require('debug')('update');
 
 const syncUpdates = require('./http/syncUpdates');
-const importOneFile = require('./importOneFile');
+const importOneCompoundFile = require('./importOneCompoundFile');
 
 const dataDir = `${__dirname}/../../${config.dataWeeklyDir}`;
 
@@ -83,10 +83,14 @@ async function incrementalImport() {
       const sdfPath = path.join(weekDir, sdfFile);
 
       debug(`processing file ${sdfFile}`);
-      let newMolecules = await importOneFile(sdfPath, pubChemConnection, {
-        progress,
-      });
-      debug(`Added ${newMolecules} new molecules`);
+      let newCompounds = await importOneCompoundFile(
+        sdfPath,
+        pubChemConnection,
+        {
+          progress,
+        },
+      );
+      debug(`Added ${newCompounds} new molecules`);
     }
 
     progress.date = weekDate;
