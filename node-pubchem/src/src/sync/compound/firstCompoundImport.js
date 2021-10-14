@@ -10,7 +10,7 @@ const debug = require('debug')('firstCompoundImport');
 const COLLECTION = 'compounds';
 
 async function firstCompoundImport() {
-  const allFiles = await getFullCompoundFolder();
+  const allFiles = await syncFullCompoundFolder();
 
   let connection;
   try {
@@ -68,7 +68,7 @@ async function getFilesToImport(connection, progress, allFiles) {
   return { lastDocument, files: allFiles.slice(firstIndex) };
 }
 
-async function getFullCompoundFolder() {
+async function syncFullCompoundFolder() {
   debug('Synchronize full compound folder');
 
   const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;

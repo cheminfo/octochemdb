@@ -38,8 +38,10 @@ module.exports = async function importOneCompoundFile(
   return newCompounds;
 
   async function parseSDF(sdf) {
-    const compounds = sdfParser(sdf).molecules;
+    let compounds = sdfParser(sdf).molecules;
     debug(`Need to process ${compounds.length} compounds`);
+
+    if (process.env.TEST === 'true') compounds = compounds.slice(0, 10);
 
     const actions = [];
     for (const compound of compounds) {
