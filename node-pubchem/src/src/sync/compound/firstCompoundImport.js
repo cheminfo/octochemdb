@@ -3,7 +3,7 @@
 const PubChemConnection = require('../../util/PubChemConnection');
 const syncFolder = require('../http/utils/syncFolder');
 
-const importOneCompoundFile = require('./importOneCompoundFile');
+const importOneCompoundFile = require('./utils/importOneCompoundFile');
 
 const debug = require('debug')('firstCompoundImport');
 
