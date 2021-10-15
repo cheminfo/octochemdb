@@ -17,11 +17,10 @@ cron();
 async function cron() {
   // waiting for mongo
 
-  // await delay(30 * 1000); // wating 30s before starting
-  //  await firstCompoundImport();
+  await firstCompoundImport();
   await firstSubstanceImport();
   while (true) {
-    //await incrementalCompoundImport();
+    await incrementalCompoundImport();
     await incrementalSubstanceImport();
     //await aggregate();
     for (let i = sleepTime; i > 0; i--) {
