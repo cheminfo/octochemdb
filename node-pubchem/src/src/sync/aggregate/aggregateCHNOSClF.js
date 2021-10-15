@@ -1,23 +1,10 @@
 'use strict';
 
-const pubChemConnection = new (require('../util/PubChemConnection'))();
+const debug = require('debug')('aggregateCHNOSClF');
 
-module.exports = async function () {
-  CHNOSClF(pubChemConnection)
-    .catch((e) => console.log(e))
-    .then(() => {
-      console.log('Done');
-      pubChemConnection.close();
-    });
-};
-
-async function CHNOSClF(pubChemConnection) {
-  const collection = await pubChemConnection.getCollection('compounds');
-  console.log(
-    'CHNOSClF: Need to aggregate',
-    await collection.countDocuments(),
-    'entries',
-  );
+module.exports = async function aggregateCHNOSClF(connection) {
+  const collection = await connection.getCollection('compounds');
+  debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = collection.aggregate(
     [
       { $limit: 1e10 },
@@ -55,4 +42,4 @@ async function CHNOSClF(pubChemConnection) {
   );
   await result.hasNext(); // trigger the creation of the output collection
   return result;
-}
+};

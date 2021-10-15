@@ -1,9 +1,10 @@
 'use strict';
 
 const delay = require('delay');
-const debug = require('debug')('cron');
 
-const aggregate = require('../aggregates/aggregate');
+const aggregate = require('./aggregate/aggregate');
+
+const debug = require('debug')('cron');
 
 const firstCompoundImport = require('./compound/firstCompoundImport');
 const incrementalCompoundImport = require('./compound/incrementalCompoundImport');
@@ -15,14 +16,12 @@ let sleepTime = 24; // in hours
 cron();
 
 async function cron() {
-  // waiting for mongo
-
   await firstCompoundImport();
   await firstSubstanceImport();
   while (true) {
     await incrementalCompoundImport();
     await incrementalSubstanceImport();
-    //await aggregate();
+    await aggregate();
     for (let i = sleepTime; i > 0; i--) {
       debug(`${new Date().toISOString()} - Still waiting ${i}h`);
       await delay(3600 * 1000);

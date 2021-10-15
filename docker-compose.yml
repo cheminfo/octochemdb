@@ -21,7 +21,8 @@ services:
       - MONGO_DB_NAME=pubchem
       - ORIGINAL_DATA_PATH=/originalData
       - PUBCHEM_SOURCE=https://ftp.ncbi.nlm.nih.gov/pubchem/
-    command: npm run cron
+    command: npm run crontest
+
   node-pubchem:
     build: ./node-pubchem
     restart: always

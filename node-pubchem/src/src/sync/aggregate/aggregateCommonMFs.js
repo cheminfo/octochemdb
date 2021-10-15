@@ -1,19 +1,10 @@
 'use strict';
 
-const pubChemConnection = new (require('../util/PubChemConnection'))();
+const debug = require('debug')('aggregateCommonMFs');
 
-module.exports = async function () {
-  return commonMFs(pubChemConnection)
-    .catch((e) => console.log(e))
-    .then((result) => {
-      console.log('Done');
-      pubChemConnection.close();
-    });
-};
-
-async function commonMFs(pubChemConnection) {
-  const collection = await pubChemConnection.getCollection('compounds');
-  console.log(
+module.exports = async function aggregateCommonMFs(connection) {
+  const collection = await connection.getCollection('compounds');
+  debug(
     'commonMFs: Need to aggregate',
     await collection.countDocuments(),
     'entries',
@@ -32,7 +23,7 @@ async function commonMFs(pubChemConnection) {
           total: { $sum: 1 },
         },
       },
-      { $match: { total: { $gte: 5 } } },
+      { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
       { $out: 'commonMFs' },
     ],
     {
@@ -42,11 +33,9 @@ async function commonMFs(pubChemConnection) {
   );
   await result.hasNext();
 
-  const collectionCommonMFs = await pubChemConnection.getCollection(
-    'commonMFs',
-  );
+  const collectionCommonMFs = await connection.getCollection('commonMFs');
 
   await collectionCommonMFs.createIndex({ em: 1 });
 
   return result;
-}
+};
