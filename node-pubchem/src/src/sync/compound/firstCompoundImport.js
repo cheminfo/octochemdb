@@ -28,9 +28,12 @@ async function firstCompoundImport() {
       allFiles,
     );
     await importCompoundFiles(connection, progress, files, { lastDocument });
+    progress.state = 'update';
+    await connection.setProgress(progress);
   } catch (e) {
     console.log(e);
   } finally {
+    debug('Closing connection');
     if (connection) await connection.close();
   }
 }
