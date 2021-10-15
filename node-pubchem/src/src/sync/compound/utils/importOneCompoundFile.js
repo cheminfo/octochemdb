@@ -4,7 +4,7 @@ const fs = require('fs');
 const zlib = require('zlib');
 
 const debug = require('debug')('firstCompoundImport');
-const sdfParser = require('sdf-parser');
+const { parse } = require('sdf-parser');
 
 const improveCompoundPool = require('./improveCompoundPool');
 
@@ -14,7 +14,6 @@ module.exports = async function importOneCompoundFile(
   file,
   options,
 ) {
-  const adminCollection = await connection.getAdminCollection();
   const collection = await connection.getCollection('compounds');
 
   debug(`Importing: ${file.name}`);
@@ -38,7 +37,7 @@ module.exports = async function importOneCompoundFile(
   return newCompounds;
 
   async function parseSDF(sdf) {
-    let compounds = sdfParser(sdf).molecules;
+    let compounds = parse(sdf).molecules;
     debug(`Need to process ${compounds.length} compounds`);
 
     if (process.env.TEST === 'true') compounds = compounds.slice(0, 10);
@@ -67,10 +66,7 @@ module.exports = async function importOneCompoundFile(
             );
           })
           .then(() => {
-            return adminCollection.updateOne(
-              { _id: progress._id },
-              { $set: progress },
-            );
+            return connection.setProgress(progress);
           }),
       );
     }

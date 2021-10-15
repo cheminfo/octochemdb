@@ -2,14 +2,13 @@
 
 const { readFileSync } = require('fs');
 const { join } = require('path');
-const { resourceLimits } = require('worker_threads');
 
-const sdfParser = require('sdf-parser');
+const { parse } = require('sdf-parser');
 
 const improveSubstance = require('../improveSubstance');
 
 test('substances', () => {
-  const molecules = sdfParser(
+  const molecules = parse(
     readFileSync(join(__dirname, 'data.sdf'), 'utf8'),
   ).molecules;
   const results = [];
