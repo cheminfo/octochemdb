@@ -1,10 +1,9 @@
 'use strict';
 
-const { writeFileSync } = require('fs');
+const { writeFileSync, utimesSync } = require('fs');
 
 const fetch = require('cross-fetch');
 const debug = require('debug')('getFile');
-const { utimes } = require('utimes');
 
 async function getFile(file, targetFile) {
   try {
@@ -12,11 +11,8 @@ async function getFile(file, targetFile) {
     const arrayBuffer = await response.arrayBuffer();
 
     writeFileSync(targetFile, new Uint8Array(arrayBuffer));
-    utimes(targetFile, {
-      btime: file.epoch,
-      mtime: file.epoch,
-      atime: file.epoch,
-    });
+
+    utimesSync(path, file.epoch, file.epoch);
 
     debug(`Downloading: ${file.name}`);
   } catch (e) {
