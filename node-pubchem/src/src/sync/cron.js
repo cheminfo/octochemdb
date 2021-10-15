@@ -6,7 +6,9 @@ const debug = require('debug')('cron');
 const aggregate = require('../aggregates/aggregate');
 
 const firstCompoundImport = require('./compound/firstCompoundImport');
-//const incrementalImport = require('./incrementalImport');
+const incrementalCompoundImport = require('./compound/incrementalCompoundImport');
+const firstSubstanceImport = require('./substance/firstSubstanceImport');
+const incrementalSubstanceImport = require('./substance/incrementalSubstanceImport');
 
 let sleepTime = 24; // in hours
 
@@ -16,13 +18,14 @@ async function cron() {
   // waiting for mongo
 
   // await delay(30 * 1000); // wating 30s before starting
-  await firstCompoundImport();
-  return;
+  //  await firstCompoundImport();
+  await firstSubstanceImport();
   while (true) {
-    await incrementalImport();
-    await aggregate();
+    //await incrementalCompoundImport();
+    await incrementalSubstanceImport();
+    //await aggregate();
     for (let i = sleepTime; i > 0; i--) {
-      debug(`${new Date().toISOString()} - Still wating ${i}h`);
+      debug(`${new Date().toISOString()} - Still waiting ${i}h`);
       await delay(3600 * 1000);
     }
   }

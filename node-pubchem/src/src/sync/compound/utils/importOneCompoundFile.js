@@ -3,7 +3,7 @@
 const fs = require('fs');
 const zlib = require('zlib');
 
-const debug = require('debug')('firstCompoundImport');
+const debug = require('debug')('importOneCompoundFile');
 const { parse } = require('sdf-parser');
 
 const improveCompoundPool = require('./improveCompoundPool');

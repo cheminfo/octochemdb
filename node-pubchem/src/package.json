@@ -6,7 +6,8 @@
   "scripts": {
     "convert-readme": "mkdir -p src/server/staticPages; markdown README.md > src/server/staticPages/index.html",
     "first-import": "node src/sync/firstImport.js",
-    "cron": " DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
+    "crontest": " DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
+    "cron": " DEBUG=* node -r dotenv/config src/sync/cron",
     "test": "jest",
     "start": "npm run convert-readme; DEBUG=*  node src/server/index.js --port 80",
     "server8080": "npm run convert-readme; node src/server/index.js --port 8080",

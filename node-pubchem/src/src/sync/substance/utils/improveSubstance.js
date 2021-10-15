@@ -1,7 +1,13 @@
 'use strict';
 
 function improveSubstance(molecule) {
-  let result = { molfile: molecule.molfile };
+  let result = {
+    _id: +molecule.PUBCHEM_SUBSTANCE_ID,
+    seq: 0,
+    molfile: molecule.molfile,
+  };
+  console.log(molecule.PUBCHEM_SUBSTANCE_ID);
+  delete molecule.PUBCHEM_SUBSTANCE_ID;
 
   for (let key in molecule) {
     if (!key.startsWith('PUBCHEM_')) continue;
@@ -14,8 +20,6 @@ function improveSubstance(molecule) {
       subresult = subresult[part];
     }
     subresult[parts[parts.length - 1]] = molecule[key];
-
-    console.log(result);
   }
 
   return result;

@@ -51,7 +51,6 @@ PubChemConnection.prototype.getProgress = async function getProgress(
   } else {
     if (progress.state === 'update') {
       debug('First importation has been completed. Should only update.');
-      return;
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
