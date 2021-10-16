@@ -9,7 +9,7 @@ services:
       - ./mongo-data:/data/db
       - ./mongo-tools:/tools
 
-  node-pubchem-import:
+  import:
     build: ./node-pubchem
     restart: always
     privileged: true
@@ -24,7 +24,7 @@ services:
       - PUBCHEM_SOURCE=https://ftp.ncbi.nlm.nih.gov/pubchem/
     command: npm run crontest
 
-  node-pubchem:
+  pubchem:
     build: ./node-pubchem
     restart: always
     ports:
