@@ -1,10 +1,10 @@
-import workerpool from 'workerpool';
-
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import OCLUtils from 'openchemlib-utils';
+import workerpool from 'workerpool';
 
 const { MF } = MFParser;
+
 const { getMF } = OCLUtils;
 
 async function improveCompound(molecule) {

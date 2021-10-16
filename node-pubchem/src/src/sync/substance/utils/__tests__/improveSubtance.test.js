@@ -16,6 +16,8 @@ test('substances', () => {
   expect(results).toHaveLength(26);
   delete results[0].molfile;
   expect(results[0]).toStrictEqual({
+    _id: 584927,
+    seq: 0,
     compound: { id: { type: 0 } },
     mmdb: { molecule: { name: 'BEN\nBENZAMIDINE' } },
     total: { charge: 0 },

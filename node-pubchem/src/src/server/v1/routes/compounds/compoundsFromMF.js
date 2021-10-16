@@ -2,28 +2,23 @@
 import Debug from 'debug';
 
 import PubChemConnection, {
-  MFS_COLLECTION,
+  COMPOUNDS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
 import getFields from './getFields.js';
 
-const debug = Debug('mfsFromEM');
+const debug = Debug('compoundsFromMF');
 
-export const moleculesFromEM = {
+export const compoundsFromMF = {
   method: 'GET',
-  url: '/compounds/moleculesFromEM',
+  url: '/compounds/compoundsFromMF',
   schema: {
     querystring: {
-      em: {
-        type: 'number',
-        description: 'Monoisotopic mass',
-        example: 300.123,
+      mf: {
+        type: 'string',
+        description: 'Molecular formula',
+        example: 'Et3N',
         default: null,
-      },
-      precision: {
-        type: 'number',
-        description: 'Precision (in ppm) of the monoisotopic mass',
-        default: 100,
       },
       limit: {
         type: 'number',
@@ -52,31 +47,25 @@ export const moleculesFromEM = {
 
 async function searchHandler(request) {
   let {
-    em = 0,
+    mf = '',
     limit = 1e3,
-    precision = 100,
     fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
-  let error = (em / 1e6) * precision;
 
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(MFS_COLLECTION);
+    const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
 
-    debug(JSON.stringify({ em, error }));
+    debug(mf);
 
     const results = await collection
       .aggregate([
-        {
-          $match: {
-            em: { $lt: Number(em) + error, $gt: Number(em) - error },
-          },
-        },
-        { $limit: Number(limit) },
+        { $match: { mf } },
+        { $limit: limit },
         {
           $project: getFields(fields),
         },

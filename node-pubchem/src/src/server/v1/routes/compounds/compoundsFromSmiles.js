@@ -1,25 +1,30 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
+import OCL from 'openchemlib';
 
 import PubChemConnection, {
   COMPOUNDS_COLLECTION,
-  MFS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
 import getFields from './getFields.js';
 
-const debug = Debug('moleculesFromMF');
+const debug = Debug('compoundsFromSmiles');
 
-export const moleculesFromMF = {
+export const compoundsFromSmiles = {
   method: 'GET',
-  url: '/compounds/moleculesFromMF',
+  url: '/compounds/compoundsFromSmiles',
   schema: {
     querystring: {
-      mf: {
+      smiles: {
         type: 'string',
-        description: 'Molecular formula',
-        example: 'Et3N',
+        description: 'SMILES',
+        example: 'c1ccccc1',
         default: null,
+      },
+      stereo: {
+        type: 'boolean',
+        description: 'Take into account the stereochemistry',
+        default: true,
       },
       limit: {
         type: 'number',
@@ -48,25 +53,39 @@ export const moleculesFromMF = {
 
 async function searchHandler(request) {
   let {
-    mf = '',
+    smiles = '',
     limit = 1e3,
+    stereo = true,
     fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
 
+  const molecule = OCL.Molecule.fromSmiles(smiles);
+  let mongoQuery = {};
+  if (stereo) {
+    mongoQuery = {
+      'ocl.id': molecule.getIDCode(),
+    };
+  } else {
+    molecule.stripStereoInformation();
+    mongoQuery = {
+      noStereoID: molecule.getIDCode(),
+    };
+  }
+
   let connection;
   try {
     connection = new PubChemConnection();
     const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
 
-    debug(mf);
+    debug(smiles);
 
     const results = await collection
       .aggregate([
-        { $match: { mf } },
-        { $limit: limit },
+        { $match: mongoQuery },
+        { $limit: Number(limit) },
         {
           $project: getFields(fields),
         },

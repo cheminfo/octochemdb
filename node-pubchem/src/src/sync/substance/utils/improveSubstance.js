@@ -1,10 +1,9 @@
-function improveSubstance(molecule) {
+export default function improveSubstance(molecule) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
     seq: 0,
     molfile: molecule.molfile,
   };
-  delete molecule.PUBCHEM_SUBSTANCE_ID;
 
   for (let key in molecule) {
     if (!key.startsWith('PUBCHEM_')) continue;
@@ -21,5 +20,3 @@ function improveSubstance(molecule) {
 
   return result;
 }
-
-export default improveSubstance;
