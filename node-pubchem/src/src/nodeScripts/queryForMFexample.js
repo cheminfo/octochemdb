@@ -1,4 +1,4 @@
-'use strict';
+
 
 const limit = 10;
 

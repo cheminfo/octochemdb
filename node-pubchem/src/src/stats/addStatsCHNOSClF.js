@@ -1,13 +1,11 @@
-'use strict';
+import bluebird from 'bluebird';
+import co from 'co';
+import fs from 'fs-extra';
+import mongo from 'mongo';
 
 process.on('unhandledRejection', function (e) {
   throw e;
 });
-
-const bluebird = require('bluebird');
-const co = require('co');
-const fs = require('fs-extra');
-const mongo = require('mongo');
 
 let limit = 1e10;
 let rules = {

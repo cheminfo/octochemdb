@@ -1,9 +1,8 @@
-'use strict';
+import { writeFileSync, utimesSync } from 'fs';
+import fetch from 'cross-fetch';
+import Debug from 'debug';
 
-const { writeFileSync, utimesSync } = require('fs');
-
-const fetch = require('cross-fetch');
-const debug = require('debug')('getFile');
+const debug = Debug('getFile');
 
 async function getFile(file, targetFile) {
   try {
@@ -12,7 +11,7 @@ async function getFile(file, targetFile) {
 
     writeFileSync(targetFile, new Uint8Array(arrayBuffer));
 
-    utimesSync(path, file.epoch, file.epoch);
+    utimesSync(targetFile, file.epoch, file.epoch);
 
     debug(`Downloading: ${file.name}`);
   } catch (e) {
@@ -21,4 +20,4 @@ async function getFile(file, targetFile) {
   }
 }
 
-module.exports = getFile;
+export default getFile;

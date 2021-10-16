@@ -1,8 +1,6 @@
-'use strict';
-
-const { MF } = require('mf-parser');
-const OCL = require('openchemlib');
-const { getMF } = require('openchemlib-utils');
+import { MF } from 'mf-parser';
+import OCL from 'openchemlib';
+import { getMF } from 'openchemlib-utils';
 
 function improveCompound(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
@@ -57,4 +55,4 @@ function improveCompound(molecule) {
   return result;
 }
 
-module.exports = improveCompound;
+export default improveCompound;

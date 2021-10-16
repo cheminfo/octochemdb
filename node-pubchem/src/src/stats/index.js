@@ -1,6 +1,7 @@
-'use strict';
+import mlStat from 'ml-stat/array';
 
-const mlStat = require('ml-stat/array');
+import mfFunctions from '../util/mf';
+import rules from '../util/rules.js';
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
@@ -10,9 +11,6 @@ generateStats()
     console.log('Done');
     pubChemConnection.close();
   });
-
-const mfFunctions = require('../util//mf');
-const rules = require('../util/rules');
 
 const { minMass, maxMass, stepMass, elementRatios } = rules;
 const distributionLength =

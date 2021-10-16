@@ -1,14 +1,14 @@
-'use strict';
+import fs from 'fs';
+import zlib from 'zlib';
 
-const fs = require('fs');
-const zlib = require('zlib');
+import Debug from 'debug';
+import { parse } from 'sdf-parser';
 
-const debug = require('debug')('improveOneSubstanceFile');
-const { parse } = require('sdf-parser');
+import improveSubstance from './improveSubstance.js';
 
-const improveSubstance = require('./improveSubstance');
+const debug = Debug('improveOneSubstanceFile');
 
-module.exports = async function importOneSubstanceFile(
+export default async function importOneSubstanceFile(
   connection,
   progress,
   file,
@@ -65,4 +65,4 @@ module.exports = async function importOneSubstanceFile(
     // save the substances in the database
     return substances.length;
   }
-};
+}

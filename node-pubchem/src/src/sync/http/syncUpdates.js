@@ -1,10 +1,10 @@
-'use strict';
+import Debug from 'debug';
 
-const getFile = require('./utils/getFile');
-const getFilesList = require('./utils/getFilesList');
-const syncFolder = require('./utils/syncFolder');
+import getFile from './utils/getFile.js';
+import getFilesList from './utils/getFilesList.js';
+import syncFolder from './utils/syncFolder.js';
 
-const debug = require('debug')('syncUpdates');
+const debug = Debug('syncUpdates');
 
 const SOURCE = 'https://ftp.ncbi.nlm.nih.gov/pubchem/';
 
@@ -31,4 +31,4 @@ async function syncUpdates() {
   return;
 }
 
-module.exports = syncUpdates;
+export default syncUpdates;

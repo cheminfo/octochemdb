@@ -1,25 +1,23 @@
-'use strict';
+import Debug from 'debug';
+import delay from 'delay';
 
-const delay = require('delay');
+import aggregate from './aggregate/aggregate.js';
+import firstCompoundImport from './compound/firstCompoundImport.js';
+import incrementalCompoundImport from './compound/incrementalCompoundImport.js';
+import firstSubstanceImport from './substance/firstSubstanceImport.js';
+import incrementalSubstanceImport from './substance/incrementalSubstanceImport.js';
 
-const aggregate = require('./aggregate/aggregate');
-
-const debug = require('debug')('cron');
-
-const firstCompoundImport = require('./compound/firstCompoundImport');
-const incrementalCompoundImport = require('./compound/incrementalCompoundImport');
-const firstSubstanceImport = require('./substance/firstSubstanceImport');
-const incrementalSubstanceImport = require('./substance/incrementalSubstanceImport');
+const debug = Debug('cron');
 
 let sleepTime = 24; // in hours
 
 cron();
 
 async function cron() {
-  await firstCompoundImport();
+  // await firstCompoundImport();
   await firstSubstanceImport();
   while (true) {
-    await incrementalCompoundImport();
+    //  await incrementalCompoundImport();
     await incrementalSubstanceImport();
     await aggregate();
     for (let i = sleepTime; i > 0; i--) {

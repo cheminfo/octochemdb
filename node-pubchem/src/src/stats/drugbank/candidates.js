@@ -1,12 +1,9 @@
-'use strict';
 
-const CC = require('chemcalc');
-const fs = require('fs-extra');
-const mkdirp = require('mkdirp').sync;
-
-const path = require('path');
-
-const rules = require('rules');
+import CC   from 'chemcalc';
+import fs   from 'fs-extra';
+import mkdirp   from 'mkdirp'.sync;
+import path   from 'path';
+import rules   from 'rules';
 
 const data = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data/mfs.json'), 'utf8'),

@@ -1,11 +1,11 @@
-'use strict';
-
 // query for molecules from monoisotopic mass
+import Debug from 'debug';
+
+import getFields from './getFields.js';
+
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const getFields = require('./getFields');
-
-const debug = require('debug')('mfsFromEm');
+const debug = Debug('mfsFromEm');
 
 /**
  * Find molecular formula from a monoisotopic mass
@@ -16,7 +16,7 @@ const debug = require('debug')('mfsFromEm');
  * @param {object} [options.minPubchemEntries=0]
  * @return {Array}
  */
-module.exports = async function mfsFromEm(em, options = {}) {
+export default async function mfsFromEm(em, options = {}) {
   let {
     limit = 1e3,
     precision = 100,
@@ -63,7 +63,7 @@ module.exports = async function mfsFromEm(em, options = {}) {
       { $limit: Number(limit) },
     ])
     .toArray();
-};
+}
 
 /* direct test in mongoDB
 em = 106.077351;

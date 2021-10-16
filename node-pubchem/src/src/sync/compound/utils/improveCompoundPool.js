@@ -1,9 +1,9 @@
-'use strict';
+import WorkerNodes from 'worker-nodes';
 
-const WorkerNodes = require('worker-nodes');
+const url = new URL('improveCompounds.js', import.meta.url);
 
-const workerNodes = new WorkerNodes(`${__dirname}/improveCompound.js`);
+const workerNodes = new WorkerNodes(url.pathname);
 
-module.exports = async function improve(molecule) {
+export default async function improve(molecule) {
   return workerNodes.call(molecule);
-};
+}

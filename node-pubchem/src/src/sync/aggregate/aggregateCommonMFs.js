@@ -1,8 +1,8 @@
-'use strict';
+import Debug from 'debug';
 
-const debug = require('debug')('aggregateCommonMFs');
+const debug = Debug('aggregateCommonMFs');
 
-module.exports = async function aggregateCommonMFs(connection) {
+export default async function aggregateCommonMFs(connection) {
   const collection = await connection.getCollection('compounds');
   debug(
     'commonMFs: Need to aggregate',
@@ -38,4 +38,4 @@ module.exports = async function aggregateCommonMFs(connection) {
   await collectionCommonMFs.createIndex({ em: 1 });
 
   return result;
-};
+}

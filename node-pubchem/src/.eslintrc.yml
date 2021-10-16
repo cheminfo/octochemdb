@@ -1,4 +1,4 @@
-extends: 'eslint-config-cheminfo'
-env:
-  jest: true
-  browser: true
+extends: cheminfo
+
+parserOptions:
+  sourceType: module

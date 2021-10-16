@@ -1,4 +1,4 @@
-'use strict';
+import rules from './rules.js';
 
 exports.getAtoms = function getAtoms(chemcalcMF) {
   const atom = {};
@@ -6,8 +6,6 @@ exports.getAtoms = function getAtoms(chemcalcMF) {
   atoms.forEach((a) => (atom[a.element] = a.number));
   return atom;
 };
-
-const rules = require('./rules');
 
 exports.isFormulaAllowed = function isFormulaAllowed(
   formula,

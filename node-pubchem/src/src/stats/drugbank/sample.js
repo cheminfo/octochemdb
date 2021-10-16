@@ -1,15 +1,13 @@
-'use strict';
+import path from 'path';
 
-const path = require('path');
+import fs from 'fs-extra';
+import mfUtil from 'mf';
+import rules from 'rules';
 
-const fs = require('fs-extra');
-const mfUtil = require('mf');
-const rules = require('rules');
+import stats from '../../../stats.json.js';
 
 const ppm = rules.samplePpm;
 const penality = rules.ratioPenality;
-
-const stats = require('../../../stats.json');
 
 const ratioStats = stats.results;
 const data = readJSON(path.join(__dirname, 'data/mfs.json'));

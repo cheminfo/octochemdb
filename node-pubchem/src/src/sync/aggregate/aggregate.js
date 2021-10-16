@@ -1,14 +1,14 @@
-'use strict';
+import Debug from 'debug';
 
-const PubChemConnection = require('../../util/PubChemConnection');
+import PubChemConnection from '../../util/PubChemConnection.js';
 
-const debug = require('debug')('aggregate');
+import aggregateCHNOSClF from './aggregateCHNOSClF.js';
+import aggregateCommonMFs from './aggregateCommonMFs.js';
+import aggregateMFs from './aggregateMFs.js';
 
-const aggregateCHNOSClF = require('./aggregateCHNOSClF');
-const aggregateCommonMFs = require('./aggregateCommonMFs');
-const aggregateMFs = require('./aggregateMFs');
+const debug = Debug('aggregate');
 
-module.exports = async function aggregate() {
+export default async function aggregate() {
   let connection;
   try {
     connection = new PubChemConnection();
@@ -21,4 +21,4 @@ module.exports = async function aggregate() {
     debug('Closing connection');
     if (connection) await connection.close();
   }
-};
+}

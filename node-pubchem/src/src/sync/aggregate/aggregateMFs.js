@@ -1,8 +1,8 @@
-'use strict';
+import Debug from 'debug';
 
-const debug = require('debug')('aggregateMFs');
+const debug = Debug('aggregateMFs');
 
-module.exports = async function aggregateMFs(connection) {
+export default async function aggregateMFs(connection) {
   const collection = await connection.getCollection('compounds');
   debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = await collection.aggregate(
@@ -32,4 +32,4 @@ module.exports = async function aggregateMFs(connection) {
   await mfsCollection.createIndex({ total: 1 });
 
   return result;
-};
+}

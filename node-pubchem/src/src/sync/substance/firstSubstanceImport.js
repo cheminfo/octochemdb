@@ -1,11 +1,11 @@
-'use strict';
+import Debug from 'debug';
 
-const PubChemConnection = require('../../util/PubChemConnection');
-const syncFolder = require('../http/utils/syncFolder');
+import PubChemConnection from '../../util/PubChemConnection.js';
+import syncFolder from '../http/utils/syncFolder.js';
 
-const importOneSubstanceFile = require('./utils/importOneSubstanceFile');
+import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
 
-const debug = require('debug')('firstSubstanceImport');
+const debug = Debug('firstSubstanceImport');
 
 const COLLECTION = 'substances';
 
@@ -90,4 +90,4 @@ async function syncFullSubstanceFolder() {
   });
 }
 
-module.exports = firstSubstanceImport;
+export default firstSubstanceImport;

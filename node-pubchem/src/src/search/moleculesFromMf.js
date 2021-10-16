@@ -1,8 +1,8 @@
-'use strict';
+import Debug from 'debug';
 
-const debug = require('debug')('moleculesFromMf');
+import getFields from './getFields.js';
 
-const getFields = require('./getFields');
+const debug = Debug('moleculesFromMf');
 
 // query for molecules from molecular formula
 const pubChemConnection = new (require('../util/PubChemConnection'))();
@@ -14,7 +14,7 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
  * @param {object} [options.limit=1000]
  * @return {Array}
  */
-module.exports = async function moleculesFromMf(mf, options = {}) {
+export default async function moleculesFromMf(mf, options = {}) {
   let { limit = 1e3, fields = 'iupac,ocl,mf,em,nbFragments,charge' } = options;
 
   if (!mf) {
@@ -37,4 +37,4 @@ module.exports = async function moleculesFromMf(mf, options = {}) {
       },
     ])
     .toArray();
-};
+}

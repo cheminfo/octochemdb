@@ -1,11 +1,9 @@
-'use strict';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-const { readFileSync } = require('fs');
-const { join } = require('path');
+import { parse } from 'sdf-parser';
 
-const { parse } = require('sdf-parser');
-
-const improveSubstance = require('../improveSubstance');
+import improveSubstance from '../improveSubstance.js';
 
 test('substances', () => {
   const molecules = parse(

@@ -1,10 +1,4 @@
-'use strict';
-
-const kcors = require('kcors');
-const Koa = require('koa');
-const staticKoa = require('koa-static');
-
-const router = require('./router');
+import fastifySwagger from 'fastify-swagger';
 
 const hasPort = process.argv.indexOf('--port');
 if (hasPort === -1) throw new Error('missing port option');

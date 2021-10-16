@@ -1,9 +1,7 @@
-'use strict';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-const { readFileSync } = require('fs');
-const { join } = require('path');
-
-const improveMolecule = require('../improveMolecule');
+import improveMolecule from '../improveMolecule.js';
 
 test('creation of molecular formula', () => {
   let molfile = readFileSync(join(__dirname, 'test.mol'), 'utf8');

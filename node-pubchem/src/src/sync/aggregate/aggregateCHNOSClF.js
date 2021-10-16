@@ -1,8 +1,8 @@
-'use strict';
+import Debug from 'debug';
 
-const debug = require('debug')('aggregateCHNOSClF');
+const debug = Debug('aggregateCHNOSClF');
 
-module.exports = async function aggregateCHNOSClF(connection) {
+export default async function aggregateCHNOSClF(connection) {
   const collection = await connection.getCollection('compounds');
   debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = collection.aggregate(
@@ -42,4 +42,4 @@ module.exports = async function aggregateCHNOSClF(connection) {
   );
   await result.hasNext(); // trigger the creation of the output collection
   return result;
-};
+}

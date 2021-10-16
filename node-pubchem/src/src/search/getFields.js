@@ -1,6 +1,6 @@
-'use strict';
+import Debug from 'debug';
 
-const debug = require('debug')('getFields');
+const debug = Debug('getFields');
 
 function getFields(fields = '') {
   let result = { id: '$_id' };
@@ -11,4 +11,4 @@ function getFields(fields = '') {
   return result;
 }
 
-module.exports = getFields;
+export default getFields;

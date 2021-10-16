@@ -1,12 +1,11 @@
-'use strict';
+import CC from 'chemcalc';
+import functions from 'mf';
+import rules from 'rules';
 
-const CC = require('chemcalc');
-const functions = require('mf');
-const rules = require('rules');
+import stats from '../../stats.json.js';
 
 const elementRatios = rules.elementRatios;
 const penality = rules.ratioPenality;
-const stats = require('../../stats.json');
 
 const ratioStats = stats.results;
 

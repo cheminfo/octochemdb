@@ -1,11 +1,11 @@
-'use strict';
-
 // query for molecules from monoisotopic mass
+import Debug from 'debug';
+
+import getFields from './getFields.js';
+
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const getFields = require('./getFields');
-
-const debug = require('debug')('moleculesFromEm');
+const debug = Debug('moleculesFromEm');
 
 /**
  * Find molecules from a monoisotopic mass
@@ -15,7 +15,7 @@ const debug = require('debug')('moleculesFromEm');
  * @param {object} [options.precision=0.1]
  * @return {Array}
  */
-module.exports = async function moleculesFromEm(em, options = {}) {
+export default async function moleculesFromEm(em, options = {}) {
   let {
     limit = 1e3,
     precision = 0.1,
@@ -45,4 +45,4 @@ module.exports = async function moleculesFromEm(em, options = {}) {
       },
     ])
     .toArray();
-};
+}

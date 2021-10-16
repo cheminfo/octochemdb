@@ -1,12 +1,11 @@
-'use strict';
-
 // query for molecules from monoisotopic mass
+import Debug from 'debug';
+
+import getFields from './getFields.js';
+
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const { Molecule } = require('openchemlib');
-const debug = require('debug')('moleculesFromSmiles');
-
-const getFields = require('./getFields');
+const debug = Debug('moleculesFromSmiles');
 /**
  * Find molecules from a monoisotopic mass
  * @param {number} smiles
@@ -14,7 +13,7 @@ const getFields = require('./getFields');
  * @param {object} [options.stereo=false]
  * @return {Array}
  */
-module.exports = async function moleculesFromSmiles(smiles, options = {}) {
+export default async function moleculesFromSmiles(smiles, options = {}) {
   let {
     limit = 1e3,
     stereo = false,
@@ -50,4 +49,4 @@ module.exports = async function moleculesFromSmiles(smiles, options = {}) {
       },
     ])
     .toArray();
-};
+}

@@ -1,10 +1,10 @@
-'use strict';
+import fs from 'fs';
 
-const fs = require('fs');
+import Debug from 'debug';
 
-const debug = require('debug')('killCompounds');
+const debug = Debug('killCompounds');
 
-module.exports = async function removeEntriesFromFile(
+export default async function removeEntriesFromFile(
   connection,
   collectionName,
   file,
@@ -22,4 +22,4 @@ module.exports = async function removeEntriesFromFile(
     }
     debug('removing done');
   }
-};
+}

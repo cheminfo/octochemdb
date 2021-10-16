@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   minMass: 0.5,
   maxMass: 1000.5,
   stepMass: 25,

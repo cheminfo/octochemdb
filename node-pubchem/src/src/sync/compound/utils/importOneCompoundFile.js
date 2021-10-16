@@ -1,14 +1,14 @@
-'use strict';
+import fs from 'fs';
+import zlib from 'zlib';
 
-const fs = require('fs');
-const zlib = require('zlib');
+import Debug from 'debug';
+import { parse } from 'sdf-parser';
 
-const debug = require('debug')('importOneCompoundFile');
-const { parse } = require('sdf-parser');
+import improveCompoundPool from './improveCompoundPool.js';
 
-const improveCompoundPool = require('./improveCompoundPool');
+const debug = Debug('importOneCompoundFile');
 
-module.exports = async function importOneCompoundFile(
+export default async function importOneCompoundFile(
   connection,
   progress,
   file,
@@ -75,4 +75,4 @@ module.exports = async function importOneCompoundFile(
     // save the compounds in the database
     return compounds.length;
   }
-};
+}

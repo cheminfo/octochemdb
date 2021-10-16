@@ -1,8 +1,6 @@
-'use strict';
+import OCLE from 'openchemlib-extended';
 
 const limit = 10000000;
-
-const OCLE = require('openchemlib-extended');
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 

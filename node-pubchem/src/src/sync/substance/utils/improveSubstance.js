@@ -1,12 +1,9 @@
-'use strict';
-
 function improveSubstance(molecule) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
     seq: 0,
     molfile: molecule.molfile,
   };
-  console.log(molecule.PUBCHEM_SUBSTANCE_ID);
   delete molecule.PUBCHEM_SUBSTANCE_ID;
 
   for (let key in molecule) {
@@ -25,4 +22,4 @@ function improveSubstance(molecule) {
   return result;
 }
 
-module.exports = improveSubstance;
+export default improveSubstance;

@@ -1,4 +1,4 @@
-'use strict';
+
 
 const pubChemConnection = new (require('../PubChemConnection'))();
 

@@ -1,7 +1,6 @@
-'use strict';
-
-const fetch = require('cross-fetch');
-const debug = require('debug')('getFilesList');
+import Debug from 'debug';
+import fetch from 'cross-fetch';
+const debug = Debug('getFilesList');
 
 async function getFilesList(url, options = {}) {
   const { fileFilter = () => true, md5 = false } = options;
@@ -44,4 +43,4 @@ async function getFilesList(url, options = {}) {
   return files;
 }
 
-module.exports = getFilesList;
+export default getFilesList;

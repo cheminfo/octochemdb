@@ -1,20 +1,19 @@
-'use strict';
+import bluebird from 'bluebird';
+import CC from 'chemcalc';
+import co from 'co';
+import functions from 'mf';
+import mongo from 'mongo';
+import rules from 'rules';
+
+import stats from '../../stats.json.js';
 
 process.on('unhandledRejection', function (e) {
   throw e;
 });
-
-const bluebird = require('bluebird');
-const CC = require('chemcalc');
-const co = require('co');
 const fs = bluebird.promisifyAll(require('fs-extra'));
-const functions = require('mf');
-const mongo = require('mongo');
-const rules = require('rules');
 
 const ppm = rules.samplePpm;
 const penality = rules.ratioPenality;
-const stats = require('../../stats.json');
 
 const ratioStats = stats.results.filter((stat) => {
   return stat.minMass >= rules.sampleMin && stat.maxMass <= rules.sampleMax;

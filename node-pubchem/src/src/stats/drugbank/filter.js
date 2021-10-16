@@ -1,12 +1,10 @@
-'use strict';
+import path from 'path';
 
-const path = require('path');
-
-const CC = require('chemcalc');
-const fs = require('fs-extra');
-const mfUtil = require('mf');
-const OCL = require('openchemlib-extended');
-const parse = require('sdf-parser');
+import CC from 'chemcalc';
+import fs from 'fs-extra';
+import mfUtil from 'mf';
+import OCL from 'openchemlib-extended';
+import parse from 'sdf-parser';
 
 const fragmentContainer = new Array(1024);
 const theSet = new Set();

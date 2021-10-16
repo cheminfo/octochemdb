@@ -1,20 +1,20 @@
-'use strict';
+import { join } from 'path';
 
-const { join } = require('path');
+import Debug from 'debug';
+import FSExtra from 'fs-extra';
 
-const { mkdirpSync, existsSync, statSync } = require('fs-extra');
+import getFile from './getFile.js';
+import getFilesList from './getFilesList.js';
 
-const getFile = require('./getFile');
-const getFilesList = require('./getFilesList');
-
-const debug = require('debug')('syncFolder');
+const { mkdirpSync, existsSync, statSync } = FSExtra;
+const debug = Debug('syncFolder');
 
 async function syncFolder(source, destinationFolder, options = {}) {
   if (!existsSync(destinationFolder)) {
     mkdirpSync(destinationFolder);
   }
 
-  const limit = process.env.TEST === 'true' ? 10 : undefined;
+  const limit = process.env.TEST === 'true' ? 5 : undefined;
 
   let allFiles = await getFilesList(source, options);
   if (limit) allFiles = allFiles.slice(0, limit);
@@ -33,4 +33,4 @@ async function syncFolder(source, destinationFolder, options = {}) {
   return { allFiles, newFiles };
 }
 
-module.exports = syncFolder;
+export default syncFolder;

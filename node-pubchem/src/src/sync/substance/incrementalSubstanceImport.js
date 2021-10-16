@@ -1,13 +1,13 @@
-'use strict';
+import Debug from 'debug';
 
-const PubChemConnection = require('../../util/PubChemConnection');
-const getFilesList = require('../http/utils/getFilesList');
-const syncFolder = require('../http/utils/syncFolder');
-const removeEntriesFromFile = require('../utils/removeEntriesFromFile');
+import PubChemConnection from '../../util/PubChemConnection.js';
+import getFilesList from '../http/utils/getFilesList.js';
+import syncFolder from '../http/utils/syncFolder.js';
+import removeEntriesFromFile from '../utils/removeEntriesFromFile.js';
 
-const importOneSubstanceFile = require('./utils/importOneSubstanceFile');
+import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
 
-const debug = require('debug')('incrementalSubstanceImport');
+const debug = Debug('incrementalSubstanceImport');
 
 const COLLECTION = 'substances';
 
@@ -112,4 +112,4 @@ async function syncIncrementalSubstanceFolder() {
   });
 }
 
-module.exports = incrementalSubstanceImport;
+export default incrementalSubstanceImport;

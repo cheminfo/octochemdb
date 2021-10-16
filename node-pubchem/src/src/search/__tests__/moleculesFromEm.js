@@ -1,6 +1,4 @@
-'use strict';
-
-let moleculesFromEm = require('../moleculesFromEm');
+import moleculesFromEm from '../moleculesFromEm.js';
 
 test('moleculeByEm.js', async () => {
   await expect(moleculesFromEm()).rejects.toStrictEqual(
