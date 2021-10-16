@@ -4,6 +4,8 @@ import zlib from 'zlib';
 import Debug from 'debug';
 import { parse } from 'sdf-parser';
 
+import { COMPOUNDS_COLLECTION } from '../../../util/PubChemConnection.js';
+
 import improveCompoundPool from './improveCompoundPool.js';
 
 const debug = Debug('importOneCompoundFile');
@@ -14,8 +16,7 @@ export default async function importOneCompoundFile(
   file,
   options,
 ) {
-  const collection = await connection.getCollection('compounds');
-
+  const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
   debug(`Importing: ${file.name}`);
   // should we directly import the data how wait that we reach the previously imported information
   let { shouldImport = true, lastDocument } = options;

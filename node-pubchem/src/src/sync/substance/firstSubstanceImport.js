@@ -1,13 +1,13 @@
 import Debug from 'debug';
 
-import PubChemConnection from '../../util/PubChemConnection.js';
+import PubChemConnection, {
+  SUBSTANCES_COLLECTION,
+} from '../../util/PubChemConnection.js';
 import syncFolder from '../http/utils/syncFolder.js';
 
 import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
 
 const debug = Debug('firstSubstanceImport');
-
-const COLLECTION = 'substances';
 
 async function firstSubstanceImport() {
   const allFiles = await syncFullSubstanceFolder();
@@ -15,7 +15,7 @@ async function firstSubstanceImport() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const progress = await connection.getProgress(COLLECTION);
+    const progress = await connection.getProgress(SUBSTANCES_COLLECTION);
     if (progress.state === 'update') {
       debug('First importation has been completed. Should only update.');
       return;
@@ -39,7 +39,7 @@ async function firstSubstanceImport() {
 }
 
 async function importSubstanceFiles(connection, progress, files, options) {
-  options = { shouldImport: false, ...options };
+  options = { shouldImport: progress.seq === 0, ...options };
   for (let file of files) {
     await importOneSubstanceFile(connection, progress, file, options);
     options.shouldImport = true;
@@ -47,7 +47,7 @@ async function importSubstanceFiles(connection, progress, files, options) {
 }
 
 async function getFilesToImport(connection, progress, allFiles) {
-  const collection = await connection.getCollection(COLLECTION);
+  const collection = await connection.getCollection(SUBSTANCES_COLLECTION);
   const lastDocument = await collection
     .find({ seq: { $lte: progress.seq } })
     .sort('_id', -1)

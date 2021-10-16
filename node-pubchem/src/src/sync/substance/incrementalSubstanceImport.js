@@ -1,6 +1,8 @@
 import Debug from 'debug';
 
-import PubChemConnection from '../../util/PubChemConnection.js';
+import PubChemConnection, {
+  SUBSTANCES_COLLECTION,
+} from '../../util/PubChemConnection.js';
 import getFilesList from '../http/utils/getFilesList.js';
 import syncFolder from '../http/utils/syncFolder.js';
 import removeEntriesFromFile from '../utils/removeEntriesFromFile.js';
@@ -9,15 +11,13 @@ import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
 
 const debug = Debug('incrementalSubstanceImport');
 
-const COLLECTION = 'substances';
-
 async function incrementalSubstanceImport() {
   const allFiles = await syncIncrementalSubstanceFolder();
 
   let connection;
   try {
     connection = new PubChemConnection();
-    const progress = await connection.getProgress(COLLECTION);
+    const progress = await connection.getProgress(SUBSTANCES_COLLECTION);
     if (progress.state !== 'update') {
       throw new Error('Should never happens.');
     }
@@ -44,13 +44,13 @@ async function importSubstanceFiles(connection, progress, files, options) {
       await importOneSubstanceFile(connection, progress, file, options);
       options.shouldImport = true;
     } else if (file.name.startsWith('killed')) {
-      await removeEntriesFromFile(connection, COLLECTION, file);
+      await removeEntriesFromFile(connection, SUBSTANCES_COLLECTION, file);
     }
   }
 }
 
 async function getFilesToImport(connection, progress, allFiles) {
-  const collection = await connection.getCollection(COLLECTION);
+  const collection = await connection.getCollection(SUBSTANCES_COLLECTION);
   const lastDocument = await collection
     .find({ seq: { $lte: progress.seq } })
     .sort('_id', -1)

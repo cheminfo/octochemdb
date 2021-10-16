@@ -1,4 +1,4 @@
-import { createApp } from './app.js.js.js';
+import { createApp } from './app.js';
 
 const app = createApp({
   logger: { prettyPrint: Boolean(process.env.LOGGER_PRETTY_PRINT) },

@@ -2,6 +2,12 @@ import Debug from 'debug';
 import delay from 'delay';
 import { MongoClient } from 'mongodb';
 
+export const MFS_COLLECTION = 'mfs';
+export const MFS_COMMON_COLLECTION = 'mfsCommon';
+export const MFS_CHNOSCLF_COLLECTION = 'mfsCHNOSClF';
+export const COMPOUNDS_COLLECTION = 'compounds';
+export const SUBSTANCES_COLLECTION = 'substances';
+
 const debug = Debug('PubChemConnection');
 
 function PubChemConnection() {

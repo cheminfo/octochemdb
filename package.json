@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "fastify": "^3.22.0",
+    "fastify-cors": "^6.0.2",
+    "fastify-sensible": "^3.1.1"
+  }
+}

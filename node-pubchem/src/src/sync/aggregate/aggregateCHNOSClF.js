@@ -1,9 +1,14 @@
 import Debug from 'debug';
 
+import {
+  COMPOUNDS_COLLECTION,
+  MFS_CHNOSCLF_COLLECTION,
+} from '../../util/PubChemConnection.js';
+
 const debug = Debug('aggregateCHNOSClF');
 
 export default async function aggregateCHNOSClF(connection) {
-  const collection = await connection.getCollection('compounds');
+  const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
   debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = collection.aggregate(
     [
@@ -33,7 +38,7 @@ export default async function aggregateCHNOSClF(connection) {
           unsaturation: { $first: '$unsat' },
         },
       },
-      { $out: 'mfsCHNOSClF' },
+      { $out: MFS_CHNOSCLF_COLLECTION },
     ],
     {
       allowDiskUse: true,

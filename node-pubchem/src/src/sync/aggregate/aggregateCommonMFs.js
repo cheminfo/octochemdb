@@ -1,9 +1,14 @@
 import Debug from 'debug';
 
+import {
+  COMPOUNDS_COLLECTION,
+  MFS_COMMON_COLLECTION,
+} from '../../util/PubChemConnection.js';
+
 const debug = Debug('aggregateCommonMFs');
 
 export default async function aggregateCommonMFs(connection) {
-  const collection = await connection.getCollection('compounds');
+  const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
   debug(
     'commonMFs: Need to aggregate',
     await collection.countDocuments(),
@@ -33,7 +38,9 @@ export default async function aggregateCommonMFs(connection) {
   );
   await result.hasNext();
 
-  const collectionCommonMFs = await connection.getCollection('commonMFs');
+  const collectionCommonMFs = await connection.getCollection(
+    MFS_COMMON_COLLECTION,
+  );
 
   await collectionCommonMFs.createIndex({ em: 1 });
 

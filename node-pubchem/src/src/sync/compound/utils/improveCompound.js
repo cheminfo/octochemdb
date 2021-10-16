@@ -1,8 +1,13 @@
-import { MF } from 'mf-parser';
-import OCL from 'openchemlib';
-import { getMF } from 'openchemlib-utils';
+import workerpool from 'workerpool';
 
-function improveCompound(molecule) {
+import MFParser from 'mf-parser';
+import OCL from 'openchemlib';
+import OCLUtils from 'openchemlib-utils';
+
+const { MF } = MFParser;
+const { getMF } = OCLUtils;
+
+async function improveCompound(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
 
   const oclProperties = new OCL.MoleculeProperties(oclMolecule);
@@ -51,8 +56,9 @@ function improveCompound(molecule) {
   } catch (e) {
     console.log(e, mf);
   }
-
   return result;
 }
 
-export default improveCompound;
+workerpool.worker({
+  improveCompound,
+});

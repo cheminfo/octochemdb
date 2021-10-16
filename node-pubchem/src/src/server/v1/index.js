@@ -1,14 +1,31 @@
 import fastifySwagger from 'fastify-swagger';
 
-const hasPort = process.argv.indexOf('--port');
-if (hasPort === -1) throw new Error('missing port option');
-const PORT = parseInt(process.argv[hasPort + 1]);
-if (!PORT) throw new Error(`wrong port option: ${process.argv[hasPort + 1]}`);
+import { mfsFromEM } from './routes/compounds/mfsFromEM.js';
+import { moleculesFromEM } from './routes/compounds/moleculesFromEM.js';
+import { moleculesFromMF } from './routes/compounds/moleculesFromMF.js';
+import { moleculesFromSmiles } from './routes/compounds/moleculesFromSmiles.js';
 
-const app = new Koa();
+export default function setupV1(app, _, done) {
+  app.register(fastifySwagger, {
+    routePrefix: '/documentation',
+    swagger: {
+      info: {
+        title: 'Search a copy of pubchem database',
+        description: ``,
+        version: '1.0.0',
+      },
+    },
+    exposeRoute: true,
+  });
 
-app.use(kcors());
-app.use(router.routes());
-app.use(staticKoa(`${__dirname}/staticPages`, {}));
+  app.get('/', { schema: { hide: true } }, (_, reply) => {
+    reply.redirect('/v1/documentation');
+  });
 
-app.listen(PORT);
+  app.route(mfsFromEM);
+  app.route(moleculesFromEM);
+  app.route(moleculesFromMF);
+  app.route(moleculesFromSmiles);
+
+  done();
+}

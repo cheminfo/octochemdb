@@ -1,9 +1,10 @@
-import WorkerNodes from 'worker-nodes';
+import workerPool from 'workerpool';
 
-const url = new URL('improveCompounds.js', import.meta.url);
+const url = new URL('improveCompound.js', import.meta.url);
+//const url = new URL('test.js', import.meta.url);
 
-const workerNodes = new WorkerNodes(url.pathname);
+const pool = new workerPool.pool(url.pathname);
 
-export default async function improve(molecule) {
-  return workerNodes.call(molecule);
+export default async function improveCompoundPool(molecule) {
+  return await pool.exec('improveCompound', [molecule]);
 }

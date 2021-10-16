@@ -14,10 +14,10 @@ let sleepTime = 24; // in hours
 cron();
 
 async function cron() {
-  // await firstCompoundImport();
+  await firstCompoundImport();
   await firstSubstanceImport();
   while (true) {
-    //  await incrementalCompoundImport();
+    await incrementalCompoundImport();
     await incrementalSubstanceImport();
     await aggregate();
     for (let i = sleepTime; i > 0; i--) {
