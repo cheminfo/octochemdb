@@ -6,11 +6,11 @@ import PubChemConnection, {
   COMPOUNDS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
-import getFields from './getFields.js';
+import getFields from './utils/getFields.js';
 
 const debug = Debug('compoundsFromSmiles');
 
-export const compoundsFromSmiles = {
+const compoundsFromSmiles = {
   method: 'GET',
   url: '/compounds/compoundsFromSmiles',
   schema: {
@@ -40,6 +40,8 @@ export const compoundsFromSmiles = {
   },
   handler: searchHandler,
 };
+
+export default compoundsFromSmiles;
 
 /**
  * Find molecular formula from a monoisotopic mass

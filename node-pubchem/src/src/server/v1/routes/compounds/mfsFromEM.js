@@ -5,11 +5,11 @@ import PubChemConnection, {
   MFS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
-import getFields from './getFields.js';
+import getFields from './utils/getFields.js';
 
 const debug = Debug('mfsFromEM');
 
-export const mfsFromEM = {
+const mfsFromEM = {
   method: 'GET',
   url: '/compounds/mfsFromEM',
   schema: {
@@ -45,6 +45,8 @@ export const mfsFromEM = {
   },
   handler: searchHandler,
 };
+
+export default mfsFromEM;
 
 /**
  * Find molecular formula from a monoisotopic mass
