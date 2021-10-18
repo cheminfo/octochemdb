@@ -68,7 +68,7 @@ async function searchHandler(request) {
   } else {
     molecule.stripStereoInformation();
     mongoQuery = {
-      data.noStereoID: molecule.getIDCode(),
+      'data.noStereoID': molecule.getIDCode(),
     };
   }
 
