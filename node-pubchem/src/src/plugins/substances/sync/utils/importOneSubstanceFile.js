@@ -4,8 +4,6 @@ import zlib from 'zlib';
 import Debug from 'debug';
 import { parse } from 'sdf-parser';
 
-import { SUBSTANCES_COLLECTION } from '../../../util/PubChemConnection.js';
-
 import improveSubstance from './improveSubstance.js';
 
 const debug = Debug('improveOneSubstanceFile');
@@ -16,7 +14,7 @@ export default async function importOneSubstanceFile(
   file,
   options,
 ) {
-  const collection = await connection.getCollection(SUBSTANCES_COLLECTION);
+  const collection = await connection.getCollection('substances');
 
   debug(`Importing: ${file.name}`);
   // should we directly import the data how wait that we reach the previously imported information
@@ -55,8 +53,8 @@ export default async function importOneSubstanceFile(
 
       substance = improveSubstance(substance);
 
-      substance.seq = ++progress.seq;
-      substance.source = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
+      substance._seq = ++progress.seq;
+      substance._source = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
       await collection.updateOne(
         { _id: substance._id },
         { $set: substance },

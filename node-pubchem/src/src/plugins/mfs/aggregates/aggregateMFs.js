@@ -1,19 +1,28 @@
 import Debug from 'debug';
 
-import {
-  COMPOUNDS_COLLECTION,
-  MFS_COLLECTION,
-} from '../../util/PubChemConnection.js';
-
 const debug = Debug('aggregateMFs');
 
-export default async function aggregateMFs(connection) {
-  const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
+export async function aggregate(connection) {
+  const collection = await connection.getCollection('compounds');
   debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = await collection.aggregate(
     [
-      { $match: { nbFragments: 1, charge: 0, mf: /^[^\]]+$/ } }, // one fragment, no charge and no isotopes
-      { $project: { _id: 0, mf: 1, em: 1, unsaturation: 1, atom: 1 } },
+      {
+        $match: {
+          'data.nbFragments': 1,
+          'data.charge': 0,
+          'data.mf': /^[^\]]+$/,
+        },
+      }, // one fragment, no charge and no isotopes
+      {
+        $project: {
+          _id: 0,
+          mf: '$data.mf',
+          em: '$data.em',
+          unsaturation: '$data.unsaturation',
+          atom: '$data.atom',
+        },
+      },
       {
         $group: {
           _id: '$mf',
@@ -32,7 +41,7 @@ export default async function aggregateMFs(connection) {
   );
   await result.hasNext();
 
-  let mfsCollection = await connection.getCollection(MFS_COLLECTION);
+  let mfsCollection = await connection.getCollection('mfs');
   await mfsCollection.createIndex({ em: 1 });
   await mfsCollection.createIndex({ total: 1 });
 

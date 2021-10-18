@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import Debug from 'debug';
 
-const debug = Debug('killCompounds');
+const debug = Debug('removeEntriesFromFile');
 
 export default async function removeEntriesFromFile(
   connection,
@@ -18,7 +18,10 @@ export default async function removeEntriesFromFile(
   if (killed) {
     debug(`removing ${killed.length} killed IDs`);
     for (const killedID of killed) {
-      await collection.deleteOne({ _id: killedID });
+      const entry = await collection.findOne({ _id: killedID });
+      if (entry) {
+        // we remove all the properties
+      }
     }
     debug('removing done');
   }

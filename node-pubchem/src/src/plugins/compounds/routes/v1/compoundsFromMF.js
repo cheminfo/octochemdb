@@ -1,10 +1,7 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
 
-import { getFields } from '../../../../server/utils.js';
-import PubChemConnection, {
-  COMPOUNDS_COLLECTION,
-} from '../../../../util/PubChemConnection.js';
+import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
 const debug = Debug('compoundsFromMF');
 
@@ -26,7 +23,7 @@ const compoundsFromMF = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'em,mf,total,atom,unsaturation',
+        default: 'data.em,data.mf,data.total,data.atom,data.unsaturation',
       },
     },
   },
@@ -48,7 +45,7 @@ async function searchHandler(request) {
   let {
     mf = '',
     limit = 1e3,
-    fields = 'em,mf,total,atom,unsaturation',
+    fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
@@ -57,13 +54,13 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
+    const collection = await connection.getCollection('compounds');
 
     debug(mf);
 
     const results = await collection
       .aggregate([
-        { $match: { mf } },
+        { $match: { 'data.mf': mf } },
         { $limit: limit },
         {
           $project: getFields(fields),

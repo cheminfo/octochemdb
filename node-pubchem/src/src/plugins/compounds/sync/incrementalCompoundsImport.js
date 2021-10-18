@@ -1,40 +1,28 @@
 import Debug from 'debug';
 
-import PubChemConnection, {
-  COMPOUNDS_COLLECTION,
-} from '../../util/PubChemConnection.js';
-import getFilesList from '../http/utils/getFilesList.js';
-import syncFolder from '../http/utils/syncFolder.js';
-import removeEntriesFromFile from '../utils/removeEntriesFromFile.js';
+import getFilesList from '../../../sync/http/utils/getFilesList.js';
+import syncFolder from '../../../sync/http/utils/syncFolder.js';
+import removeEntriesFromFile from '../../../sync/utils/removeEntriesFromFile.js';
 
 import importOneCompoundFile from './utils/importOneCompoundFile.js';
 
 const debug = Debug('incrementalCompoundImport');
 
-async function incrementalCompoundImport() {
+async function incrementalCompoundImport(connection) {
   const allFiles = await syncIncrementalCompoundFolder();
 
-  let connection;
-  try {
-    connection = new PubChemConnection();
-    const progress = await connection.getProgress(COMPOUNDS_COLLECTION);
-    if (progress.state !== 'update') {
-      throw new Error('Should never happens.');
-    }
-    const { files, lastDocument } = await getFilesToImport(
-      connection,
-      progress,
-      allFiles,
-    );
-    await importCompoundFiles(connection, progress, files, { lastDocument });
-    progress.state = 'update';
-    await connection.setProgress(progress);
-  } catch (e) {
-    console.log(e);
-  } finally {
-    debug('Closing connection');
-    if (connection) await connection.close();
+  const progress = await connection.getProgress('compounds');
+  if (progress.state !== 'update') {
+    throw new Error('Should never happens.');
   }
+  const { files, lastDocument } = await getFilesToImport(
+    connection,
+    progress,
+    allFiles,
+  );
+  await importCompoundFiles(connection, progress, files, { lastDocument });
+  progress.state = 'update';
+  await connection.setProgress(progress);
 }
 
 async function importCompoundFiles(connection, progress, files, options) {
@@ -44,15 +32,15 @@ async function importCompoundFiles(connection, progress, files, options) {
       await importOneCompoundFile(connection, progress, file, options);
       options.shouldImport = true;
     } else if (file.name.startsWith('killed')) {
-      await removeEntriesFromFile(connection, COMPOUNDS_COLLECTION, file);
+      await removeEntriesFromFile(connection, 'compounds', file);
     }
   }
 }
 
 async function getFilesToImport(connection, progress, allFiles) {
-  const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
+  const collection = await connection.getCollection('compounds');
   const lastDocument = await collection
-    .find({ seq: { $lte: progress.seq } })
+    .find({ _seq: { $lte: progress.seq } })
     .sort('_id', -1)
     .limit(1)
     .next();
@@ -61,10 +49,10 @@ async function getFilesToImport(connection, progress, allFiles) {
     throw new Error('This should never happen');
   }
 
-  debug(`last file processed: ${lastDocument.source}`);
+  debug(`last file processed: ${lastDocument._source}`);
 
   const firstIndex = allFiles.findIndex((n) =>
-    n.path.endsWith(lastDocument.source),
+    n.path.endsWith(lastDocument._source),
   );
 
   if (firstIndex === -1) {
@@ -72,7 +60,7 @@ async function getFilesToImport(connection, progress, allFiles) {
     return { files: allFiles, lastDocument: {} };
   }
 
-  debug(`starting with file ${lastDocument.source}`);
+  debug(`starting with file ${lastDocument._source}`);
 
   return { lastDocument, files: allFiles.slice(firstIndex) };
 }

@@ -1,10 +1,7 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
 
-import { getFields } from '../../../../server/utils.js';
-import PubChemConnection, {
-  MFS_COLLECTION,
-} from '../../../../util/PubChemConnection.js';
+import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
 const debug = Debug('mfsFromEM');
 
@@ -31,7 +28,7 @@ const compoundsFromEM = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'em,mf,total,atom,unsaturation',
+        default: 'data.em,data.mf,data.total,data.atom,data.unsaturation',
       },
     },
   },
@@ -55,7 +52,7 @@ async function searchHandler(request) {
     em = 0,
     limit = 1e3,
     precision = 100,
-    fields = 'em,mf,total,atom,unsaturation',
+    fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
@@ -65,15 +62,14 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(MFS_COLLECTION);
-
+    const collection = await connection.getCollection('mfs');
     debug(JSON.stringify({ em, error }));
 
     const results = await collection
       .aggregate([
         {
           $match: {
-            em: { $lt: Number(em) + error, $gt: Number(em) - error },
+            'data.em': { $lt: Number(em) + error, $gt: Number(em) - error },
           },
         },
         { $limit: Number(limit) },

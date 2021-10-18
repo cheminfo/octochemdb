@@ -1,9 +1,6 @@
-import { readdir, lstat } from 'fs/promises';
-import { join } from 'path';
-
 import fastifySwagger from 'fastify-swagger';
 
-import { recursiveDir } from './recursiveDir.js';
+import { recursiveDir } from '../utils/recursiveDir.js';
 
 export default async function setupV1(app, _, done) {
   app.register(fastifySwagger, {

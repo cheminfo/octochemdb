@@ -2,10 +2,7 @@
 import Debug from 'debug';
 import OCL from 'openchemlib';
 
-import { getFields } from '../../../../server/utils.js';
-import PubChemConnection, {
-  COMPOUNDS_COLLECTION,
-} from '../../../../util/PubChemConnection.js';
+import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
 const debug = Debug('compoundsFromSmiles');
 
@@ -32,7 +29,7 @@ const compoundsFromSmiles = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'em,mf,total,atom,unsaturation',
+        default: 'data.em,data.mf,data.total,data.atom,data.unsaturation',
       },
     },
   },
@@ -56,7 +53,7 @@ async function searchHandler(request) {
     smiles = '',
     limit = 1e3,
     stereo = true,
-    fields = 'em,mf,total,atom,unsaturation',
+    fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
@@ -78,7 +75,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
+    const collection = await connection.getCollection('compounds');
 
     debug(smiles);
 

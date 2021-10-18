@@ -1,10 +1,7 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
 
-import { getFields } from '../../../../server/utils.js';
-import PubChemConnection, {
-  MFS_COLLECTION,
-} from '../../../../util/PubChemConnection.js';
+import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
 const debug = Debug('mfsFromEM');
 
@@ -72,7 +69,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(MFS_COLLECTION);
+    const collection = await connection.getCollection('mfs');
 
     debug(JSON.stringify({ em, error }));
 

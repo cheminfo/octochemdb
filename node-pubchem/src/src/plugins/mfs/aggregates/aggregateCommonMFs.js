@@ -1,14 +1,9 @@
 import Debug from 'debug';
 
-import {
-  COMPOUNDS_COLLECTION,
-  MFS_COMMON_COLLECTION,
-} from '../../util/PubChemConnection.js';
-
 const debug = Debug('aggregateCommonMFs');
 
-export default async function aggregateCommonMFs(connection) {
-  const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
+export async function aggregate(connection) {
+  const collection = await connection.getCollection('compounds');
   debug(
     'commonMFs: Need to aggregate',
     await collection.countDocuments(),
@@ -17,8 +12,16 @@ export default async function aggregateCommonMFs(connection) {
   let result = await collection.aggregate(
     [
       //    { $limit: 1e4 },
-      { $match: { nbFragments: 1, charge: 0 } }, // we don't want charges in MF
-      { $project: { _id: 0, mf: 1, em: 1, unsaturation: 1, atom: 1 } },
+      { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
+      {
+        $project: {
+          _id: 0,
+          mf: '$data.mf',
+          em: '$data.em',
+          unsaturation: '$data.unsaturation',
+          atom: '$data.atom',
+        },
+      },
       {
         $group: {
           _id: '$mf',
@@ -38,9 +41,7 @@ export default async function aggregateCommonMFs(connection) {
   );
   await result.hasNext();
 
-  const collectionCommonMFs = await connection.getCollection(
-    MFS_COMMON_COLLECTION,
-  );
+  const collectionCommonMFs = await connection.getCollection('mfsCommon');
 
   await collectionCommonMFs.createIndex({ em: 1 });
 

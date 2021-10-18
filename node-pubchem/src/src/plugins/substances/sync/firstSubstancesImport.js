@@ -1,41 +1,29 @@
 import Debug from 'debug';
 
-import PubChemConnection, {
-  SUBSTANCES_COLLECTION,
-} from '../../util/PubChemConnection.js';
-import syncFolder from '../http/utils/syncFolder.js';
+import syncFolder from '../../../sync/http/utils/syncFolder.js';
 
 import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
 
 const debug = Debug('firstSubstanceImport');
 
-async function firstSubstanceImport() {
+async function firstSubstanceImport(connection) {
   const allFiles = await syncFullSubstanceFolder();
 
-  let connection;
-  try {
-    connection = new PubChemConnection();
-    const progress = await connection.getProgress(SUBSTANCES_COLLECTION);
-    if (progress.state === 'update') {
-      debug('First importation has been completed. Should only update.');
-      return;
-    } else {
-      debug(`Continuing first importation from ${progress.seq}.`);
-    }
-    const { files, lastDocument } = await getFilesToImport(
-      connection,
-      progress,
-      allFiles,
-    );
-    await importSubstanceFiles(connection, progress, files, { lastDocument });
-    progress.state = 'update';
-    await connection.setProgress(progress);
-  } catch (e) {
-    console.log(e);
-  } finally {
-    debug('Closing connection');
-    if (connection) await connection.close();
+  const progress = await connection.getProgress('substances');
+  if (progress.state === 'update') {
+    debug('First importation has been completed. Should only update.');
+    return;
+  } else {
+    debug(`Continuing first importation from ${progress.seq}.`);
   }
+  const { files, lastDocument } = await getFilesToImport(
+    connection,
+    progress,
+    allFiles,
+  );
+  await importSubstanceFiles(connection, progress, files, { lastDocument });
+  progress.state = 'update';
+  await connection.setProgress(progress);
 }
 
 async function importSubstanceFiles(connection, progress, files, options) {
@@ -47,26 +35,26 @@ async function importSubstanceFiles(connection, progress, files, options) {
 }
 
 async function getFilesToImport(connection, progress, allFiles) {
-  const collection = await connection.getCollection(SUBSTANCES_COLLECTION);
+  const collection = await connection.getCollection('substances');
   const lastDocument = await collection
-    .find({ seq: { $lte: progress.seq } })
+    .find({ _seq: { $lte: progress.seq } })
     .sort('_id', -1)
     .limit(1)
     .next();
 
   if (!lastDocument) return { files: allFiles, lastDocument: {} };
 
-  debug(`last file processed: ${lastDocument.source}`);
+  debug(`last file processed: ${lastDocument._source}`);
 
   const firstIndex = allFiles.findIndex((n) =>
-    n.path.endsWith(lastDocument.source),
+    n.path.endsWith(lastDocument._source),
   );
 
   if (firstIndex === -1) {
-    throw new Error(`file not found: ${lastDocument.source}`);
+    throw new Error(`file not found: ${lastDocument._source}`);
   }
 
-  debug(`starting with file ${lastDocument.source}`);
+  debug(`starting with file ${lastDocument._source}`);
 
   return { lastDocument, files: allFiles.slice(firstIndex) };
 }

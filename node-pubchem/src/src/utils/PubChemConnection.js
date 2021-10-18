@@ -2,15 +2,9 @@ import Debug from 'debug';
 import delay from 'delay';
 import { MongoClient } from 'mongodb';
 
-export const MFS_COLLECTION = 'mfs';
-export const MFS_COMMON_COLLECTION = 'mfsCommon';
-export const MFS_CHNOSCLF_COLLECTION = 'mfsCHNOSClF';
-export const COMPOUNDS_COLLECTION = 'compounds';
-export const SUBSTANCES_COLLECTION = 'substances';
-
 const debug = Debug('PubChemConnection');
 
-function PubChemConnection() {
+export function PubChemConnection() {
   this.client = new MongoClient(process.env.MONGODB_URL, {
     keepAlive: true,
     connectTimeoutMS: 6 * 60 * 60 * 1000,
@@ -86,5 +80,3 @@ PubChemConnection.prototype.init = async function init() {
   this.connection = await this.client.connect();
   debug('Got DB connection');
 };
-
-export default PubChemConnection;
