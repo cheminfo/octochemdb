@@ -13,7 +13,6 @@ const mfsFromEM = {
         type: 'number',
         description: 'Monoisotopic mass',
         example: 300.123,
-        required: ['em'],
         default: null,
       },
       precision: {

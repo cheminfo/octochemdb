@@ -3,7 +3,7 @@ import Debug from 'debug';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
-const debug = Debug('mfsFromEM');
+const debug = Debug('compoundsFromEM');
 
 const compoundsFromEM = {
   method: 'GET',
@@ -36,7 +36,6 @@ const compoundsFromEM = {
 };
 
 export default compoundsFromEM;
-
 /**
  * Find molecular formula from a monoisotopic mass
  * @param {number} em
@@ -62,17 +61,14 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('mfs');
-    debug(JSON.stringify({ em, error }));
+    const collection = await connection.getCollection('compounds');
+
+    debug(em);
 
     const results = await collection
       .aggregate([
-        {
-          $match: {
-            'data.em': { $lt: Number(em) + error, $gt: Number(em) - error },
-          },
-        },
-        { $limit: Number(limit) },
+        { $match: { 'data.em': { $lt: em + error, $gt: em - error } } },
+        { $limit: limit },
         {
           $project: getFields(fields),
         },

@@ -3,9 +3,9 @@ import Debug from 'debug';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
-const debug = Debug('compoundsFromMF');
+const debug = Debug('compoundsFromEM');
 
-const compoundsFromMF = {
+const compoundsFromEM = {
   method: 'GET',
   schema: {
     querystring: {
@@ -30,7 +30,7 @@ const compoundsFromMF = {
   handler: searchHandler,
 };
 
-export default compoundsFromMF;
+export default compoundsFromEM;
 /**
  * Find molecular formula from a monoisotopic mass
  * @param {number} em
