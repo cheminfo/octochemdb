@@ -1,30 +1,27 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
-import OCL from 'openchemlib';
 
+import { getFields } from '../../../../server/utils.js';
 import PubChemConnection, {
-  COMPOUNDS_COLLECTION,
+  MFS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
-import getFields from './utils/getFields.js';
+const debug = Debug('mfsFromEM');
 
-const debug = Debug('compoundsFromSmiles');
-
-const compoundsFromSmiles = {
+const compoundsFromEM = {
   method: 'GET',
-  url: '/compounds/compoundsFromSmiles',
   schema: {
     querystring: {
-      smiles: {
-        type: 'string',
-        description: 'SMILES',
-        example: 'c1ccccc1',
+      em: {
+        type: 'number',
+        description: 'Monoisotopic mass',
+        example: 300.123,
         default: null,
       },
-      stereo: {
-        type: 'boolean',
-        description: 'Take into account the stereochemistry',
-        default: true,
+      precision: {
+        type: 'number',
+        description: 'Precision (in ppm) of the monoisotopic mass',
+        default: 100,
       },
       limit: {
         type: 'number',
@@ -41,7 +38,7 @@ const compoundsFromSmiles = {
   handler: searchHandler,
 };
 
-export default compoundsFromSmiles;
+export default compoundsFromEM;
 
 /**
  * Find molecular formula from a monoisotopic mass
@@ -55,38 +52,30 @@ export default compoundsFromSmiles;
 
 async function searchHandler(request) {
   let {
-    smiles = '',
+    em = 0,
     limit = 1e3,
-    stereo = true,
+    precision = 100,
     fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
-
-  const molecule = OCL.Molecule.fromSmiles(smiles);
-  let mongoQuery = {};
-  if (stereo) {
-    mongoQuery = {
-      'ocl.id': molecule.getIDCode(),
-    };
-  } else {
-    molecule.stripStereoInformation();
-    mongoQuery = {
-      noStereoID: molecule.getIDCode(),
-    };
-  }
+  let error = (em / 1e6) * precision;
 
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
+    const collection = await connection.getCollection(MFS_COLLECTION);
 
-    debug(smiles);
+    debug(JSON.stringify({ em, error }));
 
     const results = await collection
       .aggregate([
-        { $match: mongoQuery },
+        {
+          $match: {
+            em: { $lt: Number(em) + error, $gt: Number(em) - error },
+          },
+        },
         { $limit: Number(limit) },
         {
           $project: getFields(fields),

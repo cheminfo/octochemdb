@@ -1,23 +1,22 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
 
+import { getFields } from '../../../../server/utils.js';
 import PubChemConnection, {
   MFS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
-import getFields from './utils/getFields.js';
-
 const debug = Debug('mfsFromEM');
 
-const compoundsFromEM = {
+const mfsFromEM = {
   method: 'GET',
-  url: '/compounds/compoundsFromEM',
   schema: {
     querystring: {
       em: {
         type: 'number',
         description: 'Monoisotopic mass',
         example: 300.123,
+        required: ['em'],
         default: null,
       },
       precision: {
@@ -30,6 +29,11 @@ const compoundsFromEM = {
         description: 'Maximum number of results to return',
         default: 1000,
       },
+      minPubchemEntries: {
+        type: 'number',
+        description: 'Minimal number of entries in pubhcem',
+        default: 0,
+      },
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
@@ -40,7 +44,7 @@ const compoundsFromEM = {
   handler: searchHandler,
 };
 
-export default compoundsFromEM;
+export default mfsFromEM;
 
 /**
  * Find molecular formula from a monoisotopic mass
@@ -57,6 +61,7 @@ async function searchHandler(request) {
     em = 0,
     limit = 1e3,
     precision = 100,
+    minPubchemEntries = 0,
     fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
@@ -75,13 +80,26 @@ async function searchHandler(request) {
       .aggregate([
         {
           $match: {
-            em: { $lt: Number(em) + error, $gt: Number(em) - error },
+            em: { $lt: em + error, $gt: em - error },
+            total: { $gte: minPubchemEntries },
           },
         },
-        { $limit: Number(limit) },
         {
           $project: getFields(fields),
         },
+        {
+          $addFields: {
+            mf: '$_id',
+            ppm: {
+              $divide: [
+                { $multiply: [{ $abs: { $subtract: ['$em', em] } }, 1e6] },
+                em,
+              ],
+            },
+          },
+        },
+        { $sort: { ppm: 1 } },
+        { $limit: Number(limit) },
       ])
       .toArray();
     return results;

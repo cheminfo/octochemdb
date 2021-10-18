@@ -1,40 +1,27 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
 
+import { getFields } from '../../../../server/utils.js';
 import PubChemConnection, {
-  MFS_COLLECTION,
+  COMPOUNDS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
-import getFields from './utils/getFields.js';
+const debug = Debug('compoundsFromMF');
 
-const debug = Debug('mfsFromEM');
-
-const mfsFromEM = {
+const compoundsFromMF = {
   method: 'GET',
-  url: '/compounds/mfsFromEM',
   schema: {
     querystring: {
-      em: {
-        type: 'number',
-        description: 'Monoisotopic mass',
-        example: 300.123,
-        required: ['em'],
+      mf: {
+        type: 'string',
+        description: 'Molecular formula',
+        example: 'Et3N',
         default: null,
-      },
-      precision: {
-        type: 'number',
-        description: 'Precision (in ppm) of the monoisotopic mass',
-        default: 100,
       },
       limit: {
         type: 'number',
         description: 'Maximum number of results to return',
         default: 1000,
-      },
-      minPubchemEntries: {
-        type: 'number',
-        description: 'Minimal number of entries in pubhcem',
-        default: 0,
       },
       fields: {
         type: 'string',
@@ -46,8 +33,7 @@ const mfsFromEM = {
   handler: searchHandler,
 };
 
-export default mfsFromEM;
-
+export default compoundsFromMF;
 /**
  * Find molecular formula from a monoisotopic mass
  * @param {number} em
@@ -60,48 +46,28 @@ export default mfsFromEM;
 
 async function searchHandler(request) {
   let {
-    em = 0,
+    mf = '',
     limit = 1e3,
-    precision = 100,
-    minPubchemEntries = 0,
     fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
-  let error = (em / 1e6) * precision;
 
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection(MFS_COLLECTION);
+    const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
 
-    debug(JSON.stringify({ em, error }));
+    debug(mf);
 
     const results = await collection
       .aggregate([
-        {
-          $match: {
-            em: { $lt: em + error, $gt: em - error },
-            total: { $gte: minPubchemEntries },
-          },
-        },
+        { $match: { mf } },
+        { $limit: limit },
         {
           $project: getFields(fields),
         },
-        {
-          $addFields: {
-            mf: '$_id',
-            ppm: {
-              $divide: [
-                { $multiply: [{ $abs: { $subtract: ['$em', em] } }, 1e6] },
-                em,
-              ],
-            },
-          },
-        },
-        { $sort: { ppm: 1 } },
-        { $limit: Number(limit) },
       ])
       .toArray();
     return results;

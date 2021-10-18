@@ -4,7 +4,7 @@ import fastify from 'fastify';
 import fastifyCors from 'fastify-cors';
 import fastifySensible from 'fastify-sensible';
 
-import setupV1 from './v1/index.js';
+import setupV1 from './index.js';
 
 function genReqId(req) {
   return req.headers['x-cloud-trace-context'] || randomUUID();
@@ -22,10 +22,10 @@ export function createApp(options) {
   app.register(fastifySensible);
 
   app.get('/', (_, reply) => {
-    reply.redirect('/v1/documentation');
+    reply.redirect('/documentation');
   });
 
-  app.register(setupV1, { prefix: '/v1' });
+  app.register(setupV1, { prefix: '/' });
 
   return app;
 }

@@ -1,24 +1,28 @@
 // query for molecules from monoisotopic mass
 import Debug from 'debug';
+import OCL from 'openchemlib';
 
+import { getFields } from '../../../../server/utils.js';
 import PubChemConnection, {
   COMPOUNDS_COLLECTION,
 } from '../../../../util/PubChemConnection.js';
 
-import getFields from './utils/getFields.js';
+const debug = Debug('compoundsFromSmiles');
 
-const debug = Debug('compoundsFromMF');
-
-const compoundsFromMF = {
+const compoundsFromSmiles = {
   method: 'GET',
-  url: '/compounds/compoundsFromMF',
   schema: {
     querystring: {
-      mf: {
+      smiles: {
         type: 'string',
-        description: 'Molecular formula',
-        example: 'Et3N',
+        description: 'SMILES',
+        example: 'c1ccccc1',
         default: null,
+      },
+      stereo: {
+        type: 'boolean',
+        description: 'Take into account the stereochemistry',
+        default: true,
       },
       limit: {
         type: 'number',
@@ -35,7 +39,8 @@ const compoundsFromMF = {
   handler: searchHandler,
 };
 
-export default compoundsFromMF;
+export default compoundsFromSmiles;
+
 /**
  * Find molecular formula from a monoisotopic mass
  * @param {number} em
@@ -48,25 +53,39 @@ export default compoundsFromMF;
 
 async function searchHandler(request) {
   let {
-    mf = '',
+    smiles = '',
     limit = 1e3,
+    stereo = true,
     fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
 
+  const molecule = OCL.Molecule.fromSmiles(smiles);
+  let mongoQuery = {};
+  if (stereo) {
+    mongoQuery = {
+      'ocl.id': molecule.getIDCode(),
+    };
+  } else {
+    molecule.stripStereoInformation();
+    mongoQuery = {
+      noStereoID: molecule.getIDCode(),
+    };
+  }
+
   let connection;
   try {
     connection = new PubChemConnection();
     const collection = await connection.getCollection(COMPOUNDS_COLLECTION);
 
-    debug(mf);
+    debug(smiles);
 
     const results = await collection
       .aggregate([
-        { $match: { mf } },
-        { $limit: limit },
+        { $match: mongoQuery },
+        { $limit: Number(limit) },
         {
           $project: getFields(fields),
         },
