@@ -63,12 +63,12 @@ async function searchHandler(request) {
   let mongoQuery = {};
   if (stereo) {
     mongoQuery = {
-      'ocl.id': molecule.getIDCode(),
+      'data.ocl.id': molecule.getIDCode(),
     };
   } else {
     molecule.stripStereoInformation();
     mongoQuery = {
-      noStereoID: molecule.getIDCode(),
+      data.noStereoID: molecule.getIDCode(),
     };
   }
 

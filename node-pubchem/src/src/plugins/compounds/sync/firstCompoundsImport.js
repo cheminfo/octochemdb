@@ -24,6 +24,12 @@ async function firstCompoundImport(connection) {
   await importCompoundFiles(connection, progress, files, { lastDocument });
   progress.state = 'update';
   await connection.setProgress(progress);
+
+  let compoundsCollection = await connection.getCollection('compounds');
+  await compoundsCollection.createIndex({ 'data.em': 1 });
+  await compoundsCollection.createIndex({ 'data.mf': 1 });
+  await compoundsCollection.createIndex({ 'data.ocl.id': 1 });
+  await compoundsCollection.createIndex({ 'data.noStereoID': 1 });
 }
 
 async function importCompoundFiles(connection, progress, files, options) {
