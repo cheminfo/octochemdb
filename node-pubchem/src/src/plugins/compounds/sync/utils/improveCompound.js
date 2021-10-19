@@ -43,6 +43,7 @@ async function improveCompound(molecule) {
       inchi: molecule.PUBCHEM_IUPAC_INCHI,
       inchiKey: molecule.PUBCHEM_IUPAC_INCHIKEY,
       iupac: molecule.PUBCHEM_IUPAC_NAME,
+      molfile: molecule.molfile,
       mf: mf,
       nbFragments,
     },
