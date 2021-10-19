@@ -28,9 +28,9 @@ PubChemConnection.prototype.getAdminCollection =
     return this.getCollection('admin');
   };
 
-PubChemConnection.prototype.setProgress = async function getProgress(progress) {
+PubChemConnection.prototype.setProgress = async function setProgress(progress) {
   const collection = await this.getAdminCollection();
-  await collection.updateOne({ _id: progress._id }, { $set: progress });
+  await collection.replaceOne({ _id: progress._id }, progress);
 };
 
 PubChemConnection.prototype.getProgress = async function getProgress(
