@@ -7,8 +7,6 @@ import importOneCompoundFile from './utils/importOneCompoundFile.js';
 const debug = Debug('firstCompoundImport');
 
 async function firstCompoundImport(connection) {
-  const allFiles = await syncFullCompoundFolder();
-
   const progress = await connection.getProgress('compounds');
   if (progress.state === 'update') {
     debug('First importation has been completed. Should only update.');
@@ -16,6 +14,9 @@ async function firstCompoundImport(connection) {
   } else {
     debug(`Continuing first importation from ${progress.seq}.`);
   }
+
+  const allFiles = await syncFullCompoundFolder();
+
   const { files, lastDocument } = await getFilesToImport(
     connection,
     progress,

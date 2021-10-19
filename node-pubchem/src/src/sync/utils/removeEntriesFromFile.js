@@ -38,6 +38,6 @@ export default async function removeEntriesFromFile(
       }
       await collection.replaceOne({ _id: entry._id }, entry, { upsert: true });
     }
-    debug(`removal of ${reallyRemoved} existing entris done`);
+    debug(`removal of ${reallyRemoved} existing entries done`);
   }
 }

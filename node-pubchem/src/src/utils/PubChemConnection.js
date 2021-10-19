@@ -40,7 +40,6 @@ PubChemConnection.prototype.getProgress = async function getProgress(
   const _id = `${collectionName}_progress`;
   let progress = await adminCollection.find({ _id }).next();
   if (progress === null) {
-    debug('Starting new database construction.');
     progress = {
       _id,
       state: 'import',
@@ -48,12 +47,6 @@ PubChemConnection.prototype.getProgress = async function getProgress(
       date: new Date(),
     };
     await adminCollection.insertOne(progress);
-  } else {
-    if (progress.state === 'update') {
-      debug('First importation has been completed. Should only update.');
-    } else {
-      debug(`Continuing first importation from ${progress.seq}.`);
-    }
   }
   return progress;
 };

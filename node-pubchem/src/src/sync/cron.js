@@ -23,6 +23,7 @@ async function cron() {
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
     if (typeof sync.sync !== 'function') continue;
+    debug(`sync: ${syncURL.pathname}`);
     let connection;
     try {
       connection = new PubChemConnection();
@@ -47,6 +48,7 @@ async function cron() {
     const aggregate = await import(aggregateURL);
 
     if (typeof aggregate.aggregate !== 'function') continue;
+    debug(`aggregate: ${aggregateURL.pathname}`);
     let connection;
     try {
       connection = new PubChemConnection();
