@@ -25,7 +25,6 @@ export default async function removeEntriesFromFile(
 
     for (const killedID of killed) {
       let entry = await collection.findOne({ _id: Number(killedID) });
-      console.log(entry);
       if (!entry) {
         entry = { _id: killedID };
       } else {
@@ -37,11 +36,7 @@ export default async function removeEntriesFromFile(
         if (key.startsWith('_')) continue;
         delete entry[key];
       }
-      await collection.updateOne(
-        { _id: entry._id },
-        { $set: entry },
-        { upsert: true },
-      );
+      await collection.replaceOne({ _id: entry._id }, entry, { upsert: true });
     }
     debug(`removal of ${reallyRemoved} existing entris done`);
   }
