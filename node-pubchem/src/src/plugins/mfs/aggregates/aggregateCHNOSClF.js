@@ -4,6 +4,14 @@ const debug = Debug('aggregateCHNOSClF');
 
 export async function aggregate(connection) {
   const collection = await connection.getCollection('compounds');
+
+  const progressCompounds = await connection.getProgress('compounds');
+  const progress = await connection.getProgress('aggregateCHNOSClF');
+  if (progressCompounds.seq === progress.seq) {
+    debug('Aggregation up-to-date');
+    return;
+  }
+
   debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = collection.aggregate(
     [
@@ -41,5 +49,9 @@ export async function aggregate(connection) {
     },
   );
   await result.hasNext(); // trigger the creation of the output collection
+
+  progress.seq = progressCompounds.seq;
+  await connection.setProgress(progress);
+
   return result;
 }

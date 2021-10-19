@@ -21,7 +21,6 @@ async function incrementalSubstanceImport(connection) {
     allFiles,
   );
   await importSubstanceFiles(connection, progress, files, { lastDocument });
-  progress.state = 'update';
   await connection.setProgress(progress);
 }
 

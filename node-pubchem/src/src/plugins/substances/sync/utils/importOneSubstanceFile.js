@@ -49,6 +49,7 @@ export default async function importOneSubstanceFile(
         }
         shouldImport = true;
         debug(`Skipping substances till: ${lastDocument._id}`);
+        continue;
       }
 
       substance = improveSubstance(substance);

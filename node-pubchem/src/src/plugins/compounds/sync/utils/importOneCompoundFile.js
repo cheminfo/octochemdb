@@ -49,6 +49,7 @@ export default async function importOneCompoundFile(
         }
         shouldImport = true;
         debug(`Skipping compounds till: ${lastDocument._id}`);
+        continue;
       }
 
       actions.push(

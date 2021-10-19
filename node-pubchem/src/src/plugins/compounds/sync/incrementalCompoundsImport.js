@@ -21,7 +21,6 @@ async function incrementalCompoundImport(connection) {
     allFiles,
   );
   await importCompoundFiles(connection, progress, files, { lastDocument });
-  progress.state = 'update';
   await connection.setProgress(progress);
 }
 

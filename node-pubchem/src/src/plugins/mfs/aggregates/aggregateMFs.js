@@ -4,6 +4,14 @@ const debug = Debug('aggregateMFs');
 
 export async function aggregate(connection) {
   const collection = await connection.getCollection('compounds');
+
+  const progressCompounds = await connection.getProgress('compounds');
+  const progress = await connection.getProgress('aggregateMFs');
+  if (progressCompounds.seq === progress.seq) {
+    debug('Aggregation up-to-date');
+    return;
+  }
+
   debug('Need to aggregate', await collection.countDocuments(), 'entries');
   let result = await collection.aggregate(
     [
@@ -44,6 +52,9 @@ export async function aggregate(connection) {
   let mfsCollection = await connection.getCollection('mfs');
   await mfsCollection.createIndex({ em: 1 });
   await mfsCollection.createIndex({ total: 1 });
+
+  progress.seq = progressCompounds.seq;
+  await connection.setProgress(progress);
 
   return result;
 }
