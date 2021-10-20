@@ -12,13 +12,21 @@ cron();
 
 async function cron() {
   const url = new URL('../plugins/', import.meta.url);
-  const syncURLs = (await recursiveDir(url)).filter(
+  let syncURLs = (await recursiveDir(url)).filter(
     (file) =>
       file.href.match(/sync/) &&
       !file.href.match(/__tests__/) &&
       !file.href.match(/utils/) &&
       file.href.endsWith('.js'),
   );
+  if (process.env.PLUGINS) {
+    const allowedPlugins = process.env.PLUGINS.split(',');
+    syncURLs = syncURLs.filter((url) => {
+      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      if (allowedPlugins.includes(pluginName)) return true;
+      return false;
+    });
+  }
 
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
