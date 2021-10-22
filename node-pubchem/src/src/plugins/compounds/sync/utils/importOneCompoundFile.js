@@ -73,6 +73,7 @@ export default async function importOneCompoundFile(
     }
     newCompounds += actions.length;
     await Promise.all(actions);
+    debug(`${newCompounds} compounds processed`);
     // save the compounds in the database
     return compounds.length;
   }

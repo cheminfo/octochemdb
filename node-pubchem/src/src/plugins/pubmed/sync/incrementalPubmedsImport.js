@@ -25,8 +25,10 @@ async function incrementalPubmedImport(connection) {
 }
 
 async function importPubmedFiles(connection, progress, files, options) {
+  debug('Starting incremental update');
   options = { shouldImport: false, ...options };
   for (let file of files) {
+    debug(`Processing: ${file.name}`);
     if (file.name.endsWith('.gz')) {
       await importOnePubmedFile(connection, progress, file, options);
       options.shouldImport = true;
@@ -67,32 +69,15 @@ async function getFilesToImport(connection, progress, allFiles) {
 async function syncIncrementalPubmedFolder() {
   debug('Synchronize incremental pubmed folder');
 
-  const source = `${process.env.PUBCHEM_SOURCE}Pubmed/Weekly/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmed/weekly`;
-  const allFiles = [];
-  const weeks = await getFilesList(source, {
-    fileFilter: (file) => file && file.name.match(/\d{4}-\d{2}-\d{2}/),
-  });
-  for (let week of weeks) {
-    const baseSource = `${source}/${week.name}`;
-    debug(`Processing week: ${week.name}`);
-    allFiles.push(
-      ...(
-        await syncFolder(`${baseSource}SDF/`, `${destination}/${week.name}/`, {
-          fileFilter: (file) => file && file.name.endsWith('.gz'),
-        })
-      ).allFiles,
-    );
-    allFiles.push(
-      ...(
-        await syncFolder(`${baseSource}/`, `${destination}/${week.name}/`, {
-          fileFilter: (file) => file && file.name.endsWith('killed-SIDs'),
-        })
-      ).allFiles,
-    );
-  }
+  const source = `${process.env.PUBMED_SOURCE}updatefiles/`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmed/update`;
+  const files = (
+    await syncFolder(source, destination, {
+      fileFilter: (file) => file && file.name.endsWith('.gz'),
+    })
+  ).allFiles;
 
-  return allFiles.sort((a, b) => {
+  return files.sort((a, b) => {
     if (a.path < b.path) return -1;
     if (a.path > b.path) return 1;
     return 0;

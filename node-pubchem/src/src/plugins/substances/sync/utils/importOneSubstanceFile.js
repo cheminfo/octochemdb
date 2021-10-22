@@ -41,7 +41,7 @@ export default async function importOneSubstanceFile(
     debug(`Need to process ${substances.length} substances`);
 
     if (process.env.TEST === 'true') substances = substances.slice(0, 10);
-
+    let imported = 0;
     for (let substance of substances) {
       if (!shouldImport) {
         if (substance.PUBCHEM_COMPOUND_CID !== lastDocument._id) {
@@ -62,7 +62,9 @@ export default async function importOneSubstanceFile(
         { upsert: true },
       );
       connection.setProgress(progress);
+      imported++;
     }
+    debug(`${imported} substances processed`);
     // save the substances in the database
     return substances.length;
   }
