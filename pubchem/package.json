@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env DEBUG=* LOGGER_PRETTY_PRINT=true nodemon -r dotenv/config src/server/server.js",
-    "crontest": " DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
+    "crontest": "DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
     "cron": " DEBUG=* node -r dotenv/config src/sync/cron",
     "test": "jest",
     "start": "DEBUG=* node -r dotenv/config src/server/server.js",

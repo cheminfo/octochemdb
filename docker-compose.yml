@@ -10,7 +10,7 @@ services:
       - ./mongo-tools:/tools
 
   import:
-    build: ./node-pubchem
+    build: ./pubchem
     restart: always
     privileged: true
     depends_on:
@@ -25,7 +25,7 @@ services:
     command: npm run cron
 
   pubchem:
-    build: ./node-pubchem
+    build: ./pubchem
     restart: always
     ports:
       - 127.0.0.1:3001:11015
