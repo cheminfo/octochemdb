@@ -35,12 +35,13 @@ const compoundsFromMF = {
 export default compoundsFromMF;
 /**
  * Find molecular formula from a monoisotopic mass
- * @param {number} em
- * @param {object} [options={}]
- * @param {object} [options.limit=1000]
- * @param {object} [options.precision=100]
- * @param {object} [options.minPubchemEntries=0]
- * @return {Array}
+ * @param {object} [request={}]
+ * @param {object} [request.query={}]
+ * @param {number} [request.query.mf='']
+ * @param {number} [request.query.limit=1000]
+ * @param {string} [request.query.fields='data.em,data.mf,data.total,data.atom,data.unsaturation']
+ * @param {number} [request.query.minPubchemEntries=0]
+ * @return {Promise<Document[]>}
  */
 
 async function searchHandler(request) {
