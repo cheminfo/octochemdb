@@ -1,3 +1,12 @@
+# Local development
+
+Better if you have docker installed and create the 2 following aliases
+
+- `alias mongod="docker container rm mongod; docker run --name mongod -p 27017:27017 mongo"`
+- `alias mongo="docker exec -it mongod mongo"`
+
+You can then easily create a new installe of mongod
+
 # node-pubchem
 
 In this project we make a copy of pubchem and carefully calculate the monoisotopic mass of each of the molecule as well as the molecular formula taking into account charges, parts and isotopes.

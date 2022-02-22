@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`creation of molecular formula 1`] = `
+Object {
+  "_id": 1234,
+  "_seq": 0,
+  "data": Object {
+    "atom": Object {
+      "C": 4,
+      "H": 11,
+    },
+    "charge": -1,
+    "em": 60.089430189599994,
+    "inchi": undefined,
+    "inchiKey": undefined,
+    "iupac": undefined,
+    "mf": "C2H5(-) . CH6[13C]",
+    "molfile": "C[13CH3].C[CH2-]
+JME 2017-11-16 Wed May 23 15:03:49 GMT+200 2018
+
+  4  2  0  0  0  0  0  0  0  0999 V2000
+    0.0000    0.9800    0.0000 C   1  0  0  0  0  0  0  0  0  0  0  0
+    1.2124    0.2800    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.3680    0.7000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.5804    0.0000    0.0000 C   0  5  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  3  4  1  0  0  0  0
+M  ISO  1   1  13
+M  CHG  1   4  -1
+M  END
+",
+    "mw": 60.12291081988929,
+    "nbFragments": 2,
+    "ocl": Object {
+      "acceptorCount": 0,
+      "coordinates": "!B_qL]pW|S",
+      "donorCount": 0,
+      "id": "gB\`AMrQt@qAX@",
+      "index": Array [
+        1073741824,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+      ],
+      "logP": 1.4657999575138092,
+      "logS": -1.437999963760376,
+      "noStereoID": "gB\`AMrQt@qAX@",
+      "polarSurfaceArea": 0,
+      "rotatableBondCount": 0,
+      "stereoCenterCount": 0,
+    },
+    "unsaturation": 0,
+  },
+}
+`;
