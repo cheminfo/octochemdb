@@ -9,6 +9,8 @@ const debug = Debug('compoundsFromSmiles');
 const compoundsFromSmiles = {
   method: 'GET',
   schema: {
+    summary: 'Retrieve compounds from a SMILES',
+    description: '',
     querystring: {
       smiles: {
         type: 'string',

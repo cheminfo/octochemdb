@@ -8,6 +8,9 @@ const debug = Debug('compoundsFromEM');
 const compoundsFromEM = {
   method: 'GET',
   schema: {
+    summary: 'Retrieve compounds from a monoisotopic mass',
+    description:
+      'Allows to search for pubchem compounds based on a monoisotopic mass, precision (accuracy) of the measurement.',
     querystring: {
       em: {
         type: 'number',
