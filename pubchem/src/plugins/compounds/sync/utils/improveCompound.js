@@ -1,11 +1,9 @@
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
-import OCLUtils from 'openchemlib-utils';
+import { getMF } from 'openchemlib-utils';
 import workerpool from 'workerpool';
 
 const { MF } = MFParser;
-
-const { getMF } = OCLUtils;
 
 async function improveCompound(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
@@ -21,7 +19,6 @@ async function improveCompound(molecule) {
   const globalMF = moleculeMF.mf;
   oclMolecule.stripStereoInformation();
   const noStereoID = oclMolecule.getIDCode();
-
   let result = {
     _id: +molecule.PUBCHEM_COMPOUND_CID,
     _seq: 0,

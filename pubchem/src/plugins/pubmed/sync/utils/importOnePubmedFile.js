@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { gunzipSync } from 'zlib';
 
 import Debug from 'debug';
-import { parse } from 'fast-xml-parser';
+import { XMLParser } from 'fast-xml-parser';
 
 import improvePubmed from './improvePubmed.js';
 
@@ -23,7 +23,7 @@ export default async function importOnePubmedFile(
   const decoder = new TextDecoder();
   inflated = decoder.decode(inflated);
 
-  const parsed = parse(inflated, {
+  const parser = new XMLParser({
     textNodeName: '_text',
     attributeNameProcessor: (name) => {
       if (name.match(/^[A-Z]+$/)) {
@@ -34,6 +34,8 @@ export default async function importOnePubmedFile(
       return name;
     },
   });
+
+  const parsed = parser.parse(inflated);
 
   let pubmeds = parsed.PubmedArticleSet.PubmedArticle;
   if (process.env.TEST === 'true') pubmeds = pubmeds.slice(0, 10);
