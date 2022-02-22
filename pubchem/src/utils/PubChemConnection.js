@@ -17,6 +17,13 @@ PubChemConnection.prototype.close = async function close() {
   return undefined;
 };
 
+PubChemConnection.prototype.getCollectionNames =
+  async function getCollectionNames() {
+    return (await (await this.getDatabase()).listCollections().toArray()).map(
+      (entry) => entry.name,
+    );
+  };
+
 PubChemConnection.prototype.getCollection = async function getCollection(
   collectionName,
 ) {

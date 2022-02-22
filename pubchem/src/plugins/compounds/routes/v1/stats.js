@@ -7,7 +7,6 @@ const debug = Debug('stats');
 
 const stats = {
   method: 'GET',
-  summary: 'abc',
   schema: {
     summary: 'Retrieve global statistics from the compounds collection',
   },
