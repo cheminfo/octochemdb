@@ -1,12 +1,14 @@
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { ncbiTaxonomyConvert } from '../ncbiTaxonomyParser';
+import { ncbiTaxonomyParser } from '../ncbiTaxonomyParser';
 
-test('ncbiTaxonomyParser', async () => {
+test('ncbiTaxonomyParser', () => {
   const results = [];
-  await ncbiTaxonomyConvert(join(__dirname, 'data/test.dmp'), {
-    callback: (entry) => results.push(entry),
-  });
+  const arrayBuffer = readFileSync(join(__dirname, 'data/test.dmp'));
+  for (const entry of ncbiTaxonomyParser(arrayBuffer)) {
+    results.push(entry);
+  }
   expect(results).toHaveLength(16);
   expect(results).toMatchSnapshot();
 });

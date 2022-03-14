@@ -1,5 +1,3 @@
-
-
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 update()
@@ -10,6 +8,7 @@ update()
   });
 
 let done = 0;
+
 async function update() {
   const collection = (await pubChemConnection.getDatabase()).collection('data');
   console.log('connected to MongoDB');
