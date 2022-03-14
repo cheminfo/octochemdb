@@ -5,7 +5,6 @@ import { parseCMAUP } from '../parseCMAUP';
 describe('parseCMAUP', () => {
   it('simple case', () => {
     const result = parseCMAUP(join(__dirname, 'data'));
-
     expect(result[0]).toStrictEqual({
       ocl: {
         id: 'ehRPL@@@D@\\bfbbTbRbJabQTRtfdLBrzFNnZjjjjejjjjjjDpQDXdbrWRFUt@@',
@@ -19,20 +18,15 @@ describe('parseCMAUP', () => {
           {
             activityType: 'IC50',
             activityUnit: 'nM',
-            activityValue: undefined,
             refIdType: 'PMID',
+            activityValue: undefined,
             refId: '3236014',
           },
         ],
         taxonomy: {
-          Plant_ID: 'NPO33055',
-          Plant_Name: 'boswellia spp.',
-          Species_Tax_ID: 'NA',
-          Species_Name: 'NA',
-          Genus_Tax_ID: '80276',
-          Genus_Name: 'Boswellia',
-          Family_Tax_ID: '4014',
-          Family_Name: 'Burseraceae',
+          organismIdNCBI: 'NA',
+          organismName: 'boswellia spp.',
+          tree: [[], [], [], 'Burseraceae', 'Boswellia', 'NA'],
         },
       },
     });

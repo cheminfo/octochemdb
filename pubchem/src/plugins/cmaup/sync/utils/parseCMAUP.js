@@ -92,7 +92,18 @@ export function parseCMAUP(dirPath) {
         const orgID = speciesPaired[item.Ingredient_ID];
 
         const taxonomy = speciesInfo[orgID];
-
+        const finalTaxonomy = {
+          organismIdNCBI: taxonomy.Species_Tax_ID,
+          organismName: taxonomy.Plant_Name,
+          tree: [
+            [],
+            [],
+            [],
+            taxonomy.Family_Name,
+            taxonomy.Genus_Name,
+            taxonomy.Species_Name,
+          ],
+        };
         const result = {
           ocl: {
             id: oclID2[0].idCode,
@@ -102,7 +113,7 @@ export function parseCMAUP(dirPath) {
           },
           origin: {
             activities: finalActivity,
-            taxonomy: taxonomy,
+            taxonomy: finalTaxonomy,
           },
         };
 
