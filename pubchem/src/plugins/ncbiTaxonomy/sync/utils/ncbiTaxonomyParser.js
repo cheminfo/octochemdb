@@ -1,7 +1,7 @@
 import { createReadStream } from 'fs';
 import ReadLine from 'readline';
 
-export async function ncbiTaxonomyConvert(filePath, options = {}) {
+export async function ncbiTaxonomyParser(filePath, options = {}) {
   const { callback } = options;
   let readStream = createReadStream(filePath, 'utf-8');
   const readLine = ReadLine.createInterface({
