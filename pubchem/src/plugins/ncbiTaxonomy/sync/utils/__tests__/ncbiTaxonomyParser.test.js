@@ -1,6 +1,4 @@
 import { join } from 'path';
-import { hasUncaughtExceptionCaptureCallback } from 'process';
-import { resourceLimits } from 'worker_threads';
 
 import { ncbiTaxonomyConvert } from '../ncbiTaxonomyParser';
 
