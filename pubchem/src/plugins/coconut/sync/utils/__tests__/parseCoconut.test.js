@@ -7,13 +7,13 @@ describe('parseCoconut', () => {
   it('small file', () => {
     const json = readFileSync(join(__dirname, 'data/coconut.json'), 'utf8');
     const results = parseCoconut(JSON.parse(json));
-    console.log(results);
+
     expect(results[0]).toStrictEqual({
       ocl: {
         id: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
         coordinates: '!Bm?vH?_y?m?s~_{lkbOwRsyg_s\\|lYrqgs\\|',
         noStereoID: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
-        name: [
+        nameCompound: [
           'passiflorin',
           ' loturine',
           ' locuturine',
@@ -28,9 +28,11 @@ describe('parseCoconut', () => {
           ' 1-methyl-9H-beta-carboline',
           ' 1-methyl-2-carboline',
         ],
-        cas: undefined,
+        cas: '486-84-0',
       },
-      origin: { doi: undefined, source: 'chebi_np', taxonomy: undefined },
+      origin: {
+        taxonomy: ['Eukaryota$$$$class', 'Eukaryota$$$$kingdom', 'Bacteria'],
+      },
     });
   });
 });

@@ -7,22 +7,18 @@ export function parseCoconut(json) {
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     oclMolecule.stripStereoInformation();
     const noStereoID = oclMolecule.getIDCode();
-    const taxonomy = entry.taxonomyReferenceObjects;
-    const doi = entry.citationDOI;
-    const source = entry.source;
+    const taxonomy = entry.uniqueNaturalProduct.textTaxa;
 
     const result = {
       ocl: {
         id: oclID.idCode,
         coordinates: oclID.coordinates,
         noStereoID,
-        name: entry.synonyms,
-        cas: entry.cas,
+        nameCompound: entry.synonyms,
+        cas: entry.uniqueNaturalProduct.cas,
       },
       origin: {
         taxonomy: taxonomy,
-        doi: doi,
-        source: source,
       },
     };
 
