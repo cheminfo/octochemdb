@@ -1,0 +1,30 @@
+<html>
+  <head> </head>
+  <body>
+    <div id="stats"></div>
+    <script>
+      async function fetchData() {
+        const response = await fetch('/collections/v1/info');
+        const data = await response.json();
+        const lines = [];
+        lines.push(
+          ['Database', 'Nb entries', 'Size']
+            .map((field) => '<th>' + field + '</th>')
+            .join(''),
+        );
+        for (let row of data) {
+          lines.push(
+            [row.ns, row.count, row.size]
+              .map((field) => '<td>' + field + '</td>')
+              .join(''),
+          );
+        }
+        document.getElementById('stats').innerHTML =
+          '<table>' +
+          lines.map((line) => '<tr>' + line + '<tr>').join('') +
+          '</table';
+      }
+      fetchData();
+    </script>
+  </body>
+</html>
