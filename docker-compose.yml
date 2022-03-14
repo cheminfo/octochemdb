@@ -1,27 +1,33 @@
 version: '2.2'
 services:
   mongo:
-    image: mongo:4.2
+    image: mongo:4.4
     restart: always
     mem_limit: 30000m
     memswap_limit: 30000m
     volumes:
       - ./mongo-data:/data/db
+      - ./mongo-tools:/tools
 
-  node-pubchem-import:
-    build: ./node-pubchem
+  import:
+    build: ./pubchem
     restart: always
     privileged: true
     depends_on:
       - mongo
     volumes:
-      - ./originalData:/git/node-pubchem/originalData
+      - ./originalData:/originalData
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - MONGO_DB_NAME=pubchem
+      - ORIGINAL_DATA_PATH=/originalData
+      - PUBCHEM_SOURCE=https://ftp.ncbi.nlm.nih.gov/pubchem/
     command: npm run cron
 
-  node-pubchem:
-    build: ./node-pubchem
+  pubchem:
+    build: ./pubchem
     restart: always
     ports:
-      - 127.0.0.1:3001:80
+      - 127.0.0.1:3001:11015
     depends_on:
       - mongo

@@ -1,0 +1,2970 @@
+584927
+  -OEChem-09022104543D
+
+  9  9  0     0  0  0  0  0  0999 V2000
+  110.2840   42.0540   30.6220 N   0  0  0  0  0  0  0  0  0  0  0  0
+  110.9310   44.0350   29.7070 N   0  0  0  0  0  0  0  0  0  0  0  0
+  111.5700   41.9870   28.5580 C   0  0  0  0  0  0  0  0  0  0  0  0
+  110.9270   42.6710   29.6300 C   0  0  0  0  0  0  0  0  0  0  0  0
+  112.1660   40.7160   28.7630 C   0  0  0  0  0  0  0  0  0  0  0  0
+  111.6790   42.4760   27.2390 C   0  0  0  0  0  0  0  0  0  0  0  0
+  112.8030   40.0200   27.7380 C   0  0  0  0  0  0  0  0  0  0  0  0
+  112.2950   41.8110   26.2300 C   0  0  0  0  0  0  0  0  0  0  0  0
+  112.8860   40.5480   26.4410 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  4  2  0  0  0  0
+  2  4  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  5  2  0  0  0  0
+  3  6  1  0  0  0  0
+  5  7  1  0  0  0  0
+  6  8  2  0  0  0  0
+  7  9  2  0  0  0  0
+  8  9  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+BEN
+BENZAMIDINE
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+584927
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+30768.8
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1XX4
+Crystal Structure of Rat Mitochondrial 3,2-Enoyl-CoA
+ISOMERASE
+Crystal Structure of Rat Mitochondrial 3,2-Enoyl-CoA; crotonase superfamily, domain swapped, isomerase; Mol_id: 1; Molecule: 3,2-trans-enoyl-CoA isomerase, mitochondrial; Chain: A; Synonym: Dodecenoyl-CoA delta-isomerase; EC number: 5.3.3.8;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+BENZAMIDINE
+BEN
+
+> <PUBCHEM_XREF_EXT_ID>
+30768.8
+
+> <PUBCHEM_NCBI_MMDB_ID>
+30768
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=30768
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+2332  1
+
+> <PUBCHEM_CONFORMER_ID>
+0008ECDF00120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+585633
+  -OEChem-09022104543D
+
+ 11 11  0     0  0  0  0  0  0999 V2000
+   52.8480   33.9200   11.6320 S   0  0  0  0  0  0  0  0  0  0  0  0
+   53.2650   35.0900   10.9130 O   0  0  0  0  0  0  0  0  0  0  0  0
+   51.3090   33.9910   11.8250 O   0  0  0  0  0  0  0  0  0  0  0  0
+   53.5010   33.9010   13.0210 O   0  0  0  0  0  0  0  0  0  0  0  0
+   53.2420   32.5030   10.7310 C   0  0  0  0  0  0  0  0  0  0  0  0
+   53.5220   31.3330   11.4180 C   0  0  0  0  0  0  0  0  0  0  0  0
+   53.2510   32.5640    9.3460 C   0  0  0  0  0  0  0  0  0  0  0  0
+   53.8180   30.2290    9.2890 C   0  0  0  0  0  0  0  0  0  0  0  0
+   53.8100   30.1910   10.6760 C   0  0  0  0  0  0  0  0  0  0  0  0
+   53.5090   31.4160    8.6110 C   0  0  0  0  0  0  0  0  0  0  0  0
+   54.1860   28.9900    8.5180 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  3  2  0  0  0  0
+  1  4  1  0  0  0  0
+  1  5  1  0  0  0  0
+  5  6  2  0  0  0  0
+  5  7  1  0  0  0  0
+  6  9  1  0  0  0  0
+  7 10  2  0  0  0  0
+  8  9  2  0  0  0  0
+  8 10  1  0  0  0  0
+  8 11  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+PARA-TOLUENE SULFONATE
+TSU
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+585633
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+31410.3
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1WUW
+Crystal Structure of beta hordothionin
+PLANT PROTEIN
+Crystal Structure of beta hordothionin; crambin fold, dimer, PLANT PROTEIN; Mol_id: 1; Molecule: Beta-hordothionin; Chain: A, B;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+PARA-TOLUENE SULFONATE
+TSU
+
+> <PUBCHEM_XREF_EXT_ID>
+31410.3
+
+> <PUBCHEM_NCBI_MMDB_ID>
+31410
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=31410
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+6101  1
+
+> <PUBCHEM_CONFORMER_ID>
+0008EFA100120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+818929
+  -OEChem-09022104553D
+
+ 19 28  0     1  0  0  0  0  0999 V2000
+   32.7380  -10.6090   21.0060 Fe  0  0  0  0  0  0  0  0  0  0  0  0
+   35.4360  -11.0050   18.8290 O   0  0  0  0  0  0  0  0  0  0  0  0
+   35.9880  -11.7270   22.5800 O   0  0  0  0  0  0  0  0  0  0  0  0
+   34.9800  -10.5970   24.1550 O   0  0  0  0  0  0  0  0  0  0  0  0
+   36.4320   -9.2860   19.8950 N   0  0  0  0  0  0  0  0  0  0  0  0
+   33.9790   -9.4580   19.9230 C   0  0  0  0  0  0  0  0  0  0  0  0
+   33.7010  -11.7060   22.3950 C   0  0  0  0  0  0  0  0  0  0  0  0
+   33.4670   -8.7370   20.9990 C   0  0  1  0  0  0  0  0  0  0  0  0
+   32.9100   -9.8680   19.1350 C   0  0  2  0  0  0  0  0  0  0  0  0
+   32.4630  -11.2980   22.8770 C   0  0  2  0  0  0  0  0  0  0  0  0
+   33.4910  -12.4680   21.2530 C   0  0  1  0  0  0  0  0  0  0  0  0
+   32.0830   -8.7040   20.8720 C   0  0  1  0  0  0  0  0  0  0  0  0
+   31.7390   -9.4060   19.7250 C   0  0  2  0  0  0  0  0  0  0  0  0
+   31.4860  -11.8070   22.0300 C   0  0  2  0  0  0  0  0  0  0  0  0
+   32.1200  -12.5290   21.0250 C   0  0  1  0  0  0  0  0  0  0  0  0
+   35.3600   -9.9180   19.4820 C   0  0  0  0  0  0  0  0  0  0  0  0
+   34.9450  -11.3260   23.0660 C   0  0  0  0  0  0  0  0  0  0  0  0
+   37.6690   -9.9910   19.5170 C   0  0  0  0  0  0  0  0  0  0  0  0
+   36.6720   -8.0480   20.6490 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  6  1  0  0  0  0
+  1  7  1  0  0  0  0
+  1  8  1  0  0  0  0
+  1  9  1  0  0  0  0
+  1 10  1  0  0  0  0
+  1 11  1  0  0  0  0
+  1 12  1  0  0  0  0
+  1 13  1  0  0  0  0
+  1 14  1  0  0  0  0
+  1 15  1  0  0  0  0
+  2 16  2  0  0  0  0
+  3 17  2  0  0  0  0
+  4 17  1  0  0  0  0
+  5 16  1  0  0  0  0
+  5 18  1  0  0  0  0
+  5 19  1  0  0  0  0
+  6  8  1  0  0  0  0
+  6  9  1  0  0  0  0
+  6 16  1  0  0  0  0
+  7 10  1  0  0  0  0
+  7 11  1  0  0  0  0
+  7 17  1  0  0  0  0
+  8 12  1  0  0  0  0
+  9 13  1  0  0  0  0
+ 10 14  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 14 15  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+CFC
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+818929
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+22
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+9593.3
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1A3L
+Catalysis Of A Disfavored Reaction: An Antibody Exo Diels- Alderase-Tsa-Inhibitor Complex At 1.95 A Resolution
+Immunoglobulin
+Catalysis Of A Disfavored Reaction: An Antibody Exo Diels- Alderase-Tsa-Inhibitor Complex At 1.95 A Resolution Diels-Alder, Disfavored Reaction, Catalytic Antibody, Immunoglobulin Mol_id: 1; Molecule: Immunoglobulin Fab 13g5 (Light Chain); Chain: L; Fragment: Immunoglobulin Fab Fragment; Mol_id: 2; Molecule: Immunoglobulin Fab 13g5 (Heavy Chain); Chain: H; Fragment: Immunoglobulin Fab Fragment
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+CFC
+
+> <PUBCHEM_XREF_EXT_ID>
+9593.3
+
+> <PUBCHEM_NCBI_MMDB_ID>
+9593
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=9593
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+11984819  1
+23925  2
+11984820  2
+13280624  2
+
+> <PUBCHEM_CONFORMER_ID>
+000C7EF100160001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+823357
+  -OEChem-09022104553D
+
+  1  0  0     0  0  0  0  0  0999 V2000
+   25.9440   10.4320  125.1970 Mg  0  2  0  0  0  0  0  0  0  0  0  0
+M  CHG  1   1   2
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+MAGNESIUM ION
+MG
+
+> <PUBCHEM_TOTAL_CHARGE>
+2
+
+> <PUBCHEM_SUBSTANCE_ID>
+823357
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+16
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+17351.2
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1JCG
+MREB FROM THERMOTOGA MARITIMA, AMPPNP
+STRUCTURAL PROTEIN
+MREB FROM THERMOTOGA MARITIMA, AMPPNP; MreB, rod-shape determining, Mbl, actin, hsp-70, FtsZ, STRUCTURAL PROTEIN; Mol_id: 1; Molecule: ROD SHAPE-DETERMINING PROTEIN MREB; Chain: A;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+MAGNESIUM ION
+MG
+
+> <PUBCHEM_XREF_EXT_ID>
+17351.2
+
+> <PUBCHEM_NCBI_MMDB_ID>
+17351
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=17351
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+888  1
+5462224  2
+
+> <PUBCHEM_CONFORMER_ID>
+000C903D00100001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+825465
+  -OEChem-09022104553D
+
+  1  0  0     0  0  0  0  0  0999 V2000
+   18.7550  -32.2600   17.0950 Mg  0  2  0  0  0  0  0  0  0  0  0  0
+M  CHG  1   1   2
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+MAGNESIUM ION
+MG
+
+> <PUBCHEM_TOTAL_CHARGE>
+2
+
+> <PUBCHEM_SUBSTANCE_ID>
+825465
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+16
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+20220.3
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1L8A
+E. COLI PYRUVATE DEHYDROGENASE
+OXIDOREDUCTASE
+E. COLI PYRUVATE DEHYDROGENASE; THIAMIN DIPHOSPHATE, PYRUVATE, ALPHA-KETO ACID DEHYDROGENASE, OXIDOREDUCTASE; Mol_id: 1; Molecule: Pyruvate dehydrogenase E1 component; Chain: A, B; EC number: 1.2.4.1;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+MAGNESIUM ION
+MG
+
+> <PUBCHEM_XREF_EXT_ID>
+20220.3
+
+> <PUBCHEM_NCBI_MMDB_ID>
+20220
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=20220
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+888  1
+5462224  2
+
+> <PUBCHEM_CONFORMER_ID>
+000C987900100001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+827044
+  -OEChem-09022104553D
+
+ 28 31  0     0  0  0  0  0  0999 V2000
+   -4.1500   -4.9470   -6.0740 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.8870   -4.5430   -4.0010 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.3260    1.6900   -5.8770 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.1630    1.0080   -6.9440 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.3210   -4.6340   -5.3410 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.3360   -5.7620   -5.4500 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.2900   -6.9680   -4.5470 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.1650   -7.9240   -5.6150 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -9.3900   -7.0400   -3.4740 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -9.0520   -9.1850   -5.7040 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.8120   -3.2690   -5.7830 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.3180   -5.9480   -4.4570 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.2980   -6.6390   -6.5570 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.1970   -7.7150   -6.6120 C   0  0  0  0  0  0  0  0  0  0  0  0
+  -10.4110   -8.1870   -3.7240 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -9.8800   -9.4260   -4.4460 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.1700   -2.9400   -6.0250 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -4.8420   -2.2510   -5.9490 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.2990   -5.7030   -5.2530 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -3.7900   -5.4000   -3.8400 C   0  0  0  0  0  0  0  0  0  0  0  0
+  -10.2830   -5.7620   -3.4140 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.6940   -7.1540   -2.1050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -8.1830  -10.4340   -5.8320 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -9.9600   -9.1360   -6.9450 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -6.5910   -0.5930   -6.2660 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.5660   -1.6030   -6.2390 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -5.2220   -0.9160   -6.2040 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -7.0000    0.8160   -6.3320 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  5  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2 20  1  0  0  0  0
+  3 28  2  0  0  0  0
+  4 28  1  0  0  0  0
+  5  6  1  0  0  0  0
+  5 11  1  0  0  0  0
+  6 12  1  0  0  0  0
+  6 13  2  0  0  0  0
+  7  8  1  0  0  0  0
+  7  9  1  0  0  0  0
+  7 12  2  0  0  0  0
+  8 10  1  0  0  0  0
+  8 14  2  0  0  0  0
+  9 15  1  0  0  0  0
+  9 21  1  0  0  0  0
+  9 22  1  0  0  0  0
+ 10 16  1  0  0  0  0
+ 10 23  1  0  0  0  0
+ 10 24  1  0  0  0  0
+ 11 17  2  0  0  0  0
+ 11 18  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 17 26  1  0  0  0  0
+ 18 27  2  0  0  0  0
+ 19 20  1  0  0  0  0
+ 25 26  2  0  0  0  0
+ 25 27  1  0  0  0  0
+ 25 28  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+4-[2-(5,5,8,8-TETRAMETHYL-5,6,7,8-TETRAHYDRO-NAPHTHALEN-2-YL)-[1,3]DIOXOLAN-2-YL]-BENZOIC ACID
+BM6
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+827044
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+17
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+21039.9
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1MZN
+CRYSTAL STRUCTURE at 1.9 ANGSTROEMS RESOLUTION OF THE HOMODIMER OF HUMAN RXR ALPHA LIGAND BINDING DOMAIN BOUND TO THE SYNTHETIC AGONIST COMPOUND BMS 649 AND A COACTIVATOR PEPTIDE
+TRANSCRIPTION
+CRYSTAL STRUCTURE at 1.9 ANGSTROEMS RESOLUTION OF THE HOMODIMER OF HUMAN RXR ALPHA LIGAND BINDING DOMAIN BOUND TO THE SYNTHETIC AGONIST COMPOUND BMS 649 AND A COACTIVATOR PEPTIDE; Transcription, Nuclear Receptor, Retinoic Acid Receptors, Agonist; Mol_id: 1; Molecule: RXR retinoid X receptor; Chain: A, C, E, G; Fragment: ligand binding domain(residues 223-462); Synonym: Retinoic acid receptor RXR-alpha; Mol_id: 2; Molecule: Nuclear receptor coactivator 2; Chain: B, D, F, H; Fragment: NR box; Synonym: GRIP1;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+4-[2-(5,5,8,8-TETRAMETHYL-5,6,7,8-TETRAHYDRO-NAPHTHALEN-2-YL)-[1,3]DIOXOLAN-2-YL]-BENZOIC ACID
+BM6
+
+> <PUBCHEM_XREF_EXT_ID>
+21039.9
+
+> <PUBCHEM_NCBI_MMDB_ID>
+21039
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=21039
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+447226  1
+
+> <PUBCHEM_CONFORMER_ID>
+000C9EA400110001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+827145
+  -OEChem-09022104553D
+
+ 91102  0     1  0  0  0  0  0999 V2000
+    7.4040   56.7960   93.3890 Co  0  0  0  0  0  0  0  0  0  0  0  0
+   15.9810   57.4040   96.0550 P   0  0  1  0  0  0  0  0  0  0  0  0
+   12.8960   55.3850   92.8130 O   0  0  0  0  0  0  0  0  0  0  0  0
+    3.4000   59.5300   97.4680 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.0550   61.7980   97.1440 O   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9530   52.9800   91.5960 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.9090   55.1170   96.1680 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.6040   56.9810   95.3250 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.0970   59.8050   92.8200 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7770   53.4180  100.1360 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.0530   49.4300   91.6000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3350   53.4360   87.9120 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.6120   56.5640   90.7390 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.8980   57.9700   94.8950 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.7370   58.5120   96.9570 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.6810   56.2320   96.5450 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.8610   57.0540   95.2170 N   0  0  3  0  0  0  0  0  0  0  0  0
+    8.5480   58.2830   93.7090 N   0  0  3  0  0  0  0  0  0  0  0  0
+    6.0610   55.3860   93.2010 N   0  0  3  0  0  0  0  0  0  0  0  0
+    8.0720   56.7340   91.5660 N   0  0  3  0  0  0  0  0  0  0  0  0
+    9.0380   55.2120   93.9900 N   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1700   54.5240   94.1490 N   0  3  0  0  0  0  0  0  0  0  0  0
+    4.7270   60.7000   98.7660 N   0  0  0  0  0  0  0  0  0  0  0  0
+    9.9720   63.3900   96.0620 N   0  0  0  0  0  0  0  0  0  0  0  0
+    0.5170   54.4900   92.3140 N   0  0  0  0  0  0  0  0  0  0  0  0
+   14.5730   60.0300   95.0100 N   0  0  0  0  0  0  0  0  0  0  0  0
+    5.8370   55.1280  101.1930 N   0  0  0  0  0  0  0  0  0  0  0  0
+    7.8430   49.9350   90.4080 N   0  0  0  0  0  0  0  0  0  0  0  0
+   13.3190   54.5270   89.5420 N   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6340   58.0860   95.9930 C   0  0  1  0  0  0  0  0  0  0  0  0
+    8.0980   59.0740   94.9060 C   0  0  1  0  0  0  0  0  0  0  0  0
+    5.8590   56.5660   95.9370 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.4820   58.8980   93.0100 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.6470   58.5110   97.1520 C   0  0  2  0  0  0  0  0  0  0  0  0
+    5.0610   54.9950   94.1400 C   0  0  3  0  0  0  0  0  0  0  0  0
+    9.1520   57.4430   91.0310 C   0  0  3  0  0  0  0  0  0  0  0  0
+    7.5870   55.8670   90.6530 C   0  0  3  0  0  0  0  0  0  0  0  0
+    5.9300   54.7100   92.0660 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8880   60.2170   93.7300 C   0  0  1  0  0  0  0  0  0  0  0  0
+    9.3050   60.0050   95.1840 C   0  0  1  0  0  0  0  0  0  0  0  0
+    5.7280   57.2610   97.3520 C   0  0  2  0  0  0  0  0  0  0  0  0
+    4.9250   55.5390   95.4130 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8560   58.4840   91.6390 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.1160   53.9510   93.4550 C   0  0  2  0  0  0  0  0  0  0  0  0
+    8.1870   56.1180   89.2650 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0560   54.1570   94.8730 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.8720   53.6200   92.1140 C   0  0  2  0  0  0  0  0  0  0  0  0
+    9.4750   56.8710   89.6300 C   0  0  2  0  0  0  0  0  0  0  0  0
+    6.6180   54.9440   90.8930 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2920   55.3740   93.6060 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9120   57.3300   96.5160 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.6940   59.7070   96.7210 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3910   53.6990   94.9980 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4010   58.9690   98.4330 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9520   61.2340   96.0860 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4050   60.5820   93.8030 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.8330   56.5430   98.7530 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.2000   61.3760   92.9570 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.8220   54.7410   93.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8070   55.1410   96.4050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.9780   59.1160   90.8160 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9960   53.5430   95.5920 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.6320   52.6270   94.1570 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.4800   52.1630   92.0860 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.6300   55.8060   89.7210 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2760   57.1570   88.5540 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2090   54.8890   88.3050 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5240   59.9820   97.6890 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6290   54.4860   93.8740 C   0  0  2  0  0  0  0  0  0  0  0  0
+   10.7260   52.5970   95.8620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0670   62.1670   96.4750 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2890   52.4760   96.4340 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3160   59.4750   94.3550 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3910   55.1580   98.7860 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7240   54.0170   92.2570 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6660   51.9990   96.5710 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2390   51.6930   90.8190 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4280   55.5270   88.4110 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.5840   54.8110   94.9980 C   0  0  1  0  0  0  0  0  0  0  0  0
+   13.7490   59.7880   93.9830 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3260   54.5310  100.1440 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.5390   55.8430   94.4740 C   0  0  1  0  0  0  0  0  0  0  0  0
+   14.0880   56.1880   93.0790 C   0  0  1  0  0  0  0  0  0  0  0  0
+    7.1240   51.8340   97.1940 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7190   50.2520   90.9790 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4140   54.4180   88.6120 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.9800   50.8310   97.4950 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.0830   55.9620   91.9610 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.0290   60.3560   94.8900 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.8930   59.2530   94.2170 C   0  0  1  0  0  0  0  0  0  0  0  0
+   18.3230   59.7290   94.1930 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 17  1  0  0  0  0
+  1 18  1  0  0  0  0
+  1 19  1  0  0  0  0
+  1 20  1  0  0  0  0
+  1 21  1  0  0  0  0
+  2  8  1  0  0  0  0
+  2 14  1  0  0  0  0
+  2 15  2  0  0  0  0
+  2 16  1  0  0  0  0
+  3 69  1  0  0  0  0
+  3 83  1  0  0  0  0
+  4 68  2  0  0  0  0
+  5 71  2  0  0  0  0
+  6 75  2  0  0  0  0
+  7 79  1  0  0  0  0
+  8 82  1  0  0  0  0
+  9 80  2  0  0  0  0
+ 10 81  2  0  0  0  0
+ 11 85  2  0  0  0  0
+ 12 86  2  0  0  0  0
+ 13 88  1  0  0  0  0
+ 14 90  1  0  0  0  0
+ 17 30  1  0  0  0  0
+ 17 32  1  0  0  0  0
+ 18 31  1  0  0  0  0
+ 18 33  1  0  0  0  0
+ 19 35  1  0  0  0  0
+ 19 38  1  0  0  0  0
+ 20 36  1  0  0  0  0
+ 20 37  1  0  0  0  0
+ 21 46  1  0  0  0  0
+ 21 50  1  0  0  0  0
+ 22 50  2  0  0  0  0
+ 22 53  1  0  0  0  0
+ 22 69  1  0  0  0  0
+ 23 68  1  0  0  0  0
+ 24 71  1  0  0  0  0
+ 25 75  1  0  0  0  0
+ 26 80  1  0  0  0  0
+ 26 89  1  0  0  0  0
+ 27 81  1  0  0  0  0
+ 28 85  1  0  0  0  0
+ 29 86  1  0  0  0  0
+ 30 31  1  0  0  0  0
+ 30 34  1  0  0  0  0
+ 30 51  1  0  0  0  0
+ 31 40  1  0  0  0  0
+ 32 41  1  0  0  0  0
+ 32 42  2  0  0  0  0
+ 33 39  1  0  0  0  0
+ 33 43  2  0  0  0  0
+ 34 41  1  0  0  0  0
+ 34 52  1  0  0  0  0
+ 34 54  1  0  0  0  0
+ 35 42  1  0  0  0  0
+ 35 44  1  0  0  0  0
+ 36 43  1  0  0  0  0
+ 36 48  1  0  0  0  0
+ 37 45  1  0  0  0  0
+ 37 49  1  0  0  0  0
+ 38 47  1  0  0  0  0
+ 38 49  2  0  0  0  0
+ 39 40  1  0  0  0  0
+ 39 56  1  0  0  0  0
+ 39 58  1  0  0  0  0
+ 40 55  1  0  0  0  0
+ 41 57  1  0  0  0  0
+ 42 60  1  0  0  0  0
+ 43 61  1  0  0  0  0
+ 44 47  1  0  0  0  0
+ 44 59  1  0  0  0  0
+ 44 63  1  0  0  0  0
+ 45 48  1  0  0  0  0
+ 45 66  1  0  0  0  0
+ 45 67  1  0  0  0  0
+ 46 53  2  0  0  0  0
+ 46 62  1  0  0  0  0
+ 47 64  1  0  0  0  0
+ 48 65  1  0  0  0  0
+ 52 68  1  0  0  0  0
+ 53 70  1  0  0  0  0
+ 55 71  1  0  0  0  0
+ 56 73  1  0  0  0  0
+ 57 74  1  0  0  0  0
+ 59 75  1  0  0  0  0
+ 62 72  2  0  0  0  0
+ 64 77  1  0  0  0  0
+ 65 78  1  0  0  0  0
+ 69 79  1  0  0  0  0
+ 70 76  2  0  0  0  0
+ 72 76  1  0  0  0  0
+ 72 84  1  0  0  0  0
+ 73 80  1  0  0  0  0
+ 74 81  1  0  0  0  0
+ 76 87  1  0  0  0  0
+ 77 85  1  0  0  0  0
+ 78 86  1  0  0  0  0
+ 79 82  1  0  0  0  0
+ 82 83  1  0  0  0  0
+ 83 88  1  0  0  0  0
+ 89 90  1  0  0  0  0
+ 90 91  1  0  0  0  0
+M  CHG  1  22   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+CNC
+CYANOCOBALAMIN
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+827145
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+21510.33
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1N2Z
+2.0 Angstrom structure of BtuF, the vitamin B12 binding protein of E. coli
+TRANSPORT PROTEIN
+2.0 Angstrom structure of BtuF, the vitamin B12 binding protein of E. coli; TRANSPORT PROTEIN; Mol_id: 1; Molecule: Vitamin B12 transport protein btuF; Chain: A, B;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+CYANOCOBALAMIN
+CNC
+
+> <PUBCHEM_XREF_EXT_ID>
+21510.33
+
+> <PUBCHEM_NCBI_MMDB_ID>
+21510
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=21510
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+16758231  1
+104730  2
+23641290  2
+
+> <PUBCHEM_CONFORMER_ID>
+000C9F0900120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+827184
+  -OEChem-09022104553D
+
+ 93104  0     1  0  0  0  0  0999 V2000
+   13.5310   41.1760    1.4000 Co  0  0  0  0  0  0  0  0  0  0  0  0
+   21.6080   42.0000    5.3330 P   0  0  1  0  0  0  0  0  0  0  0  0
+   18.9040   39.6640    1.9950 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.8240   44.1180    4.4670 O   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4060   46.3100    5.2990 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.0810   38.8400   -0.8890 O   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3870   39.4270    5.3850 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.2130   41.4300    4.7200 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1930   44.1300    1.9370 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9480   40.9770    8.8980 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.0150   38.4530   -1.0040 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.2650   34.0580   -0.9760 O   0  0  0  0  0  0  0  0  0  0  0  0
+   20.7280   40.6410    0.1160 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.3160   42.5860    4.0310 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.3610   43.1350    6.2020 O   0  0  0  0  0  0  0  0  0  0  0  0
+   22.4780   40.9240    5.7730 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.6020   41.6120    2.9960 N   0  0  3  0  0  0  0  0  0  0  0  0
+   14.5790   42.6650    1.8100 N   0  0  3  0  0  0  0  0  0  0  0  0
+   12.2360   39.7800    1.0620 N   0  0  3  0  0  0  0  0  0  0  0  0
+   14.5930   40.9070   -0.1900 N   0  0  3  0  0  0  0  0  0  0  0  0
+   14.9190   39.9050    2.5280 N   0  0  0  0  0  0  0  0  0  0  0  0
+   16.9280   39.0450    3.0420 N   0  3  0  0  0  0  0  0  0  0  0  0
+   11.6140   42.9890   -0.1620 N   0  0  0  0  0  0  0  0  0  0  0  0
+    9.9060   45.8940    5.1730 N   0  0  0  0  0  0  0  0  0  0  0  0
+   15.6320   47.9180    4.0100 N   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5300   37.1830   -0.9540 N   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1520   44.6730    4.1210 N   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2020   39.3050    8.1090 N   0  0  0  0  0  0  0  0  0  0  0  0
+   19.4610   37.2070   -2.7160 N   0  0  0  0  0  0  0  0  0  0  0  0
+   12.4130   33.7930    0.2200 N   0  0  0  0  0  0  0  0  0  0  0  0
+   13.1790   42.7100    3.8200 C   0  0  1  0  0  0  0  0  0  0  0  0
+   13.8810   43.5840    2.7690 C   0  0  1  0  0  0  0  0  0  0  0  0
+   12.4180   42.4730    0.4730 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4860   41.1790    3.5140 C   0  0  3  0  0  0  0  0  0  0  0  0
+   15.6570   43.2090    1.2890 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.0600   39.4870    1.7970 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.9440   43.2230    4.6240 C   0  0  2  0  0  0  0  0  0  0  0  0
+   15.7600   41.5650   -0.5280 C   0  0  3  0  0  0  0  0  0  0  0  0
+   14.3100   39.9490   -1.0820 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3260   38.9810    0.0090 C   0  0  3  0  0  0  0  0  0  0  0  0
+   15.8800   44.5900    1.9100 C   0  0  1  0  0  0  0  0  0  0  0  0
+   15.0200   44.4980    3.2190 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.1040   41.9100    4.7720 C   0  0  2  0  0  0  0  0  0  0  0  0
+   10.6810   40.1310    2.9280 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.3190   42.6670    0.1170 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.7000   38.8310    3.3660 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2530   38.4180    1.0690 C   0  0  2  0  0  0  0  0  0  0  0  0
+   15.2280   40.0320   -2.2810 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2730   39.0550   -0.9950 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.3820   40.8780   -1.7430 C   0  0  2  0  0  0  0  0  0  0  0  0
+   11.2330   37.9310   -0.0370 C   0  0  2  0  0  0  0  0  0  0  0  0
+   16.2370   39.9830    2.3720 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.2820   42.0630    4.7170 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.9460   38.2760    3.7050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.1220   44.2650    3.7880 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.3410   43.8890    5.9470 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.5250   45.8000    3.9040 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.3330   45.0410    2.2000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3010   41.1040    6.0910 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.4910   38.2820    3.8620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.3010   45.6040    0.9070 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1220   39.1730    0.2980 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3970   39.8230    3.7010 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.6030   43.2300   -0.4670 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.5020   39.8900   -1.3010 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.7740   36.4780    0.2180 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5830   37.2060    1.7810 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.5090   40.9200   -3.3300 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5010   38.6720   -2.9690 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.4020   38.8730    3.0430 C   0  0  2  0  0  0  0  0  0  0  0  0
+   16.0460   37.1590    4.5480 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.8680   44.7650    4.5050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.5830   37.1720    4.6970 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5850   46.6990    4.4500 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.1020   44.0350    3.0510 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.8620   36.6220    5.0310 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.2570   41.5540    7.1240 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.1860   38.3740   -0.5560 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3430   39.2990   -2.4670 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.7510   35.9300   -0.8550 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.2020   39.2090    4.2940 C   0  0  1  0  0  0  0  0  0  0  0  0
+   19.5870   44.2860    2.9760 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.1930   40.2630    3.8930 C   0  0  1  0  0  0  0  0  0  0  0  0
+    9.7770   40.5220    8.1100 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.2930   36.5540    5.2440 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.9290   40.5910    2.4400 C   0  0  1  0  0  0  0  0  0  0  0  0
+   14.9410   35.4110    5.9380 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.3540   38.2900   -1.9940 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.1970   34.5060   -0.5220 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.1100   40.4680    1.5010 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.5900   44.9710    4.3180 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.5310   43.9670    3.6270 C   0  0  1  0  0  0  0  0  0  0  0  0
+   23.9670   44.3390    3.9320 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 17  1  0  0  0  0
+  1 18  1  0  0  0  0
+  1 19  1  0  0  0  0
+  1 20  1  0  0  0  0
+  1 21  1  0  0  0  0
+  1 33  1  0  0  0  0
+  2  8  1  0  0  0  0
+  2 14  1  0  0  0  0
+  2 15  2  0  0  0  0
+  2 16  1  0  0  0  0
+  3 70  1  0  0  0  0
+  3 86  1  0  0  0  0
+  4 72  2  0  0  0  0
+  5 74  2  0  0  0  0
+  6 78  2  0  0  0  0
+  7 81  1  0  0  0  0
+  8 83  1  0  0  0  0
+  9 82  2  0  0  0  0
+ 10 84  2  0  0  0  0
+ 11 88  2  0  0  0  0
+ 12 89  2  0  0  0  0
+ 13 90  1  0  0  0  0
+ 14 92  1  0  0  0  0
+ 17 31  1  0  0  0  0
+ 17 34  1  0  0  0  0
+ 18 32  1  0  0  0  0
+ 18 35  1  0  0  0  0
+ 19 36  1  0  0  0  0
+ 19 40  1  0  0  0  0
+ 20 38  1  0  0  0  0
+ 20 39  1  0  0  0  0
+ 21 46  1  0  0  0  0
+ 21 52  1  0  0  0  0
+ 22 52  2  0  0  0  0
+ 22 54  1  0  0  0  0
+ 22 70  1  0  0  0  0
+ 23 33  3  0  0  0  0
+ 24 72  1  0  0  0  0
+ 25 74  1  0  0  0  0
+ 26 78  1  0  0  0  0
+ 27 82  1  0  0  0  0
+ 27 91  1  0  0  0  0
+ 28 84  1  0  0  0  0
+ 29 88  1  0  0  0  0
+ 30 89  1  0  0  0  0
+ 31 32  1  0  0  0  0
+ 31 37  1  0  0  0  0
+ 31 53  1  0  0  0  0
+ 32 42  1  0  0  0  0
+ 34 43  1  0  0  0  0
+ 34 44  1  0  0  0  0
+ 35 41  1  0  0  0  0
+ 35 45  2  0  0  0  0
+ 36 44  2  0  0  0  0
+ 36 47  1  0  0  0  0
+ 37 43  1  0  0  0  0
+ 37 55  1  0  0  0  0
+ 37 56  1  0  0  0  0
+ 38 45  1  0  0  0  0
+ 38 50  1  0  0  0  0
+ 39 48  1  0  0  0  0
+ 39 49  2  0  0  0  0
+ 40 49  1  0  0  0  0
+ 40 51  1  0  0  0  0
+ 41 42  1  0  0  0  0
+ 41 58  1  0  0  0  0
+ 41 61  1  0  0  0  0
+ 42 57  1  0  0  0  0
+ 43 59  1  0  0  0  0
+ 44 63  1  0  0  0  0
+ 45 64  1  0  0  0  0
+ 46 54  2  0  0  0  0
+ 46 60  1  0  0  0  0
+ 47 51  1  0  0  0  0
+ 47 62  1  0  0  0  0
+ 47 67  1  0  0  0  0
+ 48 50  1  0  0  0  0
+ 48 68  1  0  0  0  0
+ 48 69  1  0  0  0  0
+ 50 65  1  0  0  0  0
+ 51 66  1  0  0  0  0
+ 54 71  1  0  0  0  0
+ 55 72  1  0  0  0  0
+ 57 74  1  0  0  0  0
+ 58 75  1  0  0  0  0
+ 59 77  1  0  0  0  0
+ 60 73  2  0  0  0  0
+ 62 78  1  0  0  0  0
+ 65 79  1  0  0  0  0
+ 66 80  1  0  0  0  0
+ 70 81  1  0  0  0  0
+ 71 76  2  0  0  0  0
+ 73 76  1  0  0  0  0
+ 73 85  1  0  0  0  0
+ 75 82  1  0  0  0  0
+ 76 87  1  0  0  0  0
+ 77 84  1  0  0  0  0
+ 79 88  1  0  0  0  0
+ 80 89  1  0  0  0  0
+ 81 83  1  0  0  0  0
+ 83 86  1  0  0  0  0
+ 86 90  1  0  0  0  0
+ 91 92  1  0  0  0  0
+ 92 93  1  0  0  0  0
+M  CHG  1  22   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+CNC
+CYANOCOBALAMIN
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+827184
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+72
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+22360.3
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1N4A
+The Ligand Bound Structure of E.coli BtuF, the Periplasmic Binding Protein for Vitamin B12
+TRANSPORT PROTEIN
+The Ligand Bound Structure of E.coli BtuF, the Periplasmic Binding Protein for Vitamin B12; ABC transporter, periplasmic binding protein, Vitamin B12, transmembrane transport, Structural Genomics, PSI, Protein Structure Initiative, Northeast Structural Genomics Consortium, NESG, TRANSPORT PROTEIN; Mol_id: 1; Molecule: Vitamin B12 transport protein btuF; Chain: A, B;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+CYANOCOBALAMIN
+CNC
+
+> <PUBCHEM_XREF_EXT_ID>
+22360.3
+
+> <PUBCHEM_NCBI_MMDB_ID>
+22360
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=22360
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+42626617  1
+768  2
+104730  2
+42626615  2
+
+> <PUBCHEM_CONFORMER_ID>
+000C9F3000480001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+827924
+  -OEChem-09022104553D
+
+ 16 16  0     1  0  0  0  0  0999 V2000
+  150.0060  117.7330   70.0860 P   0  0  0  0  0  0  0  0  0  0  0  0
+  148.3520  116.2390   72.0880 O   0  0  0  0  0  0  0  0  0  0  0  0
+  149.0450  118.2820   71.2110 O   0  0  0  0  0  0  0  0  0  0  0  0
+  148.0730  119.6650   73.5690 O   0  0  0  0  0  0  0  0  0  0  0  0
+  145.9640  118.2010   74.8860 O   0  0  0  0  0  0  0  0  0  0  0  0
+  146.4260  115.3100   75.1130 O   0  0  0  0  0  0  0  0  0  0  0  0
+  150.0980  118.7370   68.9970 O   0  0  0  0  0  0  0  0  0  0  0  0
+  151.4440  117.4790   70.7150 O   0  0  0  0  0  0  0  0  0  0  0  0
+  149.4350  116.3840   69.5120 O   0  0  0  0  0  0  0  0  0  0  0  0
+  148.8310  113.3900   72.1880 O   0  0  0  0  0  0  0  0  0  0  0  0
+  148.7820  117.5830   72.4300 C   0  0  1  0  0  0  0  0  0  0  0  0
+  147.6390  118.3540   73.1320 C   0  0  1  0  0  0  0  0  0  0  0  0
+  147.1340  117.5560   74.3530 C   0  0  2  0  0  0  0  0  0  0  0  0
+  146.7720  116.0820   73.9470 C   0  0  1  0  0  0  0  0  0  0  0  0
+  148.0070  115.4200   73.2490 C   0  0  1  0  0  0  0  0  0  0  0  0
+  147.6550  113.9900   72.7620 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  3  1  0  0  0  0
+  1  7  2  0  0  0  0
+  1  8  1  0  0  0  0
+  1  9  1  0  0  0  0
+  2 11  1  0  0  0  0
+  2 15  1  0  0  0  0
+  3 11  1  0  0  0  0
+  4 12  1  0  0  0  0
+  5 13  1  0  0  0  0
+  6 14  1  0  0  0  0
+ 10 16  1  0  0  0  0
+ 11 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 13 14  1  0  0  0  0
+ 14 15  1  0  0  0  0
+ 15 16  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+1-O-phosphono-beta-D-glucopyranose
+XGP
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+827924
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+26013.3
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1NT4
+Crystal structure of Escherichia coli periplasmic glucose-1-phosphatase H18A mutant complexed with glucose-1-phosphate
+HYDROLASE
+Crystal structure of Escherichia coli periplasmic glucose-1-phosphatase H18A mutant complexed with glucose-1-phosphate; alpha domain, alpha-beta domain, occluded active site, enzyme-substrate complex, Montreal-Kingston Bacterial Structural Genomics Initiative, BSGI, Structural Genomics, HYDROLASE; Mol_id: 1; Molecule: Glucose-1-phosphatase; Chain: A, B; Synonym: G1Pase; EC number: 3.1.3.10; Mutation: H18A;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+1-O-phosphono-beta-D-glucopyranose
+XGP
+
+> <PUBCHEM_XREF_EXT_ID>
+26013.3
+
+> <PUBCHEM_NCBI_MMDB_ID>
+26013
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=26013
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+122250  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CA21400120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+828787
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   73.9200    3.5610    6.0770 S   0  0  0  0  0  0  0  0  0  0  0  0
+   68.5990    3.6470    7.6560 P   0  0  1  0  0  0  0  0  0  0  0  0
+   68.4170    5.0790    5.1170 P   0  0  0  0  0  0  0  0  0  0  0  0
+   68.6740    4.9160    6.7000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.6200    2.6050    7.0980 O   0  0  0  0  0  0  0  0  0  0  0  0
+   68.9330    4.0400    9.0280 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.2190    3.0420    7.5680 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.7350    4.8360    4.4960 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.9780    6.5490    4.9480 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.3780    4.1230    4.6640 O   0  0  0  0  0  0  0  0  0  0  0  0
+   75.5810    1.8700    7.0970 N   0  3  0  0  0  0  0  0  0  0  0  0
+   77.2910    2.9400   11.0820 N   0  0  0  0  0  0  0  0  0  0  0  0
+   76.9340    0.6020   11.3740 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.3150    3.8870    8.9960 N   0  0  0  0  0  0  0  0  0  0  0  0
+   74.2650    1.1690    7.1360 C   0  0  0  0  0  0  0  0  0  0  0  0
+   73.3190    1.9950    6.6180 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.9430    1.4630    9.1230 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.8250    1.2690    7.6090 C   0  0  0  0  0  0  0  0  0  0  0  0
+   75.5550    3.1620    6.5480 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.8230    1.7960    6.4420 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.1810    2.7520    9.7420 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.0200    2.7630    7.3870 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.8250    0.4060   10.0470 C   0  0  0  0  0  0  0  0  0  0  0  0
+   74.0720   -0.2540    7.6840 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.1640    1.8410   11.8700 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2730    1.9580   13.3810 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  1  0  0  0  0
+ 12 25  2  0  0  0  0
+ 13 23  2  0  0  0  0
+ 13 25  1  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  2  0  0  0  0
+ 17 23  1  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+828787
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+14
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+23964.5
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1OLS
+Roles of His291-alpha and His146-beta' in the reductive acylation reaction catalyzed by human branched-chain alpha-ketoacid dehydrogenase
+OXIDOREDUCTASE
+Roles of His291-alpha and His146-beta' in the reductive acylation reaction catalyzed by human branched-chain alpha-ketoacid dehydrogenase; OXIDOREDUCTASE, KETOACID DEHYDROGENASE, BRANCHED-CHAIN, MULTI-ENZYME COMPLEX, ACYLATION, OXIDATIVE DECARBOXYLATION, MAPLE SYRUP URINE DISEASE, THIAMINE PHOSPHATE; Mol_id: 1; Molecule: 2-OXOISOVALERATE DEHYDROGENASE ALPHA SUBUNIT; Chain: A; Synonym: BRANCHED-CHAIN ALPHA-KETOACID DEHYDROGENASE E1 COMPONENT ALPHA CHAIN, BCKDH E1-ALPHA; EC number: 1.2.4.4; Mol_id: 2; Molecule: 2-OXOISOVALERATE DEHYDROGENASE BETA SUBUNIT; Chain: B; Synonym: BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1 COMPONENT BETA CHAIN, BCKDH E1-BETA; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+23964.5
+
+> <PUBCHEM_NCBI_MMDB_ID>
+23964
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=23964
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CA573000E0001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+828790
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   74.0750    3.4240    6.0280 S   0  0  0  0  0  0  0  0  0  0  0  0
+   68.8300    3.5820    7.7370 P   0  0  2  0  0  0  0  0  0  0  0  0
+   68.5510    4.9380    5.1320 P   0  0  0  0  0  0  0  0  0  0  0  0
+   68.8400    4.7800    6.7130 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.8500    2.4930    7.2950 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.4920    2.9380    7.7290 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.1910    4.0700    9.1150 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.5900    3.9370    4.6300 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.9150    4.8070    4.5000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.9730    6.3530    4.9750 O   0  0  0  0  0  0  0  0  0  0  0  0
+   75.7670    1.7700    7.1130 N   0  3  0  0  0  0  0  0  0  0  0  0
+   77.5600    2.8440   11.1510 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0790    0.5310   11.4280 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.6240    3.8330    9.0130 N   0  0  0  0  0  0  0  0  0  0  0  0
+   74.4460    1.0630    7.1880 C   0  0  0  0  0  0  0  0  0  0  0  0
+   73.4920    1.8830    6.6380 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.1310    1.3890    9.1570 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0060    1.1980    7.6330 C   0  0  0  0  0  0  0  0  0  0  0  0
+   75.7300    3.0240    6.5200 C   0  0  0  0  0  0  0  0  0  0  0  0
+   72.0000    1.7180    6.4750 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4350    2.6700    9.7750 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.2530    2.7750    7.3400 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.9590    0.3330   10.0860 C   0  0  0  0  0  0  0  0  0  0  0  0
+   74.2670   -0.3480    7.7960 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.3800    1.7710   11.9270 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.5030    1.8960   13.4600 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  2  0  0  0  0
+ 12 25  1  0  0  0  0
+ 13 23  1  0  0  0  0
+ 13 25  2  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  1  0  0  0  0
+ 17 23  2  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+828790
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+14
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+23965.5
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1OLU
+Roles of His291-alpha and His146-beta' in the reductive acylation reaction catalyzed by human branched-chain alpha-ketoacid dehydrogenase
+OXIDOREDUCTASE
+Roles of His291-alpha and His146-beta' in the reductive acylation reaction catalyzed by human branched-chain alpha-ketoacid dehydrogenase; OXIDOREDUCTASE, KETOACID DEHYDROGENASE, BRANCHED-CHAIN, MULTI-ENZYME COMPLEX, ACYLATION, OXIDATIVE DECARBOXYLATION OXIDOREDUCTASE, MAPLE SYRUP URINE DISEASE, THIAMINE PHOSPHATE; Mol_id: 1; Molecule: 2-OXOISOVALERATE DEHYDROGENASE ALPHA SUBUNIT; Chain: A; Synonym: BRANCHED-CHAIN ALPHA-KETOACID DEHYDROGENASE E1 COMPONENT ALPHA CHAIN, BCKDH E1-ALPHA; EC number: 1.2.4.4; Mutation: YES; Mol_id: 2; Molecule: 2-OXOISOVALERATE DEHYDROGENASE BETA SUBUNIT; Chain: B; Synonym: BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1 COMPONENT BETA CHAIN, BCKDH E1-BETA; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+23965.5
+
+> <PUBCHEM_NCBI_MMDB_ID>
+23965
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=23965
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CA576000E0001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+828791
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   74.3290    3.5720    6.2000 S   0  0  0  0  0  0  0  0  0  0  0  0
+   68.9720    3.7060    7.7490 P   0  0  2  0  0  0  0  0  0  0  0  0
+   68.7590    5.2370    5.2700 P   0  0  0  0  0  0  0  0  0  0  0  0
+   69.0130    4.9850    6.8360 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.9990    2.6740    7.2480 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.6420    3.0380    7.6400 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.2770    4.0940    9.1750 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.7570    4.2830    4.7560 O   0  0  0  0  0  0  0  0  0  0  0  0
+   70.1080    5.0990    4.6290 O   0  0  0  0  0  0  0  0  0  0  0  0
+   68.2420    6.6700    5.2020 O   0  0  0  0  0  0  0  0  0  0  0  0
+   75.9320    1.8660    7.3190 N   0  3  0  0  0  0  0  0  0  0  0  0
+   77.6430    2.8940   11.3810 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2010    0.5650   11.6500 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.7330    3.8440    9.3150 N   0  0  0  0  0  0  0  0  0  0  0  0
+   74.5830    1.2170    7.3540 C   0  0  0  0  0  0  0  0  0  0  0  0
+   73.6800    2.0570    6.7790 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2660    1.4320    9.4140 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.1590    1.2490    7.8810 C   0  0  0  0  0  0  0  0  0  0  0  0
+   75.9500    3.1120    6.7310 C   0  0  0  0  0  0  0  0  0  0  0  0
+   72.1800    1.9210    6.5600 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.5410    2.7130   10.0480 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.3880    2.7750    7.5860 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0990    0.3750   10.3200 C   0  0  0  0  0  0  0  0  0  0  0  0
+   74.3140   -0.1720    7.9600 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4630    1.7830   12.1580 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.5550    1.8660   13.6830 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  1  0  0  0  0
+ 12 25  2  0  0  0  0
+ 13 23  2  0  0  0  0
+ 13 25  1  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  2  0  0  0  0
+ 17 23  1  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+828791
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+14
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+23966.5
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1OLX
+Roles of His291-alpha and His146-beta' in the reductive acylation reaction catalyzed by human branched-chain alpha-ketoacid dehydrogenase
+OXIDOREDUCTASE
+Roles of His291-alpha and His146-beta' in the reductive acylation reaction catalyzed by human branched-chain alpha-ketoacid dehydrogenase; OXIDOREDUCTASE, KETOACID DEHYDROGENASE, BRANCHED-CHAIN, MULTI-ENZYME COMPLEX, ACYLATION, OXIDATIVE DECARBOXYLATION OXIDOREDUCTASE, MAPLE SYRUP URINE DISEASE, THIAMINE PHOSPHATE; Mol_id: 1; Molecule: 2-OXOISOVALERATE DEHYDROGENASE ALPHA SUBUNIT; Chain: A; Synonym: BRANCHED-CHAIN ALPHA-KETOACID DEHYDROGENASE E1 COMPONENT ALPHA CHAIN, BCKDH E1-ALPHA; EC number: 1.2.4.4; Mol_id: 2; Molecule: 2-OXOISOVALERATE DEHYDROGENASE BETA SUBUNIT; Chain: B; Synonym: BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1 COMPONENT BETA CHAIN, BCKDH E1-BETA; EC number: 1.2.4.4; Mutation: YES;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+23966.5
+
+> <PUBCHEM_NCBI_MMDB_ID>
+23966
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=23966
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CA577000E0001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+830495
+  -OEChem-09022104553D
+
+ 18 18  0     0  0  0  0  0  0999 V2000
+   46.5120   18.8070   54.8450 N   0  3  0  0  0  0  0  0  0  0  0  0
+   45.3490   17.1610   53.8010 N   0  0  0  0  0  0  0  0  0  0  0  0
+   45.4380   19.3060   52.8180 C   0  0  0  0  0  0  0  0  0  0  0  0
+   44.9320   18.8720   51.5720 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.5840   20.7070   52.9860 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.7710   18.3990   53.8480 C   0  0  0  0  0  0  0  0  0  0  0  0
+   44.5960   19.7710   50.5650 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.2490   21.6050   51.9790 C   0  0  0  0  0  0  0  0  0  0  0  0
+   44.7540   21.1330   50.7690 C   0  0  0  0  0  0  0  0  0  0  0  0
+   44.7970   17.8190   51.3850 H   0  0  0  0  0  0  0  0  0  0  0  0
+   45.9630   21.1050   53.9140 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.2110   19.4140   49.6230 H   0  0  0  0  0  0  0  0  0  0  0  0
+   45.3670   22.6660   52.1340 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.4900   21.8250   49.9850 H   0  0  0  0  0  0  0  0  0  0  0  0
+   46.8670   19.7480   54.8350 H   0  0  0  0  0  0  0  0  0  0  0  0
+   46.7140   18.2670   55.6600 H   0  0  0  0  0  0  0  0  0  0  0  0
+   45.5610   16.5080   54.5140 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.8220   16.8290   53.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  6  2  0  0  0  0
+  1 15  1  0  0  0  0
+  1 16  1  0  0  0  0
+  2  6  1  0  0  0  0
+  2 17  1  0  0  0  0
+  2 18  1  0  0  0  0
+  3  4  2  0  0  0  0
+  3  5  1  0  0  0  0
+  3  6  1  0  0  0  0
+  4  7  1  0  0  0  0
+  4 10  1  0  0  0  0
+  5  8  2  0  0  0  0
+  5 11  1  0  0  0  0
+  7  9  2  0  0  0  0
+  7 12  1  0  0  0  0
+  8  9  1  0  0  0  0
+  8 13  1  0  0  0  0
+  9 14  1  0  0  0  0
+M  CHG  1   1   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+BEN
+BENZAMIDINE
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+830495
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+22
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+18617.5
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1C1N
+RECRUITING ZINC TO MEDIATE POTENT, SPECIFIC INHIBITION OF SERINE PROTEASES
+HYDROLASE/HYDROLASE INHIBITOR
+RECRUITING ZINC TO MEDIATE POTENT, SPECIFIC INHIBITION OF SERINE PROTEASES; ZN(II)-MEDIATED SERINE PROTEASE INHIBITORS, PH DEPENDENCE, ZN(II) AFFINITY STUCTURE-BASED DRUG DESIGN, SERINE PROTEASE, HYDROLASE-HYDROLASE INHIBITOR COMPLEX; Mol_id: 1; Molecule: TRYPSIN; Chain: A; EC number: 3.4.21.4; Details: COMPLEXED WITH BENZAMIDINE;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+BENZAMIDINE
+BEN
+
+> <PUBCHEM_XREF_EXT_ID>
+18617.5
+
+> <PUBCHEM_NCBI_MMDB_ID>
+18617
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=18617
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+444655  1
+2332  2
+
+> <PUBCHEM_CONFORMER_ID>
+000CAC1F00160001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+830591
+  -OEChem-09022104553D
+
+ 18 18  0     0  0  0  0  0  0999 V2000
+   46.7420   18.6980   54.8210 N   0  3  0  0  0  0  0  0  0  0  0  0
+   45.4030   17.1580   53.8400 N   0  0  0  0  0  0  0  0  0  0  0  0
+   45.5430   19.2870   52.9170 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.6420   20.6680   53.1640 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.0610   18.8980   51.6450 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.9020   18.3560   53.8920 C   0  0  0  0  0  0  0  0  0  0  0  0
+   45.2920   21.6160   52.2010 C   0  0  0  0  0  0  0  0  0  0  0  0
+   44.7100   19.8370   50.6840 C   0  0  0  0  0  0  0  0  0  0  0  0
+   44.8250   21.1990   50.9620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   46.0010   21.0140   54.1210 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.9620   17.8510   51.3990 H   0  0  0  0  0  0  0  0  0  0  0  0
+   45.3820   22.6690   52.4190 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.3440   19.5060   49.7210 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.5570   21.9260   50.2170 H   0  0  0  0  0  0  0  0  0  0  0  0
+   47.1370   19.6230   54.7950 H   0  0  0  0  0  0  0  0  0  0  0  0
+   46.9540   18.1450   55.6210 H   0  0  0  0  0  0  0  0  0  0  0  0
+   45.6140   16.4620   54.5120 H   0  0  0  0  0  0  0  0  0  0  0  0
+   44.7940   16.8980   53.0710 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  6  2  0  0  0  0
+  1 15  1  0  0  0  0
+  1 16  1  0  0  0  0
+  2  6  1  0  0  0  0
+  2 17  1  0  0  0  0
+  2 18  1  0  0  0  0
+  3  4  2  0  0  0  0
+  3  5  1  0  0  0  0
+  3  6  1  0  0  0  0
+  4  7  1  0  0  0  0
+  4 10  1  0  0  0  0
+  5  8  2  0  0  0  0
+  5 11  1  0  0  0  0
+  7  9  2  0  0  0  0
+  7 12  1  0  0  0  0
+  8  9  1  0  0  0  0
+  8 13  1  0  0  0  0
+  9 14  1  0  0  0  0
+M  CHG  1   1   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+BEN
+BENZAMIDINE
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+830591
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+21
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+17482.6
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1C5P
+STRUCTURAL BASIS FOR SELECTIVITY OF A SMALL MOLECULE, S1-BINDING, SUB-MICROMOLAR INHIBITOR OF UROKINASE TYPE PLASMINOGEN ACTIVATOR
+HYDROLASE
+STRUCTURAL BASIS FOR SELECTIVITY OF A SMALL MOLECULE, S1-BINDING, SUB-MICROMOLAR INHIBITOR OF UROKINASE TYPE PLASMINOGEN ACTIVATOR; selective, S1 site inhibitor, structure-based drug design, urokinase, trypsin, thrombin, HYDROLASE; Mol_id: 1; Molecule: PROTEIN (TRYPSIN); Chain: A; EC number: 3.4.21.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+BENZAMIDINE
+BEN
+
+> <PUBCHEM_XREF_EXT_ID>
+17482.6
+
+> <PUBCHEM_NCBI_MMDB_ID>
+17482
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=17482
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+444655  1
+2332  2
+
+> <PUBCHEM_CONFORMER_ID>
+000CAC7F00150001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+830605
+  -OEChem-09022104553D
+
+ 18 18  0     0  0  0  0  0  0999 V2000
+    8.7180   -1.5550   24.9310 N   0  3  0  0  0  0  0  0  0  0  0  0
+    7.8210   -0.6090   26.8000 N   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7740    0.7720   25.1310 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.6590    1.9420   25.9110 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.2490    0.9350   23.8170 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4270   -0.4950   25.6370 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0010    3.1910   25.3970 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5890    2.1720   23.3030 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.4630    3.2990   24.0930 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.3040    1.8860   26.9280 H   0  0  0  0  0  0  0  0  0  0  0  0
+    9.3680    0.0890   23.1710 H   0  0  0  0  0  0  0  0  0  0  0  0
+    8.9040    4.0730   26.0130 H   0  0  0  0  0  0  0  0  0  0  0  0
+    9.9530    2.2530   22.2890 H   0  0  0  0  0  0  0  0  0  0  0  0
+    9.7290    4.2630   23.6890 H   0  0  0  0  0  0  0  0  0  0  0  0
+    8.5180   -2.4810   25.2080 H   0  0  0  0  0  0  0  0  0  0  0  0
+    9.1850   -1.4790   24.0380 H   0  0  0  0  0  0  0  0  0  0  0  0
+    7.6160    0.2110   27.3470 H   0  0  0  0  0  0  0  0  0  0  0  0
+    7.5260   -1.4740   27.1890 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  6  2  0  0  0  0
+  1 15  1  0  0  0  0
+  1 16  1  0  0  0  0
+  2  6  1  0  0  0  0
+  2 17  1  0  0  0  0
+  2 18  1  0  0  0  0
+  3  4  2  0  0  0  0
+  3  5  1  0  0  0  0
+  3  6  1  0  0  0  0
+  4  7  1  0  0  0  0
+  4 10  1  0  0  0  0
+  5  8  2  0  0  0  0
+  5 11  1  0  0  0  0
+  7  9  2  0  0  0  0
+  7 12  1  0  0  0  0
+  8  9  1  0  0  0  0
+  8 13  1  0  0  0  0
+  9 14  1  0  0  0  0
+M  CHG  1   1   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+BEN
+BENZAMIDINE
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+830605
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+21
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+17492.6
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1C5Z
+STRUCTURAL BASIS FOR SELECTIVITY OF A SMALL MOLECULE, S1-BINDING, SUB-MICROMOLAR INHIBITOR OF UROKINASE TYPE PLASMINOGEN ACTIVATOR
+BLOOD CLOTTING
+STRUCTURAL BASIS FOR SELECTIVITY OF A SMALL MOLECULE, S1-BINDING, SUB-MICROMOLAR INHIBITOR OF UROKINASE TYPE PLASMINOGEN ACTIVATOR; selective, S1 site inhibitor, structure-based drug design, urokinase, trypsin, thrombin, BLOOD CLOTTING; Mol_id: 1; Molecule: PROTEIN (UROKINASE-TYPE PLASMINOGEN ACTIVATOR); Chain: A; Fragment: SHORT CHAIN; EC number: 3.4.21.73; Mol_id: 2; Molecule: PROTEIN (UROKINASE-TYPE PLASMINOGEN ACTIVATOR); Chain: B; Fragment: CATALYTIC DOMAIN; EC number: 3.4.21.73;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+BENZAMIDINE
+BEN
+
+> <PUBCHEM_XREF_EXT_ID>
+17492.6
+
+> <PUBCHEM_NCBI_MMDB_ID>
+17492
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=17492
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+444655  1
+2332  2
+
+> <PUBCHEM_CONFORMER_ID>
+000CAC8D00150001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+831053
+  -OEChem-09022104553D
+
+ 15 15  0     1  0  0  0  0  0999 V2000
+  -34.4790   47.1280   56.6900 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -38.1420   47.2820   54.7580 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -35.7650   48.5820   53.5980 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -33.4680   49.5980   56.1600 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -37.8990   44.0360   55.6710 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -37.8560   45.6950   57.0580 N   0  0  0  0  0  0  0  0  0  0  0  0
+  -35.2290   45.4150   58.0640 N   0  0  0  0  0  0  0  0  0  0  0  0
+  -36.7480   46.5290   56.5910 C   0  0  2  0  0  0  0  0  0  0  0  0
+  -36.8290   46.8960   55.1130 C   0  0  2  0  0  0  0  0  0  0  0  0
+  -35.8430   48.0710   54.9320 C   0  0  1  0  0  0  0  0  0  0  0  0
+  -35.3400   45.9680   56.8360 C   0  0  1  0  0  0  0  0  0  0  0  0
+  -34.4430   47.5380   55.3410 C   0  0  1  0  0  0  0  0  0  0  0  0
+  -33.4670   48.6660   55.1590 C   0  0  0  0  0  0  0  0  0  0  0  0
+  -38.4950   44.7170   56.3740 C   0  0  0  0  0  0  0  0  0  0  0  0
+  -39.9580   44.5990   56.5900 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 11  1  0  0  0  0
+  1 12  1  0  0  0  0
+  2  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  4 13  1  0  0  0  0
+  5 14  2  0  0  0  0
+  6  8  1  0  0  0  0
+  6 14  1  0  0  0  0
+  7 11  1  0  0  0  0
+  8  9  1  0  0  0  0
+  8 11  1  0  0  0  0
+  9 10  1  0  0  0  0
+ 10 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 14 15  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+2-acetamido-2-deoxy-beta-D-glucopyranose
+NAG
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+831053
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+14403.5
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1QLR
+CRYSTAL STRUCTURE OF THE FAB FRAGMENT OF A HUMAN MONOCLONAL IgM COLD AGGLUTININ
+IMMUNOGLOBULIN
+CRYSTAL STRUCTURE OF THE FAB FRAGMENT OF A HUMAN MONOCLONAL IgM COLD AGGLUTININ; IMMUNOGLOBULIN, AUTOANTIBODY, COLD AGGLUTININ, HUMAN IGM FAB FRAGMENT; Mol_id: 1; Molecule: IGM KAPPA CHAIN V-III (KAU COLD AGGLUTININ); Chain: A, C; Fragment: FAB FRAGMENT; Mol_id: 2; Molecule: IGM FAB REGION IV-J(H4)-C (KAU COLD AGGLUTININ); Chain: B, D; Fragment: FAB FRAGMENT;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+2-acetamido-2-deoxy-beta-D-glucopyranose
+NAG
+
+> <PUBCHEM_XREF_EXT_ID>
+14403.5
+
+> <PUBCHEM_NCBI_MMDB_ID>
+14403
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=14403
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+439454  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CAE4D00120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+831054
+  -OEChem-09022104553D
+
+ 11 11  0     1  0  0  0  0  0999 V2000
+  -34.1550   51.6900   56.6380 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -31.1030   51.5530   57.9990 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -31.6310   51.7950   54.3860 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -32.6070   53.5040   58.6640 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -33.4680   49.5980   56.1600 O   0  0  0  0  0  0  0  0  0  0  0  0
+  -31.5040   52.3080   56.8310 C   0  0  1  0  0  0  0  0  0  0  0  0
+  -31.9130   51.3520   55.7410 C   0  0  1  0  0  0  0  0  0  0  0  0
+  -32.4790   53.3890   57.2270 C   0  0  1  0  0  0  0  0  0  0  0  0
+  -33.3880   50.9370   55.7110 C   0  0  2  0  0  0  0  0  0  0  0  0
+  -33.8630   53.1320   56.6370 C   0  0  2  0  0  0  0  0  0  0  0  0
+  -34.9640   53.7320   57.5170 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  9  1  0  0  0  0
+  1 10  1  0  0  0  0
+  2  6  1  0  0  0  0
+  3  7  1  0  0  0  0
+  4  8  1  0  0  0  0
+  5  9  1  0  0  0  0
+  6  7  1  0  0  0  0
+  6  8  1  0  0  0  0
+  7  9  1  0  0  0  0
+  8 10  1  0  0  0  0
+ 10 11  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+FUC
+alpha-L-fucopyranose
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+831054
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+14403.6
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1QLR
+CRYSTAL STRUCTURE OF THE FAB FRAGMENT OF A HUMAN MONOCLONAL IgM COLD AGGLUTININ
+IMMUNOGLOBULIN
+CRYSTAL STRUCTURE OF THE FAB FRAGMENT OF A HUMAN MONOCLONAL IgM COLD AGGLUTININ; IMMUNOGLOBULIN, AUTOANTIBODY, COLD AGGLUTININ, HUMAN IGM FAB FRAGMENT; Mol_id: 1; Molecule: IGM KAPPA CHAIN V-III (KAU COLD AGGLUTININ); Chain: A, C; Fragment: FAB FRAGMENT; Mol_id: 2; Molecule: IGM FAB REGION IV-J(H4)-C (KAU COLD AGGLUTININ); Chain: B, D; Fragment: FAB FRAGMENT;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+alpha-L-fucopyranose
+FUC
+
+> <PUBCHEM_XREF_EXT_ID>
+14403.6
+
+> <PUBCHEM_NCBI_MMDB_ID>
+14403
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=14403
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+444863  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CAE4E00120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+832980
+  -OEChem-09022104553D
+
+  9  9  0     0  0  0  0  0  0999 V2000
+   30.1030   14.8240   14.3840 N   0  0  0  0  0  0  0  0  0  0  0  0
+   29.2480   16.7300   15.3150 N   0  0  0  0  0  0  0  0  0  0  0  0
+   29.2790   14.7350   16.6000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   29.5500   15.4420   15.4160 C   0  0  0  0  0  0  0  0  0  0  0  0
+   28.8480   15.3950   17.7460 C   0  0  0  0  0  0  0  0  0  0  0  0
+   29.4130   13.3500   16.6470 C   0  0  0  0  0  0  0  0  0  0  0  0
+   28.5420   14.6860   18.9150 C   0  0  0  0  0  0  0  0  0  0  0  0
+   29.0370   12.6310   17.7820 C   0  0  0  0  0  0  0  0  0  0  0  0
+   28.5910   13.3000   18.9160 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  4  2  0  0  0  0
+  2  4  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  5  2  0  0  0  0
+  3  6  1  0  0  0  0
+  5  7  1  0  0  0  0
+  6  8  2  0  0  0  0
+  7  9  2  0  0  0  0
+  8  9  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+BEN
+BENZAMIDINE
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+832980
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+19
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+12059.9
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1TIO
+HIGH PACKING DENSITY FORM OF BOVINE BETA-TRYPSIN IN CYCLOHEXANE
+HYDROLASE
+HIGH PACKING DENSITY FORM OF BOVINE BETA-TRYPSIN IN CYCLOHEXANE; SERINE PROTEASE, BENZAMIDINE INHIBITED, HYDROLASE; Mol_id: 1; Molecule: PROTEIN (BETA-TRYPSIN); Chain: A; EC number: 3.4.21.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+BENZAMIDINE
+BEN
+
+> <PUBCHEM_XREF_EXT_ID>
+12059.9
+
+> <PUBCHEM_NCBI_MMDB_ID>
+12059
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=12059
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+2332  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB5D400130001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+832981
+  -OEChem-09022104553D
+
+  6  6  0     0  0  0  0  0  0999 V2000
+   32.0440    6.8970   24.6930 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.5560    7.0650   26.1520 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.2500    8.2290   23.9100 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.7750    8.2230   26.8530 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.4620    9.3810   24.6060 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.9620    9.5560   26.0670 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  1  3  1  0  0  0  0
+  2  4  1  0  0  0  0
+  3  5  1  0  0  0  0
+  4  6  1  0  0  0  0
+  5  6  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+CHX
+CYCLOHEXANE
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+832981
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+21
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+12059.11
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1TIO
+HIGH PACKING DENSITY FORM OF BOVINE BETA-TRYPSIN IN CYCLOHEXANE
+HYDROLASE
+HIGH PACKING DENSITY FORM OF BOVINE BETA-TRYPSIN IN CYCLOHEXANE; SERINE PROTEASE, BENZAMIDINE INHIBITED, HYDROLASE; Mol_id: 1; Molecule: PROTEIN (BETA-TRYPSIN); Chain: A; EC number: 3.4.21.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+CYCLOHEXANE
+CHX
+
+> <PUBCHEM_XREF_EXT_ID>
+12059.11
+
+> <PUBCHEM_NCBI_MMDB_ID>
+12059
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=12059
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+8078  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB5D500150001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+833386
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   30.6050   51.0420   84.6600 S   0  0  0  0  0  0  0  0  0  0  0  0
+   28.8600   54.2670   80.0790 P   0  0  2  0  0  0  0  0  0  0  0  0
+   27.4740   55.4940   82.3520 P   0  0  0  0  0  0  0  0  0  0  0  0
+   27.7280   54.4440   81.1590 O   0  0  0  0  0  0  0  0  0  0  0  0
+   30.0540   53.8290   81.0130 O   0  0  0  0  0  0  0  0  0  0  0  0
+   29.1190   55.5360   79.4140 O   0  0  0  0  0  0  0  0  0  0  0  0
+   28.5180   53.0690   79.2500 O   0  0  0  0  0  0  0  0  0  0  0  0
+   28.0320   54.8380   83.5160 O   0  0  0  0  0  0  0  0  0  0  0  0
+   28.2750   56.7110   81.9190 O   0  0  0  0  0  0  0  0  0  0  0  0
+   26.0020   55.8570   82.3200 O   0  0  0  0  0  0  0  0  0  0  0  0
+   32.6860   49.6410   84.3370 N   0  3  0  0  0  0  0  0  0  0  0  0
+   32.1370   45.7230   82.2950 N   0  0  0  0  0  0  0  0  0  0  0  0
+   34.3160   46.2730   81.5680 N   0  0  0  0  0  0  0  0  0  0  0  0
+   31.1890   46.7530   84.1250 N   0  0  0  0  0  0  0  0  0  0  0  0
+   32.8230   50.6960   83.4260 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.7370   51.5660   83.4790 C   0  0  0  0  0  0  0  0  0  0  0  0
+   33.4480   47.4310   83.4960 C   0  0  0  0  0  0  0  0  0  0  0  0
+   33.6110   48.4540   84.6080 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.5620   49.7370   85.0300 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.4340   52.7940   82.7030 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.2460   46.6510   83.3290 C   0  0  0  0  0  0  0  0  0  0  0  0
+   30.4330   52.6070   81.5870 C   0  0  0  0  0  0  0  0  0  0  0  0
+   34.4310   47.1920   82.5880 C   0  0  0  0  0  0  0  0  0  0  0  0
+   33.9820   50.8550   82.5150 C   0  0  0  0  0  0  0  0  0  0  0  0
+   33.1400   45.5460   81.4480 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.9590   44.5330   80.3590 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  2  0  0  0  0
+ 12 25  1  0  0  0  0
+ 13 23  1  0  0  0  0
+ 13 25  2  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  1  0  0  0  0
+ 17 23  2  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+833386
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+19
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+27098.8
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1UMC
+branched-chain 2-oxo acid dehydrogenase (E1) from Thermus thermophilus HB8 with 4-methylpentanoate
+OXIDOREDUCTASE
+branched-chain 2-oxo acid dehydrogenase (E1) from Thermus thermophilus HB8 with 4-methylpentanoate; alpha(2)beta(2) tetramer, structural genomics, RIKEN Structural Genomics/Proteomics Initiative, RSGI, Oxidoreductase; Mol_id: 1; Molecule: 2-oxo acid dehydrogenase alpha subunit; Chain: A, C; Synonym: E1-alpha; EC number: 1.2.4.4; Mol_id: 2; Molecule: 2-oxo acid dehydrogenase beta subunit; Chain: B, D; Synonym: E1-beta; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+27098.8
+
+> <PUBCHEM_NCBI_MMDB_ID>
+27098
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=27098
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB76A00130001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+833387
+  -OEChem-09022104553D
+
+  6  5  0     0  0  0  0  0  0999 V2000
+   37.5260   28.0720   60.1200 O   0  0  0  0  0  0  0  0  0  0  0  0
+   40.0100   28.1290   58.6000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   38.7580   28.8460   58.0800 C   0  0  0  0  0  0  0  0  0  0  0  0
+   37.5340   28.8740   58.9940 C   0  0  0  0  0  0  0  0  0  0  0  0
+   40.8480   27.6680   57.4220 C   0  0  0  0  0  0  0  0  0  0  0  0
+   40.8260   29.0630   59.4840 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  4  1  0  0  0  0
+  2  3  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  1  0  0  0  0
+  3  4  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+2-OXO-4-METHYLPENTANOIC ACID
+COI
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+833387
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+18
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+27099.7
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1UMD
+branched-chain 2-oxo acid dehydrogenase (E1) from Thermus thermophilus HB8 with 4-methyl-2-oxopentanoate as an intermediate
+OXIDOREDUCTASE
+branched-chain 2-oxo acid dehydrogenase (E1) from Thermus thermophilus HB8 with 4-methyl-2-oxopentanoate as an intermediate; alpha(2)beta(2) tetramer, structural genomics, RIKEN Structural Genomics/Proteomics Initiative, RSGI, Oxidoreductase; Mol_id: 1; Molecule: 2-oxo acid dehydrogenase alpha subunit; Chain: A, C; Synonym: E1-alpha; EC number: 1.2.4.4; Mol_id: 2; Molecule: 2-oxo acid dehydrogenase beta subunit; Chain: B, D; Synonym: E1-beta; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+2-OXO-4-METHYLPENTANOIC ACID
+COI
+
+> <PUBCHEM_XREF_EXT_ID>
+27099.7
+
+> <PUBCHEM_NCBI_MMDB_ID>
+27099
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=27099
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+31260  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB76B00120001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+833677
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   74.0630    3.6270    5.9090 S   0  0  0  0  0  0  0  0  0  0  0  0
+   68.7020    3.6990    7.6490 P   0  0  1  0  0  0  0  0  0  0  0  0
+   68.5080    5.1730    5.1260 P   0  0  0  0  0  0  0  0  0  0  0  0
+   68.7790    5.0250    6.7250 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.7730    2.6770    7.1320 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.1020    4.1640    8.9760 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.3230    3.0360    7.5420 O   0  0  0  0  0  0  0  0  0  0  0  0
+   68.0890    6.5980    4.8690 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.8360    4.8430    4.4200 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.4630    4.1030    4.7390 O   0  0  0  0  0  0  0  0  0  0  0  0
+   75.6730    1.9780    7.0130 N   0  3  0  0  0  0  0  0  0  0  0  0
+   77.4460    2.8960   10.9710 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0940    0.6000   11.1890 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.5390    4.0350    8.9390 N   0  0  0  0  0  0  0  0  0  0  0  0
+   74.4510    1.3760    7.0430 C   0  0  0  0  0  0  0  0  0  0  0  0
+   73.3750    2.1240    6.5320 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.1030    1.5880    8.9950 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.9640    1.4180    7.4700 C   0  0  0  0  0  0  0  0  0  0  0  0
+   75.7960    3.2460    6.3450 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.9080    1.8660    6.4200 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.3340    2.8570    9.6150 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.1190    2.8860    7.2480 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.9460    0.4970    9.8490 C   0  0  0  0  0  0  0  0  0  0  0  0
+   74.2630    0.0230    7.6330 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.3550    1.7860   11.7580 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4600    1.9740   13.2600 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  1  0  0  0  0
+ 12 25  2  0  0  0  0
+ 13 23  2  0  0  0  0
+ 13 25  1  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  2  0  0  0  0
+ 17 23  1  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+833677
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+14
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+28020.10
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1V11
+CROSSTALK BETWEEN COFACTOR BINDING AND THE PHOSPHORYLATION LOOP CONFORMATION IN THE BCKD MACHINE
+OXIDOREDUCTASE
+CROSSTALK BETWEEN COFACTOR BINDING AND THE PHOSPHORYLATION LOOP CONFORMATION IN THE BCKD MACHINE; OXIDOREDUCTASE, KETOACID DEHYDROGENASE, BRANCHED-CHAIN, MULTI-ENZYME COMPLEX, ACYLATION, OXIDATIVE DECARBOXYLATION, MAPLE SYRUP URINE DISEASE, THIAMINE PHOSPHATE, PHOSPHORYLATION; Mol_id: 1; Molecule: 2-OXOISOVALERATE DEHYDROGENASE ALPHA SUBUNIT; Chain: A; Synonym: MITOCHONDRIAL PRECURSOR, BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1, COMPONENT ALPHA CHAIN, BCKDH E1-ALPHA, BCKDE1A; EC number: 1.2.4.4; Mutation: YES; Mol_id: 2; Molecule: 2-OXOISOVALERATE DEHYDROGENASE BETA SUBUNIT; Chain: B; Synonym: MITOCHONDRIAL PRECURSOR, BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1, COMPONENT BETA CHAIN, BCKDH E1-BETA; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+28020.10
+
+> <PUBCHEM_NCBI_MMDB_ID>
+28020
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=28020
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB88D000E0001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+833679
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   74.0010    3.6320    5.8920 S   0  0  0  0  0  0  0  0  0  0  0  0
+   68.6320    3.7430    7.6910 P   0  0  1  0  0  0  0  0  0  0  0  0
+   68.4960    5.1530    5.1220 P   0  0  0  0  0  0  0  0  0  0  0  0
+   68.7560    5.0370    6.7470 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.6330    2.7480    7.1180 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.0550    4.1690    9.0430 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.2850    3.1100    7.5310 O   0  0  0  0  0  0  0  0  0  0  0  0
+   68.0850    6.5580    4.8500 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.8340    4.8260    4.4440 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.4040    4.1630    4.7500 O   0  0  0  0  0  0  0  0  0  0  0  0
+   75.6030    2.0070    6.9640 N   0  3  0  0  0  0  0  0  0  0  0  0
+   77.3660    2.9110   10.9250 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0480    0.6410   11.1880 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4280    4.0190    8.8930 N   0  0  0  0  0  0  0  0  0  0  0  0
+   74.3850    1.4030    7.0040 C   0  0  0  0  0  0  0  0  0  0  0  0
+   73.3200    2.1500    6.5060 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0280    1.5860    8.9620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.8820    1.3990    7.4130 C   0  0  0  0  0  0  0  0  0  0  0  0
+   75.7460    3.2910    6.3050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.8230    1.9030    6.4000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2880    2.8510    9.5620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.0440    2.9360    7.2280 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.8830    0.5040    9.8490 C   0  0  0  0  0  0  0  0  0  0  0  0
+   74.2570   -0.0260    7.6160 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2970    1.8180   11.7370 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4390    1.9950   13.2770 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  1  0  0  0  0
+ 12 25  2  0  0  0  0
+ 13 23  2  0  0  0  0
+ 13 25  1  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  2  0  0  0  0
+ 17 23  1  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+833679
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+14
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+28021.9
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1V16
+CROSSTALK BETWEEN COFACTOR BINDING AND THE PHOSPHORYLATION LOOP CONFORMATION IN THE BCKD MACHINE
+OXIDOREDUCTASE
+CROSSTALK BETWEEN COFACTOR BINDING AND THE PHOSPHORYLATION LOOP CONFORMATION IN THE BCKD MACHINE; OXIDOREDUCTASE, KETOACID DEHYDROGENASE, BRANCHED-CHAIN, MULTI-ENZYME COMPLEX, ACYLATION, OXIDATIVE DECARBOXYLATION MAPLE SYRUP URINE DISEASE, THIAMINE DIPHOSPHATE, PHOSPHORYLATION, FLAVOPROTEIN; Mol_id: 1; Molecule: 2-OXOISOVALERATE DEHYDROGENASE ALPHA SUBUNIT; Chain: A; Synonym: MITOCHONDRIAL PRECURSOR, BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1, COMPONENT ALPHA CHAIN, BCKDH E1-ALPHA, BCKDE1A; EC number: 1.2.4.4; Mutation: YES; Mol_id: 2; Molecule: 2-OXOISOVALERATE DEHYDROGENASE BETA SUBUNIT; Chain: B; Synonym: MITOCHONDRIAL PRECURSOR, BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1, COMPONENT BETA CHAIN, BCKDH E1-BETA; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+28021.9
+
+> <PUBCHEM_NCBI_MMDB_ID>
+28021
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=28021
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB88F000E0001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+833686
+  -OEChem-09022104553D
+
+ 26 27  0     1  0  0  0  0  0999 V2000
+   73.9910    3.5920    5.9110 S   0  0  0  0  0  0  0  0  0  0  0  0
+   68.6020    3.7010    7.6550 P   0  0  2  0  0  0  0  0  0  0  0  0
+   68.4430    5.1190    5.0550 P   0  0  0  0  0  0  0  0  0  0  0  0
+   68.7530    5.0260    6.7070 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.6840    2.6740    7.1470 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.2820    3.0810    7.5180 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.0390    4.1450    9.0110 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.9690    6.5360    4.8620 O   0  0  0  0  0  0  0  0  0  0  0  0
+   69.8320    4.8360    4.3350 O   0  0  0  0  0  0  0  0  0  0  0  0
+   67.3170    4.0740    4.7440 O   0  0  0  0  0  0  0  0  0  0  0  0
+   75.6220    1.9350    7.0040 N   0  3  0  0  0  0  0  0  0  0  0  0
+   77.3610    2.8970   10.9710 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0360    0.6090   11.1920 N   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4370    3.9870    8.9510 N   0  0  0  0  0  0  0  0  0  0  0  0
+   74.3850    1.3610    7.0790 C   0  0  0  0  0  0  0  0  0  0  0  0
+   73.3250    2.1140    6.5260 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.0120    1.5830    9.0030 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.8960    1.3740    7.4660 C   0  0  0  0  0  0  0  0  0  0  0  0
+   75.7320    3.2610    6.3570 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.8700    1.8700    6.4450 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2890    2.8230    9.6240 C   0  0  0  0  0  0  0  0  0  0  0  0
+   71.0800    2.9800    7.2100 C   0  0  0  0  0  0  0  0  0  0  0  0
+   76.9010    0.4930    9.8570 C   0  0  0  0  0  0  0  0  0  0  0  0
+   74.1640   -0.0290    7.6780 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.2770    1.7880   11.7620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   77.4390    1.9590   13.2600 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 16  1  0  0  0  0
+  1 19  1  0  0  0  0
+  2  4  1  0  0  0  0
+  2  5  1  0  0  0  0
+  2  6  2  0  0  0  0
+  2  7  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  8  2  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+  5 22  1  0  0  0  0
+ 11 15  1  0  0  0  0
+ 11 18  1  0  0  0  0
+ 11 19  2  0  0  0  0
+ 12 21  1  0  0  0  0
+ 12 25  2  0  0  0  0
+ 13 23  2  0  0  0  0
+ 13 25  1  0  0  0  0
+ 14 21  1  0  0  0  0
+ 15 16  2  0  0  0  0
+ 15 24  1  0  0  0  0
+ 16 20  1  0  0  0  0
+ 17 18  1  0  0  0  0
+ 17 21  2  0  0  0  0
+ 17 23  1  0  0  0  0
+ 20 22  1  0  0  0  0
+ 25 26  1  0  0  0  0
+M  CHG  1  11   1
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_TOTAL_CHARGE>
+1
+
+> <PUBCHEM_SUBSTANCE_ID>
+833686
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+20
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+28023.3
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1V1M
+CROSSTALK BETWEEN COFACTOR BINDING AND THE PHOSPHORYLATION LOOP CONFORMATION IN THE BCKD MACHINE
+OXIDOREDUCTASE
+CROSSTALK BETWEEN COFACTOR BINDING AND THE PHOSPHORYLATION LOOP CONFORMATION IN THE BCKD MACHINE; OXIDOREDUCTASE, KETOACID DEHYDROGENASE, BRANCHED-CHAIN, MULTI-ENZYME COMPLEX, ACYLATION, OXIDATIVE DECARBOXYLATION MAPLE SYRUP URINE DISEASE, THIAMINE DIPHOSPHATE, PHOSPHORYLATION, FLAVOPROTEIN; Mol_id: 1; Molecule: 2-OXOISOVALERATE DEHYDROGENASE ALPHA SUBUNIT; Chain: A; Synonym: MITOCHONDRIAL PRECURSOR, BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1, COMPONENT ALPHA CHAIN, BCKDH E1-ALPHA, BCKDE1A; EC number: 1.2.4.4; Mutation: YES; Mol_id: 2; Molecule: 2-OXOISOVALERATE DEHYDROGENASE BETA SUBUNIT; Chain: B; Synonym: MITOCHONDRIAL PRECURSOR, BRANCHED-CHAIN ALPHA-KETO ACID DEHYDROGENASE E1, COMPONENT BETA CHAIN, BCKDH E1-BETA; EC number: 1.2.4.4;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+THIAMINE DIPHOSPHATE
+TPP
+
+> <PUBCHEM_XREF_EXT_ID>
+28023.3
+
+> <PUBCHEM_NCBI_MMDB_ID>
+28023
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=28023
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+1132  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CB89600140001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+835740
+  -OEChem-09022104553D
+
+ 93103  0     1  0  0  0  0  0999 V2000
+    6.3020   -5.3770   79.1360 Co  0  0  0  0  0  0  0  0  0  0  0  0
+    8.6750   -3.9100   70.3300 P   0  0  2  0  0  0  0  0  0  0  0  0
+    9.8130   -1.3980   82.0580 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0300   -0.3560   74.3660 O   0  0  0  0  0  0  0  0  0  0  0  0
+    6.7260   -3.8880   83.6140 O   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5050   -4.5570   72.1880 O   0  0  0  0  0  0  0  0  0  0  0  0
+   14.6600   -3.2290   81.0130 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9300  -11.2900   79.5250 O   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9110   -9.1990   74.0780 O   0  0  0  0  0  0  0  0  0  0  0  0
+    7.5170   -3.1700   69.5290 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.4630   -4.6560   69.1500 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0610   -4.9330   71.1780 O   0  0  0  0  0  0  0  0  0  0  0  0
+    9.5360   -2.8720   70.9030 O   0  0  0  0  0  0  0  0  0  0  0  0
+   11.3770   -4.4150   66.2440 O   0  0  0  0  0  0  0  0  0  0  0  0
+   12.0440   -3.6800   69.6200 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7430   -3.3840   65.4180 O   0  0  0  0  0  0  0  0  0  0  0  0
+    8.0490   -4.6770   79.2960 N   0  0  3  0  0  0  0  0  0  0  0  0
+    6.1130   -4.1000   77.7680 N   0  0  3  0  0  0  0  0  0  0  0  0
+    6.6130   -6.4850   80.6860 N   0  0  3  0  0  0  0  0  0  0  0  0
+    4.4940   -5.9460   78.8140 N   0  0  3  0  0  0  0  0  0  0  0  0
+    5.1020   -3.1690   80.9040 N   0  0  0  0  0  0  0  0  0  0  0  0
+   10.3620    0.0830   80.5140 N   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9770    1.2080   75.5240 N   0  0  0  0  0  0  0  0  0  0  0  0
+    7.9550   -4.9870   85.0930 N   0  0  0  0  0  0  0  0  0  0  0  0
+    5.6960   -2.7590   71.6450 N   0  0  0  0  0  0  0  0  0  0  0  0
+   14.3540   -4.4850   79.1870 N   0  0  0  0  0  0  0  0  0  0  0  0
+    6.9920  -12.7540   80.9040 N   0  0  0  0  0  0  0  0  0  0  0  0
+    2.1810  -10.8150   75.3790 N   0  0  0  0  0  0  0  0  0  0  0  0
+   12.8790   -5.4700   67.6670 N   0  0  0  0  0  0  0  0  0  0  0  0
+   13.2730   -7.3790   68.7670 N   0  0  0  0  0  0  0  0  0  0  0  0
+    8.4330   -3.6360   78.2910 C   0  0  1  0  0  0  0  0  0  0  0  0
+    7.0740   -2.9830   77.9200 C   0  0  1  0  0  0  0  0  0  0  0  0
+    8.9360   -4.7860   80.2400 C   0  0  3  0  0  0  0  0  0  0  0  0
+    5.1740   -3.8360   76.9190 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.4860   -2.7970   79.0830 C   0  0  2  0  0  0  0  0  0  0  0  0
+    7.6680   -6.3990   81.6000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.7340   -5.6320   77.7090 C   0  0  3  0  0  0  0  0  0  0  0  0
+    5.7020   -3.8890   80.2390 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.8980   -6.9290   79.5190 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.7660   -7.4340   81.0600 C   0  0  3  0  0  0  0  0  0  0  0  0
+    5.4620   -2.5140   76.1990 C   0  0  1  0  0  0  0  0  0  0  0  0
+    6.9610   -2.2710   76.5510 C   0  0  1  0  0  0  0  0  0  0  0  0
+   10.0770   -3.8270   80.0840 C   0  0  2  0  0  0  0  0  0  0  0  0
+    8.7510   -5.5960   81.4340 C   0  0  0  0  0  0  0  0  0  0  0  0
+    3.9630   -4.6200   76.7990 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.2530   -7.1880   82.8540 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.4630   -7.0960   79.0840 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.2950   -8.2430   82.2370 C   0  0  2  0  0  0  0  0  0  0  0  0
+    2.5550   -6.5960   77.6170 C   0  0  2  0  0  0  0  0  0  0  0  0
+    4.4880   -7.6420   80.5490 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.0290   -4.3730   77.0630 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.7740   -1.6820   79.9050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.5160   -2.1240   78.1730 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4290   -0.8070   76.6810 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2820   -2.4410   74.6620 C   0  0  0  0  0  0  0  0  0  0  0  0
+   11.4650   -4.4290   79.7210 C   0  0  0  0  0  0  0  0  0  0  0  0
+    4.5540   -1.4540   76.8390 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3970   -6.2520   83.7520 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.9170   -5.4870   82.4070 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9260   -4.4350   75.7220 C   0  0  0  0  0  0  0  0  0  0  0  0
+    8.2430   -7.9060   83.8040 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.0370   -9.5000   81.7610 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.9350   -7.6980   76.6220 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5800   -6.1280   79.8940 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.9200   -8.5200   79.2970 C   0  0  0  0  0  0  0  0  0  0  0  0
+    9.6960   -0.9840   80.8970 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.4970    0.0220   75.4350 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.8830   -3.6350   73.9050 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5030   -3.8160   80.6620 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.0370   -4.9660   84.1650 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1910  -10.4920   80.9610 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7680   -8.5270   76.0240 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.3110   -3.7030   72.4960 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9420   -3.8550   80.2420 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1070  -11.5620   80.4000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.3260   -9.5490   75.0740 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.2390   -2.7810   70.2460 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.1790   -3.6320   69.3920 C   0  0  1  0  0  0  0  0  0  0  0  0
+    5.7680   -3.5440   67.9400 C   0  0  0  0  0  0  0  0  0  0  0  0
+   10.0710   -3.9150   68.0960 C   0  0  1  0  0  0  0  0  0  0  0  0
+   11.4900   -3.4880   68.3640 C   0  0  2  0  0  0  0  0  0  0  0  0
+   10.1350   -4.8010   66.8600 C   0  0  1  0  0  0  0  0  0  0  0  0
+   12.2880   -4.2050   67.2910 C   0  0  2  0  0  0  0  0  0  0  0  0
+    9.0000   -4.7320   65.8650 C   0  0  0  0  0  0  0  0  0  0  0  0
+   13.9500   -6.0920   67.0430 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.1870   -7.2840   67.7280 C   0  0  0  0  0  0  0  0  0  0  0  0
+   12.5460   -6.2610   68.6990 C   0  0  0  0  0  0  0  0  0  0  0  0
+   14.6580   -5.7330   65.8960 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.1760   -8.1750   67.2920 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.5800   -6.6310   65.4470 C   0  0  0  0  0  0  0  0  0  0  0  0
+   15.8930   -7.8190   66.1730 C   0  0  0  0  0  0  0  0  0  0  0  0
+   16.4190   -6.2510   64.2430 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.0290   -8.7180   65.7230 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 17  1  0  0  0  0
+  1 18  1  0  0  0  0
+  1 19  1  0  0  0  0
+  1 20  1  0  0  0  0
+  1 38  1  0  0  0  0
+  2 10  1  0  0  0  0
+  2 11  1  0  0  0  0
+  2 12  2  0  0  0  0
+  2 13  1  0  0  0  0
+  3 66  2  0  0  0  0
+  4 67  2  0  0  0  0
+  5 70  2  0  0  0  0
+  6 73  2  0  0  0  0
+  7 74  2  0  0  0  0
+  8 75  2  0  0  0  0
+  9 76  2  0  0  0  0
+ 10 78  1  0  0  0  0
+ 11 80  1  0  0  0  0
+ 14 82  1  0  0  0  0
+ 14 83  1  0  0  0  0
+ 15 81  1  0  0  0  0
+ 16 84  1  0  0  0  0
+ 17 31  1  0  0  0  0
+ 17 33  1  0  0  0  0
+ 18 32  1  0  0  0  0
+ 18 34  1  0  0  0  0
+ 19 36  1  0  0  0  0
+ 19 40  1  0  0  0  0
+ 20 37  1  0  0  0  0
+ 20 39  1  0  0  0  0
+ 21 38  3  0  0  0  0
+ 22 66  1  0  0  0  0
+ 23 67  1  0  0  0  0
+ 24 70  1  0  0  0  0
+ 25 73  1  0  0  0  0
+ 25 77  1  0  0  0  0
+ 26 74  1  0  0  0  0
+ 27 75  1  0  0  0  0
+ 28 76  1  0  0  0  0
+ 29 83  1  0  0  0  0
+ 29 85  1  0  0  0  0
+ 29 87  1  0  0  0  0
+ 30 86  1  0  0  0  0
+ 30 87  2  0  0  0  0
+ 31 32  1  0  0  0  0
+ 31 35  1  0  0  0  0
+ 31 51  1  0  0  0  0
+ 32 42  1  0  0  0  0
+ 33 43  1  0  0  0  0
+ 33 44  1  0  0  0  0
+ 34 41  1  0  0  0  0
+ 34 45  2  0  0  0  0
+ 35 43  1  0  0  0  0
+ 35 52  1  0  0  0  0
+ 35 53  1  0  0  0  0
+ 36 44  2  0  0  0  0
+ 36 46  1  0  0  0  0
+ 37 45  1  0  0  0  0
+ 37 49  1  0  0  0  0
+ 39 47  1  0  0  0  0
+ 39 50  2  0  0  0  0
+ 40 48  1  0  0  0  0
+ 40 50  1  0  0  0  0
+ 41 42  1  0  0  0  0
+ 41 55  1  0  0  0  0
+ 41 57  1  0  0  0  0
+ 42 54  1  0  0  0  0
+ 43 56  1  0  0  0  0
+ 44 59  1  0  0  0  0
+ 45 60  1  0  0  0  0
+ 46 48  1  0  0  0  0
+ 46 58  1  0  0  0  0
+ 46 61  1  0  0  0  0
+ 47 49  1  0  0  0  0
+ 47 64  1  0  0  0  0
+ 47 65  1  0  0  0  0
+ 48 62  1  0  0  0  0
+ 49 63  1  0  0  0  0
+ 52 66  1  0  0  0  0
+ 54 67  1  0  0  0  0
+ 55 68  1  0  0  0  0
+ 56 69  1  0  0  0  0
+ 58 70  1  0  0  0  0
+ 62 71  1  0  0  0  0
+ 63 72  1  0  0  0  0
+ 68 73  1  0  0  0  0
+ 69 74  1  0  0  0  0
+ 71 75  1  0  0  0  0
+ 72 76  1  0  0  0  0
+ 77 78  1  0  0  0  0
+ 78 79  1  0  0  0  0
+ 80 81  1  0  0  0  0
+ 80 82  1  0  0  0  0
+ 81 83  1  0  0  0  0
+ 82 84  1  0  0  0  0
+ 85 86  2  0  0  0  0
+ 85 88  1  0  0  0  0
+ 86 89  1  0  0  0  0
+ 88 90  2  0  0  0  0
+ 89 91  2  0  0  0  0
+ 90 91  1  0  0  0  0
+ 90 92  1  0  0  0  0
+ 91 93  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+CNC
+CYANOCOBALAMIN
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+835740
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+65
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+12649.5
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1CCW
+STRUCTURE OF THE COENZYME B12 DEPENDENT ENZYME GLUTAMATE MUTASE FROM CLOSTRIDIUM COCHLEARIUM
+ISOMERASE
+STRUCTURE OF THE COENZYME B12 DEPENDENT ENZYME GLUTAMATE MUTASE FROM CLOSTRIDIUM COCHLEARIUM; GLUTAMATE MUTASE, COENZYME B12, RADICAL REACTION, TIM-BARREL, ROSSMAN-FOLD, isomerase; Mol_id: 1; Molecule: PROTEIN (GLUTAMATE MUTASE); Chain: A, C; Fragment: B12-Binding Subunit; Synonym: methylaspartate mutase, component S; EC number: 5.4.99.1; Details: CHAINS A, C, B, D FORM HETEROTETRAMER WHICH IS THE BIOLOGICAL UNIT; Mol_id: 2; Molecule: PROTEIN (GLUTAMATE MUTASE); Chain: B, D; Fragment: E chain; Synonym: METHYLASPARTATE MUTASE, E CHAIN; EC number: 5.4.99.1; Details: COMPLEXED WITH CO-CYANOCOBALAMIN;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+CYANOCOBALAMIN
+CNC
+
+> <PUBCHEM_XREF_EXT_ID>
+12649.5
+
+> <PUBCHEM_NCBI_MMDB_ID>
+12649
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=12649
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+5496968  1
+768  2
+104730  2
+23641214  2
+
+> <PUBCHEM_CONFORMER_ID>
+000CC09C00410001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
+838820
+  -OEChem-09022104553D
+
+  9  9  0     0  0  0  0  0  0999 V2000
+   32.7780    3.0680   28.2730 N   0  0  0  0  0  0  0  0  0  0  0  0
+   33.7960    4.7450   27.1870 N   0  0  0  0  0  0  0  0  0  0  0  0
+   31.6410    5.1930   28.1710 C   0  0  0  0  0  0  0  0  0  0  0  0
+   32.7410    4.3330   27.8770 C   0  0  0  0  0  0  0  0  0  0  0  0
+   30.5160    4.7390   28.9170 C   0  0  0  0  0  0  0  0  0  0  0  0
+   31.6150    6.5470   27.7310 C   0  0  0  0  0  0  0  0  0  0  0  0
+   29.4310    5.5860   29.2060 C   0  0  0  0  0  0  0  0  0  0  0  0
+   30.5300    7.3980   28.0180 C   0  0  0  0  0  0  0  0  0  0  0  0
+   29.4310    6.9220   28.7570 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  4  2  0  0  0  0
+  2  4  1  0  0  0  0
+  3  4  1  0  0  0  0
+  3  5  2  0  0  0  0
+  3  6  1  0  0  0  0
+  5  7  1  0  0  0  0
+  6  8  2  0  0  0  0
+  7  9  2  0  0  0  0
+  8  9  1  0  0  0  0
+M  END
+> <PUBCHEM_COMPOUND_ID_TYPE>
+0
+
+> <PUBCHEM_MMDB_MOLECULE_NAME>
+BEN
+BENZAMIDINE
+
+> <PUBCHEM_TOTAL_CHARGE>
+0
+
+> <PUBCHEM_SUBSTANCE_ID>
+838820
+
+> <PUBCHEM_SUBSTANCE_VERSION>
+16
+
+> <PUBCHEM_EXT_DATASOURCE_NAME>
+MMDB
+
+> <PUBCHEM_EXT_DATASOURCE_REGID>
+16693.4
+
+> <PUBCHEM_SUBSTANCE_COMMENT>
+PDB Accession Code 1F5K
+UROKINASE PLASMINOGEN ACTIVATOR B-CHAIN-BENZAMIDINE COMPLEX
+HYDROLASE
+UROKINASE PLASMINOGEN ACTIVATOR B-CHAIN-BENZAMIDINE COMPLEX; UROKINASE, INHIBITOR, SERINE PROTEASE, HUMAN, HYDROLASE; Mol_id: 1; Molecule: UROKINASE-TYPE PLASMINOGEN ACTIVATOR; Chain: U; Fragment: B CHAIN; EC number: 3.4.21.73; Mutation: C279S;
+
+> <PUBCHEM_SUBSTANCE_SYNONYM>
+BENZAMIDINE
+BEN
+
+> <PUBCHEM_XREF_EXT_ID>
+16693.4
+
+> <PUBCHEM_NCBI_MMDB_ID>
+16693
+
+> <PUBCHEM_EXT_DATASOURCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/MMDB/mmdb.shtml
+
+> <PUBCHEM_EXT_SUBSTANCE_URL>
+https://www.ncbi.nlm.nih.gov/Structure/mmdb/mmdbsrv.cgi?uid=16693
+
+> <PUBCHEM_CID_ASSOCIATIONS>
+2332  1
+
+> <PUBCHEM_CONFORMER_ID>
+000CCCA400100001
+
+> <PUBCHEM_COORDINATE_TYPE>
+2
+3
+4
+
+$$$$
