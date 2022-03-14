@@ -1,24 +1,28 @@
 import OCL from 'openchemlib';
 
-export function parseOnefile(json) {
+export function parseCoconut(json) {
   const results = [];
   for (const entry of json) {
-    const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
+    const oclMolecule = OCL.Molecule.fromSmiles(entry.originalSmiles);
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     oclMolecule.stripStereoInformation();
     const noStereoID = oclMolecule.getIDCode();
-    const taxonomy = entry.origin_organism;
-    const doi = entry.origin_reference.doi;
+    const taxonomy = entry.taxonomyReferenceObjects;
+    const doi = entry.citationDOI;
+    const source = entry.source;
 
     const result = {
       ocl: {
         id: oclID.idCode,
         coordinates: oclID.coordinates,
         noStereoID,
+        name: entry.synonyms,
+        cas: entry.cas,
       },
       origin: {
         taxonomy: taxonomy,
         doi: doi,
+        source: source,
       },
     };
 
@@ -26,4 +30,4 @@ export function parseOnefile(json) {
   }
   return results;
 }
-//https://www.npatlas.org/static/downloads/NPAtlas_download.json
+//https://coconut.naturalproducts.net/download/mongo

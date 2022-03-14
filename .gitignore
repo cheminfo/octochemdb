@@ -2,3 +2,15 @@ mongo-data
 originalData
 node_modules
 .DS_Store
+pubchem/src/plugins/cmaup/utils/__test__/data/CMAUPv1.0_download_Ingredient_Target_Associations_ActivityValues_References.txt
+pubchem/src/plugins/cmaup/utils/__test__/data/CMAUPv1.0_download_Plant_Ingredient_Associations_onlyActiveIngredients.txt
+pubchem/src/plugins/cmaup/utils/__test__/data/CMAUPv1.0_download_Plants.txt
+pubchem/src/plugins/cmaup/utils/__test__/data/CMAUPv1.0_download_Ingredients_onlyActive.txt
+pubchem/src/plugins/npass/utils/__tests__/data/NPASSv1.0_download_naturalProducts_activities.txt
+pubchem/src/plugins/npass/utils/__tests__/data/NPASSv1.0_download_naturalProducts_properties.txt
+pubchem/src/plugins/npass/utils/__tests__/data/NPASSv1.0_download_naturalProducts_generalInfo.txt
+pubchem/src/plugins/npass/utils/__tests__/data/NPASSv1.0_download_naturalProducts_species_pair.txt
+pubchem/src/plugins/npass/utils/__tests__/data/NPASSv1.0_download_naturalProducts_speciesInfo.txt
+pubchem/src/plugins/npatlas/sync/utils/__tests__/data/NPAtlas_download.json
+pubchem/src/plugins/lotus/__test__/data/lotus.json
+pubchem/src/plugins/coconut/utils/__test__/data/coconut.json

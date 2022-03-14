@@ -1,14 +1,15 @@
 import OCL from 'openchemlib';
 
-export function parseOnefile(json) {
+export function parseLotus(json) {
   const results = [];
   for (const entry of json) {
     const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     oclMolecule.stripStereoInformation();
     const noStereoID = oclMolecule.getIDCode();
-    const taxonomy = entry.origin_organism;
-    const doi = entry.origin_reference.doi;
+    const taxonomy = entry.taxonomyReferenceObjects;
+    const key = Object.keys(taxonomy)[0];
+    const finalTaxonomy = taxonomy[key];
 
     const result = {
       ocl: {
@@ -17,8 +18,7 @@ export function parseOnefile(json) {
         noStereoID,
       },
       origin: {
-        taxonomy: taxonomy,
-        doi: doi,
+        taxonomy: finalTaxonomy,
       },
     };
 
@@ -26,4 +26,4 @@ export function parseOnefile(json) {
   }
   return results;
 }
-//https://www.npatlas.org/static/downloads/NPAtlas_download.json
+//https://lotus.naturalproducts.net/download/mongo
