@@ -1,10 +1,10 @@
 import { join } from 'path';
 
-import { convertNpass } from '../convertNpass';
+import { parseNpass } from '../parseNpass';
 
-describe('convertNpass', () => {
+describe('parseNpass', () => {
   it('simple case', () => {
-    const result = convertNpass(join(__dirname, 'data'));
+    const result = parseNpass(join(__dirname, 'data'));
     expect(result[0]).toStrictEqual({
       ocl: {
         id: 'eMACD\\QIh@',
@@ -40,16 +40,9 @@ describe('convertNpass', () => {
           },
         ],
         taxonomy: {
-          // id of UniProt
           organismName: 'Ainsliaea dissecta',
-          genusName: 'Ainsliaea',
-          genusID: '41469',
-          familyName: 'Asteraceae',
-          familyID: '4210',
-          kingdomName: 'Viridiplantae',
-          kingdomID: '33090',
-          superKingdomName: 'Eukaryota',
-          superKindomID: '2759',
+          organismIdNCBI: '130235',
+          tree: ['Viridiplantae', '', '', 'Asteraceae', 'Ainsliaea'],
         },
       },
     });

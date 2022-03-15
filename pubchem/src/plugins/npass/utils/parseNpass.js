@@ -4,7 +4,7 @@ import { join } from 'path';
 import OCL from 'openchemlib';
 import { parse } from 'papaparse';
 
-export function convertNpass(dirPath) {
+export function parseNpass(dirPath) {
   //http://bidd.group/NPASS/downloadFiles/NPASSv1.0_download_naturalProducts_generalInfo.txt
   const general = parse(
     readFileSync(
@@ -98,16 +98,17 @@ export function convertNpass(dirPath) {
       }
       const orgID = speciesPair[item.np_id];
       const taxonomy = speciesInfo[orgID];
+
       const finalTaxonomy = {
         organismName: taxonomy?.org_name,
-        genusName: taxonomy?.genus_name,
-        genusID: taxonomy?.genus_tax_id,
-        familyName: taxonomy?.family_name,
-        familyID: taxonomy?.family_tax_id,
-        kingdomName: taxonomy?.kingdom_name,
-        kingdomID: taxonomy?.kingdom_tax_id,
-        superKingdomName: taxonomy?.superkingdom_name,
-        superKindomID: taxonomy?.superkingdom_tax_id,
+        organismIdNCBI: taxonomy?.org_tax_id,
+        tree: [
+          taxonomy?.kingdom_name,
+          '', //phylum but not present
+          '', // class but not present
+          taxonomy?.family_name,
+          taxonomy?.genus_name,
+        ],
       };
 
       const result = {
