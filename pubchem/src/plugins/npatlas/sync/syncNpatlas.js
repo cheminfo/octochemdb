@@ -26,9 +26,7 @@ export async function sync(connection) {
   ) {
     firstID = lastDocumentImported._id;
   }
-  console.log(lastFile);
   const fileJson = readFileSync(lastFile, 'utf8');
-  console.log(JSON.parse(fileJson));
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
