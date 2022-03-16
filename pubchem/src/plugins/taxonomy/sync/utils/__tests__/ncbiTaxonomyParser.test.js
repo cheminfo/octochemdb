@@ -1,12 +1,12 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import { ncbiTaxonomyParser } from '../ncbiTaxonomyParser';
+import { taxonomyParser } from '../taxonomyParser';
 
-test('ncbiTaxonomyParser', () => {
+test('taxonomyParser', () => {
   const results = [];
   const arrayBuffer = readFileSync(join(__dirname, 'data/test.dmp'));
-  for (const entry of ncbiTaxonomyParser(arrayBuffer)) {
+  for (const entry of taxonomyParser(arrayBuffer)) {
     results.push(entry);
   }
   expect(results).toHaveLength(16);

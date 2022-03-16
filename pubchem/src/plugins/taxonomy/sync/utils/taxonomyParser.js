@@ -1,4 +1,4 @@
-export function* ncbiTaxonomyParser(arrayBuffer) {
+export function* taxonomyParser(arrayBuffer) {
   const decoder = new TextDecoder();
   arrayBuffer = new Uint8Array(arrayBuffer);
   let begin = 0;
@@ -12,7 +12,7 @@ export function* ncbiTaxonomyParser(arrayBuffer) {
         continue;
       }
       const entry = {
-        id: fields[0].replace(/[\r\n]/g, ''),
+        _id: fields[0].replace(/[\r\n]/g, ''),
         organism: fields[1],
         taxonomy: fields[2].split(/; ?/).filter((field) => field),
       };

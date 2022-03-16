@@ -41,7 +41,7 @@ export default async function importOneNpatlasFile(
       { $set: taxonomy },
       { upsert: true },
     );
-    connection.setProgress(progress);
+    await connection.setProgress(progress);
     imported++;
   }
 
