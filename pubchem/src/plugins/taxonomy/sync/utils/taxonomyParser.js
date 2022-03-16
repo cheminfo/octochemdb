@@ -12,7 +12,7 @@ export function* taxonomyParser(arrayBuffer) {
         continue;
       }
       const entry = {
-        _id: fields[0].replace(/[\r\n]/g, ''),
+        _id: Number(fields[0].replace(/[\r\n]/g, '')),
         organism: fields[1],
         taxonomy: fields[2].split(/; ?/).filter((field) => field),
       };
