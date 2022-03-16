@@ -1,17 +1,18 @@
 import { readFileSync } from 'fs';
 
 import Debug from 'debug';
+import { fileListFromZip } from 'filelist-from';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
-import { npAtlasParser } from './utils/npAtlasParser.js';
+import { parseCoconut } from './utils/parseCoconut.js';
 
 const debug = Debug('syncNpAtlas');
 
 export async function sync(connection) {
   const lastFile = await getLastTaxonomyFile();
-  const progress = await connection.getProgress('npAtlas');
-  const collection = await connection.getCollection('npAtlas');
+  const progress = await connection.getProgress('coconut');
+  const collection = await connection.getCollection('coconut');
 
   const lastDocumentImported = await getLastTaxonomyImported(
     connection,
@@ -26,16 +27,16 @@ export async function sync(connection) {
   ) {
     firstID = lastDocumentImported._id;
   }
-  console.log(lastFile);
-  const fileJson = readFileSync(lastFile, 'utf8');
-  console.log(JSON.parse(fileJson));
+  const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
+    (file) => file.name === 'fullnamelineage.dmp',
+  );
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  for (const entry of npAtlasParser(JSON.parse(fileJson))) {
+  for (const entry of parseCoconut(JSON.parse(fileList))) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
     if (Date.now() - start > 10000) {
@@ -69,7 +70,7 @@ export async function sync(connection) {
 }
 
 async function getLastTaxonomyImported(connection, progress) {
-  const collection = await connection.getCollection('npAtlas');
+  const collection = await connection.getCollection('coconut');
   return collection
     .find({ _seq: { $lte: progress.seq } })
     .sort('_seq', -1)
@@ -78,12 +79,13 @@ async function getLastTaxonomyImported(connection, progress) {
 }
 
 async function getLastTaxonomyFile() {
-  debug('Get last npAtlas file if new');
+  debug('Get last coconut file if new');
 
   const source = process.env.NPATLAS_SOURCE;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/npAtlas/full`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
 
   debug(`Syncing: ${source} to ${destination}`);
 
   return getFileIfNew({ url: source }, destination);
 }
+//`bsondump --bsonFile lotusUniqueNaturalProduct.bson  | head -100 | jq > head.json`
