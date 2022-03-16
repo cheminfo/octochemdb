@@ -11,6 +11,7 @@ test('npAtlasParser', () => {
   const results = npAtlasParser(JSON.parse(json));
 
   expect(results[0]).toStrictEqual({
+    _id: 'ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjj@@',
     ocl: {
       id: 'ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjjXRLPiZIUU@d@',
       coordinates:

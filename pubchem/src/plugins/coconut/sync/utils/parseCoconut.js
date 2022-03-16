@@ -10,6 +10,7 @@ export function parseCoconut(json) {
     const taxonomy = entry.uniqueNaturalProduct.textTaxa;
 
     const result = {
+      _id: noStereoID,
       ocl: {
         id: oclID.idCode,
         coordinates: oclID.coordinates,

@@ -9,6 +9,7 @@ describe('parseCoconut', () => {
     const results = parseCoconut(JSON.parse(json));
 
     expect(results[0]).toStrictEqual({
+      _id: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
       ocl: {
         id: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
         coordinates: '!Bm?vH?_y?m?s~_{lkbOwRsyg_s\\|lYrqgs\\|',

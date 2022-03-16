@@ -44,6 +44,7 @@ export function npAtlasParser(json) {
     };
 
     const result = {
+      _id: noStereoID,
       ocl: {
         id: oclID.idCode,
         coordinates: oclID.coordinates,
