@@ -13,7 +13,7 @@ export async function sync(connection) {
   const progress = await connection.getProgress('npAtlas');
   const collection = await connection.getCollection('npAtlas');
 
-  const lastDocumentImported = await getLastTaxonomyImported(
+  const lastDocumentImported = await getLastNpAtlasImported(
     connection,
     progress,
   );
@@ -66,7 +66,7 @@ export async function sync(connection) {
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
 
-async function getLastTaxonomyImported(connection, progress) {
+async function getLastNpAtlasImported(connection, progress) {
   const collection = await connection.getCollection('npAtlas');
   return collection
     .find({ _seq: { $lte: progress.seq } })
