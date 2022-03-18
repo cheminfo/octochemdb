@@ -56,7 +56,9 @@
     "pino-pretty": "^7.5.3",
     "sdf-parser": "^5.0.1",
     "tempfile": "^4.0.0",
-    "workerpool": "^6.2.0"
+    "unzipper": "^0.10.11",
+    "workerpool": "^6.2.0",
+    "yauzl": "^2.10.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",

@@ -7,6 +7,7 @@ test('parseLotus', () => {
   const json = readFileSync(join(__dirname, 'data/lotus.json'), 'utf8');
   const results = parseLotus(JSON.parse(json));
   expect(results[0]).toStrictEqual({
+    _id: 'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
     ocl: {
       id: 'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@',
       coordinates:

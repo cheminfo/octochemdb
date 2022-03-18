@@ -1,12 +1,15 @@
-import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import Debug from 'debug';
-import { fileListFromZip } from 'filelist-from';
+import { fileListFromPath } from 'filelist-from';
+import pkg from 'fs-extra';
+import { Open } from 'unzipper';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseLotus } from './utils/parseLotus.js';
+
+const { moveSync, rmSync, existsSync } = pkg;
 
 const debug = Debug('syncLotus');
 
@@ -28,16 +31,31 @@ export async function sync(connection) {
   ) {
     firstID = lastDocumentImported._id;
   }
-  const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
+  const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
+  const directory = await Open.file(lastFile);
+  await directory.extract({
+    path: join(targetFolder),
+    concurrency: 5,
+  });
+  const modificationDate = lastFile.split('.')[3];
+  const filePath = fileListFromPath(targetFolder).filter(
     (file) => file.name === 'lotusUniqueNaturalProduct.bson',
   );
-  ///
-  const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
 
-  const targetFileUnZip = join(targetFolder, fileList[0].name);
+  const filename = join(
+    filePath[0].name
+      .replace(/^.*\//, '')
+      .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
+  );
+  const removeFolderPath = targetFolder.concat(
+    '/',
+    filePath[0].webkitRelativePath.split('/')[4],
+  );
 
-  const arrayBufferUnZip = await fileList[0].arrayBuffer();
-  writeFileSync(targetFileUnZip, new Uint8Array(arrayBufferUnZip));
+  if (!existsSync(join(targetFolder, filename))) {
+    moveSync(filePath[0].webkitRelativePath, join(targetFolder, filename));
+    rmSync(join(removeFolderPath), { recursive: true });
+  }
 
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
@@ -46,8 +64,7 @@ export async function sync(connection) {
   let imported = 0;
   let start = Date.now();
 
-  const lotus = await parseLotus(targetFileUnZip);
-
+  const lotus = await parseLotus(join(targetFolder, filename));
   for (const entry of lotus) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
@@ -79,6 +96,9 @@ export async function sync(connection) {
     _source: { $ne: source },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  if (existsSync(join(targetFolder, filename))) {
+    rmSync(join(targetFolder, filename), { recursive: true });
+  }
 }
 
 async function getLastTaxonomyImported(connection, progress) {
@@ -100,4 +120,3 @@ async function getLastTaxonomyFile() {
 
   return getFileIfNew({ url: source }, destination);
 }
-//`bsondump --bsonFile lotusUniqueNaturalProduct.bson  | head -100 | jq > head.json`
