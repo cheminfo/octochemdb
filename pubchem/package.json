@@ -30,6 +30,7 @@
   "dependencies": {
     "array-difference": "0.0.2",
     "arraybuffer-xml-parser": "^0.5.0",
+    "bson-iterator": "^1.0.0",
     "camelcase": "^6.3.0",
     "camelcase-keys": "^7.0.2",
     "cross-fetch": "^3.1.5",

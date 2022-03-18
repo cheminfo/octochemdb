@@ -1,8 +1,13 @@
+import { createReadStream } from 'fs';
+import { join } from 'path';
+
+import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-export function parseCoconut(json) {
+export async function parseCoconut(json) {
   const results = [];
-  for (const entry of json) {
+  const readStream = createReadStream(join(json));
+  for await (const entry of bsonIterator(readStream)) {
     const oclMolecule = OCL.Molecule.fromSmiles(entry.originalSmiles);
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     oclMolecule.stripStereoInformation();
@@ -22,9 +27,7 @@ export function parseCoconut(json) {
         taxonomy: taxonomy,
       },
     };
-
     results.push(result);
   }
   return results;
 }
-//https://coconut.naturalproducts.net/download/mongo

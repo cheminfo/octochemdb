@@ -1,8 +1,13 @@
+import { createReadStream } from 'fs';
+import { join } from 'path';
+
+import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-export function parseLotus(json) {
+export async function parseLotus(targetFileUnZip) {
   const results = [];
-  for (const entry of json) {
+  const readStream = createReadStream(join(targetFileUnZip));
+  for await (const entry of bsonIterator(readStream)) {
     const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     oclMolecule.stripStereoInformation();
@@ -97,9 +102,7 @@ export function parseLotus(json) {
         taxonomy: finalTaxonomy,
       },
     };
-
     results.push(result);
   }
   return results;
 }
-//https://lotus.naturalproducts.net/download/mongo

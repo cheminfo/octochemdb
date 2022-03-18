@@ -1,18 +1,19 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
 
 import Debug from 'debug';
 import { fileListFromZip } from 'filelist-from';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
-import { parseCoconut } from './utils/parseCoconut.js';
+import { parseLotus } from './utils/parseLotus.js';
 
-const debug = Debug('syncCoconut');
+const debug = Debug('syncLotus');
 
 export async function sync(connection) {
   const lastFile = await getLastTaxonomyFile();
-  const progress = await connection.getProgress('coconut');
-  const collection = await connection.getCollection('coconut');
+  const progress = await connection.getProgress('lotus');
+  const collection = await connection.getCollection('lotus');
 
   const lastDocumentImported = await getLastTaxonomyImported(
     connection,
@@ -28,16 +29,26 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
   const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
-    (file) => file.name === 'uniqueNaturalProduct.bson',
+    (file) => file.name === 'lotusUniqueNaturalProduct.bson',
   );
+  ///
+  const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
+
+  const targetFileUnZip = join(targetFolder, fileList[0].name);
+
+  const arrayBufferUnZip = await fileList[0].arrayBuffer();
+  writeFileSync(targetFileUnZip, new Uint8Array(arrayBufferUnZip));
+
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  const coconut = await parseCoconut(fileList);
-  for (const entry of coconut) {
+
+  const lotus = await parseLotus(targetFileUnZip);
+
+  for (const entry of lotus) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
     if (Date.now() - start > 10000) {
@@ -71,7 +82,7 @@ export async function sync(connection) {
 }
 
 async function getLastTaxonomyImported(connection, progress) {
-  const collection = await connection.getCollection('coconut');
+  const collection = await connection.getCollection('lotus');
   return collection
     .find({ _seq: { $lte: progress.seq } })
     .sort('_seq', -1)
@@ -80,10 +91,10 @@ async function getLastTaxonomyImported(connection, progress) {
 }
 
 async function getLastTaxonomyFile() {
-  debug('Get last coconut file if new');
+  debug('Get last lotus file if new');
 
-  const source = process.env.COCONUT_SOURCE;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
+  const source = process.env.LOTUS_SOURCE;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
 
   debug(`Syncing: ${source} to ${destination}`);
 
