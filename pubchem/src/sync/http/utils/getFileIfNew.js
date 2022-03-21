@@ -36,18 +36,16 @@ async function getFileIfNew(file, targetFolder, options = {}) {
 
     const targetFile = join(
       targetFolder,
-      filename,
-      modificationDate,
-      `.${extension}`,
+      `${filename}.${modificationDate}.${extension}`,
     );
     debug(`targetFile: ${targetFile}`);
     if (existsSync(targetFile)) {
       debug('file already exists, no need to fetch');
       return targetFile;
     }
-
-    const writeStream = createWriteStream(targetFile);
-    for await (let part of response.body) {
+    const body = response.body;
+    const writeStream = createWriteStream(targetFile, 'utf-8');
+    for await (let part of body) {
       writeStream.write(part);
     }
     writeStream.close();
