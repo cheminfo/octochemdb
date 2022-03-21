@@ -3,13 +3,13 @@ import { join } from 'path';
 import Debug from 'debug';
 import { fileListFromPath } from 'filelist-from';
 import pkg from 'fs-extra';
-import { Open } from 'unzipper';
+import { Extract } from 'unzipper';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';
 
-const { moveSync, rmSync, existsSync } = pkg;
+const { moveSync, rmSync, existsSync, createReadStream } = pkg;
 
 const debug = Debug('syncCoconut');
 
@@ -32,11 +32,12 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
-  const directory = await Open.file(lastFile);
-  await directory.extract({
-    path: join(targetFolder),
-    concurrency: 5,
-  });
+  debug(`Need to decompress: ${lastFile}`);
+  const readStream = createReadStream(lastFile).pipe(
+    Extract({ path: targetFolder }),
+  );
+  await readStream.promise();
+  debug('Uncompressed done');
   const modificationDate = lastFile.split('.')[3];
   const filePath = fileListFromPath(targetFolder).filter(
     (file) => file.name === 'uniqueNaturalProduct.bson',
