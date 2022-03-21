@@ -30,7 +30,7 @@ async function firstCompoundImport(connection) {
   await compoundsCollection.createIndex({ 'data.em': 1 });
   await compoundsCollection.createIndex({ 'data.mf': 1 });
   await compoundsCollection.createIndex({ 'data.ocl.id': 1 });
-  await compoundsCollection.createIndex({ 'data.noStereoID': 1 });
+  await compoundsCollection.createIndex({ 'data.ocl.noStereoID': 1 });
 }
 
 async function importCompoundFiles(connection, progress, files, options) {
