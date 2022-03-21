@@ -1,4 +1,4 @@
-import { writeFileSync, utimesSync, existsSync } from 'fs';
+import { utimesSync, existsSync, createWriteStream } from 'fs';
 import { join } from 'path';
 
 import fetch from 'cross-fetch';
@@ -15,78 +15,47 @@ const debug = Debug('getFileIfNew');
  * @param {*} file
  * @param {*} targetFolder
  */
-async function getFileIfNew(file, targetFolder) {
+async function getFileIfNew(file, targetFolder, options = {}) {
+  const { filename, extension } = options;
+  if (!filename || !extension) {
+    throw new Error('options filename and extension are mandatory');
+  }
   try {
     mkdirpSync(targetFolder);
     const response = await fetch(file.url);
     const headers = Array.from(response.headers);
-    const modificationDate = [];
-    if (
-      response.url !== process.env.COCONUT_SOURCE &&
-      response.url !== process.env.LOTUS_SOURCE
-    ) {
-      debug(
-        `Last modification date: ${
-          headers.filter((row) => row[0] === 'last-modified')[0]
-        }`,
-      );
-      modificationDate.push(
-        new Date(headers.filter((row) => row[0] === 'last-modified')[0][1])
-          .toISOString()
-          .substring(0, 10),
-      );
-    } else {
-      modificationDate.push(
-        new Date(headers.filter((row) => row[0] === 'date')[0][1])
-          .toISOString()
-          .substring(0, 10),
-      );
-      debug(`Last modification date: ${modificationDate}`);
-    }
 
-    if (
-      response.url !== process.env.COCONUT_SOURCE &&
-      response.url !== process.env.LOTUS_SOURCE
-    ) {
-      const targetFile = join(
-        targetFolder,
-        file.url
-          .replace(/^.*\//, '')
-          .replace(/(\.[^.]*$)/, `.${modificationDate[0]}$1`),
-      );
-      debug(`targetFile: ${targetFile}`);
-      if (existsSync(targetFile)) {
-        debug('file already exists, no need to fetch');
-        return targetFile;
-      }
-      const arrayBuffer = await response.arrayBuffer();
-      writeFileSync(targetFile, new Uint8Array(arrayBuffer));
+    let lastMofidied =
+      headers.filter((row) => row[0] === 'last-modified')[0] ||
+      headers.filter((row) => row[0] === 'date')[0];
 
-      if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
+    let modificationDate = new Date(lastMofidied[1])
+      .toISOString()
+      .substring(0, 10);
+    debug(`Last modification date: ${modificationDate}`);
 
-      debug(`Downloading: ${file.name}`);
-      return targetFile;
-    } else {
-      const targetFile = join(
-        targetFolder,
-        headers
-          .filter((row) => row[0] === 'content-disposition')[0][1]
-          .split('=')[1]
-          .replace(/^.*\//, '')
-          .replace(/(\.[^.]*$)/, `.${modificationDate[0]}$1`),
-      );
-      debug(`targetFile: ${targetFile}`);
-      if (existsSync(targetFile)) {
-        debug('file already exists, no need to fetch');
-        return targetFile;
-      }
-      const arrayBuffer = await response.arrayBuffer();
-      writeFileSync(targetFile, new Uint8Array(arrayBuffer));
-
-      if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
-
+    const targetFile = join(
+      targetFolder,
+      filename,
+      modificationDate,
+      `.${extension}`,
+    );
+    debug(`targetFile: ${targetFile}`);
+    if (existsSync(targetFile)) {
+      debug('file already exists, no need to fetch');
       return targetFile;
     }
+
+    const writeStream = createWriteStream(targetFile);
+    for await (let part of response.body) {
+      writeStream.write(part);
+    }
+    writeStream.close();
+
+    if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
+
+    debug(`Downloading: ${file.name}`);
+    return targetFile;
   } catch (e) {
     debug(`ERROR downloading: ${file.url}`);
     throw e;
