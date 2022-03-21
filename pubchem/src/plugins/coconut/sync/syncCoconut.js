@@ -33,10 +33,18 @@ export async function sync(connection) {
   }
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
   debug(`Need to decompress: ${lastFile}`);
+
   const readStream = createReadStream(lastFile).pipe(
     Extract({ path: targetFolder }),
   );
-  await readStream.promise();
+
+  const promise = new Promise((resolve, reject) => {
+    readStream.on('end', () => resolve());
+    readStream.on('close', () => resolve());
+    readStream.on('error', (error) => reject(error));
+  });
+  await promise;
+
   debug('Uncompressed done');
   const modificationDate = lastFile.split('.')[3];
   const filePath = fileListFromPath(targetFolder).filter(
