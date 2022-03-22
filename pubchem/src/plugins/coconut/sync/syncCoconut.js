@@ -21,11 +21,10 @@ const {
 const debug = Debug('syncCoconut');
 
 export async function sync(connection) {
-  const lastFile = await getLastTaxonomyFile();
+  const lastFile = await getLastCoconutFile();
   const progress = await connection.getProgress('coconut');
   const collection = await connection.getCollection('coconut');
-  console.log(lastFile);
-  const lastDocumentImported = await getLastTaxonomyImported(
+  const lastDocumentImported = await getLastCoconutCompoundImported(
     connection,
     progress,
   );
@@ -53,7 +52,11 @@ export async function sync(connection) {
           mkdirSync(join(targetFolder, fileName));
           entry.autodrain();
         } else {
-          entry.pipe(createWriteStream(join(targetFolder, fileName)));
+          let fileNameEntry = fileName.slice(0).split('/');
+          console.log(fileNameEntry, fileNameEntry.slice(-1));
+          if (fileNameEntry.slice(-1)[0] === 'uniqueNaturalProduct.bson') {
+            entry.pipe(createWriteStream(join(targetFolder, fileName)));
+          }
         }
         entry.autodrain();
       })
@@ -83,15 +86,18 @@ export async function sync(connection) {
     moveSync(filePath[0].webkitRelativePath, join(targetFolder, filename));
     rmSync(join(removeFolderPath), { recursive: true });
   }
-
+  console.log('a');
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+  console.log('a');
 
   const lotus = await parseCoconut(join(targetFolder, filename));
+  console.log('a');
+
   for (const entry of lotus) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
@@ -128,7 +134,7 @@ export async function sync(connection) {
   }
 }
 
-async function getLastTaxonomyImported(connection, progress) {
+async function getLastCoconutCompoundImported(connection, progress) {
   const collection = await connection.getCollection('coconut');
   return collection
     .find({ _seq: { $lte: progress.seq } })
@@ -137,7 +143,7 @@ async function getLastTaxonomyImported(connection, progress) {
     .next();
 }
 
-async function getLastTaxonomyFile() {
+async function getLastCoconutFile() {
   debug('Get last coconut file if new');
 
   const source = process.env.COCONUT_SOURCE;
