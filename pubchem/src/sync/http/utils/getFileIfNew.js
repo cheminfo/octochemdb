@@ -50,7 +50,6 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       writeStream.write(part);
     }
     writeStream.close();
-    console.log(response);
     if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
 
     debug(`Downloading: ${file.name}`);
