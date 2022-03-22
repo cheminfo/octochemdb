@@ -16,7 +16,7 @@ export async function parseCoconut(bsonPath) {
       const taxonomy = entry.uniqueNaturalProduct.textTaxa;
 
       const result = {
-        _id: noStereoID,
+        _id: entry.coconut_id,
         ocl: {
           id: oclID.idCode,
           coordinates: oclID.coordinates,
@@ -28,6 +28,8 @@ export async function parseCoconut(bsonPath) {
           taxonomy: taxonomy,
         },
       };
+      console.log(result);
+
       results.push(result);
     } catch (__java$exception) {
       continue;

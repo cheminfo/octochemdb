@@ -95,7 +95,7 @@ export async function parseLotus(bsonPath) {
       }
 
       const result = {
-        _id: noStereoID,
+        _id: entry.lotus_id,
         ocl: {
           id: oclID.idCode,
           coordinates: oclID.coordinates,
