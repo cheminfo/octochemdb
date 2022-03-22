@@ -3,13 +3,20 @@ import { join } from 'path';
 import Debug from 'debug';
 import { fileListFromPath } from 'filelist-from';
 import pkg from 'fs-extra';
-import { Extract } from 'unzipper';
+import unzipper from 'unzipper';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';
 
-const { moveSync, rmSync, existsSync, createReadStream } = pkg;
+const {
+  moveSync,
+  rmSync,
+  existsSync,
+  createReadStream,
+  createWriteStream,
+  mkdirSync,
+} = pkg;
 
 const debug = Debug('syncCoconut');
 
@@ -17,7 +24,7 @@ export async function sync(connection) {
   const lastFile = await getLastTaxonomyFile();
   const progress = await connection.getProgress('coconut');
   const collection = await connection.getCollection('coconut');
-
+  console.log(lastFile);
   const lastDocumentImported = await getLastTaxonomyImported(
     connection,
     progress,
@@ -34,16 +41,27 @@ export async function sync(connection) {
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
   debug(`Need to decompress: ${lastFile}`);
 
-  const readStream = createReadStream(lastFile).pipe(
-    Extract({ path: targetFolder }),
-  );
-
-  const promise = new Promise((resolve, reject) => {
-    readStream.on('end', () => resolve());
-    readStream.on('close', () => resolve());
-    readStream.on('error', (error) => reject(error));
+  await new Promise((resolve, reject) => {
+    createReadStream(lastFile)
+      .pipe(unzipper.Parse())
+      .on('entry', function (entry) {
+        const fileName = entry.path;
+        const type = entry.type; // 'Directory' or 'File'
+        const size = entry.vars.uncompressedSize; // There is also compressedSize;
+        console.log(fileName, type, size);
+        if (type === 'Directory') {
+          mkdirSync(join(targetFolder, fileName));
+          entry.autodrain();
+        } else {
+          entry.pipe(createWriteStream(join(targetFolder, fileName)));
+        }
+        entry.autodrain();
+      })
+      .on('close', () => {
+        resolve();
+        console.log('close');
+      });
   });
-  await promise;
 
   debug('Uncompressed done');
   const modificationDate = lastFile.split('.')[3];
