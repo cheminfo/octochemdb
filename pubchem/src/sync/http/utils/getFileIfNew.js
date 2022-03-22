@@ -44,12 +44,13 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       return targetFile;
     }
     const body = response.body;
-    const writeStream = createWriteStream(targetFile, 'utf-8');
+    const encoding = body['_readableState'].defaultEncoding;
+    const writeStream = createWriteStream(targetFile, encoding);
     for await (let part of body) {
       writeStream.write(part);
     }
     writeStream.close();
-
+    console.log(response);
     if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
 
     debug(`Downloading: ${file.name}`);
