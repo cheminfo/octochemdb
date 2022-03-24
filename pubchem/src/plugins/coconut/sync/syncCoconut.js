@@ -52,13 +52,8 @@ export async function sync(connection) {
           mkdirSync(join(targetFolder, fileName));
           entry.autodrain();
         } else {
-          let fileNameEntry = fileName.slice(0).split('/');
-          console.log(fileNameEntry, fileNameEntry.slice(-1));
-          if (fileNameEntry.slice(-1)[0] === 'uniqueNaturalProduct.bson') {
-            entry.pipe(createWriteStream(join(targetFolder, fileName)));
-          }
+          entry.pipe(createWriteStream(join(targetFolder, fileName)));
         }
-        entry.autodrain();
       })
       .on('close', () => {
         resolve();
@@ -86,19 +81,16 @@ export async function sync(connection) {
     moveSync(filePath[0].webkitRelativePath, join(targetFolder, filename));
     rmSync(join(removeFolderPath), { recursive: true });
   }
-  console.log('a');
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  console.log('a');
 
-  const lotus = await parseCoconut(join(targetFolder, filename));
-  console.log('a');
+  const coconut = await parseCoconut(join(targetFolder, filename));
 
-  for (const entry of lotus) {
+  for (const entry of coconut) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
     if (Date.now() - start > 10000) {
@@ -129,9 +121,6 @@ export async function sync(connection) {
     _source: { $ne: source },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-  if (existsSync(join(targetFolder, filename))) {
-    rmSync(join(targetFolder, filename), { recursive: true });
-  }
 }
 
 async function getLastCoconutCompoundImported(connection, progress) {
