@@ -3,14 +3,20 @@ import { join } from 'path';
 import Debug from 'debug';
 import { fileListFromPath } from 'filelist-from';
 import pkg from 'fs-extra';
-import { Open } from 'unzipper';
+import unzipper from 'unzipper';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseLotus } from './utils/parseLotus.js';
 
-const { moveSync, rmSync, existsSync } = pkg;
-
+const {
+  moveSync,
+  rmSync,
+  existsSync,
+  createReadStream,
+  createWriteStream,
+  mkdirSync,
+} = pkg;
 const debug = Debug('syncLotus');
 
 export async function sync(connection) {
@@ -32,11 +38,30 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
-  const directory = await Open.file(lastFile);
-  await directory.extract({
-    path: join(targetFolder),
-    concurrency: 5,
+  debug(`Need to decompress: ${lastFile}`);
+
+  await new Promise((resolve, reject) => {
+    createReadStream(lastFile)
+      .pipe(unzipper.Parse())
+      .on('entry', function (entry) {
+        const fileName = entry.path;
+        const type = entry.type; // 'Directory' or 'File'
+        const size = entry.vars.uncompressedSize; // There is also compressedSize;
+        console.log(fileName, type, size);
+        if (type === 'Directory') {
+          mkdirSync(join(targetFolder, fileName));
+          entry.autodrain();
+        } else {
+          entry.pipe(createWriteStream(join(targetFolder, fileName)));
+        }
+      })
+      .on('close', () => {
+        resolve();
+        console.log('close');
+      });
   });
+
+  debug('Uncompressed done');
   const modificationDate = lastFile.split('.')[3];
   const filePath = fileListFromPath(targetFolder).filter(
     (file) => file.name === 'lotusUniqueNaturalProduct.bson',
@@ -118,5 +143,8 @@ async function getLastTaxonomyFile() {
 
   debug(`Syncing: ${source} to ${destination}`);
 
-  return getFileIfNew({ url: source }, destination);
+  return getFileIfNew({ url: source }, destination, {
+    filename: 'lotus',
+    extension: 'zip',
+  });
 }
