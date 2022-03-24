@@ -88,5 +88,8 @@ async function getLastTaxonomyFile() {
 
   debug(`Syncing: ${source} to ${destination}`);
 
-  return getFileIfNew({ url: source }, destination);
+  return getFileIfNew({ url: source }, destination, {
+    filename: 'taxonomy',
+    extension: 'zip',
+  });
 }

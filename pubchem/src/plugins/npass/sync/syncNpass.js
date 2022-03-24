@@ -121,18 +121,24 @@ async function getLastNpassFileGeneralInfo() {
 
   debug(`Syncing: ${sourceGeneralInfo} to ${destination}`);
 
-  return getFileIfNew({ url: sourceGeneralInfo }, destination);
+  return getFileIfNew({ url: sourceGeneralInfo }, destination, {
+    filename: 'general',
+    extension: 'txt',
+  });
 }
 
 async function getLastNpassFileActivity() {
-  debug('Get last cmaup Activity file if new');
+  debug('Get last npass Activity file if new');
 
   const sourceActivity = process.env.NPASS_SOURCE_ACTIVITY;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/npass/full`;
 
   debug(`Syncing: ${sourceActivity} to ${destination}`);
 
-  return getFileIfNew({ url: sourceActivity }, destination);
+  return getFileIfNew({ url: sourceActivity }, destination, {
+    filename: 'activities',
+    extension: 'txt',
+  });
 }
 
 async function getLastNpassFileProperties() {
@@ -143,7 +149,10 @@ async function getLastNpassFileProperties() {
 
   debug(`Syncing: ${sourceProperties} to ${destination}`);
 
-  return getFileIfNew({ url: sourceProperties }, destination);
+  return getFileIfNew({ url: sourceProperties }, destination, {
+    filename: 'properties',
+    extension: 'txt',
+  });
 }
 
 async function getLastNpassFileSpeciesPair() {
@@ -154,7 +163,10 @@ async function getLastNpassFileSpeciesPair() {
 
   debug(`Syncing: ${sourceSpeciesPair} to ${destination}`);
 
-  return getFileIfNew({ url: sourceSpeciesPair }, destination);
+  return getFileIfNew({ url: sourceSpeciesPair }, destination, {
+    filename: 'speciesPair',
+    extension: 'txt',
+  });
 }
 
 async function getLastNpassFileSpeciesInfo() {
@@ -165,5 +177,8 @@ async function getLastNpassFileSpeciesInfo() {
 
   debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
 
-  return getFileIfNew({ url: sourceSpeciesInfo }, destination);
+  return getFileIfNew({ url: sourceSpeciesInfo }, destination, {
+    filename: 'speciesInfo',
+    extension: 'txt',
+  });
 }

@@ -115,38 +115,50 @@ async function getLastCmaupFileIngredients() {
 
   debug(`Syncing: ${sourceIngredients} to ${destination}`);
 
-  return getFileIfNew({ url: sourceIngredients }, destination);
+  return getFileIfNew({ url: sourceIngredients }, destination, {
+    filename: 'Ingredients',
+    extension: 'txt',
+  });
 }
 
 async function getLastCmaupFileActivity() {
-  debug('Get last cmaup Ingredients file if new');
+  debug('Get last cmaup Activity file if new');
 
   const sourceActivity = process.env.CMAUP_SOURCE_ACTIVITY;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
   debug(`Syncing: ${sourceActivity} to ${destination}`);
 
-  return getFileIfNew({ url: sourceActivity }, destination);
+  return getFileIfNew({ url: sourceActivity }, destination, {
+    filename: 'Activity',
+    extension: 'txt',
+  });
 }
 
 async function getLastCmaupFileSpeciesAssociation() {
-  debug('Get last cmaup Ingredients file if new');
+  debug('Get last cmaup SpeciesAssociation file if new');
 
   const sourceSpeciesAssociation = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
   debug(`Syncing: ${sourceSpeciesAssociation} to ${destination}`);
 
-  return getFileIfNew({ url: sourceSpeciesAssociation }, destination);
+  return getFileIfNew({ url: sourceSpeciesAssociation }, destination, {
+    filename: 'speciesAssociation',
+    extension: 'txt',
+  });
 }
 
 async function getLastCmaupFileSpeciesInfo() {
-  debug('Get last cmaup Ingredients file if new');
+  debug('Get last cmaup SpeciesInfo file if new');
 
   const sourceSpeciesInfo = process.env.CMAUP_SOURCE_SPECIESINFO;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
   debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
 
-  return getFileIfNew({ url: sourceSpeciesInfo }, destination);
+  return getFileIfNew({ url: sourceSpeciesInfo }, destination, {
+    filename: 'speciesInfo',
+    extension: 'txt',
+  });
 }
