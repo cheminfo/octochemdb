@@ -52,10 +52,10 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     writeStream.close();
     if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
 
-    debug(`Downloading: ${file.name}`);
+    debug(`Downloading: ${options.filename}`);
     return targetFile;
   } catch (e) {
-    debug(`ERROR downloading: ${file.url}`);
+    debug(`ERROR downloading: ${options.filename}`);
     throw e;
   }
 }
