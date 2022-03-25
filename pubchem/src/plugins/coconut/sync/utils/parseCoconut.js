@@ -14,20 +14,18 @@ export async function parseCoconut(bsonPath) {
       const oclID = oclMolecule.getIDCodeAndCoordinates();
       oclMolecule.stripStereoInformation();
       const noStereoID = oclMolecule.getIDCode();
-      const taxonomy = entry.textTaxa;
-
+      const taxonomy = entry?.taxonomyReferenceObjects;
       const result = {
         _id: entry.coconut_id,
         ocl: {
           id: oclID.idCode,
           coordinates: oclID.coordinates,
           noStereoID,
-          nameCompound: entry.synonyms,
         },
         origin: {
           taxonomy: taxonomy,
         },
-        cas: entry.cas,
+        cas: entry?.cas,
       };
       results.push(result);
     } catch (__java$exception) {
