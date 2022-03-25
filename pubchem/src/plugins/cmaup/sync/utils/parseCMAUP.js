@@ -25,16 +25,15 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
         }
       }
       const smilesDb = item.canonical_smiles;
-      const oclID2 = [];
-      const noStereoID2 = [];
+      let oclID;
+      let noStereoID;
       try {
         const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
 
-        const oclID = oclMolecule.getIDCodeAndCoordinates();
-        oclID2.push(oclID);
+        oclID = oclMolecule.getIDCodeAndCoordinates();
+
         oclMolecule.stripStereoInformation();
-        const noStereoID = oclMolecule.getIDCode();
-        noStereoID2.push(noStereoID);
+        noStereoID = oclMolecule.getIDCode();
       } catch (Class$S16) {
         continue;
       }
@@ -44,20 +43,20 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
         organismIdNCBI: taxonomy?.Species_Tax_ID,
         organismName: taxonomy?.Plant_Name,
         tree: [
-          [],
-          [],
-          [],
+          '',
+          '',
+          '',
           taxonomy?.Family_Name,
           taxonomy?.Genus_Name,
           taxonomy?.Species_Name,
         ],
       };
       const result = {
-        _id: noStereoID2[0],
+        _id: noStereoID,
         ocl: {
-          id: oclID2[0].idCode,
-          coordinates: oclID2[0].coordinates,
-          noStereoID: noStereoID2[0],
+          id: oclID.idCode,
+          coordinates: oclID.coordinates,
+          noStereoID: noStereoID,
           pubChemCID: item.pubchem_cid,
         },
         origin: {

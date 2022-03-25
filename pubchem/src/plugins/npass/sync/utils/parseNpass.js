@@ -24,16 +24,15 @@ export function parseNpass(
       });
     }
     const smilesDb = property.canonical_smiles;
-    const oclID2 = [];
-    const noStereoID2 = [];
+    let oclID;
+    let noStereoID;
     try {
       const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
 
-      const oclID = oclMolecule.getIDCodeAndCoordinates();
-      oclID2.push(oclID);
+      oclID = oclMolecule.getIDCodeAndCoordinates();
+
       oclMolecule.stripStereoInformation();
-      const noStereoID = oclMolecule.getIDCode();
-      noStereoID2.push(noStereoID);
+      noStereoID = oclMolecule.getIDCode();
     } catch (Class$S16) {
       continue;
     }
@@ -53,11 +52,11 @@ export function parseNpass(
     };
 
     const result = {
-      _id: noStereoID2[0],
+      _id: noStereoID,
       ocl: {
-        id: oclID2[0].idCode,
-        coordinates: oclID2[0].coordinates,
-        noStereoID: noStereoID2[0],
+        id: oclID.idCode,
+        coordinates: oclID.coordinates,
+        noStereoID: noStereoID,
         pubChemCID: item.pubchem_cid,
       },
       origin: {
@@ -66,7 +65,6 @@ export function parseNpass(
       },
     };
     results.push(result);
-    //}
   }
   return results;
 }
