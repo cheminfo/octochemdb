@@ -20,14 +20,11 @@ const {
 const debug = Debug('syncLotus');
 
 export async function sync(connection) {
-  const lastFile = await getLastTaxonomyFile();
+  const lastFile = await getLastLotusFile();
   const progress = await connection.getProgress('lotus');
   const collection = await connection.getCollection('lotus');
 
-  const lastDocumentImported = await getLastTaxonomyImported(
-    connection,
-    progress,
-  );
+  const lastDocumentImported = await getLastLotusImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
@@ -126,7 +123,7 @@ export async function sync(connection) {
   }
 }
 
-async function getLastTaxonomyImported(connection, progress) {
+async function getLastLotusImported(connection, progress) {
   const collection = await connection.getCollection('lotus');
   return collection
     .find({ _seq: { $lte: progress.seq } })
@@ -135,7 +132,7 @@ async function getLastTaxonomyImported(connection, progress) {
     .next();
 }
 
-async function getLastTaxonomyFile() {
+async function getLastLotusFile() {
   debug('Get last lotus file if new');
 
   const source = process.env.LOTUS_SOURCE;

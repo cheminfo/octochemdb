@@ -20,10 +20,7 @@ export async function sync(connection) {
   const progress = await connection.getProgress('npass');
   const collection = await connection.getCollection('npass');
 
-  const lastDocumentImported = await getLastTaxonomyImported(
-    connection,
-    progress,
-  );
+  const lastDocumentImported = await getLastNpassImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
@@ -104,7 +101,7 @@ export async function sync(connection) {
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
 
-async function getLastTaxonomyImported(connection, progress) {
+async function getLastNpassImported(connection, progress) {
   const collection = await connection.getCollection('npass');
   return collection
     .find({ _seq: { $lte: progress.seq } })

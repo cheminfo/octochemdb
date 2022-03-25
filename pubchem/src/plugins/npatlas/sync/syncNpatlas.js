@@ -9,7 +9,7 @@ import { npAtlasParser } from './utils/npAtlasParser.js';
 const debug = Debug('syncNpAtlas');
 
 export async function sync(connection) {
-  const lastFile = await getLastTaxonomyFile();
+  const lastFile = await getLastNpAtlasFile();
   const progress = await connection.getProgress('npAtlas');
   const collection = await connection.getCollection('npAtlas');
 
@@ -75,7 +75,7 @@ async function getLastNpAtlasImported(connection, progress) {
     .next();
 }
 
-async function getLastTaxonomyFile() {
+async function getLastNpAtlasFile() {
   debug('Get last npAtlas file if new');
 
   const source = process.env.NPATLAS_SOURCE;

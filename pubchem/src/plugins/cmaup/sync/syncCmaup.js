@@ -19,10 +19,7 @@ export async function sync(connection) {
   const progress = await connection.getProgress('cmaup');
   const collection = await connection.getCollection('cmaup');
 
-  const lastDocumentImported = await getLastTaxonomyImported(
-    connection,
-    progress,
-  );
+  const lastDocumentImported = await getLastCMAUPImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
@@ -98,7 +95,7 @@ export async function sync(connection) {
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
 
-async function getLastTaxonomyImported(connection, progress) {
+async function getLastCMAUPImported(connection, progress) {
   const collection = await connection.getCollection('cmaup');
   return collection
     .find({ _seq: { $lte: progress.seq } })
