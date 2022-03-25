@@ -1,7 +1,6 @@
 import { join } from 'path';
 
 import Debug from 'debug';
-import { fileListFromPath } from 'filelist-from';
 import pkg from 'fs-extra';
 import unzipper from 'unzipper';
 
@@ -9,14 +8,7 @@ import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseLotus } from './utils/parseLotus.js';
 
-const {
-  moveSync,
-  rmSync,
-  existsSync,
-  createReadStream,
-  createWriteStream,
-  mkdirSync,
-} = pkg;
+const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 const debug = Debug('syncLotus');
 
 export async function sync(connection) {
@@ -35,21 +27,28 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
+  const modificationDate = lastFile.split('.')[3];
+  const updatedFileName = join(
+    'lotusUniqueNaturalProduct.bson'
+      .replace(/^.*\//, '')
+      .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
+  );
   debug(`Need to decompress: ${lastFile}`);
-
-  await new Promise((resolve, reject) => {
+  await new Promise((resolve) => {
     createReadStream(lastFile)
       .pipe(unzipper.Parse())
       .on('entry', function (entry) {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
         const size = entry.vars.uncompressedSize; // There is also compressedSize;
+        const regex = new RegExp('lotusUniqueNaturalProduct.bson');
         console.log(fileName, type, size);
-        if (type === 'Directory') {
-          mkdirSync(join(targetFolder, fileName));
-          entry.autodrain();
+        if (type === 'File' && regex.test(fileName)) {
+          if (!existsSync(join(targetFolder, updatedFileName))) {
+            entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
+          }
         } else {
-          entry.pipe(createWriteStream(join(targetFolder, fileName)));
+          entry.autodrain();
         }
       })
       .on('close', () => {
@@ -59,25 +58,6 @@ export async function sync(connection) {
   });
 
   debug('Uncompressed done');
-  const modificationDate = lastFile.split('.')[3];
-  const filePath = fileListFromPath(targetFolder).filter(
-    (file) => file.name === 'lotusUniqueNaturalProduct.bson',
-  );
-
-  const filename = join(
-    filePath[0].name
-      .replace(/^.*\//, '')
-      .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
-  );
-  const removeFolderPath = targetFolder.concat(
-    '/',
-    filePath[0].webkitRelativePath.split('/')[4],
-  );
-
-  if (!existsSync(join(targetFolder, filename))) {
-    moveSync(filePath[0].webkitRelativePath, join(targetFolder, filename));
-    rmSync(join(removeFolderPath), { recursive: true });
-  }
 
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
@@ -86,7 +66,7 @@ export async function sync(connection) {
   let imported = 0;
   let start = Date.now();
 
-  const lotus = await parseLotus(join(targetFolder, filename));
+  const lotus = await parseLotus(join(targetFolder, updatedFileName));
   for (const entry of lotus) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
@@ -118,8 +98,8 @@ export async function sync(connection) {
     _source: { $ne: source },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-  if (existsSync(join(targetFolder, filename))) {
-    rmSync(join(targetFolder, filename), { recursive: true });
+  if (existsSync(join(targetFolder, updatedFileName))) {
+    rmSync(join(targetFolder, updatedFileName), { recursive: true });
   }
 }
 
