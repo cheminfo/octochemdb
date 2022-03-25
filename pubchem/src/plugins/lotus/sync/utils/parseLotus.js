@@ -20,78 +20,60 @@ export async function parseLotus(bsonPath) {
       const finalTaxonomy = {};
       let status = false;
       if ('NCBI' in taxonomySources) {
-        finalTaxonomy.organismIdNCBI =
-          taxonomySources.NCBI[0].cleaned_organism_id;
-        finalTaxonomy.organismName = taxonomySources.NCBI[0].organism_value;
-        finalTaxonomy.tree = [
-          taxonomySources.NCBI[0].kingdom,
-          taxonomySources.NCBI[0].phylum,
-          taxonomySources.NCBI[0].classx,
-          taxonomySources.NCBI[0].family,
-          taxonomySources.NCBI[0].genus,
-          taxonomySources.NCBI[0].species,
-        ];
+        finalTaxonomy.kingdom = taxonomySources.NCBI[0]?.kingdom;
+        finalTaxonomy.phylum = taxonomySources.NCBI[0]?.phylum;
+        finalTaxonomy.class = taxonomySources.NCBI[0]?.classx;
+        finalTaxonomy.family = taxonomySources.NCBI[0]?.family;
+        finalTaxonomy.genus = taxonomySources.NCBI[0]?.genus;
+        finalTaxonomy.species = taxonomySources.NCBI[0]?.species;
         status = true;
       }
       if ('GBIF Backbone Taxonomy' in taxonomySources && status === false) {
-        finalTaxonomy.organismIdGBIF =
-          taxonomySources['GBIF Backbone Taxonomy'][0].cleaned_organism_id;
-        finalTaxonomy.organismName =
-          taxonomySources['GBIF Backbone Taxonomy'][0].organism_value;
-        finalTaxonomy.tree = [
-          taxonomySources['GBIF Backbone Taxonomy'][0].kingdom,
-          taxonomySources['GBIF Backbone Taxonomy'][0].phylum,
-          taxonomySources['GBIF Backbone Taxonomy'][0].classx,
-          taxonomySources['GBIF Backbone Taxonomy'][0].family,
-          taxonomySources['GBIF Backbone Taxonomy'][0].genus,
-          taxonomySources['GBIF Backbone Taxonomy'][0].species,
-        ];
+        finalTaxonomy.kingdom =
+          taxonomySources['GBIF Backbone Taxonomy'][0]?.kingdom;
+        finalTaxonomy.phylum =
+          taxonomySources['GBIF Backbone Taxonomy'][0]?.phylum;
+        finalTaxonomy.class =
+          taxonomySources['GBIF Backbone Taxonomy'][0]?.classx;
+        finalTaxonomy.family =
+          taxonomySources['GBIF Backbone Taxonomy'][0]?.family;
+        finalTaxonomy.genus =
+          taxonomySources['GBIF Backbone Taxonomy'][0]?.genus;
+        finalTaxonomy.species =
+          taxonomySources['GBIF Backbone Taxonomy'][0]?.species;
         status = true;
       }
 
       if ('iNaturalist' in taxonomySources && status === false) {
-        finalTaxonomy.organismIdiNatur =
-          taxonomySources.iNaturalist[0].cleaned_organism_id;
-        finalTaxonomy.organismName =
-          taxonomySources.iNaturalist[0].organism_value;
-        finalTaxonomy.tree = [
-          taxonomySources.iNaturalist[0].kingdom,
-          taxonomySources.iNaturalist[0].phylum,
-          taxonomySources.iNaturalist[0].classx,
-          taxonomySources.iNaturalist[0].family,
-          taxonomySources.iNaturalist[0].genus,
-          taxonomySources.iNaturalist[0].species,
-        ];
+        finalTaxonomy.kingdom = taxonomySources.iNaturalist[0]?.kingdom;
+        finalTaxonomy.phylum = taxonomySources.iNaturalist[0]?.phylum;
+        finalTaxonomy.class = taxonomySources.iNaturalist[0]?.classx;
+        finalTaxonomy.family = taxonomySources.iNaturalist[0]?.family;
+        finalTaxonomy.genus = taxonomySources.iNaturalist[0]?.genus;
+        finalTaxonomy.species = taxonomySources.iNaturalist[0]?.species;
+
         status = true;
       }
 
       if ('Open Tree of Life' in taxonomySources && status === false) {
-        finalTaxonomy.organismIdOTL =
-          taxonomySources['Open Tree of Life'][0].cleaned_organism_id;
-        finalTaxonomy.organismName =
-          taxonomySources['Open Tree of Life'][0].organism_value;
-        finalTaxonomy.tree = [
-          taxonomySources['Open Tree of Life'][0].kingdom,
-          taxonomySources['Open Tree of Life'][0].phylum,
-          taxonomySources['Open Tree of Life'][0].classx,
-          taxonomySources['Open Tree of Life'][0].family,
-          taxonomySources['Open Tree of Life'][0].genus,
-          taxonomySources['Open Tree of Life'][0].species,
-        ];
+        finalTaxonomy.kingdom =
+          taxonomySources['Open Tree of Life'][0]?.kingdom;
+        finalTaxonomy.phylum = taxonomySources['Open Tree of Life'][0]?.phylum;
+        finalTaxonomy.class = taxonomySources['Open Tree of Life'][0]?.classx;
+        finalTaxonomy.family = taxonomySources['Open Tree of Life'][0]?.family;
+        finalTaxonomy.genus = taxonomySources['Open Tree of Life'][0]?.genus;
+        finalTaxonomy.species =
+          taxonomySources['Open Tree of Life'][0]?.species;
+
         status = true;
       }
       if ('ITIS' in taxonomySources && status === false) {
-        finalTaxonomy.organismIdITIS =
-          taxonomySources.ITIS[0].cleaned_organism_id;
-        finalTaxonomy.organismName = taxonomySources.ITIS[0].organism_value;
-        finalTaxonomy.tree = [
-          taxonomySources.ITIS[0].kingdom,
-          taxonomySources.ITIS[0].phylum,
-          taxonomySources.ITIS[0].classx,
-          taxonomySources.ITIS[0].family,
-          taxonomySources.ITIS[0].genus,
-          taxonomySources.ITIS[0].species,
-        ];
+        finalTaxonomy.kingdom = taxonomySources.ITIS[0]?.kingdom;
+        finalTaxonomy.phylum = taxonomySources.ITIS[0]?.phylum;
+        finalTaxonomy.class = taxonomySources.ITIS[0]?.classx;
+        finalTaxonomy.family = taxonomySources.ITIS[0]?.family;
+        finalTaxonomy.genus = taxonomySources.ITIS[0]?.genus;
+        finalTaxonomy.species = taxonomySources.ITIS[0]?.species;
       }
 
       const result = {
@@ -105,7 +87,6 @@ export async function parseLotus(bsonPath) {
           taxonomy: finalTaxonomy,
         },
       };
-
       results.push(result);
     } catch (__java$exception) {
       continue;

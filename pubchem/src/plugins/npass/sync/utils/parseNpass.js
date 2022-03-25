@@ -40,15 +40,10 @@ export function parseNpass(
     const taxonomy = speciesInfo[orgID];
 
     const finalTaxonomy = {
-      organismName: taxonomy?.org_name,
-      organismIdNCBI: taxonomy?.org_tax_id,
-      tree: [
-        taxonomy?.kingdom_name,
-        '', //phylum but not present
-        '', // class but not present
-        taxonomy?.family_name,
-        taxonomy?.genus_name,
-      ],
+      kingdom: taxonomy?.kingdom_name,
+      family: taxonomy?.family_name,
+      genus: taxonomy?.genus_name,
+      species: taxonomy?.org_name,
     };
 
     const result = {
@@ -60,9 +55,9 @@ export function parseNpass(
         pubChemCID: item.pubchem_cid,
       },
       origin: {
-        activities: finalActivity,
         taxonomy: finalTaxonomy,
       },
+      activities: finalActivity,
     };
     results.push(result);
   }

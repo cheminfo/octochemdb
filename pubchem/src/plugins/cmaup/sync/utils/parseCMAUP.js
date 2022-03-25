@@ -17,14 +17,14 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
         for (const info of activity) {
           finalActivity.push({
             activityType: info?.Activity_Type,
-            activityValue: info?.Activity_value,
+            activityValue: info?.Activity_Value,
             activityUnit: info?.Activity_Unit,
             refIdType: info?.Reference_ID_Type,
             refId: info?.Reference_ID,
           });
         }
       }
-      const smilesDb = item.canonical_smiles;
+      const smilesDb = item.__parsed_extra.slice(-1)[0];
       let oclID;
       let noStereoID;
       try {
@@ -40,34 +40,25 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
       const orgID = speciesPaired[id];
       const taxonomy = speciesInfo[orgID];
       const finalTaxonomy = {
-        organismIdNCBI: taxonomy?.Species_Tax_ID,
-        organismName: taxonomy?.Plant_Name,
-        tree: [
-          '',
-          '',
-          '',
-          taxonomy?.Family_Name,
-          taxonomy?.Genus_Name,
-          taxonomy?.Species_Name,
-        ],
+        family: taxonomy?.Family_Name,
+        genus: taxonomy?.Genus_Name,
+        species: taxonomy?.Plant_Name,
       };
       const result = {
-        _id: noStereoID,
+        _id: item.Ingredient_ID,
         ocl: {
           id: oclID.idCode,
           coordinates: oclID.coordinates,
           noStereoID: noStereoID,
         },
         origin: {
-          activities: finalActivity,
           taxonomy: finalTaxonomy,
         },
+        activities: finalActivity,
         pubChemCID: item.pubchem_cid,
       };
-
       results.push(result);
     }
   }
-
   return results;
 }

@@ -29,18 +29,12 @@ export function npAtlasParser(json) {
     }
 
     const finalTaxonomy = {
-      taxonomy: {
-        genusIdNCBI: taxonomy.taxon.ncbi_id,
-        organismName: taxonomy.genus.concat(taxonomy.species),
-        tree: [
-          tax.kingdom,
-          tax.phylum,
-          tax.class,
-          tax.family,
-          taxonomy.genus,
-          taxonomy.genus.concat(taxonomy.species),
-        ],
-      },
+      kingdom: tax.kingdom,
+      phylum: tax.phylum,
+      class: tax.class,
+      family: tax.family,
+      genus: taxonomy.genus,
+      species: taxonomy.genus.concat(taxonomy.species),
     };
 
     const result = {
@@ -51,7 +45,7 @@ export function npAtlasParser(json) {
         noStereoID,
       },
       origin: {
-        taxonomy: finalTaxonomy.taxonomy,
+        taxonomy: finalTaxonomy,
       },
       doi: doi,
     };
@@ -60,4 +54,3 @@ export function npAtlasParser(json) {
   }
   return results;
 }
-//https://www.npatlas.org/static/downloads/NPAtlas_download.json
