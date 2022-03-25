@@ -57,12 +57,12 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
           id: oclID.idCode,
           coordinates: oclID.coordinates,
           noStereoID: noStereoID,
-          pubChemCID: item.pubchem_cid,
         },
         origin: {
           activities: finalActivity,
           taxonomy: finalTaxonomy,
         },
+        pubChemCID: item.pubchem_cid,
       };
 
       results.push(result);
