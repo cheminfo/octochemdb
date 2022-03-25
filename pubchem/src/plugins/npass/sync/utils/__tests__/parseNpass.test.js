@@ -79,37 +79,38 @@ test('simple case', () => {
       pubChemCID: '3024',
     },
     origin: {
-      activities: [
-        {
-          activityType: 'Potency',
-          activityValue: '12680',
-          activityUnit: 'nM',
-          assayOrganism: '',
-          refIdType: 'Dataset',
-          refId: 'PubChem BioAssay data set',
-        },
-        {
-          activityType: 'Potency',
-          activityValue: '56639.3',
-          activityUnit: 'nM',
-          assayOrganism: '',
-          refIdType: 'Dataset',
-          refId: 'PubChem BioAssay data set',
-        },
-        {
-          activityType: 'Potency',
-          activityValue: '28.1',
-          activityUnit: 'nM',
-          assayOrganism: '',
-          refIdType: 'Dataset',
-          refId: 'PubChem BioAssay data set',
-        },
-      ],
       taxonomy: {
-        organismName: 'Ainsliaea dissecta',
-        organismIdNCBI: '130235',
-        tree: ['Viridiplantae', '', '', 'Asteraceae', 'Ainsliaea'],
+        kingdom: 'Viridiplantae',
+        family: 'Asteraceae',
+        genus: 'Ainsliaea',
+        species: 'Ainsliaea dissecta',
       },
     },
+    activities: [
+      {
+        activityType: 'Potency',
+        activityValue: '12680',
+        activityUnit: 'nM',
+        assayOrganism: '',
+        refIdType: 'Dataset',
+        refId: 'PubChem BioAssay data set',
+      },
+      {
+        activityType: 'Potency',
+        activityValue: '56639.3',
+        activityUnit: 'nM',
+        assayOrganism: '',
+        refIdType: 'Dataset',
+        refId: 'PubChem BioAssay data set',
+      },
+      {
+        activityType: 'Potency',
+        activityValue: '28.1',
+        activityUnit: 'nM',
+        assayOrganism: '',
+        refIdType: 'Dataset',
+        refId: 'PubChem BioAssay data set',
+      },
+    ],
   });
 });

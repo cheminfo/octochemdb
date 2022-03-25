@@ -9,10 +9,7 @@ describe('parseCMAUP', () => {
   it('simple case', () => {
     const dirPath = join(__dirname, 'data');
     const general = parse(
-      readFileSync(
-        join(dirPath, 'CMAUPv1.0_download_Ingredients_onlyActive.txt'),
-        'utf8',
-      ),
+      readFileSync(join(dirPath, 'Ingredients.txt'), 'utf8'),
       {
         header: true,
       },
@@ -56,32 +53,19 @@ describe('parseCMAUP', () => {
       },
     ).data.forEach((entry) => (speciesInfo[entry.Plant_ID] = entry));
     const result = parseCMAUP(general, activities, speciesPair, speciesInfo);
-
     expect(result[0]).toStrictEqual({
-      _id: 'ehRPL@@@D@\\bfbbTbRbJabQTRtfdLBrzFNnZjjjjejjjjjj@@@',
+      _id: 'NPC211625',
       ocl: {
-        id: 'ehRPL@@@D@\\bfbbTbRbJabQTRtfdLBrzFNnZjjjjejjjjjjDpQDXdbrWRFUt@@',
+        id: 'fak@P@@H}dhRDRDaLaHcHRDaHDp_QkujZijjZjjbDPhYVTBH',
         coordinates:
-          '!B?g~H?[_}?g~w@f]SFENw?Qh_wzZYpFT_mpHkn}KOJ{nw?Qh_wzZw@oy?J{lkn}~fwzYeXBn{J{o_ihPkf]|knp',
-        noStereoID: 'ehRPL@@@D@\\bfbbTbRbJabQTRtfdLBrzFNnZjjjjejjjjjj@@@',
-        pubChemCID: '158143',
+          '!BMww~_{_|bOvw?_x@bOs~_?y?bOvfpHa}m?vw@hQT?g~@SdoxbGw~_?y?mpJw?P',
+        noStereoID: 'fak@P@@H}dhRDRDaLaHcHRDaHDp_QkujZijjZjj`@@',
       },
       origin: {
-        activities: [
-          {
-            activityType: 'IC50',
-            activityUnit: 'nM',
-            refIdType: 'PMID',
-            activityValue: undefined,
-            refId: '3236014',
-          },
-        ],
-        taxonomy: {
-          organismIdNCBI: 'NA',
-          organismName: 'boswellia spp.',
-          tree: [[], [], [], 'Burseraceae', 'Boswellia', 'NA'],
-        },
+        taxonomy: { family: undefined, genus: undefined, species: undefined },
       },
+      activities: [],
+      pubChemCID: '76319166',
     });
   });
 });

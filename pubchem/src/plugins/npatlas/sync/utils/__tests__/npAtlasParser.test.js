@@ -20,16 +20,12 @@ test('npAtlasParser', () => {
     },
     origin: {
       taxonomy: {
-        genusIdNCBI: 5502,
-        organismName: 'Curvulariageniculata',
-        tree: [
-          'Fungi',
-          'Ascomycota',
-          'Dothideomycetes',
-          'Pleosporaceae',
-          'Curvularia',
-          'Curvulariageniculata',
-        ],
+        kingdom: 'Fungi',
+        phylum: 'Ascomycota',
+        class: 'Dothideomycetes',
+        family: 'Pleosporaceae',
+        genus: 'Curvularia',
+        species: 'Curvulariageniculata',
       },
     },
     doi: '10.1002/chem.201000652',

@@ -13,15 +13,17 @@ export function parseNpass(
     const property = properties[item.np_id];
     const activity = activities[item.np_id];
     const finalActivity = [];
-    for (const info of activity) {
-      finalActivity.push({
-        activityType: info.activity_type,
-        activityValue: info.activity_value,
-        activityUnit: info.activity_units,
-        assayOrganism: info.assay_organism,
-        refIdType: info.ref_id_type,
-        refId: info.ref_id,
-      });
+    if (activity !== undefined) {
+      for (const info of activity) {
+        finalActivity.push({
+          activityType: info.activity_type,
+          activityValue: info.activity_value,
+          activityUnit: info.activity_units,
+          assayOrganism: info.assay_organism,
+          refIdType: info.ref_id_type,
+          refId: info.ref_id,
+        });
+      }
     }
     const smilesDb = property.canonical_smiles;
     let oclID;
