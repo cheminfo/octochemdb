@@ -30,7 +30,8 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
-  const modificationDate = lastFile.split('.')[3];
+  const parts = lastFile.split('.');
+  const modificationDate = parts[parts.length - 2];
   const updatedFileName = join(
     'uniqueNaturalProduct.bson'
       .replace(/^.*\//, '')
