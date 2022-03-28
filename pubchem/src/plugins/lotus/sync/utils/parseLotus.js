@@ -17,74 +17,95 @@ export async function parseLotus(bsonPath) {
       const taxonomy = entry.taxonomyReferenceObjects;
       const key = Object.keys(taxonomy)[0];
       const taxonomySources = taxonomy[key];
-      const finalTaxonomy = {};
-      let status = false;
+
+      const ncbi = [];
+      const gBIF_Backbone_Taxonomy = [];
+      const iNaturalist = [];
+      const open_Tree_of_Life = [];
+      const iTIS = [];
+
       if ('NCBI' in taxonomySources) {
-        finalTaxonomy.kingdom = taxonomySources.NCBI[0]?.kingdom;
-        finalTaxonomy.phylum = taxonomySources.NCBI[0]?.phylum;
-        finalTaxonomy.class = taxonomySources.NCBI[0]?.classx;
-        finalTaxonomy.family = taxonomySources.NCBI[0]?.family;
-        finalTaxonomy.genus = taxonomySources.NCBI[0]?.genus;
-        finalTaxonomy.species = taxonomySources.NCBI[0]?.species;
-        status = true;
+        for (let entry of taxonomySources.NCBI) {
+          const result = {};
+          result.organismID = entry?.cleaned_organism_id;
+          result.kingdom = entry?.kingdom;
+          result.phylum = entry?.phylum;
+          result.class = entry?.classx;
+          result.family = entry?.family;
+          result.genus = entry?.genus;
+          result.species = entry?.species;
+          ncbi.push(result);
+        }
       }
-      if ('GBIF Backbone Taxonomy' in taxonomySources && status === false) {
-        finalTaxonomy.kingdom =
-          taxonomySources['GBIF Backbone Taxonomy'][0]?.kingdom;
-        finalTaxonomy.phylum =
-          taxonomySources['GBIF Backbone Taxonomy'][0]?.phylum;
-        finalTaxonomy.class =
-          taxonomySources['GBIF Backbone Taxonomy'][0]?.classx;
-        finalTaxonomy.family =
-          taxonomySources['GBIF Backbone Taxonomy'][0]?.family;
-        finalTaxonomy.genus =
-          taxonomySources['GBIF Backbone Taxonomy'][0]?.genus;
-        finalTaxonomy.species =
-          taxonomySources['GBIF Backbone Taxonomy'][0]?.species;
-        status = true;
-      }
-
-      if ('iNaturalist' in taxonomySources && status === false) {
-        finalTaxonomy.kingdom = taxonomySources.iNaturalist[0]?.kingdom;
-        finalTaxonomy.phylum = taxonomySources.iNaturalist[0]?.phylum;
-        finalTaxonomy.class = taxonomySources.iNaturalist[0]?.classx;
-        finalTaxonomy.family = taxonomySources.iNaturalist[0]?.family;
-        finalTaxonomy.genus = taxonomySources.iNaturalist[0]?.genus;
-        finalTaxonomy.species = taxonomySources.iNaturalist[0]?.species;
-
-        status = true;
+      if ('GBIF Backbone Taxonomy' in taxonomySources) {
+        for (let entry of taxonomySources['GBIF Backbone Taxonomy']) {
+          const result = {};
+          result.organismID = entry?.cleaned_organism_id;
+          result.kingdom = entry?.kingdom;
+          result.phylum = entry?.phylum;
+          result.class = entry?.classx;
+          result.family = entry?.family;
+          result.genus = entry?.genus;
+          result.species = entry?.species;
+          gBIF_Backbone_Taxonomy.push(result);
+        }
       }
 
-      if ('Open Tree of Life' in taxonomySources && status === false) {
-        finalTaxonomy.kingdom =
-          taxonomySources['Open Tree of Life'][0]?.kingdom;
-        finalTaxonomy.phylum = taxonomySources['Open Tree of Life'][0]?.phylum;
-        finalTaxonomy.class = taxonomySources['Open Tree of Life'][0]?.classx;
-        finalTaxonomy.family = taxonomySources['Open Tree of Life'][0]?.family;
-        finalTaxonomy.genus = taxonomySources['Open Tree of Life'][0]?.genus;
-        finalTaxonomy.species =
-          taxonomySources['Open Tree of Life'][0]?.species;
-
-        status = true;
-      }
-      if ('ITIS' in taxonomySources && status === false) {
-        finalTaxonomy.kingdom = taxonomySources.ITIS[0]?.kingdom;
-        finalTaxonomy.phylum = taxonomySources.ITIS[0]?.phylum;
-        finalTaxonomy.class = taxonomySources.ITIS[0]?.classx;
-        finalTaxonomy.family = taxonomySources.ITIS[0]?.family;
-        finalTaxonomy.genus = taxonomySources.ITIS[0]?.genus;
-        finalTaxonomy.species = taxonomySources.ITIS[0]?.species;
+      if ('iNaturalist' in taxonomySources) {
+        for (let entry of taxonomySources.iNaturalist) {
+          const result = {};
+          result.organismID = entry?.cleaned_organism_id;
+          result.kingdom = entry?.kingdom;
+          result.phylum = entry?.phylum;
+          result.class = entry?.classx;
+          result.family = entry?.family;
+          result.genus = entry?.genus;
+          result.species = entry?.species;
+          iNaturalist.push(result);
+        }
       }
 
+      if ('Open Tree of Life' in taxonomySources) {
+        for (let entry of taxonomySources['Open Tree of Life']) {
+          const result = {};
+          result.organismID = entry?.cleaned_organism_id;
+          result.kingdom = entry?.kingdom;
+          result.phylum = entry?.phylum;
+          result.class = entry?.classx;
+          result.family = entry?.family;
+          result.genus = entry?.genus;
+          result.species = entry?.species;
+          open_Tree_of_Life.push(result);
+        }
+      }
+      if ('ITIS' in taxonomySources) {
+        for (let entry of taxonomySources.ITIS) {
+          const result = {};
+          result.organismID = entry?.cleaned_organism_id;
+          result.kingdom = entry?.kingdom;
+          result.class = entry?.classx;
+          result.family = entry?.family;
+          result.genus = entry?.genus;
+          result.species = entry?.species;
+          iTIS.push(result);
+        }
+      }
       const result = {
         _id: entry.lotus_id,
-        ocl: {
-          id: oclID.idCode,
-          coordinates: oclID.coordinates,
-          noStereoID,
-        },
-        origin: {
-          taxonomy: finalTaxonomy,
+        data: {
+          ocl: {
+            id: oclID.idCode,
+            coordinates: oclID.coordinates,
+            noStereoID,
+          },
+          taxonomy: {
+            NCBI: ncbi,
+            GBIF_Backbone_Taxonomy: gBIF_Backbone_Taxonomy,
+            iNaturalist: iNaturalist,
+            Open_Tree_of_Life: open_Tree_of_Life,
+            ITIS: iTIS,
+          },
+          iupac_Name: entry?.iupac_name,
         },
       };
       results.push(result);

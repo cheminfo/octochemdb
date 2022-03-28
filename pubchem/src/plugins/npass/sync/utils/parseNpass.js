@@ -9,19 +9,16 @@ export function parseNpass(
 ) {
   const results = [];
   for (const item of general) {
-    //if (Object.keys(item).length > 0) {
     const property = properties[item.np_id];
     const activity = activities[item.np_id];
     const finalActivity = [];
     if (activity !== undefined) {
       for (const info of activity) {
         finalActivity.push({
-          activityType: info.activity_type,
-          activityValue: info.activity_value,
-          activityUnit: info.activity_units,
+          type: info.activity_type,
+          value: info.activity_value,
+          unit: info.activity_units,
           assayOrganism: info.assay_organism,
-          refIdType: info.ref_id_type,
-          refId: info.ref_id,
         });
       }
     }
@@ -39,27 +36,32 @@ export function parseNpass(
       continue;
     }
     const orgID = speciesPair[item.np_id];
-    const taxonomy = speciesInfo[orgID];
+    const taxonomy = [speciesInfo[orgID]];
 
-    const finalTaxonomy = {
-      kingdom: taxonomy?.kingdom_name,
-      family: taxonomy?.family_name,
-      genus: taxonomy?.genus_name,
-      species: taxonomy?.org_name,
-    };
+    const finalTaxonomy = [];
+    if (taxonomy !== undefined) {
+      for (const info of taxonomy) {
+        finalTaxonomy.push({
+          kingdom: info?.kingdom_name,
+          family: info?.family_name,
+          genus: info?.genus_name,
+          species: info?.org_name,
+        });
+      }
+    }
 
     const result = {
-      _id: noStereoID,
-      ocl: {
-        id: oclID.idCode,
-        coordinates: oclID.coordinates,
-        noStereoID: noStereoID,
-        pubChemCID: item.pubchem_cid,
-      },
-      origin: {
+      _id: item.np_id,
+      data: {
+        cid: item.pubchem_cid,
+        ocl: {
+          id: oclID.idCode,
+          coordinates: oclID.coordinates,
+          noStereoID: noStereoID,
+        },
         taxonomy: finalTaxonomy,
+        activities: finalActivity,
       },
-      activities: finalActivity,
     };
     results.push(result);
   }

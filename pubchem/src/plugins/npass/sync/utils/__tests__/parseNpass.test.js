@@ -71,46 +71,27 @@ test('simple case', () => {
     speciesInfo,
   );
   expect(result[0]).toStrictEqual({
-    _id: 'eMACD\\QIh@',
-    ocl: {
-      id: 'eMACD\\QIh@',
-      coordinates: '!B@Fp@Dp',
-      noStereoID: 'eMACD\\QIh@',
-      pubChemCID: '3024',
+    _id: 'NPC100002',
+    data: {
+      cid: '3024',
+      ocl: {
+        id: 'eMACD\\QIh@',
+        coordinates: '!B@Fp@Dp',
+        noStereoID: 'eMACD\\QIh@',
+      },
+      taxonomy: [
+        {
+          kingdom: 'Viridiplantae',
+          family: 'Asteraceae',
+          genus: 'Ainsliaea',
+          species: 'Ainsliaea dissecta',
+        },
+      ],
+      activities: [
+        { type: 'Potency', value: '12680', unit: 'nM', assayOrganism: '' },
+        { type: 'Potency', value: '56639.3', unit: 'nM', assayOrganism: '' },
+        { type: 'Potency', value: '28.1', unit: 'nM', assayOrganism: '' },
+      ],
     },
-    origin: {
-      taxonomy: {
-        kingdom: 'Viridiplantae',
-        family: 'Asteraceae',
-        genus: 'Ainsliaea',
-        species: 'Ainsliaea dissecta',
-      },
-    },
-    activities: [
-      {
-        activityType: 'Potency',
-        activityValue: '12680',
-        activityUnit: 'nM',
-        assayOrganism: '',
-        refIdType: 'Dataset',
-        refId: 'PubChem BioAssay data set',
-      },
-      {
-        activityType: 'Potency',
-        activityValue: '56639.3',
-        activityUnit: 'nM',
-        assayOrganism: '',
-        refIdType: 'Dataset',
-        refId: 'PubChem BioAssay data set',
-      },
-      {
-        activityType: 'Potency',
-        activityValue: '28.1',
-        activityUnit: 'nM',
-        assayOrganism: '',
-        refIdType: 'Dataset',
-        refId: 'PubChem BioAssay data set',
-      },
-    ],
   });
 });

@@ -38,24 +38,29 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
         continue;
       }
       const orgID = speciesPaired[id];
-      const taxonomy = speciesInfo[orgID];
-      const finalTaxonomy = {
-        family: taxonomy?.Family_Name,
-        genus: taxonomy?.Genus_Name,
-        species: taxonomy?.Plant_Name,
-      };
+      const taxonomy = [speciesInfo[orgID]];
+      const finalTaxonomy = [];
+      if (taxonomy !== undefined) {
+        for (const info of taxonomy) {
+          finalTaxonomy.push({
+            family: info?.Family_Name,
+            genus: info?.Genus_Name,
+            species: info?.Plant_Name,
+          });
+        }
+      }
       const result = {
         _id: item.Ingredient_ID,
-        ocl: {
-          id: oclID.idCode,
-          coordinates: oclID.coordinates,
-          noStereoID: noStereoID,
-        },
-        origin: {
+        data: {
+          cid: item.pubchem_cid,
+          ocl: {
+            id: oclID.idCode,
+            coordinates: oclID.coordinates,
+            noStereoID: noStereoID,
+          },
           taxonomy: finalTaxonomy,
+          activities: finalActivity,
         },
-        activities: finalActivity,
-        pubChemCID: item.pubchem_cid,
       };
       results.push(result);
     }

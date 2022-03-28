@@ -3,37 +3,40 @@ import { join } from 'path';
 
 import { parseCoconut } from '../parseCoconut.js';
 
-describe('parseCoconut', () => {
-  it('small file', () => {
-    const json = readFileSync(join(__dirname, 'data/coconut.json'), 'utf8');
-    const results = parseCoconut(JSON.parse(json));
-
-    expect(results[0]).toStrictEqual({
-      _id: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
+test('parseCoconut', async () => {
+  const bsonPath = join(__dirname, 'data/testCoconut.bson');
+  const results = await parseCoconut(bsonPath);
+  expect(results[3]).toStrictEqual({
+    _id: 'CNP0330764',
+    data: {
       ocl: {
-        id: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
-        coordinates: '!Bm?vH?_y?m?s~_{lkbOwRsyg_s\\|lYrqgs\\|',
-        noStereoID: 'fgAP@@@LrQQJEIITxJQk@QE@@@@@',
-        nameCompound: [
-          'passiflorin',
-          ' loturine',
-          ' locuturine',
-          ' locuturin',
-          ' L-methylpyridobindole',
-          ' harmane',
-          ' Harman',
-          ' aribine',
-          ' aribin',
-          ' 1-methylnorharman',
-          ' 1-methyl-beta-carboline',
-          ' 1-methyl-9H-beta-carboline',
-          ' 1-methyl-2-carboline',
+        id: 'eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@',
+        coordinates:
+          '!B?l]kcQRMZ{HTlmlUd]c~vARMJX]CkHt@qKzGUcv`NXa\\`l^n`hpx\\RUDG?ZBcHJLNGDeQEh{VcnBc@',
+        noStereoID: 'eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@',
+      },
+      taxonomy: {
+        taxonomy: [
+          { species: 'Adenocarpus foliolosus' },
+          { species: 'Piper taboganum' },
+          { species: 'Microglossa pyrrhopappa' },
+          { species: 'Betula exilis' },
+          { species: 'Rubia schumanniana' },
+          { species: 'Polygala reinii' },
+          { species: 'plants' },
+          { species: 'Ipomoea reptans' },
+          { species: 'Anthoxanthum nitens' },
+          { species: 'Sabal causiarum' },
+          { species: 'Retama duriaei' },
+          { species: 'Oreoherzogia fallax' },
+          { species: 'Ichthyothere terminalis' },
+          { species: 'Chromolaena arnottiana' },
+          { species: 'Clethra macrophylla' },
         ],
-        cas: '486-84-0',
+        comment: [],
       },
-      origin: {
-        taxonomy: ['Eukaryota$$$$class', 'Eukaryota$$$$kingdom', 'Bacteria'],
-      },
-    });
+      iupac_Name:
+        '10-hydroxy-5,9-dimethyl-15-[(3-methylbut-2-enoyl)oxy]-14-methylidenetetracyclo[11.2.1.0¹,¹⁰.0⁴,⁹]hexadecane-5-carboxylic acid',
+    },
   });
 });

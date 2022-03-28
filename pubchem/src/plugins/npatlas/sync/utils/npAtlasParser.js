@@ -9,8 +9,7 @@ export function npAtlasParser(json) {
     const noStereoID = oclMolecule.getIDCode();
     const taxonomy = entry.origin_organism;
     const doi = entry.origin_reference.doi;
-
-    let tax = { kingdom: [], phylum: [], class: [], family: [] };
+    let tax = {};
     for (let i = 0; i < taxonomy.taxon.ancestors.length; i++) {
       let taxon = taxonomy.taxon.ancestors[i];
 
@@ -29,6 +28,7 @@ export function npAtlasParser(json) {
     }
 
     const finalTaxonomy = {
+      genusID: taxonomy.taxon.ncbi_id,
       kingdom: tax.kingdom,
       phylum: tax.phylum,
       class: tax.class,
@@ -38,16 +38,17 @@ export function npAtlasParser(json) {
     };
 
     const result = {
-      _id: noStereoID,
-      ocl: {
-        id: oclID.idCode,
-        coordinates: oclID.coordinates,
-        noStereoID,
+      _id: entry.npaid,
+      data: {
+        ocl: {
+          id: oclID.idCode,
+          coordinates: oclID.coordinates,
+          noStereoID,
+        },
+        taxonomy: [finalTaxonomy],
+        doi: doi,
+        moleculeName: entry.original_name,
       },
-      origin: {
-        taxonomy: finalTaxonomy,
-      },
-      doi: doi,
     };
 
     results.push(result);

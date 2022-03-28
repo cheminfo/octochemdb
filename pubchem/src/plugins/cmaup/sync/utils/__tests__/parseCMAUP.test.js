@@ -55,17 +55,23 @@ describe('parseCMAUP', () => {
     const result = parseCMAUP(general, activities, speciesPair, speciesInfo);
     expect(result[0]).toStrictEqual({
       _id: 'NPC211625',
-      ocl: {
-        id: 'fak@P@@H}dhRDRDaLaHcHRDaHDp_QkujZijjZjjbDPhYVTBH',
-        coordinates:
-          '!BMww~_{_|bOvw?_x@bOs~_?y?bOvfpHa}m?vw@hQT?g~@SdoxbGw~_?y?mpJw?P',
-        noStereoID: 'fak@P@@H}dhRDRDaLaHcHRDaHDp_QkujZijjZjj`@@',
+      data: {
+        cid: '76319166',
+        ocl: {
+          id: 'fak@P@@H}dhRDRDaLaHcHRDaHDp_QkujZijjZjjbDPhYVTBH',
+          coordinates:
+            '!BMww~_{_|bOvw?_x@bOs~_?y?bOvfpHa}m?vw@hQT?g~@SdoxbGw~_?y?mpJw?P',
+          noStereoID: 'fak@P@@H}dhRDRDaLaHcHRDaHDp_QkujZijjZjj`@@',
+        },
+        taxonomy: [
+          {
+            family: undefined,
+            genus: undefined,
+            species: undefined,
+          },
+        ],
+        activities: [],
       },
-      origin: {
-        taxonomy: { family: undefined, genus: undefined, species: undefined },
-      },
-      activities: [],
-      pubChemCID: '76319166',
     });
   });
 });
