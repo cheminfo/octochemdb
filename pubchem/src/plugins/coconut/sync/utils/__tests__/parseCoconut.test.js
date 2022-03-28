@@ -35,6 +35,7 @@ test('parseCoconut', async () => {
         ],
         comment: [],
       },
+      cas: undefined,
       iupac_Name:
         '10-hydroxy-5,9-dimethyl-15-[(3-methylbut-2-enoyl)oxy]-14-methylidenetetracyclo[11.2.1.0¹,¹⁰.0⁴,⁹]hexadecane-5-carboxylic acid',
     },
