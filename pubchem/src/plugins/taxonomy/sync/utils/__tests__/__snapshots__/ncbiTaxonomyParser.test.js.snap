@@ -3,24 +3,24 @@
 exports[`taxonomyParser 1`] = `
 Array [
   Object {
-    "id": "1",
+    "_id": 1,
     "organism": "root",
     "taxonomy": Array [],
   },
   Object {
-    "id": "131567",
+    "_id": 131567,
     "organism": "cellular organisms",
     "taxonomy": Array [],
   },
   Object {
-    "id": "2157",
+    "_id": 2157,
     "organism": "Archaea",
     "taxonomy": Array [
       "cellular organisms",
     ],
   },
   Object {
-    "id": "1935183",
+    "_id": 1935183,
     "organism": "Asgard group",
     "taxonomy": Array [
       "cellular organisms",
@@ -28,7 +28,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798909",
+    "_id": 2798909,
     "organism": "Candidatus Baldrarchaeota",
     "taxonomy": Array [
       "cellular organisms",
@@ -37,7 +37,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798916",
+    "_id": 2798916,
     "organism": "Candidatus Baldrarchaeia",
     "taxonomy": Array [
       "cellular organisms",
@@ -47,7 +47,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798922",
+    "_id": 2798922,
     "organism": "Candidatus Baldrarchaeales",
     "taxonomy": Array [
       "cellular organisms",
@@ -58,7 +58,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798928",
+    "_id": 2798928,
     "organism": "Candidatus Baldrarchaeaceae",
     "taxonomy": Array [
       "cellular organisms",
@@ -70,7 +70,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798934",
+    "_id": 2798934,
     "organism": "Candidatus Baldrarchaeum",
     "taxonomy": Array [
       "cellular organisms",
@@ -83,7 +83,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798940",
+    "_id": 2798940,
     "organism": "Candidatus Baldrarchaeum yapensis",
     "taxonomy": Array [
       "cellular organisms",
@@ -97,7 +97,7 @@ Array [
     ],
   },
   Object {
-    "id": "2799004",
+    "_id": 2799004,
     "organism": "unclassified Candidatus Baldrarchaeota",
     "taxonomy": Array [
       "cellular organisms",
@@ -107,7 +107,7 @@ Array [
     ],
   },
   Object {
-    "id": "2799005",
+    "_id": 2799005,
     "organism": "Candidatus Baldrarchaeota archaeon",
     "taxonomy": Array [
       "cellular organisms",
@@ -118,7 +118,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798908",
+    "_id": 2798908,
     "organism": "Candidatus Borrarchaeota",
     "taxonomy": Array [
       "cellular organisms",
@@ -127,7 +127,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798915",
+    "_id": 2798915,
     "organism": "Candidatus Borrarchaeia",
     "taxonomy": Array [
       "cellular organisms",
@@ -137,7 +137,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798921",
+    "_id": 2798921,
     "organism": "Candidatus Borrarchaeales",
     "taxonomy": Array [
       "cellular organisms",
@@ -148,7 +148,7 @@ Array [
     ],
   },
   Object {
-    "id": "2798927",
+    "_id": 2798927,
     "organism": "Candidatus Borrarchaeaceae",
     "taxonomy": Array [
       "cellular organisms",
