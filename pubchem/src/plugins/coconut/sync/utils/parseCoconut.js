@@ -4,8 +4,7 @@ import { join } from 'path';
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-export async function parseCoconut(bsonPath) {
-  const results = [];
+export async function* parseCoconut(bsonPath) {
   const readStream = createReadStream(join(bsonPath));
 
   for await (const entry of bsonIterator(readStream)) {
@@ -47,13 +46,12 @@ export async function parseCoconut(bsonPath) {
           },
 
           cas: entry?.cas,
-          iupac_Name: entry?.iupac_name,
+          iupacName: entry?.iupac_name,
         },
       };
-      results.push(result);
-    } catch (__java$exception) {
+      yield result;
+    } catch (e) {
       continue;
     }
   }
-  return results;
 }

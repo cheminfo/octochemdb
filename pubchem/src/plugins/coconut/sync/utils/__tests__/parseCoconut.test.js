@@ -1,11 +1,13 @@
-import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { parseCoconut } from '../parseCoconut.js';
 
 test('parseCoconut', async () => {
   const bsonPath = join(__dirname, 'data/testCoconut.bson');
-  const results = await parseCoconut(bsonPath);
+  const results = [];
+  for await (const result of parseCoconut(bsonPath)) {
+    results.push(result);
+  }
   expect(results[3]).toStrictEqual({
     _id: 'CNP0330764',
     data: {
@@ -36,7 +38,7 @@ test('parseCoconut', async () => {
         comment: [],
       },
       cas: undefined,
-      iupac_Name:
+      iupacName:
         '10-hydroxy-5,9-dimethyl-15-[(3-methylbut-2-enoyl)oxy]-14-methylidenetetracyclo[11.2.1.0¹,¹⁰.0⁴,⁹]hexadecane-5-carboxylic acid',
     },
   });

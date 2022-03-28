@@ -44,9 +44,7 @@ export async function sync(connection) {
       .on('entry', function (entry) {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
-        const size = entry.vars.uncompressedSize; // There is also compressedSize;
         const regex = new RegExp('uniqueNaturalProduct.bson');
-        console.log(fileName, type, size);
         if (type === 'File' && regex.test(fileName)) {
           if (!existsSync(join(targetFolder, updatedFileName))) {
             entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
@@ -70,9 +68,7 @@ export async function sync(connection) {
   let imported = 0;
   let start = Date.now();
 
-  const coconut = await parseCoconut(join(targetFolder, updatedFileName));
-
-  for (const entry of coconut) {
+  for await (const entry of parseCoconut(join(targetFolder, updatedFileName))) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
     if (Date.now() - start > 10000) {
