@@ -61,7 +61,7 @@ export default async function importOneSubstanceFile(
         { $set: substance },
         { upsert: true },
       );
-      connection.setProgress(progress);
+      await connection.setProgress(progress);
       imported++;
     }
     debug(`${imported} substances processed`);

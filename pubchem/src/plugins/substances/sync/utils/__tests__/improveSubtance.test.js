@@ -49,5 +49,4 @@ test('improveSubstance', () => {
       coordinate: { type: '2\n3\n4' },
     },
   });
-  //console.log(results);
 });

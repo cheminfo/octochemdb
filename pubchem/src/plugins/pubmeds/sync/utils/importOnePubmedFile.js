@@ -61,7 +61,7 @@ export default async function importOnePubmedFile(
       { $set: article },
       { upsert: true },
     );
-    connection.setProgress(progress);
+    await connection.setProgress(progress);
     imported++;
   }
   debug(`${imported} pubmeds processed`);

@@ -38,7 +38,7 @@ async function getFilesToImport(connection, progress, allFiles) {
   const collection = await connection.getCollection('substances');
   const lastDocument = await collection
     .find({ _seq: { $lte: progress.seq } })
-    .sort('_id', -1)
+    .sort('_seq', -1)
     .limit(1)
     .next();
 

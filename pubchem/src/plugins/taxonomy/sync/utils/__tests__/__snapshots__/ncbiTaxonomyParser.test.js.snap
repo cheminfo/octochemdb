@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`taxonomyParser 1`] = `
+Array [
+  Object {
+    "_id": 1,
+    "organism": "root",
+    "taxonomy": Array [],
+  },
+  Object {
+    "_id": 131567,
+    "organism": "cellular organisms",
+    "taxonomy": Array [],
+  },
+  Object {
+    "_id": 2157,
+    "organism": "Archaea",
+    "taxonomy": Array [
+      "cellular organisms",
+    ],
+  },
+  Object {
+    "_id": 1935183,
+    "organism": "Asgard group",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+    ],
+  },
+  Object {
+    "_id": 2798909,
+    "organism": "Candidatus Baldrarchaeota",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+    ],
+  },
+  Object {
+    "_id": 2798916,
+    "organism": "Candidatus Baldrarchaeia",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+    ],
+  },
+  Object {
+    "_id": 2798922,
+    "organism": "Candidatus Baldrarchaeales",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+      "Candidatus Baldrarchaeia",
+    ],
+  },
+  Object {
+    "_id": 2798928,
+    "organism": "Candidatus Baldrarchaeaceae",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+      "Candidatus Baldrarchaeia",
+      "Candidatus Baldrarchaeales",
+    ],
+  },
+  Object {
+    "_id": 2798934,
+    "organism": "Candidatus Baldrarchaeum",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+      "Candidatus Baldrarchaeia",
+      "Candidatus Baldrarchaeales",
+      "Candidatus Baldrarchaeaceae",
+    ],
+  },
+  Object {
+    "_id": 2798940,
+    "organism": "Candidatus Baldrarchaeum yapensis",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+      "Candidatus Baldrarchaeia",
+      "Candidatus Baldrarchaeales",
+      "Candidatus Baldrarchaeaceae",
+      "Candidatus Baldrarchaeum",
+    ],
+  },
+  Object {
+    "_id": 2799004,
+    "organism": "unclassified Candidatus Baldrarchaeota",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+    ],
+  },
+  Object {
+    "_id": 2799005,
+    "organism": "Candidatus Baldrarchaeota archaeon",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Baldrarchaeota",
+      "unclassified Candidatus Baldrarchaeota",
+    ],
+  },
+  Object {
+    "_id": 2798908,
+    "organism": "Candidatus Borrarchaeota",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+    ],
+  },
+  Object {
+    "_id": 2798915,
+    "organism": "Candidatus Borrarchaeia",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Borrarchaeota",
+    ],
+  },
+  Object {
+    "_id": 2798921,
+    "organism": "Candidatus Borrarchaeales",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Borrarchaeota",
+      "Candidatus Borrarchaeia",
+    ],
+  },
+  Object {
+    "_id": 2798927,
+    "organism": "Candidatus Borrarchaeaceae",
+    "taxonomy": Array [
+      "cellular organisms",
+      "Archaea",
+      "Asgard group",
+      "Candidatus Borrarchaeota",
+      "Candidatus Borrarchaeia",
+      "Candidatus Borrarchaeales",
+    ],
+  },
+]
+`;

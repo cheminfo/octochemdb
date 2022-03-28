@@ -1,0 +1,17 @@
+1	|	root	|		|
+131567	|	cellular organisms	|		|
+2157	|	Archaea	|	cellular organisms; 	|
+1935183	|	Asgard group	|	cellular organisms; Archaea; 	|
+2798909	|	Candidatus Baldrarchaeota	|	cellular organisms; Archaea; Asgard group; 	|
+2798916	|	Candidatus Baldrarchaeia	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; 	|
+2798922	|	Candidatus Baldrarchaeales	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; 	|
+2798928	|	Candidatus Baldrarchaeaceae	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; Candidatus Baldrarchaeales; 	|
+2798934	|	Candidatus Baldrarchaeum	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; Candidatus Baldrarchaeales; Candidatus Baldrarchaeaceae; 	|
+2798940	|	Candidatus Baldrarchaeum yapensis	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; Candidatus Baldrarchaeales; Candidatus Baldrarchaeaceae; Candidatus Baldrarchaeum; 	|
+2799004	|	unclassified Candidatus Baldrarchaeota	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; 	|
+2799005	|	Candidatus Baldrarchaeota archaeon	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; unclassified Candidatus Baldrarchaeota; 	|
+2798908	|	Candidatus Borrarchaeota	|	cellular organisms; Archaea; Asgard group; 	|
+2798915	|	Candidatus Borrarchaeia	|	cellular organisms; Archaea; Asgard group; Candidatus Borrarchaeota; 	|
+2798921	|	Candidatus Borrarchaeales	|	cellular organisms; Archaea; Asgard group; Candidatus Borrarchaeota; Candidatus Borrarchaeia; 	|
+2798927	|	Candidatus Borrarchaeaceae	|	cellular organisms; Archaea; Asgard group; Candidatus Borrarchaeota; Candidatus Borrarchaeia; Candidatus Borrarchaeales; 	|
+
