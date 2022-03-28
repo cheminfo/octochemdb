@@ -38,16 +38,18 @@ export async function sync(connection) {
   );
   debug(`Need to decompress: ${lastFile}`);
 
-  await new Promise((resolve) => {
+  await new Promise((resolve, reject) => {
     createReadStream(lastFile)
       .pipe(unzipper.Parse())
-      .on('entry', function (entry) {
+      .on('entry', (entry) => {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
-        const regex = new RegExp('uniqueNaturalProduct.bson');
-        if (type === 'File' && regex.test(fileName)) {
+        if (type === 'File' && fileName.includes('uniqueNaturalProduct.bson')) {
+          // TODO check that it exists AND the file is identical otherwise if it exists, delete first
           if (!existsSync(join(targetFolder, updatedFileName))) {
             entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
+          } else {
+            entry.autodrain();
           }
         } else {
           entry.autodrain();
@@ -55,7 +57,9 @@ export async function sync(connection) {
       })
       .on('close', () => {
         resolve();
-        console.log('close');
+      })
+      .on('error', (e) => {
+        reject(e);
       });
   });
 
