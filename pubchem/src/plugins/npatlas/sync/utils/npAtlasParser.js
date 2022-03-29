@@ -1,7 +1,11 @@
 import OCL from 'openchemlib';
+import Debug from 'debug';
 
+const debug = Debug('npAtlasParser');
 export function npAtlasParser(json) {
   const results = [];
+  let counter = 0;
+  let start = Date.now();
   for (const entry of json) {
     const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
     const oclID = oclMolecule.getIDCodeAndCoordinates();
@@ -50,7 +54,11 @@ export function npAtlasParser(json) {
         moleculeName: entry.original_name,
       },
     };
-
+    if (Date.now() - start > 10000) {
+      debug(`Processing: counter: ${counter} `);
+      start = Date.now();
+    }
+    counter++;
     results.push(result);
   }
   return results;

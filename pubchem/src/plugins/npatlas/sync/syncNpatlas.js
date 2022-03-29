@@ -34,6 +34,7 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+  debug(`Start parsing: ${lastFile}`);
   for (const entry of npAtlasParser(JSON.parse(fileJson))) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
