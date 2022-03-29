@@ -17,11 +17,32 @@ export async function sync(connection) {
   const lastFileSpeciesAssociation = await getLastCmaupFileSpeciesAssociation();
   const lastFileSpeciesInfo = await getLastCmaupFileSpeciesInfo();
   const progress = await connection.getProgress('cmaup');
+
   const collection = await connection.getCollection('cmaup');
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastCMAUPImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
+
+  const partsLastFile = lastFile.split('.');
+  const modificationDateLastFile = partsLastFile[partsLastFile.length - 2];
+  const partsLastFileActivity = lastFileActivity.split('.');
+  const modificationDateLastFileActivity =
+    partsLastFileActivity[partsLastFileActivity.length - 2];
+  const partsLastFileSpeciesAssociation = lastFileSpeciesAssociation.split('.');
+  const modificationDateLastFileSpeciesAssociation =
+    partsLastFileSpeciesAssociation[partsLastFileSpeciesAssociation.length - 2];
+  const partsLastFileSpeciesInfo = lastFileSpeciesInfo.split('.');
+  const modificationDateLastFileSpeciesInfo =
+    partsLastFileSpeciesInfo[partsLastFileSpeciesInfo.length - 2];
+
+  const lastModificationsDates = [
+    modificationDateLastFile,
+    modificationDateLastFileActivity,
+    modificationDateLastFileSpeciesAssociation,
+    modificationDateLastFileSpeciesInfo,
+  ];
+
   let firstID;
   if (
     lastDocumentImported &&
@@ -58,36 +79,44 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  for (const entry of parseCMAUP(
-    general,
-    activities,
-    speciesPair,
-    speciesInfo,
-  )) {
-    counter++;
-    if (process.env.TEST === 'true' && counter > 20) break;
-    if (Date.now() - start > 10000) {
-      debug(`Processing: counter: ${counter} - imported: ${imported}`);
-      start = Date.now();
-    }
-    if (skipping) {
-      if (firstID === entry._id) {
-        skipping = false;
-        debug(`Skipping compound till:${firstID}`);
+  if (
+    progress.lastFileModificationDate.toString() !==
+    lastModificationsDates.toString()
+  ) {
+    for (const entry of parseCMAUP(
+      general,
+      activities,
+      speciesPair,
+      speciesInfo,
+    )) {
+      counter++;
+      if (process.env.TEST === 'true' && counter > 20) break;
+      if (Date.now() - start > 10000) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
       }
-      continue;
+      if (skipping) {
+        if (firstID === entry._id) {
+          skipping = false;
+          debug(`Skipping compound till:${firstID}`);
+        }
+        continue;
+      }
+      entry._seq = ++progress.seq;
+      entry._source = source;
+      await collection.updateOne(
+        { _id: entry._id },
+        { $set: entry },
+        { upsert: true },
+      );
+      progress.lastFileModificationDate = lastModificationsDates;
+      await connection.setProgress(progress);
+      imported++;
     }
-    entry._seq = ++progress.seq;
-    entry._source = source;
-    await collection.updateOne(
-      { _id: entry._id },
-      { $set: entry },
-      { upsert: true },
-    );
-    await connection.setProgress(progress);
-    imported++;
+    debug(`${imported} compounds processed`);
+  } else {
+    debug(`collection already processed`);
   }
-  debug(`${imported} compounds processed`);
 
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
