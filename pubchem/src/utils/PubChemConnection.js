@@ -52,6 +52,7 @@ PubChemConnection.prototype.getProgress = async function getProgress(
       state: 'import',
       seq: 0,
       date: new Date(),
+      lastFileModificationDate: [],
     };
     await adminCollection.insertOne(progress);
   }
