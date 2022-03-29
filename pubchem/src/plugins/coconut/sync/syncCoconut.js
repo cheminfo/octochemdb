@@ -8,7 +8,6 @@ import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';
 import { statSync } from 'fs';
-import { error } from 'console';
 
 const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 
@@ -109,6 +108,7 @@ export async function sync(connection) {
     await connection.setProgress(progress);
     imported++;
   }
+
   debug(`${imported} compounds processed`);
 
   // we remove all the entries that are not imported by the last file
