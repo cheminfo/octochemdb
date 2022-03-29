@@ -82,33 +82,40 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  debug(`Start parsing: ${updatedFileName}`);
-  for await (const entry of parseLotus(join(targetFolder, updatedFileName))) {
-    counter++;
-    if (process.env.TEST === 'true' && counter > 20) break;
-    if (Date.now() - start > 10000) {
-      debug(`Processing: counter: ${counter} - imported: ${imported}`);
-      start = Date.now();
-    }
-    if (skipping) {
-      if (firstID === entry._id) {
-        skipping = false;
-        debug(`Skipping compound till:${firstID}`);
+  if (
+    progress.lastFileModificationDate.toString() !== modificationDate.toString()
+  ) {
+    debug(`Start parsing: ${updatedFileName}`);
+    for await (const entry of parseLotus(join(targetFolder, updatedFileName))) {
+      counter++;
+      if (process.env.TEST === 'true' && counter > 20) break;
+      if (Date.now() - start > 10000) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
       }
-      continue;
-    }
-    entry._seq = ++progress.seq;
-    entry._source = source;
-    await collection.updateOne(
-      { _id: entry._id },
-      { $set: entry },
-      { upsert: true },
-    );
-    await connection.setProgress(progress);
-    imported++;
-  }
-  debug(`${imported} compounds processed`);
+      if (skipping) {
+        if (firstID === entry._id) {
+          skipping = false;
+          debug(`Skipping compound till:${firstID}`);
+        }
+        continue;
+      }
+      entry._seq = ++progress.seq;
+      entry._source = source;
+      progress.lastFileModificationDate = modificationDate;
 
+      await collection.updateOne(
+        { _id: entry._id },
+        { $set: entry },
+        { upsert: true },
+      );
+      await connection.setProgress(progress);
+      imported++;
+    }
+    debug(`${imported} compounds processed`);
+  } else {
+    debug(`collection already processed`);
+  }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },

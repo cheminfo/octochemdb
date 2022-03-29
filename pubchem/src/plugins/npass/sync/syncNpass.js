@@ -31,6 +31,28 @@ export async function sync(connection) {
   ) {
     firstID = lastDocumentImported._id;
   }
+  // Last modification dates of each file
+  const partsLF = lastFile.split('.');
+  const modificationDateLF = partsLF[partsLF.length - 2];
+  const partsLFA = lastFileActivity.split('.');
+  const modificationDateLFA = partsLFA[partsLFA.length - 2];
+
+  const partsLFSPr = lastFileSpeciesProperties.split('.');
+  const modificationDateLFSPr = partsLFSPr[partsLFSPr.length - 2];
+
+  const partsLFSP = lastFileSpeciesPair.split('.');
+  const modificationDateLFSP = partsLFSP[partsLFSP.length - 2];
+  const partsLFSI = lastFileSpeciesInfo.split('.');
+  const modificationDateLFSI = partsLFSI[partsLFSI.length - 2];
+
+  const lastModificationsDates = [
+    modificationDateLF,
+    modificationDateLFA,
+    modificationDateLFSPr,
+    modificationDateLFSP,
+    modificationDateLFSI,
+  ];
+
   const general = parse(readFileSync(lastFile, 'utf8'), {
     header: true,
   }).data;
@@ -63,40 +85,46 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-
-  debug(`Start parsing`);
-  for (const entry of parseNpass(
-    general,
-    activities,
-    properties,
-    speciesPair,
-    speciesInfo,
-  )) {
-    counter++;
-    if (process.env.TEST === 'true' && counter > 20) break;
-    if (Date.now() - start > 10000) {
-      debug(`Processing: counter: ${counter} - imported: ${imported}`);
-      start = Date.now();
-    }
-    if (skipping) {
-      if (firstID === entry._id) {
-        skipping = false;
-        debug(`Skipping compound till:${firstID}`);
+  if (
+    progress.lastFileModificationDate.toString() !==
+    lastModificationsDates.toString()
+  ) {
+    debug(`Start parsing`);
+    for (const entry of parseNpass(
+      general,
+      activities,
+      properties,
+      speciesPair,
+      speciesInfo,
+    )) {
+      counter++;
+      if (process.env.TEST === 'true' && counter > 20) break;
+      if (Date.now() - start > 10000) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
       }
-      continue;
+      if (skipping) {
+        if (firstID === entry._id) {
+          skipping = false;
+          debug(`Skipping compound till:${firstID}`);
+        }
+        continue;
+      }
+      entry._seq = ++progress.seq;
+      entry._source = source;
+      progress.lastFileModificationDate = lastModificationsDates;
+      await collection.updateOne(
+        { _id: entry._id },
+        { $set: entry },
+        { upsert: true },
+      );
+      await connection.setProgress(progress);
+      imported++;
     }
-    entry._seq = ++progress.seq;
-    entry._source = source;
-    await collection.updateOne(
-      { _id: entry._id },
-      { $set: entry },
-      { upsert: true },
-    );
-    await connection.setProgress(progress);
-    imported++;
+    debug(`${imported} compounds processed`);
+  } else {
+    debug(`collection already processed`);
   }
-  debug(`${imported} compounds processed`);
-
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },
