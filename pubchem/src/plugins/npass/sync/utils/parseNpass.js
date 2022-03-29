@@ -1,5 +1,7 @@
 import OCL from 'openchemlib';
+import Debug from 'debug';
 
+const debug = Debug('parseNpass');
 export function parseNpass(
   general,
   activities,
@@ -8,6 +10,8 @@ export function parseNpass(
   speciesInfo,
 ) {
   const results = [];
+  let counter = 0;
+  let start = Date.now();
   for (const item of general) {
     const property = properties[item.np_id];
     const activity = activities[item.np_id];
@@ -63,6 +67,11 @@ export function parseNpass(
         activities: finalActivity,
       },
     };
+    if (Date.now() - start > 10000) {
+      debug(`Processing: counter: ${counter} `);
+      start = Date.now();
+    }
+    counter++;
     results.push(result);
   }
   return results;

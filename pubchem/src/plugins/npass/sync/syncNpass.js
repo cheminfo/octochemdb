@@ -63,6 +63,8 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+
+  debug(`Start parsing`);
   for (const entry of parseNpass(
     general,
     activities,
