@@ -23,24 +23,21 @@ export async function sync(connection) {
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastCMAUPImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
-
-  const partsLastFile = lastFile.split('.');
-  const modificationDateLastFile = partsLastFile[partsLastFile.length - 2];
-  const partsLastFileActivity = lastFileActivity.split('.');
-  const modificationDateLastFileActivity =
-    partsLastFileActivity[partsLastFileActivity.length - 2];
-  const partsLastFileSpeciesAssociation = lastFileSpeciesAssociation.split('.');
-  const modificationDateLastFileSpeciesAssociation =
-    partsLastFileSpeciesAssociation[partsLastFileSpeciesAssociation.length - 2];
-  const partsLastFileSpeciesInfo = lastFileSpeciesInfo.split('.');
-  const modificationDateLastFileSpeciesInfo =
-    partsLastFileSpeciesInfo[partsLastFileSpeciesInfo.length - 2];
+  // Last modification dates of each file
+  const partsLF = lastFile.split('.');
+  const modificationDateLF = partsLF[partsLF.length - 2];
+  const partsLFA = lastFileActivity.split('.');
+  const modificationDateLFA = partsLFA[partsLFA.length - 2];
+  const partsLFSA = lastFileSpeciesAssociation.split('.');
+  const modificationDateLFSA = partsLFSA[partsLFSA.length - 2];
+  const partsLFSI = lastFileSpeciesInfo.split('.');
+  const modificationDateLFSI = partsLFSI[partsLFSI.length - 2];
 
   const lastModificationsDates = [
-    modificationDateLastFile,
-    modificationDateLastFileActivity,
-    modificationDateLastFileSpeciesAssociation,
-    modificationDateLastFileSpeciesInfo,
+    modificationDateLF,
+    modificationDateLFA,
+    modificationDateLFSA,
+    modificationDateLFSI,
   ];
 
   let firstID;
