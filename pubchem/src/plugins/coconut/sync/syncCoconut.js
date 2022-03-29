@@ -7,6 +7,8 @@ import unzipper from 'unzipper';
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';
+import { statSync } from 'fs';
+import { error } from 'console';
 
 const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 
@@ -40,15 +42,16 @@ export async function sync(connection) {
       .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
   );
   debug(`Need to decompress: ${lastFile}`);
-
+  let sizeFile;
   await new Promise((resolve, reject) => {
     createReadStream(lastFile)
       .pipe(unzipper.Parse())
       .on('entry', (entry) => {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
+        const size = entry.vars.uncompressedSize;
         if (type === 'File' && fileName.includes('uniqueNaturalProduct.bson')) {
-          // TODO check that it exists AND the file is identical otherwise if it exists, delete first
+          sizeFile = size;
           if (!existsSync(join(targetFolder, updatedFileName))) {
             entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
           } else {
@@ -60,7 +63,13 @@ export async function sync(connection) {
         }
       })
       .on('close', () => {
-        resolve();
+        if (sizeFile === statSync(join(targetFolder, updatedFileName)).size) {
+          resolve();
+          debug('File as the expected size');
+        } else {
+          debug('Error: file as not the expected size');
+          reject();
+        }
       })
       .on('error', (e) => {
         reject(e);
