@@ -52,6 +52,7 @@ export async function sync(connection) {
           if (!existsSync(join(targetFolder, updatedFileName))) {
             entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
           } else {
+            debug('File already exists');
             entry.autodrain();
           }
         } else {
@@ -74,7 +75,7 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-
+  debug(`Start parsing: ${updatedFileName}`);
   for await (const entry of parseCoconut(join(targetFolder, updatedFileName))) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;

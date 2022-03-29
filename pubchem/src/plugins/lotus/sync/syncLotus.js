@@ -28,25 +28,30 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
   const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
-  const modificationDate = lastFile.split('.')[3];
+  const parts = lastFile.split('.');
+  const modificationDate = parts[parts.length - 2];
   const updatedFileName = join(
     'lotusUniqueNaturalProduct.bson'
       .replace(/^.*\//, '')
       .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
   );
   debug(`Need to decompress: ${lastFile}`);
-  await new Promise((resolve) => {
+  await new Promise((resolve, reject) => {
     createReadStream(lastFile)
       .pipe(unzipper.Parse())
       .on('entry', function (entry) {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
         const size = entry.vars.uncompressedSize; // There is also compressedSize;
-        const regex = new RegExp('lotusUniqueNaturalProduct.bson');
-        console.log(fileName, type, size);
-        if (type === 'File' && regex.test(fileName)) {
+        if (
+          type === 'File' &&
+          fileName.includes('lotusUniqueNaturalProduct.bson')
+        ) {
           if (!existsSync(join(targetFolder, updatedFileName))) {
             entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
+          } else {
+            debug('File already exists');
+            entry.autodrain();
           }
         } else {
           entry.autodrain();
@@ -55,6 +60,9 @@ export async function sync(connection) {
       .on('close', () => {
         resolve();
         console.log('close');
+      })
+      .on('error', (e) => {
+        reject(e);
       });
   });
 
@@ -66,9 +74,8 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-
-  const lotus = await parseLotus(join(targetFolder, updatedFileName));
-  for (const entry of lotus) {
+  debug(`Start parsing: ${updatedFileName}`);
+  for await (const entry of parseLotus(join(targetFolder, updatedFileName))) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
     if (Date.now() - start > 10000) {
