@@ -18,7 +18,8 @@ export async function sync(connection) {
   const lastFileSpeciesInfo = await getLastCmaupFileSpeciesInfo();
   const progress = await connection.getProgress('cmaup');
   const collection = await connection.getCollection('cmaup');
-
+  await collection.createIndex({ 'data.ocl.id': 1 });
+  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastCMAUPImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;

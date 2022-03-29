@@ -15,7 +15,8 @@ export async function sync(connection) {
   const lastFile = await getLastLotusFile();
   const progress = await connection.getProgress('lotus');
   const collection = await connection.getCollection('lotus');
-
+  await collection.createIndex({ 'data.ocl.id': 1 });
+  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastLotusImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;

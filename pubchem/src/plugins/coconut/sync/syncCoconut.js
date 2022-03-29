@@ -16,6 +16,8 @@ export async function sync(connection) {
   const lastFile = await getLastCoconutFile();
   const progress = await connection.getProgress('coconut');
   const collection = await connection.getCollection('coconut');
+  await collection.createIndex({ 'data.ocl.id': 1 });
+  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastCoconutCompoundImported(
     connection,
     progress,

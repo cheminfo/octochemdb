@@ -19,7 +19,8 @@ export async function sync(connection) {
   const lastFileSpeciesInfo = await getLastNpassFileSpeciesInfo();
   const progress = await connection.getProgress('npass');
   const collection = await connection.getCollection('npass');
-
+  await collection.createIndex({ 'data.ocl.id': 1 });
+  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastNpassImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;

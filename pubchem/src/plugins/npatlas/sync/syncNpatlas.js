@@ -12,7 +12,8 @@ export async function sync(connection) {
   const lastFile = await getLastNpAtlasFile();
   const progress = await connection.getProgress('npAtlas');
   const collection = await connection.getCollection('npAtlas');
-
+  await collection.createIndex({ 'data.ocl.id': 1 });
+  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastNpAtlasImported(
     connection,
     progress,
