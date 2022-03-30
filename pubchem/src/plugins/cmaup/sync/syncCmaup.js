@@ -23,22 +23,6 @@ export async function sync(connection) {
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastCMAUPImported(connection, progress);
   debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
-  // Last modification dates of each file
-  const partsLF = lastFile.split('.');
-  const modificationDateLF = partsLF[partsLF.length - 2];
-  const partsLFA = lastFileActivity.split('.');
-  const modificationDateLFA = partsLFA[partsLFA.length - 2];
-  const partsLFSA = lastFileSpeciesAssociation.split('.');
-  const modificationDateLFSA = partsLFSA[partsLFSA.length - 2];
-  const partsLFSI = lastFileSpeciesInfo.split('.');
-  const modificationDateLFSI = partsLFSI[partsLFSI.length - 2];
-
-  const lastModificationsDates = [
-    modificationDateLF,
-    modificationDateLFA,
-    modificationDateLFSA,
-    modificationDateLFSI,
-  ];
 
   let firstID;
   if (
@@ -76,44 +60,37 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  if (
-    progress.lastFileModificationDate.toString() !==
-    lastModificationsDates.toString()
-  ) {
-    for (const entry of parseCMAUP(
-      general,
-      activities,
-      speciesPair,
-      speciesInfo,
-    )) {
-      counter++;
-      if (process.env.TEST === 'true' && counter > 20) break;
-      if (Date.now() - start > 10000) {
-        debug(`Processing: counter: ${counter} - imported: ${imported}`);
-        start = Date.now();
-      }
-      if (skipping) {
-        if (firstID === entry._id) {
-          skipping = false;
-          debug(`Skipping compound till:${firstID}`);
-        }
-        continue;
-      }
-      entry._seq = ++progress.seq;
-      entry._source = source;
-      await collection.updateOne(
-        { _id: entry._id },
-        { $set: entry },
-        { upsert: true },
-      );
-      progress.lastFileModificationDate = lastModificationsDates;
-      await connection.setProgress(progress);
-      imported++;
+
+  for (const entry of parseCMAUP(
+    general,
+    activities,
+    speciesPair,
+    speciesInfo,
+  )) {
+    counter++;
+    if (process.env.TEST === 'true' && counter > 20) break;
+    if (Date.now() - start > 10000) {
+      debug(`Processing: counter: ${counter} - imported: ${imported}`);
+      start = Date.now();
     }
-    debug(`${imported} compounds processed`);
-  } else {
-    debug(`collection already processed`);
+    if (skipping) {
+      if (firstID === entry._id) {
+        skipping = false;
+        debug(`Skipping compound till:${firstID}`);
+      }
+      continue;
+    }
+    entry._seq = ++progress.seq;
+    entry._source = source;
+    await collection.updateOne(
+      { _id: entry._id },
+      { $set: entry },
+      { upsert: true },
+    );
+    await connection.setProgress(progress);
+    imported++;
   }
+  debug(`${imported} compounds processed`);
 
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
