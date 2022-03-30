@@ -80,13 +80,14 @@ export async function sync(connection) {
   });
 
   debug('Uncompressed done');
-  sendTelegram('SyncLotus: Uncompressed done. Start Parsing ');
+  await sendTelegram('SyncLotus: Uncompressed done. Start Parsing ');
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+  let startTelegram = Date.now();
   if (
     lastDocumentImported === null ||
     (progress.seq !== lastDocumentImported._seq &&
@@ -98,11 +99,14 @@ export async function sync(connection) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
-        sendTelegram(
-          `SyncLotus: Processing: counter: ${counter} - imported: ${imported}`,
-        );
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
+      }
+      if (Date.now() - startTelegram > 60000) {
+        await sendTelegram(
+          `SyncLotus: Processing: counter: ${counter} - imported: ${imported}`,
+        );
+        startTelegram = Date.now();
       }
       if (skipping) {
         if (firstID === entry._id) {
@@ -124,10 +128,10 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
-    sendTelegram(`SyncLotus:${imported} compounds processed`);
+    await sendTelegram(`SyncLotus: ${imported} compounds processed`);
     debug(`${imported} compounds processed`);
   } else {
-    sendTelegram(`SyncLotus:file already processed`);
+    await sendTelegram(`SyncLotus: file already processed`);
     debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
@@ -135,7 +139,7 @@ export async function sync(connection) {
     _source: { $ne: source },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-  sendTelegram(
+  await sendTelegram(
     `SyncLotus:Deleting entries with wrong source: ${result.deletedCount}`,
   );
   if (existsSync(join(targetFolder, updatedFileName))) {
