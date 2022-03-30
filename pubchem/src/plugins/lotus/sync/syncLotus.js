@@ -1,18 +1,12 @@
-import { join } from 'path';
-
 import Debug from 'debug';
 import pkg from 'fs-extra';
-import unzipper from 'unzipper';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import { sendTelegram } from '../../../utils/sendTelegram.js';
 import { parseLotus } from './utils/parseLotus.js';
-import { statSync } from 'fs';
-
-const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
+import { unzipOneFile } from '../../../utils/unzipOneFile.js';
+const { rmSync, existsSync } = pkg;
 const debug = Debug('syncLotus');
-
-sendTelegram('SyncLotus: start sync and decompression');
 
 export async function sync(connection) {
   const lastFile = await getLastLotusFile();
@@ -30,84 +24,33 @@ export async function sync(connection) {
   ) {
     firstID = lastDocumentImported._id;
   }
-  const targetFolder = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
-  const parts = lastFile.split('.');
-  const modificationDate = parts[parts.length - 2];
-  const updatedFileName = join(
-    'lotusUniqueNaturalProduct.bson'
-      .replace(/^.*\//, '')
-      .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
-  );
-  debug(`Need to decompress: ${lastFile}`);
-  let sizeFile;
-  await new Promise((resolve, reject) => {
-    createReadStream(lastFile)
-      .pipe(unzipper.Parse())
-      .on('entry', function (entry) {
-        const fileName = entry.path;
-        const type = entry.type; // 'Directory' or 'File'
-        const size = entry.vars.uncompressedSize;
-        if (
-          type === 'File' &&
-          fileName.includes('lotusUniqueNaturalProduct.bson')
-        ) {
-          sizeFile = size;
-          if (!existsSync(join(targetFolder, updatedFileName))) {
-            entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
-          } else {
-            debug('File already exists');
-            entry.autodrain();
-          }
-        } else {
-          entry.autodrain();
-        }
-      })
-      .on('close', () => {
-        if (
-          sizeFile === statSync(join(targetFolder, updatedFileName)).size ||
-          existsSync(join(targetFolder, updatedFileName)) === true
-        ) {
-          resolve();
-          debug('File has the expected size');
-        } else {
-          debug('Error: file has not the expected size');
-          reject();
-        }
-      })
-      .on('error', (e) => {
-        reject(e);
-      });
-  });
 
-  debug('Uncompressed done');
-  await sendTelegram('SyncLotus: Uncompressed done. Start Parsing ');
+  const targetFile = await unzipOneFile(
+    '/lotus/full',
+    lastFile,
+    'lotusUniqueNaturalProduct.bson',
+  );
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  let startTelegram = Date.now();
   if (
     lastDocumentImported === null ||
     (progress.seq !== lastDocumentImported._seq &&
       lastFile !== lastDocumentImported._source &&
       progress.state !== 'imported')
   ) {
-    debug(`Start parsing: ${updatedFileName}`);
-    for await (const entry of parseLotus(join(targetFolder, updatedFileName))) {
+    debug(`Start parsing: ${targetFile}`);
+    for await (const entry of parseLotus(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
-      if (Date.now() - startTelegram > 60000) {
-        await sendTelegram(
-          `SyncLotus: Processing: counter: ${counter} - imported: ${imported}`,
-        );
-        startTelegram = Date.now();
-      }
+
       if (skipping) {
         if (firstID === entry._id) {
           skipping = false;
@@ -128,10 +71,8 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
-    await sendTelegram(`SyncLotus: ${imported} compounds processed`);
     debug(`${imported} compounds processed`);
   } else {
-    await sendTelegram(`SyncLotus: file already processed`);
     debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
@@ -139,11 +80,9 @@ export async function sync(connection) {
     _source: { $ne: source },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-  await sendTelegram(
-    `SyncLotus:Deleting entries with wrong source: ${result.deletedCount}`,
-  );
-  if (existsSync(join(targetFolder, updatedFileName))) {
-    rmSync(join(targetFolder, updatedFileName), { recursive: true });
+
+  if (existsSync(targetFile)) {
+    rmSync(targetFile, { recursive: true });
   }
 }
 
