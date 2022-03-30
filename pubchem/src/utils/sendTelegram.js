@@ -4,7 +4,7 @@ import Debug from 'debug';
 const debug = Debug('sendTelegram');
 
 export async function sendTelegram(message) {
-  if (!process.env.TELEGRAM_BOT_ID || process.env.TELEGRAM_CHAT_ID) {
+  if (!process.env.TELEGRAM_BOT_ID || !process.env.TELEGRAM_CHAT_ID) {
     debug(
       'no TELEGRAM_CHAT_ID or TELEGRAM_BOT_ID environnement variable Can not send telegram',
     );
