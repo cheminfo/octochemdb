@@ -5,12 +5,14 @@ import pkg from 'fs-extra';
 import unzipper from 'unzipper';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
-
+import { sendTelegram } from '../../../utils/sendTelegram.js';
 import { parseLotus } from './utils/parseLotus.js';
 import { statSync } from 'fs';
 
 const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 const debug = Debug('syncLotus');
+
+sendTelegram('SyncLotus: start sync and decompression');
 
 export async function sync(connection) {
   const lastFile = await getLastLotusFile();
@@ -61,11 +63,14 @@ export async function sync(connection) {
         }
       })
       .on('close', () => {
-        if (sizeFile === statSync(join(targetFolder, updatedFileName)).size) {
+        if (
+          sizeFile === statSync(join(targetFolder, updatedFileName)).size ||
+          existsSync(join(targetFolder, updatedFileName)) === true
+        ) {
           resolve();
-          debug('File as the expected size');
+          debug('File has the expected size');
         } else {
-          debug('Error: file as not the expected size');
+          debug('Error: file has not the expected size');
           reject();
         }
       })
@@ -75,7 +80,7 @@ export async function sync(connection) {
   });
 
   debug('Uncompressed done');
-
+  sendTelegram('SyncLotus: Uncompressed done. Start Parsing ');
   // we reparse all the file and skip if required
   const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
   let skipping = firstID !== undefined;
@@ -93,6 +98,9 @@ export async function sync(connection) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
+        sendTelegram(
+          `SyncLotus: Processing: counter: ${counter} - imported: ${imported}`,
+        );
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
@@ -116,8 +124,10 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
+    sendTelegram(`SyncLotus:${imported} compounds processed`);
     debug(`${imported} compounds processed`);
   } else {
+    sendTelegram(`SyncLotus:file already processed`);
     debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
@@ -125,6 +135,9 @@ export async function sync(connection) {
     _source: { $ne: source },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  sendTelegram(
+    `SyncLotus:Deleting entries with wrong source: ${result.deletedCount}`,
+  );
   if (existsSync(join(targetFolder, updatedFileName))) {
     rmSync(join(targetFolder, updatedFileName), { recursive: true });
   }
