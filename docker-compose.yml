@@ -19,9 +19,7 @@ services:
       - ./originalData:/originalData
     environment:
       - MONGODB_URL=mongodb://mongo:27017
-      - MONGO_DB_NAME=pubchem
       - ORIGINAL_DATA_PATH=/originalData
-      - PUBCHEM_SOURCE=https://ftp.ncbi.nlm.nih.gov/pubchem/
     command: npm run cron
 
   pubchem:
@@ -29,5 +27,7 @@ services:
     restart: always
     ports:
       - 127.0.0.1:3001:11015
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
     depends_on:
       - mongo
