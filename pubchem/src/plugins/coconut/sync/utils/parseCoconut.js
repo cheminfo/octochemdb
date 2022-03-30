@@ -9,7 +9,6 @@ export async function* parseCoconut(bsonPath) {
 
   for await (const entry of bsonIterator(readStream)) {
     try {
-      // console.log(entry);
       const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
       const oclID = oclMolecule.getIDCodeAndCoordinates();
       oclMolecule.stripStereoInformation();

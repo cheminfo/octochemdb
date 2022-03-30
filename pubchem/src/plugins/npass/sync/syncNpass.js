@@ -31,6 +31,7 @@ export async function sync(connection) {
   ) {
     firstID = lastDocumentImported._id;
   }
+
   const general = parse(readFileSync(lastFile, 'utf8'), {
     header: true,
   }).data;
@@ -63,6 +64,8 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+
+  debug(`Start parsing`);
   for (const entry of parseNpass(
     general,
     activities,

@@ -4,8 +4,7 @@ import { join } from 'path';
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-export async function parseLotus(bsonPath) {
-  const results = [];
+export async function* parseLotus(bsonPath) {
   const readStream = createReadStream(join(bsonPath));
 
   for await (const entry of bsonIterator(readStream)) {
@@ -108,10 +107,9 @@ export async function parseLotus(bsonPath) {
           iupac_Name: entry?.iupac_name,
         },
       };
-      results.push(result);
-    } catch (__java$exception) {
+      yield result;
+    } catch (e) {
       continue;
     }
   }
-  return results;
 }

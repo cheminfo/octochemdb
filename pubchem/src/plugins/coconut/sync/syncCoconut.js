@@ -7,6 +7,7 @@ import unzipper from 'unzipper';
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';
+import { statSync } from 'fs';
 
 const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 
@@ -40,18 +41,20 @@ export async function sync(connection) {
       .replace(/(\.[^.]*$)/, `.${modificationDate}$1`),
   );
   debug(`Need to decompress: ${lastFile}`);
-
+  let sizeFile;
   await new Promise((resolve, reject) => {
     createReadStream(lastFile)
       .pipe(unzipper.Parse())
       .on('entry', (entry) => {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
+        const size = entry.vars.uncompressedSize;
         if (type === 'File' && fileName.includes('uniqueNaturalProduct.bson')) {
-          // TODO check that it exists AND the file is identical otherwise if it exists, delete first
+          sizeFile = size;
           if (!existsSync(join(targetFolder, updatedFileName))) {
             entry.pipe(createWriteStream(join(targetFolder, updatedFileName)));
           } else {
+            debug('File already exists');
             entry.autodrain();
           }
         } else {
@@ -59,7 +62,13 @@ export async function sync(connection) {
         }
       })
       .on('close', () => {
-        resolve();
+        if (sizeFile === statSync(join(targetFolder, updatedFileName)).size) {
+          resolve();
+          debug('File as the expected size');
+        } else {
+          debug('Error: file as not the expected size');
+          reject();
+        }
       })
       .on('error', (e) => {
         reject(e);
@@ -75,6 +84,7 @@ export async function sync(connection) {
   let imported = 0;
   let start = Date.now();
 
+  debug(`Start parsing: ${updatedFileName}`);
   for await (const entry of parseCoconut(join(targetFolder, updatedFileName))) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
@@ -91,6 +101,7 @@ export async function sync(connection) {
     }
     entry._seq = ++progress.seq;
     entry._source = source;
+
     await collection.updateOne(
       { _id: entry._id },
       { $set: entry },
@@ -99,6 +110,7 @@ export async function sync(connection) {
     await connection.setProgress(progress);
     imported++;
   }
+
   debug(`${imported} compounds processed`);
 
   // we remove all the entries that are not imported by the last file

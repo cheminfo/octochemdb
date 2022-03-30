@@ -1,9 +1,13 @@
 import OCL from 'openchemlib';
+import Debug from 'debug';
+
+const debug = Debug('parseCmaup');
 
 export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
   const results = [];
   const speciesPaired = {};
-
+  let counter = 0;
+  let start = Date.now();
   for (const pair of speciesPair) {
     speciesPaired[pair[1]] = pair[0];
   }
@@ -62,6 +66,12 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
           activities: finalActivity,
         },
       };
+      if (Date.now() - start > 10000) {
+        debug(`Processing: counter: ${counter} `);
+        start = Date.now();
+      }
+      counter++;
+
       results.push(result);
     }
   }
