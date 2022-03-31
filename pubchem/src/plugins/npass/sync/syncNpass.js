@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-import Debug from 'debug';
+import debug from '../../../utils/debug.js';
 import pkg from 'papaparse';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
@@ -9,7 +9,7 @@ import { parseNpass } from './utils/parseNpass.js';
 
 const { parse } = pkg;
 
-const debug = Debug('syncNpass');
+debug('syncNpass');
 
 export async function sync(connection) {
   const lastFile = await getLastNpassFileGeneralInfo();
@@ -22,7 +22,7 @@ export async function sync(connection) {
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastNpassImported(connection, progress);
-  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
+  await debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -71,7 +71,7 @@ export async function sync(connection) {
       general !== lastDocumentImported._source &&
       progress.state !== 'imported')
   ) {
-    debug(`Start parsing`);
+    await debug(`Start parsing`);
     for (const entry of parseNpass(
       general,
       activities,
@@ -82,13 +82,13 @@ export async function sync(connection) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
-        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        await debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
       if (skipping) {
         if (firstID === entry._id) {
           skipping = false;
-          debug(`Skipping compound till:${firstID}`);
+          await debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
@@ -104,15 +104,15 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
-    debug(`${imported} compounds processed`);
+    await debug(`${imported} compounds processed`);
   } else {
-    debug(`file already processed`);
+    await debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },
   });
-  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  await debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
 
 async function getLastNpassImported(connection, progress) {
@@ -125,12 +125,12 @@ async function getLastNpassImported(connection, progress) {
 }
 
 async function getLastNpassFileGeneralInfo() {
-  debug('Get last cmaup GeneralInfo file if new');
+  await debug('Get last cmaup GeneralInfo file if new');
 
   const sourceGeneralInfo = process.env.NPASS_SOURCE_GENERALINFO;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/npass/full`;
 
-  debug(`Syncing: ${sourceGeneralInfo} to ${destination}`);
+  await debug(`Syncing: ${sourceGeneralInfo} to ${destination}`);
 
   return getFileIfNew({ url: sourceGeneralInfo }, destination, {
     filename: 'general',
@@ -139,12 +139,12 @@ async function getLastNpassFileGeneralInfo() {
 }
 
 async function getLastNpassFileActivity() {
-  debug('Get last npass Activity file if new');
+  await debug('Get last npass Activity file if new');
 
   const sourceActivity = process.env.NPASS_SOURCE_ACTIVITY;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/npass/full`;
 
-  debug(`Syncing: ${sourceActivity} to ${destination}`);
+  await debug(`Syncing: ${sourceActivity} to ${destination}`);
 
   return getFileIfNew({ url: sourceActivity }, destination, {
     filename: 'activities',
@@ -153,12 +153,12 @@ async function getLastNpassFileActivity() {
 }
 
 async function getLastNpassFileProperties() {
-  debug('Get last cmaup Properties file if new');
+  await debug('Get last cmaup Properties file if new');
 
   const sourceProperties = process.env.NPASS_SOURCE_PROPERTIES;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/npass/full`;
 
-  debug(`Syncing: ${sourceProperties} to ${destination}`);
+  await debug(`Syncing: ${sourceProperties} to ${destination}`);
 
   return getFileIfNew({ url: sourceProperties }, destination, {
     filename: 'properties',
@@ -167,12 +167,12 @@ async function getLastNpassFileProperties() {
 }
 
 async function getLastNpassFileSpeciesPair() {
-  debug('Get last cmaup SpeciesPair file if new');
+  await debug('Get last cmaup SpeciesPair file if new');
 
   const sourceSpeciesPair = process.env.NPASS_SOURCE_SPECIESPAIR;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/npass/full`;
 
-  debug(`Syncing: ${sourceSpeciesPair} to ${destination}`);
+  await debug(`Syncing: ${sourceSpeciesPair} to ${destination}`);
 
   return getFileIfNew({ url: sourceSpeciesPair }, destination, {
     filename: 'speciesPair',
@@ -181,12 +181,12 @@ async function getLastNpassFileSpeciesPair() {
 }
 
 async function getLastNpassFileSpeciesInfo() {
-  debug('Get last cmaup SpeciesInfo file if new');
+  await debug('Get last cmaup SpeciesInfo file if new');
 
   const sourceSpeciesInfo = process.env.NPASS_SOURCE_SPECIESINFO;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/npass/full`;
 
-  debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
+  await debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
 
   return getFileIfNew({ url: sourceSpeciesInfo }, destination, {
     filename: 'speciesInfo',
