@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs';
 
-import Debug from 'debug';
+import debug from '../../../utils/debug.js';
 import { fileListFromZip } from 'filelist-from';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { taxonomyParser } from './utils/taxonomyParser.js';
 
-const debug = Debug('syncTaxonomy');
+debug('syncTaxonomy');
 
 export async function sync(connection) {
   const lastFile = await getLastTaxonomyFile();
@@ -18,7 +18,7 @@ export async function sync(connection) {
     connection,
     progress,
   );
-  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
+  await debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -42,13 +42,13 @@ export async function sync(connection) {
     counter++;
     if (process.env.TEST === 'true' && counter > 20) break;
     if (Date.now() - start > 10000) {
-      debug(`Processing: counter: ${counter} - imported: ${imported}`);
+      await debug(`Processing: counter: ${counter} - imported: ${imported}`);
       start = Date.now();
     }
     if (skipping) {
       if (firstID === entry._id) {
         skipping = false;
-        debug(`Skipping taxonomies till:${firstID}`);
+        await debug(`Skipping taxonomies till:${firstID}`);
       }
       continue;
     }
@@ -62,13 +62,13 @@ export async function sync(connection) {
     await connection.setProgress(progress);
     imported++;
   }
-  debug(`${imported} taxonomies processed`);
+  await debug(`${imported} taxonomies processed`);
 
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },
   });
-  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  await debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
 
 async function getLastTaxonomyImported(connection, progress) {
@@ -81,12 +81,12 @@ async function getLastTaxonomyImported(connection, progress) {
 }
 
 async function getLastTaxonomyFile() {
-  debug('Get last taxonomy file if new');
+  await debug('Get last taxonomy file if new');
 
   const source = process.env.TAXONOMY_SOURCE;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/taxonomy/full`;
 
-  debug(`Syncing: ${source} to ${destination}`);
+  await debug(`Syncing: ${source} to ${destination}`);
 
   return getFileIfNew({ url: source }, destination, {
     filename: 'taxonomy',
