@@ -16,7 +16,6 @@ export async function* parseLotus(bsonPath) {
       const taxonomy = entry.taxonomyReferenceObjects;
       const key = Object.keys(taxonomy)[0];
       const taxonomySources = taxonomy[key];
-
       const ncbi = [];
       const gBIF_Backbone_Taxonomy = [];
       const iNaturalist = [];
@@ -36,6 +35,7 @@ export async function* parseLotus(bsonPath) {
           ncbi.push(result);
         }
       }
+
       if ('GBIF Backbone Taxonomy' in taxonomySources) {
         for (let entry of taxonomySources['GBIF Backbone Taxonomy']) {
           const result = {};
@@ -89,6 +89,7 @@ export async function* parseLotus(bsonPath) {
           iTIS.push(result);
         }
       }
+
       const result = {
         _id: entry.lotus_id,
         data: {
@@ -97,16 +98,26 @@ export async function* parseLotus(bsonPath) {
             coordinates: oclID.coordinates,
             noStereoID,
           },
-          taxonomy: {
-            NCBI: ncbi,
-            GBIF_Backbone_Taxonomy: gBIF_Backbone_Taxonomy,
-            iNaturalist: iNaturalist,
-            Open_Tree_of_Life: open_Tree_of_Life,
-            ITIS: iTIS,
-          },
-          iupac_Name: entry?.iupac_name,
         },
       };
+      if (entry?.iupac_name) result.data.iupac_Name = entry?.iupac_name;
+      if (
+        ncbi.length !== 0 ||
+        gBIF_Backbone_Taxonomy.length !== 0 ||
+        iNaturalist.length !== 0 ||
+        open_Tree_of_Life.length !== 0 ||
+        iTIS.length !== 0
+      )
+        result.data.taxonomies = {};
+      if (ncbi.length !== 0) result.data.taxonomies.ncbi = ncbi;
+      if (gBIF_Backbone_Taxonomy.length !== 0)
+        result.data.taxonomies.GBIF_Backbone_Taxonomy = gBIF_Backbone_Taxonomy;
+      if (iNaturalist.length !== 0)
+        result.data.taxonomies.iNaturalist = iNaturalist;
+      if (open_Tree_of_Life.length !== 0)
+        result.data.taxonomies.Open_Tree_of_Life = open_Tree_of_Life;
+      if (iTIS.length !== 0) result.data.taxonomies.ITIS = iTIS;
+
       yield result;
     } catch (e) {
       continue;
