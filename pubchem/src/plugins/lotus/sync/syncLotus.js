@@ -1,11 +1,11 @@
-import debug from '../../../utils/debug.js';
+import Debug from 'debug';
 import pkg from 'fs-extra';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import { parseLotus } from './utils/parseLotus.js';
 import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 const { rmSync, existsSync } = pkg;
-debug('syncLotus');
+const debug = Debug('syncLotus');
 
 export async function sync(connection) {
   const lastFile = await getLastLotusFile();
@@ -14,7 +14,7 @@ export async function sync(connection) {
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastLotusImported(connection, progress);
-  await debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
+  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -41,19 +41,19 @@ export async function sync(connection) {
       lastFile !== lastDocumentImported._source &&
       progress.state !== 'imported')
   ) {
-    await debug(`Start parsing: ${targetFile}`);
+    debug(`Start parsing: ${targetFile}`);
     for await (const entry of parseLotus(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
-        await debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
 
       if (skipping) {
         if (firstID === entry._id) {
           skipping = false;
-          await debug(`Skipping compound till:${firstID}`);
+          debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
@@ -70,15 +70,15 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
-    await debug(`${imported} compounds processed`);
+    debug(`${imported} compounds processed`);
   } else {
-    await debug(`file already processed`);
+    debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },
   });
-  await debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 
   if (existsSync(targetFile)) {
     rmSync(targetFile, { recursive: true });
@@ -95,12 +95,12 @@ async function getLastLotusImported(connection, progress) {
 }
 
 async function getLastLotusFile() {
-  await debug('Get last lotus file if new');
+  debug('Get last lotus file if new');
 
   const source = process.env.LOTUS_SOURCE;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
 
-  await debug(`Syncing: ${source} to ${destination}`);
+  debug(`Syncing: ${source} to ${destination}`);
 
   return getFileIfNew({ url: source }, destination, {
     filename: 'lotus',

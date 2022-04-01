@@ -5,10 +5,10 @@ import pkg from 'papaparse';
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { parseCMAUP } from './utils/parseCMAUP.js';
-import debug from '../../../utils/debug.js';
+import Debug from 'debug';
 const { parse } = pkg;
 
-debug('syncCmaup');
+const debug = Debug('syncCmaup');
 
 export async function sync(connection) {
   const lastFile = await getLastCmaupFileIngredients();
@@ -21,7 +21,7 @@ export async function sync(connection) {
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastCMAUPImported(connection, progress);
-  await debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
+  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
 
   let firstID;
   if (
@@ -74,13 +74,13 @@ export async function sync(connection) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
-        await debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
       if (skipping) {
         if (firstID === entry._id) {
           skipping = false;
-          await debug(`Skipping compound till:${firstID}`);
+          debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
@@ -96,15 +96,15 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
-    await debug(`${imported} compounds processed`);
+    debug(`${imported} compounds processed`);
   } else {
-    await debug(`file already processed`);
+    debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },
   });
-  await debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
 
 async function getLastCMAUPImported(connection, progress) {
@@ -117,12 +117,12 @@ async function getLastCMAUPImported(connection, progress) {
 }
 
 async function getLastCmaupFileIngredients() {
-  await debug('Get last cmaup Ingredients file if new');
+  debug('Get last cmaup Ingredients file if new');
 
   const sourceIngredients = process.env.CMAUP_SOURCE_INGREDIENTS;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
-  await debug(`Syncing: ${sourceIngredients} to ${destination}`);
+  debug(`Syncing: ${sourceIngredients} to ${destination}`);
 
   return getFileIfNew({ url: sourceIngredients }, destination, {
     filename: 'Ingredients',
@@ -131,12 +131,12 @@ async function getLastCmaupFileIngredients() {
 }
 
 async function getLastCmaupFileActivity() {
-  await debug('Get last cmaup Activity file if new');
+  debug('Get last cmaup Activity file if new');
 
   const sourceActivity = process.env.CMAUP_SOURCE_ACTIVITY;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
-  await debug(`Syncing: ${sourceActivity} to ${destination}`);
+  debug(`Syncing: ${sourceActivity} to ${destination}`);
 
   return getFileIfNew({ url: sourceActivity }, destination, {
     filename: 'Activity',
@@ -145,12 +145,12 @@ async function getLastCmaupFileActivity() {
 }
 
 async function getLastCmaupFileSpeciesAssociation() {
-  await debug('Get last cmaup SpeciesAssociation file if new');
+  debug('Get last cmaup SpeciesAssociation file if new');
 
   const sourceSpeciesAssociation = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
-  await debug(`Syncing: ${sourceSpeciesAssociation} to ${destination}`);
+  debug(`Syncing: ${sourceSpeciesAssociation} to ${destination}`);
 
   return getFileIfNew({ url: sourceSpeciesAssociation }, destination, {
     filename: 'speciesAssociation',
@@ -159,12 +159,12 @@ async function getLastCmaupFileSpeciesAssociation() {
 }
 
 async function getLastCmaupFileSpeciesInfo() {
-  await debug('Get last cmaup SpeciesInfo file if new');
+  debug('Get last cmaup SpeciesInfo file if new');
 
   const sourceSpeciesInfo = process.env.CMAUP_SOURCE_SPECIESINFO;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
 
-  await debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
+  debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
 
   return getFileIfNew({ url: sourceSpeciesInfo }, destination, {
     filename: 'speciesInfo',

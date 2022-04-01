@@ -1,4 +1,4 @@
-import debug from '../../../utils/debug.js';
+import Debug from 'debug';
 import pkg from 'fs-extra';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
@@ -8,7 +8,7 @@ import { parseCoconut } from './utils/parseCoconut.js';
 
 const { rmSync, existsSync } = pkg;
 
-debug('syncCoconut');
+const debug = Debug('syncCoconut');
 
 export async function sync(connection) {
   const lastFile = await getLastCoconutFile();
@@ -20,7 +20,7 @@ export async function sync(connection) {
     connection,
     progress,
   );
-  await debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
+  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -47,18 +47,18 @@ export async function sync(connection) {
       lastFile !== lastDocumentImported._source &&
       progress.state !== 'imported')
   ) {
-    await debug(`Start parsing: ${targetFile}`);
+    debug(`Start parsing: ${targetFile}`);
     for await (const entry of parseCoconut(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (Date.now() - start > 10000) {
-        await debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
       if (skipping) {
         if (firstID === entry._id) {
           skipping = false;
-          await debug(`Skipping compound till:${firstID}`);
+          debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
@@ -75,15 +75,15 @@ export async function sync(connection) {
     }
     progress.state = 'imported';
     await connection.setProgress(progress);
-    await debug(`${imported} compounds processed`);
+    debug(`${imported} compounds processed`);
   } else {
-    await debug(`file already processed`);
+    debug(`file already processed`);
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
     _source: { $ne: source },
   });
-  await debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   if (existsSync(targetFile)) {
     rmSync(targetFile, { recursive: true });
   }
@@ -99,12 +99,12 @@ async function getLastCoconutCompoundImported(connection, progress) {
 }
 
 async function getLastCoconutFile() {
-  await debug('Get last coconut file if new');
+  debug('Get last coconut file if new');
 
   const source = process.env.COCONUT_SOURCE;
   const destination = `${process.env.ORIGINAL_DATA_PATH}/coconut/full`;
 
-  await debug(`Syncing: ${source} to ${destination}`);
+  debug(`Syncing: ${source} to ${destination}`);
 
   return getFileIfNew({ url: source }, destination, {
     filename: 'coconut',
