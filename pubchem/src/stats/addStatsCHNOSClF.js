@@ -2,11 +2,11 @@ import bluebird from 'bluebird';
 import co from 'co';
 import fs from 'fs-extra';
 import mongo from 'mongo';
-
+import Debug from '../utils/Debug.js';
 process.on('unhandledRejection', function (e) {
   throw e;
 });
-
+const debug = Debug('addStatsCHNOSCIF');
 let limit = 1e10;
 let rules = {
   minMass: 50,
@@ -57,9 +57,9 @@ co(function* () {
   yield statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
     upsert: true,
   });
-  console.log(`Statistics saved as ${id} in collection ${rules.collection}`);
+  debug(`Statistics saved as ${id} in collection ${rules.collection}`);
 
-  // console.log(JSON.stringify(result, null, 2));
+  // debug(JSON.stringify(result, null, 2));
 })
   .catch(function (e) {
     console.error('error');

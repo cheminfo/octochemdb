@@ -1,6 +1,6 @@
-import Debug from '../utils/Debug.js';
 import delay from 'delay';
 import { MongoClient } from 'mongodb';
+import Debug from './Debug.js';
 
 const debug = Debug('PubChemConnection');
 
@@ -65,7 +65,7 @@ PubChemConnection.prototype.getDatabase = async function getDatabase() {
       break;
     } catch (e) {
       debug('Connection to mongo failed, waiting 5s');
-      console.log(e);
+      debug(e);
       await delay(5000);
     }
   }

@@ -72,7 +72,7 @@ async function searchHandler(request) {
       .toArray();
     return results;
   } catch (e) {
-    console.log(e);
+    debug(e);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -1,9 +1,9 @@
 import { statSync } from 'fs';
 import { join } from 'path';
 
-import Debug from '../utils/Debug.js';
 import pkg from 'fs-extra';
 import unzipper from 'unzipper';
+import Debug from './Debug.js';
 
 const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 

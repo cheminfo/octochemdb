@@ -2,13 +2,13 @@ import mlStat from 'ml-stat/array';
 
 import mfFunctions from '../util/mf';
 import rules from '../util/rules.js';
-
+import Debug from '../utils/Debug';
 const pubChemConnection = new (require('../util/PubChemConnection'))();
-
+const debug = Debug('index');
 generateStats()
-  .catch((e) => console.log(e))
+  .catch((e) => debug(e))
   .then((result) => {
-    console.log('Done');
+    debug('Done');
     pubChemConnection.close();
   });
 
@@ -72,9 +72,9 @@ async function generateStats() {
   await statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
     upsert: true,
   });
-  console.log(`Statistics saved as ${id} in collection mfStats`);
+  debug(`Statistics saved as ${id} in collection mfStats`);
 
-  // console.log(JSON.stringify(result, null, 2));
+  // debug(JSON.stringify(result, null, 2));
 }
 
 function getStats(mfs) {

@@ -1,19 +1,21 @@
 import OCLE from 'openchemlib-extended';
+import Debug from '../utils/Debug.js';
 
+const debug = Debug('queryForSpecificMF');
 const limit = 10000000;
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 search()
-  .catch((e) => console.log(e))
+  .catch((e) => debug(e))
   .then(() => {
-    console.log('Done');
+    debug('Done');
     pubChemConnection.close();
   });
 
 async function search() {
   const collection = (await pubChemConnection.getDatabase()).collection('data');
-  console.log('connected to MongoDB');
+  debug('connected to MongoDB');
 
   let done = 0;
   const cursor = collection
@@ -35,8 +37,8 @@ async function search() {
       (doc.atom.S || 0);
 
     if (done % 1000 === 0) {
-      console.log(new Date(), done, '- Current _id:', doc._id);
-      console.log(mf, total);
+      debug(`${new Date()},${done}, '- Current _id:', ${doc._id}`);
+      debug(`${mf}, ${total}`);
     }
 
     done++;
@@ -44,6 +46,6 @@ async function search() {
     if (total > 8) continue;
     const mol = OCLE.Molecule.fromIDCode(doc.ocl.id, doc.ocl.coord);
     const smiles = mol.toSmiles();
-    console.log(`${mf}\t${total}\t${smiles}`);
+    debug(`${mf}\t${total}\t${smiles}`);
   }
 }

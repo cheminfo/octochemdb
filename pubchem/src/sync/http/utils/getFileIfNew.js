@@ -61,7 +61,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     return targetFile;
   } catch (e) {
     debug(`ERROR downloading: ${options.filename}`);
-    console.log(target);
+    debug(target);
     if (existsSync(target)) {
       rmSync(target, { recursive: true });
     }

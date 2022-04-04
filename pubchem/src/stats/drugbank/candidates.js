@@ -4,7 +4,8 @@ import fs   from 'fs-extra';
 import mkdirp   from 'mkdirp'.sync;
 import path   from 'path';
 import rules   from 'rules';
-
+import Debug from '../../utils/Debug';
+const debug=Debug('candidates')
 const data = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data/mfs.json'), 'utf8'),
 );
@@ -13,7 +14,7 @@ for (let i = 2; i < data.length; i++) {
   let dir = path.join(__dirname, `data/range${i}`);
   mkdirp(dir);
   let formulas = data[i].formulas;
-  console.log(`total: ${formulas.length}`);
+  debug(`total: ${formulas.length}`);
   let total = 0;
   for (let j = 0; j < formulas.length; j++) {
     let formula = formulas[j];
@@ -44,7 +45,7 @@ for (let i = 2; i < data.length; i++) {
       JSON.stringify(result),
     );
     total++;
-    if (total % 100 === 0) console.log(total);
+    if (total % 100 === 0) debug(total);
   }
   break;
 }

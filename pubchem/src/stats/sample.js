@@ -6,7 +6,8 @@ import mongo from 'mongo';
 import rules from 'rules';
 
 import stats from '../../stats.json.js';
-
+import Debug from '../utils/Debug.js';
+const debug = Debug('sample');
 process.on('unhandledRejection', function (e) {
   throw e;
 });
@@ -54,7 +55,7 @@ co(function* () {
       result[j] = null;
     }
   }
-  console.log(JSON.stringify(result, null, 2));
+  debug(JSON.stringify(result, null, 2));
 })
   .catch(function (e) {
     console.error('error');

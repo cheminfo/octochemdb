@@ -2,9 +2,10 @@ import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
 import workerpool from 'workerpool';
+import Debug from '../../../../utils/Debug.js';
 
 const { MF } = MFParser;
-
+const debug = Debug('improveCompound');
 async function improveCompound(molecule) {
   const oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
 
@@ -54,7 +55,7 @@ async function improveCompound(molecule) {
     result.data.charge = mfInfo.charge;
     result.data.atom = mfInfo.atoms;
   } catch (e) {
-    console.log(e, mf);
+    debug(`${e}, ${mf}`);
   }
   return result;
 }

@@ -41,7 +41,7 @@ async function searchHandler() {
     for (let name of names) {
       const collection = await connection.getCollection(name);
       const stats = await collection.stats();
-      debug(name, adminInfo[name]);
+      debug(`${name}, ${adminInfo[name]}`);
       results.push({
         ns: stats.ns,
         size: stats.size,
@@ -56,7 +56,7 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    console.log(e);
+    debug(e);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -1,17 +1,20 @@
+import Debug from '../utils/Debug.js';
+
+const debug = Debug('queryForMFexample');
 const limit = 10;
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 search()
-  .catch((e) => console.log(e))
+  .catch((e) => debug(e))
   .then(() => {
-    console.log('Done');
+    debug('Done');
     pubChemConnection.close();
   });
 
 async function search() {
   const collection = (await pubChemConnection.getDatabase()).collection('data');
-  console.log('connected to MongoDB');
+  debug('connected to MongoDB');
   const cursor = collection
     .find({
       charge: 0,
@@ -22,14 +25,13 @@ async function search() {
   let done = 0;
   while (await cursor.hasNext()) {
     const doc = await cursor.next();
-    const mf = doc.mf;
 
     if (done % 1000 === 0) {
-      console.log(new Date(), done, '- Current _id:', doc._id);
+      debug(`${new Date()}, ${done}, - Current _id: ${doc._id}`);
     }
 
     done++;
 
-    console.log(doc);
+    debug(doc);
   }
 }

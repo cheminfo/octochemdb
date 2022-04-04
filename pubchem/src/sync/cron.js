@@ -37,7 +37,7 @@ async function cron() {
       connection = new PubChemConnection();
       await sync.sync(connection);
     } catch (e) {
-      console.log(e);
+      debug(e);
     } finally {
       debug('Closing connection');
       if (connection) await connection.close();
@@ -62,7 +62,7 @@ async function cron() {
       connection = new PubChemConnection();
       await aggregate.aggregate(connection);
     } catch (e) {
-      console.log(e);
+      debug(e);
     } finally {
       debug('Closing connection');
       if (connection) await connection.close();

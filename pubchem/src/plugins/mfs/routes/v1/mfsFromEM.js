@@ -1,5 +1,5 @@
 // query for molecules from monoisotopic mass
-import Debug from '../../../utils/Debug.js';
+import Debug from '../../../../utils/Debug.js';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
@@ -102,7 +102,7 @@ async function searchHandler(request) {
       .toArray();
     return results;
   } catch (e) {
-    console.log(e);
+    debug(e);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();
