@@ -5,7 +5,9 @@ import mfUtil from 'mf';
 import rules from 'rules';
 
 import stats from '../../../stats.json.js';
+import Debug from '../../utils/Debug.js';
 
+const debug = Debug('sample');
 const ppm = rules.samplePpm;
 const penality = rules.ratioPenality;
 
@@ -62,7 +64,7 @@ for (let i = 2; i < data.length; i++) {
         ratioScore: candidates[sortedIndex].ratioScore,
       };
     }
-    if (total % 100 === 0) console.log(total);
+    if (total % 100 === 0) debug(total);
     total++;
   }
 

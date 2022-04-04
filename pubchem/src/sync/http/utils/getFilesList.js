@@ -1,5 +1,7 @@
-import Debug from 'debug';
 import fetch from 'cross-fetch';
+
+import Debug from '../../../utils/Debug.js';
+
 const debug = Debug('getFilesList');
 
 async function getFilesList(url, options = {}) {
@@ -13,7 +15,7 @@ async function getFilesList(url, options = {}) {
       let match = line.match(
         /.*"(?<name>.*)".*(?<date>\d{4}-\d{2}-\d{2}).*(?<time>\d{2}:\d{2})\s*(?<size>\S*)\s*/,
       );
-      if (!match) return;
+      if (!match) return undefined;
       let groups = match.groups;
       if (groups.size) {
         if (groups.size.endsWith('K')) {

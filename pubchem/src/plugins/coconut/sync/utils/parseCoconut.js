@@ -6,7 +6,6 @@ import OCL from 'openchemlib';
 
 export async function* parseCoconut(bsonPath) {
   const readStream = createReadStream(join(bsonPath));
-
   for await (const entry of bsonIterator(readStream)) {
     try {
       const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
@@ -14,8 +13,8 @@ export async function* parseCoconut(bsonPath) {
       oclMolecule.stripStereoInformation();
       const noStereoID = oclMolecule.getIDCode();
       const taxonomies = entry?.textTaxa;
-      const finalTaxonomy = [];
-      const comment = [];
+      const finalTaxonomies = [];
+      const comments = [];
       if (taxonomies[0] !== 'notax') {
         for (let entry of taxonomies) {
           if (
@@ -24,9 +23,9 @@ export async function* parseCoconut(bsonPath) {
             entry !== 'Eukaryota' &&
             entry !== 'Archaea'
           ) {
-            finalTaxonomy.push({ species: entry });
+            finalTaxonomies.push({ species: entry });
           } else {
-            comment.push(entry);
+            comments.push(entry);
           }
         }
       }
@@ -39,15 +38,14 @@ export async function* parseCoconut(bsonPath) {
             coordinates: oclID.coordinates,
             noStereoID,
           },
-          taxonomy: {
-            taxonomy: finalTaxonomy,
-            comment: comment,
-          },
-
-          cas: entry?.cas,
-          iupacName: entry?.iupac_name,
         },
       };
+      if (entry.cas) result.data.cas = entry?.cas;
+      if (entry.iupac_name) result.data.iupacName = entry?.iupac_name;
+      if (finalTaxonomies.length !== 0) {
+        result.data.taxonomies = finalTaxonomies;
+      }
+      if (comments.length !== 0) result.data.comments = comments;
       yield result;
     } catch (e) {
       continue;

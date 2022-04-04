@@ -3,10 +3,12 @@ import co from 'co';
 import fs from 'fs-extra';
 import mongo from 'mongo';
 
-process.on('unhandledRejection', function (e) {
+import Debug from '../utils/Debug.js';
+
+process.on('unhandledRejection', (e) => {
   throw e;
 });
-
+const debug = Debug('addStatsCHNOSCIF');
 let limit = 1e10;
 let rules = {
   minMass: 50,
@@ -18,7 +20,7 @@ let rules = {
 let db;
 co(function* () {
   db = yield mongo.connect();
-  console.error('connected to MongoDB');
+  debug('connected to MongoDB');
 
   const aggregateCHNOSClF = db.collection('aggregateCHNOSClF');
   const cursor = aggregateCHNOSClF
@@ -57,16 +59,16 @@ co(function* () {
   yield statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
     upsert: true,
   });
-  console.log(`Statistics saved as ${id} in collection ${rules.collection}`);
+  debug(`Statistics saved as ${id} in collection ${rules.collection}`);
 
-  // console.log(JSON.stringify(result, null, 2));
+  // debug(JSON.stringify(result, null, 2));
 })
-  .catch(function (e) {
-    console.error('error');
-    console.error(e);
+  .catch((e) => {
+    debug('error');
+    debug(e);
   })
-  .then(function () {
-    console.error('closing DB');
+  .then(() => {
+    debug('closing DB');
     if (db) db.close();
   });
 
