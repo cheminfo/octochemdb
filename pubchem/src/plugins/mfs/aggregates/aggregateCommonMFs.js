@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import Debug from '../../../utils/Debug.js';
 
 const debug = Debug('aggregateCommonMFs');
 

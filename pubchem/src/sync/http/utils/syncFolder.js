@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import Debug from 'debug';
+import Debug from '../../../utils/Debug.js';
 import FSExtra from 'fs-extra';
 
 import getFile from './getFile.js';

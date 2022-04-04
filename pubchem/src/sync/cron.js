@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import Debug from '../utils/Debug.js';
 import delay from 'delay';
 
 import { PubChemConnection } from '../utils/PubChemConnection.js';

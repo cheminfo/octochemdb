@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-import Debug from 'debug';
+import Debug from '../../../utils/Debug.js';
 import pkg from 'papaparse';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';

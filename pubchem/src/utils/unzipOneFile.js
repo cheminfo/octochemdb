@@ -1,7 +1,7 @@
 import { statSync } from 'fs';
 import { join } from 'path';
 
-import Debug from 'debug';
+import Debug from '../utils/Debug.js';
 import pkg from 'fs-extra';
 import unzipper from 'unzipper';
 

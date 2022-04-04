@@ -1,7 +1,7 @@
 import fs from 'fs';
 import zlib from 'zlib';
 
-import Debug from 'debug';
+import Debug from '../../../utils/Debug.js';
 import { parse } from 'sdf-parser';
 
 import improveSubstance from './improveSubstance.js';

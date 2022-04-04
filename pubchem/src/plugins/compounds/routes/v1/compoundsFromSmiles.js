@@ -1,5 +1,5 @@
 // query for molecules from monoisotopic mass
-import Debug from 'debug';
+import Debug from '../../../../utils/Debug.js';
 import OCL from 'openchemlib';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';

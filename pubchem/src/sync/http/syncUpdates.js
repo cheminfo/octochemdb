@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import Debug from '../../utils/Debug.js';
 
 import getFile from './utils/getFile.js';
 import getFilesList from './utils/getFilesList.js';

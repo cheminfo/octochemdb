@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import Debug from '../../../utils/Debug.js';
 import pkg from 'fs-extra';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';

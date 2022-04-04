@@ -1,4 +1,4 @@
-import Debug from 'debug';
+import Debug from '../../../../utils/Debug.js';
 import OCL from 'openchemlib';
 
 const debug = Debug('parseCmaup');
