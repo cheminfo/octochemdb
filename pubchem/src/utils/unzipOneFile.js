@@ -28,7 +28,7 @@ export async function unzipOneFile(
   await new Promise((resolve, reject) => {
     createReadStream(lastFile)
       .pipe(unzipper.Parse())
-      .on('entry', function (entry) {
+      .on('entry', (entry) => {
         const fileName = entry.path;
         const type = entry.type; // 'Directory' or 'File'
         const size = entry.vars.uncompressedSize;
@@ -56,7 +56,6 @@ export async function unzipOneFile(
             rmSync(join(targetFolder, updatedFileName), { recursive: true });
           }
           debug('Error: file has not the expected size');
-          reject('wrong file size');
         }
       })
       .on('error', (e) => {
