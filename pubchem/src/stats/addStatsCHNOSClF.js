@@ -5,7 +5,7 @@ import mongo from 'mongo';
 
 import Debug from '../utils/Debug.js';
 
-process.on('unhandledRejection', function (e) {
+process.on('unhandledRejection', (e) => {
   throw e;
 });
 const debug = Debug('addStatsCHNOSCIF');
@@ -63,11 +63,11 @@ co(function* () {
 
   // debug(JSON.stringify(result, null, 2));
 })
-  .catch(function (e) {
+  .catch((e) => {
     debug('error');
     debug(e);
   })
-  .then(function () {
+  .then(() => {
     debug('closing DB');
     if (db) db.close();
   });
