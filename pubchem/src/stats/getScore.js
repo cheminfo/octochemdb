@@ -4,6 +4,7 @@ import rules from 'rules';
 
 import stats from '../../stats.json.js';
 import Debug from '../utils/Debug.js';
+
 const debug = Debug('getScore');
 const elementRatios = rules.elementRatios;
 const penality = rules.ratioPenality;

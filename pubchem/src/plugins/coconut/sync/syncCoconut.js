@@ -2,7 +2,6 @@ import pkg from 'fs-extra';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
-
 import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';

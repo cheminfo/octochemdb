@@ -1,5 +1,6 @@
-import Debug from '../../../../utils/Debug.js';
 import OCL from 'openchemlib';
+
+import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('parseNpass');
 export function parseNpass(

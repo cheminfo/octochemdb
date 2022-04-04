@@ -1,9 +1,10 @@
 import { readFileSync } from 'fs';
 import { gunzipSync } from 'zlib';
 
+import { XMLParser } from 'fast-xml-parser';
+
 import Debug from '../../../../utils/Debug.js';
 
-import { XMLParser } from 'fast-xml-parser';
 
 import improvePubmed from './improvePubmed.js';
 

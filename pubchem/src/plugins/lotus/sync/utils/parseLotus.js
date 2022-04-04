@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 import { createReadStream } from 'fs';
 import { join } from 'path';
 

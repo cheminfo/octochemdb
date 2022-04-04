@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+
 import Debug from './Debug.js';
 
 const debug = Debug('sendTelegram');

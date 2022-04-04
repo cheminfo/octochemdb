@@ -1,6 +1,6 @@
-import Debug from '../utils/Debug.js';
 import delay from 'delay';
 
+import Debug from '../utils/Debug.js';
 import { PubChemConnection } from '../utils/PubChemConnection.js';
 import { recursiveDir } from '../utils/recursiveDir.js';
 

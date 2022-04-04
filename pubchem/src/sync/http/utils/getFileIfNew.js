@@ -2,8 +2,9 @@ import { utimesSync, existsSync, createWriteStream, rmSync } from 'fs';
 import { join } from 'path';
 
 import fetch from 'cross-fetch';
-import Debug from '../../../utils/Debug.js';
 import FSExtra from 'fs-extra';
+
+import Debug from '../../../utils/Debug.js';
 
 const { mkdirpSync } = FSExtra;
 

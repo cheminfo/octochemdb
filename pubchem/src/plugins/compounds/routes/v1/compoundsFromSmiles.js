@@ -1,8 +1,8 @@
 // query for molecules from monoisotopic mass
-import Debug from '../../../../utils/Debug.js';
 import OCL from 'openchemlib';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
+import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('compoundsFromSmiles');
 

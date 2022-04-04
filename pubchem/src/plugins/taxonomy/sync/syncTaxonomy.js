@@ -1,9 +1,9 @@
 import { readFileSync } from 'fs';
 
-import Debug from '../../../utils/Debug.js';
 import { fileListFromZip } from 'filelist-from';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
+import Debug from '../../../utils/Debug.js';
 
 import { taxonomyParser } from './utils/taxonomyParser.js';
 

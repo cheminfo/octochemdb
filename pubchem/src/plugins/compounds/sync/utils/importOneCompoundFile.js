@@ -1,8 +1,9 @@
 import fs from 'fs';
 import zlib from 'zlib';
 
-import Debug from '../../../../utils/Debug.js';
 import { parse } from 'sdf-parser';
+
+import Debug from '../../../../utils/Debug.js';
 
 import improveCompoundPool from './improveCompoundPool.js';
 

@@ -1,7 +1,7 @@
-import Debug from '../../../utils/Debug.js';
 
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import removeEntriesFromFile from '../../../sync/utils/removeEntriesFromFile.js';
+import Debug from '../../../utils/Debug.js';
 
 import importOnePubmedFile from './utils/importOnePubmedFile.js';
 

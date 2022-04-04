@@ -1,10 +1,11 @@
-import Debug from '../../../../../utils/Debug.js';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 import { parse } from 'arraybuffer-xml-parser';
 
+import Debug from '../../../../../utils/Debug.js';
 import improvePubmed from '../improvePubmed.js';
+
 const debug = Debug('testPubMeds');
 test('pubmeds', () => {
   const parsed = parse(readFileSync(join(__dirname, 'data.xml')), {

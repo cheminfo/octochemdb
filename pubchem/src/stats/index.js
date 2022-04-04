@@ -3,7 +3,9 @@ import mlStat from 'ml-stat/array';
 import mfFunctions from '../util/mf';
 import rules from '../util/rules.js';
 import Debug from '../utils/Debug';
+
 const pubChemConnection = new (require('../util/PubChemConnection'))();
+
 const debug = Debug('index');
 generateStats()
   .catch((e) => debug(e))

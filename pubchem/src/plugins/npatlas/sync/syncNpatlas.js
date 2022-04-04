@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 
+import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
 
-import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 
 import { npAtlasParser } from './utils/npAtlasParser.js';
 

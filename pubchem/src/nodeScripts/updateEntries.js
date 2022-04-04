@@ -1,6 +1,6 @@
-const pubChemConnection = new (require('../util/PubChemConnection'))();
-
 import Debug from '../utils/Debug.js';
+
+const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 const debug = Debug('updateEntries');
 update()

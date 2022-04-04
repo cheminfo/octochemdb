@@ -6,6 +6,7 @@ import rules from 'rules';
 
 import stats from '../../../stats.json.js';
 import Debug from '../../utils/Debug.js';
+
 const debug = Debug('sample');
 const ppm = rules.samplePpm;
 const penality = rules.ratioPenality;
