@@ -1,4 +1,5 @@
 import DebugLibrary from 'debug';
+import delay from 'delay';
 
 import { sendTelegram } from './sendTelegram.js';
 
@@ -22,6 +23,8 @@ export default function Debug(context) {
 async function sendTelegrams() {
   if (messages.length > 1) return;
   while (messages.length > 0) {
-    await sendTelegram(messages.shift().text);
+    await sendTelegram(messages[0].text);
+    await delay(1000);
+    messages.shift();
   }
 }
