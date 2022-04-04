@@ -20,7 +20,6 @@ export async function sync(connection) {
     connection,
     progress,
   );
-  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -43,11 +42,13 @@ export async function sync(connection) {
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    (progress.seq !== lastDocumentImported._seq &&
-      lastFile !== lastDocumentImported._source &&
-      progress.state !== 'imported')
+    (!lastFile.includes(lastDocumentImported._source) &&
+      progress.state === 'updated') ||
+    progress.state !== 'updated'
   ) {
     debug(`Start parsing: ${targetFile}`);
+    progress.state = 'updating';
+    await connection.setProgress(progress);
     for await (const entry of parseCoconut(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
@@ -73,7 +74,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
-    progress.state = 'imported';
+    progress.state = 'updated';
     await connection.setProgress(progress);
     debug(`${imported} compounds processed`);
   } else {

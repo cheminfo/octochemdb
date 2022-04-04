@@ -1,4 +1,3 @@
-
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import removeEntriesFromFile from '../../../sync/utils/removeEntriesFromFile.js';
 import Debug from '../../../utils/Debug.js';
@@ -11,16 +10,24 @@ async function incrementalPubmedImport(connection) {
   const allFiles = await syncIncrementalPubmedFolder();
 
   const progress = await connection.getProgress('pubmeds');
-  if (progress.state !== 'update') {
-    throw new Error('Should never happens.');
-  }
+
   const { files, lastDocument } = await getFilesToImport(
     connection,
     progress,
     allFiles,
   );
-  await importPubmedFiles(connection, progress, files, { lastDocument });
-  await connection.setProgress(progress);
+  const lastDocumentImported = lastDocument;
+  if (
+    (!files.includes(lastDocumentImported._source) &&
+      progress.state === 'updated') ||
+    progress.state !== 'updated'
+  ) {
+    progress.state = 'updating';
+    await connection.setProgress(progress);
+    await importPubmedFiles(connection, progress, files, { lastDocument });
+    progress.state = 'updated';
+    await connection.setProgress(progress);
+  }
 }
 
 async function importPubmedFiles(connection, progress, files, options) {

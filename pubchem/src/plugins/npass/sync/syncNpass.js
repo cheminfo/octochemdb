@@ -22,7 +22,6 @@ export async function sync(connection) {
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastNpassImported(connection, progress);
-  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -67,10 +66,12 @@ export async function sync(connection) {
 
   if (
     lastDocumentImported === null ||
-    (progress.seq !== lastDocumentImported._seq &&
-      general !== lastDocumentImported._source &&
-      progress.state !== 'imported')
+    (!lastFile.includes(lastDocumentImported._source) &&
+      progress.state === 'updated') ||
+    progress.state !== 'updated'
   ) {
+    progress.state = 'updating';
+    await connection.setProgress(progress);
     debug(`Start parsing`);
     for (const entry of parseNpass(
       general,
@@ -102,7 +103,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
-    progress.state = 'imported';
+    progress.state = 'updated';
     await connection.setProgress(progress);
     debug(`${imported} compounds processed`);
   } else {
