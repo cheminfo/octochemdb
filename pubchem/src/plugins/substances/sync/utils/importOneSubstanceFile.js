@@ -3,7 +3,7 @@ import zlib from 'zlib';
 
 import { parse } from 'sdf-parser';
 
-import Debug from '../../../utils/Debug.js';
+import Debug from '../../../../utils/Debug.js';
 
 import improveSubstance from './improveSubstance.js';
 
