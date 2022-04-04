@@ -54,7 +54,7 @@ test('parseLotus', async () => {
             species: 'Momordica charantia',
           },
         ],
-        Open_Tree_of_Life: [
+        openTreeOfLife: [
           {
             organismID: '955521',
             kingdom: 'Archaeplastida',

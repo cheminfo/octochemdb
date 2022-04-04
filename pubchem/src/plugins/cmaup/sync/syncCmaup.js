@@ -5,7 +5,7 @@ import pkg from 'papaparse';
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
 
-import { parseCMAUP } from './utils/parseCmaup.js';
+import { parseCmaup } from './utils/parseCmaup.js';
 
 const { parse } = pkg;
 
@@ -66,7 +66,7 @@ export async function sync(connection) {
       lastFile !== lastDocumentImported._source &&
       progress.state !== 'imported')
   ) {
-    for (const entry of parseCMAUP(
+    for (const entry of parseCmaup(
       general,
       activities,
       speciesPair,

@@ -4,7 +4,7 @@ import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('parseCmaup');
 
-export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
+export function parseCmaup(general, activities, speciesPair, speciesInfo) {
   const results = [];
   const speciesPaired = {};
   let counter = 0;

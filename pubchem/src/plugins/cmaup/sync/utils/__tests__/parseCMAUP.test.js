@@ -3,9 +3,9 @@ import { join } from 'path';
 
 import { parse } from 'papaparse';
 
-import { parseCMAUP } from '../parseCmaup';
+import { parseCmaup } from '../parseCmaup';
 
-test('parseCMAUP', () => {
+test('parseCmaup', () => {
   const dirPath = join(__dirname, 'data');
   const general = parse(
     readFileSync(join(dirPath, 'Ingredients.2020-07-10.txt'), 'utf8'),
@@ -33,7 +33,7 @@ test('parseCMAUP', () => {
   parse(readFileSync(join(dirPath, 'speciesInfo.2020-07-10.txt'), 'utf8'), {
     header: true,
   }).data.forEach((entry) => (speciesInfo[entry.Plant_ID] = entry));
-  const result = parseCMAUP(general, activities, speciesPair, speciesInfo);
+  const result = parseCmaup(general, activities, speciesPair, speciesInfo);
   expect(result[13]).toStrictEqual({
     _id: 'NPC146355',
     data: {
