@@ -50,7 +50,7 @@ export function npAtlasParser(json) {
     if (finalTaxonomies.length !== 0) result.data.taxonomies = finalTaxonomies;
     if (doi) result.data.doi = doi;
     if (entry.original_name) result.data.moleculeName = entry.original_name;
-    if (Date.now() - start > 10000) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
       debug(`Processing: counter: ${counter} `);
       start = Date.now();
     }

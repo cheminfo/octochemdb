@@ -48,7 +48,7 @@ export async function sync(connection) {
     for await (const entry of parseLotus(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (Date.now() - start > 10000) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
