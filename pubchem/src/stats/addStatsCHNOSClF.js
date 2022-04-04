@@ -18,7 +18,7 @@ let rules = {
 let db;
 co(function* () {
   db = yield mongo.connect();
-  console.error('connected to MongoDB');
+  debug('connected to MongoDB');
 
   const aggregateCHNOSClF = db.collection('aggregateCHNOSClF');
   const cursor = aggregateCHNOSClF
@@ -62,11 +62,11 @@ co(function* () {
   // debug(JSON.stringify(result, null, 2));
 })
   .catch(function (e) {
-    console.error('error');
-    console.error(e);
+    debug('error');
+    debug(e);
   })
   .then(function () {
-    console.error('closing DB');
+    debug('closing DB');
     if (db) db.close();
   });
 

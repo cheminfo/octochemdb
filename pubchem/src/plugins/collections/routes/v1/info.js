@@ -1,7 +1,7 @@
 // query for molecules from monoisotopic mass
-import Debug from '../../../../utils/Debug.js';
 
 import { PubChemConnection } from '../../../../server/utils.js';
+import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('info');
 

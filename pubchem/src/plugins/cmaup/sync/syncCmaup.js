@@ -5,7 +5,7 @@ import pkg from 'papaparse';
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
 
-import { parseCMAUP } from './utils/parseCMAUP.js';
+import { parseCMAUP } from './utils/parseCmaup.js';
 
 const { parse } = pkg;
 

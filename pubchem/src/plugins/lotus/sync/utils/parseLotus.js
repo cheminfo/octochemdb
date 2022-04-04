@@ -18,7 +18,7 @@ export async function* parseLotus(bsonPath) {
       const key = Object.keys(taxonomy)[0];
       const taxonomySources = taxonomy[key];
       const ncbi = [];
-      const gBIF_Backbone_Taxonomy = [];
+      const gBifBackboneTaxonomy = [];
       const iNaturalist = [];
       const openTreeOfLife = [];
       const iTIS = [];
@@ -47,7 +47,7 @@ export async function* parseLotus(bsonPath) {
           result.family = entry?.family;
           result.genus = entry?.genus;
           result.species = entry?.species;
-          gBIF_Backbone_Taxonomy.push(result);
+          gBifBackboneTaxonomy.push(result);
         }
       }
 
@@ -101,10 +101,10 @@ export async function* parseLotus(bsonPath) {
           },
         },
       };
-      if (entry?.iupac_name) result.data.iupac_Name = entry?.iupac_name;
+      if (entry?.iupac_name) result.data.iupacName = entry?.iupac_name;
       if (
         ncbi.length !== 0 ||
-        gBIF_Backbone_Taxonomy.length !== 0 ||
+        gBifBackboneTaxonomy.length !== 0 ||
         iNaturalist.length !== 0 ||
         openTreeOfLife.length !== 0 ||
         iTIS.length !== 0
@@ -112,8 +112,8 @@ export async function* parseLotus(bsonPath) {
         result.data.taxonomies = {};
       }
       if (ncbi.length !== 0) result.data.taxonomies.ncbi = ncbi;
-      if (gBIF_Backbone_Taxonomy.length !== 0) {
-        result.data.taxonomies.GBIF_Backbone_Taxonomy = gBIF_Backbone_Taxonomy;
+      if (gBifBackboneTaxonomy.length !== 0) {
+        result.data.taxonomies.gBifBackboneTaxonomy = gBifBackboneTaxonomy;
       }
       if (iNaturalist.length !== 0) {
         result.data.taxonomies.iNaturalist = iNaturalist;
@@ -121,7 +121,7 @@ export async function* parseLotus(bsonPath) {
       if (openTreeOfLife.length !== 0) {
         result.data.taxonomies.openTreeOfLife = openTreeOfLife;
       }
-      if (iTIS.length !== 0) result.data.taxonomies.ITIS = iTIS;
+      if (iTIS.length !== 0) result.data.taxonomies.iTIS = iTIS;
 
       yield result;
     } catch (e) {

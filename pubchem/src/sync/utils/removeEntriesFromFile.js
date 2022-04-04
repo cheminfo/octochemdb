@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import Debug from '../../../utils/Debug.js';
+import Debug from '../../utils/Debug.js';
 
 const debug = Debug('removeEntriesFromFile');
 

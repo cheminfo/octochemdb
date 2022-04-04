@@ -7,6 +7,7 @@ import rules from 'rules';
 
 import stats from '../../stats.json.js';
 import Debug from '../utils/Debug.js';
+
 const debug = Debug('sample');
 process.on('unhandledRejection', function (e) {
   throw e;
@@ -23,7 +24,7 @@ const ratioStats = stats.results.filter((stat) => {
 let db;
 co(function* () {
   db = yield mongo.connect();
-  console.error('connected to MongoDB');
+  debug('connected to MongoDB');
 
   const aggregateMf = db.collection('aggregateMf');
   const formulaSet = new Set();
@@ -51,23 +52,23 @@ co(function* () {
     try {
       result[j] = analyseFormula(formulas[j], j);
     } catch (e) {
-      console.error('error!');
+      debug('error!');
       result[j] = null;
     }
   }
   debug(JSON.stringify(result, null, 2));
 })
   .catch(function (e) {
-    console.error('error');
-    console.error(e);
+    debug('error');
+    debug(e);
   })
   .then(function () {
-    console.error('closing DB');
+    debug('closing DB');
     if (db) db.close();
   });
 
 function analyseFormula(mf, index) {
-  console.error(`${mf} (${index})`);
+  debug(`${mf} (${index})`);
   const result = {
     mf: mf,
     em: 0,
