@@ -1,5 +1,0 @@
-Plant_ID	Plant_Name	Species_Tax_ID	Species_Name	Genus_Tax_ID	Genus_Name	Family_Tax_ID	Family_Name
-NPO18674	Juglans regia	51240	Juglans regia	16718	Juglans	16714	Juglandaceae
-NPO20323	Saururus chinensis	54806	Saururus chinensis	13259	Saururus	16748	Saururaceae
-NPO2350	Microcos paniculata	197124	Microcos paniculata	82411	Microcos	3629	Malvaceae
-NPO33055	boswellia spp.	NA	NA	80276	Boswellia	4014	Burseraceae

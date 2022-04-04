@@ -1,3 +1,4 @@
+
 import { createReadStream } from 'fs';
 import { join } from 'path';
 
@@ -16,11 +17,10 @@ export async function* parseLotus(bsonPath) {
       const taxonomy = entry.taxonomyReferenceObjects;
       const key = Object.keys(taxonomy)[0];
       const taxonomySources = taxonomy[key];
-
       const ncbi = [];
-      const gBIF_Backbone_Taxonomy = [];
+      const gBifBackboneTaxonomy = [];
       const iNaturalist = [];
-      const open_Tree_of_Life = [];
+      const openTreeOfLife = [];
       const iTIS = [];
 
       if ('NCBI' in taxonomySources) {
@@ -36,6 +36,7 @@ export async function* parseLotus(bsonPath) {
           ncbi.push(result);
         }
       }
+
       if ('GBIF Backbone Taxonomy' in taxonomySources) {
         for (let entry of taxonomySources['GBIF Backbone Taxonomy']) {
           const result = {};
@@ -46,7 +47,7 @@ export async function* parseLotus(bsonPath) {
           result.family = entry?.family;
           result.genus = entry?.genus;
           result.species = entry?.species;
-          gBIF_Backbone_Taxonomy.push(result);
+          gBifBackboneTaxonomy.push(result);
         }
       }
 
@@ -74,7 +75,7 @@ export async function* parseLotus(bsonPath) {
           result.family = entry?.family;
           result.genus = entry?.genus;
           result.species = entry?.species;
-          open_Tree_of_Life.push(result);
+          openTreeOfLife.push(result);
         }
       }
       if ('ITIS' in taxonomySources) {
@@ -89,6 +90,7 @@ export async function* parseLotus(bsonPath) {
           iTIS.push(result);
         }
       }
+
       const result = {
         _id: entry.lotus_id,
         data: {
@@ -97,16 +99,30 @@ export async function* parseLotus(bsonPath) {
             coordinates: oclID.coordinates,
             noStereoID,
           },
-          taxonomy: {
-            NCBI: ncbi,
-            GBIF_Backbone_Taxonomy: gBIF_Backbone_Taxonomy,
-            iNaturalist: iNaturalist,
-            Open_Tree_of_Life: open_Tree_of_Life,
-            ITIS: iTIS,
-          },
-          iupac_Name: entry?.iupac_name,
         },
       };
+      if (entry?.iupac_name) result.data.iupacName = entry?.iupac_name;
+      if (
+        ncbi.length !== 0 ||
+        gBifBackboneTaxonomy.length !== 0 ||
+        iNaturalist.length !== 0 ||
+        openTreeOfLife.length !== 0 ||
+        iTIS.length !== 0
+      ) {
+        result.data.taxonomies = {};
+      }
+      if (ncbi.length !== 0) result.data.taxonomies.ncbi = ncbi;
+      if (gBifBackboneTaxonomy.length !== 0) {
+        result.data.taxonomies.gBifBackboneTaxonomy = gBifBackboneTaxonomy;
+      }
+      if (iNaturalist.length !== 0) {
+        result.data.taxonomies.iNaturalist = iNaturalist;
+      }
+      if (openTreeOfLife.length !== 0) {
+        result.data.taxonomies.openTreeOfLife = openTreeOfLife;
+      }
+      if (iTIS.length !== 0) result.data.taxonomies.iTIS = iTIS;
+
       yield result;
     } catch (e) {
       continue;

@@ -1,7 +1,7 @@
 // query for molecules from monoisotopic mass
-import Debug from 'debug';
+import { PubChemConnection } from '../../../../server/utils.js';
+import Debug from '../../../../utils/Debug.js';
 
-import { getFields, PubChemConnection } from '../../../../server/utils.js';
 
 const debug = Debug('taxonomyFromID');
 
@@ -42,7 +42,7 @@ async function searchHandler(request) {
     const result = await collection.findOne({ _id: id });
     return result;
   } catch (e) {
-    console.log(e);
+    debug(e);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

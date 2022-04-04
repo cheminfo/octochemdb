@@ -1,9 +1,10 @@
-import { utimesSync, existsSync, createWriteStream } from 'fs';
+import { utimesSync, existsSync, createWriteStream, rmSync } from 'fs';
 import { join } from 'path';
 
 import fetch from 'cross-fetch';
-import Debug from 'debug';
 import FSExtra from 'fs-extra';
+
+import Debug from '../../../utils/Debug.js';
 
 const { mkdirpSync } = FSExtra;
 
@@ -20,9 +21,13 @@ async function getFileIfNew(file, targetFolder, options = {}) {
   if (!filename || !extension) {
     throw new Error('options filename and extension are mandatory');
   }
+  let target;
   try {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 300000);
     mkdirpSync(targetFolder);
-    const response = await fetch(file.url);
+    const response = await fetch(file.url, { signal: controller.signal });
+
     const headers = Array.from(response.headers);
 
     let lastMofidied =
@@ -38,13 +43,14 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       targetFolder,
       `${filename}.${modificationDate}.${extension}`,
     );
+    target = targetFile;
     debug(`targetFile: ${targetFile}`);
     if (existsSync(targetFile)) {
       debug('file already exists, no need to fetch');
       return targetFile;
     }
     const body = response.body;
-    const encoding = body['_readableState'].defaultEncoding;
+    const encoding = body._readableState.defaultEncoding;
     const writeStream = createWriteStream(targetFile, encoding);
     for await (let part of body) {
       writeStream.write(part);
@@ -56,6 +62,10 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     return targetFile;
   } catch (e) {
     debug(`ERROR downloading: ${options.filename}`);
+    debug(target);
+    if (existsSync(target)) {
+      rmSync(target, { recursive: true });
+    }
     throw e;
   }
 }

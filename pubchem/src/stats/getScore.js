@@ -3,14 +3,16 @@ import functions from 'mf';
 import rules from 'rules';
 
 import stats from '../../stats.json.js';
+import Debug from '../utils/Debug.js';
 
+const debug = Debug('getScore');
 const elementRatios = rules.elementRatios;
 const penality = rules.ratioPenality;
 
 const ratioStats = stats.results;
 
 const result = analyseMass(474.20531, 5);
-console.log(JSON.stringify(result, null, 2));
+debug(JSON.stringify(result, null, 2));
 
 function analyseMass(em, ppm) {
   const result = {
@@ -39,7 +41,7 @@ function analyseMass(em, ppm) {
   let unsortedIndex = candidates.findIndex((cand) => cand.em === 474.204924471);
   candidates.sort((candA, candB) => candB.ratioScore - candA.ratioScore);
   let sortedIndex = candidates.findIndex((cand) => cand.em === 474.204924471);
-  console.log(sortedIndex);
+  debug(sortedIndex);
 
   result.score = {
     numberResults: candidates.length,

@@ -1,10 +1,11 @@
 import fetch from 'cross-fetch';
-import Debug from 'debug';
+
+import Debug from './Debug.js';
 
 const debug = Debug('sendTelegram');
 
 export async function sendTelegram(message) {
-  if (!process.env.TELEGRAM_BOT_ID || process.env.TELEGRAM_CHAT_ID) {
+  if (!process.env.TELEGRAM_BOT_ID || !process.env.TELEGRAM_CHAT_ID) {
     debug(
       'no TELEGRAM_CHAT_ID or TELEGRAM_BOT_ID environnement variable Can not send telegram',
     );
@@ -19,6 +20,7 @@ export async function sendTelegram(message) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        // eslint-disable-next-line camelcase
         chat_id: process.env.TELEGRAM_CHAT_ID,
         text: message,
       }),

@@ -1,6 +1,6 @@
-import Debug from 'debug';
 import delay from 'delay';
 
+import Debug from '../utils/Debug.js';
 import { PubChemConnection } from '../utils/PubChemConnection.js';
 import { recursiveDir } from '../utils/recursiveDir.js';
 
@@ -37,7 +37,7 @@ async function cron() {
       connection = new PubChemConnection();
       await sync.sync(connection);
     } catch (e) {
-      console.log(e);
+      debug(e);
     } finally {
       debug('Closing connection');
       if (connection) await connection.close();
@@ -62,7 +62,7 @@ async function cron() {
       connection = new PubChemConnection();
       await aggregate.aggregate(connection);
     } catch (e) {
-      console.log(e);
+      debug(e);
     } finally {
       debug('Closing connection');
       if (connection) await connection.close();

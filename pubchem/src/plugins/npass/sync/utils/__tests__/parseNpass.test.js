@@ -79,7 +79,7 @@ test('simple case', () => {
         coordinates: '!B@Fp@Dp',
         noStereoID: 'eMACD\\QIh@',
       },
-      taxonomy: [
+      taxonomies: [
         {
           kingdom: 'Viridiplantae',
           family: 'Asteraceae',
@@ -88,9 +88,9 @@ test('simple case', () => {
         },
       ],
       activities: [
-        { type: 'Potency', value: '12680', unit: 'nM', assayOrganism: '' },
-        { type: 'Potency', value: '56639.3', unit: 'nM', assayOrganism: '' },
-        { type: 'Potency', value: '28.1', unit: 'nM', assayOrganism: '' },
+        { type: 'Potency', value: '12680', unit: 'nM' },
+        { type: 'Potency', value: '56639.3', unit: 'nM' },
+        { type: 'Potency', value: '28.1', unit: 'nM' },
       ],
     },
   });

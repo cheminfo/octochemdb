@@ -1,6 +1,6 @@
-import Debug from 'debug';
-
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
+import Debug from '../../../utils/Debug.js';
+
 
 import importOnePubmedFile from './utils/importOnePubmedFile.js';
 
