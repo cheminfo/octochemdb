@@ -49,7 +49,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       return targetFile;
     }
     const body = response.body;
-    const encoding = body['_readableState'].defaultEncoding;
+    const encoding = body._readableState.defaultEncoding;
     const writeStream = createWriteStream(targetFile, encoding);
     for await (let part of body) {
       writeStream.write(part);

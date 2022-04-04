@@ -1,5 +1,5 @@
-import OCL from 'openchemlib';
 import Debug from 'debug';
+import OCL from 'openchemlib';
 
 const debug = Debug('npAtlasParser');
 export function npAtlasParser(json) {

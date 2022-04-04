@@ -1,5 +1,5 @@
-import OCL from 'openchemlib';
 import Debug from 'debug';
+import OCL from 'openchemlib';
 
 const debug = Debug('parseCmaup');
 
@@ -46,12 +46,15 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
       let finalTaxonomies = [];
       if (taxonomies !== undefined) {
         let originalTaxonomies = {};
-        if (taxonomies?.Family_Name)
+        if (taxonomies?.Family_Name) {
           originalTaxonomies.family = taxonomies?.Family_Name;
-        if (taxonomies?.Genus_Name)
+        }
+        if (taxonomies?.Genus_Name) {
           originalTaxonomies.genus = taxonomies?.Genus_Name;
-        if (taxonomies?.Plant_Name)
+        }
+        if (taxonomies?.Plant_Name) {
           originalTaxonomies.species = taxonomies?.Plant_Name;
+        }
         finalTaxonomies.push(originalTaxonomies);
       }
 
@@ -66,10 +69,12 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
         },
       };
       if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
-      if (finalTaxonomies.length !== 0)
+      if (finalTaxonomies.length !== 0) {
         result.data.taxonomies = finalTaxonomies;
-      if (finalActivities.length !== 0)
+      }
+      if (finalActivities.length !== 0) {
         result.data.activities = finalActivities;
+      }
 
       if (Date.now() - start > 10000) {
         debug(`Processing: counter: ${counter} `);

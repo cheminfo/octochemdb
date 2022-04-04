@@ -2,8 +2,10 @@ import Debug from 'debug';
 import pkg from 'fs-extra';
 
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
-import { parseLotus } from './utils/parseLotus.js';
 import { unzipOneFile } from '../../../utils/unzipOneFile.js';
+
+import { parseLotus } from './utils/parseLotus.js';
+
 const { rmSync, existsSync } = pkg;
 const debug = Debug('syncLotus');
 

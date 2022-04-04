@@ -1,5 +1,6 @@
-import Debug from 'debug';
 import fetch from 'cross-fetch';
+import Debug from 'debug';
+
 const debug = Debug('getFilesList');
 
 async function getFilesList(url, options = {}) {

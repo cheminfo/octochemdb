@@ -1,5 +1,3 @@
-
-
 const limit = 10;
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();

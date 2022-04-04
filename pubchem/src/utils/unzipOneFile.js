@@ -1,8 +1,10 @@
-import unzipper from 'unzipper';
-import Debug from 'debug';
-import pkg from 'fs-extra';
 import { statSync } from 'fs';
 import { join } from 'path';
+
+import Debug from 'debug';
+import pkg from 'fs-extra';
+import unzipper from 'unzipper';
+
 const { rmSync, existsSync, createReadStream, createWriteStream } = pkg;
 
 const debug = Debug('unzipOneFile');

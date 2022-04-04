@@ -19,6 +19,7 @@ export async function sendTelegram(message) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        // eslint-disable-next-line camelcase
         chat_id: process.env.TELEGRAM_CHAT_ID,
         text: message,
       }),

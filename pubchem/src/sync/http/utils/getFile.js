@@ -1,4 +1,5 @@
 import { writeFileSync, utimesSync } from 'fs';
+
 import fetch from 'cross-fetch';
 import Debug from 'debug';
 

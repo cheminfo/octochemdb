@@ -1,5 +1,5 @@
-import OCL from 'openchemlib';
 import Debug from 'debug';
+import OCL from 'openchemlib';
 
 const debug = Debug('parseNpass');
 export function parseNpass(
@@ -22,8 +22,9 @@ export function parseNpass(
         if (info.activity_type) originalActivites.type = info.activity_type;
         if (info.activity_value) originalActivites.value = info.activity_value;
         if (info.activity_units) originalActivites.unit = info.activity_units;
-        if (info.assay_organism)
+        if (info.assay_organism) {
           originalActivites.assayOrganism = info.assay_organism;
+        }
         finalActivities.push(originalActivites);
       }
     }
@@ -46,14 +47,18 @@ export function parseNpass(
     const finalTaxonomies = [];
     if (taxonomies !== undefined) {
       let originalTaxonomies = {};
-      if (taxonomies?.kingdom_name)
+      if (taxonomies?.kingdom_name) {
         originalTaxonomies.kingdom = taxonomies?.kingdom_name;
-      if (taxonomies?.family_name)
+      }
+      if (taxonomies?.family_name) {
         originalTaxonomies.family = taxonomies?.family_name;
-      if (taxonomies?.genus_name)
+      }
+      if (taxonomies?.genus_name) {
         originalTaxonomies.genus = taxonomies?.genus_name;
-      if (taxonomies?.org_name)
+      }
+      if (taxonomies?.org_name) {
         originalTaxonomies.species = taxonomies?.org_name;
+      }
       finalTaxonomies.push(originalTaxonomies);
     }
 

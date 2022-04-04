@@ -5,14 +5,17 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "cross-env DEBUG=* LOGGER_PRETTY_PRINT=true nodemon -r dotenv/config src/server/server.js",
-    "crontest": "DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
     "cron": " DEBUG=* node -r dotenv/config src/sync/cron",
-    "test": "jest",
+    "crontest": "DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
+    "dev": "cross-env DEBUG=* LOGGER_PRETTY_PRINT=true nodemon -r dotenv/config src/server/server.js",
+    "eslint": "eslint src",
+    "eslint-fix": "npm run eslint -- --fix",
+    "prettier": "prettier --check src",
+    "prettier-write": "prettier --write src",
     "start": "DEBUG=* node -r dotenv/config src/server/server.js",
     "start-dev": "DEBUG=* nodemon -r dotenv/config src/server/server.js",
-    "eslint": "eslint src",
-    "eslint-fix": "npm run eslint -- --fix"
+    "test": "npm run eslint && npm run prettier && jest",
+    "test-only": "jest"
   },
   "repository": {
     "type": "git",

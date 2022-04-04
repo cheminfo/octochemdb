@@ -42,8 +42,9 @@ export async function* parseCoconut(bsonPath) {
       };
       if (entry.cas) result.data.cas = entry?.cas;
       if (entry.iupac_name) result.data.iupacName = entry?.iupac_name;
-      if (finalTaxonomies.length !== 0)
+      if (finalTaxonomies.length !== 0) {
         result.data.taxonomies = finalTaxonomies;
+      }
       if (comments.length !== 0) result.data.comments = comments;
       yield result;
     } catch (e) {
