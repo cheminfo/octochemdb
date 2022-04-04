@@ -39,7 +39,7 @@ export function parseNpass(
 
       oclMolecule.stripStereoInformation();
       noStereoID = oclMolecule.getIDCode();
-    } catch (Class$S16) {
+    } catch (e) {
       continue;
     }
     const orgID = speciesPair[item.np_id];

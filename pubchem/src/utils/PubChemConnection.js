@@ -66,7 +66,7 @@ PubChemConnection.prototype.getDatabase = async function getDatabase() {
       break;
     } catch (e) {
       debug('Connection to mongo failed, waiting 5s');
-      debug(e);
+      debug(e.stack);
       await delay(5000);
     }
   }

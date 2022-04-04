@@ -39,7 +39,8 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
 
         oclMolecule.stripStereoInformation();
         noStereoID = oclMolecule.getIDCode();
-      } catch (Class$S16) {
+      } catch (e) {
+        debug(e.stack);
         continue;
       }
       const orgID = speciesPaired[id];
