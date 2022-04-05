@@ -1,9 +1,10 @@
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
+
 import { getMF } from 'openchemlib-utils';
-import stringSimilarity from 'string-similarity';
+
 import Debug from '../../../utils/Debug.js';
-const compareTwoStrings = stringSimilarity.compareTwoStrings;
+
 const { MF } = MFParser;
 const collectionNames = ['lotus', 'npass', 'npAtlas', 'cmaup', 'coconut']; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
 // since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
@@ -127,34 +128,34 @@ export async function aggregate(connection) {
 
     if (activityInfo.length > 0) {
       activityInfo = activityInfo[0];
-      activityInfo = activityInfo.filter(
-        (elem, index, self) =>
-          self.findIndex((activity) => {
-            return (
-              activity.refId === elem.refId &&
-              activity.refIdType === elem.refIdType &&
-              activity.activityType === elem.activityType &&
-              activity.activityValue === elem.activityValue
-            );
-          }) === index,
-      );
+      try {
+        activityInfo = activityInfo.filter(
+          (elem, index, self) =>
+            self.findIndex((activity) => {
+              return (
+                activity.refId === elem.refId &&
+                activity.refIdType === elem.refIdType &&
+                activity.activityType === elem.activityType &&
+                activity.activityValue === elem.activityValue
+              );
+            }) === index,
+        );
+      } catch (e) {
+        debug(e);
+      }
     }
 
     if (taxons.length > 0) {
-      taxons = taxons.filter(
-        (elem, index, self) =>
-          self.findIndex((taxonomy) => {
-            let res = false;
-            try {
-              if (compareTwoStrings(taxonomy?.species, elem?.species) > 0.95) {
-                res = true;
-              }
-              return res;
-            } catch (e) {
-              return;
-            }
-          }) === index,
-      );
+      try {
+        taxons = taxons.filter(
+          (elem, index, self) =>
+            self.findIndex((taxonomy) => {
+              return taxonomy.species === elem.species;
+            }) === index,
+        );
+      } catch (e) {
+        debug(e);
+      }
     }
 
     let npActive = false;
