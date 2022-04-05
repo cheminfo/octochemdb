@@ -12,7 +12,16 @@ const collectionNames = ['lotus', 'npass', 'npAtlas', 'cmaup', 'coconut']; // fo
 const debug = Debug('aggregateDBs');
 
 export async function aggregate(connection) {
+  const progress = await connection.getProgress('bestOfCompounds');
   const targetCollection = await connection.getCollection('bestOfCompounds');
+
+  const lastDocumentImported = await getLastDocumentImported(
+    connection,
+    progress,
+  );
+  let firstId;
+  if (lastDocumentImported) firstId = lastDocumentImported._id;
+  let skipping = firstId !== undefined;
   const links = {};
   let counter = 0;
   let start = Date.now();
@@ -40,6 +49,14 @@ export async function aggregate(connection) {
   }
   debug('start Aggregation process');
   for (const [noStereoID, sources] of Object.entries(links)) {
+    if (process.env.TEST === 'true' && counter > 20) break;
+    if (skipping) {
+      if (firstId === noStereoID) {
+        skipping = false;
+        debug(`Skipping compound till:${lastDocumentImported._seq}`);
+      }
+      continue;
+    }
     const data = [];
     for (const source of sources) {
       const collection = await connection.getCollection(source.collection);
@@ -71,31 +88,31 @@ export async function aggregate(connection) {
           }
         }
       } else {
-        if (info.data?.taxonomies.ncbi) {
+        if (info.data?.taxonomies?.ncbi) {
           for (const taxonomy of info.data.taxonomies.ncbi) {
             taxonomy.ref = info._source;
             taxons.push(taxonomy);
           }
         }
-        if (info.data?.taxonomies.gBifBackboneTaxonomy) {
+        if (info.data?.taxonomies?.gBifBackboneTaxonomy) {
           for (const taxonomy of info.data.taxonomies.gBifBackboneTaxonomy) {
             taxonomy.ref = info._source;
             taxons.push(taxonomy);
           }
         }
-        if (info.data?.taxonomies.iNaturalist) {
+        if (info.data?.taxonomies?.iNaturalist) {
           for (const taxonomy of info.data.taxonomies.iNaturalist) {
             taxonomy.ref = info._source;
             taxons.push(taxonomy);
           }
         }
-        if (info.data?.taxonomies.openTreeOfLife) {
+        if (info.data?.taxonomies?.openTreeOfLife) {
           for (const taxonomy of info.data.taxonomies.openTreeOfLife) {
             taxonomy.ref = info._source;
             taxons.push(taxonomy);
           }
         }
-        if (info.data?.taxonomies.iTIS) {
+        if (info.data?.taxonomies?.iTIS) {
           for (const taxonomy of info.data.taxonomies.iTIS) {
             taxonomy.ref = info._source;
             taxons.push(taxonomy);
@@ -160,17 +177,33 @@ export async function aggregate(connection) {
     if (cas.length > 0) entry.data.cas = cas;
     if (iupacName.length > 0) entry.data.iupacName = iupacName;
 
+    entry._seq = ++progress.seq;
+
     await targetCollection.updateOne(
       { _id: noStereoID },
       { $set: entry },
       { upsert: true },
     );
     await targetCollection.createIndex({ 'data.em': 1 });
-
+    progress.state = 'updating';
+    await connection.setProgress(progress);
     if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-      debug(`Processing: counter: ${counter} `);
+      debug(`Processing: counter: ${counter + lastDocumentImported._seq} `);
       start = Date.now();
     }
+
     counter++;
   }
+  progress.state = 'updated';
+  await connection.setProgress(progress);
+  debug('Done');
+}
+
+async function getLastDocumentImported(connection, progress) {
+  const collection = await connection.getCollection('bestOfCompounds');
+  return collection
+    .find({ _seq: { $lte: progress.seq } })
+    .sort('_seq', -1)
+    .limit(1)
+    .next();
 }
