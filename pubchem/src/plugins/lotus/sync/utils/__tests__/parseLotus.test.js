@@ -65,7 +65,7 @@ test('parseLotus', async () => {
             species: 'Momordica charantia',
           },
         ],
-        ITIS: [
+        iTIS: [
           {
             organismID: '22399',
             kingdom: 'Plantae',

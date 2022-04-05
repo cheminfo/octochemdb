@@ -1,4 +1,3 @@
-
 import { createReadStream } from 'fs';
 import { join } from 'path';
 
@@ -26,13 +25,15 @@ export async function* parseLotus(bsonPath) {
       if ('NCBI' in taxonomySources) {
         for (let entry of taxonomySources.NCBI) {
           const result = {};
-          result.organismID = entry?.cleaned_organism_id;
-          result.kingdom = entry?.kingdom;
-          result.phylum = entry?.phylum;
-          result.class = entry?.classx;
-          result.family = entry?.family;
-          result.genus = entry?.genus;
-          result.species = entry?.species;
+          if (entry?.cleaned_organism_id) {
+            result.organismID = entry?.cleaned_organism_id;
+          }
+          if (entry?.kingdom) result.kingdom = entry?.kingdom;
+          if (entry?.phylum) result.phylum = entry?.phylum;
+          if (entry?.classx) result.class = entry?.classx;
+          if (entry?.family) result.family = entry?.family;
+          if (entry?.genus) result.genus = entry?.genus;
+          if (entry?.species) result.species = entry?.species;
           ncbi.push(result);
         }
       }
@@ -40,13 +41,15 @@ export async function* parseLotus(bsonPath) {
       if ('GBIF Backbone Taxonomy' in taxonomySources) {
         for (let entry of taxonomySources['GBIF Backbone Taxonomy']) {
           const result = {};
-          result.organismID = entry?.cleaned_organism_id;
-          result.kingdom = entry?.kingdom;
-          result.phylum = entry?.phylum;
-          result.class = entry?.classx;
-          result.family = entry?.family;
-          result.genus = entry?.genus;
-          result.species = entry?.species;
+          if (entry?.cleaned_organism_id) {
+            result.organismID = entry?.cleaned_organism_id;
+          }
+          if (entry?.kingdom) result.kingdom = entry?.kingdom;
+          if (entry?.phylum) result.phylum = entry?.phylum;
+          if (entry?.classx) result.class = entry?.classx;
+          if (entry?.family) result.family = entry?.family;
+          if (entry?.genus) result.genus = entry?.genus;
+          if (entry?.species) result.species = entry?.species;
           gBifBackboneTaxonomy.push(result);
         }
       }
@@ -54,13 +57,15 @@ export async function* parseLotus(bsonPath) {
       if ('iNaturalist' in taxonomySources) {
         for (let entry of taxonomySources.iNaturalist) {
           const result = {};
-          result.organismID = entry?.cleaned_organism_id;
-          result.kingdom = entry?.kingdom;
-          result.phylum = entry?.phylum;
-          result.class = entry?.classx;
-          result.family = entry?.family;
-          result.genus = entry?.genus;
-          result.species = entry?.species;
+          if (entry?.cleaned_organism_id) {
+            result.organismID = entry?.cleaned_organism_id;
+          }
+          if (entry?.kingdom) result.kingdom = entry?.kingdom;
+          if (entry?.phylum) result.phylum = entry?.phylum;
+          if (entry?.classx) result.class = entry?.classx;
+          if (entry?.family) result.family = entry?.family;
+          if (entry?.genus) result.genus = entry?.genus;
+          if (entry?.species) result.species = entry?.species;
           iNaturalist.push(result);
         }
       }
@@ -68,25 +73,29 @@ export async function* parseLotus(bsonPath) {
       if ('Open Tree of Life' in taxonomySources) {
         for (let entry of taxonomySources['Open Tree of Life']) {
           const result = {};
-          result.organismID = entry?.cleaned_organism_id;
-          result.kingdom = entry?.kingdom;
-          result.phylum = entry?.phylum;
-          result.class = entry?.classx;
-          result.family = entry?.family;
-          result.genus = entry?.genus;
-          result.species = entry?.species;
+          if (entry?.cleaned_organism_id) {
+            result.organismID = entry?.cleaned_organism_id;
+          }
+          if (entry?.kingdom) result.kingdom = entry?.kingdom;
+          if (entry?.phylum) result.phylum = entry?.phylum;
+          if (entry?.classx) result.class = entry?.classx;
+          if (entry?.family) result.family = entry?.family;
+          if (entry?.genus) result.genus = entry?.genus;
+          if (entry?.species) result.species = entry?.species;
           openTreeOfLife.push(result);
         }
       }
       if ('ITIS' in taxonomySources) {
         for (let entry of taxonomySources.ITIS) {
           const result = {};
-          result.organismID = entry?.cleaned_organism_id;
-          result.kingdom = entry?.kingdom;
-          result.class = entry?.classx;
-          result.family = entry?.family;
-          result.genus = entry?.genus;
-          result.species = entry?.species;
+          if (entry?.cleaned_organism_id) {
+            result.organismID = entry?.cleaned_organism_id;
+          }
+          if (entry?.kingdom) result.kingdom = entry?.kingdom;
+          if (entry?.classx) result.class = entry?.classx;
+          if (entry?.family) result.family = entry?.family;
+          if (entry?.genus) result.genus = entry?.genus;
+          if (entry?.species) result.species = entry?.species;
           iTIS.push(result);
         }
       }
