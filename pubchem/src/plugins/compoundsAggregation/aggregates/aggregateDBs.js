@@ -1,18 +1,22 @@
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
-
+import stringSimilarity from 'string-similarity';
 import Debug from '../../../utils/Debug.js';
-
+const compareTwoStrings = stringSimilarity.compareTwoStrings;
 const { MF } = MFParser;
-//const collectionNames = ['cmaup', 'coconut', 'lotus', 'npAtlas', 'npass'];
-const collectionNames = ['coconut'];
+const collectionNames = ['lotus', 'npass', 'npAtlas', 'cmaup', 'coconut']; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
+// since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
+// in future a solution need to be found
 
 const debug = Debug('aggregateDBs');
-const uniqueIDs = {};
+
 export async function aggregate(connection) {
-  const targetCollection = await connection.getCollection('bestofCompounds');
+  const targetCollection = await connection.getCollection('bestOfCompounds');
   const links = {};
+  let counter = 0;
+  let start = Date.now();
+  debug('get collections links');
   for (let collectionName of collectionNames) {
     let collection = await connection.getCollection(collectionName);
 
@@ -34,7 +38,7 @@ export async function aggregate(connection) {
       links[entry.noStereoID].push(entry.source);
     }
   }
-
+  debug('start Aggregation process');
   for (const [noStereoID, sources] of Object.entries(links)) {
     const data = [];
     for (const source of sources) {
@@ -46,24 +50,127 @@ export async function aggregate(connection) {
     const molecule = OCL.Molecule.fromIDCode(noStereoID);
 
     const mfInfo = new MF(getMF(molecule).mf).getInfo();
+    let cid = {};
+    let cas = {};
+    let iupacName = {};
+    let activityInfo = [];
+    let taxons = [];
+    for (const info of data) {
+      if (info.data?.cid) cid[info.data?.cid] = true;
+      if (info.data?.cas) cas[info.data?.cas] = true;
+      if (info.data?.iupacName) iupacName[info.data?.iupacName] = true;
+      // activity part
+      if (info.data?.activities) {
+        activityInfo.push(info.data?.activities);
+      }
+      if (!info._source.includes('lotus')) {
+        if (info.data?.taxonomies) {
+          for (const taxonomy of info.data.taxonomies) {
+            taxonomy.ref = info._source;
+            taxons.push(taxonomy);
+          }
+        }
+      } else {
+        if (info.data?.taxonomies.ncbi) {
+          for (const taxonomy of info.data.taxonomies.ncbi) {
+            taxonomy.ref = info._source;
+            taxons.push(taxonomy);
+          }
+        }
+        if (info.data?.taxonomies.gBifBackboneTaxonomy) {
+          for (const taxonomy of info.data.taxonomies.gBifBackboneTaxonomy) {
+            taxonomy.ref = info._source;
+            taxons.push(taxonomy);
+          }
+        }
+        if (info.data?.taxonomies.iNaturalist) {
+          for (const taxonomy of info.data.taxonomies.iNaturalist) {
+            taxonomy.ref = info._source;
+            taxons.push(taxonomy);
+          }
+        }
+        if (info.data?.taxonomies.openTreeOfLife) {
+          for (const taxonomy of info.data.taxonomies.openTreeOfLife) {
+            taxonomy.ref = info._source;
+            taxons.push(taxonomy);
+          }
+        }
+        if (info.data?.taxonomies.iTIS) {
+          for (const taxonomy of info.data.taxonomies.iTIS) {
+            taxonomy.ref = info._source;
+            taxons.push(taxonomy);
+          }
+        }
+      }
+    }
 
+    if (activityInfo.length > 0) {
+      activityInfo = activityInfo[0];
+      activityInfo = activityInfo.filter(
+        (elem, index, self) =>
+          self.findIndex((activity) => {
+            return (
+              activity.refId === elem.refId &&
+              activity.refIdType === elem.refIdType &&
+              activity.activityType === elem.activityType &&
+              activity.activityValue === elem.activityValue
+            );
+          }) === index,
+      );
+    }
+
+    if (taxons.length > 0) {
+      taxons = taxons.filter(
+        (elem, index, self) =>
+          self.findIndex((taxonomy) => {
+            let res = false;
+            try {
+              if (compareTwoStrings(taxonomy?.species, elem?.species) > 0.95) {
+                res = true;
+              }
+              return res;
+            } catch (e) {
+              return;
+            }
+          }) === index,
+      );
+    }
+
+    let npActive = false;
+    if (activityInfo.length > 0) npActive = true;
     const entry = {
       data: {
         em: mfInfo.monoisotopicMass,
         charge: mfInfo.charge,
         unsaturation: mfInfo.unsaturation,
-        taxonomy: 'blabla',
-        keywords: ['bioactive'],
+        npActive: npActive,
       },
     };
+    if (activityInfo.length > 0) {
+      entry.data.activities = activityInfo;
+    }
+    if (taxons.length > 0) {
+      entry.data.taxonomies = taxons;
+    }
+
+    cid = Object.keys(cid);
+    cas = Object.keys(cas);
+    iupacName = Object.keys(iupacName);
+    if (cid.length > 0) entry.data.cid = cid;
+    if (cas.length > 0) entry.data.cas = cas;
+    if (iupacName.length > 0) entry.data.iupacName = iupacName;
 
     await targetCollection.updateOne(
       { _id: noStereoID },
       { $set: entry },
       { upsert: true },
     );
-    await compoundsCollectiontargetCollectioncreateIndex({ 'data.em': 1 });
+    await targetCollection.createIndex({ 'data.em': 1 });
 
-    // create
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+      debug(`Processing: counter: ${counter} `);
+      start = Date.now();
+    }
+    counter++;
   }
 }
