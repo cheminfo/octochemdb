@@ -20,6 +20,7 @@ export async function aggregate(connection) {
     progress,
   );
   let firstId;
+  let pastCount = 0;
   if (lastDocumentImported) firstId = lastDocumentImported._id;
   let skipping = firstId !== undefined;
   const links = {};
@@ -53,7 +54,8 @@ export async function aggregate(connection) {
     if (skipping) {
       if (firstId === noStereoID) {
         skipping = false;
-        debug(`Skipping compound till:${lastDocumentImported._seq}`);
+        pastCount = lastDocumentImported._seq;
+        debug(`Skipping compound till:${pastCount}`);
       }
       continue;
     }
@@ -72,7 +74,9 @@ export async function aggregate(connection) {
     let iupacName = {};
     let activityInfo = [];
     let taxons = [];
+    let ocls = {};
     for (const info of data) {
+      ocls[info.data.ocl.id] = info.data.ocl;
       if (info.data?.cid) cid[info.data?.cid] = true;
       if (info.data?.cas) cas[info.data?.cas] = true;
       if (info.data?.iupacName) iupacName[info.data?.iupacName] = true;
@@ -169,11 +173,12 @@ export async function aggregate(connection) {
     if (taxons.length > 0) {
       entry.data.taxonomies = taxons;
     }
-
+    ocls = Object.values(ocls);
     cid = Object.keys(cid);
     cas = Object.keys(cas);
     iupacName = Object.keys(iupacName);
-    if (cid.length > 0) entry.data.cid = cid;
+    if (ocls.length > 0) entry.data.ocls = ocls;
+    if (cid.length > 0) entry.data.cids = cid;
     if (cas.length > 0) entry.data.cas = cas;
     if (iupacName.length > 0) entry.data.iupacName = iupacName;
 
@@ -187,8 +192,9 @@ export async function aggregate(connection) {
     await targetCollection.createIndex({ 'data.em': 1 });
     progress.state = 'updating';
     await connection.setProgress(progress);
+
     if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-      debug(`Processing: counter: ${counter + lastDocumentImported._seq} `);
+      debug(`Processing: counter: ${counter + pastCount} `);
       start = Date.now();
     }
 
