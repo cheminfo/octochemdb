@@ -20,12 +20,15 @@ export function parseNpass(
     if (activity !== undefined) {
       for (const info of activity) {
         let originalActivites = {};
-        if (info.activity_type)
+        if (info.activity_type) {
           originalActivites.activityType = info.activity_type;
-        if (info.activity_value)
+        }
+        if (info.activity_value) {
           originalActivites.activityValue = info.activity_value;
-        if (info.activity_units)
+        }
+        if (info.activity_units) {
           originalActivites.activityUnit = info.activity_units;
+        }
         if (info.assay_organism) {
           originalActivites.assayOrganism = info.assay_organism;
         }
