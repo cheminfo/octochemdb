@@ -44,13 +44,21 @@ async function cron() {
     }
   }
 
-  const aggregateURLs = (await recursiveDir(url)).filter(
+  let aggregateURLs = (await recursiveDir(url)).filter(
     (file) =>
       file.href.match(/aggregates/) &&
       !file.href.match(/__tests__/) &&
       !file.href.match(/utils/) &&
       file.href.endsWith('.js'),
   );
+  if (process.env.PLUGINS) {
+    const allowedPlugins = process.env.PLUGINS.split(',');
+    aggregateURLs = aggregateURLs.filter((url) => {
+      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      if (allowedPlugins.includes(pluginName)) return true;
+      return false;
+    });
+  }
 
   for (let aggregateURL of aggregateURLs) {
     const aggregate = await import(aggregateURL);

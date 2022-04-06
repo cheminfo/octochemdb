@@ -32,8 +32,9 @@ export function npAtlasParser(json) {
         taxon.family = taxon.name;
       }
     }
+    if (doi) taxon.doi = doi;
     taxon.genus = taxonomies.genus;
-    taxon.species = taxonomies.genus.concat(taxonomies.species);
+    taxon.species = taxonomies.genus.concat(' ', taxonomies.species);
     const finalTaxonomies = [];
     finalTaxonomies.push(taxon);
     const result = {
@@ -47,10 +48,11 @@ export function npAtlasParser(json) {
       },
     };
     if (entry.pubchem_cid) result.data.cid = entry.pubchem_cid;
+
     if (finalTaxonomies.length !== 0) result.data.taxonomies = finalTaxonomies;
-    if (doi) result.data.doi = doi;
-    if (entry.original_name) result.data.moleculeName = entry.original_name;
-    if (Date.now() - start > 10000) {
+
+    if (entry.original_name) result.data.iupacName = entry.original_name; // not a true iupacName but property name need to be the same for aggregation
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
       debug(`Processing: counter: ${counter} `);
       start = Date.now();
     }

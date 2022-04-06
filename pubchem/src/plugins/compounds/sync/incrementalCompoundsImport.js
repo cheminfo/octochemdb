@@ -1,4 +1,3 @@
-
 import getFilesList from '../../../sync/http/utils/getFilesList.js';
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import removeEntriesFromFile from '../../../sync/utils/removeEntriesFromFile.js';
@@ -12,16 +11,24 @@ async function incrementalCompoundImport(connection) {
   const allFiles = await syncIncrementalCompoundFolder();
 
   const progress = await connection.getProgress('compounds');
-  if (progress.state !== 'update') {
-    throw new Error('Should never happens.');
-  }
+
   const { files, lastDocument } = await getFilesToImport(
     connection,
     progress,
     allFiles,
   );
-  await importCompoundFiles(connection, progress, files, { lastDocument });
-  await connection.setProgress(progress);
+  const lastDocumentImported = lastDocument;
+  if (
+    (!files.includes(lastDocumentImported._source) &&
+      progress.state === 'updated') ||
+    progress.state !== 'updated'
+  ) {
+    progress.state = 'updating';
+    await connection.setProgress(progress);
+    await importCompoundFiles(connection, progress, files, { lastDocument });
+    progress.state = 'updated';
+    await connection.setProgress(progress);
+  }
 }
 
 async function importCompoundFiles(connection, progress, files, options) {

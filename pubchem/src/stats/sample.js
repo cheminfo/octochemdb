@@ -22,7 +22,7 @@ const ratioStats = stats.results.filter((stat) => {
 });
 
 let db;
-co(function* () {
+co(function* formulaMongo() {
   db = yield mongo.connect();
   debug('connected to MongoDB');
 
@@ -58,11 +58,11 @@ co(function* () {
   }
   debug(JSON.stringify(result, null, 2));
 })
-  .catch(function (e) {
+  .catch((e) => {
     debug('error');
     debug(e);
   })
-  .then(function () {
+  .then(() => {
     debug('closing DB');
     if (db) db.close();
   });

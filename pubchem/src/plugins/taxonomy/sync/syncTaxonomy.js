@@ -18,7 +18,6 @@ export async function sync(connection) {
     connection,
     progress,
   );
-  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -38,30 +37,43 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  for (const entry of taxonomyParser(arrayBuffer)) {
-    counter++;
-    if (process.env.TEST === 'true' && counter > 20) break;
-    if (Date.now() - start > 10000) {
-      debug(`Processing: counter: ${counter} - imported: ${imported}`);
-      start = Date.now();
-    }
-    if (skipping) {
-      if (firstID === entry._id) {
-        skipping = false;
-        debug(`Skipping taxonomies till:${firstID}`);
-      }
-      continue;
-    }
-    entry._seq = ++progress.seq;
-    entry._source = source;
-    await collection.updateOne(
-      { _id: entry._id },
-      { $set: entry },
-      { upsert: true },
-    );
+  if (
+    lastDocumentImported === null ||
+    (!lastFile.includes(lastDocumentImported._source) &&
+      progress.state === 'updated') ||
+    progress.state !== 'updated'
+  ) {
+    progress.state = 'updating';
     await connection.setProgress(progress);
-    imported++;
+    for (const entry of taxonomyParser(arrayBuffer)) {
+      counter++;
+      if (process.env.TEST === 'true' && counter > 20) break;
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
+      }
+      if (skipping) {
+        if (firstID === entry._id) {
+          skipping = false;
+          debug(`Skipping taxonomies till:${firstID}`);
+        }
+        continue;
+      }
+      entry._seq = ++progress.seq;
+      entry._source = source;
+      await collection.updateOne(
+        { _id: entry._id },
+        { $set: entry },
+        { upsert: true },
+      );
+
+      await connection.setProgress(progress);
+      imported++;
+    }
   }
+  progress.state = 'updated';
+  await connection.setProgress(progress);
+
   debug(`${imported} taxonomies processed`);
 
   // we remove all the entries that are not imported by the last file

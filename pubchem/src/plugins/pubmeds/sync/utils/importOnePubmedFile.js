@@ -5,7 +5,6 @@ import { XMLParser } from 'fast-xml-parser';
 
 import Debug from '../../../../utils/Debug.js';
 
-
 import improvePubmed from './improvePubmed.js';
 
 const debug = Debug('importOnePubmedFile');
@@ -44,6 +43,7 @@ export default async function importOnePubmedFile(
 
   let imported = 0;
   debug(`Need to process ${pubmeds.length} pubmeds`);
+  let start = Date.now();
   for (let pubmed of pubmeds) {
     let medlineCitation = pubmed.MedlineCitation;
     if (!medlineCitation) throw new Error('citation not found', pubmed);
@@ -52,8 +52,11 @@ export default async function importOnePubmedFile(
         continue;
       }
       shouldImport = true;
-      debug(`Skipping pubmeds till: ${lastDocument._id}`);
-      continue;
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+        debug(`Skipping pubmeds till: ${lastDocument._id}`);
+        start = Date.now();
+        continue;
+      }
     }
     const article = improvePubmed(medlineCitation);
     article._seq = ++progress.seq;

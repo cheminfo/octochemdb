@@ -43,14 +43,18 @@ export default async function importOneCompoundFile(
     if (process.env.TEST === 'true') compounds = compounds.slice(0, 10);
 
     const actions = [];
+    let start = Date.now();
     for (const compound of compounds) {
       if (!shouldImport) {
         if (compound.PUBCHEM_COMPOUND_CID !== lastDocument._id) {
           continue;
         }
         shouldImport = true;
-        debug(`Skipping compounds till: ${lastDocument._id}`);
-        continue;
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+          debug(`Skipping compounds till: ${lastDocument._id}`);
+          start = Date.now();
+          continue;
+        }
       }
 
       actions.push(

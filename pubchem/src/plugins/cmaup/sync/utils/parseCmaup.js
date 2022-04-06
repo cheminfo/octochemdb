@@ -4,7 +4,7 @@ import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('parseCmaup');
 
-export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
+export function parseCmaup(general, activities, speciesPair, speciesInfo) {
   const results = [];
   const speciesPaired = {};
   let counter = 0;
@@ -78,7 +78,7 @@ export function parseCMAUP(general, activities, speciesPair, speciesInfo) {
         result.data.activities = finalActivities;
       }
 
-      if (Date.now() - start > 10000) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
         debug(`Processing: counter: ${counter} `);
         start = Date.now();
       }

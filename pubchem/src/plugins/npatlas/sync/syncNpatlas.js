@@ -3,7 +3,6 @@ import { readFileSync } from 'fs';
 import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
 
-
 import { npAtlasParser } from './utils/npAtlasParser.js';
 
 const debug = Debug('syncNpAtlas');
@@ -18,7 +17,6 @@ export async function sync(connection) {
     connection,
     progress,
   );
-  debug(`lastDocumentImported: ${JSON.stringify(lastDocumentImported)}`);
   let firstID;
   if (
     lastDocumentImported &&
@@ -36,15 +34,17 @@ export async function sync(connection) {
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    (progress.seq !== lastDocumentImported._seq &&
-      lastFile !== lastDocumentImported._source &&
-      progress.state !== 'imported')
+    (!lastFile.includes(lastDocumentImported._source) &&
+      progress.state === 'updated') ||
+    progress.state !== 'updated'
   ) {
+    progress.state = 'updating';
+    await connection.setProgress(progress);
     debug(`Start parsing: ${lastFile}`);
     for (const entry of npAtlasParser(JSON.parse(fileJson))) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (Date.now() - start > 10000) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
@@ -65,7 +65,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
-    progress.state = 'imported';
+    progress.state = 'updated';
     await connection.setProgress(progress);
     debug(`${imported} compounds processed`);
   } else {

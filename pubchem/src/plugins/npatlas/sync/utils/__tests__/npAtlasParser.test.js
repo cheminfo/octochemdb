@@ -19,10 +19,15 @@ test('npAtlasParser', () => {
         noStereoID: 'ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjj@@',
       },
       taxonomies: [
-        { genusID: 5502, genus: 'Curvularia', species: 'Curvulariageniculata' },
+        {
+          doi: '10.1002/chem.201000652',
+          genusID: 5502,
+          genus: 'Curvularia',
+          species: 'Curvularia geniculata',
+        },
       ],
-      doi: '10.1002/chem.201000652',
-      moleculeName: 'Curvularide C',
+
+      iupacName: 'Curvularide C',
     },
   });
 });

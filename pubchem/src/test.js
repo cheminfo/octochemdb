@@ -1,5 +1,8 @@
 import { PubChemConnection } from './server/utils.js';
 
+import Debug from './utils/Debug.js';
+
+const debug = Debug('test');
 async function doAll() {
   let connection;
   try {
@@ -7,11 +10,11 @@ async function doAll() {
     const collection = await connection.getCollection('compounds');
 
     const results = await collection.stats();
-    console.log(results);
+    debug(results);
   } catch (e) {
-    console.log(e);
+    debug(e);
   } finally {
-    console.log('Closing connection');
+    debug('Closing connection');
     if (connection) await connection.close();
   }
 }

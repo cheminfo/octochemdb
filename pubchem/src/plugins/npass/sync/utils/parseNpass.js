@@ -20,11 +20,23 @@ export function parseNpass(
     if (activity !== undefined) {
       for (const info of activity) {
         let originalActivites = {};
-        if (info.activity_type) originalActivites.type = info.activity_type;
-        if (info.activity_value) originalActivites.value = info.activity_value;
-        if (info.activity_units) originalActivites.unit = info.activity_units;
+        if (info.activity_type) {
+          originalActivites.activityType = info.activity_type;
+        }
+        if (info.activity_value) {
+          originalActivites.activityValue = info.activity_value;
+        }
+        if (info.activity_units) {
+          originalActivites.activityUnit = info.activity_units;
+        }
         if (info.assay_organism) {
           originalActivites.assayOrganism = info.assay_organism;
+        }
+        if (info.ref_id) {
+          originalActivites.refId = info.ref_id;
+        }
+        if (info.ref_id_type) {
+          originalActivites.refIdType = info.ref_id_type;
         }
         finalActivities.push(originalActivites);
       }
@@ -76,7 +88,7 @@ export function parseNpass(
     if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
     if (finalTaxonomies.length !== 0) result.data.taxonomies = finalTaxonomies;
     if (finalActivities.length !== 0) result.data.activities = finalActivities;
-    if (Date.now() - start > 10000) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
       debug(`Processing: counter: ${counter} `);
       start = Date.now();
     }

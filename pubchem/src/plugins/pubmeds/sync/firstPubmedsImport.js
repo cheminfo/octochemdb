@@ -1,7 +1,6 @@
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import Debug from '../../../utils/Debug.js';
 
-
 import importOnePubmedFile from './utils/importOnePubmedFile.js';
 
 const debug = Debug('firstPubmedImport');
@@ -10,7 +9,7 @@ async function firstPubmedImport(connection) {
   const allFiles = await syncFullPubmedFolder();
 
   const progress = await connection.getProgress('pubmeds');
-  if (progress.state === 'update') {
+  if (progress.state === 'updated') {
     debug('First importation has been completed. Should only update.');
     return;
   } else {
@@ -21,8 +20,10 @@ async function firstPubmedImport(connection) {
     progress,
     allFiles,
   );
+  progress.state = 'updating';
+  await connection.setProgress(progress);
   await importPubmedFiles(connection, progress, files, { lastDocument });
-  progress.state = 'update';
+  progress.state = 'updated';
   await connection.setProgress(progress);
 }
 

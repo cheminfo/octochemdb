@@ -1,14 +1,13 @@
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import Debug from '../../../utils/Debug.js';
 
-
 import importOneCompoundFile from './utils/importOneCompoundFile.js';
 
 const debug = Debug('firstCompoundImport');
 
 async function firstCompoundImport(connection) {
   const progress = await connection.getProgress('compounds');
-  if (progress.state === 'update') {
+  if (progress.state === 'updated') {
     debug('First importation has been completed. Should only update.');
     return;
   } else {
@@ -22,8 +21,10 @@ async function firstCompoundImport(connection) {
     progress,
     allFiles,
   );
+  progress.state = 'updating';
+  await connection.setProgress(progress);
   await importCompoundFiles(connection, progress, files, { lastDocument });
-  progress.state = 'update';
+  progress.state = 'updated';
   await connection.setProgress(progress);
 
   let compoundsCollection = await connection.getCollection('compounds');
