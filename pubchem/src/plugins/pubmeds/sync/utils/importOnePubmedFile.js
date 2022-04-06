@@ -52,7 +52,7 @@ export default async function importOnePubmedFile(
         continue;
       }
       shouldImport = true;
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Skipping pubmeds till: ${lastDocument._id}`);
         start = Date.now();
         continue;

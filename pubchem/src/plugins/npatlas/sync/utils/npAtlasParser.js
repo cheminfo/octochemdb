@@ -52,7 +52,7 @@ export function npAtlasParser(json) {
     if (finalTaxonomies.length !== 0) result.data.taxonomies = finalTaxonomies;
 
     if (entry.original_name) result.data.iupacName = entry.original_name; // not a true iupacName but property name need to be the same for aggregation
-    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
       debug(`Processing: counter: ${counter} `);
       start = Date.now();
     }
