@@ -8,8 +8,10 @@ const messages = [];
 export default function Debug(context) {
   const realDebug = DebugLibrary(context);
 
-  return (message) => {
+  return (message, options = {}) => {
     realDebug(message);
+
+    await logInDB(message, options);
 
     messages.push({
       epoch: Date.now(),
@@ -30,4 +32,16 @@ async function sendTelegrams() {
     await delay(1000);
     messages.shift();
   }
+}
+
+async function logInDB(message, options) {
+  const { collection } = options;
+  if (!collection) return;
+  // TODO
+// load admin -> collection entry
+// record.logs=[{epoch, event}]
+// logs.prepend
+// logs.slice(0,50)
+
+
 }
