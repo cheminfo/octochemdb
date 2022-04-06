@@ -2,22 +2,33 @@ import { readFileSync } from 'fs';
 
 import pkg from 'papaparse';
 
-import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
 
 import { parseCmaup } from './utils/parseCmaup.js';
-
+import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 const { parse } = pkg;
 
 const debug = Debug('syncCmaup');
 
 export async function sync(connection) {
-  const lastFile = await getLastCmaupFileIngredients();
-  const lastFileActivity = await getLastCmaupFileActivity();
-  const lastFileSpeciesAssociation = await getLastCmaupFileSpeciesAssociation();
-  const lastFileSpeciesInfo = await getLastCmaupFileSpeciesInfo();
+  let options = {
+    collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
+    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`,
+    collectionName: 'cmaup',
+    filenameNew: 'Ingredients',
+    extensionNew: 'txt',
+  };
+  const lastFile = await getLastFileSync(options);
+  options.collectionSource = process.env.CMAUP_SOURCE_ACTIVITY;
+  options.filenameNew = 'activity';
+  const lastFileActivity = await getLastFileSync(options);
+  options.collectionSource = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
+  options.filenameNew = 'speciesAssociation';
+  const lastFileSpeciesAssociation = await getLastFileSync(options);
+  options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
+  options.filenameNew = 'speciesInfo';
+  const lastFileSpeciesInfo = await getLastFileSync(options);
   const progress = await connection.getProgress('cmaup');
-
   const collection = await connection.getCollection('cmaup');
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
@@ -115,60 +126,4 @@ async function getLastCMAUPImported(connection, progress) {
     .sort('_seq', -1)
     .limit(1)
     .next();
-}
-
-async function getLastCmaupFileIngredients() {
-  debug('Get last cmaup Ingredients file if new');
-
-  const sourceIngredients = process.env.CMAUP_SOURCE_INGREDIENTS;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
-
-  debug(`Syncing: ${sourceIngredients} to ${destination}`);
-
-  return getFileIfNew({ url: sourceIngredients }, destination, {
-    filename: 'Ingredients',
-    extension: 'txt',
-  });
-}
-
-async function getLastCmaupFileActivity() {
-  debug('Get last cmaup Activity file if new');
-
-  const sourceActivity = process.env.CMAUP_SOURCE_ACTIVITY;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
-
-  debug(`Syncing: ${sourceActivity} to ${destination}`);
-
-  return getFileIfNew({ url: sourceActivity }, destination, {
-    filename: 'Activity',
-    extension: 'txt',
-  });
-}
-
-async function getLastCmaupFileSpeciesAssociation() {
-  debug('Get last cmaup SpeciesAssociation file if new');
-
-  const sourceSpeciesAssociation = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
-
-  debug(`Syncing: ${sourceSpeciesAssociation} to ${destination}`);
-
-  return getFileIfNew({ url: sourceSpeciesAssociation }, destination, {
-    filename: 'speciesAssociation',
-    extension: 'txt',
-  });
-}
-
-async function getLastCmaupFileSpeciesInfo() {
-  debug('Get last cmaup SpeciesInfo file if new');
-
-  const sourceSpeciesInfo = process.env.CMAUP_SOURCE_SPECIESINFO;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`;
-
-  debug(`Syncing: ${sourceSpeciesInfo} to ${destination}`);
-
-  return getFileIfNew({ url: sourceSpeciesInfo }, destination, {
-    filename: 'speciesInfo',
-    extension: 'txt',
-  });
 }
