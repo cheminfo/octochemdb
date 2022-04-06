@@ -65,7 +65,7 @@ co(function* () {
 })
   .catch((e) => {
     debug('error');
-    debug(e);
+    debug(e.stack);
   })
   .then(() => {
     debug('closing DB');

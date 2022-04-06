@@ -2,7 +2,6 @@
 import { PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-
 const debug = Debug('stats');
 
 const stats = {
@@ -29,7 +28,7 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    debug(e);
+    debug(e.stack);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

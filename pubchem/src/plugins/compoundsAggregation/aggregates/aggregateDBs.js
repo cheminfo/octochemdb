@@ -155,7 +155,7 @@ export async function aggregate(connection) {
             }) === index,
         );
       } catch (e) {
-        debug(e);
+        debug(e.stack);
       }
     }
 

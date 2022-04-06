@@ -8,7 +8,7 @@ const limit = 10000000;
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 search()
-  .catch((e) => debug(e))
+  .catch((e) => debug(e.stack))
   .then(() => {
     debug('Done');
     pubChemConnection.close();

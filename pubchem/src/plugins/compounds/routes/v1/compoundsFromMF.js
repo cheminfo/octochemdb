@@ -2,7 +2,6 @@
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-
 const debug = Debug('compoundsFromMF');
 
 const compoundsFromMF = {
@@ -72,7 +71,7 @@ async function searchHandler(request) {
       .toArray();
     return results;
   } catch (e) {
-    debug(e);
+    debug(e.stack);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -8,7 +8,7 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 const debug = Debug('index');
 generateStats()
-  .catch((e) => debug(e))
+  .catch((e) => debug(e.stack))
   .then((result) => {
     debug('Done');
     pubChemConnection.close();

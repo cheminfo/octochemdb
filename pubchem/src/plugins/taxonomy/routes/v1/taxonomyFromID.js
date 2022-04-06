@@ -2,7 +2,6 @@
 import { PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-
 const debug = Debug('taxonomyFromID');
 
 const taxonomyFromID = {
@@ -42,7 +41,7 @@ async function searchHandler(request) {
     const result = await collection.findOne({ _id: id });
     return result;
   } catch (e) {
-    debug(e);
+    debug(e.stack);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();
