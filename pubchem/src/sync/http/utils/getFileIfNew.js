@@ -39,11 +39,17 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let fileList = fileListFromPath(targetFolder).filter((file) =>
       file.name.includes(('.zip' || '.txt' || '.json') && filename),
     );
-    let lastFilesSize = fileList.sort((a, b) => a.size - b.size)[0].size;
 
-    let lastFileTargetLocal = fileList.filter(
-      (file) => file.size === lastFilesSize,
-    )[0].name;
+    let lastFilesSize;
+    let lastFileTargetLocal;
+    if (fileList.length > 0) {
+      lastFilesSize = fileList.sort((a, b) => a.size - b.size)[0].size;
+      lastFileTargetLocal = fileList.filter(
+        (file) => file.size === lastFilesSize,
+      )[0].name;
+    } else {
+      lastFilesSize = 0;
+    }
 
     if (lastFilesSize !== newFileSize) {
       let modificationDate = new Date(lastMofidied[1])
