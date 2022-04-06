@@ -2,7 +2,7 @@
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('mfsFromEM');
+const debug = Debug('infoFromEM');
 
 const mfsFromEM = {
   method: 'GET',
@@ -59,7 +59,7 @@ async function searchHandler(request) {
     limit = 1e3,
     precision = 100,
     minPubchemEntries = 0,
-    fields = 'data',
+    fields = 'em,mf,total,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
