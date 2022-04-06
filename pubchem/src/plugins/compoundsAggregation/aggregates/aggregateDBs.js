@@ -41,12 +41,14 @@ export async function aggregate(connection) {
         },
       ])
       .toArray();
+    debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
     for (const entry of results) {
       if (!links[entry.noStereoID]) {
         links[entry.noStereoID] = [];
       }
       links[entry.noStereoID].push(entry.source);
     }
+    debug(`Unique numbers of noStereoIDs: ${results.length}`);
   }
   debug('start Aggregation process');
   for (const [noStereoID, sources] of Object.entries(links)) {
