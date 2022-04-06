@@ -77,7 +77,7 @@ export function parseCmaup(general, activities, speciesPair, speciesInfo) {
         result.data.activities = finalActivities;
       }
 
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Processing: counter: ${counter} `);
         start = Date.now();
       }

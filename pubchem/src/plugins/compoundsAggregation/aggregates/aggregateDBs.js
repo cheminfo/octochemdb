@@ -41,12 +41,14 @@ export async function aggregate(connection) {
         },
       ])
       .toArray();
+    debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
     for (const entry of results) {
       if (!links[entry.noStereoID]) {
         links[entry.noStereoID] = [];
       }
       links[entry.noStereoID].push(entry.source);
     }
+    debug(`Unique numbers of noStereoIDs: ${results.length}`);
   }
   debug('start Aggregation process');
   for (const [noStereoID, sources] of Object.entries(links)) {
@@ -193,7 +195,7 @@ export async function aggregate(connection) {
     progress.state = 'updating';
     await connection.setProgress(progress);
 
-    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
       debug(`Processing: counter: ${counter + pastCount} `);
       start = Date.now();
     }

@@ -88,7 +88,7 @@ export function parseNpass(
     if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
     if (finalTaxonomies.length !== 0) result.data.taxonomies = finalTaxonomies;
     if (finalActivities.length !== 0) result.data.activities = finalActivities;
-    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
       debug(`Processing: counter: ${counter} `);
       start = Date.now();
     }
