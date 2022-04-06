@@ -13,7 +13,10 @@ export default function Debug(context) {
 
     messages.push({
       epoch: Date.now(),
-      text: `${context}:${message}`,
+      text: `${new Date()
+        .toISOString()
+        .replace(/.*T/, '')
+        .replace('Z', ' - ')}${context}:${message}`,
     });
 
     sendTelegrams();
