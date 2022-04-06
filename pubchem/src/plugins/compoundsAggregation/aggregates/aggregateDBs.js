@@ -1,6 +1,5 @@
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
-
 import { getMF } from 'openchemlib-utils';
 
 import Debug from '../../../utils/Debug.js';
@@ -141,7 +140,7 @@ export async function aggregate(connection) {
             }) === index,
         );
       } catch (e) {
-        debug(e);
+        debug(e.stack);
       }
     }
 
