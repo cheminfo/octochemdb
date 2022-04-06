@@ -48,8 +48,8 @@ export async function aggregate(connection) {
       }
       links[entry.noStereoID].push(entry.source);
     }
-    debug(`Unique numbers of noStereoIDs: ${results.length}`);
   }
+  debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
   debug('start Aggregation process');
   for (const [noStereoID, sources] of Object.entries(links)) {
     if (process.env.TEST === 'true' && counter > 20) break;
