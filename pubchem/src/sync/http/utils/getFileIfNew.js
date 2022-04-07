@@ -84,7 +84,10 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     } else {
       const targetFile = join(targetFolder, lastFileTargetLocal);
       debug(
-        'New file size match local one:' + newFileSize + '/' + lastFilesSize,
+        'New file size match local one (no need to fetch):' +
+          newFileSize +
+          '/' +
+          lastFilesSize,
       );
       return targetFile;
     }
