@@ -1,5 +1,3 @@
-import { readFileSync } from 'fs';
-
 import Debug from '../../../utils/Debug.js';
 
 import { parseCmaup } from './utils/parseCmaup.js';
@@ -18,16 +16,30 @@ export async function sync(connection) {
     activities,
     speciesPair,
     speciesInfo,
-    lastFile,
+    newFiles,
   } = await cmaupStartSyning(connection);
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+  let oldSource;
+  if (lastDocumentImported !== null) {
+    oldSource = lastDocumentImported._source;
+  } else {
+    oldSource = ['it is the first importation'];
+  }
+
+  let status = false;
+  for (let i = 0; i < newFiles.length; i++) {
+    if (newFiles[i].includes(oldSource[i])) status = true;
+    if (!status) break;
+  }
+
+  // Reimport collection again only if lastDocument imported changed or importation was not completed
+  console.log(status);
   if (
     lastDocumentImported === null ||
-    (!lastFile.includes(lastDocumentImported._source) &&
-      progress.state === 'updated') ||
+    !status ||
     progress.state !== 'updated'
   ) {
     for (const entry of parseCmaup(
@@ -37,18 +49,22 @@ export async function sync(connection) {
       speciesInfo,
     )) {
       counter++;
+      // If test mode break process after counter >20
       if (process.env.TEST === 'true' && counter > 20) break;
+      // Log dubug each 10s or defined time
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
-      if (skipping) {
+      // Skipp importation till last id imported if collection was not fully updated
+      if (skipping && progress.state !== 'updated') {
         if (firstID === entry._id) {
           skipping = false;
           debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
+
       entry._seq = ++progress.seq;
       entry._source = source;
       await collection.updateOne(

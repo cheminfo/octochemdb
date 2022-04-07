@@ -23,7 +23,18 @@ async function cmaupStartSyning(connection) {
   options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
   options.filenameNew = 'speciesInfo';
   const lastFileSpeciesInfo = await getLastFileSync(options);
-  const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
+  const source = [
+    lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    lastFileSpeciesAssociation.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
+  ];
+  const newFiles = [
+    lastFile,
+    lastFileActivity,
+    lastFileSpeciesAssociation,
+    lastFileSpeciesInfo,
+  ];
   const progress = await connection.getProgress('cmaup');
   const collection = await connection.getCollection('cmaup');
   await collection.createIndex({ 'data.ocl.id': 1 });
@@ -73,7 +84,7 @@ async function cmaupStartSyning(connection) {
     activities,
     speciesPair,
     speciesInfo,
-    lastFile,
+    newFiles,
   };
 }
 export default cmaupStartSyning;
