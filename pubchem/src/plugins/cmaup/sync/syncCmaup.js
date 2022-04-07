@@ -36,12 +36,15 @@ export async function sync(connection) {
   }
 
   // Reimport collection again only if lastDocument imported changed or importation was not completed
-  console.log(status);
   if (
     lastDocumentImported === null ||
     !status ||
     progress.state !== 'updated'
   ) {
+    if (progress.state === 'updated') {
+      debug('Droped old collection');
+      await connection.dropCollection('cmaup');
+    }
     for (const entry of parseCmaup(
       general,
       activities,
@@ -76,15 +79,11 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
+    progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
     debug(`${imported} compounds processed`);
   } else {
     debug(`file already processed`);
   }
-  // we remove all the entries that are not imported by the last file
-  const result = await collection.deleteMany({
-    _source: { $ne: source },
-  });
-  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
