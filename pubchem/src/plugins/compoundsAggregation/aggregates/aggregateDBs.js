@@ -4,6 +4,9 @@ import { getMF } from 'openchemlib-utils';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 
 import Debug from '../../../utils/Debug.js';
+import getActivityInfo from '../utils/getActivityInfo.js';
+import getCollectionLinks from '../utils/getCollectionLinks.js';
+import getTaxonomyInfo from '../utils/getTaxonomyInfo.js';
 
 const { MF } = MFParser;
 const collectionNames = ['lotus', 'npass', 'npAtlas', 'cmaup', 'coconut']; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
@@ -25,37 +28,17 @@ export async function aggregate(connection) {
   let pastCount = 0;
   if (lastDocumentImported) firstId = lastDocumentImported._id;
   let skipping = firstId !== undefined;
-  const links = {};
+
   let counter = 0;
   let start = Date.now();
   debug('get collections links');
-  let collectionUpdatingDates = [];
-  for (let collectionName of collectionNames) {
-    let collection = await connection.getCollection(collectionName);
-    const progressCollections = await connection.getProgress(collectionName);
-    collectionUpdatingDates.push(progressCollections.date);
-    const results = await collection
-      .aggregate([
-        {
-          $project: {
-            _id: 0,
-            noStereoID: '$data.ocl.noStereoID',
-            source: { id: '$_id', collection: collectionName },
-          },
-        },
-      ])
-      .toArray();
-    debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
-    for (const entry of results) {
-      if (!links[entry.noStereoID]) {
-        links[entry.noStereoID] = [];
-      }
-      links[entry.noStereoID].push(entry.source);
-    }
-  }
+  let { links, collectionUpdatingDates } = await getCollectionLinks(
+    connection,
+    collectionNames,
+  );
   let oldLastImports;
   if (lastDocumentImported !== null) {
-    oldLastImports = lastDocumentImported._source;
+    oldLastImports = progress.lastImports;
   } else {
     oldLastImports = ['it', 'is', 'the', 'first', 'importation'];
   }
@@ -65,16 +48,18 @@ export async function aggregate(connection) {
     if (collectionUpdatingDates[i] === oldLastImports[i]) status = true;
     if (!status) break;
   }
-  if (!status || progress.state !== 'updated') {
+  if (status === false || progress.state !== 'updated') {
     if (progress.state === 'updated') {
       debug('Droped old collection');
-      await connection.dropCollection('aggregateDBs');
+      await connection.dropCollection('bestOfCompounds');
+      progress.state = 'updating';
+      await connection.setProgress(progress);
     }
     debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
     debug('start Aggregation process');
     for (const [noStereoID, sources] of Object.entries(links)) {
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (skipping) {
+      if (skipping && progress.state !== 'updated') {
         if (firstId === noStereoID) {
           skipping = false;
           pastCount = lastDocumentImported._seq;
@@ -88,96 +73,22 @@ export async function aggregate(connection) {
         data.push(await collection.findOne({ _id: source.id }));
       }
 
-      // TODO combine all the data in a smart way ...
       const molecule = OCL.Molecule.fromIDCode(noStereoID);
 
       const mfInfo = new MF(getMF(molecule).mf).getInfo();
+
+      let activityInfo = await getActivityInfo(data);
+
+      let taxons = await getTaxonomyInfo(data);
       let cid = {};
       let cas = {};
       let iupacName = {};
-      let activityInfo = [];
-      let taxons = [];
       let ocls = {};
       for (const info of data) {
         ocls[info.data.ocl.id] = info.data.ocl;
         if (info.data?.cid) cid[info.data?.cid] = true;
         if (info.data?.cas) cas[info.data?.cas] = true;
         if (info.data?.iupacName) iupacName[info.data?.iupacName] = true;
-        // activity part
-        if (info.data?.activities) {
-          activityInfo.push(info.data?.activities);
-        }
-        if (!info._source.includes('lotus')) {
-          if (info.data?.taxonomies) {
-            for (const taxonomy of info.data.taxonomies) {
-              taxonomy.ref = info._source;
-              taxons.push(taxonomy);
-            }
-          }
-        } else {
-          if (info.data?.taxonomies?.ncbi) {
-            for (const taxonomy of info.data.taxonomies.ncbi) {
-              taxonomy.ref = info._source;
-              taxons.push(taxonomy);
-            }
-          }
-          if (info.data?.taxonomies?.gBifBackboneTaxonomy) {
-            for (const taxonomy of info.data.taxonomies.gBifBackboneTaxonomy) {
-              taxonomy.ref = info._source;
-              taxons.push(taxonomy);
-            }
-          }
-          if (info.data?.taxonomies?.iNaturalist) {
-            for (const taxonomy of info.data.taxonomies.iNaturalist) {
-              taxonomy.ref = info._source;
-              taxons.push(taxonomy);
-            }
-          }
-          if (info.data?.taxonomies?.openTreeOfLife) {
-            for (const taxonomy of info.data.taxonomies.openTreeOfLife) {
-              taxonomy.ref = info._source;
-              taxons.push(taxonomy);
-            }
-          }
-          if (info.data?.taxonomies?.iTIS) {
-            for (const taxonomy of info.data.taxonomies.iTIS) {
-              taxonomy.ref = info._source;
-              taxons.push(taxonomy);
-            }
-          }
-        }
-      }
-
-      if (activityInfo.length > 0) {
-        activityInfo = activityInfo[0];
-        try {
-          activityInfo = activityInfo.filter(
-            (elem, index, self) =>
-              self.findIndex((activity) => {
-                return (
-                  activity.refId === elem.refId &&
-                  activity.refIdType === elem.refIdType &&
-                  activity.activityType === elem.activityType &&
-                  activity.activityValue === elem.activityValue
-                );
-              }) === index,
-          );
-        } catch (e) {
-          debug(e.stack);
-        }
-      }
-
-      if (taxons.length > 0) {
-        try {
-          taxons = taxons.filter(
-            (elem, index, self) =>
-              self.findIndex((taxonomy) => {
-                return taxonomy.species === elem.species;
-              }) === index,
-          );
-        } catch (e) {
-          debug(e.stack);
-        }
       }
 
       let npActive = false;
