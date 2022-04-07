@@ -49,6 +49,8 @@ export async function sync(connection) {
     if (progress.state === 'updated') {
       debug('Droped old collection');
       await connection.dropCollection('lotus');
+      progress.state = 'updating';
+      await connection.setProgress(progress);
     }
     debug(`Start parsing: ${lastFile}`);
     for (const entry of npAtlasParser(JSON.parse(fileJson))) {

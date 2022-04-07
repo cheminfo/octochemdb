@@ -57,6 +57,8 @@ export async function sync(connection) {
     if (progress.state === 'updated') {
       debug('Droped old collection');
       await connection.dropCollection('coconut');
+      progress.state = 'updating';
+      await connection.setProgress(progress);
     }
     debug(`Start parsing: ${targetFile}`);
 
