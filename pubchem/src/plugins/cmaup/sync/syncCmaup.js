@@ -45,6 +45,7 @@ export async function sync(connection) {
       debug('Droped old collection');
       await connection.dropCollection('cmaup');
     }
+    debug(`Start parsing cmaup`);
     for (const entry of parseCmaup(
       general,
       activities,
