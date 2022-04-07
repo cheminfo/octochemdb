@@ -4,18 +4,27 @@ import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
 
 import { npAtlasParser } from './utils/npAtlasParser.js';
-
+import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
+import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 const debug = Debug('syncNpAtlas');
 
 export async function sync(connection) {
-  const lastFile = await getLastNpAtlasFile();
+  let options = {
+    collectionSource: process.env.NPATLAS_SOURCE,
+    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/npAtlas/full`,
+    collectionName: 'npAtlas',
+    filenameNew: 'npatlas',
+    extensionNew: 'json',
+  };
+  const lastFile = await getLastFileSync(options);
   const progress = await connection.getProgress('npAtlas');
   const collection = await connection.getCollection('npAtlas');
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
-  const lastDocumentImported = await getLastNpAtlasImported(
+  const lastDocumentImported = await getLastDocumentImported(
     connection,
     progress,
+    options.collectionName,
   );
   let firstID;
   if (
@@ -34,20 +43,17 @@ export async function sync(connection) {
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    (!lastFile.includes(lastDocumentImported._source) &&
-      progress.state === 'updated') ||
+    !lastFile.includes(lastDocumentImported._source) ||
     progress.state !== 'updated'
   ) {
-    progress.state = 'updating';
-    await connection.setProgress(progress);
+    if (progress.state === 'updated') {
+      debug('Droped old collection');
+      await connection.dropCollection('lotus');
+    }
     debug(`Start parsing: ${lastFile}`);
     for (const entry of npAtlasParser(JSON.parse(fileJson))) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(`Processing: counter: ${counter} - imported: ${imported}`);
-        start = Date.now();
-      }
       if (skipping) {
         if (firstID === entry._id) {
           skipping = false;
@@ -55,8 +61,13 @@ export async function sync(connection) {
         }
         continue;
       }
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
+      }
       entry._seq = ++progress.seq;
       entry._source = source;
+      progress.state = 'updating';
       await collection.updateOne(
         { _id: entry._id },
         { $set: entry },
@@ -65,39 +76,11 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
+    progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
     debug(`${imported} compounds processed`);
   } else {
     debug(`file already processed`);
   }
-
-  // we remove all the entries that are not imported by the last file
-  const result = await collection.deleteMany({
-    _source: { $ne: source },
-  });
-  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-}
-
-async function getLastNpAtlasImported(connection, progress) {
-  const collection = await connection.getCollection('npAtlas');
-  return collection
-    .find({ _seq: { $lte: progress.seq } })
-    .sort('_seq', -1)
-    .limit(1)
-    .next();
-}
-
-async function getLastNpAtlasFile() {
-  debug('Get last npAtlas file if new');
-
-  const source = process.env.NPATLAS_SOURCE;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/npAtlas/full`;
-
-  debug(`Syncing: ${source} to ${destination}`);
-
-  return getFileIfNew({ url: source }, destination, {
-    filename: 'npatlas',
-    extension: 'json',
-  });
 }
