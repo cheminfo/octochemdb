@@ -1,7 +1,7 @@
 import Debug from '../../../utils/Debug.js';
 
 import { parseCmaup } from './utils/parseCmaup.js';
-import cmaupStartSync from './utils/cmaupStartSyning.js';
+import cmaupStartSync from './utils/cmaupStartSync';
 
 const debug = Debug('syncCmaup');
 
