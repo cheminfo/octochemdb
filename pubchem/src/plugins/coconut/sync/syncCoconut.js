@@ -27,7 +27,7 @@ export async function sync(connection) {
   const lastDocumentImported = await getLastDocumentImported(
     connection,
     progress,
-    'coconut',
+    options.collectionName,
   );
   let firstID;
   if (
