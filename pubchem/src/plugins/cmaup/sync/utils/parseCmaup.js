@@ -12,7 +12,7 @@ export function parseCmaup(general, activities, speciesPair, speciesInfo) {
   for (const pair of speciesPair) {
     speciesPaired[pair[1]] = pair[0];
   }
-
+  let errorsCounter = 0;
   for (const item of general) {
     if (Object.keys(item.Ingredient_ID).length > 0) {
       const id = item.Ingredient_ID;
@@ -40,7 +40,12 @@ export function parseCmaup(general, activities, speciesPair, speciesInfo) {
         oclMolecule.stripStereoInformation();
         noStereoID = oclMolecule.getIDCode();
       } catch (e) {
-        debug(e.stack);
+        if (
+          e.message === 'Class$S16: Assignment of aromatic double bonds failed'
+        ) {
+          errorsCounter++;
+        } else debug(e.stack);
+
         continue;
       }
       const orgID = speciesPaired[id];
@@ -87,5 +92,8 @@ export function parseCmaup(general, activities, speciesPair, speciesInfo) {
       results.push(result);
     }
   }
+  debug(
+    `Class$S16: Assignment of aromatic double bonds failed --> count: ${errorsCounter}`,
+  );
   return results;
 }
