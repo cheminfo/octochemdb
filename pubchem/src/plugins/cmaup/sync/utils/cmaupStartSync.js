@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 
 const { parse } = pkg;
 
-async function cmaupStartSyning(connection) {
+async function cmaupStartSync(connection) {
   let options = {
     collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`,
@@ -87,4 +87,4 @@ async function cmaupStartSyning(connection) {
     newFiles,
   };
 }
-export default cmaupStartSyning;
+export default cmaupStartSync;

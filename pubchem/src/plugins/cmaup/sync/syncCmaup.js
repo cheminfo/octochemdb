@@ -1,7 +1,7 @@
 import Debug from '../../../utils/Debug.js';
 
 import { parseCmaup } from './utils/parseCmaup.js';
-import cmaupStartSyning from './utils/cmaupStartSyning.js';
+import cmaupStartSync from './utils/cmaupStartSyning.js';
 
 const debug = Debug('syncCmaup');
 
@@ -17,7 +17,7 @@ export async function sync(connection) {
     speciesPair,
     speciesInfo,
     newFiles,
-  } = await cmaupStartSyning(connection);
+  } = await cmaupStartSync(connection);
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
