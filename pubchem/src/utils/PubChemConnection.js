@@ -31,6 +31,12 @@ PubChemConnection.prototype.getCollection = async function getCollection(
   return (await this.getDatabase()).collection(collectionName);
 };
 
+PubChemConnection.prototype.dropCollection = async function dropCollection(
+  collectionName,
+) {
+  return (await this.getDatabase()).dropCollection(collectionName);
+};
+
 PubChemConnection.prototype.getAdminCollection =
   async function getAdminCollection() {
     return this.getCollection('admin');
