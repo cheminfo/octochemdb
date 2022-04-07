@@ -59,15 +59,10 @@ export async function sync(connection) {
       await connection.dropCollection('coconut');
     }
     debug(`Start parsing: ${targetFile}`);
-    progress.state = 'updating';
-    await connection.setProgress(progress);
+
     for await (const entry of parseCoconut(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(`Processing: counter: ${counter} - imported: ${imported}`);
-        start = Date.now();
-      }
       if (skipping && progress.state !== 'updated') {
         if (firstID === entry._id) {
           skipping = false;
@@ -75,9 +70,14 @@ export async function sync(connection) {
         }
         continue;
       }
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
+      }
+
       entry._seq = ++progress.seq;
       entry._source = source;
-
+      progress.state = 'updating';
       await collection.updateOne(
         { _id: entry._id },
         { $set: entry },
