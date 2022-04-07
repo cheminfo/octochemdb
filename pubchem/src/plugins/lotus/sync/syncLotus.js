@@ -1,6 +1,7 @@
 import pkg from 'fs-extra';
 
-import getFileIfNew from '../../../sync/http/utils/getFileIfNew.js';
+import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
+import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 
@@ -10,12 +11,23 @@ const { rmSync, existsSync } = pkg;
 const debug = Debug('syncLotus');
 
 export async function sync(connection) {
-  const lastFile = await getLastLotusFile();
+  let options = {
+    collectionSource: process.env.LOTUS_SOURCE,
+    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/lotus/full`,
+    collectionName: 'lotus',
+    filenameNew: 'lotus',
+    extensionNew: 'zip',
+  };
+  const lastFile = await getLastFileSync(options);
   const progress = await connection.getProgress('lotus');
   const collection = await connection.getCollection('lotus');
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
-  const lastDocumentImported = await getLastLotusImported(connection, progress);
+  const lastDocumentImported = await getLastDocumentImported(
+    connection,
+    progress,
+    options.collectionName,
+  );
   let firstID;
   if (
     lastDocumentImported &&
@@ -38,31 +50,32 @@ export async function sync(connection) {
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    (!lastFile.includes(lastDocumentImported._source) &&
-      progress.state === 'updated') ||
+    !lastFile.includes(lastDocumentImported._source) ||
     progress.state !== 'updated'
   ) {
+    if (progress.state === 'updated') {
+      debug('Droped old collection');
+      await connection.dropCollection('lotus');
+    }
     debug(`Start parsing: ${targetFile}`);
-    progress.state = 'updating';
-    await connection.setProgress(progress);
     for await (const entry of parseLotus(targetFile)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(`Processing: counter: ${counter} - imported: ${imported}`);
-        start = Date.now();
-      }
-
-      if (skipping) {
+      if (skipping && progress.state !== 'updated') {
         if (firstID === entry._id) {
           skipping = false;
           debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
+      }
+
       entry._seq = ++progress.seq;
       entry._source = source;
-
+      progress.state = 'updating';
       await collection.updateOne(
         { _id: entry._id },
         { $set: entry },
@@ -71,42 +84,14 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
+    progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
     debug(`${imported} compounds processed`);
   } else {
     debug(`file already processed`);
   }
-  // we remove all the entries that are not imported by the last file
-  const result = await collection.deleteMany({
-    _source: { $ne: source },
-  });
-  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-
   if (existsSync(targetFile)) {
     rmSync(targetFile, { recursive: true });
   }
-}
-
-async function getLastLotusImported(connection, progress) {
-  const collection = await connection.getCollection('lotus');
-  return collection
-    .find({ _seq: { $lte: progress.seq } })
-    .sort('_seq', -1)
-    .limit(1)
-    .next();
-}
-
-async function getLastLotusFile() {
-  debug('Get last lotus file if new');
-
-  const source = process.env.LOTUS_SOURCE;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/lotus/full`;
-
-  debug(`Syncing: ${source} to ${destination}`);
-
-  return getFileIfNew({ url: source }, destination, {
-    filename: 'lotus',
-    extension: 'zip',
-  });
 }
