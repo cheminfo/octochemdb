@@ -16,6 +16,7 @@ const collectionNames = ['lotus', 'npass', 'npAtlas', 'cmaup', 'coconut']; // fo
 const debug = Debug('aggregateDBs');
 
 export async function aggregate(connection) {
+  const options = { collection: 'bestOfCompounds', connection: connection };
   const progress = await connection.getProgress('bestOfCompounds');
   const targetCollection = await connection.getCollection('bestOfCompounds');
 
@@ -31,13 +32,13 @@ export async function aggregate(connection) {
 
   let counter = 0;
   let start = Date.now();
-  debug('get collections links');
+
   let { links, collectionUpdatingDates } = await getCollectionLinks(
     connection,
     collectionNames,
   );
   let oldLastImports;
-  if (lastDocumentImported !== null) {
+  if (progress.lastImports !== null) {
     oldLastImports = progress.lastImports;
   } else {
     oldLastImports = ['it', 'is', 'the', 'first', 'importation'];
@@ -45,12 +46,17 @@ export async function aggregate(connection) {
 
   let status = false;
   for (let i = 0; i < collectionUpdatingDates.length; i++) {
-    if (collectionUpdatingDates[i] === oldLastImports[i]) status = true;
+    if (
+      collectionUpdatingDates[i].toString() === oldLastImports[i].toString()
+    ) {
+      status = true;
+    }
     if (!status) break;
   }
+
   if (status === false || progress.state !== 'updated') {
     if (progress.state === 'updated') {
-      debug('Droped old collection');
+      debug('Droped old collection', options);
       await connection.dropCollection('bestOfCompounds');
       progress.state = 'updating';
       await connection.setProgress(progress);
