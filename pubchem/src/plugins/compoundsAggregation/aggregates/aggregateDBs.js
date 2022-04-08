@@ -19,7 +19,6 @@ export async function aggregate(connection) {
   const options = { collection: 'bestOfCompounds', connection: connection };
   const progress = await connection.getProgress('bestOfCompounds');
   const targetCollection = await connection.getCollection('bestOfCompounds');
-
   const lastDocumentImported = await getLastDocumentImported(
     connection,
     progress,
@@ -91,7 +90,10 @@ export async function aggregate(connection) {
       let iupacName = {};
       let ocls = {};
       for (const info of data) {
-        ocls[info.data.ocl.id] = info.data.ocl;
+        ocls[info.data.ocl.id] = {
+          id: info.data.ocl.id,
+          coordinates: info.data.ocl.coordinates,
+        };
         if (info.data?.cid) cid[info.data?.cid] = true;
         if (info.data?.cas) cas[info.data?.cas] = true;
         if (info.data?.iupacName) iupacName[info.data?.iupacName] = true;
