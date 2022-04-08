@@ -1,7 +1,7 @@
 import Debug from '../../../utils/Debug.js';
 
 import { parseCmaup } from './utils/parseCmaup.js';
-import cmaupStartSync from './utils/cmaupStartSync';
+import cmaupStartSync from './utils/cmaupStartSync.js';
 
 const debug = Debug('syncCmaup');
 
@@ -26,7 +26,7 @@ export async function sync(connection) {
   if (lastDocumentImported !== null) {
     oldSource = lastDocumentImported._source;
   } else {
-    oldSource = ['it', 'is', 'the first', 'importation'];
+    oldSource = [' '];
   }
 
   let status = false;

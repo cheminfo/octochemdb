@@ -40,7 +40,7 @@ export async function aggregate(connection) {
   if (progress.lastImports !== null) {
     oldLastImports = progress.lastImports;
   } else {
-    oldLastImports = ['it', 'is', 'the', 'first', 'importation'];
+    oldLastImports = [' '];
   }
 
   let status = false;

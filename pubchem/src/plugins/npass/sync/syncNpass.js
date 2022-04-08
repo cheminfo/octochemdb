@@ -29,7 +29,7 @@ export async function sync(connection) {
   if (lastDocumentImported !== null) {
     oldSource = lastDocumentImported._source;
   } else {
-    oldSource = ['it', 'is', 'the', 'first', 'importation'];
+    oldSource = [' '];
   }
 
   let status = false;
