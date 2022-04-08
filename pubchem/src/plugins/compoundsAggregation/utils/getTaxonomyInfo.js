@@ -7,38 +7,38 @@ async function getTaxonomyInfo(data) {
     if (!info._source.includes('lotus')) {
       if (info.data?.taxonomies) {
         for (const taxonomy of info.data.taxonomies) {
-          taxonomy.ref = info._source;
+          taxonomy.ref = info._id;
           taxons.push(taxonomy);
         }
       }
     } else {
       if (info.data?.taxonomies?.ncbi) {
         for (const taxonomy of info.data.taxonomies.ncbi) {
-          taxonomy.ref = info._source;
+          taxonomy.ref = info._id;
           taxons.push(taxonomy);
         }
       }
       if (info.data?.taxonomies?.gBifBackboneTaxonomy) {
         for (const taxonomy of info.data.taxonomies.gBifBackboneTaxonomy) {
-          taxonomy.ref = info._source;
+          taxonomy.ref = info._id;
           taxons.push(taxonomy);
         }
       }
       if (info.data?.taxonomies?.iNaturalist) {
         for (const taxonomy of info.data.taxonomies.iNaturalist) {
-          taxonomy.ref = info._source;
+          taxonomy.ref = info._id;
           taxons.push(taxonomy);
         }
       }
       if (info.data?.taxonomies?.openTreeOfLife) {
         for (const taxonomy of info.data.taxonomies.openTreeOfLife) {
-          taxonomy.ref = info._source;
+          taxonomy.ref = info._id;
           taxons.push(taxonomy);
         }
       }
       if (info.data?.taxonomies?.iTIS) {
         for (const taxonomy of info.data.taxonomies.iTIS) {
-          taxonomy.ref = info._source;
+          taxonomy.ref = info._id;
           taxons.push(taxonomy);
         }
       }

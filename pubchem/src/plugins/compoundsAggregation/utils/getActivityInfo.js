@@ -5,6 +5,9 @@ async function getActivityInfo(data) {
   let activityInfo = [];
   for (const info of data) {
     if (info.data?.activities) {
+      for (const activity of info.data.activities) {
+        activity.ref = info._id;
+      }
       activityInfo.push(info.data?.activities);
     }
   }
