@@ -61,6 +61,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
         targetFolder,
         `${filename}.${modificationDate}.${extension}`,
       );
+      target = targetFile;
       debug(`targetFile: ${targetFile}`);
 
       debug(
@@ -78,8 +79,8 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       writeStream.close();
       if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
 
-      debug(`Downloading: ${options.filename}`);
-      target = targetFile;
+      debug(`Downloaded: ${options.filename}`);
+
       return targetFile;
     } else {
       const targetFile = join(targetFolder, lastFileTargetLocal);
