@@ -12,7 +12,7 @@ test('parseRelations', async () => {
     results.push(entry);
   }
 
-  expect(results[1710]).toStrictEqual({
+  expect(results[5]).toStrictEqual({
     _id: '6',
     data: {
       sids: [
