@@ -1,7 +1,6 @@
 import { parseRelations } from '../parseRelations.js';
 import { join } from 'path';
 // patent identifier
-jest.setTimeout(144000);
 test('parseRelations', async () => {
   const pmidTocid = join(__dirname, 'data/cidTopmidTest.txt');
   const cidTopatent = join(__dirname, 'data/cidTopatentTest.txt');
