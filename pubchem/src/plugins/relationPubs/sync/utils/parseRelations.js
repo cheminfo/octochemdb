@@ -10,7 +10,7 @@ export async function* parseRelations(cidTopmid, cidTosid, cidTopatent) {
 
   for await (const entry of cids) {
     try {
-      let cid = entry[0];
+      let cid = entry.split('\t')[0];
       let readStream = createReadStream(cidTosid);
       let sids = readline.createInterface({
         input: readStream,
@@ -18,8 +18,9 @@ export async function* parseRelations(cidTopmid, cidTosid, cidTopatent) {
       });
       let allSids = [];
       for await (const sid of sids) {
-        if (cid === sid[0]) {
-          allSids.push(sid[1]);
+        let sidsArray = sid.split('\t');
+        if (cid === sidsArray[0]) {
+          allSids.push(sidsArray[1]);
         }
       }
 
@@ -30,8 +31,9 @@ export async function* parseRelations(cidTopmid, cidTosid, cidTopatent) {
         crlfDelay: Infinity,
       });
       for await (const patent of patentsStream) {
-        if (cid === patent[0]) {
-          allPatens.push(patent[1]);
+        let patentsArray = patent.split('\t');
+        if (cid === patentsArray[0]) {
+          allPatens.push(patentsArray[1]);
         }
       }
       let allPmids = [];
@@ -41,9 +43,9 @@ export async function* parseRelations(cidTopmid, cidTosid, cidTopatent) {
         crlfDelay: Infinity,
       });
       for await (const pmid of pmidsStream) {
-        //  console.log(pmid);
-        if (cid === pmid[0]) {
-          allPmids.push(pmid[1]);
+        let pmidArray = pmid.split('\t');
+        if (cid === pmidArray[0]) {
+          allPmids.push(pmidArray[1]);
         }
       }
       let result = {};
