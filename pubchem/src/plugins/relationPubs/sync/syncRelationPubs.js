@@ -1,11 +1,9 @@
-import { readFileSync } from 'fs';
 import pkg from 'fs-extra';
-import { gunzipSync } from 'zlib';
+import gunzipStream from './utils/gunzipStream.js';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 
 import { parseRelations } from './utils/parseRelations.js';
 
@@ -21,7 +19,7 @@ export async function sync(connection) {
     filenameNew: 'pmidTocid',
     extensionNew: 'gz',
   };
-  const pmidTocid = await getLastFileSync(options);
+  const cidTopmid = await getLastFileSync(options);
   options.filenameNew = 'cidTopatent';
   options.collectionSource = process.env.CIDTOPATENT_SOURCE;
   const cidTopatent = await getLastFileSync(options);
@@ -32,11 +30,11 @@ export async function sync(connection) {
   const collection = await connection.getCollection(options.collectionName);
 
   const source = [
-    pmidTocid.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    cidTopmid.replace(process.env.ORIGINAL_DATA_PATH, ''),
     cidTopatent.replace(process.env.ORIGINAL_DATA_PATH, ''),
     cidTosid.replace(process.env.ORIGINAL_DATA_PATH, ''),
   ];
-  const newFiles = [pmidTocid, cidTopatent, cidTosid];
+  const newFiles = [cidTopmid, cidTopatent, cidTosid];
 
   const lastDocumentImported = await getLastDocumentImported(
     connection,
@@ -55,12 +53,82 @@ export async function sync(connection) {
     if (newFiles[i].includes(oldSource[i])) status = true;
     if (!status) break;
   }
+  let cidTopmidPath = await gunzipStream(cidTopmid, cidTopmid.split('.gz')[0]);
+  let cidTopatentPath = await gunzipStream(
+    cidTopatent,
+    cidTopatent.split('.gz')[0],
+  );
+  let cidTosidPath = await gunzipStream(cidTosid, cidTosid.split('.gz')[0]);
   let firstID;
+  let skipping = firstID !== undefined;
+  let counter = 0;
+  let imported = 0;
+  let start = Date.now();
   if (
-    lastDocumentImported &&
-    lastDocumentImported._source &&
-    pmidTocid.includes(lastDocumentImported._source)
+    lastDocumentImported === null ||
+    !status ||
+    progress.state !== 'updated'
   ) {
-    firstID = lastDocumentImported._id;
+    if (progress.state === 'updated') {
+      debug('Droped old collection');
+      await connection.dropCollection('coconut');
+      progress.state = 'updating';
+      await connection.setProgress(progress);
+    }
+    debug(`Start parsing relations`);
+    if (
+      lastDocumentImported &&
+      lastDocumentImported._source &&
+      cidTosid.includes(lastDocumentImported._source)
+    ) {
+      firstID = lastDocumentImported._id;
+    }
+    for await (const entry of parseRelations(
+      cidTopmidPath,
+      cidTosidPath,
+      cidTopatentPath,
+    )) {
+      counter++;
+      if (process.env.TEST === 'true' && counter > 20) break;
+      if (skipping && progress.state !== 'updated') {
+        if (firstID === entry._id) {
+          skipping = false;
+          debug(`Skipping compound till:${firstID}`);
+        }
+        continue;
+      }
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+        debug(`Processing: counter: ${counter} - imported: ${imported}`);
+        start = Date.now();
+      }
+
+      entry._seq = ++progress.seq;
+      entry._source = source;
+      progress.state = 'updating';
+      await collection.updateOne(
+        { _id: entry._id },
+        { $set: entry },
+        { upsert: true },
+      );
+      await connection.setProgress(progress);
+      imported++;
+    }
+    progress.date = new Date();
+    progress.state = 'updated';
+    await connection.setProgress(progress);
+    debug(`${imported} compounds processed`);
+  } else {
+    debug(`file already processed`);
+  }
+  // we remove all the entries that are not imported by the last file
+  if (existsSync(cidTopmidPath)) {
+    rmSync(cidTopmidPath, { recursive: true });
+  }
+
+  if (existsSync(cidTosidPath)) {
+    rmSync(cidTosidPath, { recursive: true });
+  }
+  if (existsSync(cidTopatentPath)) {
+    rmSync(cidTopatentPath, { recursive: true });
   }
 }
