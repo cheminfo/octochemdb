@@ -1,5 +1,4 @@
 import { createReadStream } from 'fs';
-import { parse } from 'papaparse';
 import * as readline from 'readline';
 export async function* parseRelations(cidTopmid, cidTosid, cidTopatent) {
   const readStream = createReadStream(cidTosid);
@@ -49,15 +48,16 @@ export async function* parseRelations(cidTopmid, cidTosid, cidTopatent) {
         }
       }
       let result = {};
-      result.cid = cid;
+      result._id = cid;
+      result.data = {};
       if (allSids.length > 0) {
-        result.sids = allSids;
+        result.data.sids = allSids;
       }
       if (allPmids.length > 0) {
-        result.pmids = allPmids;
+        result.data.pmids = allPmids;
       }
       if (allPatens.length > 0) {
-        result.patents = allPatens;
+        result.data.patents = allPatens;
       }
 
       yield result;
