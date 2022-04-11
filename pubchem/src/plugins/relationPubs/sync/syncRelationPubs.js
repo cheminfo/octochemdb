@@ -71,11 +71,10 @@ export async function sync(connection) {
   ) {
     if (progress.state === 'updated') {
       debug('Droped old collection');
-      await connection.dropCollection('coconut');
+      await connection.dropCollection('relations');
       progress.state = 'updating';
       await connection.setProgress(progress);
     }
-    debug(`Start parsing relations`);
     if (
       lastDocumentImported &&
       lastDocumentImported._source &&
@@ -83,6 +82,7 @@ export async function sync(connection) {
     ) {
       firstID = lastDocumentImported._id;
     }
+    debug(`Start parsing relations`);
     for await (const entry of parseRelations(
       cidTopmidPath,
       cidTosidPath,
