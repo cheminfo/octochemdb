@@ -53,12 +53,18 @@ export async function sync(connection) {
     if (newFiles[i].includes(oldSource[i])) status = true;
     if (!status) break;
   }
-  let cidTopmidPath = await gunzipStream(cidTopmid, cidTopmid.split('.gz')[0]);
+  let cidTopmidPath = await gunzipStream(
+    cidTopmid,
+    `${cidTopmid.split('.gz')[0]}.txt`,
+  );
   let cidTopatentPath = await gunzipStream(
     cidTopatent,
-    cidTopatent.split('.gz')[0],
+    `${cidTopatent.split('.gz')[0]}.txt`,
   );
-  let cidTosidPath = await gunzipStream(cidTosid, cidTosid.split('.gz')[0]);
+  let cidTosidPath = await gunzipStream(
+    cidTosid,
+    `${cidTosid.split('.gz')[0]}.txt`,
+  );
   let firstID;
   let skipping = firstID !== undefined;
   let counter = 0;

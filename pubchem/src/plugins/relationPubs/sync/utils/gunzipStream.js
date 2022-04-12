@@ -12,7 +12,7 @@ async function gunzipStream(input, output) {
     debug(`decompress ${input}`);
     const gzip = createGunzip();
     const source = createReadStream(input);
-    const destination = createWriteStream(join(`${output}.txt`));
+    const destination = createWriteStream(join(`${output}`));
     await pipe(source, gzip, destination).catch((err) => {
       console.error('An error occurred:', err);
       process.exitCode = 1;
@@ -21,7 +21,7 @@ async function gunzipStream(input, output) {
     debug('file already decompressed');
   }
 
-  return join(`${output}.txt`);
+  return join(`${output}`);
 }
 
 export default gunzipStream;
