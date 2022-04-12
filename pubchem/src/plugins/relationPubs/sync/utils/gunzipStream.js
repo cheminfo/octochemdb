@@ -8,7 +8,7 @@ import Debug from '../../../../utils/Debug.js';
 const pipe = promisify(pipeline);
 const debug = Debug('gunzipStream');
 async function gunzipStream(input, output) {
-  if (!existsSync(input)) {
+  if (!existsSync(output)) {
     debug(`decompress ${input}`);
     const gzip = createGunzip();
     const source = createReadStream(input);
