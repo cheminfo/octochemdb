@@ -6,7 +6,7 @@ import Debug from '../../../utils/Debug.js';
 import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 
 import { parseCoconut } from './utils/parseCoconut.js';
-
+import md5 from 'md5';
 const { rmSync, existsSync } = pkg;
 
 const debug = Debug('syncCoconut');
@@ -20,10 +20,11 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   const lastFile = await getLastFileSync(options);
+  const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
   const progress = await connection.getProgress(options.collectionName);
   const collection = await connection.getCollection(options.collectionName);
-  const logs = await connection.getImportationLog({
-    collectionMame: options.collectionName,
+  const logs = await connection.geImportationtLog({
+    collectionName: options.collectionName,
     sources,
     startSequenceID: progress.seq,
   });
@@ -46,7 +47,6 @@ export async function sync(connection) {
   );
 
   // we reparse all the file and skip if required
-  const source = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
 
   let skipping = firstID !== undefined;
   let counter = 0;
@@ -54,20 +54,14 @@ export async function sync(connection) {
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    !lastFile.includes(logs.sources) ||
+    md5(JSON.stringify(sources)) !== progress.sources ||
     progress.state !== 'updated'
   ) {
     debug(`Start parsing: ${targetFile}`);
-    if (logs.status === 'updated' || lastDocumentImported === null) {
-      logs.sources = source;
-      logs.dateStart = Date.now();
-      logs.status = 'updating';
-      logs.startSequenceID = progress.seq;
-      await connection.setLogs(logs);
-    }
+
     for await (const entry of parseCoconut(targetFile)) {
       counter++;
-      if (process.env.TEST === 'true' && counter > 20) break;
+      if (process.env.TEST === 'true' && counter > 2590) break;
       if (skipping && progress.state !== 'updated') {
         if (firstID === entry._id) {
           skipping = false;
@@ -93,8 +87,8 @@ export async function sync(connection) {
     logs.dateEnd = Date.now();
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
-    await connection.setLogs(logs);
-
+    await connection.updateImportationLog(logs);
+    progress.sources = md5(JSON.stringify(sources));
     progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
