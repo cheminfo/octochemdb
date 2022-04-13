@@ -31,10 +31,34 @@ PubChemConnection.prototype.getCollection = async function getCollection(
   return (await this.getDatabase()).collection(collectionName);
 };
 
-PubChemConnection.prototype.dropCollection = async function dropCollection(
+PubChemConnection.prototype.getLogs = async function getCollection(
   collectionName,
 ) {
-  return (await this.getDatabase()).dropCollection(collectionName);
+  const logsCollection = await this.getLogsCollection();
+  const _id = `${collectionName}`;
+  let logs = await logsCollection.find({ _id }).next();
+  if (logs === null) {
+    let sources = [];
+    logs = {
+      _id,
+      sources,
+      sourcesHash: md5(JSON.stringify(sources)),
+      dataStart: 0,
+      dataEnd: 0,
+      startSequenceID: 123,
+      endSeqneceID: 123,
+      status: 'updating',
+    };
+    await logsCollection.insertOne(logs);
+  }
+  return logs;
+};
+PubChemConnection.prototype.setLogs = async function setLogs(logs) {
+  const collection = await this.getLogsCollection();
+  await collection.replaceOne({ _id: logs._id }, logs);
+};
+PubChemConnection.prototype.getLogsCollection = async function getCollection() {
+  return (await this.getDatabase()).collection('logs');
 };
 
 PubChemConnection.prototype.getAdminCollection =
