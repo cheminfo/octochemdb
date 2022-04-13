@@ -22,7 +22,11 @@ export async function sync(connection) {
   const lastFile = await getLastFileSync(options);
   const progress = await connection.getProgress(options.collectionName);
   const collection = await connection.getCollection(options.collectionName);
-  const logs = await connection.getLogs(options.collectionName);
+  const logs = await connection.getImportationLog({
+    collectionMame: options.collectionName,
+    sources,
+    startSequenceID: progress.seq,
+  });
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastDocumentImported(

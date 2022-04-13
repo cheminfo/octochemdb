@@ -1,6 +1,7 @@
 import delay from 'delay';
-import { MongoClient } from 'mongodb';
 import md5 from 'md5';
+import { MongoClient } from 'mongodb';
+
 import Debug from './Debug.js';
 
 const debug = Debug('PubChemConnection');
@@ -31,35 +32,40 @@ PubChemConnection.prototype.getCollection = async function getCollection(
   return (await this.getDatabase()).collection(collectionName);
 };
 
-PubChemConnection.prototype.getLogs = async function getCollection(
-  collectionName,
-) {
-  const logsCollection = await this.getLogsCollection();
-  const _id = `${collectionName}`;
-  let logs = await logsCollection.find({ _id }).next();
-  if (logs === null) {
-    let sources = [];
-    logs = {
-      _id,
-      sources,
-      sourcesHash: md5(JSON.stringify(sources)),
-      dateStart: Date.now(),
-      dateEnd: Date.now(),
-      startSequenceID: 0,
-      endSequenceID: 0,
-      status: 'updating',
-    };
-    await logsCollection.insertOne(logs);
-  }
-  return logs;
-};
-PubChemConnection.prototype.setLogs = async function setLogs(logs) {
-  const collection = await this.getLogsCollection();
-  await collection.replaceOne({ _id: logs._id }, logs);
-};
-PubChemConnection.prototype.getLogsCollection = async function getCollection() {
-  return (await this.getDatabase()).collection('logs');
-};
+PubChemConnection.prototype.geImportationtLog =
+  async function geImportationtLog(options) {
+    const { collectionName, sources, startSequenceID } = options;
+    const logsCollection = await this.getImportationLogsCollection();
+    const sourcesHash = md5(JSON.stringify(sources));
+    const _id = sourcesHash;
+    let logs = await logsCollection.find({ _id }).next();
+    if (logs === null) {
+      logs = {
+        _id,
+        collectionName,
+        sources,
+        sourcesHash,
+        dateStart: Date.now(),
+        dateEnd: Date.now(),
+        startSequenceID,
+        endSequenceID: 0,
+        status: 'updating',
+      };
+      await logsCollection.insertOne(logs);
+    }
+    return logs;
+  };
+PubChemConnection.prototype.updateImportationLog =
+  async function updateImportationLog(logs) {
+    const collection = await this.getImportationLogsCollection();
+    logs.dateEnd = Date.now();
+    await collection.replaceOne({ _id: logs._id }, logs);
+  };
+
+PubChemConnection.prototype.getImportationLogsCollection =
+  async function getCollection() {
+    return (await this.getDatabase()).collection('importationLogs');
+  };
 
 PubChemConnection.prototype.getAdminCollection =
   async function getAdminCollection() {
