@@ -1,6 +1,6 @@
 import delay from 'delay';
 import { MongoClient } from 'mongodb';
-
+import md5 from 'md5';
 import Debug from './Debug.js';
 
 const debug = Debug('PubChemConnection');
@@ -45,8 +45,8 @@ PubChemConnection.prototype.getLogs = async function getCollection(
       sourcesHash: md5(JSON.stringify(sources)),
       dateStart: Date.now(),
       dateEnd: Date.now(),
-      startSequenceID: 123,
-      endSeqneceID: 123,
+      startSequenceID: 0,
+      endSequenceID: 0,
       status: 'updating',
     };
     await logsCollection.insertOne(logs);
