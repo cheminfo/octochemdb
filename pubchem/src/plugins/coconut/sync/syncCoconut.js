@@ -20,8 +20,9 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   const lastFile = await getLastFileSync(options);
-  const progress = await connection.getProgress('coconut');
-  const collection = await connection.getCollection('coconut');
+  const progress = await connection.getProgress(options.collectionName);
+  const collection = await connection.getCollection(options.collectionName);
+  const logs = await connection.getLogs(options.collectionName);
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastDocumentImported(
@@ -30,11 +31,7 @@ export async function sync(connection) {
     options.collectionName,
   );
   let firstID;
-  if (
-    lastDocumentImported &&
-    lastDocumentImported._source &&
-    lastFile.includes(lastDocumentImported._source)
-  ) {
+  if (lastDocumentImported !== null) {
     firstID = lastDocumentImported._id;
   }
 
@@ -43,22 +40,29 @@ export async function sync(connection) {
     lastFile,
     'uniqueNaturalProduct.bson',
   );
+
   // we reparse all the file and skip if required
-  const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
+  const source = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    !lastFile.includes(lastDocumentImported._source) ||
+    !lastFile.includes(logs.sources) ||
     progress.state !== 'updated'
   ) {
     debug(`Start parsing: ${targetFile}`);
-
+    if (logs.status === 'updated' || lastDocumentImported === null) {
+      logs.sources = source;
+      logs.dateStart = Date.now();
+      logs.status = 'updating';
+      logs.startSequenceID = progress.seq;
+      await connection.setLogs(logs);
+    }
     for await (const entry of parseCoconut(targetFile)) {
-      counter++;
-      if (process.env.TEST === 'true' && counter > 20) break;
+      if (process.env.TEST === 'true' && counter > 80) break;
       if (skipping && progress.state !== 'updated') {
         if (firstID === entry._id) {
           skipping = false;
@@ -72,7 +76,6 @@ export async function sync(connection) {
       }
 
       entry._seq = ++progress.seq;
-      entry._source = source;
       progress.state = 'updating';
       await collection.updateOne(
         { _id: entry._id },
@@ -82,6 +85,11 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.setLogs(logs);
+
     progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
@@ -91,7 +99,7 @@ export async function sync(connection) {
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
-    _source: { $ne: source },
+    _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 
