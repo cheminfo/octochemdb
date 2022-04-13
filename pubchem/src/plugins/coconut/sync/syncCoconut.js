@@ -54,12 +54,6 @@ export async function sync(connection) {
     !lastFile.includes(lastDocumentImported._source) ||
     progress.state !== 'updated'
   ) {
-    if (progress.state === 'updated') {
-      debug('Droped old collection');
-      await connection.dropCollection('coconut');
-      progress.state = 'updating';
-      await connection.setProgress(progress);
-    }
     debug(`Start parsing: ${targetFile}`);
 
     for await (const entry of parseCoconut(targetFile)) {
@@ -95,6 +89,12 @@ export async function sync(connection) {
   } else {
     debug(`file already processed`);
   }
+  // we remove all the entries that are not imported by the last file
+  const result = await collection.deleteMany({
+    _source: { $ne: source },
+  });
+  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
+
   // we remove all the entries that are not imported by the last file
   if (existsSync(targetFile)) {
     rmSync(targetFile, { recursive: true });

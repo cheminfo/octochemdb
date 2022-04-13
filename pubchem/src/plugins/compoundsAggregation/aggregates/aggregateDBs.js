@@ -17,12 +17,12 @@ const debug = Debug('aggregateDBs');
 
 export async function aggregate(connection) {
   const options = { collection: 'bestOfCompounds', connection: connection };
-  const progress = await connection.getProgress('bestOfCompounds');
-  const targetCollection = await connection.getCollection('bestOfCompounds');
+  const progress = await connection.getProgress(options.collection);
+  const targetCollection = await connection.getCollection(options.collection);
   const lastDocumentImported = await getLastDocumentImported(
-    connection,
+    options.connection,
     progress,
-    'bestOfCompounds',
+    options.collection,
   );
   let firstId;
   let pastCount = 0;
@@ -54,12 +54,6 @@ export async function aggregate(connection) {
   }
 
   if (status === false || progress.state !== 'updated') {
-    if (progress.state === 'updated') {
-      debug('Droped old collection', options);
-      await connection.dropCollection('bestOfCompounds');
-      progress.state = 'updating';
-      await connection.setProgress(progress);
-    }
     debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
     debug('start Aggregation process');
     for (const [noStereoID, sources] of Object.entries(links)) {
@@ -151,4 +145,9 @@ export async function aggregate(connection) {
   } else {
     debug(`Aggregation already up to date`);
   }
+  // we remove all the entries that are not imported by the last file
+  const result = await targetCollection.deleteMany({
+    _source: { $ne: collectionUpdatingDates },
+  });
+  debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
