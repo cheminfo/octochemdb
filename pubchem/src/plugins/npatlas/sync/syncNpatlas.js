@@ -49,7 +49,7 @@ export async function sync(connection) {
     progress.state !== 'updated'
   ) {
     debug(`Start parsing: ${lastFile}`);
-    for (const entry of npAtlasParser(JSON.parse(fileJson))) {
+    for await (const entry of npAtlasParser(JSON.parse(fileJson))) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (skipping) {
