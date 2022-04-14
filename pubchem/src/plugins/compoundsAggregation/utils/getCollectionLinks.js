@@ -3,11 +3,11 @@ import Debug from '../../../utils/Debug.js';
 async function getCollectionLinks(connection, collectionNames) {
   const debug = Debug('getCollectionLinks');
   const links = {};
-  let collectionUpdatingDates = [];
+  let colletionSources = [];
   for (let collectionName of collectionNames) {
     let collection = await connection.getCollection(collectionName);
     const progressCollections = await connection.getProgress(collectionName);
-    collectionUpdatingDates.push(progressCollections.date);
+    colletionSources.push(progressCollections.sources);
     const results = await collection
       .aggregate([
         {
@@ -27,7 +27,7 @@ async function getCollectionLinks(connection, collectionNames) {
       links[entry.noStereoID].push(entry.source);
     }
   }
-  return { links, collectionUpdatingDates };
+  return { links, colletionSources };
 }
 
 export default getCollectionLinks;

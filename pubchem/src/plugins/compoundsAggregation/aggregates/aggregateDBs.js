@@ -1,3 +1,4 @@
+import md5 from 'md5';
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
@@ -6,6 +7,7 @@ import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImp
 import Debug from '../../../utils/Debug.js';
 import getActivityInfo from '../utils/getActivityInfo.js';
 import getCollectionLinks from '../utils/getCollectionLinks.js';
+import getGenericData from '../utils/getGenericData.js';
 import getTaxonomyInfo from '../utils/getTaxonomyInfo.js';
 
 const { MF } = MFParser;
@@ -17,57 +19,47 @@ const debug = Debug('aggregateDBs');
 
 export async function aggregate(connection) {
   const options = { collection: 'bestOfCompounds', connection: connection };
+
   const progress = await connection.getProgress(options.collection);
   const targetCollection = await connection.getCollection(options.collection);
+  let { links, colletionSources } = await getCollectionLinks(
+    connection,
+    collectionNames,
+  );
+  const sources = md5(colletionSources);
+  const logs = await connection.geImportationtLog({
+    collectionName: options.collectionName,
+    sources,
+    startSequenceID: progress.seq,
+  });
   const lastDocumentImported = await getLastDocumentImported(
     options.connection,
     progress,
     options.collection,
   );
-  let firstId;
-  let pastCount = 0;
-  if (lastDocumentImported) firstId = lastDocumentImported._id;
-  let skipping = firstId !== undefined;
+  let firstID;
+  if (lastDocumentImported !== null) {
+    firstID = lastDocumentImported._id;
+  }
+  let skipping = firstID !== undefined;
 
   let counter = 0;
   let start = Date.now();
 
-  let { links, collectionUpdatingDates } = await getCollectionLinks(
-    connection,
-    collectionNames,
-  );
-  let oldLastImports;
-  if (progress.lastImports !== null) {
-    oldLastImports = progress.lastImports;
-  } else {
-    oldLastImports = [' '];
-  }
-
-  let status = false;
-  for (let i = 0; i < collectionUpdatingDates.length; i++) {
-    if (
-      collectionUpdatingDates[i].toString() === oldLastImports[i].toString()
-    ) {
-      status = true;
-    }
-    if (!status) break;
-  }
-
-  if (status === false || progress.state !== 'updated') {
+  if (sources !== progress.sources || progress.state !== 'updated') {
     debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
     debug('start Aggregation process');
-    for (const [noStereoID, sources] of Object.entries(links)) {
+    for (const [noStereoID, sourcesLink] of Object.entries(links)) {
       if (process.env.TEST === 'true' && counter > 20) break;
       if (skipping && progress.state !== 'updated') {
-        if (firstId === noStereoID) {
+        if (firstID === noStereoID) {
           skipping = false;
-          pastCount = lastDocumentImported._seq;
-          debug(`Skipping compound till:${pastCount}`);
+          debug(`Skipping compound till:${firstID}`);
         }
         continue;
       }
       const data = [];
-      for (const source of sources) {
+      for (const source of sourcesLink) {
         const collection = await connection.getCollection(source.collection);
         data.push(await collection.findOne({ _id: source.id }));
       }
@@ -79,44 +71,17 @@ export async function aggregate(connection) {
       let activityInfo = await getActivityInfo(data);
 
       let taxons = await getTaxonomyInfo(data);
-      let cid = {};
-      let cas = {};
-      let iupacName = {};
-      let ocls = {};
-      for (const info of data) {
-        ocls[info.data.ocl.id] = {
-          id: info.data.ocl.id,
-          coordinates: info.data.ocl.coordinates,
-        };
-        if (info.data?.cid) cid[info.data?.cid] = true;
-        if (info.data?.cas) cas[info.data?.cas] = true;
-        if (info.data?.iupacName) iupacName[info.data?.iupacName] = true;
-      }
 
-      let npActive = false;
-      if (activityInfo.length > 0) npActive = true;
-      const entry = {
-        data: {
-          em: mfInfo.monoisotopicMass,
-          charge: mfInfo.charge,
-          unsaturation: mfInfo.unsaturation,
-          npActive: npActive,
-        },
-      };
+      let entry = await getGenericData(data, mfInfo);
+
+      if (activityInfo.length > 0) entry.data.npActive = true;
+
       if (activityInfo.length > 0) {
         entry.data.activities = activityInfo;
       }
       if (taxons.length > 0) {
         entry.data.taxonomies = taxons;
       }
-      ocls = Object.values(ocls);
-      cid = Object.keys(cid);
-      cas = Object.keys(cas);
-      iupacName = Object.keys(iupacName);
-      if (ocls.length > 0) entry.data.ocls = ocls;
-      if (cid.length > 0) entry.data.cids = cid;
-      if (cas.length > 0) entry.data.cas = cas;
-      if (iupacName.length > 0) entry.data.iupacName = iupacName;
 
       entry._seq = ++progress.seq;
 
@@ -131,23 +96,27 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
 
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(`Processing: counter: ${counter + pastCount} `);
+        debug(`Processing: counter: ${counter} `);
         start = Date.now();
       }
 
       counter++;
     }
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.updateImportationLog(logs);
+    progress.sources = sources;
     progress.date = new Date();
     progress.state = 'updated';
-    progress.lastImports = collectionUpdatingDates;
     await connection.setProgress(progress);
-    debug('Done');
+    debug('Aggregation Done');
   } else {
     debug(`Aggregation already up to date`);
   }
   // we remove all the entries that are not imported by the last file
   const result = await targetCollection.deleteMany({
-    _source: { $ne: collectionUpdatingDates },
+    _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
