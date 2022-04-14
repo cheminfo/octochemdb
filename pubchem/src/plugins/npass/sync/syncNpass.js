@@ -10,14 +10,14 @@ export async function sync(connection) {
     firstID,
     lastDocumentImported,
     progress,
-    source,
+    sources,
     collection,
     general,
     activities,
     properties,
     speciesPair,
     speciesInfo,
-    newFiles,
+    logs,
   } = await npassStartSync(connection);
 
   // we reparse all the file and skip if required
@@ -25,27 +25,15 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  let oldSource;
-  if (lastDocumentImported !== null) {
-    oldSource = lastDocumentImported._source;
-  } else {
-    oldSource = [' '];
-  }
-
-  let status = false;
-  for (let i = 0; i < newFiles.length; i++) {
-    if (newFiles[i].includes(oldSource[i])) status = true;
-    if (!status) break;
-  }
 
   // Reimport collection again only if lastDocument imported changed or importation was not completed
   if (
     lastDocumentImported === null ||
-    !status ||
+    sources !== progress.sources ||
     progress.state !== 'updated'
   ) {
     debug(`Start parsing npass`);
-    for (const entry of parseNpass(
+    for await (const entry of parseNpass(
       general,
       activities,
       properties,
@@ -67,7 +55,6 @@ export async function sync(connection) {
       }
 
       entry._seq = ++progress.seq;
-      entry._source = source;
       progress.state = 'updating';
       await collection.updateOne(
         { _id: entry._id },
@@ -77,6 +64,11 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.updateImportationLog(logs);
+    progress.sources = sources;
     progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
@@ -86,7 +78,7 @@ export async function sync(connection) {
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
-    _source: { $ne: source },
+    _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 }
