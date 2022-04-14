@@ -10,9 +10,10 @@ async function cmaupStartSync(connection) {
     lastFileSpeciesInfo,
     sources,
     newFiles,
-  } = await getCmaupLastFiles();
+    progress,
+    logs,
+  } = await getCmaupLastFiles(connection);
 
-  const progress = await connection.getProgress('cmaup');
   const collection = await connection.getCollection('cmaup');
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
@@ -34,6 +35,7 @@ async function cmaupStartSync(connection) {
       lastFileSpeciesAssociation,
       lastFileSpeciesInfo,
     );
+
   return {
     firstID,
     lastDocumentImported,
@@ -45,6 +47,7 @@ async function cmaupStartSync(connection) {
     speciesPair,
     speciesInfo,
     newFiles,
+    logs,
   };
 }
 export default cmaupStartSync;

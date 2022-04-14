@@ -1,7 +1,7 @@
 import md5 from 'md5';
-import getLastFileSync from '../../../../sync/http/utils/getLastFileSync';
+import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 
-async function getCmaupLastFiles() {
+async function getCmaupLastFiles(connection) {
   let options = {
     collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaup/full`,
@@ -19,6 +19,19 @@ async function getCmaupLastFiles() {
   options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
   options.filenameNew = 'speciesInfo';
   const lastFileSpeciesInfo = await getLastFileSync(options);
+  let source = [
+    lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    lastFileSpeciesAssociation.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
+  ];
+  const progress = await connection.getProgress('cmaup');
+  const logs = await connection.geImportationtLog({
+    collectionName: 'cmaup',
+    sources: source,
+    startSequenceID: progress.seq,
+  });
+
   const sources = md5(
     JSON.stringify([
       lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
@@ -27,21 +40,15 @@ async function getCmaupLastFiles() {
       lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ]),
   );
-  const newFiles = md5(
-    JSON.stringify([
-      lastFile,
-      lastFileActivity,
-      lastFileSpeciesAssociation,
-      lastFileSpeciesInfo,
-    ]),
-  );
+
   return {
     lastFile,
     lastFileActivity,
     lastFileSpeciesAssociation,
     lastFileSpeciesInfo,
     sources,
-    newFiles,
+    progress,
+    logs,
   };
 }
 export default getCmaupLastFiles;

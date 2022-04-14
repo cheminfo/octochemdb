@@ -1,5 +1,7 @@
-import { parse } from 'papaparse';
+import pkg from 'papaparse';
+
 import { readFileSync } from 'fs';
+const { parse } = pkg;
 
 async function readCmaupFiles(
   lastFile,
