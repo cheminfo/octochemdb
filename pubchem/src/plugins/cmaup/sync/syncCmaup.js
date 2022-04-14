@@ -27,7 +27,7 @@ export async function sync(connection) {
   // Reimport collection again only if lastDocument imported changed or importation was not completed
   if (
     lastDocumentImported === null ||
-    sources !== logs.sourcesHash ||
+    sources !== progress.sources ||
     progress.state !== 'updated'
   ) {
     debug(`Start parsing cmaup`);
