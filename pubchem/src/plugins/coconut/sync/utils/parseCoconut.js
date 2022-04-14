@@ -8,7 +8,7 @@ export async function* parseCoconut(bsonPath, parseSkip) {
   const readStream = createReadStream(join(bsonPath));
   for await (const entry of bsonIterator(readStream)) {
     let skipping = true;
-    let resultSkip = { _id: entry.lotus_id };
+    let resultSkip = { _id: entry.coconut_id };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === entry.lotus_id) {
         skipping = false;
