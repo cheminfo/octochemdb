@@ -52,6 +52,10 @@ export async function sync(connection) {
   let counter = 0;
   let imported = 0;
   let start = Date.now();
+  let parseSkip;
+  if (skipping && progress.state !== 'updated') {
+    parseSkip = firstID;
+  }
   if (
     lastDocumentImported === null ||
     md5(JSON.stringify(sources)) !== progress.sources ||
@@ -59,7 +63,7 @@ export async function sync(connection) {
   ) {
     debug(`Start parsing: ${targetFile}`);
 
-    for await (const entry of parseCoconut(targetFile)) {
+    for await (const entry of parseCoconut(targetFile, parseSkip)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (skipping && progress.state !== 'updated') {

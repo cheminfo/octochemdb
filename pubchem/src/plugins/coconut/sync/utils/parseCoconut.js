@@ -4,9 +4,18 @@ import { join } from 'path';
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-export async function* parseCoconut(bsonPath) {
+export async function* parseCoconut(bsonPath, parseSkip) {
   const readStream = createReadStream(join(bsonPath));
   for await (const entry of bsonIterator(readStream)) {
+    let skipping = true;
+    let resultSkip = { _id: entry.lotus_id };
+    if (skipping && parseSkip !== undefined) {
+      if (parseSkip === entry.lotus_id) {
+        skipping = false;
+      }
+      yield resultSkip;
+      continue;
+    }
     try {
       const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
       const oclID = oclMolecule.getIDCodeAndCoordinates();
