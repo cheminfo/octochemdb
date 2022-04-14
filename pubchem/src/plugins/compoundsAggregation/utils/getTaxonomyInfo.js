@@ -4,7 +4,7 @@ async function getTaxonomyInfo(data) {
   const debug = Debug('getTaxonomyInfo');
   let taxons = [];
   for (const info of data) {
-    if (!info._source.includes('lotus')) {
+    if (!info._id.includes('LTS')) {
       if (info.data?.taxonomies) {
         for (const taxonomy of info.data.taxonomies) {
           taxonomy.ref = info._id;
