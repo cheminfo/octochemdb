@@ -31,7 +31,7 @@ export async function sync(connection) {
     progress.state !== 'updated'
   ) {
     debug(`Start parsing cmaup`);
-    for (const entry of parseCmaup(
+    for await (const entry of parseCmaup(
       general,
       activities,
       speciesPair,
