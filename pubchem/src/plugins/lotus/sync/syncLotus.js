@@ -56,7 +56,11 @@ export async function sync(connection) {
     progress.state !== 'updated'
   ) {
     debug(`Start parsing: ${targetFile}`);
-    for await (const entry of parseLotus(targetFile)) {
+    let parseSkip;
+    if (skipping && progress.state !== 'updated') {
+      parseSkip = firstID;
+    }
+    for await (const entry of parseLotus(targetFile, parseSkip)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
       if (skipping && progress.state !== 'updated') {
