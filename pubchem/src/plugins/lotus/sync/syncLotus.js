@@ -6,7 +6,7 @@ import Debug from '../../../utils/Debug.js';
 import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 
 import { parseLotus } from './utils/parseLotus.js';
-
+import md5 from 'md5';
 const { rmSync, existsSync } = pkg;
 const debug = Debug('syncLotus');
 
@@ -19,8 +19,14 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   const lastFile = await getLastFileSync(options);
+  const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
   const progress = await connection.getProgress('lotus');
   const collection = await connection.getCollection('lotus');
+  const logs = await connection.geImportationtLog({
+    collectionName: options.collectionName,
+    sources,
+    startSequenceID: progress.seq,
+  });
   await collection.createIndex({ 'data.ocl.id': 1 });
   await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastDocumentImported(
@@ -29,11 +35,7 @@ export async function sync(connection) {
     options.collectionName,
   );
   let firstID;
-  if (
-    lastDocumentImported &&
-    lastDocumentImported._source &&
-    lastFile.includes(lastDocumentImported._source)
-  ) {
+  if (lastDocumentImported !== null) {
     firstID = lastDocumentImported._id;
   }
 
@@ -43,14 +45,14 @@ export async function sync(connection) {
     'lotusUniqueNaturalProduct.bson',
   );
   // we reparse all the file and skip if required
-  const source = lastFile.replace(process.env.ORIGINAL_DATA_PATH, '');
+
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
   if (
     lastDocumentImported === null ||
-    !lastFile.includes(lastDocumentImported._source) ||
+    md5(JSON.stringify(sources)) !== progress.sources ||
     progress.state !== 'updated'
   ) {
     debug(`Start parsing: ${targetFile}`);
@@ -70,7 +72,6 @@ export async function sync(connection) {
       }
 
       entry._seq = ++progress.seq;
-      entry._source = source;
       progress.state = 'updating';
       await collection.updateOne(
         { _id: entry._id },
@@ -80,6 +81,11 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       imported++;
     }
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.updateImportationLog(logs);
+    progress.sources = md5(JSON.stringify(sources));
     progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);
@@ -89,7 +95,7 @@ export async function sync(connection) {
   }
   // we remove all the entries that are not imported by the last file
   const result = await collection.deleteMany({
-    _source: { $ne: source },
+    _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
 
