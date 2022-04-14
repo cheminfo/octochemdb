@@ -61,7 +61,7 @@ export async function sync(connection) {
 
     for await (const entry of parseCoconut(targetFile)) {
       counter++;
-      if (process.env.TEST === 'true' && counter > 2590) break;
+      if (process.env.TEST === 'true' && counter > 20) break;
       if (skipping && progress.state !== 'updated') {
         if (firstID === entry._id) {
           skipping = false;
