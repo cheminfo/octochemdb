@@ -47,6 +47,9 @@ export async function aggregate(connection) {
   let start = Date.now();
 
   if (sources !== progress.sources || progress.state !== 'updated') {
+    const temporaryCollection = await connection.getCollection(
+      'temporaryAgregation',
+    );
     debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
     debug('start Aggregation process');
     for (const [noStereoID, sourcesLink] of Object.entries(links)) {
@@ -85,12 +88,12 @@ export async function aggregate(connection) {
 
       entry._seq = ++progress.seq;
 
-      await targetCollection.updateOne(
+      await temporaryCollection.updateOne(
         { _id: noStereoID },
         { $set: entry },
         { upsert: true },
       );
-      await targetCollection.createIndex({ 'data.em': 1 });
+      await temporaryCollection.createIndex({ 'data.em': 1 });
       progress.state = 'updating';
 
       await connection.setProgress(progress);
@@ -102,6 +105,7 @@ export async function aggregate(connection) {
 
       counter++;
     }
+    temporaryCollection.renameCollection(targetCollection, true); // true make mongo drop the target collection prior to renaming the collection
     logs.dateEnd = Date.now();
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
