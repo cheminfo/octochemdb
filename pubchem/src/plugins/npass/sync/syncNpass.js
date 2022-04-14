@@ -32,13 +32,19 @@ export async function sync(connection) {
     sources !== progress.sources ||
     progress.state !== 'updated'
   ) {
+    let parseSkip;
+    if (skipping && progress.state !== 'updated') {
+      parseSkip = firstID;
+    }
     debug(`Start parsing npass`);
+
     for await (const entry of parseNpass(
       general,
       activities,
       properties,
       speciesPair,
       speciesInfo,
+      parseSkip,
     )) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;

@@ -1,15 +1,23 @@
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
-
 export async function* parseNpass(
   general,
   activities,
   properties,
   speciesPair,
   speciesInfo,
+  parseSkip,
 ) {
   for await (const item of general) {
+    let skipping = true;
+    let resultSkip = { _id: item.np_id };
+    if (skipping && parseSkip !== undefined) {
+      if (parseSkip === item.np_id) {
+        skipping = false;
+      }
+      yield resultSkip;
+      continue;
+    }
     try {
       const property = properties[item.np_id];
       const activity = activities[item.np_id];

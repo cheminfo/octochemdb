@@ -9,6 +9,7 @@ export async function* parseCmaup(
   activities,
   speciesPair,
   speciesInfo,
+  parseSkip,
 ) {
   const speciesPaired = {};
 
@@ -17,6 +18,15 @@ export async function* parseCmaup(
   }
   let errorsCounter = 0;
   for await (const item of general) {
+    let skipping = true;
+    let resultSkip = { _id: item.Ingredient_ID };
+    if (skipping && parseSkip !== undefined) {
+      if (parseSkip === item.Ingredient_ID) {
+        skipping = false;
+      }
+      yield resultSkip;
+      continue;
+    }
     try {
       if (Object.keys(item.Ingredient_ID).length > 0) {
         const id = item.Ingredient_ID;

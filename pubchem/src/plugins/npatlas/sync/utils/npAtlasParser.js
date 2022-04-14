@@ -1,7 +1,16 @@
 import OCL from 'openchemlib';
 
-export async function* npAtlasParser(json) {
+export async function* npAtlasParser(json, parseSkip) {
   for await (const entry of json) {
+    let skipping = true;
+    let resultSkip = { _id: entry.npaid };
+    if (skipping && parseSkip !== undefined) {
+      if (parseSkip === entry.npaid) {
+        skipping = false;
+      }
+      yield resultSkip;
+      continue;
+    }
     try {
       const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
       const oclID = oclMolecule.getIDCodeAndCoordinates();

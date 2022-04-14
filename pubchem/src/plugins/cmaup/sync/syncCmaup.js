@@ -30,12 +30,17 @@ export async function sync(connection) {
     sources !== progress.sources ||
     progress.state !== 'updated'
   ) {
+    let parseSkip;
+    if (skipping && progress.state !== 'updated') {
+      parseSkip = firstID;
+    }
     debug(`Start parsing cmaup`);
     for await (const entry of parseCmaup(
       general,
       activities,
       speciesPair,
       speciesInfo,
+      parseSkip,
     )) {
       counter++;
       // If test mode break process after counter >20

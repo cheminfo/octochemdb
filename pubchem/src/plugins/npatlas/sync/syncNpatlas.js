@@ -48,6 +48,10 @@ export async function sync(connection) {
     md5(JSON.stringify(sources)) !== progress.sources ||
     progress.state !== 'updated'
   ) {
+    let parseSkip;
+    if (skipping && progress.state !== 'updated') {
+      parseSkip = firstID;
+    }
     debug(`Start parsing: ${lastFile}`);
     for await (const entry of npAtlasParser(JSON.parse(fileJson))) {
       counter++;
