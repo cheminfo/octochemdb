@@ -1,10 +1,9 @@
-import fs, { rm, rmSync } from 'fs';
+const { readFileSync } = require('fs');
+const { join } = require('path');
 
-import unzipper from 'unzipper';
+const { fileListFromZip, fileListUngzip } = require('../lib/index.js');
 
 import Debug from '../../../../utils/Debug.js';
-import { join } from 'path';
-import gunzipStream from '../../../relationPubs/sync/utils/gunzipStream.js';
 const debug = Debug('importOneBioassayFile');
 
 export default async function importOneBioassayFile(
@@ -16,28 +15,13 @@ export default async function importOneBioassayFile(
   const collection = await connection.getCollection('bioassay');
 
   debug(`Importing: ${file.name}`);
-  // should we directly import the data how wait that we reach the previously imported information
-  let { shouldImport = true, lastDocument } = options;
-  let folder = await unzipStream(file);
-  let files = fs.readdirSync(folder); // us async instead
-  let fileNames = [];
-
-  for (const file of files) {
-    let fileName = await gunzipStream(
-      join(folder, file),
-      join(folder, file.split('.gz')[0]),
-    );
-    fileNames.push(fileName);
+  const data = readFileSync(file.path);
+  const fileList = await fileListFromZip(data);
+  const ungzippedFileList = await fileListUngzip(fileList);
+  for (let file of ungzippedFileList) {
+    const data = await file.text();
+    const object = JSON.parse(data);
+    console.log(object);
+    console.log(file.name, data.byteLength);
   }
-
-  ///// continue
-}
-
-export async function unzipStream(file) {
-  debug(`Need to decompress: ${file.name}`);
-
-  const path = `${process.env.ORIGINAL_DATA_PATH}/bioassay/full`;
-  fs.createReadStream(file.path).pipe(unzipper.Extract({ path: path }));
-  let folder = file.path.split('.zip')[0];
-  return folder;
 }
