@@ -1,9 +1,9 @@
-const { readFileSync } = require('fs');
-const { join } = require('path');
-
-const { fileListFromZip, fileListUngzip } = require('../lib/index.js');
-
+import { join } from 'path';
+import { readFileSync } from 'fs';
+import { fileListFromZip, fileListUngzip } from 'filelist-utils';
+import parseOneFile from './parseOneFile.js';
 import Debug from '../../../../utils/Debug.js';
+import path from 'path';
 const debug = Debug('importOneBioassayFile');
 
 export default async function importOneBioassayFile(
@@ -18,10 +18,7 @@ export default async function importOneBioassayFile(
   const data = readFileSync(file.path);
   const fileList = await fileListFromZip(data);
   const ungzippedFileList = await fileListUngzip(fileList);
-  for (let file of ungzippedFileList) {
-    const data = await file.text();
-    const object = JSON.parse(data);
-    console.log(object);
-    console.log(file.name, data.byteLength);
+  for await (let entry of parseOneFile(ungzippedFileList)) {
+    console.log(entry);
   }
 }
