@@ -20,10 +20,8 @@ async function* parseOneFile(files) {
             testResults.push(testResult);
           }
         }
-        let result = {
-          _id: entry.sid,
-        };
-
+        let result = {};
+        result.sid = entry.sid;
         if (object.PC_AssaySubmit.assay.descr?.name) {
           result.assayDescription = {
             name: object.PC_AssaySubmit.assay.descr?.name,

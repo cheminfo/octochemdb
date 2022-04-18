@@ -19,6 +19,13 @@ export default async function importOneBioassayFile(
   const fileList = await fileListFromZip(data);
   const ungzippedFileList = await fileListUngzip(fileList);
   for await (let entry of parseOneFile(ungzippedFileList)) {
-    console.log(entry);
+    entry._id = ++progress.seq;
+    progress.state = 'updating';
+    await collection.updateOne(
+      { _id: entry._id },
+      { $set: entry },
+      { upsert: true },
+    );
+    await connection.setProgress(progress);
   }
 }
