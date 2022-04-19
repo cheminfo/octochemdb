@@ -12,12 +12,14 @@ export default async function importOneBioassayFile(
   const collection = await connection.getCollection('bioassay');
 
   debug(`Importing: ${file.name}`);
+
   const data = readFileSync(file.path);
   const fileList = await fileListFromZip(data);
 
   const ungzippedFileList = await fileListUngzip(fileList);
   let start = Date.now();
   let imported = 0;
+
   for (let file of ungzippedFileList) {
     for await (let entry of parseOneFile(file)) {
       entry._seq = ++progress.seq;
@@ -53,7 +55,7 @@ export default async function importOneBioassayFile(
         start = Date.now();
       }
     }
-    progress.source = file.name;
-    await connection.setProgress(progress);
   }
+  progress.source = file.name;
+  await connection.setProgress(progress);
 }
