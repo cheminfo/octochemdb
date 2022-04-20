@@ -1,14 +1,11 @@
-import pkg from 'fs-extra';
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import gunzipStream from '../../../utils/gunzipStream.js';
 
 import parseBioactivities from './utils/parseBioactivities.js';
 
-const { existsSync, rmSync } = pkg;
 export async function sync(connection) {
   const debug = Debug('syncBioassay');
   let options = {
