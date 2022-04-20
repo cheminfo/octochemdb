@@ -4,7 +4,7 @@ import { pipeline } from 'stream';
 import { promisify } from 'util';
 import { createGunzip } from 'zlib';
 
-import Debug from '../../../../utils/Debug.js';
+import Debug from './Debug.js';
 
 const pipe = promisify(pipeline);
 const debug = Debug('gunzipStream');
