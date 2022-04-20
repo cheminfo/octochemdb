@@ -1,17 +1,20 @@
-import parseBioactivities from './utils/parseBioactivities.js';
-import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import gunzipStream from '../../relationPubs/sync/utils/gunzipStream.js';
-import md5 from 'md5';
-import Debug from '../../../utils/Debug.js';
 import pkg from 'fs-extra';
+import md5 from 'md5';
+
+import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
+import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
+import Debug from '../../../utils/Debug.js';
+import gunzipStream from '../../relationPubs/sync/utils/gunzipStream.js';
+
+import parseBioactivities from './utils/parseBioactivities.js';
+
 const { existsSync, rmSync } = pkg;
 export async function sync(connection) {
   const debug = Debug('syncBioassay');
   let options = {
     collectionSource: process.env.ACTIVITIES_SOURCE,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/bioassay/full`,
-    collectionName: 'bioassay',
+    collectionName: 'bioassays',
     filenameNew: 'bioactivities',
     extensionNew: 'gz',
   };
@@ -72,13 +75,7 @@ export async function sync(connection) {
     )) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (skipping && progress.state !== 'updated') {
-        if (firstID === entry._id) {
-          skipping = false;
-          debug(`Skipping compound till:${firstID}`);
-        }
-        continue;
-      }
+
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();

@@ -1,8 +1,12 @@
 import { createReadStream, readFileSync } from 'fs';
 import { createInterface } from 'readline';
-import getBioassays from './getBioassays.js';
+
 import Debug from '../../../../utils/Debug.js';
+
+import getBioassays from './getBioassays.js';
+
 const debug = Debug('parseBioactivities');
+
 async function* parseBioactivities(
   bioactivitiesExtracted,
   bioassaysExtracted,
@@ -27,26 +31,26 @@ async function* parseBioactivities(
   }
 
   const bioassays = await getBioassays(bioassaysExtracted);
+
   debug(`lines parsed`);
   let skipping = true;
   for await (let cid of Object.keys(compounds)) {
     let result = {
       _id: cid,
-      _bioassays: [],
+      data: [],
     };
 
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === cid) {
         skipping = false;
+        debug(`Skipping compound till:${cid}`);
+      } else {
+        continue;
       }
-      yield result;
-      continue;
     }
-    let aids = compounds[cid];
-    for (let aid in bioassays) {
-      if (aids.includes(aid)) {
-        result._bioassays.push({ aid: aid, assay: bioassays[aid] });
-      }
+
+    for (let aid of compounds[cid]) {
+      result.data.push({ aid: aid, assay: bioassays[aid] });
     }
     yield result;
   }
