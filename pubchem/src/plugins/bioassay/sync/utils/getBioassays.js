@@ -1,5 +1,4 @@
 import { createReadStream } from 'fs';
-import { join } from 'path';
 import { createInterface } from 'readline';
 
 async function getBioassays(bioassaysExtracted) {

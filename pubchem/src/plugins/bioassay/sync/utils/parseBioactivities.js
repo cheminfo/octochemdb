@@ -24,13 +24,12 @@ async function* parseBioactivities(
       last = Date.now();
       debug(`${counter} lines parsed`);
     }
-    if (counter > 1e6) break;
   }
 
   const bioassays = await getBioassays(bioassaysExtracted);
   debug(`lines parsed`);
   let skipping = true;
-  for (let cid in compounds) {
+  for await (let cid of Object.keys(compounds)) {
     let result = {
       _id: cid,
       _bioassays: [],
