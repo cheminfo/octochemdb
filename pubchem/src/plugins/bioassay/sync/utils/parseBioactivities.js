@@ -1,4 +1,4 @@
-import { createReadStream, readFileSync } from 'fs';
+import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 
 import Debug from '../../../../utils/Debug.js';
@@ -29,11 +29,12 @@ async function* parseBioactivities(
       last = Date.now();
       debug(`${counter} lines parsed`);
     }
+    if (process.env.TEST === 'true' && counter > 1e6) break;
   }
 
   const bioassays = await getBioassays(bioassaysExtracted);
 
-  debug(`lines parsed`);
+  debug(`Start parsing AIDs`);
   let skipping = true;
   for await (let cid of Object.keys(compounds)) {
     let result = {
