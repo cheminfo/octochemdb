@@ -4,7 +4,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import gunzipStream from '../../relationPubs/sync/utils/gunzipStream.js';
+import gunzipStream from '../../../utils/gunzipStream.js';
 
 import parseBioactivities from './utils/parseBioactivities.js';
 
@@ -46,14 +46,6 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
 
-  let bioactivitiesExtracted = await gunzipStream(
-    bioactivitiesFile,
-    `${bioactivitiesFile.split('.gz')[0]}.tsv`,
-  );
-  let bioassaysExtracted = await gunzipStream(
-    bioassaysFile,
-    `${bioassaysFile.split('.gz')[0]}.tsv`,
-  );
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
@@ -69,8 +61,8 @@ export async function sync(connection) {
       parseSkip = firstID;
     }
     for await (let entry of parseBioactivities(
-      bioactivitiesExtracted,
-      bioassaysExtracted,
+      bioactivitiesFile,
+      bioassaysFile,
       parseSkip,
     )) {
       counter++;
@@ -108,11 +100,4 @@ export async function sync(connection) {
     _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-
-  if (existsSync(bioactivitiesExtracted)) {
-    rmSync(bioactivitiesExtracted, { recursive: true });
-  }
-  if (existsSync(bioassaysExtracted)) {
-    rmSync(bioassaysExtracted, { recursive: true });
-  }
 }

@@ -1,8 +1,10 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
-
+import { createGunzip } from 'zlib';
 async function getBioassays(bioassaysExtracted) {
-  const stream = createReadStream(bioassaysExtracted);
+  const readStream = createReadStream(bioassaysExtracted);
+  const stream = readStream.pipe(createGunzip());
+
   const lines = createInterface({ input: stream });
   const bioassays = {};
   for await (let line of lines) {

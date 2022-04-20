@@ -2,7 +2,7 @@ import { createReadStream, readFileSync } from 'fs';
 import { createInterface } from 'readline';
 
 import Debug from '../../../../utils/Debug.js';
-
+import { createGunzip } from 'zlib';
 import getBioassays from './getBioassays.js';
 
 const debug = Debug('parseBioactivities');
@@ -12,7 +12,8 @@ async function* parseBioactivities(
   bioassaysExtracted,
   parseSkip,
 ) {
-  const stream = createReadStream(bioactivitiesExtracted);
+  const readStream = createReadStream(bioactivitiesExtracted);
+  const stream = readStream.pipe(createGunzip());
   const lines = createInterface({ input: stream });
   const compounds = {};
   let last = Date.now();
