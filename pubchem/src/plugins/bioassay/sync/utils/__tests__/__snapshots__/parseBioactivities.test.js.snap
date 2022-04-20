@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseBioactivities 1`] = `
+Array [
+  Object {
+    "_id": "596",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "1821",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2019",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2154",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2179",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2202",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2538",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2569",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2862",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "2929",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+  Object {
+    "_id": "3061",
+    "data": Array [
+      Object {
+        "aid": 1,
+        "assay": "NCI human tumor cell line growth inhibition assay. Data for the NCI-H23 Non-Small Cell Lung cell line",
+      },
+    ],
+  },
+]
+`;
