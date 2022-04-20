@@ -17,8 +17,8 @@ export async function* parseCmaup(
     speciesPaired[pair[1]] = pair[0];
   }
   let errorsCounter = 0;
+  let skipping = true;
   for await (const item of general) {
-    let skipping = true;
     let resultSkip = { _id: item.Ingredient_ID };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === item.Ingredient_ID) {

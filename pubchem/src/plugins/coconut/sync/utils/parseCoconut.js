@@ -6,8 +6,8 @@ import OCL from 'openchemlib';
 
 export async function* parseCoconut(bsonPath, parseSkip) {
   const readStream = createReadStream(join(bsonPath));
+  let skipping = true;
   for await (const entry of bsonIterator(readStream)) {
-    let skipping = true;
     let resultSkip = { _id: entry.coconut_id };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === entry.lotus_id) {

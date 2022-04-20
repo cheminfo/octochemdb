@@ -8,8 +8,8 @@ export async function* parseNpass(
   speciesInfo,
   parseSkip,
 ) {
+  let skipping = true;
   for await (const item of general) {
-    let skipping = true;
     let resultSkip = { _id: item.np_id };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === item.np_id) {

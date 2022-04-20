@@ -1,8 +1,8 @@
 import OCL from 'openchemlib';
 
 export async function* npAtlasParser(json, parseSkip) {
+  let skipping = true;
   for await (const entry of json) {
-    let skipping = true;
     let resultSkip = { _id: entry.npaid };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === entry.npaid) {
