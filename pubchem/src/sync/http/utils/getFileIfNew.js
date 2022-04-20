@@ -37,7 +37,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       headers.filter((row) => row[0] === 'content-length')[0][1],
     );
     let fileList = fileListFromPath(targetFolder).filter((file) =>
-      file.name.includes(('.zip' || '.txt' || '.json') && filename),
+      file.name.includes(('.zip' || '.txt' || '.json' || '.gz') && filename),
     );
 
     let lastFilesSize;
