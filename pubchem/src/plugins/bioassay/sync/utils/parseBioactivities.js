@@ -1,8 +1,9 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
+import { createGunzip } from 'zlib';
 
 import Debug from '../../../../utils/Debug.js';
-import { createGunzip } from 'zlib';
+
 import getBioassays from './getBioassays.js';
 
 const debug = Debug('parseBioactivities');
@@ -19,12 +20,15 @@ async function* parseBioactivities(
   let last = Date.now();
   let counter = 0;
   for await (let line of lines) {
-    const [aid, sid, sidGroup, cid, activity] = line.split('\t');
+    const parts = line.split('\t');
+    const aid = Number(parts[0]);
+    const cid = parts[3];
+    const activity = parts[4];
     counter++;
     if (activity !== 'Active') continue;
     if (!cid) continue;
     if (!compounds[cid]) compounds[cid] = [];
-    compounds[cid].push(aid);
+    if (!compounds[cid].includes(aid)) compounds[cid].push(aid);
     if (Date.now() > last + 10000) {
       last = Date.now();
       debug(`${counter} lines parsed`);

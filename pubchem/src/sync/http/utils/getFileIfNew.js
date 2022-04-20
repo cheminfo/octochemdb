@@ -1,7 +1,8 @@
 import { utimesSync, existsSync, createWriteStream, rmSync } from 'fs';
 import { join } from 'path';
-import { fileListFromPath } from 'filelist-from';
+
 import fetch from 'cross-fetch';
+import { fileListFromPath } from 'filelist-from';
 import FSExtra from 'fs-extra';
 
 import Debug from '../../../utils/Debug.js';
@@ -24,7 +25,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
   let target;
   try {
     const controller = new AbortController();
-    setTimeout(() => controller.abort(), 300000);
+    setTimeout(() => controller.abort(), 1800 * 1000);
     mkdirpSync(targetFolder);
     const response = await fetch(file.url, { signal: controller.signal });
 
@@ -65,10 +66,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       debug(`targetFile: ${targetFile}`);
 
       debug(
-        'New file size do not match local one:' +
-          newFileSize +
-          '/' +
-          lastFilesSize,
+        `New file size do not match local one:${newFileSize}/${lastFilesSize}`,
       );
       const body = response.body;
       const encoding = body._readableState.defaultEncoding;
@@ -85,10 +83,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     } else {
       const targetFile = join(targetFolder, lastFileTargetLocal);
       debug(
-        'New file size match local one (no need to fetch):' +
-          newFileSize +
-          '/' +
-          lastFilesSize,
+        `New file size match local one (no need to fetch):${newFileSize}/${lastFilesSize}`,
       );
       return targetFile;
     }
