@@ -7,7 +7,7 @@ const debug = Debug('stats');
 const stats = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve global statistics from the substance collection',
+    summary: 'Retrieve global statistics from the cmaup collection',
   },
   handler: searchHandler,
 };
@@ -22,7 +22,7 @@ async function searchHandler() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('compounds');
+    const collection = await connection.getCollection('cmaup');
 
     const results = await collection.stats();
 
