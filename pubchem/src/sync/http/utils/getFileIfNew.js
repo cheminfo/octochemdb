@@ -1,14 +1,19 @@
-import { utimesSync, existsSync, createWriteStream, rmSync } from 'fs';
+import {
+  utimesSync,
+  existsSync,
+  createWriteStream,
+  rmSync,
+  renameSync,
+} from 'fs';
 import { join } from 'path';
 
 import fetch from 'cross-fetch';
 import { fileListFromPath } from 'filelist-from';
-import FSExtra from 'fs-extra';
 
 import Debug from '../../../utils/Debug.js';
 
-const { mkdirpSync } = FSExtra;
-
+import pkg from 'fs-extra';
+const { moveSync, mkdirpSync } = pkg;
 const debug = Debug('getFileIfNew');
 
 /**
@@ -37,10 +42,12 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let newFileSize = Number(
       headers.filter((row) => row[0] === 'content-length')[0][1],
     );
-    let fileList = fileListFromPath(targetFolder).filter((file) =>
-      file.name.includes(('.zip' || '.txt' || '.json' || '.gz') && filename),
+    let fileList = fileListFromPath(targetFolder).filter(
+      (file) =>
+        file.name.includes(
+          ('.zip' || '.txt' || '.json' || '.gz') && filename,
+        ) && !file.webkitRelativePath.includes('old'),
     );
-
     let lastFilesSize;
     let lastFileTargetLocal;
     if (fileList.length > 0) {
@@ -57,6 +64,12 @@ async function getFileIfNew(file, targetFolder, options = {}) {
         .toISOString()
         .substring(0, 10);
       debug(`Last modification date: ${modificationDate}`);
+      fileList.forEach((file) => {
+        renameSync(
+          file.webkitRelativePath,
+          join(targetFolder, 'old', `${modificationDate}`, file.name),
+        );
+      });
 
       const targetFile = join(
         targetFolder,
