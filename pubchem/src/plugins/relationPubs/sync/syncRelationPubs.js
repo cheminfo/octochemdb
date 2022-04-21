@@ -1,5 +1,5 @@
 import pkg from 'fs-extra';
-import gunzipStream from './utils/gunzipStream.js';
+import gunzipStream from '../../../utils/gunzipStream.js';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';

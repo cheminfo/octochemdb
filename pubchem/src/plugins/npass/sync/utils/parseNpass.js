@@ -1,5 +1,5 @@
 import OCL from 'openchemlib';
-
+import Debug from '../../../../utils/Debug.js';
 export async function* parseNpass(
   general,
   activities,
@@ -8,14 +8,14 @@ export async function* parseNpass(
   speciesInfo,
   parseSkip,
 ) {
+  const debug=Debug('parseNpass')
   let skipping = true;
   for await (const item of general) {
-    let resultSkip = { _id: item.np_id };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === item.np_id) {
         skipping = false;
+        debug(`Skipping compound till:${item.np_id}`);
       }
-      yield resultSkip;
       continue;
     }
     try {

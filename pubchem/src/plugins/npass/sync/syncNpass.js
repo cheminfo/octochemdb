@@ -48,13 +48,7 @@ export async function sync(connection) {
     )) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (skipping && progress.state !== 'updated') {
-        if (firstID === entry._id) {
-          skipping = false;
-          debug(`Skipping compound till:${firstID}`);
-        }
-        continue;
-      }
+
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();

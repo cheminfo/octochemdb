@@ -1,14 +1,15 @@
 import OCL from 'openchemlib';
+import Debug from '../../../../utils/Debug.js';
 
 export async function* npAtlasParser(json, parseSkip) {
+  const debug = Debug('npAtlasParser');
   let skipping = true;
   for await (const entry of json) {
-    let resultSkip = { _id: entry.npaid };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === entry.npaid) {
         skipping = false;
+        debug(`Skipping compound till:${entry.npaid}`);
       }
-      yield resultSkip;
       continue;
     }
     try {

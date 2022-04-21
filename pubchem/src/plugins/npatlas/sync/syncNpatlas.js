@@ -56,13 +56,7 @@ export async function sync(connection) {
     for await (const entry of npAtlasParser(JSON.parse(fileJson))) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
-      if (skipping) {
-        if (firstID === entry._id) {
-          skipping = false;
-          debug(`Skipping compound till:${firstID}`);
-        }
-        continue;
-      }
+
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();

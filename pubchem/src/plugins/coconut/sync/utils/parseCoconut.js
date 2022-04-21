@@ -3,17 +3,17 @@ import { join } from 'path';
 
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
-
+import Debug from '../../../../utils/Debug.js';
 export async function* parseCoconut(bsonPath, parseSkip) {
+  const debug = Debug('parseCoconut');
   const readStream = createReadStream(join(bsonPath));
   let skipping = true;
   for await (const entry of bsonIterator(readStream)) {
-    let resultSkip = { _id: entry.coconut_id };
     if (skipping && parseSkip !== undefined) {
-      if (parseSkip === entry.lotus_id) {
+      if (parseSkip === entry.coconut_id) {
         skipping = false;
+        debug(`Skipping compound till:${entry.coconut_id}`);
       }
-      yield resultSkip;
       continue;
     }
     try {

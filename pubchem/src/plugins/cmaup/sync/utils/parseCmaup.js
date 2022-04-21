@@ -19,12 +19,11 @@ export async function* parseCmaup(
   let errorsCounter = 0;
   let skipping = true;
   for await (const item of general) {
-    let resultSkip = { _id: item.Ingredient_ID };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === item.Ingredient_ID) {
         skipping = false;
+        debug(`Skipping compound till:${item.Ingredient_ID}`);
       }
-      yield resultSkip;
       continue;
     }
     try {

@@ -3,17 +3,18 @@ import { join } from 'path';
 
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
+import Debug from '../../../../utils/Debug.js';
 
 export async function* parseLotus(bsonPath, parseSkip) {
+  const debug = Debug('parseLotus');
   const readStream = createReadStream(join(bsonPath));
   let skipping = true;
   for await (const entry of bsonIterator(readStream)) {
-    let resultSkip = { _id: entry.lotus_id };
     if (skipping && parseSkip !== undefined) {
       if (parseSkip === entry.lotus_id) {
         skipping = false;
+        debug(`Skipping compound till:${entry.lotus_id}`);
       }
-      yield resultSkip;
       continue;
     }
 

@@ -45,14 +45,7 @@ export async function sync(connection) {
       counter++;
       // If test mode break process after counter >20
       if (process.env.TEST === 'true' && counter > 20) break;
-      // Skipp importation till last id imported if collection was not fully updated
-      if (skipping && progress.state !== 'updated') {
-        if (firstID === entry._id) {
-          skipping = false;
-          debug(`Skipping compound till:${firstID}`);
-        }
-        continue;
-      }
+
       // Log dubug each 10s or defined time
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
