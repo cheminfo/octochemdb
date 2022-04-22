@@ -1,13 +1,10 @@
-import { createReadStream } from 'fs';
-import { join } from 'path';
-
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
-
-export async function* parseLotus(bsonPath, parseSkip) {
+import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
+export async function* parseLotus(bsonPath, filename, parseSkip) {
   const debug = Debug('parseLotus');
-  const readStream = createReadStream(join(bsonPath));
+  const readStream = await readStreamInZipFolder(bsonPath, filename);
   let skipping = true;
   for await (const entry of bsonIterator(readStream)) {
     if (skipping && parseSkip !== undefined) {
@@ -141,7 +138,6 @@ export async function* parseLotus(bsonPath, parseSkip) {
         result.data.taxonomies.openTreeOfLife = openTreeOfLife;
       }
       if (iTIS.length !== 0) result.data.taxonomies.iTIS = iTIS;
-
       yield result;
     } catch (e) {
       continue;

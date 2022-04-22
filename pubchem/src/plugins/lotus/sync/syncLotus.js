@@ -1,13 +1,9 @@
-import pkg from 'fs-extra';
-
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { unzipOneFile } from '../../../utils/unzipOneFile.js';
 
 import { parseLotus } from './utils/parseLotus.js';
 import md5 from 'md5';
-const { rmSync, existsSync } = pkg;
 const debug = Debug('syncLotus');
 
 export async function sync(connection) {
@@ -39,11 +35,7 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
 
-  const targetFile = await unzipOneFile(
-    '/lotus/full',
-    lastFile,
-    'lotusUniqueNaturalProduct.bson',
-  );
+  let fileName = 'lotusUniqueNaturalProduct.bson';
   // we reparse all the file and skip if required
 
   let skipping = firstID !== undefined;
@@ -55,12 +47,12 @@ export async function sync(connection) {
     md5(JSON.stringify(sources)) !== progress.sources ||
     progress.state !== 'updated'
   ) {
-    debug(`Start parsing: ${targetFile}`);
+    debug(`Start parsing: ${fileName}`);
     let parseSkip;
     if (skipping && progress.state !== 'updated') {
       parseSkip = firstID;
     }
-    for await (const entry of parseLotus(targetFile, parseSkip)) {
+    for await (const entry of parseLotus(lastFile, fileName, parseSkip)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 
@@ -96,8 +88,4 @@ export async function sync(connection) {
     _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-
-  if (existsSync(targetFile)) {
-    rmSync(targetFile, { recursive: true });
-  }
 }

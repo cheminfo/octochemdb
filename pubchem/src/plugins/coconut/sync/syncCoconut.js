@@ -1,13 +1,8 @@
-import pkg from 'fs-extra';
-
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { unzipOneFile } from '../../../utils/unzipOneFile.js';
-
 import { parseCoconut } from './utils/parseCoconut.js';
 import md5 from 'md5';
-const { rmSync, existsSync } = pkg;
 
 const debug = Debug('syncCoconut');
 
@@ -40,19 +35,13 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
 
-  const targetFile = await unzipOneFile(
-    '/coconut/full',
-    lastFile,
-    'uniqueNaturalProduct.bson',
-  );
-
   // we reparse all the file and skip if required
 
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-
+  let fileName = 'uniqueNaturalProduct.bson';
   if (
     lastDocumentImported === null ||
     md5(JSON.stringify(sources)) !== progress.sources ||
@@ -62,9 +51,9 @@ export async function sync(connection) {
     if (skipping && progress.state !== 'updated') {
       parseSkip = firstID;
     }
-    debug(`Start parsing: ${targetFile}`);
+    debug(`Start parsing: ${fileName}`);
 
-    for await (const entry of parseCoconut(targetFile, parseSkip)) {
+    for await (const entry of parseCoconut(lastFile, fileName, parseSkip)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 
@@ -100,9 +89,4 @@ export async function sync(connection) {
     _seq: { $lte: logs.startSequenceID },
   });
   debug(`Deleting entries with wrong source: ${result.deletedCount}`);
-
-  // we remove all the entries that are not imported by the last file
-  if (existsSync(targetFile)) {
-    rmSync(targetFile, { recursive: true });
-  }
 }

@@ -1,12 +1,11 @@
-import { createReadStream } from 'fs';
-import { join } from 'path';
-
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
-export async function* parseCoconut(bsonPath, parseSkip) {
+import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
+export async function* parseCoconut(bsonPath, filename, parseSkip) {
   const debug = Debug('parseCoconut');
-  const readStream = createReadStream(join(bsonPath));
+
+  const readStream = await readStreamInZipFolder(bsonPath, filename);
   let skipping = true;
   for await (const entry of bsonIterator(readStream)) {
     if (skipping && parseSkip !== undefined) {
@@ -55,7 +54,7 @@ export async function* parseCoconut(bsonPath, parseSkip) {
         result.data.taxonomies = finalTaxonomies;
       }
       if (comments.length !== 0) result.data.comments = comments;
-      yield result;
+\      yield result;
     } catch (e) {
       continue;
     }
