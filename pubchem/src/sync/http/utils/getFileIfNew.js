@@ -45,7 +45,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let fileList = fileListFromPath(targetFolder).filter(
       (file) =>
         file.name.includes(
-          ('.zip' || '.txt' || '.json' || '.gz') && filename,
+          ('.zip' || '.txt' || '.json' || '.gz' || '.tsv.gz') && filename,
         ) && !file.webkitRelativePath.includes('old'),
     );
     let lastFilesSize;
@@ -64,6 +64,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
         .toISOString()
         .substring(0, 10);
       debug(`Last modification date: ${modificationDate}`);
+      if (!existsSync(join(targetFolder, 'old', modificationDate))) {
+        mkdirpSync(join(targetFolder, 'old', modificationDate));
+      }
       fileList.forEach((file) => {
         renameSync(
           file.webkitRelativePath,
