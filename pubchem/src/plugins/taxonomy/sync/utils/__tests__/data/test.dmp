@@ -1,17 +1,416 @@
-1	|	root	|		|
-131567	|	cellular organisms	|		|
-2157	|	Archaea	|	cellular organisms; 	|
-1935183	|	Asgard group	|	cellular organisms; Archaea; 	|
-2798909	|	Candidatus Baldrarchaeota	|	cellular organisms; Archaea; Asgard group; 	|
-2798916	|	Candidatus Baldrarchaeia	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; 	|
-2798922	|	Candidatus Baldrarchaeales	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; 	|
-2798928	|	Candidatus Baldrarchaeaceae	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; Candidatus Baldrarchaeales; 	|
-2798934	|	Candidatus Baldrarchaeum	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; Candidatus Baldrarchaeales; Candidatus Baldrarchaeaceae; 	|
-2798940	|	Candidatus Baldrarchaeum yapensis	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; Candidatus Baldrarchaeia; Candidatus Baldrarchaeales; Candidatus Baldrarchaeaceae; Candidatus Baldrarchaeum; 	|
-2799004	|	unclassified Candidatus Baldrarchaeota	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; 	|
-2799005	|	Candidatus Baldrarchaeota archaeon	|	cellular organisms; Archaea; Asgard group; Candidatus Baldrarchaeota; unclassified Candidatus Baldrarchaeota; 	|
-2798908	|	Candidatus Borrarchaeota	|	cellular organisms; Archaea; Asgard group; 	|
-2798915	|	Candidatus Borrarchaeia	|	cellular organisms; Archaea; Asgard group; Candidatus Borrarchaeota; 	|
-2798921	|	Candidatus Borrarchaeales	|	cellular organisms; Archaea; Asgard group; Candidatus Borrarchaeota; Candidatus Borrarchaeia; 	|
-2798927	|	Candidatus Borrarchaeaceae	|	cellular organisms; Archaea; Asgard group; Candidatus Borrarchaeota; Candidatus Borrarchaeia; Candidatus Borrarchaeales; 	|
-
+1	|	root	|		|		|		|		|		|		|		|		|
+131567	|	cellular organisms	|		|		|		|		|		|		|		|		|
+2157	|	Archaea	|		|		|		|		|		|		|		|		|
+1935183	|	Asgard group	|		|		|		|		|		|		|		|	Archaea	|
+2798909	|	Candidatus Baldrarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2798916	|	Candidatus Baldrarchaeia	|		|		|		|		|		|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2798922	|	Candidatus Baldrarchaeales	|		|		|		|		|	Candidatus Baldrarchaeia	|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2798928	|	Candidatus Baldrarchaeaceae	|		|		|		|	Candidatus Baldrarchaeales	|	Candidatus Baldrarchaeia	|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2798934	|	Candidatus Baldrarchaeum	|		|		|	Candidatus Baldrarchaeaceae	|	Candidatus Baldrarchaeales	|	Candidatus Baldrarchaeia	|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2798940	|	Candidatus Baldrarchaeum yapensis	|		|	Candidatus Baldrarchaeum	|	Candidatus Baldrarchaeaceae	|	Candidatus Baldrarchaeales	|	Candidatus Baldrarchaeia	|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2799004	|	unclassified Candidatus Baldrarchaeota	|		|		|		|		|		|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2799005	|	Candidatus Baldrarchaeota archaeon	|		|		|		|		|		|	Candidatus Baldrarchaeota	|		|	Archaea	|
+2798908	|	Candidatus Borrarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2798915	|	Candidatus Borrarchaeia	|		|		|		|		|		|	Candidatus Borrarchaeota	|		|	Archaea	|
+2798921	|	Candidatus Borrarchaeales	|		|		|		|		|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2798927	|	Candidatus Borrarchaeaceae	|		|		|		|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2798933	|	Candidatus Borrarchaeum	|		|		|	Candidatus Borrarchaeaceae	|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2848170	|	Candidatus Borrarchaeum weybense	|		|	Candidatus Borrarchaeum	|	Candidatus Borrarchaeaceae	|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2798939	|	Candidatus Borrarchaeum yapensis	|		|	Candidatus Borrarchaeum	|	Candidatus Borrarchaeaceae	|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2841639	|	unclassified Candidatus Borrarchaeum	|		|	Candidatus Borrarchaeum	|	Candidatus Borrarchaeaceae	|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2841640	|	Candidatus Borrachaaeum sp. lw60_2018_gm2_56	|		|	Candidatus Borrarchaeum	|	Candidatus Borrarchaeaceae	|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2846742	|	Candidatus Borrarchaeum sp.	|		|	Candidatus Borrarchaeum	|	Candidatus Borrarchaeaceae	|	Candidatus Borrarchaeales	|	Candidatus Borrarchaeia	|	Candidatus Borrarchaeota	|		|	Archaea	|
+2799002	|	unclassified Candidatus Borrarchaeota	|		|		|		|		|		|	Candidatus Borrarchaeota	|		|	Archaea	|
+2799003	|	Candidatus Borrarchaeota archaeon	|		|		|		|		|		|	Candidatus Borrarchaeota	|		|	Archaea	|
+2827219	|	Candidatus Freyarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2830915	|	unclassified Candidatus Freyarchaeota	|		|		|		|		|		|	Candidatus Freyarchaeota	|		|	Archaea	|
+2830916	|	Candidatus Freyarchaeota archaeon	|		|		|		|		|		|	Candidatus Freyarchaeota	|		|	Archaea	|
+2795490	|	Candidatus Gerdarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2799006	|	unclassified Candidatus Gerdarchaeota	|		|		|		|		|		|	Candidatus Gerdarchaeota	|		|	Archaea	|
+2795491	|	Candidatus Gerdarchaeota archaeon	|		|		|		|		|		|	Candidatus Gerdarchaeota	|		|	Archaea	|
+1936272	|	Candidatus Heimdallarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2026747	|	Candidatus Heimdallarchaeota archaeon	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+1841596	|	Candidatus Heimdallarchaeota archaeon AB_125	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+2012493	|	Candidatus Heimdallarchaeota archaeon B3_Heim	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+2608077	|	Candidatus Heimdallarchaeota archaeon CR_11	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+1841597	|	Candidatus Heimdallarchaeota archaeon LC_2	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+1841598	|	Candidatus Heimdallarchaeota archaeon LC_3	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+2876573	|	Candidatus Heimdallarchaeota archaeon PM71	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+2876572	|	Candidatus Heimdallarchaeota archaeon PR6	|		|		|		|		|		|	Candidatus Heimdallarchaeota	|		|	Archaea	|
+2572044	|	Candidatus Helarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2719382	|	Candidatus Helarchaeota archaeon	|		|		|		|		|		|	Candidatus Helarchaeota	|		|	Archaea	|
+2218536	|	Candidatus Helarchaeota ASGARD archaeon Hel_GB_A	|		|		|		|		|		|	Candidatus Helarchaeota	|		|	Archaea	|
+2218537	|	Candidatus Helarchaeota ASGARD archaeon Hel_GB_B	|		|		|		|		|		|	Candidatus Helarchaeota	|		|	Archaea	|
+2798910	|	Candidatus Hermodarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2798917	|	Candidatus Hermodarchaeia	|		|		|		|		|		|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2798923	|	Candidatus Hermodarchaeales	|		|		|		|		|	Candidatus Hermodarchaeia	|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2798929	|	Candidatus Hermodarchaeaceae	|		|		|		|	Candidatus Hermodarchaeales	|	Candidatus Hermodarchaeia	|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2798935	|	Candidatus Hermodarchaeum	|		|		|	Candidatus Hermodarchaeaceae	|	Candidatus Hermodarchaeales	|	Candidatus Hermodarchaeia	|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2798941	|	Candidatus Hermodarchaeum yapensis	|		|	Candidatus Hermodarchaeum	|	Candidatus Hermodarchaeaceae	|	Candidatus Hermodarchaeales	|	Candidatus Hermodarchaeia	|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2799007	|	unclassified Candidatus Hermodarchaeota	|		|		|		|		|		|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2799008	|	Candidatus Hermodarchaeota archaeon	|		|		|		|		|		|	Candidatus Hermodarchaeota	|		|	Archaea	|
+2798906	|	Candidatus Hodarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2798913	|	Candidatus Hodarchaeia	|		|		|		|		|		|	Candidatus Hodarchaeota	|		|	Archaea	|
+2798919	|	Candidatus Hodarchaeales	|		|		|		|		|	Candidatus Hodarchaeia	|	Candidatus Hodarchaeota	|		|	Archaea	|
+2798925	|	Candidatus Hodarchaeaceae	|		|		|		|	Candidatus Hodarchaeales	|	Candidatus Hodarchaeia	|	Candidatus Hodarchaeota	|		|	Archaea	|
+2798931	|	Candidatus Hodarchaeum	|		|		|	Candidatus Hodarchaeaceae	|	Candidatus Hodarchaeales	|	Candidatus Hodarchaeia	|	Candidatus Hodarchaeota	|		|	Archaea	|
+2798938	|	Candidatus Hodarchaeum mangrovi	|		|	Candidatus Hodarchaeum	|	Candidatus Hodarchaeaceae	|	Candidatus Hodarchaeales	|	Candidatus Hodarchaeia	|	Candidatus Hodarchaeota	|		|	Archaea	|
+2800101	|	unclassified Candidatus Hodarchaeota	|		|		|		|		|		|	Candidatus Hodarchaeota	|		|	Archaea	|
+2800102	|	Candidatus Hodarchaeota archaeon	|		|		|		|		|		|	Candidatus Hodarchaeota	|		|	Archaea	|
+2827222	|	Candidatus Idunnarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2827258	|	unclassified Candidatus Idunnarchaeota	|		|		|		|		|		|	Candidatus Idunnarchaeota	|		|	Archaea	|
+2827259	|	Candidatus Idunnarchaeota archaeon	|		|		|		|		|		|	Candidatus Idunnarchaeota	|		|	Archaea	|
+2798907	|	Candidatus Kariarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2799009	|	unclassified Candidatus Kariarchaeota	|		|		|		|		|		|	Candidatus Kariarchaeota	|		|	Archaea	|
+2799010	|	Candidatus Kariarchaeota archaeon	|		|		|		|		|		|	Candidatus Kariarchaeota	|		|	Archaea	|
+1655434	|	Candidatus Lokiarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2732160	|	Candidatus Prometheoarchaeum	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2594042	|	Candidatus Prometheoarchaeum syntrophicum	|		|	Candidatus Prometheoarchaeum	|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+1655637	|	Lokiarchaeum	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2646925	|	unclassified Lokiarchaeum	|		|	Lokiarchaeum	|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+1538547	|	Lokiarchaeum sp. GC14_75	|		|	Lokiarchaeum	|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+1655640	|	unclassified Lokiarchaeota	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2053489	|	Candidatus Lokiarchaeota archaeon	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2608073	|	Candidatus Lokiarchaeota archaeon CR_06	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2608074	|	Candidatus Lokiarchaeota archaeon CR_07	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2608075	|	Candidatus Lokiarchaeota archaeon CR_08	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2608076	|	Candidatus Lokiarchaeota archaeon CR_10	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+1849166	|	Candidatus Lokiarchaeota archaeon CR_4	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2012490	|	Candidatus Lokiarchaeota archaeon Loki_b31	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+2012491	|	Candidatus Lokiarchaeota archaeon Loki_b32	|		|		|		|		|		|	Candidatus Lokiarchaeota	|		|	Archaea	|
+1936271	|	Candidatus Odinarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2053490	|	Candidatus Odinarchaeota archaeon	|		|		|		|		|		|	Candidatus Odinarchaeota	|		|	Archaea	|
+1841599	|	Candidatus Odinarchaeota archaeon LCB_4	|		|		|		|		|		|	Candidatus Odinarchaeota	|		|	Archaea	|
+2792781	|	Candidatus Sifarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2792796	|	Candidatus Sifarchaeotum	|		|		|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+2792797	|	Candidatus Sifarchaeotum marinoarchaea	|		|	Candidatus Sifarchaeotum	|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+2792798	|	Candidatus Sifarchaeotum subterraneus	|		|	Candidatus Sifarchaeotum	|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+2792800	|	unclassified Candidatus Sifarchaeotum	|		|	Candidatus Sifarchaeotum	|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+2792799	|	Candidatus Sifarchaeotum sp.	|		|	Candidatus Sifarchaeotum	|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+2830477	|	unclassified Candidatus Sifarchaeota	|		|		|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+2830478	|	Candidatus Sifarchaeota archaeon	|		|		|		|		|		|	Candidatus Sifarchaeota	|		|	Archaea	|
+1706441	|	Candidatus Thorarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2053491	|	Candidatus Thorarchaeota archaeon	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1837170	|	Candidatus Thorarchaeota archaeon AB_25	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+2608078	|	Candidatus Thorarchaeota archaeon CR_12	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1969372	|	Candidatus Thorarchaeota archaeon MP11T_1	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1969370	|	Candidatus Thorarchaeota archaeon MP8T_1	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1969371	|	Candidatus Thorarchaeota archaeon MP9T_1	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1706443	|	Candidatus Thorarchaeota archaeon SMTZ-45	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1706444	|	Candidatus Thorarchaeota archaeon SMTZ1-45	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+1706445	|	Candidatus Thorarchaeota archaeon SMTZ1-83	|		|		|		|		|		|	Candidatus Thorarchaeota	|		|	Archaea	|
+2798905	|	Candidatus Wukongarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2798912	|	Candidatus Wukongarchaeia	|		|		|		|		|		|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2798918	|	Candidatus Wukongarchaeales	|		|		|		|		|	Candidatus Wukongarchaeia	|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2798924	|	Candidatus Wukongarchaeaceae	|		|		|		|	Candidatus Wukongarchaeales	|	Candidatus Wukongarchaeia	|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2798930	|	Candidatus Wukongarchaeum	|		|		|	Candidatus Wukongarchaeaceae	|	Candidatus Wukongarchaeales	|	Candidatus Wukongarchaeia	|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2798936	|	Candidatus Wukongarchaeum yapensis	|		|	Candidatus Wukongarchaeum	|	Candidatus Wukongarchaeaceae	|	Candidatus Wukongarchaeales	|	Candidatus Wukongarchaeia	|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2799011	|	unclassified Candidatus Wukongarchaeota	|		|		|		|		|		|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2799012	|	Candidatus Wukongarchaeota archaeon	|		|		|		|		|		|	Candidatus Wukongarchaeota	|		|	Archaea	|
+2823876	|	Asgard group incertae sedis	|		|		|		|		|		|		|		|	Archaea	|
+2823877	|	Candidatus Jordarchaeia	|		|		|		|		|		|		|		|	Archaea	|
+2823878	|	Candidatus Jordarchaeales	|		|		|		|		|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823879	|	Candidatus Jordarchaeaceae	|		|		|		|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823880	|	Candidatus Jordarchaeum	|		|		|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2846770	|	Candidatus Jordarchaeum madagascariense	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823882	|	unclassified Candidatus Jordarchaeum	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823881	|	Candidatus Jordarchaeum sp.	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823885	|	Candidatus Jordarchaeum sp. EBB7	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823886	|	Candidatus Jordarchaeum sp. ERP4	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823883	|	Candidatus Jordarchaeum sp. JNZ_1113	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2823884	|	Candidatus Jordarchaeum sp. LHC_1308	|		|	Candidatus Jordarchaeum	|	Candidatus Jordarchaeaceae	|	Candidatus Jordarchaeales	|	Candidatus Jordarchaeia	|		|		|	Archaea	|
+2055155	|	unclassified Asgard group	|		|		|		|		|		|		|		|	Archaea	|
+2591838	|	Asgard group archaeon	|		|		|		|		|		|		|		|	Archaea	|
+1935019	|	Candidatus Hydrothermarchaeota	|		|		|		|		|		|		|		|	Archaea	|
+2767080	|	Candidatus Hydrothermarchaeum	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+1935129	|	Candidatus Hydrothermarchaeum profundi	|		|	Candidatus Hydrothermarchaeum	|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+2767252	|	unclassified Candidatus Hydrothermarchaeota	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+2250275	|	Candidatus Hydrothermarchaeota archaeon	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+1935127	|	Candidatus Hydrothermarchaeota archaeon JdFR-16	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+1935128	|	Candidatus Hydrothermarchaeota archaeon JdFR-17	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+1935020	|	environmental samples	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+749854	|	uncultured marine benthic group E euryarchaeote	|		|		|		|		|		|	Candidatus Hydrothermarchaeota	|		|	Archaea	|
+2283796	|	Candidatus Thermoplasmatota	|		|		|		|		|		|		|		|	Archaea	|
+2599185	|	Candidatus Poseidoniia	|		|		|		|		|		|	Candidatus Thermoplasmatota	|		|	Archaea	|
+133814	|	Candidatus Poseidoniales	|		|		|		|		|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2599197	|	Candidatus Poseidoniaceae	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2599198	|	Candidatus Poseidonia	|		|		|	Candidatus Poseidoniaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915863	|	Candidatus Poseidonia alphae	|		|	Candidatus Poseidonia	|	Candidatus Poseidoniaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2666343	|	unclassified Candidatus Poseidonia	|		|	Candidatus Poseidonia	|	Candidatus Poseidoniaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2666344	|	Candidatus Poseidonia sp.	|		|	Candidatus Poseidonia	|	Candidatus Poseidoniaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2666345	|	unclassified Candidatus Poseidoniaceae	|		|		|	Candidatus Poseidoniaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2666346	|	Candidatus Poseidoniaceae archaeon	|		|		|	Candidatus Poseidoniaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2599196	|	Candidatus Thalassarchaeaceae	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1680826	|	Candidatus Thalassarchaeum	|		|		|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2599289	|	Candidatus Thalassarchaeum betae	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1680828	|	Candidatus Thalassoarchaea marina	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1680827	|	Candidatus Thalassoarchaea mediterranii	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2670409	|	unclassified Candidatus Thalassarchaeum	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2670412	|	Candidatus Thalassarchaeum sp.	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1696901	|	environmental samples	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1697135	|	uncultured Candidatus Thalassoarchaea euryarchaeote	|		|	Candidatus Thalassarchaeum	|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2670397	|	unclassified Candidatus Thalassarchaeaceae	|		|		|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2670411	|	Candidatus Thalassarchaeaceae archaeon	|		|		|	Candidatus Thalassarchaeaceae	|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2599254	|	unclassified Candidatus Poseidoniales	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2163009	|	Candidatus Poseidoniales archaeon	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915780	|	Euryarchaeota archaeon UBA10	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915781	|	Euryarchaeota archaeon UBA100	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915782	|	Euryarchaeota archaeon UBA101	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915783	|	Euryarchaeota archaeon UBA103	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915784	|	Euryarchaeota archaeon UBA104	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915785	|	Euryarchaeota archaeon UBA105	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915786	|	Euryarchaeota archaeon UBA106	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915787	|	Euryarchaeota archaeon UBA107	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915788	|	Euryarchaeota archaeon UBA108	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915789	|	Euryarchaeota archaeon UBA109	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915790	|	Euryarchaeota archaeon UBA11	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915791	|	Euryarchaeota archaeon UBA110	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915792	|	Euryarchaeota archaeon UBA111	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915793	|	Euryarchaeota archaeon UBA112	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915794	|	Euryarchaeota archaeon UBA12	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915795	|	Euryarchaeota archaeon UBA120	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915796	|	Euryarchaeota archaeon UBA121	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915797	|	Euryarchaeota archaeon UBA122	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915798	|	Euryarchaeota archaeon UBA123	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915799	|	Euryarchaeota archaeon UBA124	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915800	|	Euryarchaeota archaeon UBA125	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915801	|	Euryarchaeota archaeon UBA126	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915802	|	Euryarchaeota archaeon UBA127	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915803	|	Euryarchaeota archaeon UBA128	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915804	|	Euryarchaeota archaeon UBA129	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915805	|	Euryarchaeota archaeon UBA13	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915806	|	Euryarchaeota archaeon UBA130	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915807	|	Euryarchaeota archaeon UBA131	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915808	|	Euryarchaeota archaeon UBA132	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915809	|	Euryarchaeota archaeon UBA133	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915810	|	Euryarchaeota archaeon UBA134	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915811	|	Euryarchaeota archaeon UBA137	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915812	|	Euryarchaeota archaeon UBA14	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915813	|	Euryarchaeota archaeon UBA15	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915814	|	Euryarchaeota archaeon UBA16	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915815	|	Euryarchaeota archaeon UBA17	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915816	|	Euryarchaeota archaeon UBA170	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915817	|	Euryarchaeota archaeon UBA171	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915818	|	Euryarchaeota archaeon UBA172	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915819	|	Euryarchaeota archaeon UBA173	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915820	|	Euryarchaeota archaeon UBA174	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915821	|	Euryarchaeota archaeon UBA175	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915822	|	Euryarchaeota archaeon UBA177	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915823	|	Euryarchaeota archaeon UBA178	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915824	|	Euryarchaeota archaeon UBA179	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915825	|	Euryarchaeota archaeon UBA18	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915826	|	Euryarchaeota archaeon UBA180	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915827	|	Euryarchaeota archaeon UBA181	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915828	|	Euryarchaeota archaeon UBA182	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915829	|	Euryarchaeota archaeon UBA19	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915830	|	Euryarchaeota archaeon UBA191	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915831	|	Euryarchaeota archaeon UBA192	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915832	|	Euryarchaeota archaeon UBA193	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915833	|	Euryarchaeota archaeon UBA194	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915834	|	Euryarchaeota archaeon UBA195	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915835	|	Euryarchaeota archaeon UBA196	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915836	|	Euryarchaeota archaeon UBA197	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915837	|	Euryarchaeota archaeon UBA199	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915838	|	Euryarchaeota archaeon UBA20	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915839	|	Euryarchaeota archaeon UBA200	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915840	|	Euryarchaeota archaeon UBA209	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915841	|	Euryarchaeota archaeon UBA21	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915842	|	Euryarchaeota archaeon UBA214	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915843	|	Euryarchaeota archaeon UBA215	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915844	|	Euryarchaeota archaeon UBA22	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915845	|	Euryarchaeota archaeon UBA220	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915846	|	Euryarchaeota archaeon UBA221	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915847	|	Euryarchaeota archaeon UBA222	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915848	|	Euryarchaeota archaeon UBA224	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915849	|	Euryarchaeota archaeon UBA225	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915850	|	Euryarchaeota archaeon UBA226	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915851	|	Euryarchaeota archaeon UBA227	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915852	|	Euryarchaeota archaeon UBA228	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915853	|	Euryarchaeota archaeon UBA229	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915854	|	Euryarchaeota archaeon UBA23	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915855	|	Euryarchaeota archaeon UBA242	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915856	|	Euryarchaeota archaeon UBA249	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915857	|	Euryarchaeota archaeon UBA25	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915859	|	Euryarchaeota archaeon UBA250	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915860	|	Euryarchaeota archaeon UBA251	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915861	|	Euryarchaeota archaeon UBA252	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915862	|	Euryarchaeota archaeon UBA253	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915864	|	Euryarchaeota archaeon UBA256	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915865	|	Euryarchaeota archaeon UBA257	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915866	|	Euryarchaeota archaeon UBA258	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915867	|	Euryarchaeota archaeon UBA259	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915868	|	Euryarchaeota archaeon UBA26	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915869	|	Euryarchaeota archaeon UBA260	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915870	|	Euryarchaeota archaeon UBA27	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915871	|	Euryarchaeota archaeon UBA28	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915872	|	Euryarchaeota archaeon UBA29	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915873	|	Euryarchaeota archaeon UBA3	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915874	|	Euryarchaeota archaeon UBA30	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915875	|	Euryarchaeota archaeon UBA31	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915876	|	Euryarchaeota archaeon UBA34	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915877	|	Euryarchaeota archaeon UBA35	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915878	|	Euryarchaeota archaeon UBA36	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915879	|	Euryarchaeota archaeon UBA37	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915880	|	Euryarchaeota archaeon UBA38	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915881	|	Euryarchaeota archaeon UBA39	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915882	|	Euryarchaeota archaeon UBA4	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915883	|	Euryarchaeota archaeon UBA40	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915884	|	Euryarchaeota archaeon UBA41	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915885	|	Euryarchaeota archaeon UBA433	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915886	|	Euryarchaeota archaeon UBA438	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915887	|	Euryarchaeota archaeon UBA439	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915888	|	Euryarchaeota archaeon UBA441	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915889	|	Euryarchaeota archaeon UBA442	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915890	|	Euryarchaeota archaeon UBA443	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915891	|	Euryarchaeota archaeon UBA461	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915892	|	Euryarchaeota archaeon UBA462	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915893	|	Euryarchaeota archaeon UBA463	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915894	|	Euryarchaeota archaeon UBA464	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915895	|	Euryarchaeota archaeon UBA465	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915896	|	Euryarchaeota archaeon UBA484	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915897	|	Euryarchaeota archaeon UBA485	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915898	|	Euryarchaeota archaeon UBA486	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915899	|	Euryarchaeota archaeon UBA487	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915900	|	Euryarchaeota archaeon UBA49	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915901	|	Euryarchaeota archaeon UBA494	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915902	|	Euryarchaeota archaeon UBA495	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915903	|	Euryarchaeota archaeon UBA496	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915904	|	Euryarchaeota archaeon UBA497	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915905	|	Euryarchaeota archaeon UBA498	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915906	|	Euryarchaeota archaeon UBA499	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915907	|	Euryarchaeota archaeon UBA50	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915908	|	Euryarchaeota archaeon UBA500	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915909	|	Euryarchaeota archaeon UBA501	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915910	|	Euryarchaeota archaeon UBA502	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915911	|	Euryarchaeota archaeon UBA503	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915912	|	Euryarchaeota archaeon UBA51	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915913	|	Euryarchaeota archaeon UBA52	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915914	|	Euryarchaeota archaeon UBA528	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915915	|	Euryarchaeota archaeon UBA529	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915916	|	Euryarchaeota archaeon UBA53	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915917	|	Euryarchaeota archaeon UBA530	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915918	|	Euryarchaeota archaeon UBA531	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915919	|	Euryarchaeota archaeon UBA538	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915920	|	Euryarchaeota archaeon UBA54	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915921	|	Euryarchaeota archaeon UBA540	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915922	|	Euryarchaeota archaeon UBA542	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915923	|	Euryarchaeota archaeon UBA545	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915924	|	Euryarchaeota archaeon UBA546	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915925	|	Euryarchaeota archaeon UBA547	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915926	|	Euryarchaeota archaeon UBA548	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915927	|	Euryarchaeota archaeon UBA549	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915928	|	Euryarchaeota archaeon UBA550	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915929	|	Euryarchaeota archaeon UBA551	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915930	|	Euryarchaeota archaeon UBA552	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915931	|	Euryarchaeota archaeon UBA553	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915932	|	Euryarchaeota archaeon UBA554	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915933	|	Euryarchaeota archaeon UBA555	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915934	|	Euryarchaeota archaeon UBA556	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915935	|	Euryarchaeota archaeon UBA557	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915936	|	Euryarchaeota archaeon UBA558	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915937	|	Euryarchaeota archaeon UBA559	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915938	|	Euryarchaeota archaeon UBA56	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915939	|	Euryarchaeota archaeon UBA560	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915940	|	Euryarchaeota archaeon UBA561	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915941	|	Euryarchaeota archaeon UBA562	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915942	|	Euryarchaeota archaeon UBA563	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915943	|	Euryarchaeota archaeon UBA58	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915944	|	Euryarchaeota archaeon UBA584	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915945	|	Euryarchaeota archaeon UBA59	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915946	|	Euryarchaeota archaeon UBA595	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915947	|	Euryarchaeota archaeon UBA596	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915948	|	Euryarchaeota archaeon UBA597	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915949	|	Euryarchaeota archaeon UBA598	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915950	|	Euryarchaeota archaeon UBA599	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915951	|	Euryarchaeota archaeon UBA60	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915952	|	Euryarchaeota archaeon UBA600	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915953	|	Euryarchaeota archaeon UBA601	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915954	|	Euryarchaeota archaeon UBA602	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915955	|	Euryarchaeota archaeon UBA603	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915956	|	Euryarchaeota archaeon UBA604	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915957	|	Euryarchaeota archaeon UBA605	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915958	|	Euryarchaeota archaeon UBA606	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915959	|	Euryarchaeota archaeon UBA607	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915960	|	Euryarchaeota archaeon UBA608	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915961	|	Euryarchaeota archaeon UBA609	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915962	|	Euryarchaeota archaeon UBA610	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915963	|	Euryarchaeota archaeon UBA618	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915964	|	Euryarchaeota archaeon UBA619	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915965	|	Euryarchaeota archaeon UBA62	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915966	|	Euryarchaeota archaeon UBA620	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915967	|	Euryarchaeota archaeon UBA621	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915968	|	Euryarchaeota archaeon UBA622	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915969	|	Euryarchaeota archaeon UBA623	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915970	|	Euryarchaeota archaeon UBA63	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915971	|	Euryarchaeota archaeon UBA66	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915972	|	Euryarchaeota archaeon UBA68	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915973	|	Euryarchaeota archaeon UBA69	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915974	|	Euryarchaeota archaeon UBA82	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915975	|	Euryarchaeota archaeon UBA83	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915976	|	Euryarchaeota archaeon UBA84	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915977	|	Euryarchaeota archaeon UBA85	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915978	|	Euryarchaeota archaeon UBA86	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915979	|	Euryarchaeota archaeon UBA87	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915980	|	Euryarchaeota archaeon UBA88	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915981	|	Euryarchaeota archaeon UBA89	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915982	|	Euryarchaeota archaeon UBA9	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915983	|	Euryarchaeota archaeon UBA90	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915984	|	Euryarchaeota archaeon UBA91	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915985	|	Euryarchaeota archaeon UBA98	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1915986	|	Euryarchaeota archaeon UBA99	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2007294	|	Marine Group II euryarchaeote MED-G33	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2007295	|	Marine Group II euryarchaeote MED-G34	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2007296	|	Marine Group II euryarchaeote MED-G35	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2007297	|	Marine Group II euryarchaeote MED-G36	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2007298	|	Marine Group II euryarchaeote MED-G37	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+2007299	|	Marine Group II euryarchaeote MED-G38	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811649	|	Marine group II euryarchaeote REDSEA-S03_B6	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811650	|	Marine group II euryarchaeote REDSEA-S10_B2	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811651	|	Marine group II euryarchaeote REDSEA-S11_B3N4	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811652	|	Marine group II euryarchaeote REDSEA-S19_B7N8	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811653	|	Marine group II euryarchaeote REDSEA-S25_B4N5	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811654	|	Marine group II euryarchaeote REDSEA-S29_B8N9	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811655	|	Marine group II euryarchaeote REDSEA-S30_B12	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811656	|	Marine group II euryarchaeote REDSEA-S37_B2N9	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811657	|	Marine group II euryarchaeote REDSEA-S40_B11N13	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811658	|	Marine group II euryarchaeote REDSEA-S41_B6	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811659	|	Marine group II euryarchaeote REDSEA-S42_B7	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1811660	|	Marine group II euryarchaeote REDSEA-S43_B8	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1032475	|	Marine group II euryarchaeote SCGC AAA288-C18	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+1131268	|	Marine Group II euryarchaeote SCGC AB-629-J06	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+133815	|	environmental samples	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+274854	|	uncultured Candidatus Poseidoniales archaeon	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+133822	|	uncultured marine group II euryarchaeote 37F11	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+526635	|	uncultured marine group II euryarchaeote AD1000-18-D2	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+512008	|	uncultured marine group II euryarchaeote DeepAnt-15E7	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+274855	|	uncultured marine group II euryarchaeote DeepAnt-JyKC7	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+480664	|	uncultured marine group II euryarchaeote EF100_57A08	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347547	|	uncultured marine group II euryarchaeote HF10_15F03	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347548	|	uncultured marine group II euryarchaeote HF10_15F05	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347549	|	uncultured marine group II euryarchaeote HF10_15G04	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347550	|	uncultured marine group II euryarchaeote HF10_20F02	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347551	|	uncultured marine group II euryarchaeote HF10_24E03	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347552	|	uncultured marine group II euryarchaeote HF10_25H10	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347553	|	uncultured marine group II euryarchaeote HF10_27F06	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347554	|	uncultured marine group II euryarchaeote HF10_28B09	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347555	|	uncultured marine group II euryarchaeote HF10_29E05	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347556	|	uncultured marine group II euryarchaeote HF10_30E08	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347557	|	uncultured marine group II euryarchaeote HF10_30F11	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347558	|	uncultured marine group II euryarchaeote HF10_35F06	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347559	|	uncultured marine group II euryarchaeote HF10_36B02	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347560	|	uncultured marine group II euryarchaeote HF10_39E10	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347561	|	uncultured marine group II euryarchaeote HF10_43A09	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347562	|	uncultured marine group II euryarchaeote HF10_48G07	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347563	|	uncultured marine group II euryarchaeote HF10_53B05	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347564	|	uncultured marine group II euryarchaeote HF10_61D03	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347565	|	uncultured marine group II euryarchaeote HF10_65D04	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347566	|	uncultured marine group II euryarchaeote HF10_73E12	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347567	|	uncultured marine group II euryarchaeote HF10_8H07	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347568	|	uncultured marine group II euryarchaeote HF10_90C09	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347569	|	uncultured marine group II euryarchaeote HF130_17B12	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347570	|	uncultured marine group II euryarchaeote HF130_17D07	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347571	|	uncultured marine group II euryarchaeote HF130_21B04	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347572	|	uncultured marine group II euryarchaeote HF130_26G06	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347573	|	uncultured marine group II euryarchaeote HF130_27A09	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347574	|	uncultured marine group II euryarchaeote HF130_28F07	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|
+347575	|	uncultured marine group II euryarchaeote HF130_29F10	|		|		|		|	Candidatus Poseidoniales	|	Candidatus Poseidoniia	|	Candidatus Thermoplasmatota	|		|	Archaea	|

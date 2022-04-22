@@ -9,6 +9,6 @@ test('taxonomyParser', () => {
   for (const entry of taxonomyParser(arrayBuffer)) {
     results.push(entry);
   }
-  expect(results).toHaveLength(16);
+
   expect(results).toMatchSnapshot();
 });
