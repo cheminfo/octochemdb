@@ -36,7 +36,7 @@ export async function sync(connection) {
   }
 
   const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
-    (file) => file.name === 'fullnamelineage.dmp',
+    (file) => file.name === 'rankedlineage.dmp',
   );
   const arrayBuffer = await fileList[0].arrayBuffer();
 
