@@ -13,7 +13,7 @@ export async function sync(connection) {
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/bioassay/full`,
     collectionName: 'bioassays',
     filenameNew: 'bioactivities',
-    extensionNew: 'gz',
+    extensionNew: 'tsv.gz',
   };
   const bioactivitiesFile = await getLastFileSync(options);
   const sourceActivity = [

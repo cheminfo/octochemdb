@@ -8,8 +8,48 @@ async function getBioassays(bioassaysExtracted) {
   const lines = createInterface({ input: stream });
   const bioassays = {};
   for await (let line of lines) {
-    const [aid, name] = line.split('\t');
-    bioassays[aid] = name;
+    const [
+      aid,
+      name,
+      depositDate,
+      modifyDate,
+      sourceName,
+      sourceId,
+      substanceType,
+      outcomeType,
+      projectCategory,
+      bioAssayGroup,
+      bioAssayTypes,
+      proteinAccessions,
+      uniProtsIDs,
+      geneIDs,
+      targetTaxIDs,
+      taxonomyIDs,
+    ] = line.split('\t');
+    if (aid === 'AID') continue;
+    bioassays[aid] = { name: name };
+    let targetsTaxonomy = {};
+    if (taxonomyIDs) {
+      if (taxonomyIDs.includes('|')) {
+        taxonomyIDs.split('|').forEach((entry) => {
+          targetsTaxonomy[entry] = [];
+        });
+      } else {
+        targetsTaxonomy[taxonomyIDs] = [];
+      }
+    }
+    if (targetTaxIDs) {
+      if (targetTaxIDs.includes('|')) {
+        targetTaxIDs.split('|').forEach((entry) => {
+          targetsTaxonomy[entry] = [];
+        });
+      } else {
+        targetsTaxonomy[targetTaxIDs] = [];
+      }
+    }
+    if (Object.keys(targetsTaxonomy).length > 0) {
+      bioassays[aid].targetsTaxonomies = Object.keys(targetsTaxonomy);
+    }
   }
   return bioassays;
 }

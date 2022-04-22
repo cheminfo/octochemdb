@@ -56,7 +56,15 @@ async function* parseBioactivities(
     }
 
     for (let aid of compounds[cid]) {
-      result.data.push({ aid: aid, assay: bioassays[aid] });
+      if (bioassays[aid].targetsTaxonomies) {
+        result.data.push({
+          aid: aid,
+          assay: bioassays[aid].name,
+          activeAgainsTaxIDs: bioassays[aid].targetsTaxonomies,
+        });
+      } else {
+        result.data.push({ aid: aid, assay: bioassays[aid].name });
+      }
     }
     yield result;
   }
