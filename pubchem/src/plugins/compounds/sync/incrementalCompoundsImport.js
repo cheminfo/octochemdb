@@ -18,15 +18,8 @@ async function incrementalCompoundImport(connection) {
     allFiles,
   );
 
-  if (
-    (!files.includes(progress.sources) && progress.state === 'updated') ||
-    progress.state !== 'updated'
-  ) {
-    progress.state = 'updating';
-    await connection.setProgress(progress);
+  if (!files.includes(progress.sources) && progress.state === 'updated') {
     await importCompoundFiles(connection, progress, files, { lastDocument });
-    progress.state = 'updated';
-    await connection.setProgress(progress);
   }
 }
 
