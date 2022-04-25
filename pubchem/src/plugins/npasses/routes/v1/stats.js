@@ -22,7 +22,7 @@ async function searchHandler() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('npass');
+    const collection = await connection.getCollection('npasses');
 
     const results = await collection.stats();
 

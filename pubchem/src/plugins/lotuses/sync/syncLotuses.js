@@ -4,7 +4,7 @@ import Debug from '../../../utils/Debug.js';
 
 import { parseLotuses } from './utils/parseLotuses.js';
 import md5 from 'md5';
-const debug = Debug('syncLotus');
+const debug = Debug('syncLotuses');
 
 export async function sync(connection) {
   let options = {

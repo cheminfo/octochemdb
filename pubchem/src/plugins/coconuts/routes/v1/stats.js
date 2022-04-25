@@ -22,7 +22,7 @@ async function searchHandler() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('coconut');
+    const collection = await connection.getCollection('coconuts');
 
     const results = await collection.stats();
 

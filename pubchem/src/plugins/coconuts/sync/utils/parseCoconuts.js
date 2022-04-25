@@ -8,7 +8,7 @@ export async function* parseCoconuts(
   parseSkip,
   connection,
 ) {
-  const debug = Debug('parseCoconut');
+  const debug = Debug('parseCoconuts');
   try {
     const readStream = await readStreamInZipFolder(bsonPath, filename);
     let skipping = true;

@@ -4,7 +4,7 @@ import Debug from '../../../utils/Debug.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
 import md5 from 'md5';
 
-const debug = Debug('syncCoconut');
+const debug = Debug('syncCoconuts');
 
 export async function sync(connection) {
   let options = {

@@ -2,7 +2,7 @@ import { join } from 'path';
 
 import { parseCoconuts } from '../parseCoconuts.js';
 
-test('parseCoconut', async () => {
+test('parseCoconuts', async () => {
   const bsonPath = join(__dirname, 'data/testCoconut.bson');
   const results = [];
   for await (const result of parseCoconuts(bsonPath)) {

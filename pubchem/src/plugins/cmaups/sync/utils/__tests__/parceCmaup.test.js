@@ -5,7 +5,7 @@ import { parse } from 'papaparse';
 
 import { parseCmaups } from '../parseCmaups';
 
-test('parseCmaup', () => {
+test('parseCmaups', () => {
   const dirPath = join(__dirname, 'data');
   const general = parse(
     readFileSync(join(dirPath, 'Ingredients.2020-07-10.txt'), 'utf8'),

@@ -3,7 +3,7 @@ import npassesStartSync from './utils/npassesStartSync.js';
 
 import { parseNpasses } from './utils/parseNpasses.js';
 
-const debug = Debug('syncNpass');
+const debug = Debug('syncNpasses');
 
 export async function sync(connection) {
   try {

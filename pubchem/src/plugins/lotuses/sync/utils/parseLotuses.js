@@ -3,7 +3,7 @@ import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 export async function* parseLotuses(bsonPath, filename, parseSkip, connection) {
-  const debug = Debug('parseLotus');
+  const debug = Debug('parseLotuses');
   try {
     const readStream = await readStreamInZipFolder(bsonPath, filename);
     let skipping = true;

@@ -6,7 +6,7 @@ import Debug from '../../../utils/Debug.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import { parseTaxonomies } from './utils/parseTaxonomies.js';
 
-const debug = Debug('syncTaxonomy');
+const debug = Debug('syncTaxonomies');
 
 export async function sync(connection) {
   let options = {

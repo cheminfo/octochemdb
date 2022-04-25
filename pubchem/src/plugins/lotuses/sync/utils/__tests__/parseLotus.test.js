@@ -2,7 +2,7 @@ import { join } from 'path';
 
 import { parseLotuses } from '../parseLotuses.js';
 
-test('parseLotus', async () => {
+test('parseLotuses', async () => {
   const bsonPath = join(__dirname, 'data/testLotus.bson');
   const results = [];
   for await (const result of parseLotuses(bsonPath)) {

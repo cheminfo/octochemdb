@@ -9,7 +9,7 @@ export async function* parseNpasses(
   parseSkip,
   connection,
 ) {
-  const debug = Debug('parseNpass');
+  const debug = Debug('parseNpasses');
   try {
     let skipping = true;
     for await (const item of general) {
