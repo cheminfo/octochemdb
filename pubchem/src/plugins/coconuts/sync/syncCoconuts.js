@@ -1,7 +1,7 @@
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { parseCoconut } from './utils/parseCoconut.js';
+import { parseCoconuts } from './utils/parseCoconuts.js';
 import md5 from 'md5';
 
 const debug = Debug('syncCoconut');
@@ -53,7 +53,7 @@ export async function sync(connection) {
     }
     debug(`Start parsing: ${fileName}`);
 
-    for await (const entry of parseCoconut(lastFile, fileName, parseSkip)) {
+    for await (const entry of parseCoconuts(lastFile, fileName, parseSkip)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 

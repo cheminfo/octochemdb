@@ -1,21 +1,24 @@
+import { readFileSync } from 'fs';
+
+import md5 from 'md5';
+import Debug from '../../../utils/Debug.js';
+
+import { parseNpatlases } from './utils/parseNpatlases.js';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
-import { parseCoconut } from './utils/parseCoconut.js';
-import md5 from 'md5';
-
-const debug = Debug('syncCoconut');
+const debug = Debug('syncNpAtlas');
 
 export async function sync(connection) {
   let options = {
-    collectionSource: process.env.COCONUT_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
-    collectionName: 'coconuts',
-    filenameNew: 'coconuts',
-    extensionNew: 'zip',
+    collectionSource: process.env.NPATLAS_SOURCE,
+    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/npAtlases/full`,
+    collectionName: 'npAtlases',
+    filenameNew: 'npAtlases',
+    extensionNew: 'json',
   };
   const lastFile = await getLastFileSync(options);
   const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+
   const progress = await connection.getProgress(options.collectionName);
   const collection = await connection.getCollection(options.collectionName);
   const logs = await connection.geImportationtLog({
@@ -34,14 +37,12 @@ export async function sync(connection) {
   if (lastDocumentImported !== null) {
     firstID = lastDocumentImported._id;
   }
-
+  const fileJson = readFileSync(lastFile, 'utf8');
   // we reparse all the file and skip if required
-
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  let fileName = 'uniqueNaturalProduct.bson';
   if (
     lastDocumentImported === null ||
     md5(JSON.stringify(sources)) !== progress.sources ||
@@ -51,9 +52,8 @@ export async function sync(connection) {
     if (skipping && progress.state !== 'updated') {
       parseSkip = firstID;
     }
-    debug(`Start parsing: ${fileName}`);
-
-    for await (const entry of parseCoconut(lastFile, fileName, parseSkip)) {
+    debug(`Start parsing: ${lastFile}`);
+    for await (const entry of parseNpatlases(JSON.parse(fileJson))) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 
@@ -61,7 +61,6 @@ export async function sync(connection) {
         debug(`Processing: counter: ${counter} - imported: ${imported}`);
         start = Date.now();
       }
-
       entry._seq = ++progress.seq;
       progress.state = 'updating';
       await collection.updateOne(

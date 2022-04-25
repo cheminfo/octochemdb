@@ -1,23 +1,23 @@
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { parseCoconut } from './utils/parseCoconut.js';
-import md5 from 'md5';
 
-const debug = Debug('syncCoconut');
+import { parseLotuses } from './utils/parseLotuses.js';
+import md5 from 'md5';
+const debug = Debug('syncLotus');
 
 export async function sync(connection) {
   let options = {
-    collectionSource: process.env.COCONUT_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
-    collectionName: 'coconuts',
-    filenameNew: 'coconuts',
+    collectionSource: process.env.LOTUS_SOURCE,
+    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/lotuses/full`,
+    collectionName: 'lotuses',
+    filenameNew: 'lotuses',
     extensionNew: 'zip',
   };
   const lastFile = await getLastFileSync(options);
   const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
-  const progress = await connection.getProgress(options.collectionName);
-  const collection = await connection.getCollection(options.collectionName);
+  const progress = await connection.getProgress('lotuses');
+  const collection = await connection.getCollection('lotuses');
   const logs = await connection.geImportationtLog({
     collectionName: options.collectionName,
     sources,
@@ -35,25 +35,24 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
 
+  let fileName = 'lotusUniqueNaturalProduct.bson';
   // we reparse all the file and skip if required
 
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  let fileName = 'uniqueNaturalProduct.bson';
   if (
     lastDocumentImported === null ||
     md5(JSON.stringify(sources)) !== progress.sources ||
     progress.state !== 'updated'
   ) {
+    debug(`Start parsing: ${fileName}`);
     let parseSkip;
     if (skipping && progress.state !== 'updated') {
       parseSkip = firstID;
     }
-    debug(`Start parsing: ${fileName}`);
-
-    for await (const entry of parseCoconut(lastFile, fileName, parseSkip)) {
+    for await (const entry of parseLotuses(lastFile, fileName, parseSkip)) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 

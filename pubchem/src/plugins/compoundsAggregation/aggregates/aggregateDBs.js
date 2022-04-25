@@ -5,13 +5,13 @@ import { getMF } from 'openchemlib-utils';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 
 import Debug from '../../../utils/Debug.js';
-import getActivityInfo from '../utils/getActivityInfo.js';
-import getCollectionLinks from '../utils/getCollectionLinks.js';
-import getGenericData from '../utils/getGenericData.js';
-import getTaxonomyInfo from '../utils/getTaxonomyInfo.js';
+import getActivitiesInfo from '../utils/getActivitiesInfo.js';
+import getCollectionsLinks from '../utils/getCollectionsLinks.js';
+import getCompoundsInfo from '../utils/getCompoundsInfo.js';
+import getTaxonomiesInfo from '../utils/getTaxonomiesInfo.js';
 
 const { MF } = MFParser;
-const collectionNames = ['lotus', 'npass', 'npAtlas', 'cmaup', 'coconut']; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
+const collectionNames = ['lotuses', 'npasses', 'npAtlas', 'cmaups', 'coconuts']; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
 // since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
 // in future a solution need to be found
 
@@ -22,7 +22,7 @@ export async function aggregate(connection) {
 
   const progress = await connection.getProgress(options.collection);
   const targetCollection = await connection.getCollection(options.collection);
-  let { links, colletionSources } = await getCollectionLinks(
+  let { links, colletionSources } = await getCollectionsLinks(
     connection,
     collectionNames,
   );
@@ -71,11 +71,11 @@ export async function aggregate(connection) {
 
       const mfInfo = new MF(getMF(molecule).mf).getInfo();
 
-      let activityInfo = await getActivityInfo(data);
+      let activityInfo = await getActivitiesInfo(data);
 
-      let taxons = await getTaxonomyInfo(data);
+      let taxons = await getTaxonomiesInfo(data);
 
-      let entry = await getGenericData(data, mfInfo);
+      let entry = await getCompoundsInfo(data, mfInfo);
 
       if (activityInfo.length > 0) entry.data.npActive = true;
 

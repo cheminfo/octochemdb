@@ -1,59 +1,51 @@
-import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { parseCoconut } from './utils/parseCoconut.js';
-import md5 from 'md5';
+import npassesStartSync from './utils/npassesStartSync.js';
 
-const debug = Debug('syncCoconut');
+import { parseNpasses } from './utils/parseNpasses.js';
+
+const debug = Debug('syncNpass');
 
 export async function sync(connection) {
-  let options = {
-    collectionSource: process.env.COCONUT_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
-    collectionName: 'coconuts',
-    filenameNew: 'coconuts',
-    extensionNew: 'zip',
-  };
-  const lastFile = await getLastFileSync(options);
-  const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
-  const progress = await connection.getProgress(options.collectionName);
-  const collection = await connection.getCollection(options.collectionName);
-  const logs = await connection.geImportationtLog({
-    collectionName: options.collectionName,
-    sources,
-    startSequenceID: progress.seq,
-  });
-  await collection.createIndex({ 'data.ocl.id': 1 });
-  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
-  const lastDocumentImported = await getLastDocumentImported(
-    connection,
+  const {
+    firstID,
+    lastDocumentImported,
     progress,
-    options.collectionName,
-  );
-  let firstID;
-  if (lastDocumentImported !== null) {
-    firstID = lastDocumentImported._id;
-  }
+    sources,
+    collection,
+    general,
+    activities,
+    properties,
+    speciesPair,
+    speciesInfo,
+    logs,
+  } = await npassesStartSync(connection);
 
   // we reparse all the file and skip if required
-
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  let fileName = 'uniqueNaturalProduct.bson';
+
+  // Reimport collection again only if lastDocument imported changed or importation was not completed
   if (
     lastDocumentImported === null ||
-    md5(JSON.stringify(sources)) !== progress.sources ||
+    sources !== progress.sources ||
     progress.state !== 'updated'
   ) {
     let parseSkip;
     if (skipping && progress.state !== 'updated') {
       parseSkip = firstID;
     }
-    debug(`Start parsing: ${fileName}`);
+    debug(`Start parsing npass`);
 
-    for await (const entry of parseCoconut(lastFile, fileName, parseSkip)) {
+    for await (const entry of parseNpasses(
+      general,
+      activities,
+      properties,
+      speciesPair,
+      speciesInfo,
+      parseSkip,
+    )) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 
@@ -76,7 +68,7 @@ export async function sync(connection) {
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
     await connection.updateImportationLog(logs);
-    progress.sources = md5(JSON.stringify(sources));
+    progress.sources = sources;
     progress.date = new Date();
     progress.state = 'updated';
     await connection.setProgress(progress);

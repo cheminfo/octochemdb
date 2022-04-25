@@ -1,21 +1,31 @@
+import md5 from 'md5';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { parseCoconut } from './utils/parseCoconut.js';
-import md5 from 'md5';
 
-const debug = Debug('syncCoconut');
+import parseBioactivities from './utils/parseBioactivities.js';
 
 export async function sync(connection) {
+  const debug = Debug('syncBioassays');
   let options = {
-    collectionSource: process.env.COCONUT_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
-    collectionName: 'coconuts',
-    filenameNew: 'coconuts',
-    extensionNew: 'zip',
+    collectionSource: process.env.ACTIVITIES_SOURCE,
+    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/bioassays/full`,
+    collectionName: 'bioassays',
+    filenameNew: 'bioactivities',
+    extensionNew: 'tsv.gz',
   };
-  const lastFile = await getLastFileSync(options);
-  const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+  const bioactivitiesFile = await getLastFileSync(options);
+  const sourceActivity = [
+    bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+  ];
+  options.collectionSource = process.env.BIOASSAY_SOURCE;
+  options.filenameNew = 'bioassays';
+  const bioassaysFile = await getLastFileSync(options);
+  const sources = [
+    bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    sourceActivity,
+  ];
   const progress = await connection.getProgress(options.collectionName);
   const collection = await connection.getCollection(options.collectionName);
   const logs = await connection.geImportationtLog({
@@ -23,8 +33,6 @@ export async function sync(connection) {
     sources,
     startSequenceID: progress.seq,
   });
-  await collection.createIndex({ 'data.ocl.id': 1 });
-  await collection.createIndex({ 'data.ocl.noStereoID': 1 });
   const lastDocumentImported = await getLastDocumentImported(
     connection,
     progress,
@@ -35,25 +43,25 @@ export async function sync(connection) {
     firstID = lastDocumentImported._id;
   }
 
-  // we reparse all the file and skip if required
-
   let skipping = firstID !== undefined;
   let counter = 0;
   let imported = 0;
   let start = Date.now();
-  let fileName = 'uniqueNaturalProduct.bson';
   if (
     lastDocumentImported === null ||
     md5(JSON.stringify(sources)) !== progress.sources ||
     progress.state !== 'updated'
   ) {
+    debug(`Start parsing`);
     let parseSkip;
     if (skipping && progress.state !== 'updated') {
       parseSkip = firstID;
     }
-    debug(`Start parsing: ${fileName}`);
-
-    for await (const entry of parseCoconut(lastFile, fileName, parseSkip)) {
+    for await (let entry of parseBioactivities(
+      bioactivitiesFile,
+      bioassaysFile,
+      parseSkip,
+    )) {
       counter++;
       if (process.env.TEST === 'true' && counter > 20) break;
 
@@ -84,7 +92,7 @@ export async function sync(connection) {
   } else {
     debug(`file already processed`);
   }
-  // we remove all the entries that are not imported by the last file
+
   const result = await collection.deleteMany({
     _seq: { $lte: logs.startSequenceID },
   });
