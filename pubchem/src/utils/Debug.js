@@ -40,13 +40,13 @@ async function logInDB(message, options) {
   const progress = await connection.getProgress(collection);
   if (progress.logs === null) progress.logs = [];
   let logs = progress.logs;
-  if (logs.length < 49) {
+  if (logs && logs.length < 49) {
     logs.push({
       epoch: `${new Date().toISOString()}`,
       message: `${collection}:${message}`,
     });
   }
-  if ((logs.length = 49)) {
+  if (logs && logs.length === 49) {
     logs.shift();
     logs.push({
       epoch: `${new Date().toISOString()}`,
