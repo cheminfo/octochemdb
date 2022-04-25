@@ -16,6 +16,11 @@ export default async function importOneCompoundFile(
 ) {
   const collection = await connection.getCollection('compounds');
   debug(`Importing: ${file.name}`);
+  const logs = await connection.geImportationtLog({
+    collectionName: 'compounds',
+    sources: file.name,
+    startSequenceID: progress.seq,
+  });
   // should we directly import the data how wait that we reach the previously imported information
   let { shouldImport = true, lastDocument } = options;
   let bufferValue = '';
@@ -32,6 +37,10 @@ export default async function importOneCompoundFile(
     }
   }
   newCompounds += await parseSDF(bufferValue);
+  logs.dateEnd = Date.now();
+  logs.endSequenceID = progress.seq;
+  logs.status = 'updated';
+  await connection.updateImportationLog(logs);
   debug(`${newCompounds} compounds imported from ${file.name}`);
   return newCompounds;
 
@@ -74,7 +83,6 @@ export default async function importOneCompoundFile(
               process.env.ORIGINAL_DATA_PATH,
               '',
             );
-
             return connection.setProgress(progress);
           }),
       );
