@@ -7,7 +7,7 @@ const debug = Debug('stats');
 const stats = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve global statistics from the npass collection',
+    summary: 'Retrieve global statistics from the npasses collection',
   },
   handler: searchHandler,
 };

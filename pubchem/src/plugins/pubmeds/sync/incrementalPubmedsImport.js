@@ -67,7 +67,7 @@ async function syncIncrementalPubmedFolder() {
   debug('Synchronize incremental pubmed folder');
 
   const source = `${process.env.PUBMED_SOURCE}updatefiles/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmed/update`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmeds/update`;
   const files = (
     await syncFolder(source, destination, {
       fileFilter: (file) => file && file.name.endsWith('.gz'),

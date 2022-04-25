@@ -63,7 +63,7 @@ async function syncFullSubstanceFolder() {
   debug('Synchronize full substance folder');
 
   const source = `${process.env.PUBCHEM_SOURCE}Substance/CURRENT-Full/SDF/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/substance/full`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/substances/full`;
 
   debug(`Syncing: ${source} to ${destination}`);
 

@@ -71,7 +71,7 @@ async function syncFullCompoundFolder() {
   debug('Synchronize full compound folder');
 
   const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/compound/full`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/compounds/full`;
 
   debug(`Syncing: ${source} to ${destination}`);
 

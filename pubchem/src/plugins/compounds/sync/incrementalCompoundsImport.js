@@ -67,7 +67,7 @@ async function syncIncrementalCompoundFolder() {
   debug('Synchronize incremental compound folder');
 
   const source = `${process.env.PUBCHEM_SOURCE}Compound/Weekly/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/compound/weekly`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/compounds/weekly`;
   const allFiles = [];
   const weeks = await getFilesList(source, {
     fileFilter: (file) => file && file.name.match(/\d{4}-\d{2}-\d{2}/),

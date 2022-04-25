@@ -11,7 +11,13 @@ import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import getTaxonomiesInfo from '../utils/getTaxonomiesInfo.js';
 
 const { MF } = MFParser;
-const collectionNames = ['lotuses', 'npasses', 'npAtlas', 'cmaups', 'coconuts']; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
+const collectionNames = [
+  'lotuses',
+  'npasses',
+  'npAtlases',
+  'cmaups',
+  'coconuts',
+]; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
 // since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
 // in future a solution need to be found
 

@@ -64,7 +64,7 @@ async function syncFullPubmedFolder() {
   debug('Synchronize full pubmed folder');
 
   const source = `${process.env.PUBMED_SOURCE}baseline/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmed/full`;
+  const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmeds/full`;
 
   debug(`Syncing: ${source} to ${destination}`);
 

@@ -1,7 +1,7 @@
 import Debug from '../../../utils/Debug.js';
 
 async function getTaxonomiesInfo(data) {
-  const debug = Debug('getTaxonomyInfo');
+  const debug = Debug('getTaxonomiesInfo');
   let taxons = [];
   for (const info of data) {
     if (!info._id.includes('LTS')) {

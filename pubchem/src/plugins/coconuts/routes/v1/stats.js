@@ -7,7 +7,7 @@ const debug = Debug('stats');
 const stats = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve global statistics from the coconut collection',
+    summary: 'Retrieve global statistics from the coconuts collection',
   },
   handler: searchHandler,
 };
