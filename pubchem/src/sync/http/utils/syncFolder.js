@@ -6,7 +6,7 @@ import Debug from '../../../utils/Debug.js';
 
 import getFile from './getFile.js';
 import getFilesList from './getFilesList.js';
-
+import fetch from 'cross-fetch';
 const { mkdirpSync, existsSync, statSync } = FSExtra;
 const debug = Debug('syncFolder');
 
@@ -23,9 +23,10 @@ async function syncFolder(source, destinationFolder, options = {}) {
   for (const file of allFiles) {
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
+    let trueFileSize = await fileSize(file);
     if (existsSync(targetFile)) {
       const fileInfo = statSync(targetFile);
-      debug(`Skipping: ${file.name} Size: ${file.size}/${fileInfo.size}`);
+      debug(`Skipping: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`);
       continue;
     }
     await getFile(file, targetFile);
@@ -35,3 +36,13 @@ async function syncFolder(source, destinationFolder, options = {}) {
 }
 
 export default syncFolder;
+
+async function fileSize(file) {
+  const response = await fetch(file.url);
+
+  const headers = Array.from(response.headers);
+  let newFileSize = Number(
+    headers.filter((row) => row[0] === 'content-length')[0][1],
+  );
+  return newFileSize;
+}
