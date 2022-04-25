@@ -1,6 +1,5 @@
 import fs from 'fs';
 import zlib from 'zlib';
-
 import { parse } from 'sdf-parser';
 
 import Debug from '../../../../utils/Debug.js';
@@ -64,10 +63,6 @@ export default async function importOneCompoundFile(
         improveCompoundPool(compound)
           .then((result) => {
             result._seq = ++progress.seq;
-            result._source = file.path.replace(
-              process.env.ORIGINAL_DATA_PATH,
-              '',
-            );
             return collection.updateOne(
               { _id: result._id },
               { $set: result },
@@ -75,6 +70,11 @@ export default async function importOneCompoundFile(
             );
           })
           .then(() => {
+            progress.sources = file.path.replace(
+              process.env.ORIGINAL_DATA_PATH,
+              '',
+            );
+
             return connection.setProgress(progress);
           }),
       );

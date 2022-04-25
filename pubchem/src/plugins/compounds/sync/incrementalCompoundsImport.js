@@ -17,10 +17,9 @@ async function incrementalCompoundImport(connection) {
     progress,
     allFiles,
   );
-  const lastDocumentImported = lastDocument;
+
   if (
-    (!files.includes(lastDocumentImported._source) &&
-      progress.state === 'updated') ||
+    (!files.includes(progress.sources) && progress.state === 'updated') ||
     progress.state !== 'updated'
   ) {
     progress.state = 'updating';
@@ -55,10 +54,10 @@ async function getFilesToImport(connection, progress, allFiles) {
     throw new Error('This should never happen');
   }
 
-  debug(`last file processed: ${lastDocument._source}`);
+  debug(`last file processed: ${progress.sources}`);
 
   const firstIndex = allFiles.findIndex((n) =>
-    n.path.endsWith(lastDocument._source),
+    n.path.endsWith(progress.sources),
   );
 
   if (firstIndex === -1) {
@@ -66,7 +65,7 @@ async function getFilesToImport(connection, progress, allFiles) {
     return { files: allFiles, lastDocument: {} };
   }
 
-  debug(`starting with file ${lastDocument._source}`);
+  debug(`starting with file ${progress.sources}`);
 
   return { lastDocument, files: allFiles.slice(firstIndex) };
 }
