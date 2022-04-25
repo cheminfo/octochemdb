@@ -45,17 +45,17 @@ async function getFilesToImport(connection, progress, allFiles) {
 
   if (!lastDocument) return { files: allFiles, lastDocument: {} };
 
-  debug(`last file processed: ${lastDocument._source}`);
+  debug(`last file processed: ${progress.sources}`);
 
   const firstIndex = allFiles.findIndex((n) =>
-    n.path.endsWith(lastDocument._source),
+    n.path.endsWith(progress.sources),
   );
 
   if (firstIndex === -1) {
-    throw new Error(`file not found: ${lastDocument._source}`);
+    throw new Error(`file not found: ${progress.sources}`);
   }
 
-  debug(`starting with file ${lastDocument._source}`);
+  debug(`starting with file ${progress.sources}`);
 
   return { lastDocument, files: allFiles.slice(firstIndex) };
 }

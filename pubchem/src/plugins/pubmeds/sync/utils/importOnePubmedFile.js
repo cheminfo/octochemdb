@@ -18,6 +18,11 @@ export default async function importOnePubmedFile(
   const collection = await connection.getCollection('pubmeds');
 
   debug(`Importing: ${file.name}`);
+  const logs = await connection.geImportationtLog({
+    collectionName: 'pubmeds',
+    sources: file.name,
+    startSequenceID: progress.seq,
+  });
   // should we directly import the data how wait that we reach the previously imported information
   let { shouldImport = true, lastDocument } = options;
   let inflated = gunzipSync(readFileSync(file.path));
@@ -60,7 +65,7 @@ export default async function importOnePubmedFile(
     }
     const article = improvePubmed(medlineCitation);
     article._seq = ++progress.seq;
-    article._source = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
+    progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
     await collection.updateOne(
       { _id: article._id },
       { $set: article },
@@ -69,6 +74,10 @@ export default async function importOnePubmedFile(
     await connection.setProgress(progress);
     imported++;
   }
+  logs.dateEnd = Date.now();
+  logs.endSequenceID = progress.seq;
+  logs.status = 'updated';
+  await connection.updateImportationLog(logs);
   debug(`${imported} pubmeds processed`);
   // save the pubmeds in the database
   return pubmeds.length;
