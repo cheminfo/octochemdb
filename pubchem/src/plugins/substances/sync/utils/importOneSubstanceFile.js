@@ -16,7 +16,11 @@ export default async function importOneSubstanceFile(
   options,
 ) {
   const collection = await connection.getCollection('substances');
-
+  const logs = await connection.geImportationtLog({
+    collectionName: 'substances',
+    sources: file.name,
+    startSequenceID: progress.seq,
+  });
   debug(`Importing: ${file.name}`);
   // should we directly import the data how wait that we reach the previously imported information
   let { shouldImport = true, lastDocument } = options;
@@ -34,6 +38,10 @@ export default async function importOneSubstanceFile(
     }
   }
   newSubstances += await parseSDF(bufferValue);
+  logs.dateEnd = Date.now();
+  logs.endSequenceID = progress.seq;
+  logs.status = 'updated';
+  await connection.updateImportationLog(logs);
   debug(`${newSubstances} substances imported from ${file.name}`);
   return newSubstances;
 
@@ -56,7 +64,7 @@ export default async function importOneSubstanceFile(
       substance = improveSubstance(substance);
 
       substance._seq = ++progress.seq;
-      substance._source = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
+      progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
       await collection.updateOne(
         { _id: substance._id },
         { $set: substance },

@@ -1,28 +1,28 @@
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import Debug from '../../../utils/Debug.js';
 
-
 import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
 
 const debug = Debug('firstSubstanceImport');
 
 async function firstSubstanceImport(connection) {
-  const allFiles = await syncFullSubstanceFolder();
-
   const progress = await connection.getProgress('substances');
-  if (progress.state === 'update') {
+  if (progress.state === 'updated') {
     debug('First importation has been completed. Should only update.');
     return;
   } else {
     debug(`Continuing first importation from ${progress.seq}.`);
   }
+  const allFiles = await syncFullSubstanceFolder();
   const { files, lastDocument } = await getFilesToImport(
     connection,
     progress,
     allFiles,
   );
+  progress.state = 'updating';
+  await connection.setProgress(progress);
   await importSubstanceFiles(connection, progress, files, { lastDocument });
-  progress.state = 'update';
+  progress.state = 'updated';
   await connection.setProgress(progress);
 }
 
@@ -44,17 +44,17 @@ async function getFilesToImport(connection, progress, allFiles) {
 
   if (!lastDocument) return { files: allFiles, lastDocument: {} };
 
-  debug(`last file processed: ${lastDocument._source}`);
+  debug(`last file processed: ${progress.sources}`);
 
   const firstIndex = allFiles.findIndex((n) =>
-    n.path.endsWith(lastDocument._source),
+    n.path.endsWith(progress.sources),
   );
 
   if (firstIndex === -1) {
-    throw new Error(`file not found: ${lastDocument._source}`);
+    throw new Error(`file not found: ${progress.sources}`);
   }
 
-  debug(`starting with file ${lastDocument._source}`);
+  debug(`starting with file ${progress.sources}`);
 
   return { lastDocument, files: allFiles.slice(firstIndex) };
 }

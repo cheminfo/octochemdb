@@ -1,4 +1,3 @@
-
 import getFilesList from '../../../sync/http/utils/getFilesList.js';
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import removeEntriesFromFile from '../../../sync/utils/removeEntriesFromFile.js';
@@ -12,7 +11,7 @@ async function incrementalSubstanceImport(connection) {
   const allFiles = await syncIncrementalSubstanceFolder();
 
   const progress = await connection.getProgress('substances');
-  if (progress.state !== 'update') {
+  if (progress.state !== 'updated') {
     throw new Error('Should never happens.');
   }
   const { files, lastDocument } = await getFilesToImport(
@@ -20,8 +19,9 @@ async function incrementalSubstanceImport(connection) {
     progress,
     allFiles,
   );
-  await importSubstanceFiles(connection, progress, files, { lastDocument });
-  await connection.setProgress(progress);
+  if (!files.includes(progress.sources) && progress.state === 'updated') {
+    await importSubstanceFiles(connection, progress, files, { lastDocument });
+  }
 }
 
 async function importSubstanceFiles(connection, progress, files, options) {
