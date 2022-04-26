@@ -16,7 +16,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
   }
 
   const limit = process.env.TEST === 'true' ? 5 : undefined;
-
+  let start = Date.now();
   let allFiles = await getFilesList(source, options);
   if (limit) allFiles = allFiles.slice(0, limit);
   const newFiles = [];
@@ -25,9 +25,14 @@ async function syncFolder(source, destinationFolder, options = {}) {
     file.path = targetFile;
     let trueFileSize = await fileSize(file);
     if (existsSync(targetFile)) {
-      const fileInfo = statSync(targetFile);
-      debug(`Skipping: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`);
-      continue;
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+        const fileInfo = statSync(targetFile);
+        debug(
+          `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
+        );
+        start = Date.now();
+        continue;
+      }
     }
     await getFile(file, targetFile);
     newFiles.push(file);
