@@ -1,13 +1,13 @@
 import { join } from 'path';
 
 import FSExtra from 'fs-extra';
-
+import { fileListFromPath } from 'filelist-from';
 import Debug from '../../../utils/Debug.js';
 
 import getFile from './getFile.js';
 import getFilesList from './getFilesList.js';
 import fetch from 'cross-fetch';
-const { mkdirpSync, existsSync, statSync } = FSExtra;
+const { mkdirpSync, existsSync, statSync, rmSync } = FSExtra;
 const debug = Debug('syncFolder');
 
 async function syncFolder(source, destinationFolder, options = {}) {
@@ -21,19 +21,31 @@ async function syncFolder(source, destinationFolder, options = {}) {
   if (limit) allFiles = allFiles.slice(0, limit);
   const newFiles = [];
   let start = Date.now();
+  let fileList = fileListFromPath(destinationFolder).sort((a, b) => {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  });
+  let lastFileImported = fileList.slice(-1)[0];
+  let skipping = true;
   for (const file of allFiles) {
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
-    let trueFileSize = await fileSize(file);
-    if (existsSync(targetFile)) {
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+    if (skipping) {
+      if (file.name !== lastFileImported.name) {
+        continue;
+      } else {
+        skipping = false;
         const fileInfo = statSync(targetFile);
+        let trueFileSize = await fileSize(file);
         debug(
           `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
         );
-        start = Date.now();
+        if (fileInfo.size !== trueFileSize) {
+          rmSync(targetFile, { recursive: true });
+        }
+        continue;
       }
-      continue;
     }
     await getFile(file, targetFile);
     newFiles.push(file);
