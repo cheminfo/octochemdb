@@ -7,8 +7,6 @@ const debug = Debug('firstPubmedImport');
 
 async function firstPubmedImport(connection) {
   try {
-    const allFiles = await syncFullPubmedFolder(connection);
-
     const progress = await connection.getProgress('pubmeds');
     if (progress.state === 'updated') {
       debug('First importation has been completed. Should only update.');
@@ -16,6 +14,7 @@ async function firstPubmedImport(connection) {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
+    const allFiles = await syncFullPubmedFolder(connection);
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
