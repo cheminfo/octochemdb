@@ -69,20 +69,34 @@ export async function* parseNpasses(
 
         const finalTaxonomies = [];
         if (taxonomies !== undefined) {
-          let originalTaxonomies = {};
+          let taxons = {};
           if (taxonomies?.kingdom_name) {
-            originalTaxonomies.kingdom = taxonomies?.kingdom_name;
+            taxons.kingdom = taxonomies?.kingdom_name;
+          }
+          if (taxonomies?.kingdom_tax_id) {
+            taxons.kingdomID = taxonomies?.kingdom_tax_id;
           }
           if (taxonomies?.family_name) {
-            originalTaxonomies.family = taxonomies?.family_name;
+            taxons.family = taxonomies?.family_name;
+          }
+          if (taxonomies?.family_tax_id) {
+            taxons.familyID = taxonomies?.family_tax_id;
           }
           if (taxonomies?.genus_name) {
-            originalTaxonomies.genus = taxonomies?.genus_name;
+            taxons.genus = taxonomies?.genus_name;
+          }
+          if (taxonomies?.genus_tax_id) {
+            taxons.genusID = taxonomies?.genus_tax_id;
           }
           if (taxonomies?.org_name) {
-            originalTaxonomies.species = taxonomies?.org_name;
+            taxons.species = taxonomies?.org_name;
           }
-          finalTaxonomies.push(originalTaxonomies);
+          if (taxonomies?.species_tax_id) {
+            taxons.speciesID = taxonomies?.species_tax_id;
+          }
+          if (taxons !== {}) {
+            finalTaxonomies.push(taxons);
+          }
         }
 
         const result = {

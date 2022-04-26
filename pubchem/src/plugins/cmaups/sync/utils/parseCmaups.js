@@ -66,26 +66,30 @@ export async function* parseCmaups(
           }
           const orgID = speciesPaired[id];
           const taxonomies = speciesInfo[orgID];
-          let finalTaxonomies = {};
+          let finalTaxonomies = [];
           if (taxonomies !== undefined) {
+            let taxons = {};
             if (taxonomies?.Species_Tax_ID) {
-              finalTaxonomies.speciesID;
+              taxons.speciesID;
             }
             if (taxonomies?.Plant_Name) {
-              finalTaxonomies.species = taxonomies?.Plant_Name;
+              taxons.species = taxonomies?.Plant_Name;
             }
             if (taxonomies?.Genus_Tax_ID) {
-              finalTaxonomies.genusID = taxonomies?.Genus_Tax_ID;
+              taxons.genusID = taxonomies?.Genus_Tax_ID;
             }
             if (taxonomies?.Genus_Name) {
-              finalTaxonomies.genus = taxonomies?.Genus_Name;
+              taxons.genus = taxonomies?.Genus_Name;
             }
 
             if (taxonomies?.Family_Tax_ID) {
-              finalTaxonomies.familyID = taxonomies?.Family_Tax_ID;
+              taxons.familyID = taxonomies?.Family_Tax_ID;
             }
             if (taxonomies?.Family_Name) {
-              finalTaxonomies.family = taxonomies?.Family_Name;
+              taxons.family = taxonomies?.Family_Name;
+            }
+            if (taxons !== {}) {
+              finalTaxonomies.push(taxons);
             }
           }
           const result = {

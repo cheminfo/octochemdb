@@ -22,25 +22,26 @@ export async function* parseNpatlases(json, parseSkip, connection) {
         const doi = entry.origin_reference.doi;
         let taxon = {};
         taxon.genusID = taxonomies.taxon.ncbi_id;
+        taxon.genus = taxonomies.genus;
+        taxon.species = taxonomies.genus.concat(' ', taxonomies.species);
         for (let i = 0; i < taxonomies.taxon.ancestors.length; i++) {
-          let taxon = taxonomies.taxon.ancestors[i];
+          let taxons = taxonomies.taxon.ancestors[i];
 
-          if (taxon.rank === 'kingdom') {
-            taxon.kingdom = taxon.name;
+          if (taxons.rank === 'kingdom') {
+            taxon.kingdom = taxons.name;
           }
-          if (taxon.rank === 'phylum') {
-            taxon.phylum = taxon.name;
+          if (taxons.rank === 'phylum') {
+            taxon.phylum = taxons.name;
           }
-          if (taxon.rank === 'class') {
-            taxon.class = taxon.name;
+          if (taxons.rank === 'class') {
+            taxon.class = taxons.name;
           }
-          if (taxon.rank === 'family') {
-            taxon.family = taxon.name;
+          if (taxons.rank === 'family') {
+            taxon.family = taxons.name;
           }
         }
         if (doi) taxon.doi = doi;
-        taxon.genus = taxonomies.genus;
-        taxon.species = taxonomies.genus.concat(' ', taxonomies.species);
+
         const finalTaxonomies = [];
         finalTaxonomies.push(taxon);
         const result = {
