@@ -43,6 +43,8 @@ async function syncFolder(source, destinationFolder, options = {}) {
         );
         if (fileInfo.size !== trueFileSize) {
           rmSync(targetFile, { recursive: true });
+          await getFile(file, targetFile);
+          newFiles.push(file);
         }
         continue;
       }
