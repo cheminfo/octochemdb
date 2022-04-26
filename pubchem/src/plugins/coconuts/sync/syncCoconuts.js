@@ -24,6 +24,7 @@ export async function sync(connection) {
       sources,
       startSequenceID: progress.seq,
     });
+    await collection.createIndex({ ' _seq': 1 });
     await collection.createIndex({ 'data.ocl.id': 1 });
     await collection.createIndex({ 'data.ocl.noStereoID': 1 });
     const lastDocumentImported = await getLastDocumentImported(

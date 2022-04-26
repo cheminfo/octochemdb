@@ -19,7 +19,7 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     } = await cmaupsStartSync(connection);
-
+    await collection.createIndex({ ' _seq': 1 });
     let skipping = firstID !== undefined;
     let counter = 0;
     let imported = 0;

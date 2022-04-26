@@ -29,6 +29,8 @@ export async function aggregate(connection) {
 
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
+    await targetCollection.createIndex({ _seq: 1 });
+
     let { links, colletionSources } = await getCollectionsLinks(
       connection,
       collectionNames,

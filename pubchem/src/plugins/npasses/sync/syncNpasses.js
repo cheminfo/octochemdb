@@ -20,6 +20,7 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     } = await npassesStartSync(connection);
+    await collection.createIndex({ ' _seq': 1 });
 
     // we reparse all the file and skip if required
     let skipping = firstID !== undefined;

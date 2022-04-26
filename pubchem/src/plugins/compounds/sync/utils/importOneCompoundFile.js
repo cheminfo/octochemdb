@@ -15,6 +15,7 @@ export default async function importOneCompoundFile(
   options,
 ) {
   const collection = await connection.getCollection('compounds');
+  await collection.createIndex({ ' _seq': 1 });
   debug(`Importing: ${file.name}`);
   const logs = await connection.geImportationtLog({
     collectionName: 'compounds',
