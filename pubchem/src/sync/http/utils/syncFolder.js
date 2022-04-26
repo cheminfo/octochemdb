@@ -16,10 +16,11 @@ async function syncFolder(source, destinationFolder, options = {}) {
   }
 
   const limit = process.env.TEST === 'true' ? 5 : undefined;
-  let start = Date.now();
+
   let allFiles = await getFilesList(source, options);
   if (limit) allFiles = allFiles.slice(0, limit);
   const newFiles = [];
+  let start = Date.now();
   for (const file of allFiles) {
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
@@ -31,8 +32,8 @@ async function syncFolder(source, destinationFolder, options = {}) {
           `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
         );
         start = Date.now();
-        continue;
       }
+      continue;
     }
     await getFile(file, targetFile);
     newFiles.push(file);
