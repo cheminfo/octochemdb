@@ -66,21 +66,28 @@ export async function* parseCmaups(
           }
           const orgID = speciesPaired[id];
           const taxonomies = speciesInfo[orgID];
-          let finalTaxonomies = [];
+          let finalTaxonomies = {};
           if (taxonomies !== undefined) {
-            let originalTaxonomies = {};
-            if (taxonomies?.Family_Name) {
-              originalTaxonomies.family = taxonomies?.Family_Name;
-            }
-            if (taxonomies?.Genus_Name) {
-              originalTaxonomies.genus = taxonomies?.Genus_Name;
+            if (taxonomies?.Species_Tax_ID) {
+              finalTaxonomies.speciesID;
             }
             if (taxonomies?.Plant_Name) {
-              originalTaxonomies.species = taxonomies?.Plant_Name;
+              finalTaxonomies.species = taxonomies?.Plant_Name;
             }
-            finalTaxonomies.push(originalTaxonomies);
-          }
+            if (taxonomies?.Genus_Tax_ID) {
+              finalTaxonomies.genusID = taxonomies?.Genus_Tax_ID;
+            }
+            if (taxonomies?.Genus_Name) {
+              finalTaxonomies.genus = taxonomies?.Genus_Name;
+            }
 
+            if (taxonomies?.Family_Tax_ID) {
+              finalTaxonomies.familyID = taxonomies?.Family_Tax_ID;
+            }
+            if (taxonomies?.Family_Name) {
+              finalTaxonomies.family = taxonomies?.Family_Name;
+            }
+          }
           const result = {
             _id: item.Ingredient_ID,
             data: {
