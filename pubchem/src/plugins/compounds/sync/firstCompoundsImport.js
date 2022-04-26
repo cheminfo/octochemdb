@@ -61,7 +61,8 @@ async function getFilesToImport(connection, progress, allFiles) {
       .limit(1)
       .next();
 
-    if (!lastDocument) return { files: allFiles, lastDocument: {} };
+    if (!progress.sources || !lastDocument)
+      return { files: allFiles, lastDocument: {} };
 
     debug(`last file processed: ${progress.sources}`);
 
