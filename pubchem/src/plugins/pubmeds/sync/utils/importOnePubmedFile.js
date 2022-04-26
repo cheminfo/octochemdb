@@ -16,7 +16,7 @@ export default async function importOnePubmedFile(
   options,
 ) {
   const collection = await connection.getCollection('pubmeds');
-  await collection.createIndex({ ' _seq': 1 });
+  await collection.createIndex({ _seq: 1 });
   debug(`Importing: ${file.name}`);
   const logs = await connection.geImportationtLog({
     collectionName: 'pubmeds',

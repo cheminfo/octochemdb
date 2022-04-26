@@ -16,7 +16,7 @@ export default async function importOneSubstanceFile(
   options,
 ) {
   const collection = await connection.getCollection('substances');
-  await collection.createIndex({ ' _seq': 1 });
+  await collection.createIndex({ _seq: 1 });
   const logs = await connection.geImportationtLog({
     collectionName: 'substances',
     sources: file.name,
