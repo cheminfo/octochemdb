@@ -36,6 +36,9 @@ export async function* parseNpasses(
             if (info.activity_units) {
               originalActivites.activityUnit = info.activity_units;
             }
+            if (info.assay_tax_id) {
+              originalActivites.target_id = info.assay_tax_id;
+            }
             if (info.assay_organism) {
               originalActivites.assayOrganism = info.assay_organism;
             }
