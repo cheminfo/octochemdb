@@ -5,7 +5,8 @@ import fetch from 'cross-fetch';
 import Debug from '../../../utils/Debug.js';
 
 const debug = Debug('getFile');
-
+let start = Date.now();
+let lastFileName = 'Start Import';
 async function getFile(file, targetFile) {
   try {
     const response = await fetch(file.url);
@@ -15,7 +16,11 @@ async function getFile(file, targetFile) {
 
     utimesSync(targetFile, file.epoch, file.epoch);
 
-    debug(`Downloading: ${file.name}`);
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+      debug(`Downloaded from: ${lastFileName} till ${file.name}`);
+      start = Date.now();
+      lastFileName = file.name;
+    }
   } catch (e) {
     debug(`ERROR downloading: ${file.url}`);
     throw e;
