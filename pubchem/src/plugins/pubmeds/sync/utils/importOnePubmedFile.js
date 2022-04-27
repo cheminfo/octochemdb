@@ -1,7 +1,8 @@
-import { readFileSync } from 'fs';
-import { gunzipSync } from 'zlib';
+import { readFileSync, createReadStream } from 'fs';
+import { createGunzip, gunzipSync } from 'zlib';
 
-import { XMLParser } from 'fast-xml-parser';
+import pkg from 'xml-flow';
+const flow = pkg;
 
 import Debug from '../../../../utils/Debug.js';
 
@@ -24,61 +25,55 @@ export default async function importOnePubmedFile(
     startSequenceID: progress.seq,
   });
   // should we directly import the data how wait that we reach the previously imported information
+
+  const stream = createReadStream(file.path).pipe(createGunzip());
+  const xmlStream = flow(stream);
   let { shouldImport = true, lastDocument } = options;
-  let inflated = gunzipSync(readFileSync(file.path));
-  const decoder = new TextDecoder();
-  inflated = decoder.decode(inflated);
-
-  const parser = new XMLParser({
-    textNodeName: '_text',
-    attributeNameProcessor: (name) => {
-      if (name.match(/^[A-Z]+$/)) {
-        return name.toLowerCase();
-      } else if (name.match(/^[A-Z]/)) {
-        return name.toLowerCase() + name.substring(1);
-      }
-      return name;
-    },
-  });
-
-  const parsed = parser.parse(inflated);
-
-  let pubmeds = parsed.PubmedArticleSet.PubmedArticle;
-  if (process.env.TEST === 'true') pubmeds = pubmeds.slice(0, 10);
-
   let imported = 0;
-  debug(`Need to process ${pubmeds.length} pubmeds`);
   let start = Date.now();
-  for (let pubmed of pubmeds) {
-    let medlineCitation = pubmed.MedlineCitation;
-    if (!medlineCitation) throw new Error('citation not found', pubmed);
-    if (!shouldImport) {
-      if (medlineCitation.PMID !== lastDocument._id) {
-        continue;
-      }
-      shouldImport = true;
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(`Skipping pubmeds till: ${lastDocument._id}`);
-        start = Date.now();
-        continue;
-      }
-    }
-    const article = improvePubmed(medlineCitation);
-    article._seq = ++progress.seq;
-    progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
-    await collection.updateOne(
-      { _id: article._id },
-      { $set: article },
-      { upsert: true },
-    );
-    await connection.setProgress(progress);
-    imported++;
-  }
-  logs.dateEnd = Date.now();
-  logs.endSequenceID = progress.seq;
-  logs.status = 'updated';
-  await connection.updateImportationLog(logs);
-  debug(`${imported} pubmeds processed`);
-  // save the pubmeds in the database
-  return pubmeds.length;
+  await new Promise((resolve, reject) => {
+    xmlStream
+      .on('tag:pubmedarticle', async (article) => {
+        let medlineCitation = article.medlinecitation;
+        if (!medlineCitation) throw new Error('citation not found', article);
+        if (!shouldImport) {
+          if (medlineCitation.pmid !== lastDocument._id) {
+            return;
+          }
+          shouldImport = true;
+          if (
+            Date.now() - start >
+            Number(process.env.DEBUG_THROTTLING || 10000)
+          ) {
+            debug(`Skipping pubmeds till: ${lastDocument._id}`);
+            start = Date.now();
+          }
+        }
+
+        let articles = improvePubmed(medlineCitation);
+
+        articles._seq = ++progress.seq;
+
+        progress.sources = file.path.replace(
+          process.env.ORIGINAL_DATA_PATH,
+          '',
+        );
+        await collection.updateOne(
+          { _id: articles._id },
+          { $set: articles },
+          { upsert: true },
+        );
+        await connection.setProgress(progress);
+        imported++;
+      })
+      .on('end', async () => {
+        resolve();
+        logs.dateEnd = Date.now();
+        logs.endSequenceID = progress.seq;
+        logs.status = 'updated';
+        await connection.updateImportationLog(logs);
+        debug(`${imported} pubmeds processed`);
+      });
+  });
+  return imported;
 }

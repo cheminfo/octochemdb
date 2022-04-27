@@ -62,7 +62,8 @@
     "sdf-parser": "^5.0.1",
     "tempfile": "^4.0.0",
     "unzipper": "^0.10.11",
-    "workerpool": "^6.2.0"
+    "workerpool": "^6.2.0",
+    "xml-flow": "^1.0.4"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
