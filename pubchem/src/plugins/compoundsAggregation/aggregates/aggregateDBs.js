@@ -9,7 +9,7 @@ import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import getTaxonomiesInfo from '../utils/getTaxonomiesInfo.js';
-
+import { standardizeTaxonomies } from '../utils/standardizeTaxonomies.js';
 const { MF } = MFParser;
 const collectionNames = [
   'lotuses',
@@ -71,11 +71,15 @@ export async function aggregate(connection) {
           continue;
         }
         const data = [];
+
         for (const source of sourcesLink) {
           const collection = await connection.getCollection(source.collection);
-          data.push(await collection.findOne({ _id: source.id }));
+          let partialData = await collection.findOne({ _id: source.id });
+          partialData.collection = source.collection;
+          data.push(partialData);
         }
 
+        //const tax = await standardizeTaxonomies(data, connection);
         const molecule = OCL.Molecule.fromIDCode(noStereoID);
 
         const mfInfo = new MF(getMF(molecule).mf).getInfo();
