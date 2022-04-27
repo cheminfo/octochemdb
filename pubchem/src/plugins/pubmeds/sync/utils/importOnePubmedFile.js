@@ -28,43 +28,36 @@ export default async function importOnePubmedFile(
 
   const stream = createReadStream(file.path).pipe(createGunzip());
   const xmlStream = flow(stream);
-  let { shouldImport = true, lastDocument } = options;
+  let { shouldImport, lastDocument } = options;
   let imported = 0;
-  let start = Date.now();
+
   await new Promise((resolve, reject) => {
     xmlStream
       .on('tag:pubmedarticle', async (article) => {
         let medlineCitation = article.medlinecitation;
         if (!medlineCitation) throw new Error('citation not found', article);
         if (!shouldImport) {
-          if (medlineCitation.pmid !== lastDocument._id) {
-            return;
-          }
-          shouldImport = true;
-          if (
-            Date.now() - start >
-            Number(process.env.DEBUG_THROTTLING || 10000)
-          ) {
+          if (medlineCitation.pmid.$text !== lastDocument._id) {
+            shouldImport = true;
             debug(`Skipping pubmeds till: ${lastDocument._id}`);
-            start = Date.now();
           }
+        } else {
+          let articles = improvePubmed(medlineCitation);
+
+          articles._seq = ++progress.seq;
+
+          progress.sources = file.path.replace(
+            process.env.ORIGINAL_DATA_PATH,
+            '',
+          );
+          await collection.updateOne(
+            { _id: articles._id },
+            { $set: articles },
+            { upsert: true },
+          );
+          await connection.setProgress(progress);
+          imported++;
         }
-
-        let articles = improvePubmed(medlineCitation);
-
-        articles._seq = ++progress.seq;
-
-        progress.sources = file.path.replace(
-          process.env.ORIGINAL_DATA_PATH,
-          '',
-        );
-        await collection.updateOne(
-          { _id: articles._id },
-          { $set: articles },
-          { upsert: true },
-        );
-        await connection.setProgress(progress);
-        imported++;
       })
       .on('end', async () => {
         resolve();
