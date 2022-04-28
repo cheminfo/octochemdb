@@ -63,7 +63,8 @@
     "tempfile": "^4.0.0",
     "unzipper": "^0.10.11",
     "workerpool": "^6.2.0",
-    "xml-flow": "^1.0.4"
+    "xml-flow": "^1.0.4",
+    "xml2json": "^0.12.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
