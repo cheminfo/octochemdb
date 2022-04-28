@@ -1,6 +1,6 @@
 import { readFileSync, createReadStream } from 'fs';
 import { createGunzip, gunzipSync } from 'zlib';
-
+import { toJson } from 'xml2json';
 import pkg from 'xml-flow';
 const flow = pkg;
 
@@ -30,33 +30,39 @@ export default async function importOnePubmedFile(
   const xmlStream = flow(stream);
   let { shouldImport, lastDocument } = options;
   let imported = 0;
-
   await new Promise((resolve, reject) => {
     xmlStream
       .on('tag:pubmedarticle', async (article) => {
-        let medlineCitation = article.medlinecitation;
-        if (!medlineCitation) throw new Error('citation not found', article);
-        if (!shouldImport) {
-          if (medlineCitation.pmid.$text !== lastDocument._id) {
-            shouldImport = true;
-            debug(`Skipping pubmeds till: ${lastDocument._id}`);
+        if (!stop) {
+          let recovertToXml = pkg.toXml(article);
+          let pubMedObject = toJson(recovertToXml, {
+            object: true,
+            alternateTextNode: true,
+          }).pubmedarticle.medlinecitation;
+
+          if (!pubMedObject) throw new Error('citation not found', article);
+          if (!shouldImport) {
+            if (pubMedObject.pmid !== lastDocument._id) {
+              shouldImport = true;
+              debug(`Skipping pubmeds till: ${lastDocument._id}`);
+            }
           }
-        } else {
-          let articles = improvePubmed(medlineCitation);
+          if (shouldImport) {
+            let articles = improvePubmed(pubMedObject);
+            articles._seq = ++progress.seq;
 
-          articles._seq = ++progress.seq;
-
-          progress.sources = file.path.replace(
-            process.env.ORIGINAL_DATA_PATH,
-            '',
-          );
-          await collection.updateOne(
-            { _id: articles._id },
-            { $set: articles },
-            { upsert: true },
-          );
-          await connection.setProgress(progress);
-          imported++;
+            progress.sources = file.path.replace(
+              process.env.ORIGINAL_DATA_PATH,
+              '',
+            );
+            await collection.updateOne(
+              { _id: articles._id },
+              { $set: articles },
+              { upsert: true },
+            );
+            await connection.setProgress(progress);
+            imported++;
+          }
         }
       })
       .on('end', async () => {
