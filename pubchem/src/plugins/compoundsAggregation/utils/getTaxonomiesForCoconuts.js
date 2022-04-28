@@ -39,10 +39,10 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
           finalTaxonomy.species = entry.data.taxonomies[0].species;
 
           taxonomiesCoconuts.push(finalTaxonomy);
-        } else {
-          let finalTaxonomy = entry.data.taxonomies;
-          taxonomiesCoconuts.push(finalTaxonomy[0]);
         }
+      } else {
+        let finalTaxonomy = entry.data.taxonomies;
+        taxonomiesCoconuts.push(finalTaxonomy[0]);
       }
     }
   }
