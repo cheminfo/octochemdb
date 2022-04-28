@@ -1,62 +1,28 @@
 import Debug from '../../../utils/Debug.js';
+import { getTaxonomiesForLotuses } from './getTaxonomiesForLotuses.js';
+import { searchTaxonomies } from './searchTaxonomies.js';
+import { getTaxonomiesForCoconuts } from '../utils/getTaxonomiesForCoconuts.js';
 const debug = Debug('standardizeTaxonomies');
 export async function standardizeTaxonomies(data, connection) {
-  //  console.log(data);
+  let newData = [];
   const taxonomiesCollection = await connection.getCollection('taxonomies');
-  for (const entry of data) {
+  for (let entry of data) {
     if (entry.collection === 'lotuses') {
-      console.log('ok');
-      if (entry.data?.taxonomies?.ncbi) {
-        let searchParameter = {
-          _id: Number(entry.data.taxonomies.ncbi[0].organismID),
-        };
-        let result = await search(taxonomiesCollection, searchParameter);
-        if (result.length > 0) {
-          let finalTaxonomy = result[0].taxonomies;
-          finalTaxonomy.species = result[0].organism;
-          finalTaxonomy.ncbiID = result[0]._id;
-          entry.data.taxonomies = finalTaxonomy;
-        }
-      } else {
-        let sourceToBeUsed;
-        if (entry.data?.taxonomies?.gBifBackboneTaxonomy?.genus) {
-          sourceToBeUsed = 'gBifBackboneTaxonomy';
-        } else {
-          if (entry.data?.taxonomies?.openTreeOfLife?.genus) {
-            sourceToBeUsed = 'openTreeOfLife';
-          } else {
-            if (entry.data?.taxonomies?.iNaturalist?.genus) {
-              sourceToBeUsed = 'iNaturalist';
-            } else {
-              if (entry.data?.taxonomies?.openTreeOfLife?.genus) {
-                sourceToBeUsed = 'iTIS';
-              }
-            }
-          }
-        }
-        if (sourceToBeUsed === undefined) {
-          debug(entry.data.taxonomies);
-        }
-        let searchParameter = {
-          _id: Number(entry.data.taxonomies.sourceToBeUsed[0].genus),
-        };
-        let result = await search(taxonomiesCollection, searchParameter);
-        if (result.length > 0) {
-          let finalTaxonomy = result[0].taxonomies;
-          finalTaxonomy.species = result[0].organism;
-          finalTaxonomy.ncbiID = result[0]._id;
-          entry.data.taxonomies = finalTaxonomy;
-        }
-      }
+      let resultLotuses = await getTaxonomiesForLotuses(
+        entry,
+        taxonomiesCollection,
+      );
+      entry = resultLotuses;
     }
+    if (entry.collection === 'coconuts') {
+      let resultsCoconuts = await getTaxonomiesForCoconuts(
+        entry,
+        taxonomiesCollection,
+      );
+
+      entry = resultsCoconuts;
+    }
+    newData.push(entry);
   }
-}
-export async function search(taxonomiesCollection, searchParameter) {
-  let searchResult = [];
-  const cursor = taxonomiesCollection.find(searchParameter).limit(10);
-  while (await cursor.hasNext()) {
-    const doc = await cursor.next();
-    searchResult.push(doc);
-  }
-  return searchResult;
+  return newData;
 }
