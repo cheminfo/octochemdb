@@ -18,6 +18,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
   const limit = process.env.TEST === 'true' ? 5 : undefined;
 
   let allFiles = await getFilesList(source, options);
+
   if (limit) allFiles = allFiles.slice(0, limit);
   const newFiles = [];
   let start = Date.now();
@@ -27,12 +28,15 @@ async function syncFolder(source, destinationFolder, options = {}) {
     return 0;
   });
   let lastFileImported = fileList.slice(-1)[0];
-  let skipping = true;
+  let skipping = false;
+  if (lastFileImported) {
+    skipping = true;
+  }
   for (const file of allFiles) {
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
     if (skipping) {
-      if (file.name !== lastFileImported.name) {
+      if (file.name !== lastFileImported.name && fileList !== []) {
         continue;
       } else {
         skipping = false;
