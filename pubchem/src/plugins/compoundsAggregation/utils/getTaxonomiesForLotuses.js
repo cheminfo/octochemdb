@@ -15,8 +15,7 @@ export async function getTaxonomiesForLotuses(entry, taxonomiesCollection) {
         if (result.length > 0) {
           let finalTaxonomy = result[0].taxonomies;
           finalTaxonomy.species = result[0].organism;
-          finalTaxonomy.ncbiID = result[0]._id;
-
+          finalTaxonomy.ref = entry._id;
           taxonomiesLotuses.push(finalTaxonomy);
         }
       }
@@ -31,7 +30,7 @@ export async function getTaxonomiesForLotuses(entry, taxonomiesCollection) {
       if (result.length > 0) {
         let finalTaxonomy = result[0].taxonomies;
         finalTaxonomy.species = result[0].organism;
-        finalTaxonomy.ncbiID = result[0]._id;
+        finalTaxonomy.ref = entry._id;
         taxonomiesLotuses.push(finalTaxonomy);
       }
     }
@@ -54,6 +53,7 @@ export async function getTaxonomiesForLotuses(entry, taxonomiesCollection) {
               finalTaxonomy.species =
                 entry.data.taxonomies[sourceToBeUsed][i].species;
             }
+            finalTaxonomy.ref = entry._id;
             taxonomiesLotuses.push(finalTaxonomy);
           }
           if (resultByGenus.length === 0) {
@@ -75,11 +75,13 @@ export async function getTaxonomiesForLotuses(entry, taxonomiesCollection) {
                 finalTaxonomyByFamily.species =
                   entry.data.taxonomies[sourceToBeUsed][i].species;
               }
+              finalTaxonomyByFamily.ref = entry._id;
               taxonomiesLotuses.push(finalTaxonomyByFamily);
             }
             if (resultByFamily.length === 0) {
               let finalTaxonomy = entry.data.taxonomies[sourceToBeUsed][i];
               delete finalTaxonomy.organismID;
+              finalTaxonomy.ref = entry._id;
               taxonomiesLotuses.push(finalTaxonomy);
             }
           }
