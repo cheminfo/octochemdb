@@ -81,28 +81,28 @@ export async function* parseNpasses(
         if (taxonomies.length > 0) {
           for (const infos of taxonomies) {
             let taxons = {};
-            if (infos?.kingdom_name) {
+            if (infos?.kingdom_name && infos?.kingdom_name !== 'NA') {
               taxons.kingdom = infos?.kingdom_name;
             }
-            if (infos?.kingdom_tax_id) {
+            if (infos?.kingdom_tax_id && infos?.kingdom_tax_id !== 'NA') {
               taxons.kingdomID = infos?.kingdom_tax_id;
             }
-            if (infos?.family_name) {
+            if (infos?.family_name && infos?.family_name !== 'NA') {
               taxons.family = infos?.family_name;
             }
-            if (infos?.family_tax_id) {
+            if (infos?.family_tax_id && infos?.family_tax_id !== 'NA') {
               taxons.familyID = infos?.family_tax_id;
             }
-            if (infos?.genus_name) {
+            if (infos?.genus_name && infos?.genus_name !== 'NA') {
               taxons.genus = infos?.genus_name;
             }
-            if (infos?.genus_tax_id) {
+            if (infos?.genus_tax_id && infos?.genus_tax_id !== 'NA') {
               taxons.genusID = infos?.genus_tax_id;
             }
-            if (infos?.org_name) {
+            if (infos?.org_name && infos?.org_name !== 'NA') {
               taxons.species = infos?.org_name;
             }
-            if (infos?.species_tax_id) {
+            if (infos?.species_tax_id && infos?.species_tax_id !== 'NA') {
               taxons.speciesID = infos?.species_tax_id;
             }
             if (taxons !== {}) {

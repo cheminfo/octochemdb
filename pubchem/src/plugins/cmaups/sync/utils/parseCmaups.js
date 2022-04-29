@@ -86,23 +86,23 @@ export async function* parseCmaups(
           if (taxonomies.length > 0) {
             for (const infos of taxonomies) {
               let taxons = {};
-              if (infos?.Species_Tax_ID) {
+              if (infos?.Species_Tax_ID && infos?.Species_Tax_ID !== 'NA') {
                 taxons.speciesID = infos.Species_Tax_ID;
               }
-              if (infos?.Plant_Name) {
+              if (infos?.Plant_Name && infos?.Plant_Name !== 'NA') {
                 taxons.species = infos?.Plant_Name;
               }
-              if (infos?.Genus_Tax_ID) {
+              if (infos?.Genus_Tax_ID && infos?.Genus_Tax_ID !== 'NA') {
                 taxons.genusID = infos?.Genus_Tax_ID;
               }
-              if (infos?.Genus_Name) {
+              if (infos?.Genus_Name && infos?.Genus_Name !== 'NA') {
                 taxons.genus = infos?.Genus_Name;
               }
 
-              if (infos?.Family_Tax_ID) {
+              if (infos?.Family_Tax_ID && infos?.Family_Tax_ID !== 'NA') {
                 taxons.familyID = infos?.Family_Tax_ID;
               }
-              if (infos?.Family_Name) {
+              if (infos?.Family_Name && infos?.Family_Name !== 'NA') {
                 taxons.family = infos?.Family_Name;
               }
               if (taxons !== {}) {
