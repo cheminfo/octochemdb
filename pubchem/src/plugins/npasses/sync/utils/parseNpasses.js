@@ -64,38 +64,50 @@ export async function* parseNpasses(
         } catch (e) {
           continue;
         }
-        const orgID = speciesPair[item.np_id];
-        const taxonomies = speciesInfo[orgID];
+        const orgIDs = speciesPair[item.np_id];
+
+        const taxonomies = [];
+        if (orgIDs) {
+          if (orgIDs.length > 0) {
+            orgIDs.forEach((idOrg) => {
+              if (speciesInfo[idOrg]) {
+                taxonomies.push(speciesInfo[idOrg]);
+              }
+            });
+          }
+        }
 
         const finalTaxonomies = [];
-        if (taxonomies !== undefined) {
-          let taxons = {};
-          if (taxonomies?.kingdom_name) {
-            taxons.kingdom = taxonomies?.kingdom_name;
-          }
-          if (taxonomies?.kingdom_tax_id) {
-            taxons.kingdomID = taxonomies?.kingdom_tax_id;
-          }
-          if (taxonomies?.family_name) {
-            taxons.family = taxonomies?.family_name;
-          }
-          if (taxonomies?.family_tax_id) {
-            taxons.familyID = taxonomies?.family_tax_id;
-          }
-          if (taxonomies?.genus_name) {
-            taxons.genus = taxonomies?.genus_name;
-          }
-          if (taxonomies?.genus_tax_id) {
-            taxons.genusID = taxonomies?.genus_tax_id;
-          }
-          if (taxonomies?.org_name) {
-            taxons.species = taxonomies?.org_name;
-          }
-          if (taxonomies?.species_tax_id) {
-            taxons.speciesID = taxonomies?.species_tax_id;
-          }
-          if (taxons !== {}) {
-            finalTaxonomies.push(taxons);
+        if (taxonomies.length > 0) {
+          for (const infos of taxonomies) {
+            let taxons = {};
+            if (infos?.kingdom_name) {
+              taxons.kingdom = infos?.kingdom_name;
+            }
+            if (infos?.kingdom_tax_id) {
+              taxons.kingdomID = infos?.kingdom_tax_id;
+            }
+            if (infos?.family_name) {
+              taxons.family = infos?.family_name;
+            }
+            if (infos?.family_tax_id) {
+              taxons.familyID = infos?.family_tax_id;
+            }
+            if (infos?.genus_name) {
+              taxons.genus = infos?.genus_name;
+            }
+            if (infos?.genus_tax_id) {
+              taxons.genusID = infos?.genus_tax_id;
+            }
+            if (infos?.org_name) {
+              taxons.species = infos?.org_name;
+            }
+            if (infos?.species_tax_id) {
+              taxons.speciesID = infos?.species_tax_id;
+            }
+            if (taxons !== {}) {
+              finalTaxonomies.push(taxons);
+            }
           }
         }
 

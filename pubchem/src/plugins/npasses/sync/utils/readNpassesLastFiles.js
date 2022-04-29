@@ -34,7 +34,14 @@ async function readNpassesLastFiles(
     const speciesPair = {};
     parse(readFileSync(lastFileSpeciesPair, 'utf8'), {
       header: true,
-    }).data.forEach((entry) => (speciesPair[entry.np_id] = entry.org_id));
+    }).data.forEach((entry) => {
+      if (!speciesPair[entry.np_id] && entry.np_id !== undefined) {
+        speciesPair[entry.np_id] = [];
+      }
+      if (entry.np_id !== undefined) {
+        speciesPair[entry.np_id].push(entry.org_id);
+      }
+    });
     const speciesInfo = {};
     parse(readFileSync(lastFileSpeciesInfo, 'utf8'), {
       header: true,
