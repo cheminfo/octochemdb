@@ -13,7 +13,7 @@ import { fileListFromPath } from 'filelist-from';
 import Debug from '../../../utils/Debug.js';
 
 import pkg from 'fs-extra';
-const { moveSync, mkdirpSync } = pkg;
+const { mkdirpSync } = pkg;
 const debug = Debug('getFileIfNew');
 
 /**
