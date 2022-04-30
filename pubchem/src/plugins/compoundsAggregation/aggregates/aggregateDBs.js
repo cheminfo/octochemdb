@@ -70,7 +70,7 @@ export async function aggregate(connection) {
           }
           continue;
         }
-        const data = [];
+        let data = [];
 
         for (const source of sourcesLink) {
           const collection = await connection.getCollection(source.collection);
@@ -79,7 +79,7 @@ export async function aggregate(connection) {
           data.push(partialData);
         }
 
-        //const tax = await standardizeTaxonomies(data, connection);
+        // data = await standardizeTaxonomies(data, connection);
         const molecule = OCL.Molecule.fromIDCode(noStereoID);
 
         const mfInfo = new MF(getMF(molecule).mf).getInfo();
