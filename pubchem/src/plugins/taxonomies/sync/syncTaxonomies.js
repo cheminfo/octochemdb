@@ -21,7 +21,7 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
-    await collection.createIndex({ _seq: 1 });
+    await collection.createIndex({ _id: 1 });
     await collection.createIndex({ organism: 1 });
     await collection.createIndex({ 'taxonomies.family': 1 });
     await collection.createIndex({ 'taxonomies.genus': 1 });
