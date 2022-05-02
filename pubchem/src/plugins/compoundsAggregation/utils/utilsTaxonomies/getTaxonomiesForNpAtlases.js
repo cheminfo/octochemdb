@@ -1,4 +1,4 @@
-import { searchTaxonomies } from '../utils/searchTaxonomies.js';
+import { searchTaxonomies } from './searchTaxonomies.js';
 
 export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
   let taxonomiesResults = [];
@@ -9,7 +9,7 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
 
     if (taxons.species) {
       searchParameter = {
-        organism: taxons.species,
+        'data.species': taxons.species,
       };
       type.species = searchParameter;
     }
@@ -22,26 +22,26 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
 
     if (taxons.genus) {
       searchParameter = {
-        'taxonomies.genus': taxons.genusID,
+        'data.genus': taxons.genusID,
       };
       type.genus = searchParameter;
     }
 
     if (taxons.family) {
       searchParameter = {
-        'taxonomies.family': taxons.family,
+        'data.family': taxons.family,
       };
       type.family = searchParameter;
     }
     if (taxons.class) {
       searchParameter = {
-        'taxonomies.class': taxons.class,
+        'data.class': taxons.class,
       };
       type.class = searchParameter;
     }
     if (taxons.phylum) {
       searchParameter = {
-        'taxonomies.phylum': taxons.phylum,
+        'data.phylum': taxons.phylum,
       };
       type.phylum = searchParameter;
     }
@@ -51,8 +51,8 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
     if (type.species && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.species);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].taxonomies;
-        finalTaxonomy.species = result[0].organism;
+        let finalTaxonomy = result[0].data;
+
         finalTaxonomy.ref = entry._id;
         taxonomiesResults.push(finalTaxonomy);
         shouldSearch = false;
@@ -61,8 +61,7 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
     if (type.genusID && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.genusID);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].taxonomies;
-        finalTaxonomy.genus = result[0].organism;
+        let finalTaxonomy = result[0].data;
         if (taxons.species) {
           finalTaxonomy.species = taxons.species;
         }
@@ -75,8 +74,7 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
     if (type.genus && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.genus);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].taxonomies;
-        finalTaxonomy.genus = result[0].organism;
+        let finalTaxonomy = result[0].data;
         if (taxons.species) {
           finalTaxonomy.species = taxons.species;
         }
@@ -89,8 +87,7 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
     if (type.family && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.family);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].taxonomies;
-        finalTaxonomy.family = result[0].organism;
+        let finalTaxonomy = result[0].data;
         if (taxons.genus) {
           finalTaxonomy.genus = taxons.genus;
         }
@@ -106,8 +103,7 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
     if (type.class && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.class);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].taxonomies;
-        finalTaxonomy.class = result[0].organism;
+        let finalTaxonomy = result[0].data;
         if (taxons.family) {
           finalTaxonomy.family = taxons.family;
         }
@@ -125,8 +121,8 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
     if (type.phylum && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.phylum);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].taxonomies;
-        finalTaxonomy.phylum = result[0].organism;
+        let finalTaxonomy = result[0].data;
+
         if (taxons.class) {
           finalTaxonomy.class = taxons.class;
         }

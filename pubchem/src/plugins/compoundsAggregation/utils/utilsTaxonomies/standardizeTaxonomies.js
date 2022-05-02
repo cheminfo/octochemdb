@@ -1,11 +1,11 @@
-import Debug from '../../../utils/Debug.js';
+import Debug from '../../../../utils/Debug.js';
 import { getTaxonomiesForLotuses } from './getTaxonomiesForLotuses.js';
-import { getTaxonomiesForCoconuts } from '../utils/getTaxonomiesForCoconuts.js';
-import { getTaxonomiesForCmaupsAndNpasses } from '../utils/getTaxonomiesForCmaupsAndNpasses.js';
-import { getTaxonomiesForNpAtlases } from '../utils/getTaxonomiesForNpAtlases.js';
+import { getTaxonomiesForCoconuts } from './getTaxonomiesForCoconuts.js';
+import { getTaxonomiesForCmaupsAndNpasses } from './getTaxonomiesForCmaupsAndNpasses.js';
+import { getTaxonomiesForNpAtlases } from './getTaxonomiesForNpAtlases.js';
 const debug = Debug('standardizeTaxonomies');
 
-export async function standardizeTaxonomies(data, connection) {
+export async function standardizeTaxonomies(data, connection, synonims) {
   let newData = [];
 
   const taxonomiesCollection = await connection.getCollection('taxonomies');
@@ -14,6 +14,7 @@ export async function standardizeTaxonomies(data, connection) {
       let resultLotuses = await getTaxonomiesForLotuses(
         entry,
         taxonomiesCollection,
+        synonims,
       );
       entry = resultLotuses;
     }

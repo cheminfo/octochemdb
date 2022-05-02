@@ -1,5 +1,5 @@
 import { fileListFromPath } from 'filelist-from';
-import readStreamInZipFolder from '../../../utils/readStreamInZipFolder.js';
+import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 import { createInterface } from 'readline';
 export async function taxonomySynonims() {
   let fileName = fileListFromPath(

@@ -1,7 +1,4 @@
-import Debug from '../../../utils/Debug.js';
-
-import { searchTaxonomies } from '../utils/searchTaxonomies.js';
-const debug = Debug('standardizeTaxonomies');
+import { searchTaxonomies } from '../utilsTaxonomies/searchTaxonomies.js';
 
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,
@@ -23,7 +20,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
 
         if (taxons.species) {
           searchParameter = {
-            organism: taxons.species,
+            'data.species': taxons.species,
           };
           type.species = searchParameter;
         }
@@ -36,7 +33,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
 
         if (taxons.genus) {
           searchParameter = {
-            'taxonomies.genus': taxons.genusID,
+            'data.genus': taxons.genusID,
           };
           type.genus = searchParameter;
         }
@@ -48,7 +45,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         }
         if (taxons.family) {
           searchParameter = {
-            'taxonomies.family': taxons.family,
+            'data.family': taxons.family,
           };
           type.family = searchParameter;
         }
@@ -60,8 +57,8 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             type.speciesID,
           );
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
-            finalTaxonomy.species = result[0].organism;
+            let finalTaxonomy = result[0].data;
+
             finalTaxonomy.ref = entry._id;
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
@@ -74,8 +71,8 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             type.species,
           );
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
-            finalTaxonomy.species = result[0].organism;
+            let finalTaxonomy = result[0].data;
+
             finalTaxonomy.ref = entry._id;
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
@@ -87,8 +84,8 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             type.genusID,
           );
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
-            finalTaxonomy.genus = result[0].organism;
+            let finalTaxonomy = result[0].data;
+
             if (taxons.species) {
               finalTaxonomy.species = taxons.species;
             }
@@ -101,8 +98,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         if (type.genus && shouldSearch) {
           let result = await searchTaxonomies(taxonomiesCollection, type.genus);
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
-            finalTaxonomy.genus = result[0].organism;
+            let finalTaxonomy = result[0].data;
             if (taxons.species) {
               finalTaxonomy.species = taxons.species;
             }
@@ -118,8 +114,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             type.familyID,
           );
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
-            finalTaxonomy.family = result[0].organism;
+            let finalTaxonomy = result[0].data;
             if (taxons.genus) {
               finalTaxonomy.genus = taxons.genus;
             }
@@ -137,8 +132,8 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             type.family,
           );
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
-            finalTaxonomy.family = result[0].organism;
+            let finalTaxonomy = result[0].data;
+
             if (taxons.genus) {
               finalTaxonomy.genus = taxons.genus;
             }

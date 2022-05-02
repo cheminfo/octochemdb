@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import Debug from '../../../../utils/Debug.js';
 
 async function getTaxonomiesInfo(data, connection) {
   const debug = Debug('getTaxonomiesInfo');
@@ -12,7 +12,6 @@ async function getTaxonomiesInfo(data, connection) {
       }
     }
     if (taxons.length > 0) {
-      let originalLength = taxons.length;
       try {
         taxons = taxons.filter(
           (elem, index, self) =>
@@ -20,7 +19,6 @@ async function getTaxonomiesInfo(data, connection) {
               return taxonomy?.species === elem.species;
             }) === index,
         );
-        //  debug(`${originalLength}----${taxons.length}`);
       } catch (e) {
         debug(e.stack);
       }

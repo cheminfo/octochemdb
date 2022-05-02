@@ -8,14 +8,14 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
         let genus = entry.data.taxonomies[i].species.split(' ');
         if (genus.length > 0) {
           let searchParameter = {
-            'taxonomies.genus': genus[0],
+            'data.genus': genus[0],
           };
           let result = await searchTaxonomies(
             taxonomiesCollection,
             searchParameter,
           );
           if (result.length > 0) {
-            let finalTaxonomy = result[0].taxonomies;
+            let finalTaxonomy = result[0].data;
             finalTaxonomy.species = entry.data.taxonomies[i].species;
             finalTaxonomy.ref = entry._id;
             taxonomiesCoconuts.push(finalTaxonomy);
@@ -30,14 +30,14 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
       let genus = entry.data.taxonomies[0].species.split(' ');
       if (genus.length > 0) {
         let searchParameter = {
-          'taxonomies.genus': genus[0],
+          'data.genus': genus[0],
         };
         let result = await searchTaxonomies(
           taxonomiesCollection,
           searchParameter,
         );
         if (result.length > 0) {
-          let finalTaxonomy = result[0].taxonomies;
+          let finalTaxonomy = result[0].data;
           finalTaxonomy.species = entry.data.taxonomies[0].species;
           finalTaxonomy.ref = entry._id;
           taxonomiesCoconuts.push(finalTaxonomy);
