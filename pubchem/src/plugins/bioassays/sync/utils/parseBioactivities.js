@@ -45,7 +45,9 @@ async function* parseBioactivities(
     for await (let cid of Object.keys(compounds)) {
       let result = {
         _id: cid,
-        data: [],
+        data: {
+          bioassays: [],
+        },
       };
 
       if (skipping && parseSkip !== undefined) {
@@ -59,13 +61,13 @@ async function* parseBioactivities(
 
       for (let aid of compounds[cid]) {
         if (bioassays[aid].targetsTaxonomies) {
-          result.data.push({
+          result.data.bioassays.push({
             aid: aid,
             assay: bioassays[aid].name,
             activeAgainsTaxIDs: bioassays[aid].targetsTaxonomies,
           });
         } else {
-          result.data.push({ aid: aid, assay: bioassays[aid].name });
+          result.data.bioassays.push({ aid: aid, assay: bioassays[aid].name });
         }
       }
       yield result;

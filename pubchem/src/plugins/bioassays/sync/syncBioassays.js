@@ -30,6 +30,10 @@ export async function sync(connection) {
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
     await collection.createIndex({ _seq: 1 });
+    await collection.createIndex({ _id: 1 });
+    await collection.createIndex({ 'data.bioassays.activeAgainsTaxIDs': 1 });
+    await collection.createIndex({ 'data.bioassays.aid': 1 });
+
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
