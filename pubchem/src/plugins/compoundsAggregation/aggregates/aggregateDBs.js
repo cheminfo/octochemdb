@@ -18,7 +18,7 @@ const collectionNames = [
   'npAtlases',
   'cmaups',
   'coconuts',
-  // 'bioassays',
+  'bioassays',
 ]; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
 // since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
 // in future a solution need to be found
@@ -33,7 +33,7 @@ export async function aggregate(connection) {
     const targetCollection = await connection.getCollection(options.collection);
     await targetCollection.createIndex({ _seq: 1 });
 
-    let doIDs = false;
+    let doIDs = true;
     if (doIDs) {
       let noStereoIDsBioassays = await getNoStereoIDsBiossays(connection);
       debug(

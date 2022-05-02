@@ -5,16 +5,21 @@ async function getActivitiesInfo(data, connection) {
   try {
     let activityInfo = [];
     for (const entry of data) {
-      if (entry.data?.activities) {
-        for (const activity of entry.data.activities) {
-          activity.ref = entry._id;
-          if (activity.target_id) {
-            let searchParameter = {
-              _id: Number(activity.target_id),
-            };
+      if (entry.collection === 'bioassays') {
+        let activity = {};
+      }
+      if (entry.collection === 'npasses') {
+        if (entry.data?.activities) {
+          for (const activity of entry.data.activities) {
+            activity.ref = entry._id;
+            if (activity.target_id) {
+              let searchParameter = {
+                _id: Number(activity.target_id),
+              };
+            }
           }
+          activityInfo.push(entry.data?.activities);
         }
-        activityInfo.push(entry.data?.activities);
       }
     }
 
