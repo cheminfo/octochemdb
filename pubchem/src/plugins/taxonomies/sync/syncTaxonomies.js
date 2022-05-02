@@ -22,9 +22,12 @@ export async function sync(connection) {
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
     await collection.createIndex({ _id: 1 });
-    await collection.createIndex({ organism: 1 });
-    await collection.createIndex({ 'taxonomies.family': 1 });
-    await collection.createIndex({ 'taxonomies.genus': 1 });
+    await collection.createIndex({ 'data.class': 1 });
+    await collection.createIndex({ 'data.phylum': 1 });
+    await collection.createIndex({ 'data.species': 1 });
+    await collection.createIndex({ 'data.organism': 1 });
+    await collection.createIndex({ 'data.family': 1 });
+    await collection.createIndex({ 'data.genus': 1 });
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
@@ -50,6 +53,15 @@ export async function sync(connection) {
     let counter = 0;
     let imported = 0;
     let start = Date.now();
+    let update = false;
+
+    if (
+      firstID &&
+      progress.state === 'updated' &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      update = true;
+    }
     if (
       lastDocumentImported === null ||
       md5(JSON.stringify(sources)) !== progress.sources ||
@@ -65,7 +77,7 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-        if (skipping) {
+        if (skipping && !update) {
           if (firstID === entry._id) {
             skipping = false;
             debug(`Skipping taxonomies till:${firstID}`);
