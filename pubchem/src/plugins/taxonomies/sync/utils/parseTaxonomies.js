@@ -44,8 +44,29 @@ export function* parseTaxonomies(arrayBuffer, connection) {
             taxonomy.organism = fields[1];
           }
         }
-        if (fields[2] == '' && fields[1] !== '') {
-          taxonomy.species = fields[1];
+        if (fields[2] === '' && fields[1] !== '') {
+          let properties = Object.keys(taxonomy);
+          let shouldStop = false;
+          if (properties.includes('genus') && !shouldStop) {
+            taxonomy.species = fields[1];
+            shouldStop = true;
+          }
+          if (properties.includes('family') && !shouldStop) {
+            taxonomy.genus = fields[1];
+            shouldStop = true;
+          }
+          if (properties.includes('class') && !shouldStop) {
+            taxonomy.order = fields[1];
+            shouldStop = true;
+          }
+          if (properties.includes('phylum') && !shouldStop) {
+            taxonomy.class = fields[1];
+            shouldStop = true;
+          }
+          if (properties.includes('superkingdom' || 'kingdom') && !shouldStop) {
+            taxonomy.phylum = fields[1];
+            shouldStop = true;
+          }
         }
         const entry = {
           _id: Number(fields[0].replace(/[\r\n]/g, '')),
