@@ -3,13 +3,14 @@ import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-
+import { taxonomySynonims } from '../utils/utilsTaxonomies/taxonomySynonims.js';
 import Debug from '../../../utils/Debug.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
-import getTaxonomiesInfo from '../utils/getTaxonomiesInfo.js';
-import { standardizeTaxonomies } from '../utils/standardizeTaxonomies.js';
+import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
+import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
+import { getNoStereoIDsBiossays } from '../utils/getNoStereoIDsBiossays.js';
 const { MF } = MFParser;
 const collectionNames = [
   'lotuses',
@@ -17,6 +18,7 @@ const collectionNames = [
   'npAtlases',
   'cmaups',
   'coconuts',
+  // 'bioassays',
 ]; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
 // since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
 // in future a solution need to be found
@@ -31,6 +33,13 @@ export async function aggregate(connection) {
     const targetCollection = await connection.getCollection(options.collection);
     await targetCollection.createIndex({ _seq: 1 });
 
+    let doIDs = false;
+    if (doIDs) {
+      let noStereoIDsBioassays = await getNoStereoIDsBiossays(connection);
+      debug(
+        `Number of noStereoIDs added to bioassays: ${noStereoIDsBioassays}`,
+      );
+    }
     let { links, colletionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -61,6 +70,7 @@ export async function aggregate(connection) {
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
+      let synonims = await taxonomySynonims();
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         if (process.env.TEST === 'true' && counter > 20) break;
         if (skipping && progress.state !== 'updated') {
@@ -79,15 +89,13 @@ export async function aggregate(connection) {
           data.push(partialData);
         }
 
-        // data = await standardizeTaxonomies(data, connection);
-        const molecule = OCL.Molecule.fromIDCode(noStereoID);
-
-        const mfInfo = new MF(getMF(molecule).mf).getInfo();
+        data = await standardizeTaxonomies(data, connection, synonims);
+        let taxons = await getTaxonomiesInfo(data, connection);
 
         let activityInfo = await getActivitiesInfo(data, connection);
 
-        let taxons = await getTaxonomiesInfo(data, connection);
-
+        const molecule = OCL.Molecule.fromIDCode(noStereoID);
+        const mfInfo = new MF(getMF(molecule).mf).getInfo();
         let entry = await getCompoundsInfo(data, mfInfo, connection);
 
         if (activityInfo.length > 0) entry.data.npActive = true;
