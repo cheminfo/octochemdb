@@ -1,35 +1,23 @@
 import Debug from '../../../utils/Debug.js';
-
+//npass and bioassays
 async function getActivitiesInfo(data, connection) {
   const debug = Debug('getActivityInfo');
   try {
     let activityInfo = [];
-    for (const info of data) {
-      if (info.data?.activities) {
-        for (const activity of info.data.activities) {
-          activity.ref = info._id;
+    for (const entry of data) {
+      if (entry.data?.activities) {
+        for (const activity of entry.data.activities) {
+          activity.ref = entry._id;
+          if (activity.target_id) {
+            let searchParameter = {
+              _id: Number(activity.target_id),
+            };
+          }
         }
-        activityInfo.push(info.data?.activities);
+        activityInfo.push(entry.data?.activities);
       }
     }
-    if (activityInfo.length > 0) {
-      activityInfo = activityInfo[0];
-      try {
-        activityInfo = activityInfo.filter(
-          (elem, index, self) =>
-            self.findIndex((activity) => {
-              return (
-                activity.refId === elem.refId &&
-                activity.refIdType === elem.refIdType &&
-                activity.activityType === elem.activityType &&
-                activity.activityValue === elem.activityValue
-              );
-            }) === index,
-        );
-      } catch (e) {
-        debug(e.stack);
-      }
-    }
+
     return activityInfo;
   } catch (e) {
     const optionsDebug = { collection: 'bestOfCompounds', connection };
