@@ -40,11 +40,16 @@ export function* parseTaxonomies(arrayBuffer, connection) {
         }
         if (fields[2] !== '') {
           taxonomy.species = fields[2];
+          if (fields[1] !== '') {
+            taxonomy.organism = fields[1];
+          }
+        }
+        if (fields[2] == '' && fields[1] !== '') {
+          taxonomy.species = fields[1];
         }
         const entry = {
           _id: Number(fields[0].replace(/[\r\n]/g, '')),
-          organism: fields[1],
-          taxonomies: taxonomy,
+          data: taxonomy,
         };
 
         yield entry;
