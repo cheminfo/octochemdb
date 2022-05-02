@@ -20,12 +20,15 @@ async function getCollectionsLinks(connection, collectionNames) {
           },
         ])
         .toArray();
+
       debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
       for (const entry of results) {
-        if (!links[entry.noStereoID]) {
-          links[entry.noStereoID] = [];
+        if (entry?.noStereoID) {
+          if (!links[entry.noStereoID]) {
+            links[entry.noStereoID] = [];
+          }
+          links[entry.noStereoID].push(entry.source);
         }
-        links[entry.noStereoID].push(entry.source);
       }
     }
     return { links, colletionSources };
