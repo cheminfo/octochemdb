@@ -4,56 +4,38 @@ const debug = Debug('getNoStereoID');
 
 export async function getNoStereoIDsBiossays(connection) {
   let counter = 0;
+  let start = Date.now();
   const taxonomiesCollection = await connection.getCollection('taxonomies');
   const bioassaysCollection = await connection.getCollection('bioassays');
+  let total = await bioassaysCollection.count();
   const collection = await connection.getCollection('compounds');
   let ids = await bioassaysCollection.find({}, { _id: 1 }).map(function (item) {
-    let assays = { id: item._id, bioassays: item?.data?.bioassays };
-    return assays;
+    return item;
   });
+  //activeAgainsTaxIDs
   while (await ids.hasNext()) {
     const doc = await ids.next();
-    let compound = await collection.findOne({ _id: Number(doc.id) });
+    let cid = doc.data.cid;
+    let compound = await collection.findOne({ _id: Number(cid) });
     if (compound) {
-      if (counter > 206) {
-        debug(doc.id);
-      }
       let taxonomies = [];
-      let taxon = {};
-      for (let i = 0; i < doc?.bioassays.length; i++) {
-        let aid = doc?.bioassays[i]?.aid;
 
-        if (doc?.bioassays[i]?.activeAgainsTaxIDs) {
-          for (let id of doc?.bioassays[i].activeAgainsTaxIDs) {
-            let taxons = await taxonomiesCollection.findOne({
-              _id: Number(id),
-            });
-            if (taxons) {
-              if (!taxon[taxons._id]) {
-                taxon[taxons._id] = taxons.data;
-                taxon[taxons._id].aid = [aid];
-                continue;
-              }
-              if (taxon[taxons._id]) {
-                taxon[taxons._id].aid.push(aid);
-              }
-            }
-          }
-          let keys = Object.keys(taxon);
-          if (keys.length > 0) {
-            for (let key of keys) {
-              taxonomies.push(taxon[key]);
-            }
+      if (doc.data.activeAgainsTaxIDs) {
+        for (let i = 0; i < doc.data.activeAgainsTaxIDs.length; i++) {
+          let taxons = await taxonomiesCollection.findOne({
+            _id: Number(doc.data.activeAgainsTaxIDs[i]),
+          });
+          if (taxons) {
+            taxonomies.push(taxons.data);
           }
         }
       }
-
       let noStereoID = compound.data.ocl.noStereoID;
       let set;
       if (taxonomies.length > 0) {
         set = {
           'data.ocl.noStereoID': noStereoID,
-          'data.taxonomies': taxonomies,
+          'data.activeAgainstTaxonomy': taxonomies,
         };
       } else {
         set = {
@@ -61,14 +43,21 @@ export async function getNoStereoIDsBiossays(connection) {
         };
       }
       await bioassaysCollection.updateOne(
-        { _id: doc.id },
+        { _id: doc._id },
         {
           $set: set,
         },
         { upsert: true },
       );
+
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+        let percentage = Math.round((counter / total) * 1000) / 10;
+        debug(
+          `Processing: imported: ${counter} of ${total} ---> ${percentage} %`,
+        );
+        start = Date.now();
+      }
       counter++;
-      debug(counter);
     }
   }
   return counter;
