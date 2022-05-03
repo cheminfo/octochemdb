@@ -10,8 +10,8 @@ async function getCompoundsInfo(data, mfInfo, connection) {
     let ocls = {};
     for (const info of data) {
       ocls[info.data.ocl.id] = {
-        id: info.data.ocl.id,
-        coordinates: info.data.ocl.coordinates,
+        id: info.data.ocl?.id,
+        coordinates: info.data.ocl?.coordinates,
       };
       if (info.data?.cid) cid[info.data?.cid] = true;
       if (info.data?.cas) cas[info.data?.cas] = true;
