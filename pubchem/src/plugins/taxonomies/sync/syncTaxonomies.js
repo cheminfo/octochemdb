@@ -78,6 +78,12 @@ export async function sync(connection) {
           start = Date.now();
         }
         if (skipping && !update) {
+          entry._seq = ++progress.seq;
+          await collection.updateOne(
+            { _id: entry._id },
+            { $set: entry },
+            { upsert: true },
+          );
           if (firstID === entry._id) {
             skipping = false;
             debug(`Skipping taxonomies till:${firstID}`);
