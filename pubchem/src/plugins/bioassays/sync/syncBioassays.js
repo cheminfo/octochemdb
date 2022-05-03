@@ -49,7 +49,6 @@ export async function sync(connection) {
       firstID = lastDocumentImported._id;
     }
 
-    let skipping = firstID !== undefined;
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -59,14 +58,10 @@ export async function sync(connection) {
       progress.state !== 'updated'
     ) {
       debug(`Start parsing`);
-      let parseSkip;
-      if (skipping && progress.state !== 'updated') {
-        parseSkip = firstID;
-      }
+
       for await (let entry of parseBioactivities(
         bioactivitiesFile,
         bioassaysFile,
-        parseSkip,
         connection,
       )) {
         counter++;

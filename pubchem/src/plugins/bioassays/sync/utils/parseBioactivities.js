@@ -11,7 +11,6 @@ const debug = Debug('parseBioactivities');
 async function* parseBioactivities(
   bioactivitiesExtracted,
   bioassaysExtracted,
-  parseSkip,
   connection,
 ) {
   try {
@@ -41,36 +40,22 @@ async function* parseBioactivities(
     const bioassays = await getBioassays(bioassaysExtracted, connection);
 
     debug(`Start parsing AIDs`);
-    let skipping = true;
     for await (let cid of Object.keys(compounds)) {
-      let result = {
-        _id: cid,
-        data: {
-          bioassays: [],
-        },
-      };
-
-      if (skipping && parseSkip !== undefined) {
-        if (parseSkip === cid) {
-          skipping = false;
-          debug(`Skipping compound till:${cid}`);
-        } else {
-          continue;
-        }
-      }
-
       for (let aid of compounds[cid]) {
-        if (bioassays[aid].targetsTaxonomies) {
-          result.data.bioassays.push({
-            aid: aid,
+        let result = {
+          _id: `${cid}_${aid}`,
+          data: {
+            cid,
+            aid,
             assay: bioassays[aid].name,
-            activeAgainsTaxIDs: bioassays[aid].targetsTaxonomies,
-          });
-        } else {
-          result.data.bioassays.push({ aid: aid, assay: bioassays[aid].name });
+          },
+        };
+
+        if (bioassays[aid].targetsTaxonomies) {
+          result.data.activeAgainsTaxIDs = bioassays[aid].targetsTaxonomies;
         }
+        yield result;
       }
-      yield result;
     }
   } catch (e) {
     const optionsDebug = { collection: 'bioassays', connection };
