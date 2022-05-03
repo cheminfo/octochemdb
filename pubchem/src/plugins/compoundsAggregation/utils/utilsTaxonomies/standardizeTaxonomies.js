@@ -5,10 +5,14 @@ import { getTaxonomiesForCmaupsAndNpasses } from './getTaxonomiesForCmaupsAndNpa
 import { getTaxonomiesForNpAtlases } from './getTaxonomiesForNpAtlases.js';
 const debug = Debug('standardizeTaxonomies');
 
-export async function standardizeTaxonomies(data, connection, synonims) {
+export async function standardizeTaxonomies(
+  data,
+  connection,
+  synonims,
+  taxonomiesCollection,
+) {
   let newData = [];
 
-  const taxonomiesCollection = await connection.getCollection('taxonomies');
   for (let entry of data) {
     if (entry.collection === 'lotuses') {
       let resultLotuses = await getTaxonomiesForLotuses(
