@@ -5,7 +5,7 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
   const debug = Debug('getActivityInfo');
 
   try {
-    let activeTaxonomies = [];
+    let activeTaxonomies = {};
     let activityInfo = [];
     for (const entry of data) {
       if (entry.collection === 'bioassays') {
@@ -17,8 +17,17 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
 
         if (entry.data?.activeAgainstTaxonomy) {
           let finalTaxonomy = entry.data?.activeAgainstTaxonomy[0];
-          finalTaxonomy.ref = entry._id;
-          activeTaxonomies.push(finalTaxonomy);
+          if (!activeTaxonomies[finalTaxonomy.species]) {
+            finalTaxonomy.ref = [];
+            finalTaxonomy.ref.push(entry._id);
+            activeTaxonomies[finalTaxonomy.species] = finalTaxonomy;
+          } else {
+            if (
+              !activeTaxonomies[finalTaxonomy.species].ref.includes(entry._id)
+            ) {
+              activeTaxonomies[finalTaxonomy.species].ref.push(entry._id);
+            }
+          }
         }
         activityInfo.push(activity);
       }
@@ -44,8 +53,20 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
               );
               if (result.length > 0) {
                 let finalTaxonomy = result[0].data;
-                finalTaxonomy.ref = entry._id;
-                activeTaxonomies.push(finalTaxonomy);
+
+                if (!activeTaxonomies[finalTaxonomy.species]) {
+                  finalTaxonomy.ref = [];
+                  finalTaxonomy.ref.push(entry._id);
+                  activeTaxonomies[finalTaxonomy.species] = finalTaxonomy;
+                } else {
+                  if (
+                    !activeTaxonomies[finalTaxonomy.species].ref.includes(
+                      entry._id,
+                    )
+                  ) {
+                    activeTaxonomies[finalTaxonomy.species].ref.push(entry._id);
+                  }
+                }
               }
             }
             activityInfo.push(activities);
@@ -53,8 +74,12 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         }
       }
     }
-
-    return [activityInfo, activeTaxonomies];
+    let finalActiveTaxonomies = [];
+    let species = Object.keys(activeTaxonomies);
+    species.forEach((entry) => {
+      finalActiveTaxonomies.push(activeTaxonomies[entry]);
+    });
+    return [activityInfo, finalActiveTaxonomies];
   } catch (e) {
     const optionsDebug = { collection: 'bestOfCompounds', connection };
     debug(e, optionsDebug);
