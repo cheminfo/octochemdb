@@ -32,14 +32,15 @@ export async function aggregate(connection) {
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
     await targetCollection.createIndex({ _seq: 1 });
-
-    let doIDs = true;
+    const taxonomiesCollection = await connection.getCollection('taxonomies');
+    let doIDs = false;
     if (doIDs) {
       let noStereoIDsBioassays = await getNoStereoIDsBiossays(connection);
       debug(
         `Number of noStereoIDs added to bioassays: ${noStereoIDsBioassays}`,
       );
     }
+
     let { links, colletionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -89,11 +90,19 @@ export async function aggregate(connection) {
           data.push(partialData);
         }
 
-        data = await standardizeTaxonomies(data, connection, synonims);
+        data = await standardizeTaxonomies(
+          data,
+          connection,
+          synonims,
+          taxonomiesCollection,
+        );
         let taxons = await getTaxonomiesInfo(data, connection);
 
-        let activityInfo = await getActivitiesInfo(data, connection);
-
+        let [activityInfo, activeTaxonomies] = await getActivitiesInfo(
+          data,
+          connection,
+          taxonomiesCollection,
+        );
         const molecule = OCL.Molecule.fromIDCode(noStereoID);
         const mfInfo = new MF(getMF(molecule).mf).getInfo();
         let entry = await getCompoundsInfo(data, mfInfo, connection);
@@ -106,7 +115,9 @@ export async function aggregate(connection) {
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
-
+        if (activeTaxonomies.length > 0) {
+          entry.data.activeAgainstTaxonomies = activeTaxonomies;
+        }
         entry._seq = ++progress.seq;
 
         await temporaryCollection.updateOne(
