@@ -1,8 +1,8 @@
-import Debug from '../../../utils/Debug.js';
+import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('getNoStereoID');
 
-export async function getNoStereoIDsBiossays(connection) {
+export async function insertNoStereoIDsAndTaxonomies(connection) {
   let counter = 0;
   let start = Date.now();
   const taxonomiesCollection = await connection.getCollection('taxonomies');
