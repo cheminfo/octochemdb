@@ -30,11 +30,19 @@ async function getCompoundsInfo(data, mfInfo, connection) {
 
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
+    let cidsNumber = [];
+    cid.forEach((str) => {
+      cidsNumber.push(Number(str));
+    });
+    let casNumbers = [];
     cas = Object.keys(cas);
+    cas.forEach((str) => {
+      casNumbers.push(Number(str));
+    });
     names = Object.keys(names);
     if (ocls.length > 0) entry.data.ocls = ocls;
-    if (cid.length > 0) entry.data.cids = cid;
-    if (cas.length > 0) entry.data.cas = cas;
+    if (cidsNumber.length > 0) entry.data.cids = cidsNumber;
+    if (casNumbers.length > 0) entry.data.cas = casNumbers;
     if (names.length > 0) entry.data.names = names;
 
     return entry;

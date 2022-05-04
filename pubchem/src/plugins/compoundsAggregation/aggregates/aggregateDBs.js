@@ -101,7 +101,7 @@ export async function aggregate(connection) {
           { $set: entry },
           { upsert: true },
         );
-        await temporaryCollection.createIndex({ 'data.em': 1 });
+
         progress.state = 'updating';
 
         await connection.setProgress(progress);
@@ -129,7 +129,13 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
 
       // Create Indexs
+      await targetCollection.createIndex({ 'data.em': 1 });
       await targetCollection.createIndex({ _seq: 1 });
+      await targetCollection.createIndex({ _id: 1 });
+      await targetCollection.createIndex({ 'data.taxonomies': 1 });
+      await targetCollection.createIndex({ 'data.ocls': 1 });
+      await targetCollection.createIndex({ 'data.cids': 1 });
+      await targetCollection.createIndex({ 'data.cas': 1 });
 
       debug('Aggregation Done');
     } else {
