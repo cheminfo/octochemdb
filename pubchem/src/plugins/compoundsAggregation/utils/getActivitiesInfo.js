@@ -1,13 +1,15 @@
 import Debug from '../../../utils/Debug.js';
 import { searchTaxonomies } from '../utils/utilsTaxonomies/searchTaxonomies.js';
-//npass and bioassays
 async function getActivitiesInfo(data, connection, taxonomiesCollection) {
   const debug = Debug('getActivityInfo');
 
   try {
-    let activeTaxonomies = {};
     let activityInfo = [];
+
     for (const entry of data) {
+      if (activityInfo.length > 999) {
+        continue;
+      }
       if (entry.collection === 'bioassays') {
         let activity = {
           assay: entry.data.assay,
@@ -16,27 +18,7 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         };
 
         if (entry.data?.activeAgainstTaxonomy) {
-          let finalTaxonomy = entry.data?.activeAgainstTaxonomy[0];
-          if (!activeTaxonomies[finalTaxonomy.species]) {
-            finalTaxonomy.dbRef = [];
-            finalTaxonomy.dbRef.push({
-              $ref: entry.collection,
-              $id: entry._id,
-            });
-            activeTaxonomies[finalTaxonomy.species] = finalTaxonomy;
-          } else {
-            if (
-              !activeTaxonomies[finalTaxonomy.species].dbRef.includes({
-                $ref: entry.collection,
-                $id: entry._id,
-              })
-            ) {
-              activeTaxonomies[finalTaxonomy.species].dbRef.push({
-                $ref: entry.collection,
-                $id: entry._id,
-              });
-            }
-          }
+          activity.taxonomies = entry.data?.activeAgainstTaxonomy[0];
         }
         activityInfo.push(activity);
       }
@@ -63,28 +45,7 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
                 searchParameter,
               );
               if (result.length > 0) {
-                let finalTaxonomy = result[0].data;
-
-                if (!activeTaxonomies[finalTaxonomy.species]) {
-                  finalTaxonomy.dbRef = [];
-                  finalTaxonomy.dbRef.push({
-                    $ref: entry.collection,
-                    $id: entry._id,
-                  });
-                  activeTaxonomies[finalTaxonomy.species] = finalTaxonomy;
-                } else {
-                  if (
-                    !activeTaxonomies[finalTaxonomy.species].dbRef.includes({
-                      $ref: entry.collection,
-                      $id: entry._id,
-                    })
-                  ) {
-                    activeTaxonomies[finalTaxonomy.species].dbRef.push({
-                      $ref: entry.collection,
-                      $id: entry._id,
-                    });
-                  }
-                }
+                activities.taxonomy = result[0].data;
               }
             }
             activityInfo.push(activities);
@@ -92,12 +53,8 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         }
       }
     }
-    let finalActiveTaxonomies = [];
-    let species = Object.keys(activeTaxonomies);
-    species.forEach((entry) => {
-      finalActiveTaxonomies.push(activeTaxonomies[entry]);
-    });
-    return [activityInfo, finalActiveTaxonomies];
+
+    return activityInfo;
   } catch (e) {
     const optionsDebug = { collection: 'bestOfCompounds', connection };
     debug(e, optionsDebug);

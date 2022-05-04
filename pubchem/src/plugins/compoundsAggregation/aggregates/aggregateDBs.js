@@ -98,7 +98,7 @@ export async function aggregate(connection) {
         );
         let taxons = await getTaxonomiesInfo(data, connection);
 
-        let [activityInfo, activeTaxonomies] = await getActivitiesInfo(
+        let activityInfo = await getActivitiesInfo(
           data,
           connection,
           taxonomiesCollection,
@@ -115,9 +115,7 @@ export async function aggregate(connection) {
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
-        if (activeTaxonomies.length > 0) {
-          entry.data.activeAgainstTaxonomies = activeTaxonomies;
-        }
+
         entry._seq = ++progress.seq;
 
         await temporaryCollection.updateOne(
