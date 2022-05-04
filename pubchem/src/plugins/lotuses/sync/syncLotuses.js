@@ -88,6 +88,13 @@ export async function sync(connection) {
       await collection.createIndex({ _seq: 1 });
       await collection.createIndex({ 'data.ocl.id': 1 });
       await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.taxonomies.ncbi': 1 });
+      await collection.createIndex({
+        'data.taxonomies.gBifBackboneTaxonomy': 1,
+      });
+      await collection.createIndex({ 'data.taxonomies.openTreeOfLife': 1 });
+      await collection.createIndex({ 'data.taxonomies.iTIS': 1 });
+      await collection.createIndex({ 'data.taxonomies.iNaturalist': 1 });
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

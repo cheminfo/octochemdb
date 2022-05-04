@@ -24,9 +24,7 @@ export async function sync(connection) {
       sources,
       startSequenceID: progress.seq,
     });
-    await collection.createIndex({ _seq: 1 });
-    await collection.createIndex({ 'data.ocl.id': 1 });
-    await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
@@ -80,6 +78,12 @@ export async function sync(connection) {
       progress.date = new Date();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      await collection.createIndex({ _id: 1 });
+      await collection.createIndex({ _seq: 1 });
+      await collection.createIndex({ 'data.ocl.id': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.taxonomies.species': 1 });
+
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

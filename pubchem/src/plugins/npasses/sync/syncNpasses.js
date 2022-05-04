@@ -80,6 +80,8 @@ export async function sync(connection) {
       await collection.createIndex({ _seq: 1 });
       await collection.createIndex({ 'data.ocl.id': 1 });
       await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.taxonomies': 1 });
+      await collection.createIndex({ 'data.activities': 1 });
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

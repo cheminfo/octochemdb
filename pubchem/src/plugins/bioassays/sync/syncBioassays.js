@@ -94,15 +94,16 @@ export async function sync(connection) {
       debug(`${imported} compounds processed`);
       await collection.createIndex({ _seq: 1 });
       await collection.createIndex({ _id: 1 });
-      await collection.createIndex({ 'data.bioassays.activeAgainsTaxIDs': 1 });
-      await collection.createIndex({ 'data.bioassays.aid': 1 });
-
+      await collection.createIndex({ 'data.activeAgainsTaxIDs': 1 });
+      await collection.createIndex({ 'data.aid': 1 });
+      await collection.createIndex({ 'data.cid': 1 });
       let noStereoIDsBioassays = await insertNoStereoIDsAndTaxonomies(
         connection,
       );
       debug(
         `Number of noStereoIDs added to bioassays: ${noStereoIDsBioassays}`,
       );
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
     } else {
       debug(`file already processed`);
     }
