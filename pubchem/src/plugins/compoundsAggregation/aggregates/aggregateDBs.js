@@ -2,14 +2,16 @@ import md5 from 'md5';
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import { taxonomySynonims } from '../utils/utilsTaxonomies/taxonomySynonims.js';
 import Debug from '../../../utils/Debug.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
+import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
+
 const { MF } = MFParser;
 const collectionNames = [
   'lotuses',
@@ -58,7 +60,7 @@ export async function aggregate(connection) {
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
-      let synonims = await taxonomySynonims();
+      let synonyms = await taxonomySynonyms();
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let data = [];
 
@@ -71,7 +73,7 @@ export async function aggregate(connection) {
 
         data = await standardizeTaxonomies(
           data,
-          synonims,
+          synonyms,
           taxonomiesCollection,
         );
         let taxons = await getTaxonomiesInfo(data, connection);
@@ -81,6 +83,8 @@ export async function aggregate(connection) {
           connection,
           taxonomiesCollection,
         );
+
+        // TODO make a query in compound
         const molecule = OCL.Molecule.fromIDCode(noStereoID);
         const mfInfo = new MF(getMF(molecule).mf).getInfo();
         let entry = await getCompoundsInfo(data, mfInfo, connection);

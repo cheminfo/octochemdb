@@ -4,13 +4,13 @@ const debug = Debug('lotuses');
 export async function getTaxonomiesForLotuses(
   entry,
   taxonomiesCollection,
-  synonims,
+  synonyms,
 ) {
   let taxonomiesLotuses = [];
   if (entry.data?.taxonomies) {
     let taxonomiesSources = Object.keys(entry.data.taxonomies);
     let sourceToBeUsed;
-    let newIDs = Object.keys(synonims);
+    let newIDs = Object.keys(synonyms);
     if (taxonomiesSources.includes('ncbi')) {
       sourceToBeUsed = 'ncbi';
     } else {
