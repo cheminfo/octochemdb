@@ -1,6 +1,6 @@
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('getNoStereoID');
+const debug = Debug('NoStereoIDs and Taxonomies');
 
 export async function insertNoStereoIDsAndTaxonomies(connection) {
   let counter = 0;
