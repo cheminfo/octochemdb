@@ -10,7 +10,6 @@ import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
-import { getNoStereoIDsBiossays } from '../utils/getNoStereoIDsBiossays.js';
 const { MF } = MFParser;
 const collectionNames = [
   'lotuses',
@@ -29,13 +28,6 @@ export async function aggregate(connection) {
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
     const taxonomiesCollection = await connection.getCollection('taxonomies');
-    let doIDs = false;
-    if (doIDs) {
-      let noStereoIDsBioassays = await getNoStereoIDsBiossays(connection);
-      debug(
-        `Number of noStereoIDs added to bioassays: ${noStereoIDsBioassays}`,
-      );
-    }
 
     let { links, colletionSources } = await getCollectionsLinks(
       connection,
