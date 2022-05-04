@@ -3,7 +3,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-
+import { insertNoStereoIDsAndTaxonomies } from '../sync/utils/insertNoStereoIDsAndTaxonomies.js';
 import parseBioactivities from './utils/parseBioactivities.js';
 
 export async function sync(connection) {
@@ -96,6 +96,13 @@ export async function sync(connection) {
       await collection.createIndex({ _id: 1 });
       await collection.createIndex({ 'data.bioassays.activeAgainsTaxIDs': 1 });
       await collection.createIndex({ 'data.bioassays.aid': 1 });
+
+      let noStereoIDsBioassays = await insertNoStereoIDsAndTaxonomies(
+        connection,
+      );
+      debug(
+        `Number of noStereoIDs added to bioassays: ${noStereoIDsBioassays}`,
+      );
     } else {
       debug(`file already processed`);
     }
