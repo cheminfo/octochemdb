@@ -25,15 +25,24 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
       if (entry.collection === 'npasses') {
         if (entry.data?.activities) {
           for (const activity of entry.data.activities) {
+            if ([activity.refIdType].includes('PubChem')) {
+              continue;
+            }
             let assayString = [
               activity.activityType,
               ':',
               activity.activityValue,
               activity.activityUnit,
             ].join(' ');
+            let externalReference = [
+              activity.refIdType,
+              ':',
+              activity.refId,
+            ].join(' ');
             let activities = {
               assay: assayString,
               dbRef: { $ref: entry.collection, $id: entry._id },
+              externalRef: externalReference,
             };
             if (activity.target_id) {
               let searchParameter = {
