@@ -22,15 +22,13 @@ export async function sync(connection) {
 
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
-    await collection.createIndex({ _seq: 1 });
 
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
-    await collection.createIndex({ 'data.ocl.id': 1 });
-    await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
@@ -75,7 +73,9 @@ export async function sync(connection) {
         );
         imported++;
       }
-      temporaryCollection.renameCollection(collection, true);
+      await temporaryCollection.rename(options.collectionName, {
+        dropTarget: true,
+      });
 
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
@@ -85,6 +85,10 @@ export async function sync(connection) {
       progress.date = new Date();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      await collection.createIndex({ _id: 1 });
+      await collection.createIndex({ _seq: 1 });
+      await collection.createIndex({ 'data.ocl.id': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

@@ -18,7 +18,7 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     } = await cmaupsStartSync(connection);
-    await collection.createIndex({ _seq: 1 });
+
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -63,7 +63,9 @@ export async function sync(connection) {
         );
         imported++;
       }
-      temporaryCollection.renameCollection(collection, true);
+      await temporaryCollection.rename('cmaups', {
+        dropTarget: true,
+      });
 
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
@@ -73,6 +75,11 @@ export async function sync(connection) {
       progress.date = new Date();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      await collection.createIndex({ _id: 1 });
+      await collection.createIndex({ 'data.ocl.id': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.taxonomies': 1 });
+
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

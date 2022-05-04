@@ -19,19 +19,15 @@ const collectionNames = [
   'cmaups',
   'coconuts',
   'bioassays',
-]; // for taxonomy, important use order lotus, npass,npAtlas,Cmaup,Coconut
-// since we know which DB gives us the most complete taxonomy, the order of importation is important when removing species duplicates
-// in future a solution need to be found
+];
 
 const debug = Debug('aggregateDBs');
 
 export async function aggregate(connection) {
   try {
     const options = { collection: 'bestOfCompounds', connection: connection };
-
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
-    await targetCollection.createIndex({ _seq: 1 });
     const taxonomiesCollection = await connection.getCollection('taxonomies');
     let doIDs = false;
     if (doIDs) {
@@ -60,7 +56,11 @@ export async function aggregate(connection) {
     let counter = 0;
     let start = Date.now();
 
-    if (sources !== progress.sources || progress.state !== 'updated') {
+    if (
+      lastDocumentImported === null ||
+      sources !== progress.sources ||
+      progress.state !== 'updated'
+    ) {
       const temporaryCollection = await connection.getCollection(
         'temporaryAgregation',
       );
@@ -124,7 +124,9 @@ export async function aggregate(connection) {
 
         counter++;
       }
-      temporaryCollection.renameCollection(targetCollection, true); // true make mongo drop the target collection prior to renaming the collection
+      await temporaryCollection.rename(options.collection, {
+        dropTarget: true,
+      });
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
@@ -133,15 +135,14 @@ export async function aggregate(connection) {
       progress.date = new Date();
       progress.state = 'updated';
       await connection.setProgress(progress);
+
+      // Create Indexs
+      await targetCollection.createIndex({ _seq: 1 });
+
       debug('Aggregation Done');
     } else {
       debug(`Aggregation already up to date`);
     }
-    // we remove all the entries that are not imported by the last file
-    const result = await targetCollection.deleteMany({
-      _seq: { $lte: logs.startSequenceID },
-    });
-    debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   } catch (e) {
     const optionsDebug = { collection: 'bestOfCompounds', connection };
     debug(e, optionsDebug);

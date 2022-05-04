@@ -22,7 +22,7 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         }
         activityInfo.push(activity);
       }
-      if (entry.collection === 'npasses') {
+      if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
         if (entry.data?.activities) {
           for (const activity of entry.data.activities) {
             if ([activity.refIdType].includes('PubChem')) {
@@ -62,8 +62,9 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         }
       }
     }
+    let activityInfos = [...new Set(activityInfo)];
 
-    return activityInfo;
+    return activityInfos;
   } catch (e) {
     const optionsDebug = { collection: 'bestOfCompounds', connection };
     debug(e, optionsDebug);

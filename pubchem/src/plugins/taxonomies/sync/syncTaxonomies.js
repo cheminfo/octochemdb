@@ -21,13 +21,7 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
-    await collection.createIndex({ _id: 1 });
-    await collection.createIndex({ 'data.class': 1 });
-    await collection.createIndex({ 'data.phylum': 1 });
-    await collection.createIndex({ 'data.species': 1 });
-    await collection.createIndex({ 'data.organism': 1 });
-    await collection.createIndex({ 'data.family': 1 });
-    await collection.createIndex({ 'data.genus': 1 });
+
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
@@ -38,10 +32,6 @@ export async function sync(connection) {
       progress,
       options.collectionName,
     );
-    let firstID;
-    if (lastDocumentImported !== null) {
-      firstID = lastDocumentImported._id;
-    }
 
     const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
       (file) => file.name === 'rankedlineage.dmp',
@@ -82,7 +72,9 @@ export async function sync(connection) {
 
         imported++;
       }
-      temporaryCollection.renameCollection(collection, true);
+      await temporaryCollection.rename(options.collectionName, {
+        dropTarget: true,
+      });
 
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
@@ -92,6 +84,13 @@ export async function sync(connection) {
       progress.date = new Date();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      await collection.createIndex({ _id: 1 });
+      await collection.createIndex({ 'data.class': 1 });
+      await collection.createIndex({ 'data.phylum': 1 });
+      await collection.createIndex({ 'data.species': 1 });
+      await collection.createIndex({ 'data.organism': 1 });
+      await collection.createIndex({ 'data.family': 1 });
+      await collection.createIndex({ 'data.genus': 1 });
       debug(`${imported} taxonomies processed`);
     } else {
       debug(`file already processed`);

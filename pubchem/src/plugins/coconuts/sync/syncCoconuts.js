@@ -32,10 +32,6 @@ export async function sync(connection) {
       progress,
       options.collectionName,
     );
-    let firstID;
-    if (lastDocumentImported !== null) {
-      firstID = lastDocumentImported._id;
-    }
 
     let counter = 0;
     let imported = 0;
@@ -73,7 +69,9 @@ export async function sync(connection) {
 
         imported++;
       }
-      temporaryCollection.renameCollection(collection, true);
+      await temporaryCollection.rename(options.collectionName, {
+        dropTarget: true,
+      });
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';

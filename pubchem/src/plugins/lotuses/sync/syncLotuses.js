@@ -19,23 +19,18 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('lotuses');
     const collection = await connection.getCollection('lotuses');
-    await collection.createIndex({ _seq: 1 });
+
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
-    await collection.createIndex({ 'data.ocl.id': 1 });
-    await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-    let firstID;
-    if (lastDocumentImported !== null) {
-      firstID = lastDocumentImported._id;
-    }
 
     let fileName = 'lotusUniqueNaturalProduct.bson';
 
@@ -73,15 +68,26 @@ export async function sync(connection) {
         );
         imported++;
       }
-      temporaryCollection.renameCollection(collection, true);
+      // Temporary collection replace old collection
+      await temporaryCollection.rename(options.collectionName, {
+        dropTarget: true,
+      });
+
+      // update Logs in importationLogs collection
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
+
+      //Update progress in admin collection
       progress.sources = md5(JSON.stringify(sources));
       progress.date = new Date();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      // Indexing of collection properties
+      await collection.createIndex({ _seq: 1 });
+      await collection.createIndex({ 'data.ocl.id': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);
