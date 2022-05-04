@@ -12,7 +12,6 @@ export async function getNoStereoIDsBiossays(connection) {
   let ids = await bioassaysCollection.find({}, { _id: 1 }).map(function (item) {
     return item;
   });
-  //activeAgainsTaxIDs
   while (await ids.hasNext()) {
     const doc = await ids.next();
     let cid = doc.data.cid;
