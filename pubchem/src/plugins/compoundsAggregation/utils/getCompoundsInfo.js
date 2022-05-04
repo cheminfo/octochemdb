@@ -6,7 +6,7 @@ async function getCompoundsInfo(data, mfInfo, connection) {
   try {
     let cid = {};
     let cas = {};
-    let iupacName = {};
+    let names = {};
     let ocls = {};
     for (const info of data) {
       ocls[info.data.ocl.id] = {
@@ -15,7 +15,7 @@ async function getCompoundsInfo(data, mfInfo, connection) {
       };
       if (info.data?.cid) cid[Number(info.data?.cid)] = true;
       if (info.data?.cas) cas[Number(info.data?.cas)] = true;
-      if (info.data?.iupacName) iupacName[info.data?.names] = true;
+      if (info.data?.iupacName) names[info.data?.iupacName] = true;
     }
     let active = false;
 
@@ -24,18 +24,18 @@ async function getCompoundsInfo(data, mfInfo, connection) {
         em: mfInfo.monoisotopicMass,
         charge: mfInfo.charge,
         unsaturation: mfInfo.unsaturation,
-        npActive: active,
+        active,
       },
     };
 
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
     cas = Object.keys(cas);
-    iupacName = Object.keys(iupacName);
+    names = Object.keys(names);
     if (ocls.length > 0) entry.data.ocls = ocls;
     if (cid.length > 0) entry.data.cids = cid;
     if (cas.length > 0) entry.data.cas = cas;
-    if (iupacName.length > 0) entry.data.iupacName = iupacName;
+    if (names.length > 0) entry.data.names = names;
 
     return entry;
   } catch (e) {
