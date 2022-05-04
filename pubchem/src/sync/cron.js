@@ -27,7 +27,11 @@ async function cron() {
       return false;
     });
   }
-
+  for (let syncURL of syncURLs) {
+    if (syncURL.pathname.includes('syncBioassays')) {
+      syncURLs.push(syncURLs.splice(syncURLs.indexOf(syncURL), 1)[0]);
+    }
+  }
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
     if (typeof sync.sync !== 'function') continue;
