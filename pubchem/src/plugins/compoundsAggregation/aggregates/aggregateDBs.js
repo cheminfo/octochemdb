@@ -30,7 +30,7 @@ export async function aggregate(connection) {
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
     const taxonomiesCollection = await connection.getCollection('taxonomies');
-
+    const compoundsCollection = await connection.getCollection('compounds');
     let { links, colletionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -70,7 +70,6 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
-
         data = await standardizeTaxonomies(
           data,
           synonyms,
@@ -84,10 +83,12 @@ export async function aggregate(connection) {
           taxonomiesCollection,
         );
 
-        // TODO make a query in compound
-        const molecule = OCL.Molecule.fromIDCode(noStereoID);
-        const mfInfo = new MF(getMF(molecule).mf).getInfo();
-        let entry = await getCompoundsInfo(data, mfInfo, connection);
+        let entry = await getCompoundsInfo(
+          data,
+          compoundsCollection,
+          noStereoID,
+          connection,
+        );
 
         if (activityInfo.length > 0) entry.data.active = true;
 
