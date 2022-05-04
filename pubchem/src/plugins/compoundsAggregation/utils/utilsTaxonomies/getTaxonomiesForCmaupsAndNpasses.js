@@ -59,7 +59,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           if (result.length > 0) {
             let finalTaxonomy = result[0].data;
 
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
           }
@@ -73,7 +73,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           if (result.length > 0) {
             let finalTaxonomy = result[0].data;
 
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
           }
@@ -89,7 +89,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             if (taxons.species) {
               finalTaxonomy.species = taxons.species;
             }
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
           }
@@ -102,7 +102,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             if (taxons.species) {
               finalTaxonomy.species = taxons.species;
             }
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
           }
@@ -121,7 +121,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             if (taxons.species) {
               finalTaxonomy.species = taxons.species;
             }
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
           }
@@ -140,7 +140,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             if (taxons.species) {
               finalTaxonomy.species = taxons.species;
             }
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesResults.push(finalTaxonomy);
             shouldSearch = false;
           }
@@ -160,7 +160,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           if (taxons.species) {
             finalTaxonomy.species = taxons.species;
           }
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesResults.push(finalTaxonomy);
         }
       }

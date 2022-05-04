@@ -12,20 +12,29 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         let activity = {
           assay: entry.data.assay,
 
-          ref: entry._id,
+          dbRef: { $ref: entry.collection, $id: entry._id },
         };
 
         if (entry.data?.activeAgainstTaxonomy) {
           let finalTaxonomy = entry.data?.activeAgainstTaxonomy[0];
           if (!activeTaxonomies[finalTaxonomy.species]) {
-            finalTaxonomy.ref = [];
-            finalTaxonomy.ref.push(entry._id);
+            finalTaxonomy.dbRef = [];
+            finalTaxonomy.dbRef.push({
+              $ref: entry.collection,
+              $id: entry._id,
+            });
             activeTaxonomies[finalTaxonomy.species] = finalTaxonomy;
           } else {
             if (
-              !activeTaxonomies[finalTaxonomy.species].ref.includes(entry._id)
+              !activeTaxonomies[finalTaxonomy.species].dbRef.includes({
+                $ref: entry.collection,
+                $id: entry._id,
+              })
             ) {
-              activeTaxonomies[finalTaxonomy.species].ref.push(entry._id);
+              activeTaxonomies[finalTaxonomy.species].dbRef.push({
+                $ref: entry.collection,
+                $id: entry._id,
+              });
             }
           }
         }
@@ -34,13 +43,15 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
       if (entry.collection === 'npasses') {
         if (entry.data?.activities) {
           for (const activity of entry.data.activities) {
+            let assayString = [
+              activity.activityType,
+              ':',
+              activity.activityValue,
+              activity.activityUnit,
+            ].join(' ');
             let activities = {
-              assay: activity.activityType.concat([
-                ':',
-                activity.activityValue,
-                activity.activityUnit,
-              ]),
-              ref: entry._id,
+              assay: assayString,
+              dbRef: { $ref: entry.collection, $id: entry._id },
             };
             if (activity.target_id) {
               let searchParameter = {
@@ -55,16 +66,23 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
                 let finalTaxonomy = result[0].data;
 
                 if (!activeTaxonomies[finalTaxonomy.species]) {
-                  finalTaxonomy.ref = [];
-                  finalTaxonomy.ref.push(entry._id);
+                  finalTaxonomy.dbRef = [];
+                  finalTaxonomy.dbRef.push({
+                    $ref: entry.collection,
+                    $id: entry._id,
+                  });
                   activeTaxonomies[finalTaxonomy.species] = finalTaxonomy;
                 } else {
                   if (
-                    !activeTaxonomies[finalTaxonomy.species].ref.includes(
-                      entry._id,
-                    )
+                    !activeTaxonomies[finalTaxonomy.species].dbRef.includes({
+                      $ref: entry.collection,
+                      $id: entry._id,
+                    })
                   ) {
-                    activeTaxonomies[finalTaxonomy.species].ref.push(entry._id);
+                    activeTaxonomies[finalTaxonomy.species].dbRef.push({
+                      $ref: entry.collection,
+                      $id: entry._id,
+                    });
                   }
                 }
               }

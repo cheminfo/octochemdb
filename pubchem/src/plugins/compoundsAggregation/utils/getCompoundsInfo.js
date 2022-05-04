@@ -13,18 +13,18 @@ async function getCompoundsInfo(data, mfInfo, connection) {
         id: info.data.ocl?.id,
         coordinates: info.data.ocl?.coordinates,
       };
-      if (info.data?.cid) cid[info.data?.cid] = true;
-      if (info.data?.cas) cas[info.data?.cas] = true;
-      if (info.data?.iupacName) iupacName[info.data?.iupacName] = true;
+      if (info.data?.cid) cid[Number(info.data?.cid)] = true;
+      if (info.data?.cas) cas[Number(info.data?.cas)] = true;
+      if (info.data?.iupacName) iupacName[info.data?.names] = true;
     }
-    let npActive = false;
+    let active = false;
 
     const entry = {
       data: {
         em: mfInfo.monoisotopicMass,
         charge: mfInfo.charge,
         unsaturation: mfInfo.unsaturation,
-        npActive: npActive,
+        npActive: active,
       },
     };
 

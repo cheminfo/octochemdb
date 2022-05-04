@@ -17,12 +17,12 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
           if (result.length > 0) {
             let finalTaxonomy = result[0].data;
             finalTaxonomy.species = entry.data.taxonomies[i].species;
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesCoconuts.push(finalTaxonomy);
           }
         } else {
           let finalTaxonomy = entry.data.taxonomies[i];
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesCoconuts.push(finalTaxonomy[0]);
         }
       }
@@ -39,12 +39,12 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
         if (result.length > 0) {
           let finalTaxonomy = result[0].data;
           finalTaxonomy.species = entry.data.taxonomies[0].species;
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesCoconuts.push(finalTaxonomy);
         }
       } else {
         let finalTaxonomy = entry.data.taxonomies[0];
-        finalTaxonomy.ref = entry._id;
+        finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
         taxonomiesCoconuts.push(finalTaxonomy[0]);
       }
     }

@@ -107,7 +107,7 @@ export async function aggregate(connection) {
         const mfInfo = new MF(getMF(molecule).mf).getInfo();
         let entry = await getCompoundsInfo(data, mfInfo, connection);
 
-        if (activityInfo.length > 0) entry.data.npActive = true;
+        if (activityInfo.length > 0) entry.data.active = true;
 
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;

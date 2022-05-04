@@ -30,7 +30,7 @@ export async function getTaxonomiesForLotuses(
         if (result.length > 0) {
           let finalTaxonomy = result[0].data;
 
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesLotuses.push(finalTaxonomy);
           shoudlImport = false;
         }
@@ -45,7 +45,7 @@ export async function getTaxonomiesForLotuses(
           if (result.length > 0) {
             let finalTaxonomy = result[0].data;
 
-            finalTaxonomy.ref = entry._id;
+            finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
             taxonomiesLotuses.push(finalTaxonomy);
             shoudlImport = false;
           }
@@ -62,7 +62,7 @@ export async function getTaxonomiesForLotuses(
         if (result.length > 0) {
           let finalTaxonomy = result[0].data;
 
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesLotuses.push(finalTaxonomy);
           shoudlImport = false;
         }
@@ -81,7 +81,7 @@ export async function getTaxonomiesForLotuses(
           if (taxons.species) {
             finalTaxonomy.species = taxons.species;
           }
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesLotuses.push(finalTaxonomy);
           shoudlImport = false;
         }
@@ -102,7 +102,7 @@ export async function getTaxonomiesForLotuses(
           if (taxons.species) {
             finalTaxonomy.species = taxons.species;
           }
-          finalTaxonomy.ref = entry._id;
+          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
           taxonomiesLotuses.push(finalTaxonomy);
           shoudlImport = false;
         }
@@ -127,7 +127,7 @@ export async function getTaxonomiesForLotuses(
         if (taxons.species) {
           finalTaxonomy.species = taxons.species;
         }
-        finalTaxonomy.ref = entry._id;
+        finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
         taxonomiesLotuses.push(finalTaxonomy);
         shoudlImport = false;
       }
