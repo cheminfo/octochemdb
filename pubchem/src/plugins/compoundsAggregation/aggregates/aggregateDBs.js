@@ -92,7 +92,6 @@ export async function aggregate(connection) {
 
         data = await standardizeTaxonomies(
           data,
-          connection,
           synonims,
           taxonomiesCollection,
         );

@@ -7,28 +7,26 @@ const debug = Debug('standardizeTaxonomies');
 
 export async function standardizeTaxonomies(
   data,
-  connection,
   synonims,
   taxonomiesCollection,
 ) {
   let newData = [];
-
+  let counter = 0;
   for (let entry of data) {
+    if (counter > 1000) {
+      continue;
+    }
     if (entry.collection === 'lotuses') {
       let resultLotuses = await getTaxonomiesForLotuses(
         entry,
         taxonomiesCollection,
         synonims,
       );
-      entry = resultLotuses;
-    }
-    if (entry.collection === 'coconuts') {
-      let resultsCoconuts = await getTaxonomiesForCoconuts(
-        entry,
-        taxonomiesCollection,
-      );
 
-      entry = resultsCoconuts;
+      entry = resultLotuses;
+      if (entry?.data?.taxonomies) {
+        counter += entry?.data?.taxonomies.length;
+      }
     }
 
     if (entry.collection === 'cmaups') {
@@ -37,6 +35,9 @@ export async function standardizeTaxonomies(
         taxonomiesCollection,
       );
       entry = resultsCmaups;
+      if (entry?.data?.taxonomies) {
+        counter += entry?.data?.taxonomies.length;
+      }
     }
     if (entry.collection === 'npasses') {
       let resultsNpasses = await getTaxonomiesForCmaupsAndNpasses(
@@ -44,6 +45,9 @@ export async function standardizeTaxonomies(
         taxonomiesCollection,
       );
       entry = resultsNpasses;
+      if (entry?.data?.taxonomies) {
+        counter += entry?.data?.taxonomies.length;
+      }
     }
     if (entry.collection === 'npAtlases') {
       let resultsNpAtlases = await getTaxonomiesForNpAtlases(
@@ -51,6 +55,20 @@ export async function standardizeTaxonomies(
         taxonomiesCollection,
       );
       entry = resultsNpAtlases;
+      if (entry?.data?.taxonomies) {
+        counter += entry?.data?.taxonomies.length;
+      }
+    }
+    if (entry.collection === 'coconuts') {
+      let resultsCoconuts = await getTaxonomiesForCoconuts(
+        entry,
+        taxonomiesCollection,
+      );
+
+      entry = resultsCoconuts;
+      if (entry?.data?.taxonomies) {
+        counter += entry?.data?.taxonomies.length;
+      }
     }
     newData.push(entry);
   }
