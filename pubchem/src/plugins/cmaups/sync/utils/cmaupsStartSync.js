@@ -25,11 +25,6 @@ async function cmaupsStartSync(connection) {
       'cmaups',
     );
 
-    let firstID;
-    if (lastDocumentImported) {
-      firstID = lastDocumentImported._id;
-    }
-
     const { general, activities, speciesPair, speciesInfo } =
       await readCmaupFiles(
         lastFile,
@@ -40,7 +35,6 @@ async function cmaupsStartSync(connection) {
       );
 
     return {
-      firstID,
       lastDocumentImported,
       progress,
       sources,

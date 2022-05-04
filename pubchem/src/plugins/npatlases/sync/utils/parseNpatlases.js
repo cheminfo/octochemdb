@@ -1,18 +1,10 @@
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
 
-export async function* parseNpatlases(json, parseSkip, connection) {
+export async function* parseNpatlases(json, connection) {
   const debug = Debug('parseNpatlases');
   try {
-    let skipping = true;
     for await (const entry of json) {
-      if (skipping && parseSkip !== undefined) {
-        if (parseSkip === entry.npaid) {
-          skipping = false;
-          debug(`Skipping compound till:${entry.npaid}`);
-        }
-        continue;
-      }
       try {
         const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();

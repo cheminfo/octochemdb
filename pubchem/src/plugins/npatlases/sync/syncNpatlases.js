@@ -36,13 +36,9 @@ export async function sync(connection) {
       progress,
       options.collectionName,
     );
-    let firstID;
-    if (lastDocumentImported !== null) {
-      firstID = lastDocumentImported._id;
-    }
+
     const fileJson = readFileSync(lastFile, 'utf8');
-    // we reparse all the file and skip if required
-    let skipping = firstID !== undefined;
+
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -51,14 +47,14 @@ export async function sync(connection) {
       md5(JSON.stringify(sources)) !== progress.sources ||
       progress.state !== 'updated'
     ) {
-      let parseSkip;
-      if (skipping && progress.state !== 'updated') {
-        parseSkip = firstID;
-      }
+      const temporaryCollection = await connection.getCollection(
+        'temporaryNpAtlases',
+      );
       debug(`Start parsing: ${lastFile}`);
+      progress.state = 'updating';
+      await connection.setProgress(progress);
       for await (const entry of parseNpatlases(
         JSON.parse(fileJson),
-        parseSkip,
         connection,
       )) {
         counter++;
@@ -72,15 +68,15 @@ export async function sync(connection) {
           start = Date.now();
         }
         entry._seq = ++progress.seq;
-        progress.state = 'updating';
-        await collection.updateOne(
+        await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
         );
-        await connection.setProgress(progress);
         imported++;
       }
+      temporaryCollection.renameCollection(collection, true);
+
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
@@ -93,11 +89,6 @@ export async function sync(connection) {
     } else {
       debug(`file already processed`);
     }
-    // we remove all the entries that are not imported by the last file
-    const result = await collection.deleteMany({
-      _seq: { $lte: logs.startSequenceID },
-    });
-    debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   } catch (e) {
     const optionsDebug = { collection: 'npAtlases', connection };
     debug(e, optionsDebug);

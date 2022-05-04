@@ -2,24 +2,11 @@ import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
-export async function* parseCoconuts(
-  bsonPath,
-  filename,
-  parseSkip,
-  connection,
-) {
+export async function* parseCoconuts(bsonPath, filename, connection) {
   const debug = Debug('parseCoconuts');
   try {
     const readStream = await readStreamInZipFolder(bsonPath, filename);
-    let skipping = true;
     for await (const entry of bsonIterator(readStream)) {
-      if (skipping && parseSkip !== undefined) {
-        if (parseSkip === entry.coconut_id) {
-          skipping = false;
-          debug(`Skipping compound till:${entry.coconut_id}`);
-        }
-        continue;
-      }
       try {
         const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();

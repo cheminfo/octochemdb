@@ -2,20 +2,11 @@ import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
-export async function* parseLotuses(bsonPath, filename, parseSkip, connection) {
+export async function* parseLotuses(bsonPath, filename, connection) {
   const debug = Debug('parseLotuses');
   try {
     const readStream = await readStreamInZipFolder(bsonPath, filename);
-    let skipping = true;
     for await (const entry of bsonIterator(readStream)) {
-      if (skipping && parseSkip !== undefined) {
-        if (parseSkip === entry.lotus_id) {
-          skipping = false;
-          debug(`Skipping compound till:${entry.lotus_id}`);
-        }
-        continue;
-      }
-
       try {
         const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();

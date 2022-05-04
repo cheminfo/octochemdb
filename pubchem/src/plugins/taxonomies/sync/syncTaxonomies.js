@@ -48,25 +48,20 @@ export async function sync(connection) {
     );
     const arrayBuffer = await fileList[0].arrayBuffer();
 
-    // we reparse all the file and skip if required
-    let skipping = firstID !== undefined;
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-    let update = false;
 
-    if (
-      firstID &&
-      progress.state === 'updated' &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      update = true;
-    }
     if (
       lastDocumentImported === null ||
       md5(JSON.stringify(sources)) !== progress.sources ||
       progress.state !== 'updated'
     ) {
+      progress.state = 'updating';
+      await connection.setProgress(progress);
+      const temporaryCollection = await connection.getCollection(
+        'temporaryTaxonomies',
+      );
       for (const entry of parseTaxonomies(arrayBuffer, connection)) {
         counter++;
         if (process.env.TEST === 'true' && counter > 20) break;
@@ -77,30 +72,18 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-        if (skipping && !update) {
-          entry._seq = ++progress.seq;
-          await collection.updateOne(
-            { _id: entry._id },
-            { $set: entry },
-            { upsert: true },
-          );
-          if (firstID === entry._id) {
-            skipping = false;
-            debug(`Skipping taxonomies till:${firstID}`);
-          }
-          continue;
-        }
-        progress.state = 'updating';
+
         entry._seq = ++progress.seq;
-        await collection.updateOne(
+        await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
         );
 
-        await connection.setProgress(progress);
         imported++;
       }
+      temporaryCollection.renameCollection(collection, true);
+
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
@@ -113,12 +96,6 @@ export async function sync(connection) {
     } else {
       debug(`file already processed`);
     }
-
-    // we remove all the entries that are not imported by the last file
-    const result = await collection.deleteMany({
-      _seq: { $lte: logs.startSequenceID },
-    });
-    debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   } catch (e) {
     const optionsDebug = { collection: 'taxonomies', connection };
     debug(e, optionsDebug);

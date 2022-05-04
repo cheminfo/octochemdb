@@ -8,7 +8,6 @@ const debug = Debug('syncNpasses');
 export async function sync(connection) {
   try {
     const {
-      firstID,
       lastDocumentImported,
       progress,
       sources,
@@ -22,8 +21,6 @@ export async function sync(connection) {
     } = await npassesStartSync(connection);
     await collection.createIndex({ _seq: 1 });
 
-    // we reparse all the file and skip if required
-    let skipping = firstID !== undefined;
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -34,19 +31,18 @@ export async function sync(connection) {
       sources !== progress.sources ||
       progress.state !== 'updated'
     ) {
-      let parseSkip;
-      if (skipping && progress.state !== 'updated') {
-        parseSkip = firstID;
-      }
-      debug(`Start parsing npass`);
-
+      const temporaryCollection = await connection.getCollection(
+        'temporaryNpasses',
+      );
+      debug(`Start parsing npasses`);
+      progress.state = 'updating';
+      await connection.setProgress(progress);
       for await (const entry of parseNpasses(
         general,
         activities,
         properties,
         speciesPair,
         speciesInfo,
-        parseSkip,
         connection,
       )) {
         counter++;
@@ -61,15 +57,16 @@ export async function sync(connection) {
         }
 
         entry._seq = ++progress.seq;
-        progress.state = 'updating';
-        await collection.updateOne(
+
+        await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
         );
-        await connection.setProgress(progress);
+
         imported++;
       }
+      temporaryCollection.renameCollection(collection, true);
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
@@ -83,10 +80,6 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
     // we remove all the entries that are not imported by the last file
-    const result = await collection.deleteMany({
-      _seq: { $lte: logs.startSequenceID },
-    });
-    debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   } catch (e) {
     const optionsDebug = { collection: 'npasses', connection };
     debug(e, optionsDebug);

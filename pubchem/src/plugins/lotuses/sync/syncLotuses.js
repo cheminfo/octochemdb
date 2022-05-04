@@ -38,9 +38,7 @@ export async function sync(connection) {
     }
 
     let fileName = 'lotusUniqueNaturalProduct.bson';
-    // we reparse all the file and skip if required
 
-    let skipping = firstID !== undefined;
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -49,17 +47,13 @@ export async function sync(connection) {
       md5(JSON.stringify(sources)) !== progress.sources ||
       progress.state !== 'updated'
     ) {
+      const temporaryCollection = await connection.getCollection(
+        'temporaryLotuses',
+      );
       debug(`Start parsing: ${fileName}`);
-      let parseSkip;
-      if (skipping && progress.state !== 'updated') {
-        parseSkip = firstID;
-      }
-      for await (const entry of parseLotuses(
-        lastFile,
-        fileName,
-        parseSkip,
-        connection,
-      )) {
+      progress.state = 'updating';
+      await connection.setProgress(progress);
+      for await (const entry of parseLotuses(lastFile, fileName, connection)) {
         counter++;
         if (process.env.TEST === 'true' && counter > 20) break;
 
@@ -72,15 +66,14 @@ export async function sync(connection) {
         }
 
         entry._seq = ++progress.seq;
-        progress.state = 'updating';
-        await collection.updateOne(
+        await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
         );
-        await connection.setProgress(progress);
         imported++;
       }
+      temporaryCollection.renameCollection(collection, true);
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
@@ -93,11 +86,6 @@ export async function sync(connection) {
     } else {
       debug(`file already processed`);
     }
-    // we remove all the entries that are not imported by the last file
-    const result = await collection.deleteMany({
-      _seq: { $lte: logs.startSequenceID },
-    });
-    debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   } catch (e) {
     const optionsDebug = { collection: 'lotuses', connection };
     debug(e, optionsDebug);

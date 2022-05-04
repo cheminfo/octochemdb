@@ -58,7 +58,11 @@ export async function sync(connection) {
       progress.state !== 'updated'
     ) {
       debug(`Start parsing`);
-
+      progress.state = 'updating';
+      await connection.setProgress(progress);
+      const temporaryCollection = await connection.getCollection(
+        'temporaryBioassays',
+      );
       for await (let entry of parseBioactivities(
         bioactivitiesFile,
         bioassaysFile,
@@ -76,15 +80,15 @@ export async function sync(connection) {
         }
 
         entry._seq = ++progress.seq;
-        progress.state = 'updating';
-        await collection.updateOne(
+        await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
         );
-        await connection.setProgress(progress);
         imported++;
       }
+      temporaryCollection.renameCollection(collection, true);
+
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
@@ -97,11 +101,6 @@ export async function sync(connection) {
     } else {
       debug(`file already processed`);
     }
-
-    const result = await collection.deleteMany({
-      _seq: { $lte: logs.startSequenceID },
-    });
-    debug(`Deleting entries with wrong source: ${result.deletedCount}`);
   } catch (e) {
     const optionsDebug = { collection: options.collectionName, connection };
     debug(e, optionsDebug);

@@ -8,7 +8,6 @@ export async function* parseCmaups(
   activities,
   speciesPair,
   speciesInfo,
-  parseSkip,
   connection,
 ) {
   try {
@@ -21,15 +20,7 @@ export async function* parseCmaups(
       speciesPaired[pair[1]].push(pair[0]);
     }
     let errorsCounter = 0;
-    let skipping = true;
     for await (const item of general) {
-      if (skipping && parseSkip !== undefined) {
-        if (parseSkip === item.Ingredient_ID) {
-          skipping = false;
-          debug(`Skipping compound till:${item.Ingredient_ID}`);
-        }
-        continue;
-      }
       try {
         if (Object.keys(item.Ingredient_ID).length > 0) {
           const id = item.Ingredient_ID;

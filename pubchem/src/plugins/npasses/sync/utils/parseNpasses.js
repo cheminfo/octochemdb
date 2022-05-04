@@ -6,20 +6,11 @@ export async function* parseNpasses(
   properties,
   speciesPair,
   speciesInfo,
-  parseSkip,
   connection,
 ) {
   const debug = Debug('parseNpasses');
   try {
-    let skipping = true;
     for await (const item of general) {
-      if (skipping && parseSkip !== undefined) {
-        if (parseSkip === item.np_id) {
-          skipping = false;
-          debug(`Skipping compound till:${item.np_id}`);
-        }
-        continue;
-      }
       try {
         const property = properties[item.np_id];
         const activity = activities[item.np_id];

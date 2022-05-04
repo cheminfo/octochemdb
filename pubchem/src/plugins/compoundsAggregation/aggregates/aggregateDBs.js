@@ -56,11 +56,6 @@ export async function aggregate(connection) {
       progress,
       options.collection,
     );
-    let firstID;
-    if (lastDocumentImported !== null) {
-      firstID = lastDocumentImported._id;
-    }
-    let skipping = firstID !== undefined;
 
     let counter = 0;
     let start = Date.now();
@@ -73,14 +68,6 @@ export async function aggregate(connection) {
       debug('start Aggregation process');
       let synonims = await taxonomySynonims();
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
-        if (process.env.TEST === 'true' && counter > 20) break;
-        if (skipping && progress.state !== 'updated') {
-          if (firstID === noStereoID) {
-            skipping = false;
-            debug(`Skipping compound till:${firstID}`);
-          }
-          continue;
-        }
         let data = [];
 
         for (const source of sourcesLink) {

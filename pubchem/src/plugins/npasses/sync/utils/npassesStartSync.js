@@ -25,11 +25,6 @@ async function npassStartSync(connection) {
       'npasses',
     );
 
-    let firstID;
-    if (lastDocumentImported) {
-      firstID = lastDocumentImported._id;
-    }
-
     const { general, activities, properties, speciesPair, speciesInfo } =
       await readNpassesLastFiles(
         lastFile,
@@ -41,7 +36,6 @@ async function npassStartSync(connection) {
       );
 
     return {
-      firstID,
       lastDocumentImported,
       progress,
       sources,
