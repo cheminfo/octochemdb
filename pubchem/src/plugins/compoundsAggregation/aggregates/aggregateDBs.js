@@ -1,7 +1,6 @@
 import md5 from 'md5';
 import MFParser from 'mf-parser';
-import OCL from 'openchemlib';
-import { getMF } from 'openchemlib-utils';
+import { getKeywords } from '../utils/getKeywords.js';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import Debug from '../../../utils/Debug.js';
@@ -83,6 +82,8 @@ export async function aggregate(connection) {
           taxonomiesCollection,
         );
 
+        let keywords = await getKeywords(activityInfo, taxons);
+        debug(keywords);
         let entry = await getCompoundsInfo(
           data,
           compoundsCollection,
@@ -90,8 +91,12 @@ export async function aggregate(connection) {
           connection,
         );
 
-        if (activityInfo.length > 0) entry.data.active = true;
-
+        if (activityInfo.length > 0) {
+          entry.data.active = true;
+        }
+        if (keywords.length > 0) {
+          entry.data.keywords = keywords;
+        }
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
         }
