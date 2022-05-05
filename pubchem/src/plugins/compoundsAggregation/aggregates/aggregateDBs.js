@@ -1,5 +1,4 @@
 import md5 from 'md5';
-import MFParser from 'mf-parser';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import Debug from '../../../utils/Debug.js';
@@ -11,7 +10,6 @@ import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
 import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
 
-const { MF } = MFParser;
 const collectionNames = [
   'lotuses',
   'npasses',

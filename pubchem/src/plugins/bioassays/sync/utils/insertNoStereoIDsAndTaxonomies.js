@@ -9,7 +9,7 @@ export async function insertNoStereoIDsAndTaxonomies(connection) {
   const bioassaysCollection = await connection.getCollection('bioassays');
   let total = await bioassaysCollection.count();
   const collection = await connection.getCollection('compounds');
-  let ids = await bioassaysCollection.find({}, { _id: 1 }).map(function (item) {
+  let ids = await bioassaysCollection.find({}, { _id: 1 }).map((item) => {
     return item;
   });
   while (await ids.hasNext()) {

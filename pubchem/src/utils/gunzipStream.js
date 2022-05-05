@@ -15,8 +15,7 @@ async function gunzipStream(inputFilename, outputFilename) {
     const gzip = createGunzip();
     const source = createReadStream(inputFilename);
     const destination = createWriteStream(join(`${outputFilename}`));
-    await pipe(source, gzip, destination).catch((err) => {
-      console.error('An error occurred:', err);
+    await pipe(source, gzip, destination).catch(() => {
       process.exitCode = 1;
     });
   } else {

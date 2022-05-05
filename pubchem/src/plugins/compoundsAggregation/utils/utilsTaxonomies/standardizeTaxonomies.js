@@ -1,11 +1,7 @@
-import Debug from '../../../../utils/Debug.js';
-
 import { getTaxonomiesForCmaupsAndNpasses } from './getTaxonomiesForCmaupsAndNpasses.js';
 import { getTaxonomiesForCoconuts } from './getTaxonomiesForCoconuts.js';
 import { getTaxonomiesForLotuses } from './getTaxonomiesForLotuses.js';
 import { getTaxonomiesForNpAtlases } from './getTaxonomiesForNpAtlases.js';
-
-const debug = Debug('standardizeTaxonomies');
 
 export async function standardizeTaxonomies(
   data,

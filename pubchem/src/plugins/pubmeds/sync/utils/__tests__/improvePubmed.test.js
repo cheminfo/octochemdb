@@ -16,7 +16,7 @@ test('pubmeds', async () => {
   const xmlStream = flow(stream);
   const results = [];
   let counter = 0;
-  await new Promise((resolve, reject) => {
+  await new Promise((resolve) => {
     xmlStream
       .on('tag:pubmedarticle', async (article) => {
         let recovertToXml = toXml(article);

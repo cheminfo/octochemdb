@@ -23,7 +23,6 @@ async function syncFolder(source, destinationFolder, options = {}) {
 
   if (limit) allFiles = allFiles.slice(0, limit);
   const newFiles = [];
-  let start = Date.now();
   let fileList = fileListFromPath(destinationFolder).sort((a, b) => {
     if (a < b) return -1;
     if (a > b) return 1;

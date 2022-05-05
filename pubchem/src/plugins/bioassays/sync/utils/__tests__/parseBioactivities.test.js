@@ -11,7 +11,6 @@ test('parseBioactivities', async () => {
     __dirname,
     '../../../../../../../originalData/bioassay/full/bioassays.2022-04-17.gz',
   );
-  console.log(bioassays);
   let results = [];
   for await (const result of parseBioactivities(activity, bioassays)) {
     if (results.length > 10) break;

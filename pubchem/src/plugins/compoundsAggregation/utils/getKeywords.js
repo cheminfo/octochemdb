@@ -1,8 +1,5 @@
 import { getWordsList } from 'most-common-words-by-language';
 
-import Debug from '../../../utils/Debug.js';
-
-const debug = Debug('keywords');
 export async function getKeywords(activityInfo, taxons) {
   const toIgnores = getWordsList('english', 200);
   const ignoreSet = new Set();

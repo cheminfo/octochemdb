@@ -46,9 +46,9 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
               dbRef: { $ref: entry.collection, $id: entry._id },
               externalRef: externalReference,
             };
-            if (activity.target_id) {
+            if (activity.targetId) {
               let searchParameter = {
-                _id: Number(activity.target_id),
+                _id: Number(activity.targetId),
               };
 
               let result = await searchTaxonomies(

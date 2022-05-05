@@ -1,5 +1,5 @@
-import { readFileSync, createReadStream } from 'fs';
-import { createGunzip, gunzipSync } from 'zlib';
+import { createReadStream } from 'fs';
+import { createGunzip } from 'zlib';
 
 import pkg from 'xml-flow';
 import { toJson } from 'xml2json';
@@ -32,7 +32,7 @@ export default async function importOnePubmedFile(
   const xmlStream = flow(stream);
   let { shouldImport, lastDocument } = options;
   let imported = 0;
-  await new Promise((resolve, reject) => {
+  await new Promise((resolve) => {
     xmlStream
       .on('tag:pubmedarticle', async (article) => {
         let recovertToXml = pkg.toXml(article);
