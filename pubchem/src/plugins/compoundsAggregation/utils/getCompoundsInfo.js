@@ -1,6 +1,11 @@
 import Debug from '../../../utils/Debug.js';
 
-async function getCompoundsInfo(data, mfInfo, connection) {
+async function getCompoundsInfo(
+  data,
+  compoundsCollection,
+  noStereoID,
+  connection,
+) {
   const debug = Debug('getCompoundsInfo');
 
   try {
@@ -18,16 +23,34 @@ async function getCompoundsInfo(data, mfInfo, connection) {
       if (info.data?.iupacName) names[info.data?.iupacName] = true;
     }
     let active = false;
-
-    const entry = {
-      data: {
-        em: mfInfo.monoisotopicMass,
-        charge: mfInfo.charge,
-        unsaturation: mfInfo.unsaturation,
-        active,
-      },
+    let searchParameter = {
+      'data.ocl.noStereoID': noStereoID,
     };
 
+    let cursor = await compoundsCollection.find(searchParameter).limit(1);
+
+    let compoundIfo = await cursor.next();
+    let entry = {};
+    if (compoundIfo !== null) {
+      entry = {
+        data: {
+          em: compoundIfo.data.em,
+          charge: compoundIfo.data.charge,
+          unsaturation: compoundIfo.data.unsaturation,
+          active,
+        },
+      };
+    } else {
+      //just for test since i do not use the full compounds collection
+      entry = {
+        data: {
+          em: '1',
+          charge: '1',
+          unsaturation: '1',
+          active,
+        },
+      };
+    }
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
     let cidsNumber = [];
