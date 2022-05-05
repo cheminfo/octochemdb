@@ -58,6 +58,7 @@ export async function aggregate(connection) {
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
       let synonyms = await taxonomySynonyms();
+
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let data = [];
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { createInterface } from 'readline';
 
 import { fileListFromPath } from 'filelist-from';
@@ -8,9 +10,9 @@ export async function taxonomySynonims() {
   let fileName = fileListFromPath(
     `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full`,
   ).filter((file) => {
-    if (file.name.includes('zip') && !file.webkitRelativePath.includes('old')) {
-      return file;
-    }
+    return (
+      file.name.includes('zip') && !file.webkitRelativePath.includes('old')
+    );
   })[0];
   const readStream = await readStreamInZipFolder(
     fileName.webkitRelativePath,
