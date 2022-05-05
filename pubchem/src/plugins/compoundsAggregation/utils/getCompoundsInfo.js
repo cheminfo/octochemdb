@@ -31,26 +31,15 @@ async function getCompoundsInfo(
 
     let compoundIfo = await cursor.next();
     let entry = {};
-    if (compoundIfo !== null) {
-      entry = {
-        data: {
-          em: compoundIfo.data.em,
-          charge: compoundIfo.data.charge,
-          unsaturation: compoundIfo.data.unsaturation,
-          active,
-        },
-      };
-    } else {
-      //just for test since i do not use the full compounds collection
-      entry = {
-        data: {
-          em: '1',
-          charge: '1',
-          unsaturation: '1',
-          active,
-        },
-      };
-    }
+    entry = {
+      data: {
+        em: compoundIfo.data.em,
+        charge: compoundIfo.data.charge,
+        unsaturation: compoundIfo.data.unsaturation,
+        active,
+      },
+    };
+
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
     let cidsNumber = [];
