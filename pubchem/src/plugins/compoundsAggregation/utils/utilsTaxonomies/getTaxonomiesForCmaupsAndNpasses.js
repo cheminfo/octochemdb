@@ -11,13 +11,13 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         let taxons = entry.data.taxonomies[i];
         let searchParameter;
         let type = {};
+        // Define the search parameters that could be use (id, species name, genus, ...)
         if (taxons.speciesID) {
           searchParameter = {
             _id: Number(taxons.speciesID),
           };
           type.speciesID = searchParameter;
         }
-
         if (taxons.species) {
           searchParameter = {
             'data.species': taxons.species,
@@ -49,8 +49,8 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           };
           type.family = searchParameter;
         }
-
-        let shouldSearch = true;
+        // Try search parameter by order of preference (species id , species name, ...) till you get a result
+        let shouldSearch = true; // if there is a results, it became false
         if (type.speciesID && shouldSearch) {
           let result = await searchTaxonomies(
             taxonomiesCollection,
@@ -145,7 +145,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             shouldSearch = false;
           }
         }
-
+        // If no results were found, keep taxonomy informations available from orginal collection
         if (shouldSearch) {
           let finalTaxonomy = {};
           if (taxons.kingdom) {
