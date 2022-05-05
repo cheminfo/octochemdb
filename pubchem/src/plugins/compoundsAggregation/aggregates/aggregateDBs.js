@@ -143,10 +143,13 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ _seq: 1 });
       await targetCollection.createIndex({ _id: 1 });
       await targetCollection.createIndex({ 'data.taxonomies': 1 });
+      await targetCollection.createIndex({ 'data.keywords': 1 });
       await targetCollection.createIndex({ 'data.ocls': 1 });
       await targetCollection.createIndex({ 'data.cids': 1 });
       await targetCollection.createIndex({ 'data.cas': 1 });
+      await targetCollection.createIndex({ 'data.activities': 1 });
 
+      
       debug('Aggregation Done');
     } else {
       debug(`Aggregation already up to date`);
