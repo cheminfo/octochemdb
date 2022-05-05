@@ -1,12 +1,14 @@
 import { join } from 'path';
 
-import FSExtra from 'fs-extra';
+import fetch from 'cross-fetch';
 import { fileListFromPath } from 'filelist-from';
+import FSExtra from 'fs-extra';
+
 import Debug from '../../../utils/Debug.js';
 
 import getFile from './getFile.js';
 import getFilesList from './getFilesList.js';
-import fetch from 'cross-fetch';
+
 const { mkdirpSync, existsSync, statSync, rmSync } = FSExtra;
 const debug = Debug('syncFolder');
 

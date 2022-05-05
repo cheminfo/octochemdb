@@ -1,5 +1,6 @@
-import getFileIfNew from './getFileIfNew.js';
 import Debug from '../../../utils/Debug.js';
+
+import getFileIfNew from './getFileIfNew.js';
 
 async function getLastFileSync(options) {
   const debug = Debug(`SyncLast ${options.collectionName}`);
@@ -15,4 +16,5 @@ async function getLastFileSync(options) {
     extension: extension,
   });
 }
+
 export default getLastFileSync;

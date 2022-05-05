@@ -1,4 +1,4 @@
-import { searchTaxonomies } from '../utilsTaxonomies/searchTaxonomies.js';
+import { searchTaxonomies } from './searchTaxonomies.js';
 
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,

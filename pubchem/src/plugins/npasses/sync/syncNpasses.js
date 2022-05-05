@@ -1,6 +1,6 @@
 import Debug from '../../../utils/Debug.js';
-import npassesStartSync from './utils/npassesStartSync.js';
 
+import npassesStartSync from './utils/npassesStartSync.js';
 import { parseNpasses } from './utils/parseNpasses.js';
 
 const debug = Debug('syncNpasses');

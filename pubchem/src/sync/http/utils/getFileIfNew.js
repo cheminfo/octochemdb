@@ -9,10 +9,10 @@ import { join } from 'path';
 
 import fetch from 'cross-fetch';
 import { fileListFromPath } from 'filelist-from';
+import pkg from 'fs-extra';
 
 import Debug from '../../../utils/Debug.js';
 
-import pkg from 'fs-extra';
 const { mkdirpSync } = pkg;
 const debug = Debug('getFileIfNew');
 

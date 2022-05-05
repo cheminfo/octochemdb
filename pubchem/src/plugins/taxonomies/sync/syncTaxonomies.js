@@ -1,9 +1,12 @@
 import { readFileSync } from 'fs';
-import md5 from 'md5';
+
 import { fileListFromZip } from 'filelist-from';
+import md5 from 'md5';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../utils/Debug.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
+import Debug from '../../../utils/Debug.js';
+
 import { parseTaxonomies } from './utils/parseTaxonomies.js';
 
 const debug = Debug('syncTaxonomies');

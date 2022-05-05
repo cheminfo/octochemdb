@@ -1,8 +1,10 @@
+import md5 from 'md5';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
+
 import { parseCoconuts } from './utils/parseCoconuts.js';
-import md5 from 'md5';
 
 const debug = Debug('syncCoconuts');
 

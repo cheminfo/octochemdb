@@ -1,7 +1,9 @@
 import getLastDocumentImported from '../../../../sync/http/utils/getLastDocumentImported.js';
+import Debug from '../../../../utils/Debug.js';
+
 import getCmaupsLastFiles from './getCmaupsLastFiles.js';
 import readCmaupFiles from './readCmaupsFiles.js';
-import Debug from '../../../../utils/Debug.js';
+
 async function cmaupsStartSync(connection) {
   const debug = Debug('cmaupsStartSync');
   try {
@@ -51,4 +53,5 @@ async function cmaupsStartSync(connection) {
     debug(e, optionsDebug);
   }
 }
+
 export default cmaupsStartSync;

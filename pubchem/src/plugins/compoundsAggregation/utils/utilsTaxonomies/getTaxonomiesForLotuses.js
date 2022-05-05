@@ -1,6 +1,7 @@
-import { searchTaxonomies } from './searchTaxonomies.js';
 import Debug from '../../../../utils/Debug.js';
-const debug = Debug('lotuses');
+
+import { searchTaxonomies } from './searchTaxonomies.js';
+
 export async function getTaxonomiesForLotuses(
   entry,
   taxonomiesCollection,

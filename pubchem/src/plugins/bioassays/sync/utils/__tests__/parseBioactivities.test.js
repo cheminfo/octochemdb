@@ -1,5 +1,6 @@
-import parseBioactivities from '../parseBioactivities.js';
 import { join } from 'path';
+
+import parseBioactivities from '../parseBioactivities.js';
 // remove process.env.TEST from parseBioactivities to use this test
 test('parseBioactivities', async () => {
   const activity = join(

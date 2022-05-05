@@ -1,4 +1,5 @@
 import OCL from 'openchemlib';
+
 import Debug from '../../../../utils/Debug.js';
 
 export async function* parseNpatlases(json, connection) {
@@ -48,8 +49,9 @@ export async function* parseNpatlases(json, connection) {
         };
         if (entry.pubchem_cid) result.data.cid = entry.pubchem_cid;
 
-        if (finalTaxonomies.length !== 0)
+        if (finalTaxonomies.length !== 0) {
           result.data.taxonomies = finalTaxonomies;
+        }
 
         if (entry.original_name) result.data.iupacName = entry.original_name; // not a true iupacName but property name need to be the same for aggregation
 

@@ -1,5 +1,7 @@
 import OCL from 'openchemlib';
+
 import Debug from '../../../../utils/Debug.js';
+
 export async function* parseNpasses(
   general,
   activities,
@@ -113,10 +115,12 @@ export async function* parseNpasses(
           },
         };
         if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
-        if (finalTaxonomies.length !== 0)
+        if (finalTaxonomies.length !== 0) {
           result.data.taxonomies = finalTaxonomies;
-        if (finalActivities.length !== 0)
+        }
+        if (finalActivities.length !== 0) {
           result.data.activities = finalActivities;
+        }
 
         yield result;
       } catch (e) {

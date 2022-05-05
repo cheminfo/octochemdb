@@ -3,7 +3,8 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { insertNoStereoIDsAndTaxonomies } from '../sync/utils/insertNoStereoIDsAndTaxonomies.js';
+
+import { insertNoStereoIDsAndTaxonomies } from './utils/insertNoStereoIDsAndTaxonomies.js';
 import parseBioactivities from './utils/parseBioactivities.js';
 
 export async function sync(connection) {

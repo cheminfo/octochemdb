@@ -1,9 +1,11 @@
+import md5 from 'md5';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 
 import { parseLotuses } from './utils/parseLotuses.js';
-import md5 from 'md5';
+
 const debug = Debug('syncLotuses');
 
 export async function sync(connection) {

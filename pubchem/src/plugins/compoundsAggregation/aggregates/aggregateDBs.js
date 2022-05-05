@@ -1,12 +1,12 @@
 import md5 from 'md5';
 import MFParser from 'mf-parser';
-import { getKeywords } from '../utils/getKeywords.js';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import Debug from '../../../utils/Debug.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
+import { getKeywords } from '../utils/getKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
 import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
@@ -149,7 +149,6 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.cas': 1 });
       await targetCollection.createIndex({ 'data.activities': 1 });
 
-      
       debug('Aggregation Done');
     } else {
       debug(`Aggregation already up to date`);

@@ -1,4 +1,5 @@
 import StreamZip from 'node-stream-zip';
+
 async function readStreamInZipFolder(filePath, fileNameInsideZip) {
   const zip = new StreamZip.async({ file: filePath });
   let keys = Object.values(await zip.entries());

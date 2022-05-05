@@ -1,12 +1,14 @@
 import { readFileSync, createReadStream } from 'fs';
 import { createGunzip, gunzipSync } from 'zlib';
-import { toJson } from 'xml2json';
+
 import pkg from 'xml-flow';
-const flow = pkg;
+import { toJson } from 'xml2json';
 
 import Debug from '../../../../utils/Debug.js';
 
 import improvePubmed from './improvePubmed.js';
+
+const flow = pkg;
 
 const debug = Debug('importOnePubmedFile');
 

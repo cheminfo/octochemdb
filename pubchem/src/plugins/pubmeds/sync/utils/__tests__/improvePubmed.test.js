@@ -1,9 +1,12 @@
 import { createReadStream } from 'fs';
 import { join } from 'path';
-import { toJson } from 'xml2json';
 import { createGunzip } from 'zlib';
-import improvePubmed from '../improvePubmed.js';
+
 import pkg, { toXml } from 'xml-flow';
+import { toJson } from 'xml2json';
+
+import improvePubmed from '../improvePubmed.js';
+
 const flow = pkg;
 test('pubmeds', async () => {
   const stream = createReadStream(join(__dirname, 'pubmedTest.gz')).pipe(

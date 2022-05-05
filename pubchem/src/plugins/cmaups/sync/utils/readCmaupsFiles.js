@@ -1,8 +1,10 @@
+import { readFileSync } from 'fs';
+
 import pkg from 'papaparse';
 
-import { readFileSync } from 'fs';
-const { parse } = pkg;
 import Debug from '../../../../utils/Debug.js';
+
+const { parse } = pkg;
 
 const debug = Debug('readCmaupsFiles');
 
@@ -44,4 +46,5 @@ async function readCmaupsFiles(
     debug(e, optionsDebug);
   }
 }
+
 export default readCmaupsFiles;

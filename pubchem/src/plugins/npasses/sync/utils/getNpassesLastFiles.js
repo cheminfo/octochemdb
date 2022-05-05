@@ -1,4 +1,5 @@
 import md5 from 'md5';
+
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
 
@@ -65,4 +66,5 @@ async function getNpassesLastFiles(connection) {
     debug(e, optionsDebug);
   }
 }
+
 export default getNpassesLastFiles;

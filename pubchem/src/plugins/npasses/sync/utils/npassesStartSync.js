@@ -1,7 +1,8 @@
 import getLastDocumentImported from '../../../../sync/http/utils/getLastDocumentImported.js';
+import Debug from '../../../../utils/Debug.js';
+
 import getNpassesLastFiles from './getNpassesLastFiles.js';
 import readNpassesLastFiles from './readNpassesLastFiles.js';
-import Debug from '../../../../utils/Debug.js';
 
 async function npassStartSync(connection) {
   const debug = Debug('npassStartSync');

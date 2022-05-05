@@ -55,7 +55,9 @@ export async function* parseCmaups(
               'Class$S16: Assignment of aromatic double bonds failed'
             ) {
               errorsCounter++;
-            } else debug(e.stack);
+            } else {
+              debug(e.stack);
+            }
 
             continue;
           }

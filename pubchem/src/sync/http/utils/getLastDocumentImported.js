@@ -6,4 +6,5 @@ async function getLastDocumentImported(connection, progress, collectionName) {
     .limit(1)
     .next();
 }
+
 export default getLastDocumentImported;

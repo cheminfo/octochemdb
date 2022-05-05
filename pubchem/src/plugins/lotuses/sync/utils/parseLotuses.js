@@ -1,7 +1,9 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
+
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
+
 export async function* parseLotuses(bsonPath, filename, connection) {
   const debug = Debug('parseLotuses');
   try {

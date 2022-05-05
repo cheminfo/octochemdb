@@ -7,6 +7,7 @@ import Debug from '../../../utils/Debug.js';
 const debug = Debug('getFile');
 let start = Date.now();
 let lastFileName = 'Start Import';
+
 async function getFile(file, targetFile) {
   try {
     const response = await fetch(file.url);

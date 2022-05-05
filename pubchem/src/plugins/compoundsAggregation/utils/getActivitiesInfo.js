@@ -1,5 +1,7 @@
 import Debug from '../../../utils/Debug.js';
-import { searchTaxonomies } from '../utils/utilsTaxonomies/searchTaxonomies.js';
+
+import { searchTaxonomies } from './utilsTaxonomies/searchTaxonomies.js';
+
 async function getActivitiesInfo(data, connection, taxonomiesCollection) {
   const debug = Debug('getActivityInfo');
 

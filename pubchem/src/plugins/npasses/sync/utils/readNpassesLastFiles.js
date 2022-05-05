@@ -1,7 +1,9 @@
+import { readFileSync } from 'fs';
+
 import pkg from 'papaparse';
+
 import Debug from '../../../../utils/Debug.js';
 
-import { readFileSync } from 'fs';
 const { parse } = pkg;
 
 async function readNpassesLastFiles(
@@ -53,4 +55,5 @@ async function readNpassesLastFiles(
     debug(e, optionsDebug);
   }
 }
+
 export default readNpassesLastFiles;
