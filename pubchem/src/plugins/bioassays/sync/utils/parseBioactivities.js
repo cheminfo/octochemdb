@@ -73,6 +73,7 @@ async function* parseBioactivities(
       }
     }
   } catch (e) {
+    // If error is chatched, debug it on telegram
     const optionsDebug = { collection: 'bioassays', connection };
     debug(e, optionsDebug);
   }

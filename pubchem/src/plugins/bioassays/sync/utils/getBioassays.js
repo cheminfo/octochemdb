@@ -70,6 +70,7 @@ async function getBioassays(bioassaysFilePath, connection) {
     }
     return bioassays;
   } catch (e) {
+    // If error is chatched, debug it on telegram
     const optionsDebug = { collection: 'bioassays', connection };
     debug(e, optionsDebug);
   }
