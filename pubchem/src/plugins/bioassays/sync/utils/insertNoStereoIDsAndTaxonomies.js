@@ -1,35 +1,53 @@
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('NoStereoIDs and Taxonomies');
+/**
+ * @name insertNoStereoIDsAndTaxonomies
+ * @param {*} connection
+ * @returns number of updated documents
+ */
 
 export async function insertNoStereoIDsAndTaxonomies(connection) {
+  const debug = Debug('NoStereoIDs and Taxonomies');
   let counter = 0;
   let start = Date.now();
+  // Get collections taxonomies, bioassays and compounds
   const taxonomiesCollection = await connection.getCollection('taxonomies');
   const bioassaysCollection = await connection.getCollection('bioassays');
-  let total = await bioassaysCollection.count();
-  const collection = await connection.getCollection('compounds');
-  let ids = await bioassaysCollection.find({}, { _id: 1 }).map((item) => {
-    return item;
-  });
-  while (await ids.hasNext()) {
-    const doc = await ids.next();
-    let cid = doc.data.cid;
-    let compound = await collection.findOne({ _id: Number(cid) });
+  const compoundsCollection = await connection.getCollection('compounds');
+  // Get count entries in collection bioassays to debug
+  let totalEntriesToUpdate = await bioassaysCollection.count();
+  // Get cursor whit all entries of bioassays collection
+  let bioassayEntries = await bioassaysCollection
+    .find({}, { _id: 1 })
+    .map((item) => {
+      return item;
+    });
+  // While loop to parse each entry using cursor bioassayEntries
+  while (await bioassayEntries.hasNext()) {
+    // Get compound CID and search on compounds collection the corresponding entry
+    const documentBioassay = await bioassayEntries.next();
+    let cid = documentBioassay.data.cid;
+    let compound = await compoundsCollection.findOne({ _id: Number(cid) });
     if (compound) {
+      // Get standerized taxonomies of target organism from taxonomies collection
       let taxonomies = [];
-
-      if (doc.data.activeAgainsTaxIDs) {
-        for (let i = 0; i < doc.data.activeAgainsTaxIDs.length; i++) {
-          let taxons = await taxonomiesCollection.findOne({
-            _id: Number(doc.data.activeAgainsTaxIDs[i]),
+      if (documentBioassay.data.activeAgainsTaxIDs) {
+        for (
+          let i = 0;
+          i < documentBioassay.data.activeAgainsTaxIDs.length;
+          i++
+        ) {
+          let foundTaxonomies = await taxonomiesCollection.findOne({
+            _id: Number(documentBioassay.data.activeAgainsTaxIDs[i]),
           });
-          if (taxons) {
-            taxonomies.push(taxons.data);
+          if (foundTaxonomies) {
+            taxonomies.push(foundTaxonomies.data);
           }
         }
       }
+      // Get noStereoID of current CID
       let noStereoID = compound.data.ocl.noStereoID;
+      // Degine the set to be used while updating the collection (taxonomies is not always defined)
       let set;
       if (taxonomies.length > 0) {
         set = {
@@ -42,17 +60,18 @@ export async function insertNoStereoIDsAndTaxonomies(connection) {
         };
       }
       await bioassaysCollection.updateOne(
-        { _id: doc._id },
+        { _id: documentBioassay._id },
         {
           $set: set,
         },
         { upsert: true },
       );
-
+      // Debug progresses made each 10s or time defined in process env
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        let percentage = Math.round((counter / total) * 1000) / 10;
+        let percentage =
+          Math.round((counter / totalEntriesToUpdate) * 1000) / 10;
         debug(
-          `Processing: imported: ${counter} of ${total} ---> ${percentage} %`,
+          `Processing: imported: ${counter} of ${totalEntriesToUpdate} ---> ${percentage} %`,
         );
         start = Date.now();
       }
