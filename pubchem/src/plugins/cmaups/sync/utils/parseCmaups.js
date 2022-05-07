@@ -1,8 +1,6 @@
 import OCL from 'openchemlib';
-
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('parseCmaups');
 export async function* parseCmaups(
   general,
   activities,
@@ -10,22 +8,25 @@ export async function* parseCmaups(
   speciesInfo,
   connection,
 ) {
+  const debug = Debug('parseCmaups');
   try {
+    // get relation between molecule ID and taxonomies IDs
     const speciesPaired = {};
-
     for (const pair of speciesPair) {
       if (!speciesPaired[pair[1]]) {
         speciesPaired[pair[1]] = [];
       }
       speciesPaired[pair[1]].push(pair[0]);
     }
+    // Start parsing each molecule in general
     let errorsCounter = 0;
     for await (const item of general) {
       try {
         if (Object.keys(item.Ingredient_ID).length > 0) {
+          // Get molecule ID
           const id = item.Ingredient_ID;
+          // Get activities related to molecule ID
           const activity = activities[id];
-
           const finalActivities = [];
           if (activity !== undefined) {
             for (const info of activity) {
@@ -38,18 +39,17 @@ export async function* parseCmaups(
               });
             }
           }
-
+          // Get molecule structure data
           const smilesDb = item.__parsed_extra.slice(-1)[0];
           let oclID;
           let noStereoID;
           try {
             const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
-
             oclID = oclMolecule.getIDCodeAndCoordinates();
-
             oclMolecule.stripStereoInformation();
             noStereoID = oclMolecule.getIDCode();
           } catch (e) {
+            // Count how many times OCL fail to generate molecule from smiles
             if (
               e.message ===
               'Class$S16: Assignment of aromatic double bonds failed'
@@ -61,9 +61,8 @@ export async function* parseCmaups(
 
             continue;
           }
-
+          // Get raw data taxonomies
           const orgIDs = speciesPaired[id];
-
           const taxonomies = [];
           if (orgIDs) {
             if (orgIDs.length > 0) {
@@ -74,7 +73,7 @@ export async function* parseCmaups(
               });
             }
           }
-
+          // Format taxonomies data
           let finalTaxonomies = [];
           if (taxonomies.length > 0) {
             for (const infos of taxonomies) {
@@ -103,7 +102,7 @@ export async function* parseCmaups(
               }
             }
           }
-
+          // Create object containing final result for molecule i
           const result = {
             _id: item.Ingredient_ID,
             data: {
@@ -121,7 +120,6 @@ export async function* parseCmaups(
           if (finalActivities.length > 0) {
             result.data.activities = finalActivities;
           }
-
           yield result;
         }
       } catch (e) {

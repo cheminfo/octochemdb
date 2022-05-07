@@ -1,7 +1,12 @@
 import md5 from 'md5';
-
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
+
+/**
+ * @name getCmaupsLastFiles
+ * @param {*} connection
+ * @returns The path of last files downloaded, the sources and the collections progress (admin) and logs (importationLogs)
+ */
 
 async function getCmaupsLastFiles(connection) {
   const debug = Debug('getCmaupsLastFiles');
@@ -13,48 +18,55 @@ async function getCmaupsLastFiles(connection) {
       filenameNew: 'Ingredients',
       extensionNew: 'txt',
     };
-    const lastFile = await getLastFileSync(options);
+    // Get file Ingredients who contain general data about the molecule
+    const lastFileGeneral = await getLastFileSync(options);
+    // Get file containing activity data for all active ingredients (lastFileGeneral)
     options.collectionSource = process.env.CMAUP_SOURCE_ACTIVITY;
     options.filenameNew = 'activity';
     const lastFileActivity = await getLastFileSync(options);
+    // Get file Species association allows to relate mocule ID with taxonomies IDs
     options.collectionSource = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
     options.filenameNew = 'speciesAssociation';
     const lastFileSpeciesAssociation = await getLastFileSync(options);
+    // Get file with taxonomies informations
     options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
     options.filenameNew = 'speciesInfo';
     const lastFileSpeciesInfo = await getLastFileSync(options);
+    // Get collection admin
+    const progress = await connection.getProgress('cmaups');
+    // Get collection importationLogs
     let source = [
-      lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+      lastFileGeneral.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileSpeciesAssociation.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
-    const progress = await connection.getProgress('cmaups');
     const logs = await connection.geImportationtLog({
       collectionName: 'cmaups',
       sources: source,
       startSequenceID: progress.seq,
     });
-
+    // Get sources with new downloaded files (will be used to check if necessary to update collection)
     const sources = md5(
       JSON.stringify([
-        lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+        lastFileGeneral.replace(process.env.ORIGINAL_DATA_PATH, ''),
         lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
         lastFileSpeciesAssociation.replace(process.env.ORIGINAL_DATA_PATH, ''),
         lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
       ]),
     );
 
-    return {
-      lastFile,
+    return [
+      lastFileGeneral,
       lastFileActivity,
       lastFileSpeciesAssociation,
       lastFileSpeciesInfo,
       sources,
       progress,
       logs,
-    };
+    ];
   } catch (e) {
+    // If error is chatched, debug it on telegram
     const optionsDebug = { collection: 'cmaups', connection };
     debug(e, optionsDebug);
   }
