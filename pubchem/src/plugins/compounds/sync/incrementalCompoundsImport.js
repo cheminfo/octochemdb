@@ -18,8 +18,7 @@ async function incrementalCompoundImport(connection) {
       progress,
       allFiles,
     );
-
-    if (!files.includes(progress.sources) && progress.state === 'updated') {
+    if (progress.state === 'updated') {
       await importCompoundFiles(connection, progress, files, { lastDocument });
     }
   } catch (e) {
@@ -71,7 +70,7 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     debug(`starting with file ${progress.sources}`);
 
-    return { lastDocument, files: allFiles.slice(firstIndex) };
+    return { files: allFiles.slice(firstIndex), lastDocument };
   } catch (e) {
     const optionsDebug = { collection: 'compounds', connection };
     debug(e, optionsDebug);

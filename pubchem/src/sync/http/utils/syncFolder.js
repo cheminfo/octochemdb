@@ -38,18 +38,22 @@ async function syncFolder(source, destinationFolder, options = {}) {
     file.path = targetFile;
     if (skipping) {
       if (file.name !== lastFileImported.name && fileList !== []) {
-        continue;
+        if (!file.name.includes('killed-CIDs')) {
+          continue;
+        }
       } else {
         skipping = false;
-        const fileInfo = statSync(targetFile);
-        let trueFileSize = await fileSize(file);
-        debug(
-          `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
-        );
-        if (fileInfo.size !== trueFileSize) {
-          rmSync(targetFile, { recursive: true });
-          await getFile(file, targetFile);
-          newFiles.push(file);
+        if (existsSync(targetFile)) {
+          const fileInfo = statSync(targetFile);
+          let trueFileSize = await fileSize(file);
+          debug(
+            `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
+          );
+          if (fileInfo.size !== trueFileSize) {
+            rmSync(targetFile, { recursive: true });
+            await getFile(file, targetFile);
+            newFiles.push(file);
+          }
         }
         continue;
       }
@@ -57,6 +61,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
     await getFile(file, targetFile);
     newFiles.push(file);
   }
+
   return { allFiles, newFiles };
 }
 
