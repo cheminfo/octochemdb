@@ -13,7 +13,6 @@ async function cmaupsStartSync(connection) {
       lastFileSpeciesAssociation,
       lastFileSpeciesInfo,
       sources,
-      newFiles,
       progress,
       logs,
     ] = await getCmaupsLastFiles(connection);
@@ -44,7 +43,6 @@ async function cmaupsStartSync(connection) {
       activities,
       speciesPair,
       speciesInfo,
-      newFiles,
       logs,
     ];
   } catch (e) {
