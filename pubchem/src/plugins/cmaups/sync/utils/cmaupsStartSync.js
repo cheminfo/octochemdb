@@ -35,7 +35,7 @@ async function cmaupsStartSync(connection) {
         connection,
       );
 
-    return {
+    return [
       lastDocumentImported,
       progress,
       sources,
@@ -46,7 +46,7 @@ async function cmaupsStartSync(connection) {
       speciesInfo,
       newFiles,
       logs,
-    };
+    ];
   } catch (e) {
     const optionsDebug = { collection: 'cmaups', connection };
     debug(e, optionsDebug);

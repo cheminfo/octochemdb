@@ -8,7 +8,7 @@ const debug = Debug('syncCmaups');
 export async function sync(connection) {
   try {
     // Get necessary variables like collections, readed files, ecc. (see cmaupsStartSync for details)
-    const {
+    const [
       lastDocumentImported,
       progress,
       sources,
@@ -18,7 +18,7 @@ export async function sync(connection) {
       speciesPair,
       speciesInfo,
       logs,
-    } = await cmaupsStartSync(connection);
+    ] = await cmaupsStartSync(connection);
     // Define counters
     let counter = 0;
     let imported = 0;
