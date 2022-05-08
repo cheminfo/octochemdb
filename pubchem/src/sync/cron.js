@@ -27,6 +27,14 @@ async function cron() {
       return false;
     });
   }
+  if (process.env.EXCLUDEPLUGINS) {
+    const notAllowedPlugins = process.env.EXCLUDEPLUGINS.split(',');
+    syncURLs = syncURLs.filter((url) => {
+      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      if (!notAllowedPlugins.includes(pluginName)) return true;
+      return false;
+    });
+  }
   for (let syncURL of syncURLs) {
     if (syncURL.pathname.includes('syncBioassays')) {
       syncURLs.push(syncURLs.splice(syncURLs.indexOf(syncURL), 1)[0]);
