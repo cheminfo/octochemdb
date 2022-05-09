@@ -10,7 +10,7 @@ const debug = Debug('incrementalCompoundImport');
 async function incrementalCompoundImport(connection) {
   try {
     const allFiles = await syncIncrementalCompoundFolder(connection);
-
+    debug(allFiles);
     const progress = await connection.getProgress('compounds');
 
     const { files, lastDocument } = await getFilesToImport(
