@@ -7,7 +7,7 @@ async function getCompoundsInfo(
   connection,
 ) {
   const debug = Debug('getCompoundsInfo');
-
+  debug(data);
   try {
     let cid = {};
     let cas = {};
