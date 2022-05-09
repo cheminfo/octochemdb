@@ -74,6 +74,7 @@ export async function standardizeTaxonomies(
         break;
       }
       case 'bioassays': {
+        entry = entry;
         break;
       }
       default:
