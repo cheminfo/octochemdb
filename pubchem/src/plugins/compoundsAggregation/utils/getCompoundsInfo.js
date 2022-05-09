@@ -1,5 +1,4 @@
 import Debug from '../../../utils/Debug.js';
-
 async function getCompoundsInfo(
   data,
   compoundsCollection,
@@ -12,6 +11,7 @@ async function getCompoundsInfo(
     let cas = {};
     let names = {};
     let ocls = {};
+
     for (const info of data) {
       ocls[info.data.ocl.id] = {
         id: info.data.ocl?.id,
@@ -32,13 +32,19 @@ async function getCompoundsInfo(
       }
     }
     let active = false;
-    let searchParameter = {
+    let searchParameter;
+    searchParameter = {
       'data.ocl.noStereoID': noStereoID,
     };
-
+    if (noStereoID === 'daxL`HS`BLddNRtt@@') {
+      searchParameter = {
+        _id: 71375894,
+      };
+    }
     let cursor = await compoundsCollection.find(searchParameter).limit(1);
 
     let compoundIfo = await cursor.next();
+
     let entry = {};
     entry = {
       data: {
