@@ -82,7 +82,6 @@ export async function aggregate(connection) {
         );
 
         let keywords = await getKeywords(activityInfo, taxons);
-        debug(keywords);
         let entry = await getCompoundsInfo(
           data,
           compoundsCollection,
