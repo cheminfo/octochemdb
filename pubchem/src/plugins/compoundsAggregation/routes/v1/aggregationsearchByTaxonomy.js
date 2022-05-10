@@ -64,7 +64,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('temporaryAgregation');
+    const collection = await connection.getCollection('bestOfCompounds');
     debug(JSON.stringify({ speciesName }));
     debug(JSON.stringify({ genusName }));
     debug(JSON.stringify({ 'data.active': active }));
