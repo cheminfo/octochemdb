@@ -18,6 +18,12 @@ const entriesFromTaxonomies = {
         type: 'string',
         description: 'genus',
         example: 'Podocarpus',
+        default: 'Podocarpus',
+      },
+      active: {
+        type: 'boolean',
+        description: 'true or false',
+        example: 'true',
         default: null,
       },
       limit: {
@@ -49,6 +55,7 @@ async function searchHandler(request) {
   let {
     speciesName = '',
     genusName = '',
+    active = 'false',
     limit = 0,
     limitResults = 0,
     fields = 'data.em,data.charge,data.unsaturation,data.active,data.ocls,data.names,data.keywords,data.activities,data.taxonomies',
@@ -57,9 +64,10 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('bestOfCompounds');
+    const collection = await connection.getCollection('temporaryAgregation');
     debug(JSON.stringify({ speciesName }));
     debug(JSON.stringify({ genusName }));
+    debug(JSON.stringify({ 'data.active': active }));
     let formatedFields = getFields(fields);
     formatedFields._id = 0;
     formatedFields['data.activities'] = {
@@ -79,6 +87,7 @@ async function searchHandler(request) {
       if (genusName) {
         searchParameter = {
           'data.taxonomies.genus': genusName,
+          'data.active': active,
         };
       }
     }
