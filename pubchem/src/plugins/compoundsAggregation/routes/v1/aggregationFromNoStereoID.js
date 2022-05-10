@@ -4,7 +4,7 @@ import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('entries bestOfCompounds');
 
-const entriesAdmin = {
+const entriesFromNoStereoID = {
   method: 'GET',
   schema: {
     querystring: {
@@ -32,7 +32,7 @@ const entriesAdmin = {
   handler: searchHandler,
 };
 
-export default entriesAdmin;
+export default entriesFromNoStereoID;
 
 async function searchHandler(request) {
   let {
