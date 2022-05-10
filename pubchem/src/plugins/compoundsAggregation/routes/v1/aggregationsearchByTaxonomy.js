@@ -22,8 +22,7 @@ const entriesAdmin = {
       },
       limit: {
         type: 'number',
-        description:
-          'limit of records for noStereoID, activities and taxonomies',
+        description: 'limit of records for ocls, activities and taxonomies',
         example: 10,
         default: 50,
       },
