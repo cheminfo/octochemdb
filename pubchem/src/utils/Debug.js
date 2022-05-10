@@ -39,7 +39,10 @@ async function logInDB(message, options) {
   const { collection, connection } = options;
   if (!collection) return;
   const progress = await connection.getProgress(collection);
-  if (progress.logs === null) progress.logs = [];
+  if (progress.logs === null || progress.logs === undefined) {
+    progress.logs = [];
+  }
+
   let logs = progress.logs;
   if (logs && logs.length < 49) {
     logs.push({
