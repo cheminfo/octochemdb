@@ -36,11 +36,12 @@ async function getCompoundsInfo(
     searchParameter = {
       'data.ocl.noStereoID': noStereoID,
     };
+    /*
     if (noStereoID === 'daxL`HS`BLddNRtt@@') {
       searchParameter = {
         _id: 71375894,
       };
-    }
+    }*/
     let cursor = await compoundsCollection.find(searchParameter).limit(1);
 
     let compoundIfo = await cursor.next();
