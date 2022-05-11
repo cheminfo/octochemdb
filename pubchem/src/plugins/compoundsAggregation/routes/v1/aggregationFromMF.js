@@ -2,25 +2,19 @@
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('entriesFromEM');
+const debug = Debug('aggregationFromMF');
 
-const entriesFromEM = {
+const entriesFromMF = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve compounds from a monoisotopic mass',
-    description:
-      'Allows to search for pubchem compounds based on a monoisotopic mass, precision (accuracy) of the measurement.',
+    summary: 'Retrieve compounds from a molecular formula',
+    description: '',
     querystring: {
-      em: {
-        type: 'number',
-        description: 'Monoisotopic mass',
-        example: 300.123,
+      mf: {
+        type: 'string',
+        description: 'Molecular formula',
+        example: 'Et3N',
         default: null,
-      },
-      precision: {
-        type: 'number',
-        description: 'Precision (in ppm) of the monoisotopic mass',
-        default: 100,
       },
       limit: {
         type: 'number',
@@ -38,19 +32,17 @@ const entriesFromEM = {
   handler: searchHandler,
 };
 
-export default entriesFromEM;
+export default entriesFromMF;
 
 async function searchHandler(request) {
   let {
-    em = 0,
+    mf = '',
     limit = 1e3,
-    precision = 100,
     fields = 'data.em,data.charge,data.unsaturation,data.active,data.ocls,data.names,data.keywords,data.activities,data.taxonomies',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
-  let error = (em / 1e6) * precision;
 
   let connection;
   try {
@@ -58,11 +50,11 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('bestOfCompounds');
     let formatedFields = getFields(fields);
     formatedFields._id = 0;
-    debug(em);
+    debug(mf);
 
     const results = await collection
       .aggregate([
-        { $match: { 'data.em': { $lt: em + error, $gt: em - error } } },
+        { $match: { 'data.mf': mf } },
         { $limit: limit },
         {
           $project: formatedFields,
