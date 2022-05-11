@@ -33,12 +33,11 @@ async function getCompoundsInfo(
       }
     }
     let active = false;
-    let searchParameter;
-    searchParameter = {
-      'data.ocl.noStereoID': JSON.stringify(noStereoID),
-    };
+
     //debug(JSON.stringify(noStereoID));
-    let cursor = await compoundsCollection.find(searchParameter).limit(1);
+    let cursor = await compoundsCollection
+      .find({ 'data.ocl.noStereoID': JSON.stringify(noStereoID) })
+      .limit(1);
 
     let compoundIfo = await cursor.next();
     let entry = {};
@@ -66,6 +65,7 @@ async function getCompoundsInfo(
         },
       };
       debug(noStereoID);
+      debug(JSON.stringify(noStereoID));
     }
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
