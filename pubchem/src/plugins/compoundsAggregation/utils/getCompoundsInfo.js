@@ -66,8 +66,6 @@ async function getCompoundsInfo(
           active,
         },
       };
-
-      debug(JSON.stringify(noStereoID));
     }
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
