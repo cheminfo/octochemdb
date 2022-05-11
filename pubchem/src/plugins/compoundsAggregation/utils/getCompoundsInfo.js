@@ -48,6 +48,7 @@ async function getCompoundsInfo(
           em: compoundIfo.data.em,
           charge: compoundIfo.data.charge,
           unsaturation: compoundIfo.data.unsaturation,
+          mf: compoundIfo.data.mf,
           active,
         },
       };
@@ -59,6 +60,7 @@ async function getCompoundsInfo(
           em: compoundData.data.em,
           charge: compoundData.data.charge,
           unsaturation: compoundData.data.unsaturation,
+          mf: compoundData.data.mf,
           active,
         },
       };
