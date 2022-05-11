@@ -42,7 +42,7 @@ async function getCompoundsInfo(
     let compoundIfo = await cursor.next();
     let entry = {};
 
-    if (compoundIfo) {
+    if (compoundIfo !== null) {
       entry = {
         data: {
           em: compoundIfo.data.em,
@@ -52,8 +52,10 @@ async function getCompoundsInfo(
           active,
         },
       };
-    } else {
+    }
+    if (compoundIfo === null) {
       const molecule = { noStereoID: noStereoID };
+
       let compoundData = await getCompoundsData(molecule);
       entry = {
         data: {
@@ -64,7 +66,7 @@ async function getCompoundsInfo(
           active,
         },
       };
-      debug(noStereoID);
+
       debug(JSON.stringify(noStereoID));
     }
     ocls = Object.values(ocls);
