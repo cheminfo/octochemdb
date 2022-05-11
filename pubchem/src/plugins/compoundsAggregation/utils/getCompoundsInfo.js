@@ -1,4 +1,5 @@
 import Debug from '../../../utils/Debug.js';
+import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 async function getCompoundsInfo(
   data,
   compoundsCollection,
@@ -36,26 +37,33 @@ async function getCompoundsInfo(
     searchParameter = {
       'data.ocl.noStereoID': noStereoID,
     };
-    /*
-    if (noStereoID === 'daxL`HS`BLddNRtt@@') {
-      searchParameter = {
-        _id: 71375894,
-      };
-    }*/
     let cursor = await compoundsCollection.find(searchParameter).limit(1);
 
     let compoundIfo = await cursor.next();
-
     let entry = {};
-    entry = {
-      data: {
-        em: compoundIfo.data.em,
-        charge: compoundIfo.data.charge,
-        unsaturation: compoundIfo.data.unsaturation,
-        active,
-      },
-    };
 
+    if (compoundIfo) {
+      entry = {
+        data: {
+          em: compoundIfo.data.em,
+          charge: compoundIfo.data.charge,
+          unsaturation: compoundIfo.data.unsaturation,
+          active,
+        },
+      };
+    } else {
+      const molecule = { noStereoID: noStereoID };
+      let compoundData = await getCompoundsData(molecule);
+      entry = {
+        data: {
+          em: compoundData.data.em,
+          charge: compoundData.data.charge,
+          unsaturation: compoundData.data.unsaturation,
+          active,
+        },
+      };
+      debug(noStereoID);
+    }
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
     let cidsNumber = [];
