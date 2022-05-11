@@ -35,8 +35,9 @@ async function getCompoundsInfo(
     let active = false;
     let searchParameter;
     searchParameter = {
-      'data.ocl.noStereoID': noStereoID,
+      'data.ocl.noStereoID': JSON.stringify(noStereoID),
     };
+    //debug(JSON.stringify(noStereoID));
     let cursor = await compoundsCollection.find(searchParameter).limit(1);
 
     let compoundIfo = await cursor.next();
