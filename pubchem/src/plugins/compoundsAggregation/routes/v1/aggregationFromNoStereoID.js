@@ -59,7 +59,7 @@ async function searchHandler(request) {
       .aggregate([
         {
           $match: {
-            _id: `${noStereoID}`,
+            _id: `${JSON.stringify(noStereoID)}`,
           },
         },
         {
