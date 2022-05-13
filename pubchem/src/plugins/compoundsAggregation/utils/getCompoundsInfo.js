@@ -36,7 +36,7 @@ async function getCompoundsInfo(
 
     //debug(JSON.stringify(noStereoID));
     let cursor = await compoundsCollection
-      .find({ 'data.ocl.noStereoID': JSON.stringify(noStereoID) })
+      .find({ 'data.ocl.noStereoID': noStereoID })
       .limit(1);
 
     let compoundIfo = await cursor.next();
@@ -55,7 +55,6 @@ async function getCompoundsInfo(
     }
     if (compoundIfo === null) {
       const molecule = { noStereoID: noStereoID };
-
       let compoundData = await getCompoundsData(molecule);
       entry = {
         data: {
