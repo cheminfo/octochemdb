@@ -16,8 +16,8 @@ export async function aggregate(connection) {
   let result = await collection.aggregate(
     [
       //
-      { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
       { $limit: 1e6 },
+      { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
       {
         $project: {
           _id: 0,
