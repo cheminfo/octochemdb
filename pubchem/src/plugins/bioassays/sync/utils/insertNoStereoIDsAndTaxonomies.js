@@ -53,6 +53,8 @@ export async function insertNoStereoIDsAndTaxonomies(connection) {
         if (taxonomies.length > 0) {
           set = {
             'data.ocl.noStereoID': noStereoID,
+            'data.ocl.id': compound.data.ocl.id,
+            'data.ocl.coordinates': compound.data.ocl.coordinates,
             'data.activeAgainstTaxonomy': taxonomies,
           };
         } else {
