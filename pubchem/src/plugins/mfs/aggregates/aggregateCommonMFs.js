@@ -15,8 +15,7 @@ export async function aggregate(connection) {
   debug(`'mfsCommon: Need to aggregate: ${await collection.count()}`);
   let result = await collection.aggregate(
     [
-      //
-      { $limit: 1e6 },
+      //{ $limit: 1e6 },
       { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
       {
         $project: {
@@ -41,7 +40,7 @@ export async function aggregate(connection) {
     ],
     {
       allowDiskUse: true,
-      maxTimeMS: 60 * 60 * 1000, // 1h
+      maxTimeMS: 60 * 60 * 3000, // 3h
     },
   );
   await result.hasNext();
