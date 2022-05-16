@@ -20,7 +20,7 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
         };
 
         if (entry.data?.activeAgainstTaxonomy) {
-          activity.taxonomies = entry.data?.activeAgainstTaxonomy[0];
+          activity.taxonomies = entry.data?.activeAgainstTaxonomy;
         }
         activityInfo.push(activity);
       }
