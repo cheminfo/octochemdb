@@ -12,7 +12,7 @@ export async function aggregate(connection) {
     return;
   }
 
-  debug('mfsCommon: Need to aggregate', await collection.count());
+  debug(`'mfsCommon: Need to aggregate: ${await collection.count()}`);
   let result = await collection.aggregate(
     [
       //
