@@ -12,7 +12,7 @@ export async function aggregate(connection) {
     return;
   }
 
-  debug(`'Need to aggregate' ${await collection.countDocuments()} 'entries'`);
+  debug(`Need to aggregate' ${await collection.count()} entries`);
   let result = await collection.aggregate(
     [
       {
