@@ -34,7 +34,6 @@ async function getCompoundsInfo(
     }
     let active = false;
 
-    //debug(JSON.stringify(noStereoID));
     let cursor = await compoundsCollection
       .find({ 'data.ocl.noStereoID': noStereoID })
       .limit(1);
