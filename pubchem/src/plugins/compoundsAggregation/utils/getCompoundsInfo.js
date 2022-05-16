@@ -33,6 +33,7 @@ async function getCompoundsInfo(
       }
     }
     let active = false;
+    let naturalProduct = false;
 
     let cursor = await compoundsCollection
       .find({ 'data.ocl.noStereoID': noStereoID })
@@ -49,6 +50,7 @@ async function getCompoundsInfo(
           unsaturation: compoundIfo.data.unsaturation,
           mf: compoundIfo.data.mf,
           active,
+          naturalProduct,
         },
       };
     }
@@ -62,6 +64,7 @@ async function getCompoundsInfo(
           unsaturation: compoundData.data.unsaturation,
           mf: compoundData.data.mf,
           active,
+          naturalProduct,
         },
       };
     }

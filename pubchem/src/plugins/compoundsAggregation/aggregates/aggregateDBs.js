@@ -101,6 +101,9 @@ export async function aggregate(connection) {
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
+        if (taxons.length > 0) {
+          entry.data.naturalProduct = true;
+        }
 
         entry._seq = ++progress.seq;
 
