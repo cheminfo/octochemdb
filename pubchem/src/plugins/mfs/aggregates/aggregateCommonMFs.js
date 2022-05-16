@@ -1,19 +1,19 @@
 import Debug from '../../../utils/Debug.js';
 
-const debug = Debug('aggregateCommonMFs');
+const debug = Debug('aggregatemfsCommon');
 
 export async function aggregate(connection) {
   const collection = await connection.getCollection('compounds');
 
   const progressCompounds = await connection.getProgress('compounds');
-  const progress = await connection.getProgress('commonMFs');
+  const progress = await connection.getProgress('mfsCommon');
   if (progressCompounds.seq === progress.seq) {
     debug('Aggregation up-to-date');
     return;
   }
 
   debug(
-    'commonMFs: Need to aggregate',
+    'mfsCommon: Need to aggregate',
     await collection.countDocuments(),
     'entries',
   );
@@ -40,7 +40,7 @@ export async function aggregate(connection) {
         },
       },
       { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
-      { $out: 'commonMFs' },
+      { $out: 'mfsCommon' },
     ],
     {
       allowDiskUse: true,
@@ -49,9 +49,9 @@ export async function aggregate(connection) {
   );
   await result.hasNext();
 
-  const collectionCommonMFs = await connection.getCollection('mfsCommon');
+  const collectionmfsCommon = await connection.getCollection('mfsCommon');
 
-  await collectionCommonMFs.createIndex({ em: 1 });
+  await collectionmfsCommon.createIndex({ em: 1 });
 
   progress.seq = progressCompounds.seq;
   await connection.setProgress(progress);
