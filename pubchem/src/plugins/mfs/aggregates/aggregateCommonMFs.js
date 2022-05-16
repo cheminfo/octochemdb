@@ -12,12 +12,12 @@ export async function aggregate(connection) {
     return;
   }
 
-  debug('mfsCommon: Need to aggregate', await collection.countDocuments());
+  debug('mfsCommon: Need to aggregate', await collection.count());
   let result = await collection.aggregate(
     [
       //
       { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
-      { $limit: 1e7 },
+      { $limit: 1e6 },
       {
         $project: {
           _id: 0,
