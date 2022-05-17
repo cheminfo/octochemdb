@@ -37,11 +37,11 @@ async function searchHandler() {
     const names = await connection.getCollectionNames();
 
     const results = [];
-    debug(adminInfo);
+    debug(JSON.stringify(adminInfo));
     for (let name of names) {
       const collection = await connection.getCollection(name);
       const stats = await collection.stats();
-      debug(`${name}, ${adminInfo[name]}`);
+      debug(`${name}, ${JSON.stringify(adminInfo[name])}`);
       results.push({
         ns: stats.ns,
         size: stats.size,
