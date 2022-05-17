@@ -54,7 +54,7 @@ export default async function importOneSubstanceFile(
     let imported = 0;
     for (let substance of substances) {
       if (!shouldImport) {
-        if (substance.PUBCHEM_COMPOUND_CID !== lastDocument._id) {
+        if (substance.PUBCHEM_SUBSTANCE_ID !== lastDocument._id) {
           continue;
         }
         shouldImport = true;
@@ -62,7 +62,7 @@ export default async function importOneSubstanceFile(
         continue;
       }
 
-      substance = improveSubstance(substance);
+      substance = await improveSubstance(substance);
 
       substance._seq = ++progress.seq;
       progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
