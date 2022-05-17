@@ -25,6 +25,14 @@ async function firstSubstanceImport(connection) {
     await importSubstanceFiles(connection, progress, files, { lastDocument });
     progress.state = 'updated';
     await connection.setProgress(progress);
+
+    let substanceCollection = await connection.getCollection('substances');
+    await substanceCollection.createIndex({ 'data.pmids': 1 });
+    await substanceCollection.createIndex({ 'data.taxonomyIDs': 1 });
+    await substanceCollection.createIndex({ 'data.comment': 1 });
+    await substanceCollection.createIndex({ 'data.meshTerms': 1 });
+    await substanceCollection.createIndex({ 'data.naturalProduct': 1 });
+    await substanceCollection.createIndex({ 'data.ocl.noStereoID': 1 });
   } catch (e) {
     const optionsDebug = { collection: 'substances', connection };
     debug(e, optionsDebug);

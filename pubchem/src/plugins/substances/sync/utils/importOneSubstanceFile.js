@@ -16,7 +16,6 @@ export default async function importOneSubstanceFile(
   options,
 ) {
   const collection = await connection.getCollection('substances');
-  await collection.createIndex({ _seq: 1 });
   const logs = await connection.geImportationtLog({
     collectionName: 'substances',
     sources: file.name,
@@ -45,6 +44,7 @@ export default async function importOneSubstanceFile(
   await connection.updateImportationLog(logs);
   debug(`${newSubstances} substances imported from ${file.name}`);
   return newSubstances;
+
 
   async function parseSDF(sdf) {
     let substances = parse(sdf).molecules;
