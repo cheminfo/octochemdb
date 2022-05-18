@@ -14,8 +14,14 @@ export async function getKeywords(activityInfo, taxons) {
     }
   }
   for (let entry of taxons) {
+    if (entry?.family) {
+      strings.push(entry.family);
+    }
     if (entry?.genus) {
       strings.push(entry.genus);
+    }
+    if (entry?.species) {
+      strings.push(entry.species);
     }
   }
 
