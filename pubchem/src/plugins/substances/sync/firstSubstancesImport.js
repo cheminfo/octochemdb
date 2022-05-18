@@ -28,6 +28,7 @@ async function firstSubstanceImport(connection) {
 
     let substanceCollection = await connection.getCollection('substances');
     await substanceCollection.createIndex({ 'data.pmids': 1 });
+    await substanceCollection.createIndex({ 'data.patents': 1 });
     await substanceCollection.createIndex({ 'data.taxonomyIDs': 1 });
     await substanceCollection.createIndex({ 'data.comment': 1 });
     await substanceCollection.createIndex({ 'data.meshTerms': 1 });
