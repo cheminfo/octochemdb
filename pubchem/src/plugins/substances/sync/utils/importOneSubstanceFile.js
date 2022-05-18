@@ -45,7 +45,6 @@ export default async function importOneSubstanceFile(
   debug(`${newSubstances} substances imported from ${file.name}`);
   return newSubstances;
 
-
   async function parseSDF(sdf) {
     let substances = parse(sdf).molecules;
     debug(`Need to process ${substances.length} substances`);
@@ -61,7 +60,7 @@ export default async function importOneSubstanceFile(
         debug(`Skipping substances till: ${lastDocument._id}`);
         continue;
       }
-
+      // @ts-ignore Molfile is just in level data.molfile
       substance = await improveSubstance(substance);
 
       substance._seq = ++progress.seq;
