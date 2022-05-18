@@ -9,18 +9,37 @@ async function getCollectionsLinks(connection, collectionNames) {
       let collection = await connection.getCollection(collectionName);
       const progressCollections = await connection.getProgress(collectionName);
       colletionSources.push(progressCollections.sources);
-      const results = await collection
-        .aggregate([
-          {
-            $project: {
-              _id: 0,
-              noStereoID: '$data.ocl.noStereoID',
-              source: { id: '$_id', collection: collectionName },
+      let results;
+      if (collectionName === 'substances') {
+        results = await collection
+          .aggregate([
+            {
+              $match: {
+                naturalProduct: true,
+              },
             },
-          },
-        ])
-        .toArray();
-
+            {
+              $project: {
+                _id: 0,
+                noStereoID: '$data.ocl.noStereoID',
+                source: { id: '$_id', collection: collectionName },
+              },
+            },
+          ])
+          .toArray();
+      } else {
+        results = await collection
+          .aggregate([
+            {
+              $project: {
+                _id: 0,
+                noStereoID: '$data.ocl.noStereoID',
+                source: { id: '$_id', collection: collectionName },
+              },
+            },
+          ])
+          .toArray();
+      }
       debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
       for (const entry of results) {
         if (entry?.noStereoID) {
