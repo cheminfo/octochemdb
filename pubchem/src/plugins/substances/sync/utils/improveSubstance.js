@@ -28,11 +28,22 @@ export default async function improveSubstance(molecule) {
     result.data.charge = molecule.PUBCHEM_TOTAL_CHARGE;
   }
   if (molecule.PUBCHEM_NCBI_TAXONOMY_ID !== undefined) {
-    result.data.taxonomyIDs = molecule.PUBCHEM_NCBI_TAXONOMY_ID;
+    result.data.taxonomyIDs = molecule.PUBCHEM_NCBI_TAXONOMY_ID.replace(
+      /(\r\n|\n|\r)/gm,
+      '  ',
+    ).split('  ');
     result.naturalProduct = true;
   }
   if (molecule.PUBCHEM_PUBMED_ID !== undefined) {
-    result.data.pmids = molecule.PUBCHEM_PUBMED_ID;
+    let pmidsString = molecule.PUBCHEM_PUBMED_ID.replace(
+      /(\r\n|\n|\r)/gm,
+      '  ',
+    ).split('  ');
+    let pmids = [];
+    for (let pmid of pmidsString) {
+      pmids.push(Number(pmid));
+    }
+    result.data.pmids = pmids;
   }
   if (molecule.PUBCHEM_SUBSTANCE_COMMENT !== undefined) {
     result.data.comment = molecule.PUBCHEM_SUBSTANCE_COMMENT.replace(
@@ -41,6 +52,12 @@ export default async function improveSubstance(molecule) {
     );
   }
 
+  if (molecule.PUBCHEM_PATENT_ID !== undefined) {
+    result.data.patents = molecule.PUBCHEM_PATENT_ID.replace(
+      /(\r\n|\n|\r)/gm,
+      '  ',
+    ).split('  ');
+  }
   if (molecule.PUBCHEM_PUBMED_MESH_TERM !== undefined) {
     result.data.meshTerms = molecule.PUBCHEM_PUBMED_MESH_TERM;
   }
