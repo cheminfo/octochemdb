@@ -12,8 +12,19 @@ async function getCompoundsInfo(
     let cas = {};
     let names = {};
     let ocls = {};
-
+    let patents = [];
+    let pmids = [];
+    let meshTerms = [];
     for (const info of data) {
+      if (info.data?.patents) {
+        patents.push(info.data.patents);
+      }
+      if (info.data?.pmids) {
+        pmids.push(info.data.pmids);
+      }
+      if (info.data?.meshTerms) {
+        meshTerms.push(info.data.meshTerms);
+      }
       ocls[info.data.ocl.id] = {
         id: info.data.ocl?.id,
         coordinates: info.data.ocl?.coordinates,
@@ -84,7 +95,9 @@ async function getCompoundsInfo(
     if (cidsNumber.length > 0) entry.data.cids = cidsNumber;
     if (casNumbers.length > 0) entry.data.cas = casNumbers;
     if (names.length > 0) entry.data.names = names;
-
+    if (patents.length > 0) entry.data.patents = patents;
+    if (pmids.length > 0) entry.data.pmids = pmids;
+    if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
     return entry;
   } catch (e) {
     const optionsDebug = { collection: 'bestOfCompounds', connection };
