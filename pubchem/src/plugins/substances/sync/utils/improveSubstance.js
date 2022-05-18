@@ -1,4 +1,6 @@
+import Debug from '../../../../utils/Debug.js';
 import { getSubstanceData } from './getSubstanceData.js';
+const debug = Debug('getSubstanceData');
 export default async function improveSubstance(molecule) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
@@ -8,9 +10,12 @@ export default async function improveSubstance(molecule) {
       molfile: molecule.molfile,
     },
   };
-
-  let ocl = await getSubstanceData(molecule);
-  result.data.ocl = ocl;
+  try {
+    let ocl = await getSubstanceData(molecule);
+    result.data.ocl = ocl;
+  } catch (e) {
+    debug(e);
+  }
   if (molecule.PUBCHEM_CID_ASSOCIATIONS !== undefined) {
     let arrayCIDs = molecule.PUBCHEM_CID_ASSOCIATIONS.replace(
       /(\r\n|\n|\r)/gm,
