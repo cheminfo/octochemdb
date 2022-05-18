@@ -2,6 +2,7 @@ import { getTaxonomiesForCmaupsAndNpasses } from './getTaxonomiesForCmaupsAndNpa
 import { getTaxonomiesForCoconuts } from './getTaxonomiesForCoconuts.js';
 import { getTaxonomiesForLotuses } from './getTaxonomiesForLotuses.js';
 import { getTaxonomiesForNpAtlases } from './getTaxonomiesForNpAtlases.js';
+import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
 
 export async function standardizeTaxonomies(
   data,
@@ -15,6 +16,19 @@ export async function standardizeTaxonomies(
       continue;
     }
     switch (entry.collection) {
+      case 'substances': {
+        let resultSubstances = await getTaxonomiesSubstances(
+          entry,
+          taxonomiesCollection,
+          synonims,
+        );
+
+        entry = resultSubstances;
+        if (entry?.data?.taxonomies) {
+          counter += entry?.data?.taxonomies.length;
+        }
+        break;
+      }
       case 'lotuses': {
         let resultLotuses = await getTaxonomiesForLotuses(
           entry,
