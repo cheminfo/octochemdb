@@ -15,66 +15,74 @@ export default async function importOneSubstanceFile(
   file,
   options,
 ) {
-  const collection = await connection.getCollection('substances');
-  const logs = await connection.geImportationtLog({
-    collectionName: 'substances',
-    sources: file.name,
-    startSequenceID: progress.seq,
-  });
-  debug(`Importing: ${file.name}`);
-  // should we directly import the data how wait that we reach the previously imported information
-  let { shouldImport = true, lastDocument } = options;
-  let bufferValue = '';
-  let newSubstances = 0;
-  const readStream = fs.createReadStream(file.path);
-  const unzipStream = readStream.pipe(zlib.createGunzip());
-  for await (const chunk of unzipStream) {
-    bufferValue += chunk;
-    if (bufferValue.length < 128 * 1024 * 1024) continue;
-    let lastIndex = bufferValue.lastIndexOf('$$$$');
-    if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
-      newSubstances += await parseSDF(bufferValue.substring(0, lastIndex + 5));
-      bufferValue = bufferValue.substring(lastIndex + 5);
+  try {
+    const collection = await connection.getCollection('substances');
+    const logs = await connection.geImportationtLog({
+      collectionName: 'substances',
+      sources: file.name,
+      startSequenceID: progress.seq,
+    });
+    debug(`Importing: ${file.name}`);
+    // should we directly import the data how wait that we reach the previously imported information
+    let { shouldImport = true, lastDocument } = options;
+    let bufferValue = '';
+    let newSubstances = 0;
+    const readStream = fs.createReadStream(file.path);
+    const unzipStream = readStream.pipe(zlib.createGunzip());
+    for await (const chunk of unzipStream) {
+      bufferValue += chunk;
+      if (bufferValue.length < 128 * 1024 * 1024) continue;
+      let lastIndex = bufferValue.lastIndexOf('$$$$');
+      if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
+        newSubstances += await parseSDF(
+          bufferValue.substring(0, lastIndex + 5),
+        );
+        bufferValue = bufferValue.substring(lastIndex + 5);
+      }
     }
-  }
-  newSubstances += await parseSDF(bufferValue);
-  logs.dateEnd = Date.now();
-  logs.endSequenceID = progress.seq;
-  logs.status = 'updated';
-  await connection.updateImportationLog(logs);
-  debug(`${newSubstances} substances imported from ${file.name}`);
-  return newSubstances;
+    newSubstances += await parseSDF(bufferValue);
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.updateImportationLog(logs);
+    debug(`${newSubstances} substances imported from ${file.name}`);
+    return newSubstances;
 
-  async function parseSDF(sdf) {
-    let substances = parse(sdf).molecules;
-    debug(`Need to process ${substances.length} substances`);
+    async function parseSDF(sdf) {
+      let substances = parse(sdf).molecules;
+      debug(`Need to process ${substances.length} substances`);
 
-    if (process.env.TEST === 'true') substances = substances.slice(0, 10);
-    let imported = 0;
-    for (let substance of substances) {
-      if (!shouldImport) {
-        if (substance.PUBCHEM_SUBSTANCE_ID !== lastDocument._id) {
+      if (process.env.TEST === 'true') substances = substances.slice(0, 10);
+      let imported = 0;
+      for (let substance of substances) {
+        if (!shouldImport) {
+          if (substance.PUBCHEM_SUBSTANCE_ID !== lastDocument._id) {
+            continue;
+          }
+          shouldImport = true;
+          debug(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
-        shouldImport = true;
-        debug(`Skipping substances till: ${lastDocument._id}`);
-        continue;
-      }
-      // @ts-ignore Molfile is just in level data.molfile
-      substance = await improveSubstance(substance);
+        let parsedSubstance = await improveSubstance(substance);
 
-      substance._seq = ++progress.seq;
-      progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
-      await collection.updateOne(
-        { _id: substance._id },
-        { $set: substance },
-        { upsert: true },
-      );
-      await connection.setProgress(progress);
-      imported++;
+        parsedSubstance._seq = ++progress.seq;
+        progress.sources = file.path.replace(
+          process.env.ORIGINAL_DATA_PATH,
+          '',
+        );
+        await collection.updateOne(
+          { _id: parsedSubstance._id },
+          { $set: parsedSubstance },
+          { upsert: true },
+        );
+        await connection.setProgress(progress);
+        imported++;
+      }
+      debug(`${imported} substances processed`);
+      // save the substances in the database
+      return substances.length;
     }
-    debug(`${imported} substances processed`);
-    // save the substances in the database
-    return substances.length;
+  } catch (e) {
+    debug(e);
   }
 }
