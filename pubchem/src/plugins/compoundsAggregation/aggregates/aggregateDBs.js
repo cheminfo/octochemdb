@@ -62,13 +62,15 @@ export async function aggregate(connection) {
 
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let data = [];
-
+        let collectionSources = [];
         for (const source of sourcesLink) {
           const collection = await connection.getCollection(source.collection);
           let partialData = await collection.findOne({ _id: source.id });
           partialData.collection = source.collection;
           data.push(partialData);
+          collectionSources.push(source.collection);
         }
+
         data = await standardizeTaxonomies(
           data,
           synonyms,
@@ -102,7 +104,12 @@ export async function aggregate(connection) {
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
-        if (taxons.length > 0) {
+        if (
+          taxons.length > 0 ||
+          collectionSources.includes(
+            'npasses' || 'cmaups' || 'coconuts' || 'lotuses' || 'npAtlases',
+          )
+        ) {
           entry.data.naturalProduct = true;
         }
 
