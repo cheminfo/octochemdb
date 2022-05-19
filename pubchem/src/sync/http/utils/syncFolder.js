@@ -37,12 +37,8 @@ async function syncFolder(source, destinationFolder, options = {}) {
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
     if (skipping) {
-      if (
-        file.name !== lastFileImported.name &&
-        fileList !== [] &&
-        !file.name.includes('killed-CIDs')
-      ) {
-        if (!file.name.includes('killed-CIDs')) {
+      if (file.name !== lastFileImported.name && fileList !== []) {
+        if (!file.name.includes('killed')) {
           continue;
         }
       } else {
