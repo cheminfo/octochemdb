@@ -106,7 +106,7 @@ async function syncIncrementalSubstanceFolder(connection) {
       allFiles.push(
         ...(
           await syncFolder(`${baseSource}/`, `${destination}/${week.name}/`, {
-            fileFilter: (file) => file && file.name.endsWith('killed-SIDs'),
+            fileFilter: (file) => file && file.name.startsWith('killed-SIDs'),
           })
         ).allFiles,
       );
