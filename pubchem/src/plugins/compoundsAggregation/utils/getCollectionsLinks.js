@@ -15,7 +15,10 @@ async function getCollectionsLinks(connection, collectionNames) {
           .aggregate([
             {
               $match: {
-                naturalProduct: true,
+                $and: [
+                  { naturalProduct: true },
+                  { 'data.ocl.id': { $ne: 'd@' } },
+                ],
               },
             },
             {
