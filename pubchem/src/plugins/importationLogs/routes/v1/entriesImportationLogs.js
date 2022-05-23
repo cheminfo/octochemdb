@@ -44,8 +44,9 @@ async function searchHandler(request) {
   try {
     connection = new PubChemConnection();
     const collection = await connection.getCollection('importationLogs');
-
-    debug(JSON.stringify({ collectionName }));
+    if (collectionName === '') {
+      collectionName = /(.*?)/;
+    }
     let formatedFields = getFields(fields);
     formatedFields._id = 0;
     const results = await collection
