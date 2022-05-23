@@ -5,39 +5,53 @@ export async function getKeywords(activityInfo, taxons) {
     ignoreSet.add(toIgnore);
   }
 
-  const keywords = new Set();
-  let strings = [];
-
+  const keywordsActivities = new Set();
+  const keywordsTaxonomies = new Set();
+  let stringsActivities = [];
+  let stringsTaxonomies = [];
   for (let entry of activityInfo) {
     if (entry?.assay) {
-      strings.push(entry.assay);
+      stringsActivities.push(entry.assay);
     }
   }
   for (let entry of taxons) {
     if (entry?.family) {
-      strings.push(entry.family);
+      stringsTaxonomies.push(entry.family);
     }
     if (entry?.genus) {
-      strings.push(entry.genus);
+      stringsTaxonomies.push(entry.genus);
     }
     if (entry?.species) {
-      strings.push(entry.species);
+      stringsTaxonomies.push(entry.species);
     }
   }
 
-  for (let string of strings) {
+  for (let string of stringsActivities) {
     let newKeywords = string
       .toLowerCase()
       .split(/\W+/)
       .filter((k) => k);
     for (let keyword of newKeywords) {
       if (!ignoreSet.has(keyword) && isNaN(Number(keyword))) {
-        keywords.add(keyword);
+        keywordsActivities.add(keyword);
       }
     }
   }
+  for (let string of stringsTaxonomies) {
+    let newKeywords = string
+      .toLowerCase()
+      .split(/\W+/)
+      .filter((k) => k);
+    for (let keyword of newKeywords) {
+      if (!ignoreSet.has(keyword) && isNaN(Number(keyword))) {
+        keywordsTaxonomies.add(keyword);
+      }
+    }
+  }
+  let uniqueStirngsActivities = [...new Set(stringsActivities)];
+  let uniqueStirngsTaxonomies = [...new Set(stringsTaxonomies)];
 
-  return [...keywords].sort();
+  return [uniqueStirngsActivities, uniqueStirngsTaxonomies];
 }
 
 const toIgnores = [

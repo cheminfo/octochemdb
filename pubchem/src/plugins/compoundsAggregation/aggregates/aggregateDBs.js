@@ -11,13 +11,13 @@ import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxon
 import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
 
 const collectionNames = [
-  'lotuses',
+  // 'lotuses',
   'npasses',
   'npAtlases',
   'cmaups',
-  'coconuts',
-  'substances',
-  'bioassays',
+  //'coconuts',
+  //'substances',
+  //'bioassays',
 ];
 
 const debug = Debug('aggregateDBs');
@@ -84,7 +84,10 @@ export async function aggregate(connection) {
           taxonomiesCollection,
         );
 
-        let keywords = await getKeywords(activityInfo, taxons);
+        let [keywordsActivities, keywordsTaxonomies] = await getKeywords(
+          activityInfo,
+          taxons,
+        );
         let entry = await getCompoundsInfo(
           data,
           compoundsCollection,
@@ -95,8 +98,11 @@ export async function aggregate(connection) {
         if (activityInfo.length > 0) {
           entry.data.active = true;
         }
-        if (keywords.length > 0) {
-          entry.data.keywords = keywords;
+        if (keywordsActivities.length > 0) {
+          entry.data.bioassays = keywordsActivities;
+        }
+        if (keywordsActivities.length > 0) {
+          entry.data.taxonomies = keywordsTaxonomies;
         }
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
