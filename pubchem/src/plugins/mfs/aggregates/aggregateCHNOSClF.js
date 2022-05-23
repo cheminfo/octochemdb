@@ -40,10 +40,9 @@ export async function aggregate(connection) {
             count: { $sum: 1 },
             em: { $first: '$em' },
             unsaturation: { $first: '$unsaturation' },
-            total: { $sum: 1 },
           },
         },
-        { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
+
         { $out: 'mfsCHNOSClF' },
       ],
       {
