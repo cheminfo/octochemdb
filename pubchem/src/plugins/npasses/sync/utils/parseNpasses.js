@@ -2,6 +2,8 @@ import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
 
+const debug = Debug('parseNpasses');
+
 export async function* parseNpasses(
   general,
   activities,
@@ -10,7 +12,6 @@ export async function* parseNpasses(
   speciesInfo,
   connection,
 ) {
-  const debug = Debug('parseNpasses');
   try {
     for await (const item of general) {
       try {

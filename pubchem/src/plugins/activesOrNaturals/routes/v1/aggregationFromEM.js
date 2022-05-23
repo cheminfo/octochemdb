@@ -10,7 +10,7 @@ const entriesFromEM = {
   schema: {
     summary: 'Retrieve compounds from a monoisotopic mass',
     description:
-      'Allows to search for pubchem compounds based on a monoisotopic mass, precision (accuracy) of the measurement.',
+      'Allows to search for pubchem compounds based on a monoisotopic mass, precision (accuracy) of the measurement, taxonomy or bioassay.',
     querystring: {
       em: {
         type: 'number',
@@ -18,24 +18,23 @@ const entriesFromEM = {
         example: 300.123,
         default: 0,
       },
-
-      taxonomies: {
+      precision: {
+        type: 'number',
+        description: 'Precision (in ppm) of the monoisotopic mass',
+        default: 100,
+      },
+      kwTaxonomies: {
         type: 'string',
         description:
           'Taxonomies family, genus or species (can handle multiple spaces, case insensitive, separate terms to search with ";" or "," )',
         example: 'Podocarpus macrophyllus',
         default: '',
       },
-      bioassays: {
+      kwBioassays: {
         type: 'string',
         description: 'keywords bioassays',
         example: 'MIC',
         default: '',
-      },
-      precision: {
-        type: 'number',
-        description: 'Precision (in ppm) of the monoisotopic mass',
-        default: 100,
       },
       limit: {
         type: 'number',
@@ -58,30 +57,21 @@ export default entriesFromEM;
 async function searchHandler(request) {
   let {
     em = 0,
-    taxonomies = '',
-    bioassays = '',
+    kwTaxonomies = '',
+    kwBioassays = '',
     limit = 1e3,
     precision = 100,
-
     fields = 'data.em,data.mf,data.charge,data.unsaturation,data.active,data.naturalProduct,data.ocls,data.names,data.kwBioassays,data.kwTaxonomies,data.activities,data.taxonomies',
   } = request.query;
-  let wordsToBeSearchedTaxonomies = taxonomies
+  let wordsToBeSearchedTaxonomies = kwTaxonomies
     .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ')
-    .replace(/;+\s+/g, ';')
-    .replace(/,+\s+/g, ',')
-    .split(/[,;]+/)
+    .split(/ *[,;\t\n\r]+ */)
     .filter((entry) => entry);
   let wordsWithRegexTaxonomies = [];
   let wordsWithRegexBioassays = [];
-  let wordsToBeSearchedBioassays = bioassays
+  let wordsToBeSearchedBioassays = kwBioassays
     .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ')
-    .replace(/;+\s+/g, ';')
-    .replace(/,+\s+/g, ',')
-    .split(/[,;]+/)
+    .split(/ *[,;\t\n\r]+ */)
     .filter((entry) => entry);
 
   for (let word of wordsToBeSearchedTaxonomies) {
@@ -97,51 +87,20 @@ async function searchHandler(request) {
   // ^ force the first letter
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('bestOfCompounds');
+    const collection = await connection.getCollection('activesOrNaturals');
     let formatedFields = getFields(fields);
     formatedFields._id = 0;
 
-    let matchParameter;
+    let matchParameter = {};
 
-    if (em !== 0 && taxonomies !== '' && bioassays !== '') {
-      matchParameter = {
-        'data.em': { $lt: em + error, $gt: em - error },
-        'data.kwTaxonomies': { $all: wordsWithRegexTaxonomies },
-        'data.kwBioassays': { $all: wordsWithRegexBioassays },
-      };
+    if (em) {
+      matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
     }
-    if (em !== 0 && taxonomies !== '' && bioassays === '') {
-      matchParameter = {
-        'data.em': { $lt: em + error, $gt: em - error },
-        'data.kwTaxonomies': { $all: wordsWithRegexTaxonomies },
-      };
+    if (kwTaxonomies) {
+      matchParameter['data.kwTaxonomies'] = { $all: wordsWithRegexTaxonomies };
     }
-    if (em !== 0 && taxonomies === '' && bioassays !== '') {
-      matchParameter = {
-        'data.em': { $lt: em + error, $gt: em - error },
-        'data.kwBioassays': { $all: wordsWithRegexBioassays },
-      };
-    }
-    if (em !== 0 && taxonomies === '' && bioassays === '') {
-      matchParameter = {
-        'data.em': { $lt: em + error, $gt: em - error },
-      };
-    }
-    if (em === 0 && taxonomies !== '' && bioassays !== '') {
-      matchParameter = {
-        'data.kwTaxonomies': { $all: wordsWithRegexTaxonomies },
-        'data.kwBioassays': { $all: wordsWithRegexBioassays },
-      };
-    }
-    if (em === 0 && taxonomies !== '' && bioassays === '') {
-      matchParameter = {
-        'data.kwTaxonomies': { $all: wordsWithRegexTaxonomies },
-      };
-    }
-    if (em === 0 && taxonomies === '' && bioassays !== '') {
-      matchParameter = {
-        'data.kwBioassays': { $all: wordsWithRegexBioassays },
-      };
+    if (kwBioassays) {
+      matchParameter['data.kwBioassays'] = { $all: wordsWithRegexBioassays };
     }
 
     const results = await collection
@@ -155,7 +114,7 @@ async function searchHandler(request) {
       .toArray();
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   } finally {
     debug('Closing connection');

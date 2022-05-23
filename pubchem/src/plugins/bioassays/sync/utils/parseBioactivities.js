@@ -3,6 +3,7 @@ import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
 import Debug from '../../../../utils/Debug.js';
 import getBioassays from './getBioassays.js';
+const debug = Debug('parseBioactivities');
 
 /**
  * @name parseBioactivities
@@ -10,13 +11,11 @@ import getBioassays from './getBioassays.js';
  * @param {string} bioassaysFilePath
  * @param {*} connection
  */
-
 async function* parseBioactivities(
   bioActivitiesFilePath,
   bioassaysFilePath,
   connection,
 ) {
-  const debug = Debug('parseBioactivities');
   try {
     // Read stream of target file without unzip it
     const readStream = createReadStream(bioActivitiesFilePath);

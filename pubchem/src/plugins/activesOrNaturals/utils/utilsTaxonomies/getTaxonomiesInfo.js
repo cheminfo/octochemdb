@@ -1,7 +1,8 @@
 import Debug from '../../../../utils/Debug.js';
 
+const debug = Debug('getTaxonomiesInfo');
+
 async function getTaxonomiesInfo(data, connection) {
-  const debug = Debug('getTaxonomiesInfo');
   try {
     let taxons = [];
     for (const entry of data) {
@@ -20,14 +21,14 @@ async function getTaxonomiesInfo(data, connection) {
             }) === index,
         );
       } catch (e) {
-        const optionsDebug = { collection: 'bestOfCompounds', connection };
+        const optionsDebug = { collection: 'activesOrNaturals', connection };
         debug(e, optionsDebug);
       }
     }
 
     return taxons;
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   }
 }

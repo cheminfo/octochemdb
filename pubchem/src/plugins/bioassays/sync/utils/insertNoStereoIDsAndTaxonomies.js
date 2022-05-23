@@ -1,13 +1,13 @@
 import Debug from '../../../../utils/Debug.js';
 
+const debug = Debug('insertNoStereoIDsAndTaxonomies');
+
 /**
  * @name insertNoStereoIDsAndTaxonomies
  * @param {*} connection
  * @returns number of updated documents
  */
-
 export async function insertNoStereoIDsAndTaxonomies(connection) {
-  const debug = Debug('NoStereoIDs and Taxonomies');
   try {
     let counter = 0;
     let start = Date.now();

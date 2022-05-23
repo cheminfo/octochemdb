@@ -4,8 +4,9 @@ import Debug from '../../../../utils/Debug.js';
 import getNpassesLastFiles from './getNpassesLastFiles.js';
 import readNpassesLastFiles from './readNpassesLastFiles.js';
 
+const debug = Debug('npassStartSync');
+
 async function npassStartSync(connection) {
-  const debug = Debug('npassStartSync');
   try {
     const {
       lastFile,

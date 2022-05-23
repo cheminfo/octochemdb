@@ -1,12 +1,13 @@
 import Debug from '../../../utils/Debug.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
+const debug = Debug('getCompoundsInfo');
+
 async function getCompoundsInfo(
   data,
   compoundsCollection,
   noStereoID,
   connection,
 ) {
-  const debug = Debug('getCompoundsInfo');
   try {
     let cid = {};
     let cas = {};
@@ -100,7 +101,7 @@ async function getCompoundsInfo(
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
     return entry;
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   }
 }

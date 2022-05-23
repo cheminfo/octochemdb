@@ -7,7 +7,7 @@ const debug = Debug('stats');
 const stats = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve global statistics from the bestOfCompounds collection',
+    summary: 'Retrieve global statistics from the activesOrNaturals collection',
   },
   handler: searchHandler,
 };
@@ -22,13 +22,13 @@ async function searchHandler() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('bestOfCompounds');
+    const collection = await connection.getCollection('activesOrNaturals');
 
     const results = await collection.stats();
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   } finally {
     debug('Closing connection');

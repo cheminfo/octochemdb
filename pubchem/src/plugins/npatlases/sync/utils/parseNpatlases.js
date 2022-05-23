@@ -1,9 +1,9 @@
 import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
+const debug = Debug('parseNpatlases');
 
 export async function* parseNpatlases(json, connection) {
-  const debug = Debug('parseNpatlases');
   try {
     for await (const entry of json) {
       try {

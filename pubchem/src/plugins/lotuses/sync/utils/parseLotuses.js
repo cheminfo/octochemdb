@@ -3,9 +3,9 @@ import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
+const debug = Debug('parseLotuses');
 
 export async function* parseLotuses(bsonPath, filename, connection) {
-  const debug = Debug('parseLotuses');
   try {
     const readStream = await readStreamInZipFolder(bsonPath, filename);
     for await (const entry of bsonIterator(readStream)) {

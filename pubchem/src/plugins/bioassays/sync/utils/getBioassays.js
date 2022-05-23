@@ -4,15 +4,15 @@ import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
 import Debug from '../../../../utils/Debug.js';
 
+const debug = Debug('getBioassays');
+
 /**
  * @name getBioassays
  * @param {string} bioassaysFilePath
  * @param {*} connection
  * @returns bioassays object containing AIDs, Target IDs
  */
-
 async function getBioassays(bioassaysFilePath, connection) {
-  const debug = Debug('getBioassays');
   try {
     // Read stream of bioassay file
     const readStream = createReadStream(bioassaysFilePath);

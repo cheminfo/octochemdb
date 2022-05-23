@@ -1,7 +1,7 @@
 import Debug from '../../../utils/Debug.js';
+const debug = Debug('getCollectionLinks');
 
 async function getCollectionsLinks(connection, collectionNames) {
-  const debug = Debug('getCollectionLinks');
   try {
     const links = {};
     let colletionSources = [];
@@ -55,7 +55,7 @@ async function getCollectionsLinks(connection, collectionNames) {
     }
     return { links, colletionSources };
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   }
 }

@@ -2,9 +2,9 @@ import md5 from 'md5';
 
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
+const debug = Debug('getNpassesLastFiles');
 
 async function getNpassesLastFiles(connection) {
-  const debug = Debug('getNpassesLastFiles');
   try {
     let options = {
       collectionSource: process.env.NPASS_SOURCE_GENERALINFO,

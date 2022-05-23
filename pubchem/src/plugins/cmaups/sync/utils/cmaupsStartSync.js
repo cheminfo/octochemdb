@@ -3,9 +3,9 @@ import Debug from '../../../../utils/Debug.js';
 
 import getCmaupsLastFiles from './getCmaupsLastFiles.js';
 import readCmaupFiles from './readCmaupsFiles.js';
+const debug = Debug('cmaupsStartSync');
 
 async function cmaupsStartSync(connection) {
-  const debug = Debug('cmaupsStartSync');
   try {
     const [
       lastFile,

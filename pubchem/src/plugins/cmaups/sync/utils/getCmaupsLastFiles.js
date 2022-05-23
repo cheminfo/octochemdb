@@ -1,15 +1,14 @@
 import md5 from 'md5';
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
+const debug = Debug('getCmaupsLastFiles');
 
 /**
  * @name getCmaupsLastFiles
  * @param {*} connection
  * @returns The path of last files downloaded, the sources and the collections progress (admin) and logs (importationLogs)
  */
-
 async function getCmaupsLastFiles(connection) {
-  const debug = Debug('getCmaupsLastFiles');
   try {
     let options = {
       collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,

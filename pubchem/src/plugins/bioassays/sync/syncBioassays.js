@@ -5,8 +5,9 @@ import Debug from '../../../utils/Debug.js';
 import { insertNoStereoIDsAndTaxonomies } from './utils/insertNoStereoIDsAndTaxonomies.js';
 import parseBioactivities from './utils/parseBioactivities.js';
 
+const debug = Debug('syncBioassays');
+
 export async function sync(connection) {
-  const debug = Debug('syncBioassays');
   // Options defined outise try-catch to allow debug when error is throw
   let options = {
     collectionSource: process.env.ACTIVITIES_SOURCE,

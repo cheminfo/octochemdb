@@ -6,6 +6,8 @@ import Debug from '../../../../utils/Debug.js';
 
 const { parse } = pkg;
 
+const debug = Debug('readNpassesLastFiles');
+
 async function readNpassesLastFiles(
   lastFile,
   lastFileActivity,
@@ -14,7 +16,6 @@ async function readNpassesLastFiles(
   lastFileSpeciesPair,
   connection,
 ) {
-  const debug = Debug('readNpassesLastFiles');
   try {
     const general = parse(readFileSync(lastFile, 'utf8'), {
       header: true,

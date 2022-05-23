@@ -1,5 +1,6 @@
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
+const debug = Debug('parseCmaups');
 
 export async function* parseCmaups(
   general,
@@ -8,7 +9,6 @@ export async function* parseCmaups(
   speciesInfo,
   connection,
 ) {
-  const debug = Debug('parseCmaups');
   try {
     // get relation between molecule ID and taxonomies IDs
     const speciesPaired = {};

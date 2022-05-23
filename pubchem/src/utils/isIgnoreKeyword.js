@@ -1,58 +1,4 @@
-export async function getKeywords(activityInfo, taxons) {
-  const ignoreSet = new Set();
-
-  for (let toIgnore of toIgnores) {
-    ignoreSet.add(toIgnore);
-  }
-
-  const keywordsActivities = new Set();
-  const keywordsTaxonomies = new Set();
-  let stringsActivities = [];
-  let stringsTaxonomies = [];
-  for (let entry of activityInfo) {
-    if (entry?.assay) {
-      stringsActivities.push(entry.assay);
-    }
-  }
-  for (let entry of taxons) {
-    if (entry?.family) {
-      stringsTaxonomies.push(entry.family);
-    }
-    if (entry?.genus) {
-      stringsTaxonomies.push(entry.genus);
-    }
-    if (entry?.species) {
-      stringsTaxonomies.push(entry.species);
-    }
-  }
-
-  for (let string of stringsActivities) {
-    let newKeywords = string
-      .toLowerCase()
-      .split(/\W+/)
-      .filter((k) => k);
-    for (let keyword of newKeywords) {
-      if (!ignoreSet.has(keyword) && isNaN(Number(keyword))) {
-        keywordsActivities.add(keyword);
-      }
-    }
-  }
-  for (let string of stringsTaxonomies) {
-    let newKeywords = string
-      .toLowerCase()
-      .split(/\W+/)
-      .filter((k) => k);
-    for (let keyword of newKeywords) {
-      if (!ignoreSet.has(keyword) && isNaN(Number(keyword))) {
-        keywordsTaxonomies.add(keyword);
-      }
-    }
-  }
-  let uniqueStirngsActivities = [...new Set(stringsActivities)];
-  let uniqueStirngsTaxonomies = [...new Set(stringsTaxonomies)];
-
-  return [uniqueStirngsActivities, uniqueStirngsTaxonomies];
-}
+const ignoreSet = new Set();
 
 const toIgnores = [
   'the',
@@ -265,4 +211,10 @@ const toIgnores = [
   'nM',
 ];
 
-export default toIgnores;
+for (let toIgnore of toIgnores) {
+  ignoreSet.add(toIgnore);
+}
+
+export function isIgnoreKeyword(keyword) {
+  return ignoreSet.has(keyword.toLowerCase());
+}

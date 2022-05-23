@@ -1,10 +1,9 @@
 import Debug from '../../../utils/Debug.js';
+const debug = Debug('getActivityInfo');
 
 import { searchTaxonomies } from './utilsTaxonomies/searchTaxonomies.js';
 
 async function getActivitiesInfo(data, connection, taxonomiesCollection) {
-  const debug = Debug('getActivityInfo');
-
   try {
     let activityInfo = [];
 
@@ -68,7 +67,7 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
 
     return activityInfos;
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   }
 }

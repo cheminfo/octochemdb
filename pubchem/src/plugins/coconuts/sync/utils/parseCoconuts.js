@@ -2,10 +2,10 @@ import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
+const debug = Debug('parseCoconuts');
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
 export async function* parseCoconuts(bsonPath, filename, connection) {
-  const debug = Debug('parseCoconuts');
   try {
     const readStream = await readStreamInZipFolder(bsonPath, filename);
     for await (const entry of bsonIterator(readStream)) {

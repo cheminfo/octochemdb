@@ -5,7 +5,8 @@ import Debug from '../../../utils/Debug.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
-import { getKeywords } from '../utils/getKeywords.js';
+import { getActivityKeywords } from '../utils/getAcitivityKeywords.js';
+import { getTaxonomyKeywords } from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
 import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
@@ -22,9 +23,11 @@ const collectionNames = [
 
 const debug = Debug('aggregateDBs');
 
+const COLLECTION_NAME="activesOrNaturals"
+
 export async function aggregate(connection) {
   try {
-    const options = { collection: 'bestOfCompounds', connection: connection };
+    const options = { collection: COLLECTION_NAME, connection: connection };'
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
     const taxonomiesCollection = await connection.getCollection('taxonomies');
@@ -54,7 +57,7 @@ export async function aggregate(connection) {
       progress.state !== 'updated'
     ) {
       const temporaryCollection = await connection.getCollection(
-        'temporaryAgregation',
+        COLLECTION_NAME+'_tmp',
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
@@ -84,10 +87,6 @@ export async function aggregate(connection) {
           taxonomiesCollection,
         );
 
-        let [keywordsActivities, keywordsTaxonomies] = await getKeywords(
-          activityInfo,
-          taxons,
-        );
         let entry = await getCompoundsInfo(
           data,
           compoundsCollection,
@@ -98,18 +97,25 @@ export async function aggregate(connection) {
         if (activityInfo.length > 0) {
           entry.data.active = true;
         }
+
+        const keywordsActivities = getActivityKeywords(activityInfo);
         if (keywordsActivities.length > 0) {
           entry.data.kwBioassays = keywordsActivities;
         }
-        if (keywordsActivities.length > 0) {
+
+        const keywordsTaxonomies = getTaxonomyKeywords(taxons);
+        if (keywordsTaxonomies.length > 0) {
           entry.data.kwTaxonomies = keywordsTaxonomies;
         }
+
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
         }
+
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
+
         if (
           taxons.length > 0 ||
           collectionSources.includes(
@@ -154,23 +160,18 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
 
       // Create Indexs
-      await targetCollection.createIndex({ 'data.em': 1 });
       await targetCollection.createIndex({ _seq: 1 });
       await targetCollection.createIndex({ _id: 1 });
-      await targetCollection.createIndex({ 'data.taxonomies': 1 });
+      await targetCollection.createIndex({ 'data.em': 1 });
       await targetCollection.createIndex({ 'data.kwBioassays': 1 });
       await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
-      await targetCollection.createIndex({ 'data.ocls': 1 });
-      await targetCollection.createIndex({ 'data.cids': 1 });
-      await targetCollection.createIndex({ 'data.cas': 1 });
-      await targetCollection.createIndex({ 'data.activities': 1 });
 
       debug('Aggregation Done');
     } else {
       debug(`Aggregation already up to date`);
     }
   } catch (e) {
-    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   }
 }

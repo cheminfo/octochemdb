@@ -4,10 +4,9 @@ import Debug from '../../../../utils/Debug.js';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
+const debug = Debug('parseNpatlases');
 
 export async function* parseGNPs(jsonPath, connection) {
-  const debug = Debug('parseNpatlases');
-
   const jsonStream = StreamArray.withParser();
   createReadStream(jsonPath, 'utf8').pipe(jsonStream);
   try {

@@ -1,7 +1,8 @@
 import Debug from '../../../../utils/Debug.js';
 
+const debug = Debug('parseTaxonomies');
+
 export function* parseTaxonomies(arrayBuffer, connection) {
-  const debug = Debug('parseTaxonomies');
   try {
     const decoder = new TextDecoder();
     arrayBuffer = new Uint8Array(arrayBuffer);
