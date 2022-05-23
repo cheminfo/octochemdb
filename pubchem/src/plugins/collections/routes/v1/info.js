@@ -32,6 +32,7 @@ async function searchHandler() {
           date: entry.date,
           state: entry.state,
           seq: entry.seq,
+          logs: entry.logs,
         };
       });
     const names = await connection.getCollectionNames();
