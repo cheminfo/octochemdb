@@ -12,22 +12,22 @@ import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxon
 import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
 
 const collectionNames = [
-  // 'lotuses',
+  'lotuses',
   'npasses',
   'npAtlases',
   'cmaups',
-  //'coconuts',
-  //'substances',
-  //'bioassays',
+  'coconuts',
+  'substances',
+  'bioassays',
 ];
 
 const debug = Debug('aggregateDBs');
 
-const COLLECTION_NAME="activesOrNaturals"
+const COLLECTION_NAME = 'activesOrNaturals';
 
 export async function aggregate(connection) {
   try {
-    const options = { collection: COLLECTION_NAME, connection: connection };'
+    const options = { collection: COLLECTION_NAME, connection: connection };
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
     const taxonomiesCollection = await connection.getCollection('taxonomies');
@@ -57,7 +57,7 @@ export async function aggregate(connection) {
       progress.state !== 'updated'
     ) {
       const temporaryCollection = await connection.getCollection(
-        COLLECTION_NAME+'_tmp',
+        COLLECTION_NAME + '_tmp',
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');

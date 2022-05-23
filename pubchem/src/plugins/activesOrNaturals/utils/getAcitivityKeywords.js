@@ -4,7 +4,7 @@ export function getActivityKeywords(activities) {
   const activitesKW = new Set();
   for (let activity of activities) {
     const keywords = activity.assay
-      .toLowerCAse()
+      .toLowerCase()
       .split(/\W+/)
       .filter((k) => k);
     for (let keyword of keywords) {
