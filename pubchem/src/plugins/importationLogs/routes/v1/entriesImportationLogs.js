@@ -10,13 +10,13 @@ const entriesImportationLogs = {
     querystring: {
       collectionName: {
         type: 'string',
-        description: '"Collection Name"',
+        description: 'Collection Name',
         example: 'bioassays',
         default: '',
       },
       limit: {
         type: 'number',
-        description: '"Max result output"',
+        description: 'Max result output, descending order (date)',
         example: 10,
         default: 50,
       },
@@ -55,6 +55,7 @@ async function searchHandler(request) {
             collectionName,
           },
         },
+        { $sort: { dateStart: -1 } },
         { $limit: Number(limit) },
         {
           $project: formatedFields,
@@ -64,6 +65,7 @@ async function searchHandler(request) {
     debug({
       collectionName: collectionName,
     });
+
     return results;
   } catch (e) {
     const optionsDebug = { collection: 'importationLogs', connection };
