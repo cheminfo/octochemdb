@@ -86,7 +86,7 @@ PubChemConnection.prototype.getProgress = async function getProgress(
   if (progress === null) {
     progress = {
       _id,
-      state: 'import',
+      state: 'updating',
       seq: 0,
       date: Date.now(),
     };
