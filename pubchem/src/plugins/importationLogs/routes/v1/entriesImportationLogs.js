@@ -12,7 +12,7 @@ const entriesImportationLogs = {
         type: 'string',
         description: '"Collection Name"',
         example: 'bioassays',
-        default: 'bioassays',
+        default: '',
       },
       limit: {
         type: 'number',
