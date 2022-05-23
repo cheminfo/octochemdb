@@ -24,7 +24,7 @@ const entriesImportationLogs = {
         type: 'string',
         description: 'Fields to retrieve',
         default:
-          'sources,dateStart,dateEnd,startSequenceID,endSequenceID,status',
+          'collectionName,sources,dateStart,dateEnd,startSequenceID,endSequenceID,status',
       },
     },
   },
@@ -37,7 +37,7 @@ async function searchHandler(request) {
   let {
     collectionName = '',
     limit = 0,
-    fields = 'sources,dateStart,dateEnd,startSequenceID,endSequenceID,status',
+    fields = 'collectionName,sources,dateStart,dateEnd,startSequenceID,endSequenceID,status',
   } = request.query;
 
   let connection;
