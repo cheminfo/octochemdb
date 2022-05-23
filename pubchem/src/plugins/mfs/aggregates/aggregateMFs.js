@@ -7,55 +7,62 @@ export async function aggregate(connection) {
 
   const progressCompounds = await connection.getProgress('compounds');
   const progress = await connection.getProgress('mfs');
-  if (progressCompounds.seq === progress.seq) {
-    debug('Aggregation up-to-date');
-    return;
+  try {
+    if (progressCompounds.seq === progress.seq) {
+      debug('Aggregation up-to-date');
+      return;
+    }
+
+    debug(`Need to aggregate' ${await collection.count()} entries`);
+    let result = await collection.aggregate(
+      [
+        {
+          $match: {
+            'data.nbFragments': 1,
+            'data.charge': 0,
+            'data.mf': /^[^\]]+$/,
+          },
+        }, // one fragment, no charge and no isotopes
+        {
+          $project: {
+            _id: 0,
+            mf: '$data.mf',
+            em: '$data.em',
+            unsaturation: '$data.unsaturation',
+            atom: '$data.atom',
+          },
+        },
+        {
+          $group: {
+            _id: '$mf',
+            em: { $first: '$em' },
+            unsaturation: { $first: '$unsaturation' },
+            atom: { $first: '$atom' },
+            total: { $sum: 1 },
+          },
+        },
+        { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
+        { $out: 'mfs' },
+      ],
+      {
+        allowDiskUse: true,
+        maxTimeMS: 60 * 60 * 3000, // 3h
+      },
+    );
+    await result.hasNext();
+
+    let mfsCollection = await connection.getCollection('mfs');
+    await mfsCollection.createIndex({ em: 1 });
+    await mfsCollection.createIndex({ total: 1 });
+
+    progress.seq = progressCompounds.seq;
+    await connection.setProgress(progress);
+
+    return result;
+  } catch (e) {
+    progress.state = 'error';
+    await connection.setProgress(progress);
+    const optionsDebug = { collection: 'mfs', connection };
+    debug(e, optionsDebug);
   }
-
-  debug(`Need to aggregate' ${await collection.count()} entries`);
-  let result = await collection.aggregate(
-    [
-      {
-        $match: {
-          'data.nbFragments': 1,
-          'data.charge': 0,
-          'data.mf': /^[^\]]+$/,
-        },
-      }, // one fragment, no charge and no isotopes
-      {
-        $project: {
-          _id: 0,
-          mf: '$data.mf',
-          em: '$data.em',
-          unsaturation: '$data.unsaturation',
-          atom: '$data.atom',
-        },
-      },
-      {
-        $group: {
-          _id: '$mf',
-          em: { $first: '$em' },
-          unsaturation: { $first: '$unsaturation' },
-          atom: { $first: '$atom' },
-          total: { $sum: 1 },
-        },
-      },
-      { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
-      { $out: 'mfs' },
-    ],
-    {
-      allowDiskUse: true,
-      maxTimeMS: 60 * 60 * 3000, // 3h
-    },
-  );
-  await result.hasNext();
-
-  let mfsCollection = await connection.getCollection('mfs');
-  await mfsCollection.createIndex({ em: 1 });
-  await mfsCollection.createIndex({ total: 1 });
-
-  progress.seq = progressCompounds.seq;
-  await connection.setProgress(progress);
-
-  return result;
 }
