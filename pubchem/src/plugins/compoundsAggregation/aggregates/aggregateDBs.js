@@ -99,10 +99,11 @@ export async function aggregate(connection) {
           entry.data.active = true;
         }
         if (keywordsActivities.length > 0) {
-          entry.data.bioassays = keywordsActivities;
+          entry.bioassays = keywordsActivities;
         }
         if (keywordsActivities.length > 0) {
-          entry.data.taxonomies = keywordsTaxonomies;
+          entry.taxonomies = keywordsTaxonomies;
+          debug(entry);
         }
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
