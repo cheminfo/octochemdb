@@ -18,7 +18,7 @@ const entriesImportationLogs = {
         type: 'number',
         description: 'Max result output, descending order (date)',
         example: 10,
-        default: 50,
+        default: 1000,
       },
       fields: {
         type: 'string',
