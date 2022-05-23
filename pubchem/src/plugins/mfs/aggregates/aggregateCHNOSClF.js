@@ -12,10 +12,9 @@ export async function aggregate(connection) {
     return;
   }
 
-  debug('Need to aggregate', await collection.countDocuments(), 'entries');
+  debug('Need to aggregate', await collection.countDocuments());
   let result = collection.aggregate(
     [
-      { $limit: 1e10 },
       {
         $match: {
           'data.nbFragments': 1,
@@ -39,8 +38,10 @@ export async function aggregate(connection) {
           count: { $sum: 1 },
           em: { $first: '$em' },
           unsaturation: { $first: '$unsaturation' },
+          total: { $sum: 1 },
         },
       },
+      { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
       { $out: 'mfsCHNOSClF' },
     ],
     {
