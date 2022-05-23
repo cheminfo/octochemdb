@@ -7,7 +7,7 @@ import Debug from '../../../../utils/Debug.js';
 const { MF } = MFParser;
 const debug = Debug('getCompoundsData');
 
-export async function getCompoundsData(molecule) {
+export async function getCompoundsData(molecule, connection) {
   let oclMolecule;
   if (molecule.molefile) {
     oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
@@ -55,7 +55,8 @@ export async function getCompoundsData(molecule) {
     result.data.charge = mfInfo.charge;
     result.data.atom = mfInfo.atoms;
   } catch (e) {
-    debug(`${e}, ${mf}`);
+    const optionsDebug = { collection: 'compounds', connection };
+    debug(e, optionsDebug);
   }
   return result;
 }

@@ -28,7 +28,8 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    debug(e.stack);
+    const optionsDebug = { collection: 'gnps', connection };
+    debug(e, optionsDebug);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

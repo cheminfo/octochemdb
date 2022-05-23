@@ -19,7 +19,7 @@ export async function* parseCmaups(
       speciesPaired[pair[1]].push(pair[0]);
     }
     // Start parsing each molecule in general
-    let errorsCounter = 0;
+
     for await (const item of general) {
       try {
         if (Object.keys(item.Ingredient_ID).length > 0) {
@@ -49,15 +49,8 @@ export async function* parseCmaups(
             oclMolecule.stripStereoInformation();
             noStereoID = oclMolecule.getIDCode();
           } catch (e) {
-            // Count how many times OCL fail to generate molecule from smiles
-            if (
-              e.message ===
-              'Class$S16: Assignment of aromatic double bonds failed'
-            ) {
-              errorsCounter++;
-            } else {
-              debug(e.stack);
-            }
+            const optionsDebug = { collection: 'cmaups', connection };
+            debug(e, optionsDebug);
 
             continue;
           }
@@ -123,13 +116,10 @@ export async function* parseCmaups(
           yield result;
         }
       } catch (e) {
-        continue;
+        const optionsDebug = { collection: 'cmaups', connection };
+        debug(e, optionsDebug);
       }
     }
-
-    debug(
-      `Class$S16: Assignment of aromatic double bonds failed --> count: ${errorsCounter}`,
-    );
   } catch (e) {
     const optionsDebug = { collection: 'cmaups', connection };
     debug(e, optionsDebug);

@@ -5,6 +5,6 @@ const url = new URL('improveCompound.js', import.meta.url);
 
 const pool = workerPool.pool(url.pathname);
 
-export default async function improveCompoundPool(molecule) {
-  return pool.exec('improveCompound', [molecule]);
+export default async function improveCompoundPool(molecule, connection) {
+  return pool.exec('improveCompound', [molecule, connection]);
 }

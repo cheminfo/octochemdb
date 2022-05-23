@@ -1,7 +1,7 @@
 import Debug from '../../../../utils/Debug.js';
 import { getSubstanceData } from './getSubstanceData.js';
 const debug = Debug('getSubstanceData');
-export default async function improveSubstance(molecule) {
+export default async function improveSubstance(molecule, connection) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
     _seq: 0,
@@ -11,7 +11,7 @@ export default async function improveSubstance(molecule) {
     },
   };
   try {
-    let ocl = await getSubstanceData(molecule);
+    let ocl = await getSubstanceData(molecule, connection);
     result.data.ocl = ocl;
 
     if (molecule.PUBCHEM_CID_ASSOCIATIONS !== undefined) {
@@ -62,7 +62,8 @@ export default async function improveSubstance(molecule) {
       result.data.meshTerms = molecule.PUBCHEM_PUBMED_MESH_TERM;
     }
   } catch (e) {
-    debug(e);
+    const optionsDebug = { collection: 'substances', connection };
+    debug(e, optionsDebug);
   }
   return result;
 }

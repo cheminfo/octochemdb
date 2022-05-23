@@ -99,11 +99,10 @@ export async function aggregate(connection) {
           entry.data.active = true;
         }
         if (keywordsActivities.length > 0) {
-          entry.bioassays = keywordsActivities;
+          entry.data.kwBioassays = keywordsActivities;
         }
         if (keywordsActivities.length > 0) {
-          entry.taxonomies = keywordsTaxonomies;
-          debug(entry);
+          entry.data.kwTaxonomies = keywordsTaxonomies;
         }
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
@@ -159,7 +158,8 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ _seq: 1 });
       await targetCollection.createIndex({ _id: 1 });
       await targetCollection.createIndex({ 'data.taxonomies': 1 });
-      await targetCollection.createIndex({ 'data.keywords': 1 });
+      await targetCollection.createIndex({ 'data.kwBioassays': 1 });
+      await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
       await targetCollection.createIndex({ 'data.ocls': 1 });
       await targetCollection.createIndex({ 'data.cids': 1 });
       await targetCollection.createIndex({ 'data.cas': 1 });

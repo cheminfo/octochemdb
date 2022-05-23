@@ -57,6 +57,8 @@ export async function* parseNpatlases(json, connection) {
 
         yield result;
       } catch (e) {
+        const optionsDebug = { collection: 'npAtlases', connection };
+        debug(e, optionsDebug);
         continue;
       }
     }

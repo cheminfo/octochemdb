@@ -28,7 +28,8 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    debug(e.stack);
+    const optionsDebug = { collection: 'bestOfCompounds', connection };
+    debug(e, optionsDebug);
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

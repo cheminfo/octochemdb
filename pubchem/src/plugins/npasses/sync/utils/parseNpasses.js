@@ -55,6 +55,8 @@ export async function* parseNpasses(
           oclMolecule.stripStereoInformation();
           noStereoID = oclMolecule.getIDCode();
         } catch (e) {
+          const optionsDebug = { collection: 'npasses', connection };
+          debug(e, optionsDebug);
           continue;
         }
         const orgIDs = speciesPair[item.np_id];
@@ -124,6 +126,8 @@ export async function* parseNpasses(
 
         yield result;
       } catch (e) {
+        const optionsDebug = { collection: 'npasses', connection };
+        debug(e, optionsDebug);
         continue;
       }
     }

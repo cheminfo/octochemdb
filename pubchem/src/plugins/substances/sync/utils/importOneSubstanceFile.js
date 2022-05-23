@@ -63,7 +63,7 @@ export default async function importOneSubstanceFile(
           debug(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
-        let parsedSubstance = await improveSubstance(substance);
+        let parsedSubstance = await improveSubstance(substance, connection);
 
         parsedSubstance._seq = ++progress.seq;
         progress.sources = file.path.replace(
@@ -83,6 +83,7 @@ export default async function importOneSubstanceFile(
       return substances.length;
     }
   } catch (e) {
-    debug(e);
+    const optionsDebug = { collection: 'substances', connection };
+    debug(e, optionsDebug);
   }
 }

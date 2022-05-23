@@ -6,8 +6,8 @@ import { getCompoundsData } from './getCompoundsData.js';
 const { MF } = MFParser;
 const debug = Debug('improveCompound');
 
-async function improveCompound(molecule) {
-  let dataCompound = await getCompoundsData(molecule);
+async function improveCompound(molecule, connection) {
+  let dataCompound = await getCompoundsData(molecule, connection);
   let result = {
     data: dataCompound.data,
   };
@@ -28,7 +28,8 @@ async function improveCompound(molecule) {
     result.data.charge = mfInfo.charge;
     result.data.atom = mfInfo.atoms;
   } catch (e) {
-    debug(`${e}, ${result.data.mf}`);
+    const optionsDebug = { collection: 'compounds', connection };
+    debug(e, optionsDebug);
   }
   return result;
 }

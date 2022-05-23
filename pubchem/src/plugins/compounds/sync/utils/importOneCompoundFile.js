@@ -71,7 +71,7 @@ export default async function importOneCompoundFile(
       }
 
       actions.push(
-        improveCompoundPool(compound)
+        improveCompoundPool(compound, connection)
           .then((result) => {
             result._seq = ++progress.seq;
             return collection.updateOne(

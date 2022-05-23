@@ -20,7 +20,8 @@ async function getTaxonomiesInfo(data, connection) {
             }) === index,
         );
       } catch (e) {
-        debug(e.stack);
+        const optionsDebug = { collection: 'bestOfCompounds', connection };
+        debug(e, optionsDebug);
       }
     }
 
