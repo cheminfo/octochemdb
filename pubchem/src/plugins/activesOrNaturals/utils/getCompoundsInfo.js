@@ -3,28 +3,33 @@ import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js
 const debug = Debug('getCompoundsInfo');
 
 export default async function getCompoundsInfo(
+  entry,
   data,
   compoundsCollection,
   noStereoID,
   connection,
 ) {
   try {
+    let patents = [];
     let cid = {};
     let cas = {};
     let names = {};
     let ocls = {};
-    let patents = [];
     let pmids = [];
     let meshTerms = [];
     for (const info of data) {
       if (info.data.patents) {
-        patents.push(info.data.patents);
+        patents.push(
+          info.data.patents.filter((k) => patents.indexOf(k) === -1),
+        );
       }
       if (info.data.pmids) {
-        pmids.push(info.data.pmids);
+        pmids.push(info.data.pmids.filter((k) => pmids.indexOf(k) === -1));
       }
       if (info.data.meshTerms) {
-        meshTerms.push(info.data.meshTerms);
+        meshTerms.push(
+          info.data.meshTerms.filter((k) => meshTerms.indexOf(k) === -1),
+        );
       }
       ocls[info.data.ocl.id] = {
         id: info.data.ocl?.id,
@@ -41,56 +46,37 @@ export default async function getCompoundsInfo(
       }
     }
     let active = false;
-    let naturalProduct = false;
-
     let cursor = await compoundsCollection
       .find({ 'data.ocl.noStereoID': noStereoID })
       .limit(1);
 
     let compoundIfo = await cursor.next();
-    let entry = {};
 
     if (compoundIfo !== null) {
-      entry = {
-        data: {
-          em: compoundIfo.data.em,
-          charge: compoundIfo.data.charge,
-          unsaturation: compoundIfo.data.unsaturation,
-          mf: compoundIfo.data.mf,
-          active,
-          naturalProduct,
-        },
-      };
+      entry.data.em = compoundIfo.data.em;
+      entry.data.charge = compoundIfo.data.charge;
+      entry.data.unsaturation = compoundIfo.data.unsaturation;
+      entry.data.mf = compoundIfo.data.mf;
+      entry.data.active = active;
     }
     if (compoundIfo === null) {
+      // debug('not found in compounds');
       const molecule = { noStereoID: noStereoID };
       let compoundData = await getCompoundsData(molecule);
-      entry = {
-        data: {
-          em: compoundData.data.em,
-          charge: compoundData.data.charge,
-          unsaturation: compoundData.data.unsaturation,
-          mf: compoundData.data.mf,
-          active,
-          naturalProduct,
-        },
-      };
+      entry.data.em = compoundData.data.em;
+      entry.data.charge = compoundData.data.charge;
+      entry.data.unsaturation = compoundData.data.unsaturation;
+      entry.data.mf = compoundData.data.mf;
+      entry.data.active = active;
     }
     ocls = Object.values(ocls);
     cid = Object.keys(cid);
-    let cidsNumber = [];
-    cid.forEach((str) => {
-      cidsNumber.push(Number(str));
-    });
-    let casNumbers = [];
+    cid.map(Number);
     cas = Object.keys(cas);
-    cas.forEach((str) => {
-      casNumbers.push(Number(str));
-    });
     names = Object.keys(names);
     if (ocls.length > 0) entry.data.ocls = ocls;
-    if (cidsNumber.length > 0) entry.data.cids = cidsNumber;
-    if (casNumbers.length > 0) entry.data.cas = casNumbers;
+    if (cid.length > 0) entry.data.cids = cid;
+    if (cas.length > 0) entry.data.cas = cas;
     if (names.length > 0) entry.data.names = names;
     if (patents.length > 0) entry.data.patents = patents;
     if (pmids.length > 0) entry.data.pmids = pmids;

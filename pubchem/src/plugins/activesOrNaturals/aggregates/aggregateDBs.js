@@ -8,8 +8,6 @@ import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import { getActivityKeywords } from '../utils/getAcitivityKeywords.js';
 import { getTaxonomyKeywords } from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
-import { standardizeTaxonomies } from '../utils/utilsTaxonomies/standardizeTaxonomies.js';
-import { taxonomySynonims as taxonomySynonyms } from '../utils/utilsTaxonomies/taxonomySynonims.js';
 
 const collectionNames = [
   'lotuses',
@@ -62,16 +60,19 @@ export async function aggregate(connection) {
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
-      let synonyms = await taxonomySynonyms();
-
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let entry = { data: { naturalProduct: false } };
         let data = [];
         for (const source of sourcesLink) {
           if (
-            ['npasses', 'cmaups', 'coconuts', 'lotuses', 'npAtlases'].includes(
-              source.collection,
-            )
+            [
+              'npasses',
+              'cmaups',
+              'coconuts',
+              'lotuses',
+              'npAtlases',
+              'substances',
+            ].includes(source.collection)
           ) {
             entry.data.naturalProduct = true;
           }
@@ -79,14 +80,8 @@ export async function aggregate(connection) {
           let partialData = await collection.findOne({ _id: source.id });
           partialData.collection = source.collection;
           data.push(partialData);
-          collectionSources.push(source.collection);
         }
 
-        data = await standardizeTaxonomies(
-          data,
-          synonyms,
-          taxonomiesCollection,
-        );
         let taxons = getTaxonomiesInfo(data, connection);
 
         let activityInfo = await getActivitiesInfo(
@@ -96,6 +91,7 @@ export async function aggregate(connection) {
         );
 
         entry = await getCompoundsInfo(
+          entry,
           data,
           compoundsCollection,
           noStereoID,
@@ -122,15 +118,6 @@ export async function aggregate(connection) {
 
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
-        }
-
-        if (
-          taxons.length > 0 ||
-          collectionSources.includes(
-            'npasses' || 'cmaups' || 'coconuts' || 'lotuses' || 'npAtlases',
-          )
-        ) {
-          entry.data.naturalProduct = true;
         }
 
         entry._seq = ++progress.seq;

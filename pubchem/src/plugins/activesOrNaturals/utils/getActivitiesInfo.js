@@ -13,7 +13,7 @@ export default async function getActivitiesInfo(
 
     for (const entry of data) {
       if (activityInfo.length > 999) {
-        continue;
+        break;
       }
       if (entry.collection === 'bioassays') {
         let activity = {
