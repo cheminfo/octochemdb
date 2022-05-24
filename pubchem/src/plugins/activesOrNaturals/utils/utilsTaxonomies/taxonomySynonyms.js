@@ -6,7 +6,7 @@ import { fileListFromPath } from 'filelist-from';
 
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
-export async function taxonomySynonims() {
+export async function taxonomySynonyms() {
   let fileName = fileListFromPath(
     `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full`,
   ).filter((file) => {

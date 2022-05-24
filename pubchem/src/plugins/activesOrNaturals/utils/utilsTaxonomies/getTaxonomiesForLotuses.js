@@ -1,5 +1,3 @@
-
-
 import { searchTaxonomies } from './searchTaxonomies.js';
 
 export async function getTaxonomiesForLotuses(
@@ -128,14 +126,12 @@ export async function getTaxonomiesForLotuses(
         if (taxons.species) {
           finalTaxonomy.species = taxons.species;
         }
-        finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
+        finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
         taxonomiesLotuses.push(finalTaxonomy);
         shoudlImport = false;
       }
     }
   }
-  if (taxonomiesLotuses.length > 0) {
-    entry.data.taxonomies = taxonomiesLotuses;
-  }
-  return entry;
+
+  return taxonomiesLotuses;
 }

@@ -1,13 +1,12 @@
 import md5 from 'md5';
-
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-
+import { getTaxonomiesForLotuses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForLotuses.js';
 import { parseLotuses } from './utils/parseLotuses.js';
 
 const debug = Debug('syncLotuses');
-
 export async function sync(connection) {
   let options = {
     collectionSource: process.env.LOTUS_SOURCE,
@@ -21,7 +20,8 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('lotuses');
     const collection = await connection.getCollection('lotuses');
-
+    const synonyms = await taxonomySynonyms();
+    const collectionTaxonomies = await connection.getCollection('taxonomies');
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
@@ -61,7 +61,15 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-
+        if (entry.data.taxonomies) {
+          /// Normalize Taxonomies
+          let taxonomies = await getTaxonomiesForLotuses(
+            entry,
+            collectionTaxonomies,
+            synonyms,
+          );
+          entry.data.taxonomies = taxonomies;
+        }
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
