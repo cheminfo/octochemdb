@@ -60,6 +60,8 @@ export async function insertNoStereoIDsAndTaxonomies(connection) {
         } else {
           set = {
             'data.ocl.noStereoID': noStereoID,
+            'data.ocl.id': compound.data.ocl.id,
+            'data.ocl.coordinates': compound.data.ocl.coordinates,
           };
         }
         await bioassaysCollection.updateOne(
