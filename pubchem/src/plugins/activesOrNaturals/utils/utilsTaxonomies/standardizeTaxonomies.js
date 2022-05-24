@@ -13,7 +13,7 @@ export async function standardizeTaxonomies(
   let counter = 0;
   for (let entry of data) {
     if (counter > 1000) {
-      continue;
+      break;
     }
     switch (entry.collection) {
       case 'substances': {
@@ -54,34 +54,27 @@ export async function standardizeTaxonomies(
         break;
       }
       case 'npasses': {
-        let resultsNpasses = await getTaxonomiesForCmaupsAndNpasses(
+        entry = await getTaxonomiesForCmaupsAndNpasses(
           entry,
           taxonomiesCollection,
         );
-        entry = resultsNpasses;
+
         if (entry?.data?.taxonomies) {
           counter += entry?.data?.taxonomies.length;
         }
         break;
       }
       case 'npAtlases': {
-        let resultsNpAtlases = await getTaxonomiesForNpAtlases(
-          entry,
-          taxonomiesCollection,
-        );
-        entry = resultsNpAtlases;
+        entry = await getTaxonomiesForNpAtlases(entry, taxonomiesCollection);
+
         if (entry?.data?.taxonomies) {
           counter += entry?.data?.taxonomies.length;
         }
         break;
       }
       case 'coconuts': {
-        let resultsCoconuts = await getTaxonomiesForCoconuts(
-          entry,
-          taxonomiesCollection,
-        );
+        entry = await getTaxonomiesForCoconuts(entry, taxonomiesCollection);
 
-        entry = resultsCoconuts;
         if (entry?.data?.taxonomies) {
           counter += entry?.data?.taxonomies.length;
         }

@@ -1,14 +1,14 @@
 import Debug from '../../../utils/Debug.js';
 const debug = Debug('getCollectionLinks');
 
-async function getCollectionsLinks(connection, collectionNames) {
+export default async function getCollectionsLinks(connection, collectionNames) {
   try {
     const links = {};
-    let colletionSources = [];
+    let collectionSources = [];
     for (let collectionName of collectionNames) {
       let collection = await connection.getCollection(collectionName);
       const progressCollections = await connection.getProgress(collectionName);
-      colletionSources.push(progressCollections.sources);
+      collectionSources.push(progressCollections.sources);
       let results;
       if (collectionName === 'substances') {
         results = await collection
@@ -17,7 +17,7 @@ async function getCollectionsLinks(connection, collectionNames) {
               $match: {
                 $and: [
                   { naturalProduct: true },
-                  { 'data.ocl.id': { $ne: 'd@' } },
+                  { 'data.ocl.noStereoID': { $ne: 'd@' } },
                 ],
               },
             },
@@ -53,11 +53,9 @@ async function getCollectionsLinks(connection, collectionNames) {
         }
       }
     }
-    return { links, colletionSources };
+    return { links, collectionSources };
   } catch (e) {
     const optionsDebug = { collection: 'activesOrNaturals', connection };
     debug(e, optionsDebug);
   }
 }
-
-export default getCollectionsLinks;

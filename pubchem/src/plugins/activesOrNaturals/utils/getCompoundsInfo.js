@@ -17,31 +17,27 @@ export default async function getCompoundsInfo(
     let pmids = [];
     let meshTerms = [];
     for (const info of data) {
-      if (info.data?.patents) {
+      if (info.data.patents) {
         patents.push(info.data.patents);
       }
-      if (info.data?.pmids) {
+      if (info.data.pmids) {
         pmids.push(info.data.pmids);
       }
-      if (info.data?.meshTerms) {
+      if (info.data.meshTerms) {
         meshTerms.push(info.data.meshTerms);
       }
       ocls[info.data.ocl.id] = {
         id: info.data.ocl?.id,
         coordinates: info.data.ocl?.coordinates,
       };
-      if (info.data?.cid) {
-        if (!isNaN(Number(info.data?.cid))) {
-          cid[Number(info.data?.cid)] = true;
-        }
+      if (info.data.cid) {
+        cid[info.data.cid] = true;
       }
-      if (info.data?.cas) {
-        if (!isNaN(Number(info.data?.cas))) {
-          cas[Number(info.data?.cas)] = true;
-        }
+      if (info.data.cas) {
+        cas[info.data.cas] = true;
       }
-      if (info.data?.iupacName) {
-        names[info.data?.iupacName] = true;
+      if (info.data.iupacName) {
+        names[info.data.iupacName] = true;
       }
     }
     let active = false;

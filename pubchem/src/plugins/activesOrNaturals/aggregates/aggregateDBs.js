@@ -33,11 +33,11 @@ export async function aggregate(connection) {
     const targetCollection = await connection.getCollection(options.collection);
     const taxonomiesCollection = await connection.getCollection('taxonomies');
     const compoundsCollection = await connection.getCollection('compounds');
-    let { links, colletionSources } = await getCollectionsLinks(
+    let { links, collectionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
     );
-    const sources = md5(colletionSources);
+    const sources = md5(collectionSources);
     const logs = await connection.geImportationtLog({
       collectionName: options.collectionName,
       sources,
@@ -65,9 +65,16 @@ export async function aggregate(connection) {
       let synonyms = await taxonomySynonyms();
 
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
+        const entry = { data: { naturalProduct: false } };
         let data = [];
-        let collectionSources = [];
         for (const source of sourcesLink) {
+          if (
+            ['npasses', 'cmaups', 'coconuts', 'lotuses', 'npAtlases'].includes(
+              source.collection,
+            )
+          ) {
+            entry.data.naturalProduct = true;
+          }
           const collection = await connection.getCollection(source.collection);
           let partialData = await collection.findOne({ _id: source.id });
           partialData.collection = source.collection;
