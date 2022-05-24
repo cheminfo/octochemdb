@@ -157,7 +157,7 @@ export async function aggregate(connection) {
       await connection.updateImportationLog(logs);
       progress.sources = sources;
       progress.date = new Date();
-      progress.state = 'aggregate';
+      progress.state = 'aggregated';
       await connection.setProgress(progress);
 
       // Create Indexs

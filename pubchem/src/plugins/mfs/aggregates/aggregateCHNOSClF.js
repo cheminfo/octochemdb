@@ -55,7 +55,7 @@ export async function aggregate(connection) {
     await result.hasNext(); // trigger the creation of the output collection
 
     progress.seq = progressCompounds.seq;
-    progress.state = 'aggregate';
+    progress.state = 'aggregated';
     await connection.setProgress(progress);
 
     return result;
