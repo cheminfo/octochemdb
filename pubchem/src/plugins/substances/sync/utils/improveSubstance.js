@@ -1,7 +1,9 @@
 import Debug from '../../../../utils/Debug.js';
 import { getSubstanceData } from './getSubstanceData.js';
+import workerpool from 'workerpool';
+
 const debug = Debug('getSubstanceData');
-export default function improveSubstance(molecule, connection) {
+async function improveSubstance(molecule, connection) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
     _seq: 0,
@@ -11,7 +13,7 @@ export default function improveSubstance(molecule, connection) {
     },
   };
   try {
-    let ocl =  getSubstanceData(molecule, connection);
+    let ocl = getSubstanceData(molecule, connection);
     result.data.ocl = ocl;
 
     if (molecule.PUBCHEM_CID_ASSOCIATIONS !== undefined) {
@@ -67,3 +69,6 @@ export default function improveSubstance(molecule, connection) {
   }
   return result;
 }
+workerpool.worker({
+  improveSubstance,
+});

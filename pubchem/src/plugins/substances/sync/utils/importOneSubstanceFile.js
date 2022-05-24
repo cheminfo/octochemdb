@@ -2,10 +2,8 @@ import fs from 'fs';
 import zlib from 'zlib';
 
 import { parse } from 'sdf-parser';
-
+import improveSubstancePool from '../utils/improveSubstancePool.js';
 import Debug from '../../../../utils/Debug.js';
-
-import improveSubstance from './improveSubstance.js';
 
 const debug = Debug('improveOneSubstanceFile');
 
@@ -53,7 +51,7 @@ export default async function importOneSubstanceFile(
       debug(`Need to process ${substances.length} substances`);
 
       if (process.env.TEST === 'true') substances = substances.slice(0, 10);
-      let imported = 0;
+      const actions = [];
       for (let substance of substances) {
         if (!shouldImport) {
           if (substance.PUBCHEM_SUBSTANCE_ID !== lastDocument._id) {
@@ -63,22 +61,30 @@ export default async function importOneSubstanceFile(
           debug(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
-        let parsedSubstance = improveSubstance(substance, connection);
 
-        parsedSubstance._seq = ++progress.seq;
-        progress.sources = file.path.replace(
-          process.env.ORIGINAL_DATA_PATH,
-          '',
+        actions.push(
+          improveSubstancePool(substance, connection)
+            .then((result) => {
+              result._seq = ++progress.seq;
+              return collection.updateOne(
+                { _id: result._id },
+                { $set: result },
+                { upsert: true },
+              );
+            })
+            .then(() => {
+              progress.sources = file.path.replace(
+                process.env.ORIGINAL_DATA_PATH,
+                '',
+              );
+              return connection.setProgress(progress);
+            }),
         );
-        await collection.updateOne(
-          { _id: parsedSubstance._id },
-          { $set: parsedSubstance },
-          { upsert: true },
-        );
-        await connection.setProgress(progress);
-        imported++;
       }
-      debug(`${imported} substances processed`);
+      newSubstances += actions.length;
+      await Promise.all(actions);
+      debug(`${newSubstances} substances processed`);
+
       // save the substances in the database
       return substances.length;
     }
