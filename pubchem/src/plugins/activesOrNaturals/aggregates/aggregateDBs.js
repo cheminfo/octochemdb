@@ -163,7 +163,7 @@ export async function aggregate(connection) {
       logs.status = 'aggregated';
       await connection.updateImportationLog(logs);
       progress.sources = sources;
-      progress.date = new Date();
+      progress.dateEnd = date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
 

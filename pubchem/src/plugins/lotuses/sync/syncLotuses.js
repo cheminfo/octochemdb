@@ -83,7 +83,7 @@ export async function sync(connection) {
 
       //Update progress in admin collection
       progress.sources = md5(JSON.stringify(sources));
-      progress.date = new Date();
+      progress.dateEnd = date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
       // Indexing of collection properties

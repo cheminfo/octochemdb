@@ -77,7 +77,7 @@ export async function sync(connection) {
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
       progress.sources = md5(JSON.stringify(sources));
-      progress.date = new Date();
+      progress.dateEnd = date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
       await collection.createIndex({ _id: 1 });
