@@ -1,4 +1,6 @@
 import Debug from '../../../utils/Debug.js';
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 
 import npassesStartSync from './utils/npassesStartSync.js';
 import { parseNpasses } from './utils/parseNpasses.js';
@@ -19,7 +21,8 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     } = await npassesStartSync(connection);
-
+    const synonyms = await taxonomySynonyms();
+    const collectionTaxonomies = await connection.getCollection('taxonomies');
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -54,7 +57,16 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-
+        /// Normalize Taxonomies
+        if (entry.data.taxonomies) {
+          let taxonomies = await getTaxonomiesForCmaupsAndNpasses(
+            entry,
+            collectionTaxonomies,
+            synonyms,
+            'npasses',
+          );
+          entry.data.taxonomies = taxonomies;
+        }
         entry._seq = ++progress.seq;
 
         await temporaryCollection.updateOne(

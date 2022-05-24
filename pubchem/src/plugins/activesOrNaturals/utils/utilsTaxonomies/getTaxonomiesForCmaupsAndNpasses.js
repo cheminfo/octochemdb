@@ -3,7 +3,10 @@ import { searchTaxonomies } from './searchTaxonomies.js';
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,
   taxonomiesCollection,
+  synonyms,
+  collectionName,
 ) {
+  let oldIDs = Object.keys(synonyms);
   let taxonomiesResults = [];
   if (entry.data?.taxonomies) {
     if (entry.data.taxonomies.length > 0) {
@@ -13,8 +16,12 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         let type = {};
         // Define the search parameters that could be use (id, species name, genus, ...)
         if (taxons.speciesID) {
+          let idToUse = Number(taxons.speciesID);
+          if (oldIDs.includes(taxons.speciesID)) {
+            idToUse = Number(synonyms[taxons.speciesID]);
+          }
           searchParameter = {
-            _id: Number(taxons.speciesID),
+            _id: idToUse,
           };
           type.speciesID = searchParameter;
         }
@@ -25,8 +32,12 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           type.species = searchParameter;
         }
         if (taxons.genusID) {
+          let idToUse = Number(taxons.genusID);
+          if (oldIDs.includes(taxons.genusID)) {
+            idToUse = Number(synonyms[taxons.genusID]);
+          }
           searchParameter = {
-            _id: Number(taxons.genusID),
+            _id: idToUse,
           };
           type.genusID = searchParameter;
         }
@@ -38,8 +49,12 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           type.genus = searchParameter;
         }
         if (taxons.familyID) {
+          let idToUse = Number(taxons.familyID);
+          if (oldIDs.includes(taxons.familyID)) {
+            idToUse = Number(synonyms[taxons.familyID]);
+          }
           searchParameter = {
-            _id: Number(taxons.familyID),
+            _id: idToUse,
           };
           type.familyID = searchParameter;
         }
@@ -166,9 +181,6 @@ export async function getTaxonomiesForCmaupsAndNpasses(
       }
     }
   }
-  if (taxonomiesResults.length > 0) {
-    entry.data.taxonomies = taxonomiesResults;
-  }
 
-  return entry;
+  return taxonomiesResults;
 }

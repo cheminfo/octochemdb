@@ -61,8 +61,8 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
+        /// Normalize Taxonomies
         if (entry.data.taxonomies) {
-          /// Normalize Taxonomies
           let taxonomies = await getTaxonomiesForLotuses(
             entry,
             collectionTaxonomies,

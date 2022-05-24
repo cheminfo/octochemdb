@@ -9,7 +9,7 @@ export async function getTaxonomiesForLotuses(
   if (entry.data?.taxonomies) {
     let taxonomiesSources = Object.keys(entry.data.taxonomies);
     let sourceToBeUsed;
-    let newIDs = Object.keys(synonyms);
+    let oldIDs = Object.keys(synonyms);
     if (taxonomiesSources.includes('ncbi')) {
       sourceToBeUsed = 'ncbi';
     } else {
@@ -33,9 +33,9 @@ export async function getTaxonomiesForLotuses(
           taxonomiesLotuses.push(finalTaxonomy);
           shoudlImport = false;
         }
-        if (result.length === 0 && newIDs.includes(taxons.organismID)) {
+        if (result.length === 0 && oldIDs.includes(taxons.organismID)) {
           let searchParameter = {
-            _id: Number(newIDs[taxons.organismID]),
+            _id: Number(synonyms[taxons.organismID]),
           };
           let result = await searchTaxonomies(
             taxonomiesCollection,
