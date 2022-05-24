@@ -7,7 +7,7 @@ const { MF } = MFParser;
 const debug = Debug('improveCompound');
 
 async function improveCompound(molecule, connection) {
-  let dataCompound = await getCompoundsData(molecule, connection);
+  let dataCompound = getCompoundsData(molecule, connection);
   let result = {
     data: dataCompound.data,
   };

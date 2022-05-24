@@ -8,7 +8,7 @@ const debug = Debug('getCmaupsLastFiles');
  * @param {*} connection
  * @returns The path of last files downloaded, the sources and the collections progress (admin) and logs (importationLogs)
  */
-async function getCmaupsLastFiles(connection) {
+export default async function getCmaupsLastFiles(connection) {
   try {
     let options = {
       collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
@@ -70,5 +70,3 @@ async function getCmaupsLastFiles(connection) {
     debug(e, optionsDebug);
   }
 }
-
-export default getCmaupsLastFiles;

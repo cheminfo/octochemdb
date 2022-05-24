@@ -6,7 +6,7 @@ import readNpassesLastFiles from './readNpassesLastFiles.js';
 
 const debug = Debug('npassStartSync');
 
-async function npassStartSync(connection) {
+export default async function npassStartSync(connection) {
   try {
     const {
       lastFile,
@@ -19,8 +19,7 @@ async function npassStartSync(connection) {
       logs,
     } = await getNpassesLastFiles(connection);
     const collection = await connection.getCollection('npasses');
-    await collection.createIndex({ 'data.ocl.id': 1 });
-    await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
@@ -28,7 +27,7 @@ async function npassStartSync(connection) {
     );
 
     const { general, activities, properties, speciesPair, speciesInfo } =
-      await readNpassesLastFiles(
+       readNpassesLastFiles(
         lastFile,
         lastFileActivity,
         lastFileSpeciesProperties,
@@ -55,4 +54,4 @@ async function npassStartSync(connection) {
   }
 }
 
-export default npassStartSync;
+

@@ -2,7 +2,7 @@ import Debug from '../../../utils/Debug.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 const debug = Debug('getCompoundsInfo');
 
-async function getCompoundsInfo(
+export default async function getCompoundsInfo(
   data,
   compoundsCollection,
   noStereoID,
@@ -105,5 +105,3 @@ async function getCompoundsInfo(
     debug(e, optionsDebug);
   }
 }
-
-export default getCompoundsInfo;

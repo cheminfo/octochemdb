@@ -63,7 +63,7 @@ export default async function importOneSubstanceFile(
           debug(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
-        let parsedSubstance = await improveSubstance(substance, connection);
+        let parsedSubstance = improveSubstance(substance, connection);
 
         parsedSubstance._seq = ++progress.seq;
         progress.sources = file.path.replace(

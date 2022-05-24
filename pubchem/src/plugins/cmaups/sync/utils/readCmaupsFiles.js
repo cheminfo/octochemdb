@@ -5,7 +5,7 @@ import Debug from '../../../../utils/Debug.js';
 const { parse } = pkg;
 const debug = Debug('readCmaupsFiles');
 
-async function readCmaupsFiles(
+export default function readCmaupsFiles(
   lastFileGeneral,
   lastFileActivity,
   lastFileSpeciesAssociation,
@@ -47,5 +47,3 @@ async function readCmaupsFiles(
     debug(e, optionsDebug);
   }
 }
-
-export default readCmaupsFiles;

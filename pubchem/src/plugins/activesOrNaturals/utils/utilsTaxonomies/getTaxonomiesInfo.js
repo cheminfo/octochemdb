@@ -2,7 +2,7 @@ import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('getTaxonomiesInfo');
 
-async function getTaxonomiesInfo(data, connection) {
+export default function getTaxonomiesInfo(data, connection) {
   try {
     let taxons = [];
     for (const entry of data) {
@@ -32,5 +32,3 @@ async function getTaxonomiesInfo(data, connection) {
     debug(e, optionsDebug);
   }
 }
-
-export default getTaxonomiesInfo;

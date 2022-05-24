@@ -5,7 +5,7 @@ import getCmaupsLastFiles from './getCmaupsLastFiles.js';
 import readCmaupFiles from './readCmaupsFiles.js';
 const debug = Debug('cmaupsStartSync');
 
-async function cmaupsStartSync(connection) {
+export default async function cmaupsStartSync(connection) {
   try {
     const [
       lastFile,
@@ -17,22 +17,19 @@ async function cmaupsStartSync(connection) {
       logs,
     ] = await getCmaupsLastFiles(connection);
     const collection = await connection.getCollection('cmaups');
-    await collection.createIndex({ 'data.ocl.id': 1 });
-    await collection.createIndex({ 'data.ocl.noStereoID': 1 });
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       'cmaups',
     );
 
-    const { general, activities, speciesPair, speciesInfo } =
-      await readCmaupFiles(
-        lastFile,
-        lastFileActivity,
-        lastFileSpeciesAssociation,
-        lastFileSpeciesInfo,
-        connection,
-      );
+    const { general, activities, speciesPair, speciesInfo } = readCmaupFiles(
+      lastFile,
+      lastFileActivity,
+      lastFileSpeciesAssociation,
+      lastFileSpeciesInfo,
+      connection,
+    );
 
     return [
       lastDocumentImported,
@@ -50,5 +47,3 @@ async function cmaupsStartSync(connection) {
     debug(e, optionsDebug);
   }
 }
-
-export default cmaupsStartSync;

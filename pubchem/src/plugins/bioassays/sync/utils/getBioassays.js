@@ -12,7 +12,7 @@ const debug = Debug('getBioassays');
  * @param {*} connection
  * @returns bioassays object containing AIDs, Target IDs
  */
-async function getBioassays(bioassaysFilePath, connection) {
+export default async function getBioassays(bioassaysFilePath, connection) {
   try {
     // Read stream of bioassay file
     const readStream = createReadStream(bioassaysFilePath);
@@ -70,10 +70,8 @@ async function getBioassays(bioassaysFilePath, connection) {
     }
     return bioassays;
   } catch (e) {
-    // If error is chatched, debug it on telegram
+    // If error is catched, debug it on telegram
     const optionsDebug = { collection: 'bioassays', connection };
     debug(e, optionsDebug);
   }
 }
-
-export default getBioassays;

@@ -103,9 +103,6 @@ export async function sync(connection) {
       // Indexing of properties in collection
       await collection.createIndex({ _seq: 1 });
       await collection.createIndex({ _id: 1 });
-      await collection.createIndex({ 'data.activeAgainsTaxIDs': 1 });
-      await collection.createIndex({ 'data.aid': 1 });
-      await collection.createIndex({ 'data.cid': 1 });
 
       // Insert noStereoIDs in collection and Taxonomies of target organisms
       let noStereoIDsBioassays = await insertNoStereoIDsAndTaxonomies(
@@ -116,7 +113,6 @@ export async function sync(connection) {
       );
       // Indexing new properties
       await collection.createIndex({ 'data.ocl.noStereoID': 1 });
-      await collection.createIndex({ 'data.activeAgainstTaxonomy': 1 });
     } else {
       debug(`file already processed`);
     }

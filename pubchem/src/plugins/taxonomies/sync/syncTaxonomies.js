@@ -88,7 +88,6 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       await collection.createIndex({ _id: 1 });
-      await collection.createIndex({ 'data.superkingom': 1 });
       await collection.createIndex({ 'data.phylum': 1 });
       await collection.createIndex({ 'data.class': 1 });
       await collection.createIndex({ 'data.order': 1 });

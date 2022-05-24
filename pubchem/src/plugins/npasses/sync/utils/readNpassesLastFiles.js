@@ -8,7 +8,7 @@ const { parse } = pkg;
 
 const debug = Debug('readNpassesLastFiles');
 
-async function readNpassesLastFiles(
+export default function readNpassesLastFiles(
   lastFile,
   lastFileActivity,
   lastFileSpeciesProperties,
@@ -56,5 +56,3 @@ async function readNpassesLastFiles(
     debug(e, optionsDebug);
   }
 }
-
-export default readNpassesLastFiles;

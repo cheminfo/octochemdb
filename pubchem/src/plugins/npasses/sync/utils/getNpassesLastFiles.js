@@ -4,7 +4,7 @@ import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
 const debug = Debug('getNpassesLastFiles');
 
-async function getNpassesLastFiles(connection) {
+export default async function getNpassesLastFiles(connection) {
   try {
     let options = {
       collectionSource: process.env.NPASS_SOURCE_GENERALINFO,
@@ -66,5 +66,3 @@ async function getNpassesLastFiles(connection) {
     debug(e, optionsDebug);
   }
 }
-
-export default getNpassesLastFiles;

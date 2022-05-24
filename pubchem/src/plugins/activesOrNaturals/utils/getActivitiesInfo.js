@@ -3,7 +3,11 @@ const debug = Debug('getActivityInfo');
 
 import { searchTaxonomies } from './utilsTaxonomies/searchTaxonomies.js';
 
-async function getActivitiesInfo(data, connection, taxonomiesCollection) {
+export default async function getActivitiesInfo(
+  data,
+  connection,
+  taxonomiesCollection,
+) {
   try {
     let activityInfo = [];
 
@@ -71,5 +75,3 @@ async function getActivitiesInfo(data, connection, taxonomiesCollection) {
     debug(e, optionsDebug);
   }
 }
-
-export default getActivitiesInfo;

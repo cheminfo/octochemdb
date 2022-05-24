@@ -7,7 +7,7 @@ import Debug from '../../../../utils/Debug.js';
 const { MF } = MFParser;
 const debug = Debug('getCompoundsData');
 
-export async function getCompoundsData(molecule, connection) {
+export function getCompoundsData(molecule, connection) {
   let oclMolecule;
   if (molecule.molefile) {
     oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);

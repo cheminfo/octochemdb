@@ -79,7 +79,7 @@ export async function aggregate(connection) {
           synonyms,
           taxonomiesCollection,
         );
-        let taxons = await getTaxonomiesInfo(data, connection);
+        let taxons = getTaxonomiesInfo(data, connection);
 
         let activityInfo = await getActivitiesInfo(
           data,

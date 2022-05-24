@@ -1,7 +1,7 @@
 import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
 const debug = Debug('getSubstanceData');
-export async function getSubstanceData(molecule, connection) {
+export function getSubstanceData(molecule, connection) {
   try {
     let oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
     const oclID = oclMolecule.getIDCodeAndCoordinates();

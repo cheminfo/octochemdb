@@ -6,7 +6,7 @@ import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
 
 export async function standardizeTaxonomies(
   data,
-  synonims,
+  synonyms,
   taxonomiesCollection,
 ) {
   let newData = [];
@@ -20,7 +20,7 @@ export async function standardizeTaxonomies(
         let resultSubstances = await getTaxonomiesSubstances(
           entry,
           taxonomiesCollection,
-          synonims,
+          synonyms,
         );
 
         entry = resultSubstances;
@@ -33,7 +33,7 @@ export async function standardizeTaxonomies(
         let resultLotuses = await getTaxonomiesForLotuses(
           entry,
           taxonomiesCollection,
-          synonims,
+          synonyms,
         );
 
         entry = resultLotuses;
