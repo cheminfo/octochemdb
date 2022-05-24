@@ -61,9 +61,8 @@ export default async function importOneSubstanceFile(
           debug(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
-
         actions.push(
-          improveSubstancePool(substance, connection)
+          improveSubstancePool(substance)
             .then((result) => {
               result._seq = ++progress.seq;
               return collection.updateOne(

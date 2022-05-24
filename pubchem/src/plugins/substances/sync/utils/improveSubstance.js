@@ -3,7 +3,7 @@ import { getSubstanceData } from './getSubstanceData.js';
 import workerpool from 'workerpool';
 
 const debug = Debug('getSubstanceData');
-async function improveSubstance(molecule, connection) {
+async function improveSubstance(molecule) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
     _seq: 0,
@@ -13,7 +13,7 @@ async function improveSubstance(molecule, connection) {
     },
   };
   try {
-    let ocl = getSubstanceData(molecule, connection);
+    let ocl = getSubstanceData(molecule);
     result.data.ocl = ocl;
 
     if (molecule.PUBCHEM_CID_ASSOCIATIONS !== undefined) {
@@ -64,8 +64,7 @@ async function improveSubstance(molecule, connection) {
       result.data.meshTerms = molecule.PUBCHEM_PUBMED_MESH_TERM;
     }
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    debug(e);
   }
   return result;
 }
