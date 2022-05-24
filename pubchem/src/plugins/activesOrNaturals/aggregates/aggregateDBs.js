@@ -65,7 +65,7 @@ export async function aggregate(connection) {
       let synonyms = await taxonomySynonyms();
 
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
-        const entry = { data: { naturalProduct: false } };
+        let entry = { data: { naturalProduct: false } };
         let data = [];
         for (const source of sourcesLink) {
           if (
@@ -95,7 +95,7 @@ export async function aggregate(connection) {
           taxonomiesCollection,
         );
 
-        let entry = await getCompoundsInfo(
+        entry = await getCompoundsInfo(
           data,
           compoundsCollection,
           noStereoID,
@@ -163,7 +163,7 @@ export async function aggregate(connection) {
       logs.status = 'aggregated';
       await connection.updateImportationLog(logs);
       progress.sources = sources;
-      progress.dateEnd = date.now();
+      progress.dateEnd = Date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
 

@@ -76,7 +76,7 @@ export async function sync(connection) {
       await connection.updateImportationLog(logs);
       // Define new informations and set state to updated in admin collection
       progress.sources = sources;
-      progress.dateEnd = date.now();
+      progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
       // Indexing of properties in collection
