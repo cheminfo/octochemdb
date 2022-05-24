@@ -17,7 +17,7 @@ const collectionNames = [
   'npAtlases',
   'cmaups',
   'coconuts',
-  'substances',
+  //'substances',
   'bioassays',
 ];
 
@@ -153,7 +153,7 @@ export async function aggregate(connection) {
       });
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
+      logs.status = 'aggregated';
       await connection.updateImportationLog(logs);
       progress.sources = sources;
       progress.date = new Date();
