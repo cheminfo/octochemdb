@@ -29,6 +29,7 @@ export async function aggregate(connection) {
   try {
     const options = { collection: COLLECTION_NAME, connection: connection };
     const progress = await connection.getProgress(options.collection);
+
     const targetCollection = await connection.getCollection(options.collection);
     const taxonomiesCollection = await connection.getCollection('taxonomies');
     const compoundsCollection = await connection.getCollection('compounds');
@@ -133,7 +134,7 @@ export async function aggregate(connection) {
           { upsert: true },
         );
 
-        progress.state = 'updating';
+        progress.state = 'aggregating';
 
         await connection.setProgress(progress);
 
@@ -156,7 +157,7 @@ export async function aggregate(connection) {
       await connection.updateImportationLog(logs);
       progress.sources = sources;
       progress.date = new Date();
-      progress.state = 'updated';
+      progress.state = 'aggregate';
       await connection.setProgress(progress);
 
       // Create Indexs

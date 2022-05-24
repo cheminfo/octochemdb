@@ -7,6 +7,8 @@ export async function aggregate(connection) {
 
   const progressCompounds = await connection.getProgress('compounds');
   const progress = await connection.getProgress('mfsCHNOSClF');
+  progress.state = 'aggregating';
+  await connection.setProgress(progress);
   try {
     if (progressCompounds.seq === progress.seq) {
       debug('Aggregation up-to-date');
@@ -53,6 +55,7 @@ export async function aggregate(connection) {
     await result.hasNext(); // trigger the creation of the output collection
 
     progress.seq = progressCompounds.seq;
+    progress.state = 'aggregate';
     await connection.setProgress(progress);
 
     return result;

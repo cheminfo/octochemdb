@@ -5,6 +5,6 @@ const url = new URL('improveSubstance.js', import.meta.url);
 
 const pool = workerPool.pool(url.pathname);
 
-export default async function improveCompoundPool(molecule, connection) {
+export default async function improveSubstancePool(molecule, connection) {
   return pool.exec('improveSubstance', [molecule, connection]);
 }
