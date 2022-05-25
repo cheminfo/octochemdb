@@ -19,7 +19,6 @@ export default async function getBioassays(bioassaysFilePath, connection) {
     const readStream = createReadStream(bioassaysFilePath);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
-
     // Parse file line by line
     const bioassays = {};
     for await (let line of lines) {
@@ -72,8 +71,8 @@ export default async function getBioassays(bioassaysFilePath, connection) {
     }
     return bioassays;
   } catch (e) {
-    // If error is catched, debug it on telegram
-    const optionsDebug = { collection: 'bioassays', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }

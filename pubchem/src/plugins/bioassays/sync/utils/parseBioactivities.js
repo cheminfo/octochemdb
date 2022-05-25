@@ -20,12 +20,14 @@ async function* parseBioactivities(
   connection,
 ) {
   try {
+    // Get Bioassays data available in bioassays file
+    const bioassays = await getBioassays(bioassaysFilePath, connection);
+
     // Read stream of target file without unzip it
+
     const readStream = createReadStream(bioActivitiesFilePath);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
-    // Get Bioassays data available in bioassays file
-    const bioassays = await getBioassays(bioassaysFilePath, connection);
     // Define variables
     let counter = 0;
     // Start parsing line by line the bioActivities file
@@ -58,9 +60,9 @@ async function* parseBioactivities(
       //     if (process.env.TEST === 'true' && counter > 1e6) break;
     }
   } catch (e) {
-    // If error is catched, debug it on telegram
-    const optionsDebug = { collection: 'bioassays', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }
 
