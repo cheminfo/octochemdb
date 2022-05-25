@@ -1,5 +1,6 @@
 // query for molecules from monoisotopic mass
 import escapeRegExp from 'lodash.escaperegexp';
+
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
@@ -75,10 +76,10 @@ async function searchHandler(request) {
     .filter((entry) => entry);
 
   for (let word of wordsToBeSearchedTaxonomies) {
-    wordsWithRegexTaxonomies.push(new RegExp('^' + escapeRegExp(word), 'i'));
+    wordsWithRegexTaxonomies.push(new RegExp(`^${ escapeRegExp(word)}`, 'i'));
   }
   for (let word of wordsToBeSearchedBioassays) {
-    wordsWithRegexBioassays.push(new RegExp('^' + escapeRegExp(word), 'i'));
+    wordsWithRegexBioassays.push(new RegExp(`^${ escapeRegExp(word)}`, 'i'));
   }
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;

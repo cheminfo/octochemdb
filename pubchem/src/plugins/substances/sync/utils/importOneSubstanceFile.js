@@ -1,10 +1,14 @@
 import fs from 'fs';
 import zlib from 'zlib';
-import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
-import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
+
 import { parse } from 'sdf-parser';
-import improveSubstancePool from '../utils/improveSubstancePool.js';
+
 import Debug from '../../../../utils/Debug.js';
+import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
+import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+
+import improveSubstancePool from "./improveSubstancePool.js";
+
 
 const debug = Debug('improveOneSubstanceFile');
 

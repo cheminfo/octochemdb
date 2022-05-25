@@ -1,8 +1,11 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
+
 import Debug from '../../../../utils/Debug.js';
+
 import getBioassays from './getBioassays.js';
+
 const debug = Debug('parseBioactivities');
 
 /**

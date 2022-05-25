@@ -2,10 +2,10 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import Debug from '../../../utils/Debug.js';
+import { getActivityKeywords } from '../utils/getAcitivityKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
-import { getActivityKeywords } from '../utils/getAcitivityKeywords.js';
 import { getTaxonomyKeywords } from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
@@ -56,7 +56,7 @@ export async function aggregate(connection) {
       progress.state !== 'updated'
     ) {
       const temporaryCollection = await connection.getCollection(
-        COLLECTION_NAME + '_tmp',
+        `${COLLECTION_NAME }_tmp`,
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');

@@ -1,8 +1,9 @@
 import md5 from 'md5';
-import { getTaxonomiesForCoconuts } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCoconuts.js';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
+import { getTaxonomiesForCoconuts } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCoconuts.js';
 
 import { parseCoconuts } from './utils/parseCoconuts.js';
 

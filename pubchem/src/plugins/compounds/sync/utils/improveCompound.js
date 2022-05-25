@@ -2,7 +2,9 @@ import MFParser from 'mf-parser';
 import workerpool from 'workerpool';
 
 import Debug from '../../../../utils/Debug.js';
+
 import { getCompoundsData } from './getCompoundsData.js';
+
 const { MF } = MFParser;
 const debug = Debug('improveCompound');
 

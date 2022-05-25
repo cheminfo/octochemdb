@@ -1,8 +1,11 @@
-import Debug from '../../../../utils/Debug.js';
-import { getSubstanceData } from './getSubstanceData.js';
 import workerpool from 'workerpool';
 
+import Debug from '../../../../utils/Debug.js';
+
+import { getSubstanceData } from './getSubstanceData.js';
+
 const debug = Debug('getSubstanceData');
+
 async function improveSubstance(molecule) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
@@ -68,6 +71,7 @@ async function improveSubstance(molecule) {
   }
   return result;
 }
+
 workerpool.worker({
   improveSubstance,
 });

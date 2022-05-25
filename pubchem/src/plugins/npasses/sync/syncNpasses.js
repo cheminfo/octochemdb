@@ -1,6 +1,6 @@
 import Debug from '../../../utils/Debug.js';
-import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import npassesStartSync from './utils/npassesStartSync.js';
 import { parseNpasses } from './utils/parseNpasses.js';

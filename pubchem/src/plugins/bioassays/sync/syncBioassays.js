@@ -1,4 +1,5 @@
 import md5 from 'md5';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
@@ -89,9 +90,10 @@ export async function sync(connection) {
           entry.data.ocl.coordinates = noStereoIDandTaxonomies.coordinates;
           entry.data.ocl.noStereoID = noStereoIDandTaxonomies.noStereoID;
           entry.data.ocl.id = noStereoIDandTaxonomies.id;
-          if (noStereoIDandTaxonomies.activeAgainstTaxonomy)
+          if (noStereoIDandTaxonomies.activeAgainstTaxonomy) {
             entry.data.activeAgainstTaxonomy =
               noStereoIDandTaxonomies.activeAgainstTaxonomy;
+          }
         }
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(

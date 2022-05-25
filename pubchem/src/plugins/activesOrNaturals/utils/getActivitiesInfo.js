@@ -1,7 +1,8 @@
 import Debug from '../../../utils/Debug.js';
-const debug = Debug('getActivityInfo');
 
 import { searchTaxonomies } from './utilsTaxonomies/searchTaxonomies.js';
+
+const debug = Debug('getActivityInfo');
 
 export default async function getActivitiesInfo(
   data,

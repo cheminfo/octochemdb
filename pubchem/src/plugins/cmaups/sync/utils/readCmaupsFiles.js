@@ -1,5 +1,7 @@
 import { readFileSync } from 'fs';
+
 import pkg from 'papaparse';
+
 import Debug from '../../../../utils/Debug.js';
 
 const { parse } = pkg;

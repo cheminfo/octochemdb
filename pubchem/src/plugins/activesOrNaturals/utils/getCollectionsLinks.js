@@ -1,4 +1,5 @@
 import Debug from '../../../utils/Debug.js';
+
 const debug = Debug('getCollectionLinks');
 
 export default async function getCollectionsLinks(connection, collectionNames) {

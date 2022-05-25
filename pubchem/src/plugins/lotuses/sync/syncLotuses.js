@@ -1,9 +1,11 @@
 import md5 from 'md5';
-import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 import { getTaxonomiesForLotuses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForLotuses.js';
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+
 import { parseLotuses } from './utils/parseLotuses.js';
 
 const debug = Debug('syncLotuses');

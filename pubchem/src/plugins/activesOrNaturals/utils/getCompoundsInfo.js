@@ -1,5 +1,6 @@
 import Debug from '../../../utils/Debug.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
+
 const debug = Debug('getCompoundsInfo');
 
 export default async function getCompoundsInfo(

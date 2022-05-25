@@ -1,9 +1,11 @@
 import Debug from '../../../utils/Debug.js';
-import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+
 import cmaupsStartSync from './utils/cmaupsStartSync.js';
-import { parseCmaups } from './utils/parseCmaups.js';
 import { getNormalizedActivities } from './utils/getNormalizedActivities.js';
+import { parseCmaups } from './utils/parseCmaups.js';
+
 const debug = Debug('syncCmaups');
 
 export async function sync(connection) {

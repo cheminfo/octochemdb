@@ -1,7 +1,10 @@
-import OCL from 'openchemlib';
 import pkg from 'fs-extra';
-import Debug from '../../../../utils/Debug.js';
+import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
+
+import Debug from '../../../../utils/Debug.js';
+
+
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
 const debug = Debug('parseNpatlases');

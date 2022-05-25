@@ -3,6 +3,7 @@ import Debug from '../../../../utils/Debug.js';
 
 import getCmaupsLastFiles from './getCmaupsLastFiles.js';
 import readCmaupFiles from './readCmaupsFiles.js';
+
 const debug = Debug('cmaupsStartSync');
 
 export default async function cmaupsStartSync(connection) {
