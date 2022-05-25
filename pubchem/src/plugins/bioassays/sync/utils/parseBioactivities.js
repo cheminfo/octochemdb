@@ -51,12 +51,11 @@ async function* parseBioactivities(
       if (bioassays[aid].targetsTaxonomies) {
         result.data.activeAgainstTaxIDs = bioassays[aid].targetsTaxonomies;
       }
-
       yield result;
       counter++;
 
       // If cron is launched in test mode, loop breaks after 1e6 lines parsed
-      if (process.env.TEST === 'true' && counter > 1e6) break;
+      //     if (process.env.TEST === 'true' && counter > 1e6) break;
     }
   } catch (e) {
     // If error is catched, debug it on telegram

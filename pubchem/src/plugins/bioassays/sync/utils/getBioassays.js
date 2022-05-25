@@ -41,6 +41,7 @@ export default async function getBioassays(bioassaysFilePath, connection) {
         targetTaxIDs,
         taxonomyIDs,
       ] = line.split('\t');
+
       if (aid === 'AID') continue; // avoid to import headers
       // For each aid (assay ID), save the name of the bioassay
       bioassays[aid] = { name: name };
