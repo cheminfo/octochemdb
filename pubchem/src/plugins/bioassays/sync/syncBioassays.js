@@ -22,6 +22,7 @@ export async function sync(connection) {
   try {
     const synonyms = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
+    const collectionCompounds = await connection.getCollection('compounds');
     // Get last files available from source if their size changed compared to local ones
     const bioactivitiesFile = await getLastFileSync(options);
     options.collectionSource = process.env.BIOASSAY_SOURCE;
@@ -83,6 +84,7 @@ export async function sync(connection) {
         let noStereoIDandTaxonomies = await getNoStereoIDandTaxonomies(
           entry,
           collectionTaxonomies,
+          collectionCompounds,
           synonyms,
         );
 
