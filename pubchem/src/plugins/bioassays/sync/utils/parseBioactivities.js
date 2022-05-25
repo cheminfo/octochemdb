@@ -24,9 +24,9 @@ async function* parseBioactivities(
     const readStream = createReadStream(bioActivitiesFilePath);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
+    // Get Bioassays data available in bioassays file
+    const bioassays = await getBioassays(bioassaysFilePath, connection);
     // Define variables
-    const compounds = {};
-    let last = Date.now();
     let counter = 0;
     // Start parsing line by line the bioActivities file
     for await (let line of lines) {
@@ -34,48 +34,32 @@ async function* parseBioactivities(
       const aid = Number(parts[0]);
       const cid = parts[3];
       const activity = parts[4];
-      counter++;
       // Only active molecules whit defined CID are kept
       if (activity !== 'Active' || !cid) {
         continue;
       }
-      if (!compounds[cid]) {
-        compounds[cid] = [];
+
+      let result = {
+        _id: `${cid}_${aid}`,
+        data: {
+          cid,
+          aid,
+          assay: bioassays[aid].name,
+        },
+      };
+
+      if (bioassays[aid].targetsTaxonomies) {
+        result.data.activeAgainstTaxIDs = bioassays[aid].targetsTaxonomies;
       }
-      if (!compounds[cid].includes(aid)) {
-        compounds[cid].push(aid);
-      }
-      if (Date.now() > last + 10000) {
-        last = Date.now();
-        debug(`${counter} lines parsed`);
-      }
+
+      yield result;
+      counter++;
+
       // If cron is launched in test mode, loop breaks after 1e6 lines parsed
       if (process.env.TEST === 'true' && counter > 1e6) break;
     }
-    // Get Bioassays data available in bioassays file
-    const bioassays = await getBioassays(bioassaysFilePath, connection);
-
-    // Merge bioassays informations with compounds
-    debug(`Start parsing AIDs`);
-    for await (let cid of Object.keys(compounds)) {
-      for (let aid of compounds[cid]) {
-        let result = {
-          _id: `${cid}_${aid}`,
-          data: {
-            cid,
-            aid,
-            assay: bioassays[aid].name,
-          },
-        };
-
-        if (bioassays[aid].targetsTaxonomies) {
-          result.data.activeAgainstTaxIDs = bioassays[aid].targetsTaxonomies;
-        }
-        yield result;
-      }
-    }
   } catch (e) {
-    // If error is chatched, debug it on telegram
+    // If error is catched, debug it on telegram
     const optionsDebug = { collection: 'bioassays', connection };
     debug(e, optionsDebug);
   }

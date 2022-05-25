@@ -47,7 +47,7 @@ export async function sync(connection) {
       sources,
       startSequenceID: progress.seq,
     });
-    // Define differents couters
+    // Define different coulters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -60,7 +60,7 @@ export async function sync(connection) {
       // Define stat updating because in case of failure Cron will retry importation in 24h
       progress.state = 'updating';
       await connection.setProgress(progress);
-      // Create a temporaty Collection to avoid to drop the data already imported before the new ones are ready
+      // Create a temporary Collection to avoid to drop the data already imported before the new ones are ready
       const temporaryCollection = await connection.getCollection(
         'temporaryBioassays',
       );
@@ -70,7 +70,7 @@ export async function sync(connection) {
         bioassaysFile,
         connection,
       )) {
-        // If cron launched in mode test, the importation will be stoped after 20 iteration
+        // If cron launched in mode test, the importation will be stopped after 20 iteration
         if (process.env.TEST === 'true' && counter > 20) break;
         // Debug the processing progress every 10s or the defined time in process env
         if (
@@ -80,15 +80,14 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-        // Insert the entry(i) in the temporary collection
         let noStereoIDandTaxonomies = await getNoStereoIDandTaxonomies(
           entry,
           collectionTaxonomies,
           collectionCompounds,
           synonyms,
         );
-
         if (noStereoIDandTaxonomies) {
+          entry.data.ocl = {};
           entry.data.ocl.coordinates = noStereoIDandTaxonomies.coordinates;
           entry.data.ocl.noStereoID = noStereoIDandTaxonomies.noStereoID;
           entry.data.ocl.id = noStereoIDandTaxonomies.id;
@@ -97,6 +96,8 @@ export async function sync(connection) {
               noStereoIDandTaxonomies.activeAgainstTaxonomy;
           }
         }
+        // Insert the entry(i) in the temporary collection
+
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
@@ -110,12 +111,12 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-      // Define logs informations in collection importationLogs
+      // Define logs information's in collection importationLogs
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
-      // Define new informations and set state to updated in admin collection
+      // Define new information's and set state to updated in admin collection
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
