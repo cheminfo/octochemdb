@@ -18,7 +18,6 @@ export async function taxonomySynonyms() {
     fileName.webkitRelativePath,
     'merged.dmp',
   );
-
   const lines = createInterface({ input: readStream });
 
   const newIDs = {};

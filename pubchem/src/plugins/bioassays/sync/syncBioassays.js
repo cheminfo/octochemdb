@@ -2,7 +2,9 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
-import { insertNoStereoIDsAndTaxonomies } from './utils/insertNoStereoIDsAndTaxonomies.js';
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+
+import { getNoStereoIDandTaxonomies } from './utils/getNoStereoIDandTaxonomies.js';
 import parseBioactivities from './utils/parseBioactivities.js';
 
 const debug = Debug('syncBioassays');
@@ -17,6 +19,8 @@ export async function sync(connection) {
     extensionNew: 'tsv.gz',
   };
   try {
+    const synonyms = await taxonomySynonyms();
+    const collectionTaxonomies = await connection.getCollection('taxonomies');
     // Get last files available from source if their size changed compared to local ones
     const bioactivitiesFile = await getLastFileSync(options);
     options.collectionSource = process.env.BIOASSAY_SOURCE;
@@ -75,6 +79,20 @@ export async function sync(connection) {
           start = Date.now();
         }
         // Insert the entry(i) in the temporary collection
+        let noStereoIDandTaxonomies = await getNoStereoIDandTaxonomies(
+          entry,
+          collectionTaxonomies,
+          synonyms,
+        );
+
+        if (noStereoIDandTaxonomies) {
+          entry.data.ocl.coordinates = noStereoIDandTaxonomies.coordinates;
+          entry.data.ocl.noStereoID = noStereoIDandTaxonomies.noStereoID;
+          entry.data.ocl.id = noStereoIDandTaxonomies.id;
+          if (noStereoIDandTaxonomies.activeAgainstTaxonomy)
+            entry.data.activeAgainstTaxonomy =
+              noStereoIDandTaxonomies.activeAgainstTaxonomy;
+        }
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
@@ -103,15 +121,6 @@ export async function sync(connection) {
       // Indexing of properties in collection
       await collection.createIndex({ _seq: 1 });
       await collection.createIndex({ _id: 1 });
-
-      // Insert noStereoIDs in collection and Taxonomies of target organisms
-      let noStereoIDsBioassays = await insertNoStereoIDsAndTaxonomies(
-        connection,
-      );
-      debug(
-        `Number of noStereoIDs added to bioassays: ${noStereoIDsBioassays}`,
-      );
-      // Indexing new properties
       await collection.createIndex({ 'data.ocl.noStereoID': 1 });
     } else {
       debug(`file already processed`);
