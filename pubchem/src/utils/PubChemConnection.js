@@ -32,29 +32,30 @@ PubChemConnection.prototype.getCollection = async function getCollection(
   return (await this.getDatabase()).collection(collectionName);
 };
 
-PubChemConnection.prototype.geImportationtLog =
-  async function geImportationtLog(options) {
-    const { collectionName, sources, startSequenceID } = options;
-    const logsCollection = await this.getImportationLogsCollection();
-    const sourcesHash = md5(JSON.stringify(sources));
-    const _id = sourcesHash;
-    let logs = await logsCollection.find({ _id }).next();
-    if (logs === null) {
-      logs = {
-        _id,
-        collectionName,
-        sources,
-        sourcesHash,
-        dateStart: Date.now(),
-        dateEnd: Date.now(),
-        startSequenceID,
-        endSequenceID: 0,
-        status: 'updating',
-      };
-      await logsCollection.insertOne(logs);
-    }
-    return logs;
-  };
+PubChemConnection.prototype.geImportationLog = async function geImportationLog(
+  options,
+) {
+  const { collectionName, sources, startSequenceID } = options;
+  const logsCollection = await this.getImportationLogsCollection();
+  const sourcesHash = md5(JSON.stringify(sources));
+  const _id = sourcesHash;
+  let logs = await logsCollection.find({ _id }).next();
+  if (logs === null) {
+    logs = {
+      _id,
+      collectionName,
+      sources,
+      sourcesHash,
+      dateStart: Date.now(),
+      dateEnd: Date.now(),
+      startSequenceID,
+      endSequenceID: 0,
+      status: 'updating',
+    };
+    await logsCollection.insertOne(logs);
+  }
+  return logs;
+};
 PubChemConnection.prototype.updateImportationLog =
   async function updateImportationLog(logs) {
     const collection = await this.getImportationLogsCollection();

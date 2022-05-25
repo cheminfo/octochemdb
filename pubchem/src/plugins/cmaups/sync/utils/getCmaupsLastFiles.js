@@ -42,7 +42,7 @@ export default async function getCmaupsLastFiles(connection) {
       lastFileSpeciesAssociation.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: 'cmaups',
       sources: source,
       startSequenceID: progress.seq,

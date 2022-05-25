@@ -24,7 +24,7 @@ export async function sync(connection) {
     const collection = await connection.getCollection('lotuses');
     const synonyms = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,

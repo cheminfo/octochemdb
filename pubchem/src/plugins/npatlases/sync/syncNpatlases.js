@@ -28,7 +28,7 @@ export async function sync(connection) {
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
 
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,

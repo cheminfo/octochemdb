@@ -36,7 +36,7 @@ export default async function getNpassesLastFiles(connection) {
     ];
 
     const progress = await connection.getProgress('npasses');
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: 'npasses',
       sources: source,
       startSequenceID: progress.seq,

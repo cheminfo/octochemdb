@@ -7,8 +7,7 @@ import Debug from '../../../../utils/Debug.js';
 import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
 import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
-import improveSubstancePool from "./improveSubstancePool.js";
-
+import improveSubstancePool from './improveSubstancePool.js';
 
 const debug = Debug('improveOneSubstanceFile');
 
@@ -20,7 +19,7 @@ export default async function importOneSubstanceFile(
 ) {
   try {
     const collection = await connection.getCollection('substances');
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: 'substances',
       sources: file.name,
       startSequenceID: progress.seq,

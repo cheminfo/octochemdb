@@ -36,7 +36,7 @@ export async function aggregate(connection) {
       collectionNames,
     );
     const sources = md5(collectionSources);
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
@@ -56,7 +56,7 @@ export async function aggregate(connection) {
       progress.state !== 'updated'
     ) {
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME }_tmp`,
+        `${COLLECTION_NAME}_tmp`,
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');

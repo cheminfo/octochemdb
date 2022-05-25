@@ -42,7 +42,7 @@ export async function sync(connection) {
       bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
       bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
-    const logs = await connection.geImportationtLog({
+    const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
@@ -131,7 +131,7 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
   } catch (e) {
-    // If error is chatched, debug it on telegram
+    // If error is catched, debug it on telegram
     const optionsDebug = { collection: options.collectionName, connection };
     debug(e, optionsDebug);
   }
