@@ -175,7 +175,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           if (taxons.species) {
             finalTaxonomy.species = taxons.species;
           }
-          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
+          finalTaxonomy.dbRef = { $ref: collectionName, $id: entry._id };
           taxonomiesResults.push(finalTaxonomy);
         }
       }

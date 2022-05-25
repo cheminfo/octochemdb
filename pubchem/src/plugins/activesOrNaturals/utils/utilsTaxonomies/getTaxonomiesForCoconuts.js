@@ -44,13 +44,11 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
         }
       } else {
         let finalTaxonomy = entry.data.taxonomies[0];
-        finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
+        finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
         taxonomiesCoconuts.push(finalTaxonomy[0]);
       }
     }
   }
-  if (taxonomiesCoconuts.length > 0) {
-    entry.data.taxonomies = taxonomiesCoconuts;
-  }
-  return entry;
+
+  return taxonomiesCoconuts;
 }

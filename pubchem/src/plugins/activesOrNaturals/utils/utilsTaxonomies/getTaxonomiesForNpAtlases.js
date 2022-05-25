@@ -1,11 +1,16 @@
 import { searchTaxonomies } from './searchTaxonomies.js';
 
-export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
+export async function getTaxonomiesForNpAtlases(
+  entry,
+  taxonomiesCollection,
+  synonyms,
+) {
   let taxonomiesResults = [];
   if (entry.data?.taxonomies) {
     let taxons = entry.data.taxonomies[0];
     let searchParameter;
     let type = {};
+    let oldIDs = Object.keys(synonyms);
 
     if (taxons.species) {
       searchParameter = {
@@ -14,8 +19,12 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
       type.species = searchParameter;
     }
     if (taxons.genusID && taxons.genusID !== null) {
+      let idToUse = Number(taxons.genusID);
+      if (oldIDs.includes(taxons.genusID)) {
+        idToUse = Number(synonyms[taxons.genusID]);
+      }
       searchParameter = {
-        _id: Number(taxons.genusID),
+        _id: idToUse,
       };
       type.genusID = searchParameter;
     }
@@ -161,12 +170,10 @@ export async function getTaxonomiesForNpAtlases(entry, taxonomiesCollection) {
       if (taxons.species) {
         finalTaxonomy.species = taxons.species;
       }
-      finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
+      finalTaxonomy.dbRef = { $ref: 'npAtlases', $id: entry._id };
       taxonomiesResults.push(finalTaxonomy);
     }
   }
-  if (taxonomiesResults.length > 0) {
-    entry.data.taxonomies = taxonomiesResults;
-  }
-  return entry;
+
+  return taxonomiesResults;
 }

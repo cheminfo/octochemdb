@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
-
+import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+import { getTaxonomiesForNpAtlases } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForNpAtlases.js';
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
@@ -21,7 +22,8 @@ export async function sync(connection) {
     };
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
-
+    const synonyms = await taxonomySynonyms();
+    const collectionTaxonomies = await connection.getCollection('taxonomies');
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
 
@@ -67,6 +69,16 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
+        /// Normalize Taxonomies
+        if (entry.data.taxonomies) {
+          let taxonomies = await getTaxonomiesForNpAtlases(
+            entry,
+            collectionTaxonomies,
+            synonyms,
+          );
+          entry.data.taxonomies = taxonomies;
+        }
+
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },

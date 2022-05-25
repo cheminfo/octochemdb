@@ -1,5 +1,5 @@
 import md5 from 'md5';
-
+import { getTaxonomiesForCoconuts } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCoconuts.js';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
@@ -26,6 +26,7 @@ export async function sync(connection) {
       sources,
       startSequenceID: progress.seq,
     });
+    const collectionTaxonomies = await connection.getCollection('taxonomies');
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
@@ -59,7 +60,14 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-
+        /// Normalize Taxonomies
+        if (entry.data.taxonomies) {
+          let taxonomies = await getTaxonomiesForCoconuts(
+            entry,
+            collectionTaxonomies,
+          );
+          entry.data.taxonomies = taxonomies;
+        }
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },

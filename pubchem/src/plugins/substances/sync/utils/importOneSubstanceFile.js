@@ -1,6 +1,7 @@
 import fs from 'fs';
 import zlib from 'zlib';
-
+import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
 import { parse } from 'sdf-parser';
 import improveSubstancePool from '../utils/improveSubstancePool.js';
 import Debug from '../../../../utils/Debug.js';
@@ -20,6 +21,9 @@ export default async function importOneSubstanceFile(
       sources: file.name,
       startSequenceID: progress.seq,
     });
+    const synonyms = await taxonomySynonyms();
+    const collectionTaxonomies = await connection.getCollection('taxonomies');
+
     debug(`Importing: ${file.name}`);
     // should we directly import the data how wait that we reach the previously imported information
     let { shouldImport = true, lastDocument } = options;
@@ -64,6 +68,14 @@ export default async function importOneSubstanceFile(
         actions.push(
           improveSubstancePool(substance)
             .then((result) => {
+              if (result.data.taxonomyIDs) {
+                let taxonomies = getTaxonomiesSubstances(
+                  result,
+                  collectionTaxonomies,
+                  synonyms,
+                );
+                result.data.taxonomies = taxonomies;
+              }
               result._seq = ++progress.seq;
               return collection.updateOne(
                 { _id: result._id },

@@ -6,10 +6,11 @@ export async function getTaxonomiesSubstances(
   synonyms,
 ) {
   let taxonomiesSubstances = [];
-  let newIDs = Object.keys(synonyms);
+  let oldIDs = Object.keys(synonyms);
   if (entry.data?.taxonomyIDs) {
     for (let i = 0; i < entry.data.taxonomyIDs.length; i++) {
       let taxId = entry.data.taxonomyIDs[i];
+
       let searchParameter = {
         _id: taxId,
       };
@@ -19,12 +20,14 @@ export async function getTaxonomiesSubstances(
       );
       if (result.length > 0) {
         let finalTaxonomy = result[0].data;
-        finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
+        finalTaxonomy.dbRef = { $ref: 'substances', $id: entry._id };
         taxonomiesSubstances.push(finalTaxonomy);
       }
-      if (result.length === 0 && newIDs.includes(taxId)) {
+      if (result.length === 0 && oldIDs.includes(taxId)) {
+        let idToUse = Number(synonyms[taxId]);
+
         let searchParameter = {
-          _id: taxId,
+          _id: idToUse,
         };
         let result = await searchTaxonomies(
           taxonomiesCollection,
@@ -41,5 +44,5 @@ export async function getTaxonomiesSubstances(
   if (taxonomiesSubstances.length > 0) {
     entry.data.taxonomies = taxonomiesSubstances;
   }
-  return entry;
+  return taxonomiesSubstances;
 }
