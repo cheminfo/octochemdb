@@ -36,8 +36,11 @@ async function cron() {
     });
   }
   for (let syncURL of syncURLs) {
-    if (syncURL.pathname.includes('syncBioassays')) {
-      syncURLs.push(syncURLs.splice(syncURLs.indexOf(syncURL), 1)[0]);
+    if (
+      syncURL.pathname.includes('syncTaxonomies') ||
+      syncURL.pathname.includes('syncCompounds')
+    ) {
+      syncURLs.unshift(syncURLs.splice(syncURLs.indexOf(syncURL), 1)[0]);
     }
   }
   for (let syncURL of syncURLs) {
