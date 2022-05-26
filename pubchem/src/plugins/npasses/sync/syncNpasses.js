@@ -1,6 +1,7 @@
 import Debug from '../../../utils/Debug.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+import { getNormalizedActivities } from '../../cmaups/sync/utils/getNormalizedActivities.js';
 
 import npassesStartSync from './utils/npassesStartSync.js';
 import { parseNpasses } from './utils/parseNpasses.js';
@@ -66,6 +67,15 @@ export async function sync(connection) {
             'npasses',
           );
           entry.data.taxonomies = taxonomies;
+        }
+        if (entry.data.activities) {
+          let activities = await getNormalizedActivities(
+            entry,
+            collectionTaxonomies,
+            synonyms,
+            'npasses',
+          );
+          entry.data.activities = activities;
         }
         entry._seq = ++progress.seq;
 

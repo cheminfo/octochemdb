@@ -1,14 +1,8 @@
 import Debug from '../../../utils/Debug.js';
 
-import { searchTaxonomies } from './utilsTaxonomies/searchTaxonomies.js';
-
 const debug = Debug('getActivityInfo');
 
-export default async function getActivitiesInfo(
-  data,
-  connection,
-  taxonomiesCollection,
-) {
+export default async function getActivitiesInfo(data, connection) {
   try {
     let activityInfo = [];
 
@@ -19,52 +13,16 @@ export default async function getActivitiesInfo(
       if (entry.collection === 'bioassays') {
         let activity = {
           assay: entry.data.assay,
-
           dbRef: { $ref: entry.collection, $id: entry._id },
         };
-
-        if (entry.data?.activeAgainstTaxonomy) {
-          activity.taxonomies = entry.data?.activeAgainstTaxonomy;
+        if (entry.data.targetTaxonomies) {
+          activity.targetTaxonomies = entry.data.targetTaxonomies;
         }
         activityInfo.push(activity);
       }
       if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
-        if (entry.data?.activities) {
-          for (const activity of entry.data.activities) {
-            if ([activity.refIdType].includes('PubChem')) {
-              continue;
-            }
-            let assayString = [
-              activity.activityType,
-              ':',
-              activity.activityValue,
-              activity.activityUnit,
-            ].join(' ');
-            let externalReference = [
-              activity.refIdType,
-              ':',
-              activity.refId,
-            ].join(' ');
-            let activities = {
-              assay: assayString,
-              dbRef: { $ref: entry.collection, $id: entry._id },
-              externalRef: externalReference,
-            };
-            if (activity.targetId) {
-              let searchParameter = {
-                _id: Number(activity.targetId),
-              };
-
-              let result = await searchTaxonomies(
-                taxonomiesCollection,
-                searchParameter,
-              );
-              if (result.length > 0) {
-                activities.taxonomy = result[0].data;
-              }
-            }
-            activityInfo.push(activities);
-          }
+        if (entry.data.activities) {
+          activityInfo.push(entry.data.activities);
         }
       }
     }

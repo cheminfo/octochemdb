@@ -29,7 +29,6 @@ export async function aggregate(connection) {
     const progress = await connection.getProgress(options.collection);
 
     const targetCollection = await connection.getCollection(options.collection);
-    const taxonomiesCollection = await connection.getCollection('taxonomies');
     const compoundsCollection = await connection.getCollection('compounds');
     let { links, collectionSources } = await getCollectionsLinks(
       connection,
@@ -60,6 +59,8 @@ export async function aggregate(connection) {
       );
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
+      progress.state = 'aggregating';
+      await connection.setProgress(progress);
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let entry = { data: { naturalProduct: false } };
         let data = [];
@@ -84,11 +85,7 @@ export async function aggregate(connection) {
 
         let taxons = getTaxonomiesInfo(data, connection);
 
-        let activityInfo = await getActivitiesInfo(
-          data,
-          connection,
-          taxonomiesCollection,
-        );
+        let activityInfo = await getActivitiesInfo(data, connection);
 
         entry = await getCompoundsInfo(
           entry,
@@ -99,7 +96,7 @@ export async function aggregate(connection) {
         );
 
         if (activityInfo.length > 0) {
-          entry.data.active = true;
+          entry.data.BioActive = true;
         }
 
         const keywordsActivities = getActivityKeywords(activityInfo);
@@ -127,10 +124,6 @@ export async function aggregate(connection) {
           { $set: entry },
           { upsert: true },
         );
-
-        progress.state = 'aggregating';
-
-        await connection.setProgress(progress);
 
         if (
           Date.now() - start >

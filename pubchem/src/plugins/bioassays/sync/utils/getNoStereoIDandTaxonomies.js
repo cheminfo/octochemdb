@@ -25,7 +25,7 @@ export async function getNoStereoIDandTaxonomies(
           });
           if (foundTaxonomies) {
             foundTaxonomies.data.dbRef = {
-              $ref: taxonomies,
+              $ref: 'taxonomies',
               $id: foundTaxonomies._id,
             };
             taxonomies.push(foundTaxonomies.data);

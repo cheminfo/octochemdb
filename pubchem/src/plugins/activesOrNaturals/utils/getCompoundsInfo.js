@@ -14,8 +14,6 @@ export default async function getCompoundsInfo(
     let patents = [];
     let cid = {};
     let cas = {};
-    let names = {};
-    let ocls = {};
     let pmids = [];
     let meshTerms = [];
     for (const info of data) {
@@ -32,20 +30,15 @@ export default async function getCompoundsInfo(
           info.data.meshTerms.filter((k) => meshTerms.indexOf(k) === -1),
         );
       }
-      ocls[info.data.ocl.id] = {
-        id: info.data.ocl?.id,
-      };
+
       if (info.data.cid) {
         cid[info.data.cid] = true;
       }
       if (info.data.cas) {
         cas[info.data.cas] = true;
       }
-      if (info.data.iupacName) {
-        names[info.data.iupacName] = true;
-      }
     }
-    let active = false;
+    let bioActive = false;
     let cursor = await compoundsCollection
       .find({ 'data.ocl.noStereoID': noStereoID })
       .limit(1);
@@ -57,27 +50,22 @@ export default async function getCompoundsInfo(
       entry.data.charge = compoundIfo.data.charge;
       entry.data.unsaturation = compoundIfo.data.unsaturation;
       entry.data.mf = compoundIfo.data.mf;
-      entry.data.active = active;
+      entry.data.bioActive = bioActive;
     }
     if (compoundIfo === null) {
-      // debug('not found in compounds');
       const molecule = { noStereoID: noStereoID };
       let compoundData = await getCompoundsData(molecule);
       entry.data.em = compoundData.data.em;
       entry.data.charge = compoundData.data.charge;
       entry.data.unsaturation = compoundData.data.unsaturation;
       entry.data.mf = compoundData.data.mf;
-      entry.data.active = active;
+      entry.data.bioActive = bioActive;
     }
-    ocls = Object.values(ocls);
     cid = Object.keys(cid);
     cid.map(Number);
     cas = Object.keys(cas);
-    names = Object.keys(names);
-    if (ocls.length > 0) entry.data.ocls = ocls;
     if (cid.length > 0) entry.data.cids = cid;
     if (cas.length > 0) entry.data.cas = cas;
-    if (names.length > 0) entry.data.names = names;
     if (patents.length > 0) entry.data.patents = patents;
     if (pmids.length > 0) entry.data.pmids = pmids;
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;

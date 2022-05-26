@@ -38,7 +38,7 @@ export async function getNormalizedActivities(
           searchParameter,
         );
         if (result.length > 0) {
-          activities.taxonomy = result[0].data;
+          activities.targetTaxonomies = result[0].data;
         }
       }
       results.push(activities);
