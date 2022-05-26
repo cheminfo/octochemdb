@@ -103,7 +103,6 @@ export async function* parseCmaups(
             data: {
               ocl: {
                 id: oclID.idCode,
-                coordinates: oclID.coordinates,
                 noStereoID: noStereoID,
               },
             },

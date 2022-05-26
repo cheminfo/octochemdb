@@ -34,7 +34,6 @@ export default async function getCompoundsInfo(
       }
       ocls[info.data.ocl.id] = {
         id: info.data.ocl?.id,
-        coordinates: info.data.ocl?.coordinates,
       };
       if (info.data.cid) {
         cid[info.data.cid] = true;

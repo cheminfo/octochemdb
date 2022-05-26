@@ -107,7 +107,6 @@ export async function* parseLotuses(bsonPath, filename, connection) {
           data: {
             ocl: {
               id: oclID.idCode,
-              coordinates: oclID.coordinates,
               noStereoID,
             },
           },

@@ -43,7 +43,6 @@ export async function* parseNpatlases(json, connection) {
           data: {
             ocl: {
               id: oclID.idCode,
-              coordinates: oclID.coordinates,
               noStereoID,
             },
           },

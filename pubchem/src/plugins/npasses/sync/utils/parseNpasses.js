@@ -112,7 +112,6 @@ export async function* parseNpasses(
           data: {
             ocl: {
               id: oclID.idCode,
-              coordinates: oclID.coordinates,
               noStereoID: noStereoID,
             },
           },

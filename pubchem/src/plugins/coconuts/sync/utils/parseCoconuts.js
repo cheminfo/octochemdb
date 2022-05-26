@@ -38,7 +38,6 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
           data: {
             ocl: {
               id: oclID.idCode,
-              coordinates: oclID.coordinates,
               noStereoID,
             },
           },
