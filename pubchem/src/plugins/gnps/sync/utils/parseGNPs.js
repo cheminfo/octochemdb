@@ -6,7 +6,7 @@ import Debug from '../../../../utils/Debug.js';
 
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
-const debug = Debug('parseNpatlases');
+const debug = Debug('parseGNPs');
 
 export async function* parseGNPs(jsonPath, connection) {
   const jsonStream = StreamArray.withParser();
@@ -57,7 +57,7 @@ export async function* parseGNPs(jsonPath, connection) {
         if (spectrum.y.length > 1000) {
           let copySpectrumInt = [...spectrum.y];
           copySpectrumInt
-            .sort(function (a, b) {
+            .sort((a, b) => {
               return b - a;
             })
             .slice(0, 999);
