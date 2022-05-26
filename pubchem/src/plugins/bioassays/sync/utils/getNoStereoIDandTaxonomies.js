@@ -11,7 +11,7 @@ export async function getNoStereoIDandTaxonomies(
   try {
     let oldIDs = Object.keys(synonyms);
     const cid = entry.data.cid;
-    let compound = await compoundsCollection.findOne({ _id: Number(cid) });
+    let compound = await compoundsCollection.findOne({ _id: cid });
     if (compound) {
       let taxonomies = [];
       if (entry.data.activeAgainstTaxIDs) {
@@ -24,6 +24,10 @@ export async function getNoStereoIDandTaxonomies(
             _id: idToUse,
           });
           if (foundTaxonomies) {
+            foundTaxonomies.data.dbRef = {
+              $ref: taxonomies,
+              $id: foundTaxonomies._id,
+            };
             taxonomies.push(foundTaxonomies.data);
           }
         }
@@ -35,14 +39,12 @@ export async function getNoStereoIDandTaxonomies(
         result = {
           noStereoID: noStereoID,
           id: compound.data.ocl.id,
-          coordinates: compound.data.ocl.coordinates,
-          activeAgainstTaxonomy: taxonomies,
+          targetTaxonomies: taxonomies,
         };
       } else {
         result = {
           noStereoID: noStereoID,
           id: compound.data.ocl.id,
-          coordinates: compound.data.ocl.coordinates,
         };
       }
       return result;

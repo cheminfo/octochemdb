@@ -22,7 +22,6 @@ async function* parseBioactivities(
   try {
     // Get Bioassays data available in bioassays file
     const bioassays = await getBioassays(bioassaysFilePath, connection);
-
     // Read stream of target file without unzip it
 
     const readStream = createReadStream(bioActivitiesFilePath);
@@ -34,7 +33,7 @@ async function* parseBioactivities(
     for await (let line of lines) {
       const parts = line.split('\t');
       const aid = Number(parts[0]);
-      const cid = parts[3];
+      const cid = Number(parts[3]);
       const activity = parts[4];
       // Only active molecules whit defined CID are kept
       if (activity !== 'Active' || !cid) {
@@ -49,15 +48,17 @@ async function* parseBioactivities(
           assay: bioassays[aid].name,
         },
       };
-
       if (bioassays[aid].targetsTaxonomies) {
         result.data.activeAgainstTaxIDs = bioassays[aid].targetsTaxonomies;
+        debug(result);
       }
       yield result;
       counter++;
 
       // If cron is launched in test mode, loop breaks after 1e6 lines parsed
-      //     if (process.env.TEST === 'true' && counter > 1e6) break;
+      if (connection) {
+        if (process.env.TEST === 'true' && counter > 50) break;
+      }
     }
   } catch (e) {
     if (connection) {

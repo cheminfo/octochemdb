@@ -88,12 +88,12 @@ export async function sync(connection) {
         );
         if (noStereoIDandTaxonomies) {
           entry.data.ocl = {};
-          entry.data.ocl.coordinates = noStereoIDandTaxonomies.coordinates;
           entry.data.ocl.noStereoID = noStereoIDandTaxonomies.noStereoID;
           entry.data.ocl.id = noStereoIDandTaxonomies.id;
-          if (noStereoIDandTaxonomies.activeAgainstTaxonomy) {
-            entry.data.activeAgainstTaxonomy =
-              noStereoIDandTaxonomies.activeAgainstTaxonomy;
+          if (noStereoIDandTaxonomies.targetTaxonomies) {
+            entry.data.targetTaxonomies =
+              noStereoIDandTaxonomies.targetTaxonomies;
+            delete entry.data.activeAgainstTaxIDs;
           }
         }
         // Insert the entry(i) in the temporary collection
@@ -104,6 +104,7 @@ export async function sync(connection) {
           { $set: entry },
           { upsert: true },
         );
+
         imported++;
         counter++;
       }
