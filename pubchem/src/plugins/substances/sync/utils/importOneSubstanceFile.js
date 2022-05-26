@@ -1,11 +1,12 @@
+/* eslint-disable no-inner-declarations */
 import fs from 'fs';
 import zlib from 'zlib';
 
 import { parse } from 'sdf-parser';
 
 import Debug from '../../../../utils/Debug.js';
-import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
-import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
+//import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
+//import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import improveSubstancePool from './improveSubstancePool.js';
 
@@ -24,8 +25,8 @@ export default async function importOneSubstanceFile(
       sources: file.name,
       startSequenceID: progress.seq,
     });
-    const synonyms = await taxonomySynonyms();
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
+    /*const synonyms = await taxonomySynonyms();
+    const collectionTaxonomies = await connection.getCollection('taxonomies');*/
 
     debug(`Importing: ${file.name}`);
     // should we directly import the data how wait that we reach the previously imported information
@@ -71,14 +72,14 @@ export default async function importOneSubstanceFile(
         actions.push(
           improveSubstancePool(substance)
             .then((result) => {
-              if (result.data.taxonomyIDs) {
+              /*    if (result.data.taxonomyIDs) {
                 let taxonomies = getTaxonomiesSubstances(
                   result,
                   collectionTaxonomies,
                   synonyms,
                 );
                 result.data.taxonomies = taxonomies;
-              }
+              }*/
               result._seq = ++progress.seq;
               return collection.updateOne(
                 { _id: result._id },
