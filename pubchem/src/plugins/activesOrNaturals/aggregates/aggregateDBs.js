@@ -15,7 +15,7 @@ const collectionNames = [
   'npAtlases',
   'cmaups',
   'coconuts',
-  //'substances',
+  'substances',
   'bioassays',
 ];
 
