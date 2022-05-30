@@ -50,13 +50,15 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
         if (comments.length !== 0) result.data.comments = comments;
         yield result;
       } catch (e) {
-        const optionsDebug = { collection: 'coconuts', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'coconuts', connection });
+        }
         continue;
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'coconuts', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'coconuts', connection });
+    }
   }
 }

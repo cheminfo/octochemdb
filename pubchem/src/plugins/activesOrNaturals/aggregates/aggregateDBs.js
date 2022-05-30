@@ -159,7 +159,8 @@ export async function aggregate(connection) {
       debug(`Aggregation already up to date`);
     }
   } catch (e) {
-    const optionsDebug = { collection: 'activesOrNaturals', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'activesOrNaturals', connection });
+    }
   }
 }

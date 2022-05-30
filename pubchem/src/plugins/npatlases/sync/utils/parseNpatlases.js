@@ -57,13 +57,15 @@ export async function* parseNpatlases(json, connection) {
 
         yield result;
       } catch (e) {
-        const optionsDebug = { collection: 'npAtlases', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'npAtlases', connection });
+        }
         continue;
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'npAtlases', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npAtlases', connection });
+    }
   }
 }

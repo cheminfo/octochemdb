@@ -101,8 +101,9 @@ async function searchHandler(request) {
       .toArray();
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'mfs', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'mfs', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

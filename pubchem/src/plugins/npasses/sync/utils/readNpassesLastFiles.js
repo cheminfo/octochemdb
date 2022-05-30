@@ -52,7 +52,8 @@ export default function readNpassesLastFiles(
 
     return { general, activities, properties, speciesPair, speciesInfo };
   } catch (e) {
-    const optionsDebug = { collection: 'npasses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npasses', connection });
+    }
   }
 }

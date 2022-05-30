@@ -71,7 +71,8 @@ export default async function getCompoundsInfo(
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
     return entry;
   } catch (e) {
-    const optionsDebug = { collection: 'activesOrNaturals', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'activesOrNaturals', connection });
+    }
   }
 }

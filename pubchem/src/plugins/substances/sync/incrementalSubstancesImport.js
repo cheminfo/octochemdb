@@ -24,8 +24,9 @@ async function incrementalSubstanceImport(connection) {
       await importSubstanceFiles(connection, progress, files, { lastDocument });
     }
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 
@@ -41,8 +42,9 @@ async function importSubstanceFiles(connection, progress, files, options) {
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 
@@ -74,8 +76,9 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     return { lastDocument, files: allFiles.slice(firstIndex) };
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 
@@ -118,8 +121,9 @@ async function syncIncrementalSubstanceFolder(connection) {
       return 0;
     });
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 

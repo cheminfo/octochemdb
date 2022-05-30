@@ -89,13 +89,15 @@ export async function* parseGNPs(jsonPath, connection) {
         }
         yield result;
       } catch (e) {
-        const optionsDebug = { collection: 'gnps', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'gnps', connection });
+        }
         continue;
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'gnps', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'gnps', connection });
+    }
   }
 }

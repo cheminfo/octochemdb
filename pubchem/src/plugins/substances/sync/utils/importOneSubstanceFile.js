@@ -105,7 +105,8 @@ export default async function importOneSubstanceFile(
       return substances.length;
     }
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }

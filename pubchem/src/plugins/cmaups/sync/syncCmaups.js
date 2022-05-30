@@ -116,7 +116,8 @@ export async function sync(connection) {
     }
   } catch (e) {
     // If error is chatched, debug it on telegram
-    const optionsDebug = { collection: 'cmaups', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }

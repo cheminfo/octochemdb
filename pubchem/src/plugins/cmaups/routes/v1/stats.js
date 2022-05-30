@@ -28,8 +28,9 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'cmaups', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'cmaups', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

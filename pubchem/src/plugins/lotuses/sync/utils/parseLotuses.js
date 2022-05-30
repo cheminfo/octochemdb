@@ -134,13 +134,15 @@ export async function* parseLotuses(bsonPath, filename, connection) {
         if (iTIS.length !== 0) result.data.taxonomies.iTIS = iTIS;
         yield result;
       } catch (e) {
-        const optionsDebug = { collection: 'lotuses', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'lotuses', connection });
+        }
         continue;
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'lotuses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'lotuses', connection });
+    }
   }
 }

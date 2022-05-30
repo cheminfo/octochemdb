@@ -99,7 +99,8 @@ export async function sync(connection) {
     }
     // we remove all the entries that are not imported by the last file
   } catch (e) {
-    const optionsDebug = { collection: options.collectionName, connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: options.collectionName, connection });
+    }
   }
 }

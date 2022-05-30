@@ -63,7 +63,8 @@ export default async function getNpassesLastFiles(connection) {
       logs,
     };
   } catch (e) {
-    const optionsDebug = { collection: 'npasses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npasses', connection });
+    }
   }
 }

@@ -44,7 +44,8 @@ export default async function cmaupsStartSync(connection) {
       logs,
     ];
   } catch (e) {
-    const optionsDebug = { collection: 'cmaups', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }

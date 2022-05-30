@@ -32,8 +32,9 @@ async function firstSubstanceImport(connection) {
     await substanceCollection.createIndex({ naturalProduct: 1 });
     await substanceCollection.createIndex({ 'data.ocl.noStereoID': 1 });
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 
@@ -45,8 +46,9 @@ async function importSubstanceFiles(connection, progress, files, options) {
       options.shouldImport = true;
     }
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 
@@ -77,8 +79,9 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     return { lastDocument, files: allFiles.slice(firstIndex) };
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 
@@ -101,8 +104,9 @@ async function syncFullSubstanceFolder(connection) {
       return 0;
     });
   } catch (e) {
-    const optionsDebug = { collection: 'substances', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'substances', connection });
+    }
   }
 }
 

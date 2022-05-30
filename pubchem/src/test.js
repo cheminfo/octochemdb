@@ -12,7 +12,9 @@ async function doAll() {
     const results = await collection.stats();
     debug(results);
   } catch (e) {
-    debug(e.stack);
+    if (connection) {
+      debug(e, { collection: 'test', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

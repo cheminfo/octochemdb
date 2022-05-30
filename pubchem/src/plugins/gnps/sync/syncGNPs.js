@@ -95,7 +95,8 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
   } catch (e) {
-    const optionsDebug = { collection: 'gnps', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'gnps', connection });
+    }
   }
 }

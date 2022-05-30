@@ -40,14 +40,16 @@ export default async function getTaxonomiesInfo(data, connection) {
             }) === index,
         );
       } catch (e) {
-        const optionsDebug = { collection: 'activesOrNaturals', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'activesOrNaturals', connection });
+        }
       }
     }
 
     return taxons;
   } catch (e) {
-    const optionsDebug = { collection: 'activesOrNaturals', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'activesOrNaturals', connection });
+    }
   }
 }

@@ -87,7 +87,8 @@ export async function insertNoStereoIDsAndTaxonomies(connection) {
     return counter;
   } catch (e) {
     // If error is chatched, debug it on telegram
-    const optionsDebug = { collection: 'bioassays', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }

@@ -27,7 +27,7 @@ export default async function npassStartSync(connection) {
     );
 
     const { general, activities, properties, speciesPair, speciesInfo } =
-       readNpassesLastFiles(
+      readNpassesLastFiles(
         lastFile,
         lastFileActivity,
         lastFileSpeciesProperties,
@@ -49,9 +49,8 @@ export default async function npassStartSync(connection) {
       logs,
     };
   } catch (e) {
-    const optionsDebug = { collection: 'npasses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npasses', connection });
+    }
   }
 }
-
-

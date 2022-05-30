@@ -28,8 +28,9 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'bioassays', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'admin', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

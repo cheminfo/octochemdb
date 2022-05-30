@@ -30,7 +30,8 @@ export default async function getActivitiesInfo(data, connection) {
 
     return activityInfos;
   } catch (e) {
-    const optionsDebug = { collection: 'activesOrNaturals', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'activesOrNaturals', connection });
+    }
   }
 }

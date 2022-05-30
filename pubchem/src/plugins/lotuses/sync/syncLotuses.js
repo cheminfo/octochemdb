@@ -105,7 +105,8 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
   } catch (e) {
-    const optionsDebug = { collection: 'lotuses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'lotuses', connection });
+    }
   }
 }

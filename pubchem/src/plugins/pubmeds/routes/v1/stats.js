@@ -22,14 +22,15 @@ async function searchHandler() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('compounds');
+    const collection = await connection.getCollection('pubmeds');
 
     const results = await collection.stats();
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'pubmeds', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

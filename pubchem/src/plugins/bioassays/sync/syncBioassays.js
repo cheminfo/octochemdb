@@ -133,7 +133,8 @@ export async function sync(connection) {
     }
   } catch (e) {
     // If error is catched, debug it on telegram
-    const optionsDebug = { collection: options.collectionName, connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: options.collectionName, connection });
+    }
   }
 }

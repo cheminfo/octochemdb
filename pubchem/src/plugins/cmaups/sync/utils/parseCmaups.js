@@ -51,8 +51,9 @@ export async function* parseCmaups(
             oclMolecule.stripStereoInformation();
             noStereoID = oclMolecule.getIDCode();
           } catch (e) {
-            const optionsDebug = { collection: 'cmaups', connection };
-            debug(e, optionsDebug);
+            if (connection) {
+              debug(e, { collection: 'bioassays', connection });
+            }
 
             continue;
           }
@@ -117,12 +118,14 @@ export async function* parseCmaups(
           yield result;
         }
       } catch (e) {
-        const optionsDebug = { collection: 'cmaups', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'bioassays', connection });
+        }
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'cmaups', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }

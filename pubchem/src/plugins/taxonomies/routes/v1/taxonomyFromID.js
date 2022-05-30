@@ -41,8 +41,9 @@ async function searchHandler(request) {
     const result = await collection.findOne({ _id: id });
     return result;
   } catch (e) {
-    const optionsDebug = { collection: 'taxonomies', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'taxonomies', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

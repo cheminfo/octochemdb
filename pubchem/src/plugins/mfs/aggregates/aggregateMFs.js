@@ -66,7 +66,8 @@ export async function aggregate(connection) {
   } catch (e) {
     progress.state = 'error';
     await connection.setProgress(progress);
-    const optionsDebug = { collection: 'mfs', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'mfs', connection });
+    }
   }
 }

@@ -28,8 +28,9 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'npAtlases', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npAtlases', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -21,8 +21,9 @@ async function incrementalCompoundImport(connection) {
       await importCompoundFiles(connection, progress, files, { lastDocument });
     }
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 
@@ -38,8 +39,9 @@ async function importCompoundFiles(connection, progress, files, options) {
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 
@@ -71,8 +73,9 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     return { files: allFiles.slice(firstIndex), lastDocument };
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 
@@ -115,8 +118,9 @@ async function syncIncrementalCompoundFolder(connection) {
       return 0;
     });
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 

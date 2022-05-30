@@ -56,7 +56,8 @@ export default async function getCollectionsLinks(connection, collectionNames) {
     }
     return { links, collectionSources };
   } catch (e) {
-    const optionsDebug = { collection: 'activesOrNaturals', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'activesOrNaturals', connection });
+    }
   }
 }

@@ -26,8 +26,9 @@ async function firstPubmedImport(connection) {
     progress.state = 'updated';
     await connection.setProgress(progress);
   } catch (e) {
-    const optionsDebug = { collection: 'pubmeds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'pubmeds', connection });
+    }
   }
 }
 
@@ -39,8 +40,9 @@ async function importPubmedFiles(connection, progress, files, options) {
       options.shouldImport = true;
     }
   } catch (e) {
-    const optionsDebug = { collection: 'pubmeds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'pubmeds', connection });
+    }
   }
 }
 
@@ -71,8 +73,9 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     return { lastDocument, files: allFiles.slice(firstIndex) };
   } catch (e) {
-    const optionsDebug = { collection: 'pubmeds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'pubmeds', connection });
+    }
   }
 }
 
@@ -95,8 +98,9 @@ async function syncFullPubmedFolder(connection) {
       return 0;
     });
   } catch (e) {
-    const optionsDebug = { collection: 'pubmeds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'pubmeds', connection });
+    }
   }
 }
 

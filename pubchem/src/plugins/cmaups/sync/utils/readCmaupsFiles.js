@@ -45,7 +45,8 @@ export default function readCmaupsFiles(
     return { general, activities, speciesPair, speciesInfo };
   } catch (e) {
     // If error is chatched, debug it on telegram
-    const optionsDebug = { collection: 'cmaups', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'bioassays', connection });
+    }
   }
 }

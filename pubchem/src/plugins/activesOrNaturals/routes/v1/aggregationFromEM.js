@@ -76,10 +76,10 @@ async function searchHandler(request) {
     .filter((entry) => entry);
 
   for (let word of wordsToBeSearchedTaxonomies) {
-    wordsWithRegexTaxonomies.push(new RegExp(`^${ escapeRegExp(word)}`, 'i'));
+    wordsWithRegexTaxonomies.push(new RegExp(`^${escapeRegExp(word)}`, 'i'));
   }
   for (let word of wordsToBeSearchedBioassays) {
-    wordsWithRegexBioassays.push(new RegExp(`^${ escapeRegExp(word)}`, 'i'));
+    wordsWithRegexBioassays.push(new RegExp(`^${escapeRegExp(word)}`, 'i'));
   }
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
@@ -115,8 +115,9 @@ async function searchHandler(request) {
       .toArray();
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'activesOrNaturals', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'activesOrNaturals', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -28,8 +28,9 @@ async function searchHandler() {
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'npasses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npasses', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -39,8 +39,9 @@ async function firstCompoundImport(connection) {
       'data.mf': 1,
     });
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 
@@ -52,8 +53,9 @@ async function importCompoundFiles(connection, progress, files, options) {
       options.shouldImport = true;
     }
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 
@@ -84,8 +86,9 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     return { lastDocument, files: allFiles.slice(firstIndex) };
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 
@@ -108,8 +111,9 @@ async function syncFullCompoundFolder(connection) {
       return 0;
     });
   } catch (e) {
-    const optionsDebug = { collection: 'compounds', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'compounds', connection });
+    }
   }
 }
 

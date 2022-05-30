@@ -56,8 +56,9 @@ export async function* parseNpasses(
           oclMolecule.stripStereoInformation();
           noStereoID = oclMolecule.getIDCode();
         } catch (e) {
-          const optionsDebug = { collection: 'npasses', connection };
-          debug(e, optionsDebug);
+          if (connection) {
+            debug(e, { collection: 'npasses', connection });
+          }
           continue;
         }
         const orgIDs = speciesPair[item.np_id];
@@ -126,13 +127,15 @@ export async function* parseNpasses(
 
         yield result;
       } catch (e) {
-        const optionsDebug = { collection: 'npasses', connection };
-        debug(e, optionsDebug);
+        if (connection) {
+          debug(e, { collection: 'npasses', connection });
+        }
         continue;
       }
     }
   } catch (e) {
-    const optionsDebug = { collection: 'npasses', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'npasses', connection });
+    }
   }
 }

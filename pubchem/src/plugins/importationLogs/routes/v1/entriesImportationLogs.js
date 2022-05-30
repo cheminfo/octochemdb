@@ -69,8 +69,9 @@ async function searchHandler(request) {
 
     return results;
   } catch (e) {
-    const optionsDebug = { collection: 'importationLogs', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'importationLogs', connection });
+    }
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();
