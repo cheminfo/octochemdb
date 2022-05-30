@@ -83,7 +83,7 @@ export async function aggregate(connection) {
           data.push(partialData);
         }
 
-        let taxons = getTaxonomiesInfo(data, connection);
+        let taxons = await getTaxonomiesInfo(data, connection);
 
         let activityInfo = await getActivitiesInfo(data, connection);
 
