@@ -2,7 +2,7 @@ import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('parseTaxonomies');
 
-export function* parseTaxonomies(arrayBuffer, connection) {
+export function* parseTaxonomies(arrayBuffer, nodes, connection) {
   try {
     const decoder = new TextDecoder();
     arrayBuffer = new Uint8Array(arrayBuffer);
@@ -11,6 +11,7 @@ export function* parseTaxonomies(arrayBuffer, connection) {
     while (end < arrayBuffer.length) {
       if (arrayBuffer[end] === 10) {
         const line = decoder.decode(arrayBuffer.subarray(begin, end));
+
         const fields = line.split(/[\t ]*\|[ \t]*/);
         if (fields.length < 2) {
           end++;
@@ -41,32 +42,23 @@ export function* parseTaxonomies(arrayBuffer, connection) {
         }
         if (fields[2] !== '') {
           taxonomy.species = fields[2];
-          if (fields[1] !== '') {
-            taxonomy.organism = fields[1];
-          }
         }
-        if (fields[2] === '' && fields[1] !== '') {
-          let properties = Object.keys(taxonomy);
-          let shouldStop = false;
-          if (properties.includes('genus') && !shouldStop) {
-            taxonomy.species = fields[1];
-            shouldStop = true;
-          }
-          if (properties.includes('family') && !shouldStop) {
-            taxonomy.genus = fields[1];
-            shouldStop = true;
-          }
-          if (properties.includes('class') && !shouldStop) {
-            taxonomy.order = fields[1];
-            shouldStop = true;
-          }
-          if (properties.includes('phylum') && !shouldStop) {
-            taxonomy.class = fields[1];
-            shouldStop = true;
-          }
-          if (properties.includes('superkingdom' || 'kingdom') && !shouldStop) {
-            taxonomy.phylum = fields[1];
-            shouldStop = true;
+        if (fields[1] !== '') {
+          let taxId = Number(fields[0]);
+          let rank = nodes[taxId];
+
+          if (
+            [
+              'superkingdom',
+              'species',
+              'genus',
+              'class',
+              'phylum',
+              'family',
+              'kingdom',
+            ].includes(rank)
+          ) {
+            taxonomy[rank] = fields[1];
           }
         }
         const entry = {
@@ -81,7 +73,8 @@ export function* parseTaxonomies(arrayBuffer, connection) {
     }
     return;
   } catch (e) {
-    const optionsDebug = { collection: 'taxonomies', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'taxonomies', connection });
+    }
   }
 }

@@ -7,6 +7,7 @@ import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImp
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 
+import { getTaxonomiesNodes } from './utils/getTaxonomiesNodes.js';
 import { parseTaxonomies } from './utils/parseTaxonomies.js';
 
 const debug = Debug('syncTaxonomies');
@@ -36,6 +37,12 @@ export async function sync(connection) {
       options.collectionName,
     );
 
+    const fileListNodes = (
+      await fileListFromZip(readFileSync(lastFile))
+    ).filter((file) => file.name === 'nodes.dmp');
+    const arrayBufferNodes = await fileListNodes[0].arrayBuffer();
+    debug('Get Nodes Taxonomies');
+    let nodes = getTaxonomiesNodes(arrayBufferNodes);
     const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
       (file) => file.name === 'rankedlineage.dmp',
     );
@@ -55,7 +62,8 @@ export async function sync(connection) {
       const temporaryCollection = await connection.getCollection(
         'temporaryTaxonomies',
       );
-      for (const entry of parseTaxonomies(arrayBuffer, connection)) {
+      debug('start parsing taxonomies');
+      for (const entry of parseTaxonomies(arrayBuffer, nodes, connection)) {
         counter++;
         if (process.env.TEST === 'true' && counter > 20) break;
         if (
@@ -101,7 +109,8 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
   } catch (e) {
-    const optionsDebug = { collection: 'taxonomies', connection };
-    debug(e, optionsDebug);
+    if (connection) {
+      debug(e, { collection: 'taxonomies', connection });
+    }
   }
 }

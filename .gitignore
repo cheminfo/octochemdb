@@ -4,3 +4,4 @@ node_modules
 .DS_Store
 
 pubchem/.env
+pubchem/src/plugins/taxonomies/sync/utils/uniqueTaxonomies.mjs
