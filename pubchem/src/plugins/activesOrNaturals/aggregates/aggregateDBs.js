@@ -2,11 +2,12 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import Debug from '../../../utils/Debug.js';
-import { getActivityKeywords } from '../utils/getAcitivityKeywords.js';
+import getActivityKeywords from '../utils/getAcitivityKeywords.js';
+import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
-import { getTaxonomyKeywords } from '../utils/getTaxonomyKeywords.js';
+import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
 const collectionNames = [
@@ -97,18 +98,23 @@ export async function aggregate(connection) {
 
         if (activityInfo.length > 0) {
           entry.data.BioActive = true;
-        }
 
-        const keywordsActivities = getActivityKeywords(activityInfo);
-        if (keywordsActivities.length > 0) {
-          entry.data.kwBioassays = keywordsActivities;
+          const keywordsActivities = getActivityKeywords(activityInfo);
+          if (keywordsActivities.length > 0) {
+            entry.data.kwBioassays = keywordsActivities;
+          }
+          const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
+          if (keywordsActiveAgainst.length > 0) {
+            entry.data.kwActiveAgainst = keywordsActiveAgainst;
+          }
         }
+        if (taxons.length > 0) {
+          const keywordsTaxonomies = getTaxonomyKeywords(taxons);
 
-        const keywordsTaxonomies = getTaxonomyKeywords(taxons);
-        if (keywordsTaxonomies.length > 0) {
-          entry.data.kwTaxonomies = keywordsTaxonomies;
+          if (keywordsTaxonomies.length > 0) {
+            entry.data.kwTaxonomies = keywordsTaxonomies;
+          }
         }
-
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
         }

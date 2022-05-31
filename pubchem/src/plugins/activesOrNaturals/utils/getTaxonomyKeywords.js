@@ -1,6 +1,4 @@
-import { isIgnoreKeyword } from '../../../utils/isIgnoreKeyword.js';
-
-export function getTaxonomyKeywords(taxonomies) {
+export default function getTaxonomyKeywords(taxonomies) {
   const taxonomiesKW = new Set();
   for (let taxonomy of taxonomies) {
     const keywords = [
@@ -14,13 +12,10 @@ export function getTaxonomyKeywords(taxonomies) {
       taxonomy.genus,
     ]
       .join(' ')
-      .toLowerCase()
-      .split(/\W+/)
-      .filter((k) => k);
+      .toLowerCase();
+
     for (let keyword of keywords) {
-      if (!isIgnoreKeyword(keyword) && isNaN(Number(keyword))) {
-        taxonomiesKW.add(keyword);
-      }
+      taxonomiesKW.add(keyword);
     }
   }
 
