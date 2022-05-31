@@ -33,4 +33,5 @@ db.activesOrNaturals_tmp.aggregate([
     },
     { $out: { db: 'pubchem', coll: 'naturalExtractedFrom' } },
   ])
-*/
+db.naturalExtractedFrom.deleteOne({_id:null})
+  */

@@ -28,5 +28,6 @@ db.activesOrNaturals.aggregate([
       class: { $first: '$class' },
     }},
     { $out: { db: 'pubchem', coll: 'activeAgainst' } },
-  ]).pretty();
+  ])
+  db.activeAgainst.deleteOne({_id:null})
 */
