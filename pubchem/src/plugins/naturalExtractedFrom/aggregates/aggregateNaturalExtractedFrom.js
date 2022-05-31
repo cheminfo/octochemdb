@@ -31,7 +31,6 @@ db.activesOrNaturals_tmp.aggregate([
         class: { $first: '$class' },
       },
     },
-    { $out: { db: 'pubchem', coll: 'extractedFrom' } },
+    { $out: { db: 'pubchem', coll: 'naturalExtractedFrom' } },
   ])
-  .pretty();
 */

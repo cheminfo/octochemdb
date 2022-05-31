@@ -7,7 +7,8 @@ const debug = Debug('stats');
 const stats = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve global statistics from the extractedFrom collection',
+    summary:
+      'Retrieve global statistics from the naturalExtractedFrom collection',
   },
   handler: searchHandler,
 };
@@ -22,14 +23,14 @@ async function searchHandler() {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('extractedFrom');
+    const collection = await connection.getCollection('naturalExtractedFrom');
 
     const results = await collection.stats();
 
     return results;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'extractedFrom', connection });
+      debug(e, { collection: 'naturalExtractedFrom', connection });
     }
   } finally {
     debug('Closing connection');
