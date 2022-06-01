@@ -26,9 +26,9 @@ export async function aggregate(connection) {
     );
 
     if (
-      // lastDocumentImported === null ||
-      // sources !== progress.sources ||
-      progress.state !== 'aggregatd'
+      lastDocumentImported === null ||
+      sources !== progress.sources ||
+      progress.state !== 'aggregated'
     ) {
       const temporaryCollection = await connection.getCollection(
         `${COLLECTION_NAME}_tmp`,
@@ -72,7 +72,7 @@ export async function aggregate(connection) {
           data: substance.data,
         };
         if (taxonomies.length > 0) {
-          naturalResult.taxonomies = taxonomies;
+          naturalResult.taxonomies = taxonomies.data;
         }
         naturalResult._seq = ++progress.seq;
 
