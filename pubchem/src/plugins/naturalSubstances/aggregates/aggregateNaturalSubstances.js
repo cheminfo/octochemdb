@@ -26,9 +26,9 @@ export async function aggregate(connection) {
     );
 
     if (
-      lastDocumentImported === null ||
-      sources !== progress.sources ||
-      progress.state !== 'updatedd'
+      // lastDocumentImported === null ||
+      // sources !== progress.sources ||
+      progress.state !== 'aggregatd'
     ) {
       const temporaryCollection = await connection.getCollection(
         `${COLLECTION_NAME}_tmp`,
