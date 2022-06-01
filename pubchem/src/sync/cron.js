@@ -74,7 +74,13 @@ async function cron() {
       return false;
     });
   }
-
+  for (let aggregateURL of aggregateURLs) {
+    if (aggregateURL.pathname.includes('activesOrNaturals')) {
+      aggregateURLs.unshift(
+        aggregateURLs.splice(aggregateURLs.indexOf(aggregateURL), 1)[0],
+      );
+    }
+  }
   for (let aggregateURL of aggregateURLs) {
     const aggregate = await import(aggregateURL);
 
