@@ -55,6 +55,8 @@ export async function aggregate(connection) {
           },
         ])
         .toArray();
+      let counter = 0;
+      let start = Date.now();
       for (const entry of result) {
         let substance = collectionSubstances.findOne({ _id: entry._id });
         let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
@@ -79,6 +81,15 @@ export async function aggregate(connection) {
           { $set: naturalResult },
           { upsert: true },
         );
+        if (
+          Date.now() - start >
+          Number(process.env.DEBUG_THROTTLING || 10000)
+        ) {
+          debug(`Processing: counter: ${counter} `);
+          start = Date.now();
+        }
+
+        counter++;
       }
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,
