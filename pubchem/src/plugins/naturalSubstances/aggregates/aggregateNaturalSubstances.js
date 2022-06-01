@@ -8,7 +8,9 @@ export async function aggregate(connection) {
   const COLLECTION_NAME = 'naturalSubstances';
   try {
     const options = { collection: COLLECTION_NAME, connection: connection };
+    const targetCollection = await connection.getCollection(options.collection);
     const progress = await connection.getProgress(options.collection);
+    const taxonomyCollection = await connection.getCollection('taxonomies');
     const collectionSource = await connection.getProgress('substances');
     const collectionSubstances = await connection.getCollection('substances');
     const sources = md5(collectionSource);
@@ -47,21 +49,40 @@ export async function aggregate(connection) {
           },
           {
             $project: {
-              _id: 0,
+              _id: 1,
               noStereoID: '$data.ocl.noStereoID',
             },
           },
         ])
         .toArray();
+      for (const entry of result) {
+        let substance = collectionSource.findOne({ _id: entry._id });
+        let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
+        let taxonomies = await taxonomyCollection
+          .find({ _id: { $in: taxonomyIDs } })
+          .toArray();
+        if (taxonomies.length > 1000) {
+          taxonomies = taxonomies.slice(0, 1000);
+        }
+        let naturalResult = {
+          _id: entry._id,
+          data: entry.data,
+        };
+        delete naturalResult.data.taxonomyIDs;
+        if (taxonomies.length > 0) {
+          naturalResult.data.targetTaxonomies = taxonomies;
+        }
+        naturalResult._seq = ++progress.seq;
 
-      await result.hasNext();
-
-      await temporaryCollection.deleteOne({ _id: null });
-
+        await temporaryCollection.updateOne(
+          { _id: naturalResult._id },
+          { $set: naturalResult },
+          { upsert: true },
+        );
+      }
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,
       });
-
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'aggregated';
@@ -70,6 +91,10 @@ export async function aggregate(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
+      await targetCollection.createIndex({ _id: 1 });
+      await targetCollection.createIndex({ _seq: 1 });
+      await targetCollection.createIndex({ naturalProduct: 1 });
+      await targetCollection.createIndex({ 'data.ocl.noStereoID': 1 });
       debug('Aggregation Done');
     } else {
       debug(`Aggregation already up to date`);
