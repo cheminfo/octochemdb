@@ -68,10 +68,9 @@ export async function aggregate(connection) {
         }
 
         let naturalResult = {
-          _id: entry._id,
-          data: entry.data,
+          _id: substance._id,
+          data: substance.data,
         };
-        debug(naturalResult);
         if (taxonomies.length > 0) {
           naturalResult.taxonomies = taxonomies;
         }
