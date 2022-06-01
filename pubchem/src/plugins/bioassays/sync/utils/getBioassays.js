@@ -13,7 +13,12 @@ const debug = Debug('getBioassays');
  * @param {*} connection
  * @returns bioassays object containing AIDs, Target IDs
  */
-export default async function getBioassays(bioassaysFilePath, connection) {
+export default async function getBioassays(
+  bioassaysFilePath,
+  connection,
+  collectionTaxonomies,
+  synonyms,
+) {
   try {
     // Read stream of bioassay file
     const readStream = createReadStream(bioassaysFilePath);
@@ -21,6 +26,10 @@ export default async function getBioassays(bioassaysFilePath, connection) {
     const lines = createInterface({ input: stream });
     // Parse file line by line
     const bioassays = {};
+    debug('Start parsing bioassays file');
+    let counter = 0;
+    let start = Date.now();
+    let oldIDs = Object.keys(synonyms);
     for await (let line of lines) {
       const [
         aid,
@@ -66,8 +75,26 @@ export default async function getBioassays(bioassaysFilePath, connection) {
         }
       }
       if (Object.keys(targetsTaxonomy).length > 0) {
-        bioassays[aid].targetsTaxonomies = Object.keys(targetsTaxonomy);
+        let taxonomies = [];
+        for (const taxId of Object.keys(targetsTaxonomy)) {
+          let idToUse = Number(taxId);
+          if (oldIDs.includes(taxId)) {
+            idToUse = Number(synonyms[taxId]);
+          }
+          let taxonomy = await collectionTaxonomies.findOne({ _id: idToUse });
+          if (taxonomy.data !== {}) {
+            taxonomies.push(taxonomy.data);
+          }
+        }
+        if (taxonomies.length > 0) {
+          bioassays[aid].targetTaxonomies = taxonomies;
+        }
       }
+      if (Date.now() - start > Number(30000)) {
+        debug(`Processed: ${counter} assays`);
+        start = Date.now();
+      }
+      counter++;
     }
     return bioassays;
   } catch (e) {

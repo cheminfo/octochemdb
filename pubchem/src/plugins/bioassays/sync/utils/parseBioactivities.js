@@ -18,10 +18,18 @@ async function* parseBioactivities(
   bioActivitiesFilePath,
   bioassaysFilePath,
   connection,
+  collectionCompounds,
+  collectionTaxonomies,
+  synonyms,
 ) {
   try {
     // Get Bioassays data available in bioassays file
-    const bioassays = await getBioassays(bioassaysFilePath, connection);
+    const bioassays = await getBioassays(
+      bioassaysFilePath,
+      connection,
+      collectionTaxonomies,
+      synonyms,
+    );
     // Read stream of target file without unzip it
 
     const readStream = createReadStream(bioActivitiesFilePath);
@@ -30,6 +38,11 @@ async function* parseBioactivities(
     // Define variables
     let counter = 0;
     // Start parsing line by line the bioActivities file
+    let compoundData = {
+      noStereoID: '',
+      id: '',
+      cid: 0,
+    };
     for await (let line of lines) {
       const parts = line.split('\t');
       const aid = Number(parts[0]);
@@ -39,6 +52,12 @@ async function* parseBioactivities(
       if (activity !== 'Active' || !cid) {
         continue;
       }
+      if (compoundData.cid !== cid) {
+        let compound = await collectionCompounds.findOne({ _id: cid });
+        compoundData.cid = cid;
+        compoundData.id = compound.data.ocl.noStereoID;
+        compoundData.noStereoID = compound.data.ocl.noStereoID;
+      }
 
       let result = {
         _id: `${cid}_${aid}`,
@@ -46,10 +65,14 @@ async function* parseBioactivities(
           cid,
           aid,
           assay: bioassays[aid].name,
+          ocl: {
+            id: compoundData.id,
+            noStereoID: compoundData.noStereoID,
+          },
         },
       };
       if (bioassays[aid].targetsTaxonomies) {
-        result.data.activeAgainstTaxIDs = bioassays[aid].targetsTaxonomies;
+        result.data.targetTaxonomies = bioassays[aid].targetsTaxonomies;
       }
       yield result;
       counter++;

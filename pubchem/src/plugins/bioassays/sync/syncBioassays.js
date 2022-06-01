@@ -5,7 +5,6 @@ import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
-import { getNoStereoIDandTaxonomies } from './utils/getNoStereoIDandTaxonomies.js';
 import parseBioactivities from './utils/parseBioactivities.js';
 
 const debug = Debug('syncBioassays');
@@ -69,6 +68,9 @@ export async function sync(connection) {
         bioactivitiesFile,
         bioassaysFile,
         connection,
+        collectionCompounds,
+        collectionTaxonomies,
+        synonyms,
       )) {
         // If cron launched in mode test, the importation will be stopped after 20 iteration
         if (process.env.TEST === 'true' && counter > 20) break;
@@ -80,22 +82,7 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-        let noStereoIDandTaxonomies = await getNoStereoIDandTaxonomies(
-          entry,
-          collectionTaxonomies,
-          collectionCompounds,
-          synonyms,
-        );
-        if (noStereoIDandTaxonomies) {
-          entry.data.ocl = {};
-          entry.data.ocl.noStereoID = noStereoIDandTaxonomies.noStereoID;
-          entry.data.ocl.id = noStereoIDandTaxonomies.id;
-          if (noStereoIDandTaxonomies.targetTaxonomies) {
-            entry.data.targetTaxonomies =
-              noStereoIDandTaxonomies.targetTaxonomies;
-            delete entry.data.activeAgainstTaxIDs;
-          }
-        }
+
         // Insert the entry(i) in the temporary collection
 
         entry._seq = ++progress.seq;
