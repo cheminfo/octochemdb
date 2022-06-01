@@ -10,7 +10,9 @@ export default function getActiveAgainstKeywords(activities) {
         .join(' ')
         .toLowerCase();
       for (let keyword of keywords) {
-        activeAgainstKw.add(keyword);
+        if (keyword !== '') {
+          activeAgainstKw.add(keyword);
+        }
       }
     }
   }

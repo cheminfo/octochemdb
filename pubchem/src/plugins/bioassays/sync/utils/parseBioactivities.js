@@ -73,7 +73,7 @@ async function* parseBioactivities(
           },
         },
       };
-      if (bioassays[aid].targetsTaxonomies) {
+      if (bioassays[aid].targetTaxonomies) {
         result.data.targetTaxonomies = bioassays[aid].targetTaxonomies;
       }
       yield result;
