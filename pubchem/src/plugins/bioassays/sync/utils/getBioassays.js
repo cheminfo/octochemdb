@@ -53,30 +53,30 @@ export default async function getBioassays(
       if (aid === 'AID') continue; // avoid to import headers
       // For each aid (assay ID), save the name of the bioassay
       bioassays[aid] = { name: name };
-      let targetsTaxonomy = {};
+      let targetTaxonomies = {};
       // Taxonomies IDs can be either in targetTaxIDs or taxonomyIDs
       // The difference between the two is that taxonomyIDs contains identifiers derived from targetTaxIDs and links provided by depositor
       if (taxonomyIDs) {
         if (taxonomyIDs.includes('|')) {
           taxonomyIDs.split('|').forEach((entry) => {
-            targetsTaxonomy[entry] = [];
+            targetTaxonomies[entry] = [];
           });
         } else {
-          targetsTaxonomy[taxonomyIDs] = [];
+          targetTaxonomies[taxonomyIDs] = [];
         }
       }
       if (targetTaxIDs) {
         if (targetTaxIDs.includes('|')) {
           targetTaxIDs.split('|').forEach((entry) => {
-            targetsTaxonomy[entry] = [];
+            targetTaxonomies[entry] = [];
           });
         } else {
-          targetsTaxonomy[targetTaxIDs] = [];
+          targetTaxonomies[targetTaxIDs] = [];
         }
       }
-      if (Object.keys(targetsTaxonomy).length > 0) {
+      if (Object.keys(targetTaxonomies).length > 0) {
         let taxonomies = [];
-        for (const taxId of Object.keys(targetsTaxonomy)) {
+        for (const taxId of Object.keys(targetTaxonomies)) {
           let idToUse = Number(taxId);
           if (oldIDs.includes(taxId)) {
             idToUse = Number(synonyms[taxId]);
