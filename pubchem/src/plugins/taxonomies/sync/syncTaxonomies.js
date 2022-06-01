@@ -37,12 +37,6 @@ export async function sync(connection) {
       options.collectionName,
     );
 
-    const fileListNodes = (
-      await fileListFromZip(readFileSync(lastFile))
-    ).filter((file) => file.name === 'nodes.dmp');
-    const arrayBufferNodes = await fileListNodes[0].arrayBuffer();
-    debug('Get Nodes Taxonomies');
-    let nodes = getTaxonomiesNodes(arrayBufferNodes);
     const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
       (file) => file.name === 'rankedlineage.dmp',
     );
@@ -62,6 +56,12 @@ export async function sync(connection) {
       const temporaryCollection = await connection.getCollection(
         'temporaryTaxonomies',
       );
+      const fileListNodes = (
+        await fileListFromZip(readFileSync(lastFile))
+      ).filter((file) => file.name === 'nodes.dmp');
+      const arrayBufferNodes = await fileListNodes[0].arrayBuffer();
+      debug('Get Nodes Taxonomies');
+      let nodes = getTaxonomiesNodes(arrayBufferNodes);
       debug('start parsing taxonomies');
       for (const entry of parseTaxonomies(arrayBuffer, nodes, connection)) {
         counter++;
