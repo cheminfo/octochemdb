@@ -66,13 +66,14 @@ export async function aggregate(connection) {
         if (taxonomies.length > 1000) {
           taxonomies = taxonomies.slice(0, 1000);
         }
-        debug(taxonomies);
+
         let naturalResult = {
           _id: entry._id,
           data: entry.data,
         };
+        debug(naturalResult);
         if (taxonomies.length > 0) {
-          naturalResult.data.targetTaxonomies = taxonomies;
+          naturalResult.taxonomies = taxonomies;
         }
         naturalResult._seq = ++progress.seq;
 
