@@ -56,7 +56,7 @@ export async function aggregate(connection) {
         ])
         .toArray();
       for (const entry of result) {
-        let substance = collectionSource.findOne({ _id: entry._id });
+        let substance = collectionSubstances.findOne({ _id: entry._id });
         let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
         let taxonomies = await taxonomyCollection
           .find({ _id: { $in: taxonomyIDs } })
