@@ -58,6 +58,7 @@ export async function aggregate(connection) {
       let counter = 0;
       let start = Date.now();
       for (const entry of result) {
+        debug(entry);
         let substance = collectionSubstances.findOne({ _id: entry._id });
         let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
         let taxonomies = await taxonomyCollection
