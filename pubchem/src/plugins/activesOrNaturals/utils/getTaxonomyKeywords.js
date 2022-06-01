@@ -10,12 +10,15 @@ export default function getTaxonomyKeywords(taxonomies) {
       taxonomy.family,
       taxonomy.species,
       taxonomy.genus,
+      taxonomies.species,
     ]
       .join(' ')
       .toLowerCase();
 
     for (let keyword of keywords) {
-      taxonomiesKW.add(keyword);
+      if (keyword !== '') {
+        taxonomiesKW.add(keyword);
+      }
     }
   }
 
