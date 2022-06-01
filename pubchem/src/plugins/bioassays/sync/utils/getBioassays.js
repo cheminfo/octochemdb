@@ -82,8 +82,11 @@ export default async function getBioassays(
             idToUse = Number(synonyms[taxId]);
           }
           let taxonomy = await collectionTaxonomies.findOne({ _id: idToUse });
-          if (taxonomy.data !== {}) {
-            taxonomies.push(taxonomy.data);
+          if (taxonomy) {
+            if (taxonomy.data !== {}) {
+              taxonomies.push(taxonomy.data);
+            }
+            debug(taxonomy);
           }
         }
         if (taxonomies.length > 0) {
