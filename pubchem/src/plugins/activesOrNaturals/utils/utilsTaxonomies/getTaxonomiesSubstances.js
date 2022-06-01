@@ -35,7 +35,7 @@ export async function getTaxonomiesSubstances(
         );
         if (result.length > 0) {
           let finalTaxonomy = result[0].data;
-          finalTaxonomy.dbRef = { $ref: entry.collection, $id: entry._id };
+          finalTaxonomy.dbRef = { $ref: 'substances', $id: entry._id };
           taxonomiesSubstances.push(finalTaxonomy);
         }
       }
