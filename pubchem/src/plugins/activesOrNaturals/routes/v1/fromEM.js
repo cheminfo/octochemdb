@@ -24,10 +24,17 @@ const entriesFromEM = {
         description: 'Precision (in ppm) of the monoisotopic mass',
         default: 100,
       },
+      kwActiveAgainst: {
+        type: 'string',
+        description:
+          'Taxonomies superkingdom, kingdom or phylum of target organism in bioassays(separate terms to search with ";" or "," )',
+        example: 'Halobacterium salinarum',
+        default: '',
+      },
       kwTaxonomies: {
         type: 'string',
         description:
-          'Taxonomies family, genus or species (can handle multiple spaces, case insensitive, separate terms to search with ";" or "," )',
+          'Taxonomies family, genus or species (separate terms to search with ";" or "," )',
         example: 'Podocarpus macrophyllus',
         default: '',
       },
@@ -60,24 +67,18 @@ async function searchHandler(request) {
     em = 0,
     kwTaxonomies = '',
     kwBioassays = '',
+    kwActiveAgainst = '',
     limit = 1e3,
     precision = 100,
-    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.active,data.naturalProduct,data.ocls,data.names,data.kwBioassays,data.kwTaxonomies,data.activities,data.taxonomies',
+    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.active,data.naturalProduct,data.ocls,data.names,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
   } = request.query;
-  let wordsToBeSearchedTaxonomies = kwTaxonomies
-    .toLowerCase()
-    .split(/ *[,;\t\n\r]+ */)
-    .filter((entry) => entry);
-  let wordsWithRegexTaxonomies = [];
+
   let wordsWithRegexBioassays = [];
   let wordsToBeSearchedBioassays = kwBioassays
     .toLowerCase()
     .split(/ *[,;\t\n\r]+ */)
     .filter((entry) => entry);
 
-  for (let word of wordsToBeSearchedTaxonomies) {
-    wordsWithRegexTaxonomies.push(new RegExp(`^${escapeRegExp(word)}`, 'i'));
-  }
   for (let word of wordsToBeSearchedBioassays) {
     wordsWithRegexBioassays.push(new RegExp(`^${escapeRegExp(word)}`, 'i'));
   }
@@ -98,10 +99,13 @@ async function searchHandler(request) {
       matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
     }
     if (kwTaxonomies) {
-      matchParameter['data.kwTaxonomies'] = { $all: wordsWithRegexTaxonomies };
+      matchParameter['data.kwTaxonomies'] = { $in: kwTaxonomies };
     }
     if (kwBioassays) {
-      matchParameter['data.kwBioassays'] = { $all: wordsWithRegexBioassays };
+      matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
+    }
+    if (kwActiveAgainst) {
+      matchParameter['data.kwActiveAgainst'] = { $in: kwActiveAgainst };
     }
 
     const results = await collection
