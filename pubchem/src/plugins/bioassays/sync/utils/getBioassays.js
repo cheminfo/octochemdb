@@ -86,7 +86,6 @@ export default async function getBioassays(
             if (taxonomy.data !== {}) {
               taxonomies.push(taxonomy.data);
             }
-            debug(taxonomy);
           }
         }
         if (taxonomies.length > 0) {
