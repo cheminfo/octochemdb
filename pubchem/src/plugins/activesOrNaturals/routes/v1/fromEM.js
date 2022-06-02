@@ -53,7 +53,7 @@ const entriesFromEM = {
         type: 'string',
         description: 'Fields to retrieve',
         default:
-          'data.em,data.mf,data.charge,data.unsaturation,data.active,data.naturalProduct,data.ocls,data.names,data.kwBioassays,data.kwTaxonomies,data.activities,data.taxonomies',
+          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
       },
     },
   },
@@ -70,11 +70,21 @@ async function searchHandler(request) {
     kwActiveAgainst = '',
     limit = 1e3,
     precision = 100,
-    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.active,data.naturalProduct,data.ocls,data.names,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
+    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
   } = request.query;
 
   let wordsWithRegexBioassays = [];
   let wordsToBeSearchedBioassays = kwBioassays
+    .toLowerCase()
+    .split(/ *[,;\t\n\r]+ */)
+    .filter((entry) => entry);
+
+  let wordsToBeSearchedActiveAgainst = kwActiveAgainst
+    .toLowerCase()
+    .split(/ *[,;\t\n\r]+ */)
+    .filter((entry) => entry);
+
+  let wordsToBeSearchedTaxonomies = kwTaxonomies
     .toLowerCase()
     .split(/ *[,;\t\n\r]+ */)
     .filter((entry) => entry);
@@ -99,15 +109,18 @@ async function searchHandler(request) {
       matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
     }
     if (kwTaxonomies) {
-      matchParameter['data.kwTaxonomies'] = { $in: kwTaxonomies };
+      matchParameter['data.kwTaxonomies'] = {
+        $in: wordsToBeSearchedTaxonomies,
+      };
     }
     if (kwBioassays) {
       matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
     }
     if (kwActiveAgainst) {
-      matchParameter['data.kwActiveAgainst'] = { $in: kwActiveAgainst };
+      matchParameter['data.kwActiveAgainst'] = {
+        $in: wordsToBeSearchedActiveAgainst,
+      };
     }
-
     const results = await collection
       .aggregate([
         { $match: matchParameter },
