@@ -28,6 +28,7 @@ NPC100017	NPT81	Others	=	Activity	0.3	%	Homo sapiens	9606			A549	21916433	PMID
 NPC100017	NPT81	Others	=	Activity	65.3	%	Homo sapiens	9606			A549	21916433	PMID
 NPC100017	NPT81	Others	=	Activity	6.7	%	Homo sapiens	9606			A549	21916433	PMID
 NPC100017	NPT81	Others	=	Activity	28	%	Homo sapiens	9606			A549	21916433	PMID
+NPC10005	NPT88	MIC	=	MIC	100	ug/ml	Mycobacterium tuberculosis H37Rv	83332	ATCC 27294			10650093	PMID
 NPC100017	NPT81	Others	=	Activity	7.5	%	Homo sapiens	9606			A549	21916433	PMID
 NPC100017	NPT81	Others	=	Activity	62.2	%	Homo sapiens	9606			A549	21916433	PMID
 NPC100017	NPT81	Others	=	Activity	12	%	Homo sapiens	9606			A549	21916433	PMID
