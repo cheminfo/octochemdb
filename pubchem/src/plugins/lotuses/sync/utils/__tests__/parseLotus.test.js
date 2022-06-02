@@ -3,9 +3,10 @@ import { join } from 'path';
 import { parseLotuses } from '../parseLotuses.js';
 
 test('parseLotuses', async () => {
-  const bsonPath = join(__dirname, 'data/testLotus.bson');
+  const bsonPath = join(__dirname, 'data', 'testLotus.bson.zip');
   const results = [];
-  for await (const result of parseLotuses(bsonPath)) {
+  let fileName = 'testLotus.bson';
+  for await (const result of parseLotuses(bsonPath, fileName)) {
     results.push(result);
   }
   expect(results[0]).toStrictEqual({
@@ -13,8 +14,6 @@ test('parseLotuses', async () => {
     data: {
       ocl: {
         id: 'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@',
-        coordinates:
-          '!BM`?d[NlSJNThyTepU~hvC~QlyFsd[NlSRW@hyU_j[NoeU||FIrupZDepb?SYT@}v_qzGFdUHQTcwyfHxlMGQlC\\zLuQGXd\\]?kAGXozpQquGXd]bQqw~l@',
         noStereoID:
           'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
       },
