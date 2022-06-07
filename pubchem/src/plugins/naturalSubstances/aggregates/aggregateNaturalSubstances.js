@@ -9,6 +9,7 @@ export async function aggregate(connection) {
   try {
     const options = { collection: COLLECTION_NAME, connection: connection };
     const targetCollection = await connection.getCollection(options.collection);
+    const compoundsCollection = await connection.getCollection('compounds');
     const progress = await connection.getProgress(options.collection);
     const taxonomyCollection = await connection.getCollection('taxonomies');
     const collectionSource = await connection.getProgress('substances');
@@ -41,10 +42,7 @@ export async function aggregate(connection) {
         .aggregate([
           {
             $match: {
-              $and: [
-                { naturalProduct: true },
-                { 'data.ocl.noStereoID': { $ne: 'd@' } },
-              ],
+              $and: [{ naturalProduct: true }],
             },
           },
           {
@@ -59,6 +57,13 @@ export async function aggregate(connection) {
       let start = Date.now();
       for (const entry of result) {
         let substance = await collectionSubstances.findOne({ _id: entry._id });
+        let compound = await compoundsCollection.findOne({
+          _id: substance.data.cids[0],
+        });
+        if (!compound) {
+          continue;
+        }
+        let noStereoID = compound.data.ocl.noStereoID;
         let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
         let taxonomies = await taxonomyCollection
           .find({ _id: { $in: taxonomyIDs } })
@@ -69,10 +74,22 @@ export async function aggregate(connection) {
 
         let naturalResult = {
           _id: substance._id,
-          data: substance.data,
+          data: {
+            noStereoID,
+            pmids: substance.data.pmids,
+            comment: substance.data.comment,
+            molfile: compound.data.molfile,
+          },
+          naturalProduct: true,
         };
         if (taxonomies.length > 0) {
           naturalResult.taxonomies = taxonomies.data;
+        }
+        if (substance.data.patents.length > 0) {
+          naturalResult.data.patents = substance.data.patents;
+        }
+        if (substance.data.meshTerms.length > 0) {
+          naturalResult.data.meshTerms = substance.data.meshTerms;
         }
         naturalResult._seq = ++progress.seq;
 
@@ -83,6 +100,7 @@ export async function aggregate(connection) {
         );
         if (
           Date.now() - start >
+          // @ts-ignore
           Number(process.env.DEBUG_THROTTLING || 10000)
         ) {
           debug(`Processing: counter: ${counter} `);
