@@ -84,6 +84,7 @@ export async function aggregate(connection) {
         };
         if (substance.data.taxonomyIDs) {
           let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
+          debug(taxonomyIDs);
           let taxonomies = await taxonomyCollection
             .find({ _id: { $in: taxonomyIDs } })
             .toArray();
@@ -91,7 +92,7 @@ export async function aggregate(connection) {
             taxonomies = taxonomies.slice(0, 1000);
           }
           if (taxonomies.length > 0) {
-            naturalResult.taxonomies = taxonomies.data;
+            naturalResult.data.taxonomies = taxonomies.data;
           }
         }
         if (substance.data.patents) {
