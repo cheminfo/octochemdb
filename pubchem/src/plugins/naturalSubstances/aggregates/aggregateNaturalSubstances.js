@@ -87,12 +87,14 @@ export async function aggregate(connection) {
           let taxonomies = await taxonomyCollection
             .find({ _id: { $in: taxonomyIDs } })
             .toArray();
-          debug(taxonomies);
           if (taxonomies.length > 1000) {
             taxonomies = taxonomies.slice(0, 1000);
           }
           if (taxonomies.length > 0) {
-            naturalResult.data.taxonomies = taxonomies.data;
+            let standardTaxonomies = taxonomies.map((taxonomy) => {
+              return taxonomy.data;
+            });
+            naturalResult.data.taxonomies = standardTaxonomies;
           }
         }
         if (substance.data.patents) {
