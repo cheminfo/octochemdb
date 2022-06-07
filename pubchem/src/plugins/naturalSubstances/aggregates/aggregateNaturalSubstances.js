@@ -57,14 +57,13 @@ export async function aggregate(connection) {
 
         let cid = [];
         if (substance?.data?.cids) {
-          cid.push(substance.data.cids[0]);
+          cid.push(substance.data.cids);
         }
         let compound = await compoundsCollection.findOne({
           _id: cid[0],
         });
 
         if (!compound) {
-          debug(cid);
           continue;
         }
         let noStereoID = compound.data.ocl.noStereoID;
