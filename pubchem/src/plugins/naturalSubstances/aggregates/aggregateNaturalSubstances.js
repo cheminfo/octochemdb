@@ -84,10 +84,10 @@ export async function aggregate(connection) {
         };
         if (substance.data.taxonomyIDs) {
           let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
-          debug(taxonomyIDs);
           let taxonomies = await taxonomyCollection
             .find({ _id: { $in: taxonomyIDs } })
             .toArray();
+          debug(taxonomies);
           if (taxonomies.length > 1000) {
             taxonomies = taxonomies.slice(0, 1000);
           }
