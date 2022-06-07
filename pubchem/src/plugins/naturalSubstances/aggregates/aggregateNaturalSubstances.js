@@ -57,9 +57,12 @@ export async function aggregate(connection) {
       let start = Date.now();
       for (const entry of result) {
         let substance = await collectionSubstances.findOne({ _id: entry._id });
+        if (!substance?.data?.cids) {
+          continue;
+        }
         let cid = [];
-        if (substance.data.cids[0] === undefined) {
-          cid.push(substance.data.cids);
+        if (substance?.data?.cids) {
+          cid.push(substance.data.cids[0]);
         }
         let compound = await compoundsCollection.findOne({
           _id: cid[0],
