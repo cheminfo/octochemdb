@@ -85,10 +85,10 @@ export async function aggregate(connection) {
         if (taxonomies?.length > 0) {
           naturalResult.taxonomies = taxonomies.data;
         }
-        if (substance.data?.patents.length > 0) {
+        if (substance.data.patents) {
           naturalResult.data.patents = substance.data.patents;
         }
-        if (substance.data?.meshTerms.length > 0) {
+        if (substance.data.meshTerms) {
           naturalResult.data.meshTerms = substance.data.meshTerms;
         }
         naturalResult._seq = ++progress.seq;
