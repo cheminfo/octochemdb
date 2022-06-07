@@ -72,14 +72,6 @@ export async function aggregate(connection) {
           continue;
         }
         let noStereoID = compound.data.ocl.noStereoID;
-        let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
-        let taxonomies = await taxonomyCollection
-          .find({ _id: { $in: taxonomyIDs } })
-          .toArray();
-        if (taxonomies.length > 1000) {
-          taxonomies = taxonomies.slice(0, 1000);
-        }
-
         let naturalResult = {
           _id: substance._id,
           data: {
@@ -90,8 +82,17 @@ export async function aggregate(connection) {
           },
           naturalProduct: true,
         };
-        if (taxonomies.length > 0) {
-          naturalResult.taxonomies = taxonomies.data;
+        if (substance.data.taxonomyIDs) {
+          let taxonomyIDs = substance.data.taxonomyIDs.map(Number);
+          let taxonomies = await taxonomyCollection
+            .find({ _id: { $in: taxonomyIDs } })
+            .toArray();
+          if (taxonomies.length > 1000) {
+            taxonomies = taxonomies.slice(0, 1000);
+          }
+          if (taxonomies.length > 0) {
+            naturalResult.taxonomies = taxonomies.data;
+          }
         }
         if (substance.data.patents) {
           naturalResult.data.patents = substance.data.patents;
