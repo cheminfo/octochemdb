@@ -41,14 +41,11 @@ export async function aggregate(connection) {
       const result = await collectionSubstances
         .aggregate([
           {
-            $match: {
-              $and: [{ naturalProduct: true }],
-            },
+            $match: { naturalProduct: true },
           },
           {
             $project: {
               _id: 1,
-              noStereoID: '$data.ocl.noStereoID',
             },
           },
         ])
@@ -57,9 +54,7 @@ export async function aggregate(connection) {
       let start = Date.now();
       for (const entry of result) {
         let substance = await collectionSubstances.findOne({ _id: entry._id });
-        if (!substance?.data?.cids) {
-          continue;
-        }
+
         let cid = [];
         if (substance?.data?.cids) {
           cid.push(substance.data.cids[0]);
