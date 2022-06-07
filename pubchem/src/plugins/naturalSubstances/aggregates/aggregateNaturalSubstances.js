@@ -64,7 +64,7 @@ export async function aggregate(connection) {
         });
 
         if (!compound) {
-          debug(compound);
+          debug(cid);
           continue;
         }
         let noStereoID = compound.data.ocl.noStereoID;
