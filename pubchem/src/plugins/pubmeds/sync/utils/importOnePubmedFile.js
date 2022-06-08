@@ -1,14 +1,13 @@
-import { createReadStream } from 'fs';
+import fs from 'fs';
+import { open } from 'fs/promises';
+import { join } from 'path';
 import { createGunzip } from 'zlib';
 
-import pkg from 'xml-flow';
-import { toJson } from 'xml2json';
+import { parseStream } from 'arraybuffer-xml-parser';
 
 import Debug from '../../../../utils/Debug.js';
 
-import improvePubmed from './improvePubmed.js';
-
-const flow = pkg;
+import improvePubmedPool from './improvePubmedPool.js';
 
 const debug = Debug('importOnePubmedFile');
 
@@ -26,53 +25,70 @@ export default async function importOnePubmedFile(
     sources: file.name,
     startSequenceID: progress.seq,
   });
-  // should we directly import the data how wait that we reach the previously imported information
 
-  const stream = createReadStream(file.path).pipe(createGunzip());
-  const xmlStream = flow(stream);
+  // unzip gzip file and return path to the unzipped file
+  const unzipFile = async (filePath) => {
+    const gunzipStream = createGunzip();
+    const readStream = fs.createReadStream(filePath);
+    readStream.pipe(gunzipStream);
+    const unzippedFilePath = filePath.replace('.gz', '');
+    const writeStream = fs.createWriteStream(unzippedFilePath);
+    gunzipStream.pipe(writeStream);
+    await writeStream.on('finish', () => {
+      debug(`Unzipped ${filePath} to ${unzippedFilePath}`);
+    });
+    return unzippedFilePath;
+  };
+  const path = await unzipFile(file.path);
+  const files = await open(join(path), 'r');
+  const stream = files.readableWebStream();
+
+  // parse the xml file
+  // let i = 0;
+
+  //  const fileStream = await open(file.path, 'r');
+  //const readableStream = fileStream.readableWebStream();
+  // debug(readableStream);
   let { shouldImport, lastDocument } = options;
   let imported = 0;
-  await new Promise((resolve) => {
-    xmlStream
-      .on('tag:pubmedarticle', async (article) => {
-        let recovertToXml = pkg.toXml(article);
-        let pubMedObject = toJson(recovertToXml, {
-          object: true,
-          alternateTextNode: true,
-        }).pubmedarticle.medlinecitation;
+  const actions = [];
+  for await (const entry of parseStream(stream, 'PubmedArticle')) {
+    if (!shouldImport) {
+      if (entry.MedlineCitation.PMID['#text'] !== lastDocument._id) {
+        continue;
+      }
+      shouldImport = true;
+      debug(`Skipping pubmeds till: ${lastDocument._id}`);
+      continue;
+    }
+    if (shouldImport) {
+      actions.push(
+        improvePubmedPool(entry)
+          .then((result) => {
+            result._seq = ++progress.seq;
+            return collection.updateOne(
+              { _id: result._id },
+              { $set: result },
+              { upsert: true },
+            );
+          })
+          .then(() => {
+            progress.sources = file.path.replace(
+              process.env.ORIGINAL_DATA_PATH,
+              '',
+            );
+            return connection.setProgress(progress);
+          }),
+      );
+      imported++;
+    }
+    await Promise.all(actions);
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.updateImportationLog(logs);
+    debug(`${imported} articles processed`);
+  }
 
-        if (!pubMedObject) throw new Error('citation not found', article);
-        if (!shouldImport) {
-          if (pubMedObject.pmid !== lastDocument._id) {
-            shouldImport = true;
-            debug(`Skipping pubmeds till: ${lastDocument._id}`);
-          }
-        }
-        if (shouldImport) {
-          let articles = improvePubmed(pubMedObject);
-          articles._seq = ++progress.seq;
-
-          progress.sources = file.path.replace(
-            process.env.ORIGINAL_DATA_PATH,
-            '',
-          );
-          await collection.updateOne(
-            { _id: articles._id },
-            { $set: articles },
-            { upsert: true },
-          );
-          await connection.setProgress(progress);
-          imported++;
-        }
-      })
-      .on('end', async () => {
-        resolve();
-        logs.dateEnd = Date.now();
-        logs.endSequenceID = progress.seq;
-        logs.status = 'updated';
-        await connection.updateImportationLog(logs);
-        debug(`${imported} pubmeds processed`);
-      });
-  });
   return imported;
 }

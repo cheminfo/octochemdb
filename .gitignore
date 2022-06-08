@@ -5,3 +5,5 @@ node_modules
 
 pubchem/.env
 pubchem/src/plugins/taxonomies/sync/utils/uniqueTaxonomies.mjs
+pubchem/src/plugins/pubmeds/sync/utils/__tests__/pubmedTest.xml
+pubchem/src/plugins/pubmeds/sync/utils/__tests__/testpub.js
