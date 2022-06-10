@@ -29,7 +29,10 @@ async function improvePubmed(entry) {
         '',
       ).replace(']', '');
     }
-    if (medlineArticle.Abstract) {
+    if (
+      medlineArticle.Abstract &&
+      medlineArticle.Abstract !== 'AbstractText.0.$Label'
+    ) {
       parsedArticle.abstract = medlineArticle.Abstract;
     }
     if (medlineArticle.Journal) {
