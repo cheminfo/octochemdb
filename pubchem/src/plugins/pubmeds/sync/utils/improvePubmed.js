@@ -24,16 +24,36 @@ async function improvePubmed(entry) {
     let parsedArticle = {};
 
     if (medlineArticle.ArticleTitle) {
-      parsedArticle.title = medlineArticle.ArticleTitle.replace(
-        '[',
-        '',
-      ).replace(']', '');
+      if (medlineArticle.ArticleTitle['#text']) {
+        parsedArticle.title = medlineArticle.ArticleTitle['#text'];
+      } else {
+        if (
+          medlineArticle.ArticleTitle.includes('[') &&
+          medlineArticle.ArticleTitle.includes(']')
+        ) {
+          parsedArticle.title = medlineArticle.ArticleTitle.replace(
+            '[',
+            '',
+          ).replace(']', '');
+        } else {
+          parsedArticle.title = medlineArticle.ArticleTitle;
+        }
+      }
     }
-    if (
-      medlineArticle.Abstract &&
-      medlineArticle.Abstract !== 'AbstractText.0.$Label'
-    ) {
-      parsedArticle.abstract = medlineArticle.Abstract;
+    if (medlineArticle.Abstract) {
+      if (Array.isArray(medlineArticle.Abstract.AbstractText)) {
+        // i want to concat all the abstracts
+        let abstracts = [];
+        for (let i = 0; i < medlineArticle.Abstract.AbstractText.length; i++) {
+          let abstractText = medlineArticle.Abstract.AbstractText[i]['#text'];
+          if (abstractText) {
+            abstracts.push(abstractText);
+          }
+        }
+        parsedArticle.abstract = abstracts.join(' ');
+      } else {
+        parsedArticle.abstract = medlineArticle.Abstract.abstractText;
+      }
     }
     if (medlineArticle.Journal) {
       let cleanedJournal = {};
