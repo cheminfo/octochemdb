@@ -1,9 +1,8 @@
-// query for molecules from monoisotopic mass
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('entries Admin');
-
+// export default searchHandler;
 const entriesAdmin = {
   method: 'GET',
   schema: {
@@ -31,6 +30,11 @@ const entriesAdmin = {
 };
 
 export default entriesAdmin;
+/**
+ * @description Search handler for the entries admin
+ * @param {*} request the request object 'state,seq,date,sources,logs'
+ * @returns {Promise<*>} the result of the search
+ */
 
 async function searchHandler(request) {
   let {

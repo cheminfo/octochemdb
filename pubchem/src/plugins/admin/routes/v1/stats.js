@@ -14,8 +14,8 @@ const stats = {
 
 export default stats;
 /**
- * Returns statistics about the collection
- * @return {Promise}
+ * @description get the global statistics from the admin collection
+ * @return {Promise} Returns statistics about the collection
  */
 
 async function searchHandler() {
