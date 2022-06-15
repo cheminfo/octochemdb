@@ -3,7 +3,7 @@ import { PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('stats');
-
+// export default searchHandler;
 const stats = {
   method: 'GET',
   schema: {
@@ -14,8 +14,8 @@ const stats = {
 
 export default stats;
 /**
- * Returns statistics about the collection
- * @return {Promise}
+ * @description get the global statistics from the bioassays collection
+ * @return {Promise} Returns statistics about the collection
  */
 
 async function searchHandler() {

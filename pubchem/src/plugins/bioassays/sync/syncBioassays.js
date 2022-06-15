@@ -8,9 +8,12 @@ import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/
 import parseBioactivities from './utils/parseBioactivities.js';
 
 const debug = Debug('syncBioassays');
-
+/**
+ * @description Synchronize the bioassays collection from ftp server
+ * @param {*} connection the connection object
+ * @returns {Promise} Returns the bioassays collection
+ */
 export async function sync(connection) {
-  // Options defined outise try-catch to allow debug when error is throw
   let options = {
     collectionSource: process.env.ACTIVITIES_SOURCE,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/bioassays/full`,
@@ -19,33 +22,29 @@ export async function sync(connection) {
     extensionNew: 'tsv.gz',
   };
   try {
+    // get compounds and taxonomies collections
     const synonyms = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     const collectionCompounds = await connection.getCollection('compounds');
-    // Get last files available from source if their size changed compared to local ones
+    // Download the bioActivities and bioAssays files if newer than last sync
     const bioactivitiesFile = await getLastFileSync(options);
     options.collectionSource = process.env.BIOASSAY_SOURCE;
     options.filenameNew = 'bioassays';
     const bioassaysFile = await getLastFileSync(options);
-    // Get collection progress (admin) and the one to be updated
+    // Get progress of last sync and the bioassays collection
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
-    // Get last document (record) in the collection to be updated
+    // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-    // Get collection logs (importationLogs)
     const sources = [
       bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
       bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
-    const logs = await connection.geImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
+
     // Define different coulters
     let counter = 0;
     let imported = 0;
@@ -56,10 +55,16 @@ export async function sync(connection) {
       md5(JSON.stringify(sources)) !== progress.sources ||
       progress.state !== 'updated'
     ) {
-      // Define stat updating because in case of failure Cron will retry importation in 24h
+      // Generate Logs for the sync
+      const logs = await connection.geImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
+      // set progress to updating, if fail importation, a new try will be done 24h later
       progress.state = 'updating';
       await connection.setProgress(progress);
-      // Create a temporary Collection to avoid to drop the data already imported before the new ones are ready
+      // Temporary collection to store the new data
       const temporaryCollection = await connection.getCollection(
         'temporaryBioassays',
       );
@@ -82,9 +87,7 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-
-        // Insert the entry(i) in the temporary collection
-
+        // update temporary collection with the new data
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
@@ -99,12 +102,12 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-      // Define logs information's in collection importationLogs
+      // update logs with the new progress
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
-      // Define new information's and set state to updated in admin collection
+      // update progress with the new progress
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
@@ -119,7 +122,6 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
   } catch (e) {
-    // If error is catched, debug it on telegram
     if (connection) {
       debug(e, { collection: options.collectionName, connection });
     }

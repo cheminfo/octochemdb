@@ -9,10 +9,14 @@ import getBioassays from './getBioassays.js';
 const debug = Debug('parseBioactivities');
 
 /**
- * @name parseBioactivities
- * @param {string} bioActivitiesFilePath
- * @param {string} bioassaysFilePath
- * @param {*} connection
+ * @description  function to parse the bioactivities file and return the bioassays objects to be inserted in the database
+ * @param {*} bioActivitiesFilePath the path to the bioactivities file
+ * @param {*} bioassaysFilePath the path to the bioassays file
+ * @param {*} connection the connection to the database
+ * @param {*} collectionCompounds the collection of compounds
+ * @param {*} collectionTaxonomies the collection of taxonomies
+ * @param {*} synonyms the newId to oldId map
+ * @yields {Promise} returns the array of bioassays objects to be inserted in the database
  */
 async function* parseBioactivities(
   bioActivitiesFilePath,
@@ -23,7 +27,7 @@ async function* parseBioactivities(
   synonyms,
 ) {
   try {
-    // Get Bioassays data available in bioassays file
+    // parse the bioassays file and get the bioassay information
     const bioassays = await getBioassays(
       bioassaysFilePath,
       connection,
@@ -31,18 +35,17 @@ async function* parseBioactivities(
       synonyms,
     );
     // Read stream of target file without unzip it
-
     const readStream = createReadStream(bioActivitiesFilePath);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
     // Define variables
     let counter = 0;
-    // Start parsing line by line the bioActivities file
     let compoundData = {
       noStereoID: '',
       id: '',
       cid: 0,
     };
+    // Start parsing line by line the bioActivities file
     for await (let line of lines) {
       const parts = line.split('\t');
       const aid = Number(parts[0]);
@@ -52,6 +55,7 @@ async function* parseBioactivities(
       if (activity !== 'Active' || !cid) {
         continue;
       }
+      // If the compound was already parsed, just add the bioassay and the taxonomies
       if (compoundData.cid !== cid) {
         let compound = await collectionCompounds.findOne({ _id: cid });
         if (compound) {
