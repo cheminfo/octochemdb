@@ -28,6 +28,7 @@ export default async function importOnePubmedFile(
 
     const filePath = await decompressGziped(file.path);
     const fileStream = await open(filePath, 'r');
+    // @ts-ignore
     const readableStream = fileStream.readableWebStream();
     let { shouldImport, lastDocument } = options;
     let imported = 0;
@@ -35,6 +36,7 @@ export default async function importOnePubmedFile(
     debug(`Importing ${file.name}`);
     for await (const entry of parseStream(readableStream, 'PubmedArticle')) {
       if (!shouldImport) {
+        // @ts-ignore
         if (entry.MedlineCitation.PMID['#text'] !== lastDocument._id) {
           continue;
         }
