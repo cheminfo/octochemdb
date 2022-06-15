@@ -2,8 +2,14 @@ import { getTaxonomiesForCmaupsAndNpasses } from './getTaxonomiesForCmaupsAndNpa
 import { getTaxonomiesForCoconuts } from './getTaxonomiesForCoconuts.js';
 import { getTaxonomiesForLotuses } from './getTaxonomiesForLotuses.js';
 import { getTaxonomiesForNpAtlases } from './getTaxonomiesForNpAtlases.js';
-import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
 
+/**
+ * @description Standardize taxonomies to NCBI format using a set of function based on the collection source (cmaups, npasses, coconuts, lotuses, npAtlases)
+ * @param {Object} data The data from aggregation process
+ * @param {Object} synonyms The new-old IDs mapping
+ * @param {*} taxonomiesCollection The taxonomies collection
+ * @returns {Promise<Array>} The data from aggregation process with standardized taxonomies
+ */
 export async function standardizeTaxonomies(
   data,
   synonyms,
@@ -16,17 +22,10 @@ export async function standardizeTaxonomies(
       break;
     }
     switch (entry.collection) {
-      case 'substances': {
-        let resultSubstances = await getTaxonomiesSubstances(
-          entry,
-          taxonomiesCollection,
-          synonyms,
-        );
-
-        entry = resultSubstances;
-        if (entry?.data?.taxonomies) {
-          counter += entry?.data?.taxonomies.length;
-        }
+      case 'naturalSubstances': {
+        break;
+      }
+      case 'bioassays': {
         break;
       }
       case 'lotuses': {
@@ -80,10 +79,7 @@ export async function standardizeTaxonomies(
         }
         break;
       }
-      case 'bioassays': {
-        entry = entry;
-        break;
-      }
+
       default:
         throw new Error(`Unknow collectioin: ${entry.collection}`);
     }

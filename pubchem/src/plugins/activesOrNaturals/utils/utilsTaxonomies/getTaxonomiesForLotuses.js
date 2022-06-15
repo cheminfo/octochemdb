@@ -1,5 +1,12 @@
 import { searchTaxonomies } from './searchTaxonomies.js';
 
+/**
+ * @description get standardized taxonomies for Lotuses
+ * @param {*} entry The data from aggregation process
+ * @param {*} taxonomiesCollection The taxonomies collection
+ * @param {*} synonyms The newId to oldId map
+ * @returns {Promise<Array>} The standardized taxonomies
+ */
 export async function getTaxonomiesForLotuses(
   entry,
   taxonomiesCollection,
@@ -10,6 +17,8 @@ export async function getTaxonomiesForLotuses(
     let taxonomiesSources = Object.keys(entry.data.taxonomies);
     let sourceToBeUsed;
     let oldIDs = Object.keys(synonyms);
+    // Lotuses taxonomies came sometimes from different sources, so we will preferentially use the source that comes from NCBI
+    // we use first the _id of the taxonomy, if nothing is found we try to retrieve the taxonomy using the species name
     if (taxonomiesSources.includes('ncbi')) {
       sourceToBeUsed = 'ncbi';
     } else {
@@ -66,6 +75,8 @@ export async function getTaxonomiesForLotuses(
           shoudlImport = false;
         }
       }
+      // If the source is not NCBI, we will use the first other source
+      // we try to retrieve the taxonomy using the genus and the family
       if (shoudlImport && sourceToBeUsed !== 'ncbi' && taxons.genus) {
         let searchParameter = {
           'data.genus': taxons.genus,
@@ -106,6 +117,7 @@ export async function getTaxonomiesForLotuses(
           shoudlImport = false;
         }
       }
+      // if we failed to find a taxonomy, we keep the original one in a standardized format
       if (shoudlImport) {
         let finalTaxonomy = {};
         if (taxons.kingdom) {

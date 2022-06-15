@@ -1,4 +1,4 @@
-import { searchTaxonomies } from './searchTaxonomies.js';
+import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 
 export async function getTaxonomiesSubstances(
   entry,

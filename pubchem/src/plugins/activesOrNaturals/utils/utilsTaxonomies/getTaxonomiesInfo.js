@@ -1,30 +1,17 @@
 import Debug from '../../../../utils/Debug.js';
 
-import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
-import { taxonomySynonyms } from './taxonomySynonyms.js';
-
 const debug = Debug('getTaxonomiesInfo');
 
+/**
+ * @description Get unique taxonomies from the aggregation process data
+ * @param {*} data The data from aggregation process
+ * @param {*} connection The connection to the database
+ * @returns {Promise<Array>} An array containing unique taxonomies
+ */
 export default async function getTaxonomiesInfo(data, connection) {
   try {
     let taxons = [];
     for (const entry of data) {
-      // IT'S JUST TO AVOID REIMPORTATION OF SUBSTANCES, WHEN PROJECT GOES IN PROD THIS LINES SHOULD BE REMOVED
-      if (entry.collection === 'substances') {
-        if (entry.data.taxonomyIDs) {
-          const synonyms = await taxonomySynonyms();
-          const collectionTaxonomies = await connection.getCollection(
-            'taxonomies',
-          );
-          let taxonomies = getTaxonomiesSubstances(
-            entry,
-            collectionTaxonomies,
-            synonyms,
-          );
-          entry.data.taxonomies = taxonomies;
-        }
-      }
-      // ***************************************************************************************************
       if (entry.data?.taxonomies) {
         for (let taxonomy of entry.data.taxonomies) {
           taxons.push(taxonomy);

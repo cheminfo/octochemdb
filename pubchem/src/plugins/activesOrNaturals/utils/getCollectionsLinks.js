@@ -1,7 +1,12 @@
 import Debug from '../../../utils/Debug.js';
 
 const debug = Debug('getCollectionLinks');
-
+/**
+ * @description Get collection links from all collections
+ * @param {*} connection PubChem connection
+ * @param {*} collectionNames Array of collection names
+ * @returns {Promise} Returns the array of collection links and the array the sources in progress collection
+ */
 export default async function getCollectionsLinks(connection, collectionNames) {
   try {
     const links = {};
@@ -11,39 +16,19 @@ export default async function getCollectionsLinks(connection, collectionNames) {
       const progressCollections = await connection.getProgress(collectionName);
       collectionSources.push(progressCollections.sources);
       let results;
-      if (collectionName === 'substances') {
-        results = await collection
-          .aggregate([
-            {
-              $match: {
-                $and: [
-                  { naturalProduct: true },
-                  { 'data.ocl.noStereoID': { $ne: 'd@' } },
-                ],
-              },
+
+      results = await collection
+        .aggregate([
+          {
+            $project: {
+              _id: 0,
+              noStereoID: '$data.ocl.noStereoID',
+              source: { id: '$_id', collection: collectionName },
             },
-            {
-              $project: {
-                _id: 0,
-                noStereoID: '$data.ocl.noStereoID',
-                source: { id: '$_id', collection: collectionName },
-              },
-            },
-          ])
-          .toArray();
-      } else {
-        results = await collection
-          .aggregate([
-            {
-              $project: {
-                _id: 0,
-                noStereoID: '$data.ocl.noStereoID',
-                source: { id: '$_id', collection: collectionName },
-              },
-            },
-          ])
-          .toArray();
-      }
+          },
+        ])
+        .toArray();
+
       debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
       for (const entry of results) {
         if (entry?.noStereoID) {

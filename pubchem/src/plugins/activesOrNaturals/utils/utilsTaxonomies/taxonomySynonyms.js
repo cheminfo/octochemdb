@@ -5,7 +5,10 @@ import { createInterface } from 'readline';
 import { fileListFromPath } from 'filelist-from';
 
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
-
+/**
+ * @description Get an object with oldIds as properties and newIds as values
+ * @returns {Promise<Object>} Object {oldID: newID, ...}
+ */
 export async function taxonomySynonyms() {
   let fileName = fileListFromPath(
     `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full`,

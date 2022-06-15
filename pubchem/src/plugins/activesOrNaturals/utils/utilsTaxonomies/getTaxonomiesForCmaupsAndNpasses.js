@@ -1,5 +1,12 @@
 import { searchTaxonomies } from './searchTaxonomies.js';
-
+/**
+ * @description get standardized taxonomies for Cmaups and Npasses
+ * @param {*} entry The data from aggregation process
+ * @param {*} taxonomiesCollection The taxonomies collection
+ * @param {*} synonyms The newId to oldId map
+ * @param {*} collectionName The name of the collection
+ * @returns {Promise<Array>} The standardized taxonomies
+ */
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,
   taxonomiesCollection,
@@ -14,7 +21,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         let taxons = entry.data.taxonomies[i];
         let searchParameter;
         let type = {};
-        // Define the search parameters that could be use (id, species name, genus, ...)
+        // Get the type of the taxonomy (species level, genus level, etc.) to use in the search
         if (taxons.speciesID) {
           let idToUse = Number(taxons.speciesID);
           if (oldIDs.includes(taxons.speciesID)) {
@@ -64,8 +71,8 @@ export async function getTaxonomiesForCmaupsAndNpasses(
           };
           type.family = searchParameter;
         }
-        // Try search parameter by order of preference (species id , species name, ...) till you get a result
-        let shouldSearch = true; // if there is a results, it became false
+        // until shouldSearch is true, we keep searching for the taxonomy using the different search parameters types
+        let shouldSearch = true;
         if (type.speciesID && shouldSearch) {
           let result = await searchTaxonomies(
             taxonomiesCollection,
@@ -160,7 +167,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
             shouldSearch = false;
           }
         }
-        // If no results were found, keep taxonomy informations available from orginal collection
+        // If we didn't find any taxonomy, we keep the original taxonomy in a standardized format
         if (shouldSearch) {
           let finalTaxonomy = {};
           if (taxons.kingdom) {

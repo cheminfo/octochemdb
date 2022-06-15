@@ -10,27 +10,29 @@ import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
-const collectionNames = [
-  'lotuses',
-  'npasses',
-  'npAtlases',
-  'cmaups',
-  'coconuts',
-  // 'substances',
-  'bioassays',
-];
+/**
+ * @description Aggregate all synchronized collections into one collection of Bioactivities or/and Natural Products
+ * @param {*} connection
+ * @return {Promise} Returns ActiveOrNaturals collection
+ */
 
-const debug = Debug('aggregateDBs');
-
-const COLLECTION_NAME = 'activesOrNaturals';
-
-export async function aggregate(connection) {
+export async function aggregateActivesOrNaturals(connection) {
+  const collectionNames = [
+    'lotuses',
+    'npasses',
+    'npAtlases',
+    'cmaups',
+    'coconuts',
+    // 'naturalSubstances',
+    'bioassays',
+  ];
+  const debug = Debug('aggregateActivesOrNaturals');
+  const COLLECTION_NAME = 'activesOrNaturals';
   try {
     const options = { collection: COLLECTION_NAME, connection: connection };
+    // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
-
     const targetCollection = await connection.getCollection(options.collection);
-    const compoundsCollection = await connection.getCollection('compounds');
     let { links, collectionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -46,24 +48,30 @@ export async function aggregate(connection) {
       progress,
       options.collection,
     );
-
+    // get compounds collection
+    const compoundsCollection = await connection.getCollection('compounds');
+    // start aggregation process
     let counter = 0;
     let start = Date.now();
-
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
       progress.state !== 'updated'
     ) {
+      // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
         `${COLLECTION_NAME}_tmp`,
       );
+      // debug unique numbers of noStereoIDs
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
+      // set progress to aggregating
       progress.state = 'aggregating';
       await connection.setProgress(progress);
+      // parse all noStereoIDs and get their info
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let entry = { data: { naturalProduct: false } };
+        // get all documents from all collections
         let data = [];
         for (const source of sourcesLink) {
           if (
@@ -83,11 +91,11 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
-
+        // get unique taxonomies from all collections for the current noStereoID
         let taxons = await getTaxonomiesInfo(data, connection);
-
+        // get unique activities from all collections for the current noStereoID
         let activityInfo = await getActivitiesInfo(data, connection);
-
+        // get unique compound information from all collections for the current noStereoID
         entry = await getCompoundsInfo(
           entry,
           data,
@@ -95,10 +103,9 @@ export async function aggregate(connection) {
           noStereoID,
           connection,
         );
-
+        // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
           entry.data.BioActive = true;
-
           const keywordsActivities = getActivityKeywords(activityInfo);
           if (keywordsActivities.length > 0) {
             entry.data.kwBioassays = keywordsActivities;
@@ -108,6 +115,7 @@ export async function aggregate(connection) {
             entry.data.kwActiveAgainst = keywordsActiveAgainst;
           }
         }
+        // if taxons is not empty, get unique keywords of taxonomies for the current noStereoID
         if (taxons.length > 0) {
           const keywordsTaxonomies = getTaxonomyKeywords(taxons);
 
@@ -115,16 +123,17 @@ export async function aggregate(connection) {
             entry.data.kwTaxonomies = keywordsTaxonomies;
           }
         }
+        // if activityInfo is not empty, define entry.data.activities
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
         }
-
+        // if taxons is not empty, define entry.data.taxonomies
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
 
         entry._seq = ++progress.seq;
-
+        // update collection with new entry
         await temporaryCollection.updateOne(
           { _id: noStereoID },
           { $set: entry },
@@ -141,13 +150,16 @@ export async function aggregate(connection) {
 
         counter++;
       }
+      // rename temporary collection to activesOrNaturals
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,
       });
+      // set logs to aggregated
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'aggregated';
       await connection.updateImportationLog(logs);
+      // set progress to aggregated
       progress.sources = sources;
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';

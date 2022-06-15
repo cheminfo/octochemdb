@@ -1,5 +1,11 @@
 import { searchTaxonomies } from './searchTaxonomies.js';
-
+/**
+ * @description get standardized taxonomies for NpAtlases
+ * @param {*} entry The data from aggregation process
+ * @param {*} taxonomiesCollection The taxonomies collection
+ * @param {*} synonyms The newId to oldId map
+ * @returns {Promise<Array>} The standardized taxonomies
+ */
 export async function getTaxonomiesForNpAtlases(
   entry,
   taxonomiesCollection,
@@ -7,11 +13,12 @@ export async function getTaxonomiesForNpAtlases(
 ) {
   let taxonomiesResults = [];
   if (entry.data?.taxonomies) {
+    // Get taxonomies from the entry
     let taxons = entry.data.taxonomies[0];
     let searchParameter;
     let type = {};
     let oldIDs = Object.keys(synonyms);
-
+    // Get the type of the taxonomy (species level, genus level, etc.)
     if (taxons.species) {
       searchParameter = {
         'data.species': taxons.species,
@@ -20,6 +27,8 @@ export async function getTaxonomiesForNpAtlases(
     }
     if (taxons.genusID && taxons.genusID !== null) {
       let idToUse = Number(taxons.genusID);
+      // If the ID is not in the taxonomies collection, check if it is in the synonyms object
+      // If it is, use the new ID
       if (oldIDs.includes(taxons.genusID)) {
         idToUse = Number(synonyms[taxons.genusID]);
       }
@@ -54,7 +63,8 @@ export async function getTaxonomiesForNpAtlases(
       };
       type.phylum = searchParameter;
     }
-
+    // until shouldSearch is true, we keep searching for the taxonomy
+    // using the different search parameters types
     let shouldSearch = true;
 
     if (type.species && shouldSearch) {
@@ -149,7 +159,7 @@ export async function getTaxonomiesForNpAtlases(
         shouldSearch = false;
       }
     }
-
+    // if shouldSearch is true, we didn't find any taxonomy, so we keep the original taxonomy in standard format
     if (shouldSearch) {
       let finalTaxonomy = {};
       if (taxons.kingdom) {

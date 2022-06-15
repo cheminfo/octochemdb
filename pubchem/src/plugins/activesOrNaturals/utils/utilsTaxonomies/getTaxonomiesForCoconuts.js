@@ -1,10 +1,17 @@
 import { searchTaxonomies } from './searchTaxonomies.js';
-
+/**
+ * @description get standardized taxonomies for Coconuts
+ * @param {*} entry The data from aggregation process
+ * @param {*} taxonomiesCollection The taxonomies collection
+ * @returns {Promise<Array>} The standardized taxonomies
+ */
 export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
   let taxonomiesCoconuts = [];
   if (entry.data?.taxonomies) {
     if (entry.data.taxonomies.length > 1) {
       for (let i = 0; i < entry.data.taxonomies.length; i++) {
+        // coconuts taxonomies are most of times at species level while the rest are at superkingdom level
+        // since species name is composed of the genus and species name, we need to check if the genus is in the taxonomies collection
         let genus = entry.data.taxonomies[i].species.split(' ');
         if (genus.length > 0) {
           let searchParameter = {
@@ -20,6 +27,7 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
             finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
             taxonomiesCoconuts.push(finalTaxonomy);
           }
+          // if the genus is not in the taxonomies collection, we keep the original taxonomy
         } else {
           let finalTaxonomy = entry.data.taxonomies[i];
           finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };

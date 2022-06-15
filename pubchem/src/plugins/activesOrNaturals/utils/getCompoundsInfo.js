@@ -2,7 +2,15 @@ import Debug from '../../../utils/Debug.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
 const debug = Debug('getCompoundsInfo');
-
+/**
+ * @description Get compounds information compounds collection and data array
+ * @param {*} entry Entry from the aggregation process
+ * @param {*} data Array of all data for the current noStereoID
+ * @param {*} compoundsCollection Compounds collection
+ * @param {*} noStereoID current noStereoID
+ * @param {*} connection PubChem connection
+ * @returns {Promise} Returns the entry with the compounds information
+ */
 export default async function getCompoundsInfo(
   entry,
   data,

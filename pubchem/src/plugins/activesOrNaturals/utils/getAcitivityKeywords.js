@@ -1,7 +1,11 @@
 import { isIgnoreKeyword } from '../../../utils/isIgnoreKeyword.js';
-
+/**
+ * @description Get the keywords from the assay name in the activities array
+ * @param {*} activities Array of activities
+ * @returns {Array} Array of keywords from the assay name
+ */
 export default function getActivityKeywords(activities) {
-  const activitesKW = new Set();
+  const activitiesKW = new Set();
   for (let activity of activities) {
     const keywords = [activity.assay]
       .join(' ')
@@ -10,10 +14,10 @@ export default function getActivityKeywords(activities) {
       .filter((k) => k);
     for (let keyword of keywords) {
       if (!isIgnoreKeyword(keyword) && isNaN(Number(keyword))) {
-        activitesKW.add(keyword);
+        activitiesKW.add(keyword);
       }
     }
   }
 
-  return [...activitesKW];
+  return [...activitiesKW];
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-inner-declarations */
 import fs from 'fs';
 import zlib from 'zlib';
@@ -6,9 +5,9 @@ import zlib from 'zlib';
 import { parse } from 'sdf-parser';
 
 import Debug from '../../../../utils/Debug.js';
-import { getTaxonomiesSubstances } from '../../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesSubstances.js';
 import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
+import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
 import improveSubstancePool from './improveSubstancePool.js';
 
 const debug = Debug('improveOneSubstanceFile');
