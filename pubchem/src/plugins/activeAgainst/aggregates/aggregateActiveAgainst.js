@@ -2,23 +2,32 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import Debug from '../../../utils/Debug.js';
-
-export async function aggregate(connection) {
+/**
+ * @description Aggregate the active against data from the activeOrNaturals collection
+ * @param {*} connection
+ * @output {collection} activeAgainst collection
+ */
+export async function aggregateActiveAgainst(connection) {
   const debug = Debug('aggregateActiveAgainst');
   const COLLECTION_NAME = 'activeAgainst';
   try {
+    // Get collections from the database
     const options = { collection: COLLECTION_NAME, connection: connection };
     const progress = await connection.getProgress(options.collection);
-    const collectionSource = await connection.getProgress('activesOrNaturals');
+    const progressOfSourceCollection = await connection.getProgress(
+      'activesOrNaturals',
+    );
     const collectionActivesOrNaturals = await connection.getCollection(
       'activesOrNaturals',
     );
-    const sources = md5(collectionSource);
+    const sources = md5(progressOfSourceCollection);
+    // Add logs to the collection importLogs
     const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
+    // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       options.connection,
       progress,
@@ -30,13 +39,14 @@ export async function aggregate(connection) {
       sources !== progress.sources ||
       progress.state !== 'updated'
     ) {
+      // If the last document imported is null, or the sources are different, or the state is not updated, then we need to import the data
       const temporaryCollection = await connection.getCollection(
         `${COLLECTION_NAME}_tmp`,
       );
       debug('start Aggregation process');
       progress.state = 'aggregating';
       await connection.setProgress(progress);
-      ////
+      // Aggregate the data from the activesOrNaturals collection
       const result = collectionActivesOrNaturals.aggregate([
         { $project: { activities: '$data.activities' } },
         { $unwind: '$activities' },
@@ -79,17 +89,18 @@ export async function aggregate(connection) {
         { $out: `activeAgainst_tmp` },
       ]);
       await result.hasNext();
-
+      // remove null _id
       await temporaryCollection.deleteOne({ _id: null });
-
+      // rename temporary collection
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,
       });
-
+      // update logs
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'aggregated';
       await connection.updateImportationLog(logs);
+      // update progress
       progress.sources = sources;
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';

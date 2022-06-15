@@ -13,9 +13,10 @@ const stats = {
 };
 
 export default stats;
+
 /**
- * Returns statistics about the collection
- * @return {Promise}
+ * @description Generate statistics about the activeAgainst collection
+ * @return {Promise} Returns statistics about the collection
  */
 
 async function searchHandler() {
