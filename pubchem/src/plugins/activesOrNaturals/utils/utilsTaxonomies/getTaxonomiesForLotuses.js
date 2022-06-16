@@ -4,19 +4,19 @@ import { searchTaxonomies } from './searchTaxonomies.js';
  * @description get standardized taxonomies for Lotuses
  * @param {*} entry The data from aggregation process
  * @param {*} taxonomiesCollection The taxonomies collection
- * @param {*} synonyms The newId to oldId map
+ * @param {*} oldToNewTaxIDs The newId to oldId map
  * @returns {Promise<Array>} The standardized taxonomies
  */
 export async function getTaxonomiesForLotuses(
   entry,
   taxonomiesCollection,
-  synonyms,
+  oldToNewTaxIDs,
 ) {
   let taxonomiesLotuses = [];
   if (entry.data?.taxonomies) {
     let taxonomiesSources = Object.keys(entry.data.taxonomies);
     let sourceToBeUsed;
-    let oldIDs = Object.keys(synonyms);
+    let oldIDs = Object.keys(oldToNewTaxIDs);
     // Lotuses taxonomies came sometimes from different sources, so we will preferentially use the source that comes from NCBI
     // we use first the _id of the taxonomy, if nothing is found we try to retrieve the taxonomy using the species name
     if (taxonomiesSources.includes('ncbi')) {
@@ -44,7 +44,7 @@ export async function getTaxonomiesForLotuses(
         }
         if (result.length === 0 && oldIDs.includes(taxons.organismID)) {
           let searchParameter = {
-            _id: Number(synonyms[taxons.organismID]),
+            _id: Number(oldToNewTaxIDs[taxons.organismID]),
           };
           let result = await searchTaxonomies(
             taxonomiesCollection,

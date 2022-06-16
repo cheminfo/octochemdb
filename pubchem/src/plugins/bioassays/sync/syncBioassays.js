@@ -23,7 +23,7 @@ export async function sync(connection) {
   };
   try {
     // get compounds and taxonomies collections
-    const synonyms = await taxonomySynonyms();
+    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     const collectionCompounds = await connection.getCollection('compounds');
     // Download the bioActivities and bioAssays files if newer than last sync
@@ -75,7 +75,7 @@ export async function sync(connection) {
         connection,
         collectionCompounds,
         collectionTaxonomies,
-        synonyms,
+        oldToNewTaxIDs,
       )) {
         // If cron launched in mode test, the importation will be stopped after 20 iteration
         if (process.env.TEST === 'true' && counter > 20) break;

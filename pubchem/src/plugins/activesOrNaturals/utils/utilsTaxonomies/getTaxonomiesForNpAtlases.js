@@ -3,13 +3,13 @@ import { searchTaxonomies } from './searchTaxonomies.js';
  * @description get standardized taxonomies for NpAtlases
  * @param {*} entry The data from aggregation process
  * @param {*} taxonomiesCollection The taxonomies collection
- * @param {*} synonyms The newId to oldId map
+ * @param {*} oldToNewTaxIDs The newId to oldId map
  * @returns {Promise<Array>} The standardized taxonomies
  */
 export async function getTaxonomiesForNpAtlases(
   entry,
   taxonomiesCollection,
-  synonyms,
+  oldToNewTaxIDs,
 ) {
   let taxonomiesResults = [];
   if (entry.data?.taxonomies) {
@@ -17,7 +17,7 @@ export async function getTaxonomiesForNpAtlases(
     let taxons = entry.data.taxonomies[0];
     let searchParameter;
     let type = {};
-    let oldIDs = Object.keys(synonyms);
+    let oldIDs = Object.keys(oldToNewTaxIDs);
     // Get the type of the taxonomy (species level, genus level, etc.)
     if (taxons.species) {
       searchParameter = {
@@ -27,10 +27,10 @@ export async function getTaxonomiesForNpAtlases(
     }
     if (taxons.genusID && taxons.genusID !== null) {
       let idToUse = Number(taxons.genusID);
-      // If the ID is not in the taxonomies collection, check if it is in the synonyms object
+      // If the ID is not in the taxonomies collection, check if it is in the oldToNewTaxIDs object
       // If it is, use the new ID
       if (oldIDs.includes(taxons.genusID)) {
-        idToUse = Number(synonyms[taxons.genusID]);
+        idToUse = Number(oldToNewTaxIDs[taxons.genusID]);
       }
       searchParameter = {
         _id: idToUse,

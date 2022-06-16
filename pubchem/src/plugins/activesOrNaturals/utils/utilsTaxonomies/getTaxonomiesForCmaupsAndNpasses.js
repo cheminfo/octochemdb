@@ -3,17 +3,17 @@ import { searchTaxonomies } from './searchTaxonomies.js';
  * @description get standardized taxonomies for Cmaups and Npasses
  * @param {*} entry The data from aggregation process
  * @param {*} taxonomiesCollection The taxonomies collection
- * @param {*} synonyms The newId to oldId map
+ * @param {*} oldToNewTaxIDs The newId to oldId map
  * @param {*} collectionName The name of the collection
  * @returns {Promise<Array>} The standardized taxonomies
  */
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,
   taxonomiesCollection,
-  synonyms,
+  oldToNewTaxIDs,
   collectionName,
 ) {
-  let oldIDs = Object.keys(synonyms);
+  let oldIDs = Object.keys(oldToNewTaxIDs);
   let taxonomiesResults = [];
   if (entry.data?.taxonomies) {
     if (entry.data.taxonomies.length > 0) {
@@ -25,7 +25,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         if (taxons.speciesID) {
           let idToUse = Number(taxons.speciesID);
           if (oldIDs.includes(taxons.speciesID)) {
-            idToUse = Number(synonyms[taxons.speciesID]);
+            idToUse = Number(oldToNewTaxIDs[taxons.speciesID]);
           }
           searchParameter = {
             _id: idToUse,
@@ -41,7 +41,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         if (taxons.genusID) {
           let idToUse = Number(taxons.genusID);
           if (oldIDs.includes(taxons.genusID)) {
-            idToUse = Number(synonyms[taxons.genusID]);
+            idToUse = Number(oldToNewTaxIDs[taxons.genusID]);
           }
           searchParameter = {
             _id: idToUse,
@@ -58,7 +58,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         if (taxons.familyID) {
           let idToUse = Number(taxons.familyID);
           if (oldIDs.includes(taxons.familyID)) {
-            idToUse = Number(synonyms[taxons.familyID]);
+            idToUse = Number(oldToNewTaxIDs[taxons.familyID]);
           }
           searchParameter = {
             _id: idToUse,

@@ -22,7 +22,7 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     } = await npassesStartSync(connection);
-    const synonyms = await taxonomySynonyms();
+    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     let counter = 0;
     let imported = 0;
@@ -63,7 +63,7 @@ export async function sync(connection) {
           let taxonomies = await getTaxonomiesForCmaupsAndNpasses(
             entry,
             collectionTaxonomies,
-            synonyms,
+            oldToNewTaxIDs,
             'npasses',
           );
           entry.data.taxonomies = taxonomies;
@@ -72,7 +72,7 @@ export async function sync(connection) {
           let activities = await getNormalizedActivities(
             entry,
             collectionTaxonomies,
-            synonyms,
+            oldToNewTaxIDs,
             'npasses',
           );
           entry.data.activities = activities;

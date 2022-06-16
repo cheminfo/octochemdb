@@ -15,7 +15,7 @@ const debug = Debug('parseBioactivities');
  * @param {*} connection the connection to the database
  * @param {*} collectionCompounds the collection of compounds
  * @param {*} collectionTaxonomies the collection of taxonomies
- * @param {*} synonyms the newId to oldId map
+ * @param {*} oldToNewTaxIDs the newId to oldId map
  * @yields {Promise} returns the array of bioassays objects to be inserted in the database
  */
 async function* parseBioactivities(
@@ -24,7 +24,7 @@ async function* parseBioactivities(
   connection,
   collectionCompounds,
   collectionTaxonomies,
-  synonyms,
+  oldToNewTaxIDs,
 ) {
   try {
     // parse the bioassays file and get the bioassay information
@@ -32,7 +32,7 @@ async function* parseBioactivities(
       bioassaysFilePath,
       connection,
       collectionTaxonomies,
-      synonyms,
+      oldToNewTaxIDs,
     );
     // Read stream of target file without unzip it
     const readStream = createReadStream(bioActivitiesFilePath);

@@ -25,7 +25,7 @@ export default async function importOneSubstanceFile(
       sources: file.name,
       startSequenceID: progress.seq,
     });
-    const synonyms = await taxonomySynonyms();
+    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
 
     debug(`Importing: ${file.name}`);
@@ -76,7 +76,7 @@ export default async function importOneSubstanceFile(
                 let taxonomies = getTaxonomiesSubstances(
                   result,
                   collectionTaxonomies,
-                  synonyms,
+                  oldToNewTaxIDs,
                 );
                 result.data.taxonomies = taxonomies;
               }

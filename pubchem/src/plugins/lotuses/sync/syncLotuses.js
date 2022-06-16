@@ -22,7 +22,7 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('lotuses');
     const collection = await connection.getCollection('lotuses');
-    const synonyms = await taxonomySynonyms();
+    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
@@ -68,7 +68,7 @@ export async function sync(connection) {
           let taxonomies = await getTaxonomiesForLotuses(
             entry,
             collectionTaxonomies,
-            synonyms,
+            oldToNewTaxIDs,
           );
           entry.data.taxonomies = taxonomies;
         }

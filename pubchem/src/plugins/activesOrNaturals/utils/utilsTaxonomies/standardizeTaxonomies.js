@@ -6,13 +6,13 @@ import { getTaxonomiesForNpAtlases } from './getTaxonomiesForNpAtlases.js';
 /**
  * @description Standardize taxonomies to NCBI format using a set of function based on the collection source (cmaups, npasses, coconuts, lotuses, npAtlases)
  * @param {Object} data The data from aggregation process
- * @param {Object} synonyms The new-old IDs mapping
+ * @param {Object} oldToNewTaxIDs The new-old IDs mapping
  * @param {*} taxonomiesCollection The taxonomies collection
  * @returns {Promise<Array>} The data from aggregation process with standardized taxonomies
  */
 export async function standardizeTaxonomies(
   data,
-  synonyms,
+  oldToNewTaxIDs,
   taxonomiesCollection,
 ) {
   let newData = [];
@@ -32,7 +32,7 @@ export async function standardizeTaxonomies(
         let resultLotuses = await getTaxonomiesForLotuses(
           entry,
           taxonomiesCollection,
-          synonyms,
+          oldToNewTaxIDs,
         );
 
         entry = resultLotuses;

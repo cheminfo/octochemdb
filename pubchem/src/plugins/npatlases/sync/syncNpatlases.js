@@ -23,7 +23,7 @@ export async function sync(connection) {
     };
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
-    const synonyms = await taxonomySynonyms();
+    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
@@ -75,7 +75,7 @@ export async function sync(connection) {
           let taxonomies = await getTaxonomiesForNpAtlases(
             entry,
             collectionTaxonomies,
-            synonyms,
+            oldToNewTaxIDs,
           );
           entry.data.taxonomies = taxonomies;
         }

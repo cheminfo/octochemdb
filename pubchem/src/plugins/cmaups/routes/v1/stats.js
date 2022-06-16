@@ -1,9 +1,8 @@
-// query for molecules from monoisotopic mass
 import { PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('stats');
-
+// export default searchHandler;
 const stats = {
   method: 'GET',
   schema: {
@@ -14,8 +13,8 @@ const stats = {
 
 export default stats;
 /**
- * Returns statistics about the collection
- * @return {Promise}
+ * @description get the stats of the cmaups collection
+ * @returns {Promise} returns the stats of the cmaups collection
  */
 
 async function searchHandler() {

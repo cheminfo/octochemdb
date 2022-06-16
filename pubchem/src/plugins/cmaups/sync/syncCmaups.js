@@ -7,10 +7,14 @@ import { getNormalizedActivities } from './utils/getNormalizedActivities.js';
 import { parseCmaups } from './utils/parseCmaups.js';
 
 const debug = Debug('syncCmaups');
-
+/**
+ * @description sync the cmaups collection
+ * @param {*} connection the connection to the database
+ * @return {Promise} returns cmaups collection
+ */
 export async function sync(connection) {
   try {
-    // Get necessary variables like collections, readed files, ecc. (see cmaupsStartSync for details)
+    // Read files to be parsed, get last document imported, progress, sources and logs
     const [
       lastDocumentImported,
       progress,
@@ -22,8 +26,8 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     ] = await cmaupsStartSync(connection);
-
-    const synonyms = await taxonomySynonyms();
+    //
+    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // Define counters
     let counter = 0;
@@ -67,7 +71,7 @@ export async function sync(connection) {
           let taxonomies = await getTaxonomiesForCmaupsAndNpasses(
             entry,
             collectionTaxonomies,
-            synonyms,
+            oldToNewTaxIDs,
             'cmaups',
           );
           entry.data.taxonomies = taxonomies;
@@ -77,7 +81,7 @@ export async function sync(connection) {
           let activities = await getNormalizedActivities(
             entry,
             collectionTaxonomies,
-            synonyms,
+            oldToNewTaxIDs,
             'cmaups',
           );
           entry.data.activities = activities;
