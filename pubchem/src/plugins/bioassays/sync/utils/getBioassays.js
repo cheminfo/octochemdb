@@ -8,16 +8,18 @@ import Debug from '../../../../utils/Debug.js';
 const debug = Debug('getBioassays');
 
 /**
- * @name getBioassays
- * @param {string} bioassaysFilePath
- * @param {*} connection
- * @returns bioassays object containing AIDs, Target IDs
+ * @description  function to parse bioassays file and return the bioassays objects to be inserted in the database
+ * @param {*} bioassaysFilePath the path to the bioassays file
+ * @param {*} connection the connection to the database
+ * @param {*} collectionTaxonomies the collection of taxonomies
+ * @param {*} oldToNewTaxIDs the newId to oldId map
+ * @returns {Promise} returns the array of bioassays objects to be inserted in the database
  */
 export default async function getBioassays(
   bioassaysFilePath,
   connection,
   collectionTaxonomies,
-  synonyms,
+  oldToNewTaxIDs,
 ) {
   try {
     // Read stream of bioassay file
@@ -29,7 +31,7 @@ export default async function getBioassays(
     debug('Start parsing bioassays file');
     let counter = 0;
     let start = Date.now();
-    let oldIDs = Object.keys(synonyms);
+    let oldIDs = Object.keys(oldToNewTaxIDs);
     for await (let line of lines) {
       const [
         aid,
@@ -74,12 +76,13 @@ export default async function getBioassays(
           targetTaxonomies[targetTaxIDs] = [];
         }
       }
+      // For each taxonomy ID, get the taxonomy and add it to the bioassays[aid].targetTaxonomies object
       if (Object.keys(targetTaxonomies).length > 0) {
         let taxonomies = [];
         for (const taxId of Object.keys(targetTaxonomies)) {
           let idToUse = Number(taxId);
           if (oldIDs.includes(taxId)) {
-            idToUse = Number(synonyms[taxId]);
+            idToUse = Number(oldToNewTaxIDs[taxId]);
           }
           let taxonomy = await collectionTaxonomies.findOne({ _id: idToUse });
           if (taxonomy) {
@@ -92,6 +95,7 @@ export default async function getBioassays(
           bioassays[aid].targetTaxonomies = taxonomies;
         }
       }
+      // Debug the progress every 30000 bioassays
       if (Date.now() - start > Number(30000)) {
         debug(`Processed: ${counter} assays`);
         start = Date.now();
