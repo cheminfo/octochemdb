@@ -26,7 +26,7 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     ] = await cmaupsStartSync(connection);
-    //
+    // get old to new taxonomies ids and taxonomies collection
     const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // Define counters
@@ -55,7 +55,7 @@ export async function sync(connection) {
         connection,
       )) {
         counter++;
-        // If cron launched in mode test, the importation will be stoped after 20 iteration
+        // If cron launched in mode test, the importation will be stopped after 20 iteration
         if (process.env.TEST === 'true' && counter > 20) break;
 
         // Debug the processing progress every 10s or the defined time in process env
@@ -119,7 +119,7 @@ export async function sync(connection) {
       debug(`file already processed`);
     }
   } catch (e) {
-    // If error is chatched, debug it on telegram
+    // If error is catch, debug it on telegram
     if (connection) {
       debug(e, { collection: 'bioassays', connection });
     }

@@ -4,11 +4,10 @@ import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('getCmaupsLastFiles');
-
 /**
- * @name getCmaupsLastFiles
- * @param {*} connection
- * @returns The path of last files downloaded, the sources and the collections progress (admin) and logs (importationLogs)
+ * @description get necessary variables to start the sync
+ * @param {*} connection the connection to the database
+* @returns {Promise<*>} lastFile, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs
  */
 export default async function getCmaupsLastFiles(connection) {
   try {
@@ -56,7 +55,7 @@ export default async function getCmaupsLastFiles(connection) {
         lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
       ]),
     );
-
+    // return [lastFileGeneral, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs];
     return [
       lastFileGeneral,
       lastFileActivity,

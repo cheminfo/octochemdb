@@ -5,7 +5,11 @@ import getCmaupsLastFiles from './getCmaupsLastFiles.js';
 import readCmaupFiles from './readCmaupsFiles.js';
 
 const debug = Debug('cmaupsStartSync');
-
+/**
+ * @description get necessary variables to start the sync
+ * @param {*} connection the connection to the database
+ * @returns {Promise<*>} lastDocumentImported, progress, sources, collection, general, activities, speciesPair, speciesInfo, logs
+ */
 export default async function cmaupsStartSync(connection) {
   try {
     const [

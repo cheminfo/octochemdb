@@ -7,6 +7,15 @@ import Debug from '../../../../utils/Debug.js';
 const { parse } = pkg;
 const debug = Debug('readCmaupsFiles');
 
+/**
+ * @description read the cmaups files and return the data
+ * @param {*} lastFileGeneral the last file "general" available from source
+ * @param {*} lastFileActivity the last file "activities" available from source
+ * @param {*} lastFileSpeciesAssociation the last file "species association" available from source
+ * @param {*} lastFileSpeciesInfo the last file "species info" available from source
+ * @param {*} connection the connection to the database
+ * @returns {Object} general, activities, speciesPair, speciesInfo
+ */
 export default function readCmaupsFiles(
   lastFileGeneral,
   lastFileActivity,
@@ -44,7 +53,7 @@ export default function readCmaupsFiles(
 
     return { general, activities, speciesPair, speciesInfo };
   } catch (e) {
-    // If error is chatched, debug it on telegram
+    // If error is catch, debug it on telegram
     if (connection) {
       debug(e, { collection: 'bioassays', connection });
     }

@@ -3,7 +3,15 @@ import OCL from 'openchemlib';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('parseCmaups');
-
+/**
+ * @description parse the cmaups files and return the data to be imported in the database
+ * @param {*} general the general data readed from the file
+ * @param {*} activities the activities data readed from the file
+ * @param {*} speciesPair the species association data readed from the file
+ * @param {*} speciesInfo the species info data readed from the file
+ * @param {*} connection the connection to the database
+ * @returns {Object} results to be imported in the database
+ */
 export async function* parseCmaups(
   general,
   activities,
@@ -20,8 +28,7 @@ export async function* parseCmaups(
       }
       speciesPaired[pair[1]].push(pair[0]);
     }
-    // Start parsing each molecule in general
-
+    // Start parsing each molecule in general data
     for await (const item of general) {
       try {
         if (Object.keys(item.Ingredient_ID).length > 0) {
@@ -98,7 +105,7 @@ export async function* parseCmaups(
               }
             }
           }
-          // Create object containing final result for molecule i
+          // Create object containing final result
           const result = {
             _id: item.Ingredient_ID,
             data: {

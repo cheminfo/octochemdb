@@ -1,14 +1,22 @@
 import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 
+/**
+ * @description normalize the activities data and standardize the target taxonomies for cmaups
+ * @param {*} entry the entry to be normalized
+ * @param {*} taxonomiesCollection the taxonomies collection
+ * @param {*} oldToNewTaxIDs the old to new taxonomies ids mapping
+ * @param {*} collectionName the name of the collection
+ * @returns {Promise<Array>} the normalized activities
+ */
 export async function getNormalizedActivities(
   entry,
   taxonomiesCollection,
-  synonyms,
+  oldToNewTaxIDs,
   collectionName,
 ) {
   let results = [];
   if (entry.data.activities) {
-    let oldIDs = Object.keys(synonyms);
+    let oldIDs = Object.keys(oldToNewTaxIDs);
     for (const activity of entry.data.activities) {
       let assayString = [
         activity.activityType,
@@ -24,10 +32,11 @@ export async function getNormalizedActivities(
         dbRef: { $ref: collectionName, $id: entry._id },
         externalRef: externalReference,
       };
+      // search for the taxonomies
       if (activity.targetId) {
         let idToUse = Number(activity.targetId);
         if (oldIDs.includes(activity.targetId)) {
-          idToUse = Number(synonyms[activity.targetId]);
+          idToUse = Number(oldToNewTaxIDs[activity.targetId]);
         }
         let searchParameter = {
           _id: idToUse,
