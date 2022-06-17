@@ -7,24 +7,34 @@ import Debug from '../../../../utils/Debug.js';
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
 const debug = Debug('parseGNPs');
-
+/**
+ * @description Parse GNPs file and return data to be imported in GNPs collection
+ * @param {*} jsonPath path to the GNPs file
+ * @param {*} connection MongoDB connection
+ * @yield {Promise} returns entries in gnps collection
+ */
 export async function* parseGNPs(jsonPath, connection) {
+  // create a stream to read the file
   const jsonStream = StreamArray.withParser();
   createReadStream(jsonPath, 'utf8').pipe(jsonStream);
   try {
     for await (const entry of jsonStream) {
       try {
+        // skip if the entry has no smiles, spectrum or a library class 3 or 10
         if (
           entry.value.Smiles === 'N/A' ||
           entry.value.peaks_json === 'N/A' ||
-          entry.value.Library_Class === (3 || 10) // GNPS classify spectra in 4 categories, gold silver bronze(incomplete data are allowed) challenge(unkown identity is allowed)
+          entry.value.Library_Class === 10 ||
+          entry.value.Library_Class === 3 // GNPS classify spectra in 4 categories, gold silver (10 and 3), bronze (incomplete data are allowed), challenge(unknown identity is allowed)
         ) {
           continue;
         }
+        // create a molecule from the entry smiles and get noStereoID
         const oclMolecule = OCL.Molecule.fromSmiles(entry.value.Smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();
         oclMolecule.stripStereoInformation();
         const noStereoID = oclMolecule.getIDCode();
+        // Get spectrum metadata
         let spectralData = {};
         if (entry.value.ms_level !== 'N/A') {
           spectralData.msLevel = Number(entry.value.ms_level);
@@ -44,7 +54,7 @@ export async function* parseGNPs(jsonPath, connection) {
         if (entry.value.Ion_Mode !== 'N/A') {
           spectralData.ionMode = entry.value.Ion_Mode;
         }
-
+        // Get spectrum peaks
         let spectrum = {
           x: [],
           y: [],
@@ -54,6 +64,7 @@ export async function* parseGNPs(jsonPath, connection) {
           spectrum.x.push(peak[0]);
           spectrum.y.push(peak[1]);
         }
+        // if spectrum has more than 1000 peaks, keep most intense 1000 peaks
         if (spectrum.y.length > 1000) {
           let copySpectrumInt = [...spectrum.y];
           copySpectrumInt
@@ -74,6 +85,7 @@ export async function* parseGNPs(jsonPath, connection) {
           spectrum = newSpectrum;
         }
         spectralData.spectrum = spectrum;
+        // define final result to be imported in GNPs collection
         const result = {
           _id: entry.value.spectrum_id,
           data: {

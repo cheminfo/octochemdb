@@ -14,7 +14,7 @@ const stats = {
 
 export default stats;
 /**
- * Returns statistics about the collection
+ * Returns statistics about the collection GNPS
  * @return {Promise}
  */
 
