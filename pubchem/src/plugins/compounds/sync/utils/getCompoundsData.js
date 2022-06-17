@@ -6,7 +6,11 @@ import Debug from '../../../../utils/Debug.js';
 
 const { MF } = MFParser;
 const debug = Debug('getCompoundsData');
-
+/**
+ * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
+ * @param {*} molecule molecule from pubchem file
+ * @returns {Object} compounds properties
+ */
 export function getCompoundsData(molecule) {
   let oclMolecule;
   if (molecule.molefile) {
@@ -14,9 +18,8 @@ export function getCompoundsData(molecule) {
   } else {
     oclMolecule = OCL.Molecule.fromIDCode(molecule.noStereoID);
   }
-
+  // calculate molecule properties (e.g. charge, OCL ID, molecular formula, etc.)
   const oclProperties = new OCL.MoleculeProperties(oclMolecule);
-
   const oclID = oclMolecule.getIDCodeAndCoordinates();
   const oclIndex = Array.from(oclMolecule.getIndex());
   const moleculeMF = getMF(oclMolecule);
@@ -48,6 +51,7 @@ export function getCompoundsData(molecule) {
   };
 
   try {
+    // calculate molecular formula properties (ex. exact mass, unsaturations, etc.)
     const mfInfo = new MF(globalMF).getInfo();
     result.data.em = mfInfo.monoisotopicMass;
     result.data.mw = mfInfo.mass;

@@ -8,23 +8,32 @@ import Debug from '../../../../utils/Debug.js';
 import improveCompoundPool from './improveCompoundPool.js';
 
 const debug = Debug('importOneCompoundFile');
-
+/**
+ * @description import compounds from a PubChem Compound file
+ * @param {*} connection MongoDB connection
+ * @param {*} progress import progress
+ * @param {*} file file to import
+ * @param {*} options options {shouldImport: boolean, lastDocument: object}
+ * @returns {Promise} returns entries in compounds collections
+ */
 export default async function importOneCompoundFile(
   connection,
   progress,
   file,
   options,
 ) {
+  // get compounds collection
   const collection = await connection.getCollection('compounds');
-  await collection.createIndex({ _seq: 1 });
   debug(`Importing: ${file.name}`);
+  // Get logs collection
   const logs = await connection.geImportationLog({
     collectionName: 'compounds',
     sources: file.name,
     startSequenceID: progress.seq,
   });
-  // should we directly import the data how wait that we reach the previously imported information
+  // should we directly import the data or wait that we reach the previously imported information
   let { shouldImport = true, lastDocument } = options;
+  // Create a readStream for the file
   let bufferValue = '';
   let newCompounds = 0;
   const readStream = fs.createReadStream(file.path);
@@ -38,23 +47,29 @@ export default async function importOneCompoundFile(
       bufferValue = bufferValue.substring(lastIndex + 5);
     }
   }
+  // parse the last chunk
   newCompounds += await parseSDF(bufferValue);
+  // update logs
   logs.dateEnd = Date.now();
   logs.endSequenceID = progress.seq;
   logs.status = 'updated';
   await connection.updateImportationLog(logs);
   debug(`${newCompounds} compounds imported from ${file.name}`);
+  // return the new compounds count
   return newCompounds;
 
+  // parse the SDF file (function called in line 50) and import the compounds in the compounds collection
   async function parseSDF(sdf) {
+    // parse the SDF file
     let compounds = parse(sdf).molecules;
     debug(`Need to process ${compounds.length} compounds`);
-
+    // if test mode is enabled, we only process the first 10 compounds
     if (process.env.TEST === 'true') compounds = compounds.slice(0, 10);
-
+    // the array action will contain the promises to be resolved
     const actions = [];
     let start = Date.now();
     for (const compound of compounds) {
+      // skip till CID corresponds to the last document imported ID
       if (!shouldImport) {
         if (compound.PUBCHEM_COMPOUND_CID !== lastDocument._id) {
           continue;
@@ -69,7 +84,7 @@ export default async function importOneCompoundFile(
           continue;
         }
       }
-
+      // promises to be resolved
       actions.push(
         improveCompoundPool(compound)
           .then((result) => {
@@ -90,9 +105,9 @@ export default async function importOneCompoundFile(
       );
     }
     newCompounds += actions.length;
+    // wait for all the promises to be resolved
     await Promise.all(actions);
     debug(`${newCompounds} compounds processed`);
-    // save the compounds in the database
     return compounds.length;
   }
 }

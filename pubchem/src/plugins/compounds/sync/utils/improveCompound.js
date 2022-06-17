@@ -8,6 +8,11 @@ import { getCompoundsData } from './getCompoundsData.js';
 const { MF } = MFParser;
 const debug = Debug('improveCompound');
 
+/**
+ * @description Parse molecule from pubchem file
+ * @param {*} molecule molecule from pubchem file
+ * @returns {Promise<object>} result to be imported
+ */
 async function improveCompound(molecule) {
   let dataCompound = getCompoundsData(molecule);
   let result = {
