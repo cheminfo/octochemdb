@@ -15,7 +15,7 @@ const stats = {
 export default stats;
 /**
  * Returns statistics about the collection
- * @return {Promise}
+ * @return {Promise} statistics about the collection
  */
 
 async function searchHandler() {

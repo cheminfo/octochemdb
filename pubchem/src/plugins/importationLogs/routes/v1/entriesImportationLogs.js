@@ -33,6 +33,11 @@ const entriesImportationLogs = {
 
 export default entriesImportationLogs;
 
+/**
+ * @description searchHandler - search logs from collection name
+ * @param {*} request
+ * @returns {Promise<*>} logs
+ */
 async function searchHandler(request) {
   let {
     collectionName = '',
