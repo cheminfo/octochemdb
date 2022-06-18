@@ -7,9 +7,13 @@ import { getTaxonomiesForLotuses } from '../../activesOrNaturals/utils/utilsTaxo
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import { parseLotuses } from './utils/parseLotuses.js';
-
-const debug = Debug('syncLotuses');
+/**
+ * @description syncLotuses - synchronize lotuses collection from lotus database
+ * @param {*} connection - mongo connection
+ * @returns {Promise} returns collection lotuses
+ */
 export async function sync(connection) {
+  const debug = Debug('syncLotuses');
   let options = {
     collectionSource: process.env.LOTUS_SOURCE,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/lotuses/full`,
@@ -18,26 +22,31 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   try {
+    // get last file from lotus database
     const lastFile = await getLastFileSync(options);
+    // get sources, progress and lotuses collection
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('lotuses');
     const collection = await connection.getCollection('lotuses');
+    // get old to new taxonomies ids mapping
     const oldToNewTaxIDs = await taxonomySynonyms();
+    // get taxonomies collection
     const collectionTaxonomies = await connection.getCollection('taxonomies');
+    // get logs
     const logs = await connection.geImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
-
+    // get last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-
+    // define file inside zip folder to use for importation
     let fileName = 'lotusUniqueNaturalProduct.bson';
-
+    // define counter
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -46,12 +55,15 @@ export async function sync(connection) {
       md5(JSON.stringify(sources)) !== progress.sources ||
       progress.state !== 'updated'
     ) {
+      // create temporary collection
       const temporaryCollection = await connection.getCollection(
         'temporaryLotuses',
       );
       debug(`Start parsing: ${fileName}`);
+      // set progress state to updating
       progress.state = 'updating';
       await connection.setProgress(progress);
+      // parse lotuses
       for await (const entry of parseLotuses(lastFile, fileName, connection)) {
         counter++;
         if (process.env.TEST === 'true' && counter > 20) break;

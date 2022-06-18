@@ -6,15 +6,25 @@ import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
 const debug = Debug('parseLotuses');
 
-export async function* parseLotuses(bsonPath, filename, connection) {
+/**
+ * @description parse lotus file and yield data to be imported
+ * @param {*} lotusFilePath - path to lotus file
+ * @param {*} filename - filename inside zip folder to use for importation
+ * @param {*} connection - mongo connection
+ * @yields {Object} - data to be imported
+ */
+export async function* parseLotuses(lotusFilePath, filename, connection) {
   try {
-    const readStream = await readStreamInZipFolder(bsonPath, filename);
+    const readStream = await readStreamInZipFolder(lotusFilePath, filename);
     for await (const entry of bsonIterator(readStream)) {
       try {
+        // generate molecule from smiles
         const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();
         oclMolecule.stripStereoInformation();
+        // get noStereoID
         const noStereoID = oclMolecule.getIDCode();
+        // parse taxonomies
         const taxonomy = entry.taxonomyReferenceObjects;
         const key = Object.keys(taxonomy)[0];
         const taxonomySources = taxonomy[key];
@@ -23,7 +33,7 @@ export async function* parseLotuses(bsonPath, filename, connection) {
         const iNaturalist = [];
         const openTreeOfLife = [];
         const iTIS = [];
-
+        // keep information of all taxonomies sources
         if ('NCBI' in taxonomySources) {
           for (let entry of taxonomySources.NCBI) {
             const result = {};
@@ -101,7 +111,7 @@ export async function* parseLotuses(bsonPath, filename, connection) {
             iTIS.push(result);
           }
         }
-
+        // define data to be yielded
         const result = {
           _id: entry.lotus_id,
           data: {
