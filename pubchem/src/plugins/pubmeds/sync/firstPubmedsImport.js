@@ -41,6 +41,10 @@ async function firstPubmedImport(connection) {
       pmidToCid,
     );
     progress.state = 'updated';
+    const collection = await connection.getCollection('pubmeds');
+    await collection.createIndex({ 'data.meshHeadings': 1 });
+    await collection.createIndex({ 'data.cids': 1 });
+    await collection.createIndex({ _id: 1 });
     await connection.setProgress(progress);
   } catch (e) {
     if (connection) {
