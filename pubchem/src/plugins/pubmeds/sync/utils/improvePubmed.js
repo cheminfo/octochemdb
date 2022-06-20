@@ -1,19 +1,22 @@
-import workerpool from 'workerpool';
-
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('improvePubmed');
 
-async function improvePubmed(entry) {
+export async function improvePubmed(entry, pmidToCid) {
   let medlineCitation = entry.MedlineCitation;
 
   // get generic information
   let pmid = medlineCitation.PMID['#text'];
+  let cids = pmidToCid[pmid];
   let result = {
     _id: pmid,
     _seq: 0,
     data: {},
   };
+  if (cids) {
+    result.data.cids = cids;
+  }
+
   try {
     let dateCreated = medlineCitation.DateCreated;
     let dateCompleted = medlineCitation.DateCompleted;
@@ -46,7 +49,7 @@ async function improvePubmed(entry) {
         let abstracts = [];
         for (let i = 0; i < medlineArticle.Abstract.AbstractText.length; i++) {
           let abstractText = medlineArticle.Abstract.AbstractText[i]['#text'];
-          if (abstractText) {
+          if (abstractText && abstractText !== null) {
             abstracts.push(abstractText);
           }
         }
@@ -242,7 +245,3 @@ async function improvePubmed(entry) {
 
   return result;
 }
-
-workerpool.worker({
-  improvePubmed,
-});

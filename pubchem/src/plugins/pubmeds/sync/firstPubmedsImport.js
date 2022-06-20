@@ -1,6 +1,8 @@
+import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import Debug from '../../../utils/Debug.js';
 
+import { getCidFromPmid } from './utils/getCidFromPmid.js';
 import importOnePubmedFile from './utils/importOnePubmedFile.js';
 
 const debug = Debug('firstPubmedImport');
@@ -22,7 +24,22 @@ async function firstPubmedImport(connection) {
     );
     progress.state = 'updating';
     await connection.setProgress(progress);
-    await importPubmedFiles(connection, progress, files, { lastDocument });
+    let options = {
+      collectionSource: process.env.CIDTOPMID_SOURCE,
+      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/pubmeds/cidToPmid`,
+      collectionName: 'pubmeds',
+      filenameNew: 'cidToPmid',
+      extensionNew: 'gz',
+    };
+    const cidToPmidPath = await getLastFileSync(options);
+    const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
+    await importPubmedFiles(
+      connection,
+      progress,
+      files,
+      { lastDocument },
+      pmidToCid,
+    );
     progress.state = 'updated';
     await connection.setProgress(progress);
   } catch (e) {
@@ -32,11 +49,17 @@ async function firstPubmedImport(connection) {
   }
 }
 
-async function importPubmedFiles(connection, progress, files, options) {
+async function importPubmedFiles(
+  connection,
+  progress,
+  files,
+  options,
+  pmidToCid,
+) {
   try {
     options = { shouldImport: progress.seq === 0, ...options };
     for (let file of files) {
-      await importOnePubmedFile(connection, progress, file, options);
+      await importOnePubmedFile(connection, progress, file, options, pmidToCid);
       options.shouldImport = true;
     }
   } catch (e) {
@@ -71,7 +94,7 @@ async function getFilesToImport(connection, progress, allFiles) {
 
     debug(`starting with file ${progress.sources}`);
 
-    return { lastDocument, files: allFiles.slice(firstIndex) };
+    return { files: allFiles.slice(firstIndex), lastDocument };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'pubmeds', connection });

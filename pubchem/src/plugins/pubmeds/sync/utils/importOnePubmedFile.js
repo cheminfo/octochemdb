@@ -6,7 +6,7 @@ import { parseStream } from 'arraybuffer-xml-parser';
 import Debug from '../../../../utils/Debug.js';
 
 import { decompressGziped } from './decompressGziped.js';
-import improvePubmedPool from './improvePubmedPool.js';
+import { improvePubmed } from './improvePubmed.js';
 
 const debug = Debug('importOnePubmedFile');
 
@@ -15,6 +15,7 @@ export default async function importOnePubmedFile(
   progress,
   file,
   options,
+  pmidToCid,
 ) {
   try {
     const collection = await connection.getCollection('pubmeds');
@@ -32,7 +33,6 @@ export default async function importOnePubmedFile(
     const readableStream = fileStream.readableWebStream();
     let { shouldImport, lastDocument } = options;
     let imported = 0;
-    const actions = [];
     debug(`Importing ${file.name}`);
     for await (const entry of parseStream(readableStream, 'PubmedArticle')) {
       if (!shouldImport) {
@@ -45,28 +45,18 @@ export default async function importOnePubmedFile(
         continue;
       }
       if (shouldImport) {
-        actions.push(
-          improvePubmedPool(entry)
-            .then((result) => {
-              result._seq = ++progress.seq;
-              return collection.updateOne(
-                { _id: result._id },
-                { $set: result },
-                { upsert: true },
-              );
-            })
-            .then(() => {
-              progress.sources = file.path.replace(
-                process.env.ORIGINAL_DATA_PATH,
-                '',
-              );
-              return connection.setProgress(progress);
-            }),
-        );
+        let result = await improvePubmed(entry, pmidToCid);
         imported++;
+        result._seq = ++progress.seq;
+        await collection.updateOne(
+          { _id: result._id },
+          { $set: result },
+          { upsert: true },
+        );
       }
     }
-    await Promise.all(actions);
+    progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
+    await connection.setProgress(progress);
     logs.dateEnd = Date.now();
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
