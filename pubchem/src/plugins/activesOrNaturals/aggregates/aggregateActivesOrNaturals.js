@@ -179,6 +179,7 @@ export async function aggregateActivesOrNaturals(connection) {
       await targetCollection.createIndex({ _id: 1 });
       await targetCollection.createIndex({ 'data.em': 1 });
       await targetCollection.createIndex({ 'data.kwBioassays': 1 });
+      await targetCollection.createIndex({ 'data.meshTerms': 1 });
       await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
 
       debug('Aggregation Done');
