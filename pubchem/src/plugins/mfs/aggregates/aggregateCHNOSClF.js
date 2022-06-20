@@ -1,12 +1,18 @@
 import Debug from '../../../utils/Debug.js';
 
-const debug = Debug('aggregateCHNOSClF');
-
+/**
+ * @description Aggregate function for molecules with mf containing CHNOSClF elements
+ * @param {*} connection mongo connection
+ * @returns {Promise} returns mfsCHNOSClF collection
+ */
 export async function aggregate(connection) {
+  const debug = Debug('aggregateCHNOSClF');
+  // get compounds collection and progress
   const collection = await connection.getCollection('compounds');
-
   const progressCompounds = await connection.getProgress('compounds');
+  // get progress collection mfsCHNOSClF
   const progress = await connection.getProgress('mfsCHNOSClF');
+  // set progress to aggregating
   progress.state = 'aggregating';
   await connection.setProgress(progress);
   try {
