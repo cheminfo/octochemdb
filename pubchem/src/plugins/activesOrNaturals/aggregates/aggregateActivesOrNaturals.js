@@ -7,6 +7,7 @@ import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
+import { getMeshTerms } from '../utils/getMeshTerms.js';
 import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
@@ -102,6 +103,15 @@ export async function aggregateActivesOrNaturals(connection) {
           noStereoID,
           connection,
         );
+        if (entry.data.cids) {
+          let meshTerms = [];
+          for (let i = 0; i < entry.data.cids.length; i++) {
+            let cid = entry.data.cids[i];
+            const meshTermsForCid = await getMeshTerms(cid, connection);
+            meshTerms = meshTerms.concat(meshTermsForCid);
+          }
+          entry.data.meshTerms = meshTerms;
+        }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
           entry.data.BioActive = true;
