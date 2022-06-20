@@ -23,7 +23,6 @@ export async function aggregateActivesOrNaturals(connection) {
     'npAtlases',
     'cmaups',
     'coconuts',
-    // 'naturalSubstances',
     'bioassays',
   ];
   const debug = Debug('aggregateActivesOrNaturals');
