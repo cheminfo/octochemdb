@@ -1,12 +1,19 @@
 import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 
+/**
+ * @description get the taxonomies of the substances
+ * @param {object} entry substance entry
+ * @param {*} taxonomiesCollection taxonomies collection
+ * @param {object} oldToNewTaxIDs old to new taxonomy IDs mapping
+ * @returns {Promise} taxonomies of the substance
+ */
 export async function getTaxonomiesSubstances(
   entry,
   taxonomiesCollection,
-  synonyms,
+  oldToNewTaxIDs,
 ) {
   let taxonomiesSubstances = [];
-  let oldIDs = Object.keys(synonyms);
+  let oldIDs = Object.keys(oldToNewTaxIDs);
   if (entry.data?.taxonomyIDs) {
     for (let i = 0; i < entry.data.taxonomyIDs.length; i++) {
       let taxId = entry.data.taxonomyIDs[i];
@@ -24,7 +31,7 @@ export async function getTaxonomiesSubstances(
         taxonomiesSubstances.push(finalTaxonomy);
       }
       if (result.length === 0 && oldIDs.includes(taxId)) {
-        let idToUse = Number(synonyms[taxId]);
+        let idToUse = Number(oldToNewTaxIDs[taxId]);
 
         let searchParameter = {
           _id: idToUse,

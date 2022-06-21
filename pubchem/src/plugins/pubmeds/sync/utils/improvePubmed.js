@@ -1,10 +1,14 @@
 import Debug from '../../../../utils/Debug.js';
-
-const debug = Debug('improvePubmed');
-
+/**
+ * @description parse and make pubmed entry human readable
+ * @param {object} entry - pubmed entry
+ * @param {object} pmidToCid - pmid to cid map
+ * @returns {object} pubmed entry to be imported
+ */
 export async function improvePubmed(entry, pmidToCid) {
+  const debug = Debug('improvePubmed');
+  // get medlineCitation
   let medlineCitation = entry.MedlineCitation;
-
   // get generic information
   let pmid = medlineCitation.PMID['#text'];
   let cids = pmidToCid[pmid];
@@ -18,6 +22,7 @@ export async function improvePubmed(entry, pmidToCid) {
   }
 
   try {
+    // article information
     let dateCreated = medlineCitation.DateCreated;
     let dateCompleted = medlineCitation.DateCompleted;
     let dateRevised = medlineCitation.DateRevised;
@@ -25,7 +30,7 @@ export async function improvePubmed(entry, pmidToCid) {
     /// parse article
     let medlineArticle = medlineCitation.Article;
     let parsedArticle = {};
-
+    // get article title
     if (medlineArticle.ArticleTitle) {
       if (medlineArticle.ArticleTitle['#text']) {
         parsedArticle.title = medlineArticle.ArticleTitle['#text'];
@@ -43,6 +48,7 @@ export async function improvePubmed(entry, pmidToCid) {
         }
       }
     }
+    // get abstract
     if (medlineArticle.Abstract) {
       if (Array.isArray(medlineArticle.Abstract.AbstractText)) {
         // i want to concat all the abstracts
@@ -58,6 +64,7 @@ export async function improvePubmed(entry, pmidToCid) {
         parsedArticle.abstract = medlineArticle.Abstract.abstractText;
       }
     }
+    // get Journal information
     if (medlineArticle.Journal) {
       let cleanedJournal = {};
       if (medlineArticle.Journal.Title) {
@@ -80,6 +87,7 @@ export async function improvePubmed(entry, pmidToCid) {
       }
       parsedArticle.journal = cleanedJournal;
     }
+    // get authors
     if (medlineArticle.AuthorList) {
       if (Array.isArray(medlineArticle.AuthorList.Author) === false) {
         medlineArticle.AuthorList.Author = [medlineArticle.AuthorList.Author];
@@ -99,9 +107,11 @@ export async function improvePubmed(entry, pmidToCid) {
       });
       parsedArticle.authors = cleanedAuthors;
     }
+    // get language
     if (medlineArticle.Language) {
       parsedArticle.language = medlineArticle.Language;
     }
+    // get publication type
     if (medlineArticle.PublicationTypeList) {
       if (
         Array.isArray(medlineArticle.PublicationTypeList.PublicationType) ===
@@ -128,6 +138,7 @@ export async function improvePubmed(entry, pmidToCid) {
       parsedArticle.sids =
         medlineArticle.DataBankList.DataBank.AccessionNumberList.AccessionNumber;
     }
+    // get chemicals list used in article
     let chemicals;
     if (medlineCitation.ChemicalList) {
       if (Array.isArray(medlineCitation.ChemicalList.Chemical) === false) {
@@ -166,7 +177,7 @@ export async function improvePubmed(entry, pmidToCid) {
       );
       chemicals = cleanedChemicals;
     }
-
+    // get supplementary mesh list
     let supplMesh;
     if (medlineCitation.SupplMeshList) {
       if (
@@ -187,6 +198,7 @@ export async function improvePubmed(entry, pmidToCid) {
       );
       supplMesh = cleanedSupplMesh;
     }
+    // get mesh headings list
     let meshHeadings;
     if (medlineCitation.MeshHeadingList) {
       if (
@@ -214,7 +226,7 @@ export async function improvePubmed(entry, pmidToCid) {
       );
       meshHeadings = cleanedMeshHeadings;
     }
-
+    // insert variables into result object
     if (dateCreated) {
       result.data.dateCreated = dateCreated;
     }

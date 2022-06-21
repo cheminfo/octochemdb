@@ -1,11 +1,16 @@
-import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import Debug from '../../../utils/Debug.js';
 
-import importOneSubstanceFile from './utils/importOneSubstanceFile.js';
+import { getFilesToImport } from './utils/getFilesToImport.js';
+import { importSubstanceFiles } from './utils/importSubstanceFiles.js';
+import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
 
-const debug = Debug('firstSubstanceImport');
-
+/**
+ * @description perform first import of substances files and return the collection substances
+ * @param {*} connection - mongo connection
+ * @returns {Promise} - collection substances
+ */
 async function firstSubstanceImport(connection) {
+  const debug = Debug('firstSubstanceImport');
   try {
     const progress = await connection.getProgress('substances');
     if (progress.state === 'updated') {
@@ -14,15 +19,22 @@ async function firstSubstanceImport(connection) {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
-    const allFiles = await syncFullSubstanceFolder(connection);
+    const allFiles = await syncSubstanceFolder(connection, 'first');
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
       allFiles,
+      'first',
     );
     progress.state = 'updating';
     await connection.setProgress(progress);
-    await importSubstanceFiles(connection, progress, files, { lastDocument });
+    await importSubstanceFiles(
+      connection,
+      progress,
+      files,
+      { lastDocument },
+      'first',
+    );
     progress.state = 'updated';
     await connection.setProgress(progress);
 
@@ -31,78 +43,6 @@ async function firstSubstanceImport(connection) {
     await substanceCollection.createIndex({ _seq: 1 });
     await substanceCollection.createIndex({ naturalProduct: 1 });
     await substanceCollection.createIndex({ 'data.ocl.noStereoID': 1 });
-  } catch (e) {
-    if (connection) {
-      debug(e, { collection: 'substances', connection });
-    }
-  }
-}
-
-async function importSubstanceFiles(connection, progress, files, options) {
-  try {
-    options = { shouldImport: progress.seq === 0, ...options };
-    for (let file of files) {
-      await importOneSubstanceFile(connection, progress, file, options);
-      options.shouldImport = true;
-    }
-  } catch (e) {
-    if (connection) {
-      debug(e, { collection: 'substances', connection });
-    }
-  }
-}
-
-async function getFilesToImport(connection, progress, allFiles) {
-  try {
-    const collection = await connection.getCollection('substances');
-    const lastDocument = await collection
-      .find({ _seq: { $lte: progress.seq } })
-      .sort('_seq', -1)
-      .limit(1)
-      .next();
-
-    if (!progress.sources || !lastDocument) {
-      return { files: allFiles, lastDocument: {} };
-    }
-
-    debug(`last file processed: ${progress.sources}`);
-
-    const firstIndex = allFiles.findIndex((n) =>
-      n.path.endsWith(progress.sources),
-    );
-
-    if (firstIndex === -1) {
-      throw new Error(`file not found: ${progress.sources}`);
-    }
-
-    debug(`starting with file ${progress.sources}`);
-
-    return { lastDocument, files: allFiles.slice(firstIndex) };
-  } catch (e) {
-    if (connection) {
-      debug(e, { collection: 'substances', connection });
-    }
-  }
-}
-
-async function syncFullSubstanceFolder(connection) {
-  try {
-    debug('Synchronize full substance folder');
-
-    const source = `${process.env.PUBCHEM_SOURCE}Substance/CURRENT-Full/SDF/`;
-    const destination = `${process.env.ORIGINAL_DATA_PATH}/substances/full`;
-
-    debug(`Syncing: ${source} to ${destination}`);
-
-    const { allFiles } = await syncFolder(source, destination, {
-      fileFilter: (file) => file && file.name.endsWith('.gz'),
-    });
-
-    return allFiles.sort((a, b) => {
-      if (a.path < b.path) return -1;
-      if (a.path > b.path) return 1;
-      return 0;
-    });
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'substances', connection });

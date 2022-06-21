@@ -11,7 +11,10 @@ import { getTaxonomiesNodes } from './utils/getTaxonomiesNodes.js';
 import { parseTaxonomies } from './utils/parseTaxonomies.js';
 
 const debug = Debug('syncTaxonomies');
-
+/**
+ * sync NCBI taxonomies
+ * @param {*} connection connection to mongo
+ */
 export async function sync(connection) {
   let options = {
     collectionSource: process.env.TAXONOMY_SOURCE,

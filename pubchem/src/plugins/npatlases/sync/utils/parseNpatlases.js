@@ -1,10 +1,14 @@
 import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
-
-const debug = Debug('parseNpatlases');
-
+/**
+ * @description parse NPATLAS file and return entries to be imported
+ * @param {*} json - NPATLAS file
+ * @param {*} connection - mongo connection
+ * @returns {Promise} returns entries to be imported
+ */
 export async function* parseNpatlases(json, connection) {
+  const debug = Debug('parseNpatlases');
   try {
     for await (const entry of json) {
       try {

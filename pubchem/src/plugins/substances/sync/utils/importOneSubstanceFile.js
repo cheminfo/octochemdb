@@ -9,15 +9,21 @@ import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomi
 
 import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
 import improveSubstancePool from './improveSubstancePool.js';
-
-const debug = Debug('improveOneSubstanceFile');
-
+/**
+ * @description import one substance file
+ * @param {*} connection connection to mongo
+ * @param {*} progress substances progress
+ * @param {*} file substance file
+ * @param {*} options {shouldImport:boolean,lastDocument:object}
+ * @returns {Promise} substances imported
+ */
 export default async function importOneSubstanceFile(
   connection,
   progress,
   file,
   options,
 ) {
+  const debug = Debug('improveOneSubstanceFile');
   try {
     const collection = await connection.getCollection('substances');
     const logs = await connection.getImportationLog({

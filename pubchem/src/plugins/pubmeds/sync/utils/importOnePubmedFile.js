@@ -7,9 +7,15 @@ import Debug from '../../../../utils/Debug.js';
 
 import { decompressGziped } from './decompressGziped.js';
 import { improvePubmed } from './improvePubmed.js';
-
-const debug = Debug('importOnePubmedFile');
-
+/**
+ * @description  import one PubMed file
+ * @param {*} connection  - mongo connection
+ * @param {*} progress - pubmeds progress
+ * @param {Array} file - file to import
+ * @param {object} options - options { shouldImport ,lastDocument }
+ * @param {object} pmidToCid - pmid to cid map
+ * @returns {Promise} pubmeds collection
+ */
 export default async function importOnePubmedFile(
   connection,
   progress,
@@ -17,26 +23,28 @@ export default async function importOnePubmedFile(
   options,
   pmidToCid,
 ) {
+  const debug = Debug('importOnePubmedFile');
   try {
+    // get pubmeds collection
     const collection = await connection.getCollection('pubmeds');
     await collection.createIndex({ _seq: 1 });
     debug(`Importing: ${file.name}`);
+    // get logs
     const logs = await connection.getImportationLog({
       collectionName: 'pubmeds',
       sources: file.name,
       startSequenceID: progress.seq,
     });
-
+    // create stream from file
     const filePath = await decompressGziped(file.path);
     const fileStream = await open(filePath, 'r');
-    // @ts-ignore
     const readableStream = fileStream.readableWebStream();
     let { shouldImport, lastDocument } = options;
     let imported = 0;
     debug(`Importing ${file.name}`);
+    // parse the pubmed file stream
     for await (const entry of parseStream(readableStream, 'PubmedArticle')) {
       if (!shouldImport) {
-        // @ts-ignore
         if (entry.MedlineCitation.PMID['#text'] !== lastDocument._id) {
           continue;
         }
@@ -48,6 +56,7 @@ export default async function importOnePubmedFile(
         let result = await improvePubmed(entry, pmidToCid);
         imported++;
         result._seq = ++progress.seq;
+        // insert entry into pubmeds collection
         await collection.updateOne(
           { _id: result._id },
           { $set: result },
@@ -55,6 +64,7 @@ export default async function importOnePubmedFile(
         );
       }
     }
+    // set logs and progress
     progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
     await connection.setProgress(progress);
     logs.dateEnd = Date.now();

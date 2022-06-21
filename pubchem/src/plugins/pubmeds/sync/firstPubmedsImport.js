@@ -1,14 +1,20 @@
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import Debug from '../../../utils/Debug.js';
 
 import { getCidFromPmid } from './utils/getCidFromPmid.js';
-import importOnePubmedFile from './utils/importOnePubmedFile.js';
+import { getFilesToImport } from './utils/getFilesToImport.js';
+import { importPubmedFiles } from './utils/importPubmedFiles.js';
+import { syncPubmedFolder } from './utils/syncPubmedFolder.js';
 
-const debug = Debug('firstPubmedImport');
-
+/**
+ * @description performs the first import of pubmeds
+ * @param {*} connection - mongo connection
+ * @returns {Promise} pubmeds collection
+ */
 async function firstPubmedImport(connection) {
+  const debug = Debug('firstPubmedImport');
   try {
+    // get progress
     const progress = await connection.getProgress('pubmeds');
     if (progress.state === 'updated') {
       debug('First importation has been completed. Should only update.');
@@ -16,14 +22,18 @@ async function firstPubmedImport(connection) {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
-    const allFiles = await syncFullPubmedFolder(connection);
+    // get all files to import
+    const allFiles = await syncPubmedFolder(connection, 'first');
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
       allFiles,
+      'first',
     );
+    //set progress to updating
     progress.state = 'updating';
     await connection.setProgress(progress);
+    // get cidToPmid map
     let options = {
       collectionSource: process.env.CIDTOPMID_SOURCE,
       destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/pubmeds/cidToPmid`,
@@ -39,91 +49,16 @@ async function firstPubmedImport(connection) {
       files,
       { lastDocument },
       pmidToCid,
+      'first',
     );
+    // set progress to updated
     progress.state = 'updated';
+    await connection.setProgress(progress);
+    // create indexes
     const collection = await connection.getCollection('pubmeds');
     await collection.createIndex({ 'data.meshHeadings': 1 });
     await collection.createIndex({ 'data.cids': 1 });
     await collection.createIndex({ _id: 1 });
-    await connection.setProgress(progress);
-  } catch (e) {
-    if (connection) {
-      debug(e, { collection: 'pubmeds', connection });
-    }
-  }
-}
-
-async function importPubmedFiles(
-  connection,
-  progress,
-  files,
-  options,
-  pmidToCid,
-) {
-  try {
-    options = { shouldImport: progress.seq === 0, ...options };
-    for (let file of files) {
-      await importOnePubmedFile(connection, progress, file, options, pmidToCid);
-      options.shouldImport = true;
-    }
-  } catch (e) {
-    if (connection) {
-      debug(e, { collection: 'pubmeds', connection });
-    }
-  }
-}
-
-async function getFilesToImport(connection, progress, allFiles) {
-  try {
-    const collection = await connection.getCollection('pubmeds');
-    const lastDocument = await collection
-      .find({ _seq: { $lte: progress.seq } })
-      .sort('_seq', -1)
-      .limit(1)
-      .next();
-
-    if (!progress.sources || !lastDocument) {
-      return { files: allFiles, lastDocument: {} };
-    }
-
-    debug(`last file processed: ${progress.sources}`);
-
-    const firstIndex = allFiles.findIndex((n) =>
-      n.path.endsWith(progress.sources),
-    );
-
-    if (firstIndex === -1) {
-      throw new Error(`file not found: ${progress.sources}`);
-    }
-
-    debug(`starting with file ${progress.sources}`);
-
-    return { files: allFiles.slice(firstIndex), lastDocument };
-  } catch (e) {
-    if (connection) {
-      debug(e, { collection: 'pubmeds', connection });
-    }
-  }
-}
-
-async function syncFullPubmedFolder(connection) {
-  try {
-    debug('Synchronize full pubmed folder');
-
-    const source = `${process.env.PUBMED_SOURCE}baseline/`;
-    const destination = `${process.env.ORIGINAL_DATA_PATH}/pubmeds/full`;
-
-    debug(`Syncing: ${source} to ${destination}`);
-
-    const { allFiles } = await syncFolder(source, destination, {
-      fileFilter: (file) => file && file.name.endsWith('.gz'),
-    });
-
-    return allFiles.sort((a, b) => {
-      if (a.path < b.path) return -1;
-      if (a.path > b.path) return 1;
-      return 0;
-    });
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'pubmeds', connection });

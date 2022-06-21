@@ -6,6 +6,11 @@ import { getSubstanceData } from './getSubstanceData.js';
 
 const debug = Debug('getSubstanceData');
 
+/**
+ * @description parse the substance molecule and return the data to be imported
+ * @param {*} molecule data of the molecule in substance file
+ * @returns {Promise} data to be imported
+ */
 async function improveSubstance(molecule) {
   let result = {
     _id: +molecule.PUBCHEM_SUBSTANCE_ID,
