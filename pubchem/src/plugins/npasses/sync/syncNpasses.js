@@ -5,10 +5,13 @@ import { getNormalizedActivities } from '../../cmaups/sync/utils/getNormalizedAc
 
 import npassesStartSync from './utils/npassesStartSync.js';
 import { parseNpasses } from './utils/parseNpasses.js';
-
-const debug = Debug('syncNpasses');
-
+/**
+ * @description Synchronizes the npasses collection with the NPASS database
+ * @param {*} connection - mongo connection
+ * @returns {Promise} returns npasses collection
+ */
 export async function sync(connection) {
+  const debug = Debug('syncNpasses');
   try {
     const {
       lastDocumentImported,
@@ -34,12 +37,15 @@ export async function sync(connection) {
       sources !== progress.sources ||
       progress.state !== 'updated'
     ) {
+      // create temporary collection
       const temporaryCollection = await connection.getCollection(
         'temporaryNpasses',
       );
       debug(`Start parsing npasses`);
+      // set progress to updating
       progress.state = 'updating';
       await connection.setProgress(progress);
+      // parse npasses
       for await (const entry of parseNpasses(
         general,
         activities,
@@ -49,6 +55,7 @@ export async function sync(connection) {
         connection,
       )) {
         counter++;
+        // if test mode, stop after 20 entries
         if (process.env.TEST === 'true' && counter > 20) break;
 
         if (
@@ -68,6 +75,7 @@ export async function sync(connection) {
           );
           entry.data.taxonomies = taxonomies;
         }
+        // Normalize activities
         if (entry.data.activities) {
           let activities = await getNormalizedActivities(
             entry,
@@ -78,7 +86,7 @@ export async function sync(connection) {
           entry.data.activities = activities;
         }
         entry._seq = ++progress.seq;
-
+        // import entry to temporary collection
         await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
@@ -87,17 +95,21 @@ export async function sync(connection) {
 
         imported++;
       }
+      // rename temporary collection to npasses
       await temporaryCollection.rename('npasses', {
         dropTarget: true,
       });
+      // set logs
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
+      // set progress to updated
       progress.sources = sources;
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      // create indexes
       await collection.createIndex({ _id: 1 });
       await collection.createIndex({ _seq: 1 });
       await collection.createIndex({ 'data.ocl.noStereoID': 1 });

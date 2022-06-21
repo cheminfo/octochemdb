@@ -1,10 +1,14 @@
 import Debug from '../../../utils/Debug.js';
-
-const debug = Debug('aggregatemfsCommon');
-
+/**
+ * @description Aggregate function for most common mfs in compounds collection
+ * @param {*} connection mongo connection
+ * @returns {Promise} returns mfsCommon collection
+ */
 export async function aggregate(connection) {
+  const debug = Debug('aggregatemfsCommon');
+  // get compounds collection and progress
   const collection = await connection.getCollection('compounds');
-
+  // get progress collection mfsCommon
   const progressCompounds = await connection.getProgress('compounds');
   const progress = await connection.getProgress('mfsCommon');
   progress.state = 'aggregating';
@@ -14,11 +18,10 @@ export async function aggregate(connection) {
       debug('Aggregation up-to-date');
       return;
     }
-
     debug(`mfsCommon: Need to aggregate: ${await collection.count()}`);
+    // aggregate compounds with with mfs who have at least 5 entries
     let result = await collection.aggregate(
       [
-        //{ $limit: 1e6 },
         { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
         {
           $project: {
@@ -42,16 +45,15 @@ export async function aggregate(connection) {
         { $out: 'mfsCommon' },
       ],
       {
-        allowDiskUse: true,
+        allowDiskUse: true, // allow aggregation to use disk if necessary
         maxTimeMS: 60 * 60 * 3000, // 3h
       },
     );
     await result.hasNext();
-
-    const collectionmfsCommon = await connection.getCollection('mfsCommon');
-
-    await collectionmfsCommon.createIndex({ em: 1 });
-
+    // create index on mfsCommon
+    const collectionMfsCommon = await connection.getCollection('mfsCommon');
+    await collectionMfsCommon.createIndex({ em: 1 });
+    // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);

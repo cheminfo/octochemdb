@@ -1,5 +1,29 @@
-const antiBacterialSet = new Set();
+/**
+ * @description This function takes a mesh term and check if it is a anti-bacterial, anti-infective, anti-fungal, anti-parasitic or anti-viral term.
+ * @param {*} keyword The mesh term to be checked.
+ * @returns {string} The type of the mesh term.
+ */
+export function getMeshTermsType(keyword) {
+  if (antiBacterialSet.has(keyword)) {
+    return 'antiBacterial';
+  }
+  if (antiInfectiveUrinarySet.has(keyword)) {
+    return 'antiInfectiveUrinary';
+  }
+  if (antiFungalSet.has(keyword)) {
+    return 'antiFungal';
+  }
+  if (antiParasiticSet.has(keyword)) {
+    return 'antiParasitic';
+  }
+  if (antiViralSet.has(keyword)) {
+    return 'antiViral';
+  }
+  return 'other';
+}
 
+// anti bacsterial set
+const antiBacterialSet = new Set();
 const antiBacterial = [
   ' Agents, Anti-Bacterial',
   'Anti Bacterial Agents',
@@ -120,8 +144,8 @@ const antiBacterial = [
   'Antileprotic Agents',
   'Agents, Antileprotic',
 ];
+// anti-infective urinary set
 const antiInfectiveUrinarySet = new Set();
-
 const antiInfectiveUrinary = [
   'Anti Infective Agents, Urinary',
   'Urinary Antiinfective Agents',
@@ -133,9 +157,8 @@ const antiInfectiveUrinary = [
   'Antiseptics, Urinary',
   'Urinary Antiseptics',
 ];
-
+// anti-fungal set
 const antiFungalSet = new Set();
-
 const antiFungal = [
   'Agents, Antifungal',
   'Therapeutic Fungicides',
@@ -145,9 +168,8 @@ const antiFungal = [
   'Antibiotics, Antifungal',
   'Antifungal Antibiotics',
 ];
-
+// anti-parasitic set
 const antiParasiticSet = new Set();
-
 const antiParasitic = [
   'Agents, Antiparasitic',
   'Antiparasitic Drug',
@@ -219,9 +241,8 @@ const antiParasitic = [
   'Trypanosomicidal Agents',
   'Agents, Trypanosomicidal',
 ];
-
+// anti-viral set
 const antiViralSet = new Set();
-
 const antiViral = [
   'Agents, Antiviral',
   'Antivirals',
@@ -306,11 +327,10 @@ const antiViral = [
   'Inhibitors, Virus Protease',
   'Protease Inhibitors, Virus',
 ];
-
+// get unique set of terms for all set types
 for (let antiBacteriaWord of antiBacterial) {
   antiBacterialSet.add(antiBacteriaWord);
 }
-
 for (let entry of antiInfectiveUrinary) {
   antiInfectiveUrinarySet.add(entry);
 }
@@ -323,20 +343,10 @@ for (let entry of antiParasitic) {
 for (let entry of antiViral) {
   antiViralSet.add(entry);
 }
-export function getMeshTermsType(keyword) {
-  if (antiBacterialSet.has(keyword)) {
-    return 'antiBacterial';
-  }
-  if (antiInfectiveUrinarySet.has(keyword)) {
-    return 'antiInfectiveUrinary';
-  }
-  if (antiFungalSet.has(keyword)) {
-    return 'antiFungal';
-  }
-  if (antiParasiticSet.has(keyword)) {
-    return 'antiParasitic';
-  }
-  if (antiViralSet.has(keyword)) {
-    return 'antiViral';
-  }
-}
+export {
+  antiBacterialSet,
+  antiInfectiveUrinarySet,
+  antiFungalSet,
+  antiParasiticSet,
+  antiViralSet,
+};

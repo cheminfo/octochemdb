@@ -1,11 +1,15 @@
 import Debug from '../../../utils/Debug.js';
-
-const debug = Debug('aggregateMFs');
-
+/**
+ * @description Aggregate in function of unique mfs in compounds collection
+ * @param {*} connection mongo connection
+ * @returns {Promise} returns mfs collection
+ */
 export async function aggregate(connection) {
+  const debug = Debug('aggregateMFs');
+  // get compounds collection and progress
   const collection = await connection.getCollection('compounds');
-
   const progressCompounds = await connection.getProgress('compounds');
+  // set progress to aggregating
   const progress = await connection.getProgress('mfs');
   progress.state = 'aggregating';
   await connection.setProgress(progress);
@@ -52,14 +56,13 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext();
-
+    // create index on mfs
     let mfsCollection = await connection.getCollection('mfs');
     await mfsCollection.createIndex({ em: 1 });
     await mfsCollection.createIndex({ total: 1 });
-
+    // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
-
     await connection.setProgress(progress);
 
     return result;

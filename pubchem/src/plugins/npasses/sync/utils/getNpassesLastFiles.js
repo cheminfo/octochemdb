@@ -3,9 +3,13 @@ import md5 from 'md5';
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('getNpassesLastFiles');
-
+/**
+ * @description get last npass files available in the NPASS database
+ * @param {*} connection - mongo connection
+ * @returns {object} returns the variables {lastFile, lastFileActivity, lastFileSpeciesProperties, lastFileSpeciesInfo, lastFileSpeciesPair, sources, progress, logs}
+ */
 export default async function getNpassesLastFiles(connection) {
+  const debug = Debug('getNpassesLastFiles');
   try {
     let options = {
       collectionSource: process.env.NPASS_SOURCE_GENERALINFO,
@@ -14,6 +18,7 @@ export default async function getNpassesLastFiles(connection) {
       filenameNew: 'general',
       extensionNew: 'txt',
     };
+    // get last files available in the NPASS database
     const lastFile = await getLastFileSync(options);
     options.collectionSource = process.env.NPASS_SOURCE_ACTIVITY;
     options.filenameNew = 'activities';
@@ -27,6 +32,7 @@ export default async function getNpassesLastFiles(connection) {
     options.collectionSource = process.env.NPASS_SOURCE_SPECIESINFO;
     options.filenameNew = 'speciesInfo';
     const lastFileSpeciesInfo = await getLastFileSync(options);
+    // define sources
     const source = [
       lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
@@ -34,7 +40,7 @@ export default async function getNpassesLastFiles(connection) {
       lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileSpeciesPair.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
-
+    // set logs
     const progress = await connection.getProgress('npasses');
     const logs = await connection.getImportationLog({
       collectionName: 'npasses',

@@ -3,7 +3,7 @@ import { PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('naturalExtractedFrom');
-
+// searchHandler()
 const extractedFrom = {
   method: 'GET',
   schema: {
@@ -14,8 +14,8 @@ const extractedFrom = {
 
 export default extractedFrom;
 /**
- * Returns statistics about the collection
- * @return {Promise}
+ * Returns all entries from the naturalExtractedFrom collection
+ * @return {Promise} returns all entries from the naturalExtractedFrom collection
  */
 
 async function searchHandler() {

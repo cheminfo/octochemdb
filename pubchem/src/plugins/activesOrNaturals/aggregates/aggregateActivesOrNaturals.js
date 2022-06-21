@@ -13,10 +13,9 @@ import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
 /**
  * @description Aggregate all synchronized collections into one collection of Bioactivities or/and Natural Products
- * @param {*} connection
+ * @param {*} connection MongoDB connection
  * @return {Promise} Returns ActiveOrNaturals collection
  */
-
 export async function aggregateActivesOrNaturals(connection) {
   const collectionNames = [
     'lotuses',
@@ -174,7 +173,7 @@ export async function aggregateActivesOrNaturals(connection) {
       progress.state = 'aggregated';
       await connection.setProgress(progress);
 
-      // Create Indexs
+      // Create Indexes
       await targetCollection.createIndex({ _seq: 1 });
       await targetCollection.createIndex({ _id: 1 });
       await targetCollection.createIndex({ 'data.em': 1 });

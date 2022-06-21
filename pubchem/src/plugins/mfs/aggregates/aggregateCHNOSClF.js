@@ -1,7 +1,7 @@
 import Debug from '../../../utils/Debug.js';
 
 /**
- * @description Aggregate function for molecules with mf containing CHNOSClF elements
+ * @description Aggregate function for molecules with mf containing CHNOSClF elements (most common element in organic compounds)
  * @param {*} connection mongo connection
  * @returns {Promise} returns mfsCHNOSClF collection
  */
@@ -22,6 +22,7 @@ export async function aggregate(connection) {
     }
 
     debug('Need to aggregate', await collection.countDocuments());
+    // aggregate compounds with mf containing CHNOSClF
     let result = collection.aggregate(
       [
         {
@@ -54,12 +55,12 @@ export async function aggregate(connection) {
         { $out: 'mfsCHNOSClF' },
       ],
       {
-        allowDiskUse: true,
+        allowDiskUse: true, // allow aggregation to use disk if necessary
         maxTimeMS: 60 * 60 * 1000, // 1h
       },
     );
     await result.hasNext(); // trigger the creation of the output collection
-
+    // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);
