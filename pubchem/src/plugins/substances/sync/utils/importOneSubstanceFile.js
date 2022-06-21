@@ -20,7 +20,7 @@ export default async function importOneSubstanceFile(
 ) {
   try {
     const collection = await connection.getCollection('substances');
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: 'substances',
       sources: file.name,
       startSequenceID: progress.seq,

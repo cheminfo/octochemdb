@@ -33,7 +33,7 @@ export async function sync(connection) {
     // get taxonomies collection
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get logs
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,

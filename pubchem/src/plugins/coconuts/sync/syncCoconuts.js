@@ -27,7 +27,7 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress(options.collectionName);
     const collection = await connection.getCollection(options.collectionName);
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,

@@ -56,7 +56,7 @@ export async function sync(connection) {
       progress.state !== 'updated'
     ) {
       // Generate Logs for the sync
-      const logs = await connection.geImportationLog({
+      const logs = await connection.getImportationLog({
         collectionName: options.collectionName,
         sources,
         startSequenceID: progress.seq,

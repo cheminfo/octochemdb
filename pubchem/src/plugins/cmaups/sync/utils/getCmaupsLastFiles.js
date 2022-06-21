@@ -7,7 +7,7 @@ const debug = Debug('getCmaupsLastFiles');
 /**
  * @description get necessary variables to start the sync
  * @param {*} connection the connection to the database
-* @returns {Promise<*>} lastFile, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs
+ * @returns {Promise<*>} lastFile, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs
  */
 export default async function getCmaupsLastFiles(connection) {
   try {
@@ -41,7 +41,7 @@ export default async function getCmaupsLastFiles(connection) {
       lastFileSpeciesAssociation.replace(process.env.ORIGINAL_DATA_PATH, ''),
       lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: 'cmaups',
       sources: source,
       startSequenceID: progress.seq,

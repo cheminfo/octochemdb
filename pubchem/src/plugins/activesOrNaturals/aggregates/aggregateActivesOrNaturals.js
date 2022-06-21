@@ -38,7 +38,7 @@ export async function aggregateActivesOrNaturals(connection) {
       collectionNames,
     );
     const sources = md5(collectionSources);
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,

@@ -22,7 +22,7 @@ export async function aggregateActiveAgainst(connection) {
     );
     const sources = md5(progressOfSourceCollection);
     // Add logs to the collection importLogs
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,

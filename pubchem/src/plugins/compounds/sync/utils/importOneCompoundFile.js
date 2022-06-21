@@ -26,7 +26,7 @@ export default async function importOneCompoundFile(
   const collection = await connection.getCollection('compounds');
   debug(`Importing: ${file.name}`);
   // Get logs collection
-  const logs = await connection.geImportationLog({
+  const logs = await connection.getImportationLog({
     collectionName: 'compounds',
     sources: file.name,
     startSequenceID: progress.seq,

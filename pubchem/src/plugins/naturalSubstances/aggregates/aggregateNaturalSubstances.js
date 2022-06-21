@@ -15,7 +15,7 @@ export async function aggregate(connection) {
     const collectionSource = await connection.getProgress('substances');
     const collectionSubstances = await connection.getCollection('substances');
     const sources = md5(collectionSource);
-    const logs = await connection.geImportationLog({
+    const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
