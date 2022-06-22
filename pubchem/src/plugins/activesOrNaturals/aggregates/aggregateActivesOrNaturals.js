@@ -16,7 +16,7 @@ import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
  * @param {*} connection MongoDB connection
  * @return {Promise} Returns ActiveOrNaturals collection
  */
-export async function aggregateActivesOrNaturals(connection) {
+export async function aggregate(connection) {
   const collectionNames = [
     'lotuses',
     'npasses',
@@ -26,6 +26,7 @@ export async function aggregateActivesOrNaturals(connection) {
     'bioassays',
   ];
   const debug = Debug('aggregateActivesOrNaturals');
+  debug('iiiiii');
   const COLLECTION_NAME = 'activesOrNaturals';
   try {
     const options = { collection: COLLECTION_NAME, connection: connection };
@@ -57,7 +58,7 @@ export async function aggregateActivesOrNaturals(connection) {
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
-      progress.state === 'updated'
+      progress.state !== 'aggregated'
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(

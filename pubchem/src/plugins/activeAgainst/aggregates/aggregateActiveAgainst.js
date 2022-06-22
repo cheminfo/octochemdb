@@ -7,7 +7,7 @@ import Debug from '../../../utils/Debug.js';
  * @param {*} connection
  * @output {collection} activeAgainst collection
  */
-export async function aggregateActiveAgainst(connection) {
+export async function aggregate(connection) {
   const debug = Debug('aggregateActiveAgainst');
   const COLLECTION_NAME = 'activeAgainst';
   try {
