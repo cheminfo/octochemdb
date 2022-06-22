@@ -57,7 +57,7 @@ export async function aggregateActivesOrNaturals(connection) {
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
-      progress.state !== 'updated'
+      progress.state === 'updated'
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
