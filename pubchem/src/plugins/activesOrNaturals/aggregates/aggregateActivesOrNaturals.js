@@ -26,7 +26,6 @@ export async function aggregate(connection) {
     'bioassays',
   ];
   const debug = Debug('aggregateActivesOrNaturals');
-  debug('iiiiii');
   const COLLECTION_NAME = 'activesOrNaturals';
   try {
     const options = { collection: COLLECTION_NAME, connection: connection };
