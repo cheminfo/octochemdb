@@ -36,6 +36,8 @@ export async function aggregateActivesOrNaturals(connection) {
       connection,
       collectionNames,
     );
+    const pubmedProgress = await connection.getProgress('pubmeds');
+    collectionSources.push(pubmedProgress.sources);
     const sources = md5(collectionSources);
     const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
