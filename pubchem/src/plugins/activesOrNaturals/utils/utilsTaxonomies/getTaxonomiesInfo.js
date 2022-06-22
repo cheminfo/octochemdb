@@ -13,7 +13,6 @@ export default async function getTaxonomiesInfo(data, connection) {
     let taxons = [];
     for (const entry of data) {
       if (entry.data?.taxonomies) {
-        debug(entry.data);
         for (let taxonomy of entry.data.taxonomies) {
           taxons.push(taxonomy);
         }
