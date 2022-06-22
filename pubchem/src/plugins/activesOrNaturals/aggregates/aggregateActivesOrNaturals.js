@@ -51,6 +51,9 @@ export async function aggregate(connection) {
     );
     // get compounds collection
     const compoundsCollection = await connection.getCollection('compounds');
+    // get pubmeds collection
+    const pubmedCollection = await connection.getCollection('pubmeds');
+
     // start aggregation process
     let counter = 0;
     let start = Date.now();
@@ -107,8 +110,8 @@ export async function aggregate(connection) {
         if (entry.data.cids) {
           let meshTerms = [];
           for (let i = 0; i < entry.data.cids.length; i++) {
-            let cid = entry.data.cids[i];
-            const meshTermsForCid = await getMeshTerms(cid, connection);
+            let cid = Number(entry.data.cids[i]);
+            const meshTermsForCid = await getMeshTerms(cid, pubmedCollection);
             meshTerms = meshTerms.concat(meshTermsForCid);
           }
           entry.data.meshTerms = meshTerms;
@@ -141,7 +144,10 @@ export async function aggregate(connection) {
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
-
+        debug(entry.data.kwBioassays);
+        debug(entry.data.kwActiveAgainst);
+        debug(entry.data.kwTaxonomies);
+        debug(entry.data.meshTerms);
         entry._seq = ++progress.seq;
         // update collection with new entry
         await temporaryCollection.updateOne(

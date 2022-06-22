@@ -7,10 +7,9 @@ import { getMeshTermsType } from './getMeshTermsType.js';
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns an array of objects {meshTerm: array,meshTermsType:array, dbRef: object}
  */
-export async function getMeshTerms(cid, connection) {
+export async function getMeshTerms(cid, collection, connection) {
   const debug = Debug('getMeshTerms');
   try {
-    const collection = connection.getCollection('pubmeds');
     const cursor = await collection.find({
       'data.cids': { $in: [cid] },
     });
@@ -37,12 +36,13 @@ export async function getMeshTerms(cid, connection) {
           result.meshTermsType = meshTermsType;
         }
         result.dbRef = dbRef;
-
         results.push(result);
       }
     }
     return results;
   } catch (error) {
-    debug(error);
+    if (connection) {
+      debug(error, { collection: collection.collectionName, connection });
+    }
   }
 }
