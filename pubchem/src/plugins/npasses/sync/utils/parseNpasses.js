@@ -58,10 +58,21 @@ export async function* parseNpasses(
       }
       // get ocl molecule and noStereoID
       const smilesDb = property.canonical_smiles;
-      const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
-      let oclID = oclMolecule.getIDCodeAndCoordinates();
-      oclMolecule.stripStereoInformation();
-      let noStereoID = oclMolecule.getIDCode();
+      let oclID;
+      let noStereoID;
+      try {
+        const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
+
+        oclID = oclMolecule.getIDCodeAndCoordinates();
+
+        oclMolecule.stripStereoInformation();
+        noStereoID = oclMolecule.getIDCode();
+      } catch (e) {
+        if (connection) {
+          debug(e, { collection: 'npasses', connection });
+          continue;
+        }
+      }
       // get taxonomies from which the molecule is derived
       const orgIDs = speciesPair[item.np_id];
       const taxonomies = [];
