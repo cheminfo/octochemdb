@@ -14,7 +14,9 @@ export async function getMeshTerms(cid, collection, connection) {
       'data.cids': { $in: [cid] },
     });
     let results = [];
+    let counter = 0;
     while (await cursor.hasNext()) {
+      if (counter >= 999) break;
       const doc = await cursor.next();
       if (doc.data.meshHeadings) {
         let dbRef = { $ref: 'pubmeds', $id: doc._id };
@@ -35,6 +37,7 @@ export async function getMeshTerms(cid, collection, connection) {
         if (meshTermsType.length > 0) {
           result.meshTermsType = meshTermsType;
         }
+        counter++;
         result.dbRef = dbRef;
         results.push(result);
       }

@@ -7,13 +7,23 @@ export default function getActiveAgainstKeywords(activities) {
   const activeAgainstKw = new Set();
   for (let activity of activities) {
     if (activity.targetTaxonomies) {
-      const keywords = [
-        activity.targetTaxonomies.superkingdom,
-        activity.targetTaxonomies.kingdom,
-        activity.targetTaxonomies.phylum,
-      ]
+      const keywordsSuperKingdom = [activity.targetTaxonomies.superkingdom]
         .join(' ')
-        .toLowerCase();
+        .toLowerCase()
+        .split(/\W+/);
+      const keywordsKingdom = [activity.targetTaxonomies.kingdom]
+        .join(' ')
+        .toLowerCase()
+        .split(/\W+/);
+      const keywordsPhylum = [activity.targetTaxonomies.phylum]
+        .join(' ')
+        .toLowerCase()
+        .split(/\W+/);
+      const keywords = [
+        ...keywordsSuperKingdom,
+        ...keywordsKingdom,
+        ...keywordsPhylum,
+      ];
       for (let keyword of keywords) {
         if (keyword !== '') {
           activeAgainstKw.add(keyword);

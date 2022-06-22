@@ -23,7 +23,7 @@ export async function aggregate(connection) {
     'npAtlases',
     'cmaups',
     'coconuts',
-    'bioassays',
+    //  'bioassays',
   ];
   const debug = Debug('aggregateActivesOrNaturals');
   const COLLECTION_NAME = 'activesOrNaturals';
@@ -114,7 +114,9 @@ export async function aggregate(connection) {
             const meshTermsForCid = await getMeshTerms(cid, pubmedCollection);
             meshTerms = meshTerms.concat(meshTermsForCid);
           }
-          entry.data.meshTerms = meshTerms;
+          if (meshTerms.length > 0) {
+            entry.data.meshTerms = meshTerms;
+          }
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
@@ -144,10 +146,6 @@ export async function aggregate(connection) {
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
         }
-        debug(entry.data.kwBioassays);
-        debug(entry.data.kwActiveAgainst);
-        debug(entry.data.kwTaxonomies);
-        debug(entry.data.meshTerms);
         entry._seq = ++progress.seq;
         // update collection with new entry
         await temporaryCollection.updateOne(
