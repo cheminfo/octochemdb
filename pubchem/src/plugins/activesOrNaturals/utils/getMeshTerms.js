@@ -38,7 +38,7 @@ export async function getMeshTerms(cid, collection, connection) {
       });
     });
 
-    return { results, dbRefs };
+    return [results, dbRefs];
   } catch (error) {
     if (connection) {
       debug(error, { collection: collection.collectionName, connection });

@@ -112,7 +112,7 @@ export async function aggregate(connection) {
           let dbRefs = [];
           for (let i = 0; i < entry.data.cids.length; i++) {
             let cid = Number(entry.data.cids[i]);
-            const { meshTermsForCid, dbRef } = await getMeshTerms(
+            const [meshTermsForCid, dbRef] = await getMeshTerms(
               cid,
               pubmedCollection,
             );
