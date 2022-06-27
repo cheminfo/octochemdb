@@ -109,13 +109,21 @@ export async function aggregate(connection) {
         );
         if (entry.data.cids) {
           let meshTerms = [];
+          let dbRefs = [];
           for (let i = 0; i < entry.data.cids.length; i++) {
             let cid = Number(entry.data.cids[i]);
-            const meshTermsForCid = await getMeshTerms(cid, pubmedCollection);
+            const { meshTermsForCid, dbRef } = await getMeshTerms(
+              cid,
+              pubmedCollection,
+            );
             meshTerms = meshTerms.concat(meshTermsForCid);
+            dbRefs = dbRefs.concat(dbRef);
           }
           if (meshTerms.length > 0) {
-            entry.data.meshTerms = meshTerms;
+            entry.kwMeshTerms = meshTerms;
+          }
+          if (dbRefs.length > 0) {
+            entry.data.pubmeds = dbRefs;
           }
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID

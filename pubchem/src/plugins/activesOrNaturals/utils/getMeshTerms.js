@@ -1,11 +1,10 @@
 import Debug from '../../../utils/Debug.js';
 
-import { getMeshTermsType } from './getMeshTermsType.js';
 /**
  * @description Get the mesh terms and dbRef for a given cid inside the pubmeds collection
  * @param {*} cid CID
  * @param {*} connection MongoDB connection
- * @returns {Promise} returns an array of objects {meshTerm: array,meshTermsType:array, dbRef: object}
+ * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
  */
 export async function getMeshTerms(cid, collection, connection) {
   const debug = Debug('getMeshTerms');
@@ -14,6 +13,7 @@ export async function getMeshTerms(cid, collection, connection) {
       'data.cids': { $in: [cid] },
     });
     let results = [];
+    let dbRefs = [];
     let counter = 0;
     while (await cursor.hasNext()) {
       if (counter >= 999) break;
@@ -21,28 +21,24 @@ export async function getMeshTerms(cid, collection, connection) {
       if (doc.data.meshHeadings) {
         let dbRef = { $ref: 'pubmeds', $id: doc._id };
         let meshTerms = [];
-        let meshTermsType = [];
         for (let meshHeading of doc.data.meshHeadings) {
-          let type = await getMeshTermsType(meshHeading.descriptorName);
-          if (type !== 'other') {
-            meshTermsType.push(type);
-          }
           meshTerms.push(meshHeading.descriptorName);
         }
-
-        let result = {};
-        if (meshTerms.length > 0) {
-          result.meshTerms = meshTerms;
-        }
-        if (meshTermsType.length > 0) {
-          result.meshTermsType = meshTermsType;
-        }
         counter++;
-        result.dbRef = dbRef;
-        results.push(result);
+        dbRefs.push(dbRef);
+        if (meshTerms.length > 0) {
+          results.push(meshTerms);
+        }
       }
     }
-    return results;
+    // get result array with uniques strings
+    results = results.map((meshTerms) => {
+      return meshTerms.filter((term, index) => {
+        return meshTerms.indexOf(term) === index;
+      });
+    });
+
+    return { results, dbRefs };
   } catch (error) {
     if (connection) {
       debug(error, { collection: collection.collectionName, connection });
