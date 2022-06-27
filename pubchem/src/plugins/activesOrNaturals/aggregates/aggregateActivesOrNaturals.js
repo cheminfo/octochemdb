@@ -120,7 +120,7 @@ export async function aggregate(connection) {
             dbRefs = dbRefs.concat(dbRef);
           }
           if (meshTerms.length > 0) {
-            entry.kwMeshTerms = meshTerms;
+            entry.data.kwMeshTerms = meshTerms;
           }
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
