@@ -120,7 +120,8 @@ export async function aggregate(connection) {
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
-          entry.data.BioActive = true;
+          entry.data.bioActive = true;
+
           const keywordsActivities = getActivityKeywords(activityInfo);
           if (keywordsActivities.length > 0) {
             entry.data.kwBioassays = keywordsActivities;
