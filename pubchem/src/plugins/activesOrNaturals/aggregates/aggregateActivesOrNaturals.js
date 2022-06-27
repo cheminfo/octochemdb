@@ -116,8 +116,10 @@ export async function aggregate(connection) {
               cid,
               pubmedCollection,
             );
-            meshTerms = meshTerms.concat(meshTermsForCid);
-            dbRefs = dbRefs.concat(dbRef);
+            // add meshTermsForCid to meshTerms
+            meshTerms = [...meshTerms, ...meshTermsForCid];
+            // add dbRef to dbRefs
+            dbRefs = [...dbRefs, ...dbRef];
           }
           if (meshTerms.length > 0) {
             entry.data.kwMeshTerms = meshTerms;
