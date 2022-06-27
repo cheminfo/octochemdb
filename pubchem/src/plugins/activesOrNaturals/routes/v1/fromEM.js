@@ -43,6 +43,12 @@ const entriesFromEM = {
         example: 'MIC',
         default: '',
       },
+      kwMeshTerms: {
+        type: 'string',
+        description: 'keywords mesh terms (separate terms to search with ";" )',
+        example: 'antibiotic',
+        default: '',
+      },
       limit: {
         type: 'number',
         description: 'Maximum number of results to return',
@@ -52,7 +58,7 @@ const entriesFromEM = {
         type: 'string',
         description: 'Fields to retrieve',
         default:
-          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
+          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.pubmeds',
       },
     },
   },
@@ -71,12 +77,14 @@ async function searchHandler(request) {
     kwTaxonomies = '',
     kwBioassays = '',
     kwActiveAgainst = '',
+    kwMeshTerms = '',
     limit = 1e3,
     precision = 100,
-    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.meshTerms',
+    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
   } = request.query;
-
+  // This keywords use regular expressions to search even for incomplete terms
   let wordsWithRegexBioassays = [];
+  let wordsWithRegexMeshTerms = [];
   // convert to lower case and remove spaces and split by ";" or ","
   let wordsToBeSearchedBioassays = kwBioassays
     .toLowerCase()
@@ -92,10 +100,21 @@ async function searchHandler(request) {
     .toLowerCase()
     .split(/ *[,;\t\n\r]+ */)
     .filter((entry) => entry);
+
+  let wordsToBeSearchedMeshTerms = kwMeshTerms
+    .toUpperCase()
+    .split(/ *[;\t\n\r]+ */)
+    .filter((entry) => entry);
   // convert words to be searched in bioassays to regex
-  for (let word of wordsToBeSearchedBioassays) {
-    wordsWithRegexBioassays.push(new RegExp(`^${escapeRegExp(word)}`, 'i'));
-  }
+  wordsToBeSearchedBioassays.forEach((word) => {
+    wordsWithRegexBioassays.push(new RegExp(escapeRegExp(word), 'i'));
+  });
+  // convert phrases to regular expressions
+
+  wordsToBeSearchedMeshTerms.forEach((word) => {
+    wordsWithRegexMeshTerms.push(new RegExp(escapeRegExp(word), 'i'));
+  });
+
   // define lower and upper bounds of the returned results limit
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
@@ -120,6 +139,9 @@ async function searchHandler(request) {
     }
     if (kwBioassays) {
       matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
+    }
+    if (kwMeshTerms) {
+      matchParameter['data.kwMeshTerms'] = { $in: wordsWithRegexMeshTerms };
     }
     if (kwActiveAgainst) {
       matchParameter['data.kwActiveAgainst'] = {
