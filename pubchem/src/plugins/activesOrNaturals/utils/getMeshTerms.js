@@ -3,20 +3,21 @@ import Debug from '../../../utils/Debug.js';
 /**
  * @description Get the mesh terms and dbRef for a given cid inside the pubmeds collection
  * @param {*} cid CID
+ * @param {*} collection : PUBMEDS collection
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
  */
 export async function getMeshTerms(cid, collection, connection) {
   const debug = Debug('getMeshTerms');
   try {
-    const cursor = await collection.find({
-      'data.cids': { $in: [cid] },
-    });
+    const cursor = await collection
+      .find({
+        'data.cids': cid,
+      })
+      .limit(1000);
     let uniqueMeshTerms = {};
     let pmIds = [];
-    let counter = 0;
     while (await cursor.hasNext()) {
-      if (counter++ >= 999) break;
       const doc = await cursor.next();
       if (doc.data.meshHeadings) {
         for (let meshHeading of doc.data.meshHeadings) {
