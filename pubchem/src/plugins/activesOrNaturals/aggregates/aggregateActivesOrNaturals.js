@@ -60,7 +60,7 @@ export async function aggregate(connection) {
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
-      progress.state !== 'aggregated'
+      progress.state !== 'aggregateds'
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
@@ -75,6 +75,9 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
       // parse all noStereoIDs and get their info
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
+        if (counter < 497312) {
+          continue;
+        }
         let entry = { data: { naturalProduct: false } };
         // get all documents from all collections
         let data = [];
