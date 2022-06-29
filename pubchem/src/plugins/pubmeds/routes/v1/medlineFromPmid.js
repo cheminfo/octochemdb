@@ -49,14 +49,12 @@ async function searchHandler(request) {
     connection = new PubChemConnection();
     const collection = await connection.getCollection('pubmeds');
 
-    const results = await collection
-      .aggregate([
-        { $match: { _id: pmid } },
-        {
-          $project: getFields(fields),
-        },
-      ])
-      .toArray();
+    const results = await collection.aggregate([
+      { $match: { _id: pmid } },
+      {
+        $project: getFields(fields),
+      },
+    ]);
     return results;
   } catch (e) {
     if (connection) {
