@@ -27,7 +27,9 @@ export default async function getActivitiesInfo(data, connection) {
       }
       if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
         if (entry.data.activities) {
-          activityInfo.push(entry.data.activities);
+          for (let activity of entry.data.activities) {
+            activityInfo.push(activity);
+          }
         }
       }
     }

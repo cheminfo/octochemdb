@@ -7,7 +7,11 @@ export default function getActiveAgainstKeywords(activities) {
   const activeAgainstKw = new Set();
   for (let activity of activities) {
     if (activity.targetTaxonomies) {
-      for (let taxonomy of activity.targetTaxonomies) {
+      let taxonomies = activity.targetTaxonomies;
+      if (!Array.isArray(taxonomies)) {
+        taxonomies = [taxonomies];
+      }
+      for (let taxonomy of taxonomies) {
         const keywordsSuperKingdom = [taxonomy.superkingdom]
           .join(' ')
           .toLowerCase()
