@@ -75,7 +75,7 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
       // parse all noStereoIDs and get their info
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
-        if (counter < 497312) {
+        if (counter++ < 497312) {
           continue;
         }
         let entry = { data: { naturalProduct: false } };
