@@ -148,6 +148,7 @@ async function searchHandler(request) {
         $in: wordsToBeSearchedActiveAgainst,
       };
     }
+    debug(kwMeshTerms);
     debug(formattedFields);
     debug(matchParameter);
     // search for the entries
