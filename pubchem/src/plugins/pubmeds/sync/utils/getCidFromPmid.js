@@ -23,11 +23,11 @@ export async function getCidFromPmid(filePath, connection) {
 
     for await (let line of lines) {
       counter++;
-      const parts = line.split('\t');
-      if (!data[parts[1]]) {
-        data[parts[1]] = [];
+      const [cid, pmid] = line.split('\t');
+      if (!data[pmid]) {
+        data[pmid] = [];
       }
-      data[parts[1]].push(Number(parts[0]));
+      data[pmid].push(Number(cid));
       if (Date.now() - date > 10000) {
         date = Date.now();
         debug(
@@ -37,6 +37,13 @@ export async function getCidFromPmid(filePath, connection) {
         );
       }
     }
+    for (let key in data) {
+	if (data[key].length>5000) {
+		data[key].length=0
+	}
+    }
+
+
     return data;
   } catch (error) {
     if (connection) {
