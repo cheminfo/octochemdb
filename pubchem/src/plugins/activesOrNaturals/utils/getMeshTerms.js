@@ -12,33 +12,21 @@ export async function getMeshTerms(cid, collection, connection) {
     const cursor = await collection.find({
       'data.cids': { $in: [cid] },
     });
-    let results = [];
-    let dbRefs = [];
+    let uniqueMeshTerms = {};
+    let pmIds = [];
     let counter = 0;
     while (await cursor.hasNext()) {
-      if (counter >= 999) break;
+      if (counter++ >= 999) break;
       const doc = await cursor.next();
       if (doc.data.meshHeadings) {
-        let dbRef = { $ref: 'pubmeds', $id: doc._id };
-        let meshTerms = [];
         for (let meshHeading of doc.data.meshHeadings) {
-          meshTerms.push(meshHeading.descriptorName);
+          uniqueMeshTerms[meshHeading.descriptorName] = true;
         }
-        counter++;
-        dbRefs.push(dbRef);
-        if (meshTerms.length > 0) {
-          results.push(meshTerms);
-        }
+        pmIds.push(doc._id);
       }
     }
     // get result array with uniques strings
-    results = results.map((meshTerms) => {
-      return meshTerms.filter((term, index) => {
-        return meshTerms.indexOf(term) === index;
-      });
-    });
-
-    return [results, dbRefs];
+    return { meshTermsForCid: Object.keys(uniqueMeshTerms), pmIds };
   } catch (error) {
     if (connection) {
       debug(error, { collection: collection.collectionName, connection });

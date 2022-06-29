@@ -108,19 +108,31 @@ export async function aggregate(connection) {
           connection,
         );
         if (entry.data.cids) {
-          let meshTerms = [];
-          let dbRefs = [];
+          const uniqueMeshTerms = {};
+          const uniquePmIds = {};
           for (let i = 0; i < entry.data.cids.length; i++) {
             let cid = Number(entry.data.cids[i]);
-            const [meshTermsForCid, dbRef] = await getMeshTerms(
+            const { meshTermsForCid, pmIds } = await getMeshTerms(
               cid,
               pubmedCollection,
+              connection,
             );
-            // add meshTermsForCid to meshTerms
-            meshTerms = [...meshTerms, ...meshTermsForCid];
-            // add dbRef to dbRefs
-            dbRefs = [...dbRefs, ...dbRef];
+
+            meshTermsForCid.forEach((term) => {
+              uniqueMeshTerms[term] = true;
+            });
+            pmIds.forEach((id) => {
+              uniquePmIds[id] = true;
+            });
           }
+
+          let dbRefs = Object.keys(uniquePmIds).map((id) => ({
+            $ref: 'pubmeds',
+            $id: id,
+          }));
+
+          const meshTerms = Object.keys(uniqueMeshTerms);
+
           if (meshTerms.length > 0) {
             entry.data.kwMeshTerms = meshTerms;
           }
