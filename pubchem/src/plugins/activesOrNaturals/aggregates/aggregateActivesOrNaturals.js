@@ -100,7 +100,7 @@ export async function aggregate(connection) {
         data.forEach((entry) => {
           dbRefs.push({ $ref: entry.collection, $id: entry._id });
         });
-        data.dbRefs = dbRefs;
+        entry.data.dbRefs = dbRefs;
         // get unique taxonomies from all collections for the current noStereoID
 
         let taxons = await getTaxonomiesInfo(data, connection);
