@@ -47,7 +47,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('compounds');
+    const collection = await connection.getCollection('pubmeds');
 
     const results = await collection
       .aggregate([
