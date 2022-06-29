@@ -29,7 +29,7 @@ const articlesFromPMID = {
 
 export default articlesFromPMID;
 /**
- * Find molecular formula from a monoisotopic mass
+ * Find article from PubMed ID
  * @param {object} [request={}]
  * @param {object} [request.query={}]
  * @param {number} [request.query.pmid=1]
