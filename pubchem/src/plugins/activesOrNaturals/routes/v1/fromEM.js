@@ -58,7 +58,7 @@ const entriesFromEM = {
         type: 'string',
         description: 'Fields to retrieve',
         default:
-          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.pubmeds',
+          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,kwMeshTerms,kwBioassays,kwTaxonomies,kwActiveAgainst,data.activities,data.taxonomies,data.pubmeds',
       },
     },
   },
@@ -80,7 +80,7 @@ async function searchHandler(request) {
     kwMeshTerms = '',
     limit = 1e3,
     precision = 100,
-    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies',
+    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,kwMeshTerms,kwBioassays,kwTaxonomies,kwActiveAgainst,data.activities,data.taxonomies',
   } = request.query;
   // This keywords use regular expressions to search even for incomplete terms
   let wordsWithRegexBioassays = [];
@@ -133,18 +133,18 @@ async function searchHandler(request) {
       matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
     }
     if (kwTaxonomies) {
-      matchParameter['data.kwTaxonomies'] = {
+      matchParameter['kwTaxonomies'] = {
         $in: wordsToBeSearchedTaxonomies,
       };
     }
     if (kwBioassays) {
-      matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
+      matchParameter['kwBioassays'] = { $in: wordsWithRegexBioassays };
     }
     if (kwMeshTerms) {
-      matchParameter['data.kwMeshTerms'] = { $in: wordsWithRegexMeshTerms };
+      matchParameter['kwMeshTerms'] = { $in: wordsWithRegexMeshTerms };
     }
     if (kwActiveAgainst) {
-      matchParameter['data.kwActiveAgainst'] = {
+      matchParameter['kwActiveAgainst'] = {
         $in: wordsToBeSearchedActiveAgainst,
       };
     }

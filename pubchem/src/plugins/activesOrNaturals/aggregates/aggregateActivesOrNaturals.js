@@ -143,7 +143,7 @@ export async function aggregate(connection) {
           const meshTerms = Object.keys(uniqueMeshTerms);
 
           if (meshTerms.length > 0) {
-            entry.data.kwMeshTerms = meshTerms;
+            entry.kwMeshTerms = meshTerms;
           }
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
@@ -156,13 +156,13 @@ export async function aggregate(connection) {
           const keywordsActivities = getActivityKeywords(activityInfo);
 
           if (keywordsActivities.length > 0) {
-            entry.data.kwBioassays = keywordsActivities;
+            entry.kwBioassays = keywordsActivities;
           }
 
           const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
 
           if (keywordsActiveAgainst.length > 0) {
-            entry.data.kwActiveAgainst = keywordsActiveAgainst;
+            entry.kwActiveAgainst = keywordsActiveAgainst;
           }
         }
         // if taxons is not empty, get unique keywords of taxonomies for the current noStereoID
@@ -170,7 +170,7 @@ export async function aggregate(connection) {
           const keywordsTaxonomies = getTaxonomyKeywords(taxons);
 
           if (keywordsTaxonomies.length > 0) {
-            entry.data.kwTaxonomies = keywordsTaxonomies;
+            entry.kwTaxonomies = keywordsTaxonomies;
           }
         }
         // if activityInfo is not empty, define entry.data.activities
