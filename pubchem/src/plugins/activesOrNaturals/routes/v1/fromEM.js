@@ -148,6 +148,8 @@ async function searchHandler(request) {
         $in: wordsToBeSearchedActiveAgainst,
       };
     }
+    debug(formattedFields);
+    debug(matchParameter);
     // search for the entries
     const results = await collection
       .aggregate([
