@@ -81,6 +81,7 @@ export async function aggregate(connection) {
         let entry = { data: { naturalProduct: false } };
         // get all documents from all collections
         let data = [];
+        console.time('getData');
         for (const source of sourcesLink) {
           if (
             [
@@ -94,22 +95,23 @@ export async function aggregate(connection) {
           ) {
             entry.data.naturalProduct = true;
           }
+
           const collection = await connection.getCollection(source.collection);
           let partialData = await collection.findOne({ _id: source.id });
           partialData.collection = source.collection;
           data.push(partialData);
         }
-
+        console.timeEnd('getData');
         // get unique taxonomies from all collections for the current noStereoID
-
+        console.time('getTaxonomiesInfo');
         let taxons = await getTaxonomiesInfo(data, connection);
-
+        console.timeEnd('getTaxonomiesInfo');
         // get unique activities from all collections for the current noStereoID
-
+        console.time('getActivitiesInfo');
         let activityInfo = await getActivitiesInfo(data, connection);
-
+        console.timeEnd('getActivitiesInfo');
         // get unique compound information from all collections for the current noStereoID
-
+        console.time('getCompoundsInfo');
         entry = await getCompoundsInfo(
           entry,
           data,
@@ -117,12 +119,12 @@ export async function aggregate(connection) {
           noStereoID,
           connection,
         );
-
+        console.timeEnd('getCompoundsInfo');
         if (entry.data.cids) {
           // cids are from compunds collection
           const uniqueMeshTerms = {};
           const uniquePmIds = {};
-
+          console.time('getMeshTerms');
           for (let i = 0; i < entry.data.cids.length; i++) {
             let cid = Number(entry.data.cids[i]);
             const { meshTermsForCid, pmIds } = await getMeshTerms(
@@ -152,18 +154,20 @@ export async function aggregate(connection) {
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
           }
+          console.timeEnd('getMeshTerms');
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
           entry.data.bioActive = true;
-
+          console.time('getTaxonomyKeywords');
           const keywordsActivities = getActivityKeywords(activityInfo);
-
+          console.timeEnd('getTaxonomyKeywords');
           if (keywordsActivities.length > 0) {
             entry.data.kwBioassays = keywordsActivities;
           }
-
+          console.time('getTaxonomyKeywords');
           const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
+          console.timeEnd('getTaxonomyKeywords');
 
           if (keywordsActiveAgainst.length > 0) {
             entry.data.kwActiveAgainst = keywordsActiveAgainst;
@@ -171,8 +175,9 @@ export async function aggregate(connection) {
         }
         // if taxons is not empty, get unique keywords of taxonomies for the current noStereoID
         if (taxons.length > 0) {
+          console.time('getTaxonomyKeywords');
           const keywordsTaxonomies = getTaxonomyKeywords(taxons);
-
+          console.timeEnd('getTaxonomyKeywords');
           if (keywordsTaxonomies.length > 0) {
             entry.data.kwTaxonomies = keywordsTaxonomies;
           }
