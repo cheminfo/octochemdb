@@ -96,11 +96,7 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
-        let dbRefs = [];
-        data.forEach((entry) => {
-          dbRefs.push({ $ref: entry.collection, $id: entry._id });
-        });
-        entry.data.dbRefs = dbRefs;
+
         // get unique taxonomies from all collections for the current noStereoID
 
         let taxons = await getTaxonomiesInfo(data, connection);
