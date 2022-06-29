@@ -96,7 +96,11 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
-
+        let dbRefs = [];
+        data.forEach((entry) => {
+          dbRefs.push({ $ref: entry.collection, $id: entry._id });
+        });
+        data.dbRefs = dbRefs;
         // get unique taxonomies from all collections for the current noStereoID
 
         let taxons = await getTaxonomiesInfo(data, connection);
@@ -116,6 +120,7 @@ export async function aggregate(connection) {
         );
 
         if (entry.data.cids) {
+          // cids are from compunds collection
           const uniqueMeshTerms = {};
           const uniquePmIds = {};
 
