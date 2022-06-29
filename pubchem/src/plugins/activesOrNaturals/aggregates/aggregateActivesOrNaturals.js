@@ -28,6 +28,7 @@ export async function aggregate(connection) {
   const debug = Debug('aggregateActivesOrNaturals');
   const COLLECTION_NAME = 'activesOrNaturals';
   try {
+    let time1 = Date.now();
     const options = { collection: COLLECTION_NAME, connection: connection };
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
@@ -36,6 +37,8 @@ export async function aggregate(connection) {
       connection,
       collectionNames,
     );
+    let time2 = Date.now();
+    debug(`Time till get collection links: ${time2 - time1}ms`);
     const pubmedProgress = await connection.getProgress('pubmeds');
     collectionSources.push(pubmedProgress.sources);
     const sources = md5(collectionSources);
@@ -57,15 +60,17 @@ export async function aggregate(connection) {
     // start aggregation process
     let counter = 0;
     let start = Date.now();
+    time1 = Date.now();
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
-      progress.state !== 'aggregated'
+      progress.state !== 'aggregatedss' //just for test
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
         `${COLLECTION_NAME}_tmp`,
       );
+
       // debug unique numbers of noStereoIDs
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
@@ -73,10 +78,13 @@ export async function aggregate(connection) {
       progress.state = 'aggregating';
       await connection.setProgress(progress);
       // parse all noStereoIDs and get their info
+      time2 = Date.now();
+      debug(`Time till start noStereoID loop: ${time2 - time1}ms`);
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
         let entry = { data: { naturalProduct: false } };
         // get all documents from all collections
         let data = [];
+        time1 = Date.now();
         for (const source of sourcesLink) {
           if (
             [
@@ -95,11 +103,20 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
+        time2 = Date.now();
+        debug(`Time till get all documents: ${time2 - time1}ms`);
         // get unique taxonomies from all collections for the current noStereoID
+        time1 = Date.now();
         let taxons = await getTaxonomiesInfo(data, connection);
+        time2 = Date.now();
+        debug(`Time till get taxonomies: ${time2 - time1}ms`);
         // get unique activities from all collections for the current noStereoID
+        time1 = Date.now();
         let activityInfo = await getActivitiesInfo(data, connection);
+        time2 = Date.now();
+        debug(`Time till get activities: ${time2 - time1}ms`);
         // get unique compound information from all collections for the current noStereoID
+        time1 = Date.now();
         entry = await getCompoundsInfo(
           entry,
           data,
@@ -107,9 +124,12 @@ export async function aggregate(connection) {
           noStereoID,
           connection,
         );
+        time2 = Date.now();
+        debug(`Time till get compounds info: ${time2 - time1}ms`);
         if (entry.data.cids) {
           const uniqueMeshTerms = {};
           const uniquePmIds = {};
+          time1 = Date.now();
           for (let i = 0; i < entry.data.cids.length; i++) {
             let cid = Number(entry.data.cids[i]);
             const { meshTermsForCid, pmIds } = await getMeshTerms(
@@ -139,26 +159,35 @@ export async function aggregate(connection) {
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
           }
+          time2 = Date.now();
+          debug(`Time till get meshTerms and dbRefs: ${time2 - time1}ms`);
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
           entry.data.bioActive = true;
-
+          time1 = Date.now();
           const keywordsActivities = getActivityKeywords(activityInfo);
+          time2 = Date.now();
           if (keywordsActivities.length > 0) {
             entry.data.kwBioassays = keywordsActivities;
+            debug(`Time till get activity keywords: ${time2 - time1}ms`);
           }
+          time1 = Date.now();
           const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
+          time2 = Date.now();
           if (keywordsActiveAgainst.length > 0) {
             entry.data.kwActiveAgainst = keywordsActiveAgainst;
+            debug(`Time till get activeAgainst keywords: ${time2 - time1}ms`);
           }
         }
         // if taxons is not empty, get unique keywords of taxonomies for the current noStereoID
         if (taxons.length > 0) {
+          time1 = Date.now();
           const keywordsTaxonomies = getTaxonomyKeywords(taxons);
-
+          time2 = Date.now();
           if (keywordsTaxonomies.length > 0) {
             entry.data.kwTaxonomies = keywordsTaxonomies;
+            debug(`Time till get taxonomy keywords: ${time2 - time1}ms`);
           }
         }
         // if activityInfo is not empty, define entry.data.activities
