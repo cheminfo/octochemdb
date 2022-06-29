@@ -71,7 +71,7 @@ export async function aggregate(connection) {
       debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
       debug('start Aggregation process');
       // set progress to aggregating
-      progress.state = 'aggregating';
+      progress.state = 'aggregatings';
       await connection.setProgress(progress);
       // parse all noStereoIDs and get their info
       for (const [noStereoID, sourcesLink] of Object.entries(links)) {
@@ -144,7 +144,7 @@ export async function aggregate(connection) {
           const meshTerms = Object.keys(uniqueMeshTerms);
 
           if (meshTerms.length > 0) {
-            entry.kwMeshTerms = meshTerms;
+            entry.data.kwMeshTerms = meshTerms;
           }
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
@@ -157,13 +157,13 @@ export async function aggregate(connection) {
           const keywordsActivities = getActivityKeywords(activityInfo);
 
           if (keywordsActivities.length > 0) {
-            entry.kwBioassays = keywordsActivities;
+            entry.data.kwBioassays = keywordsActivities;
           }
 
           const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
 
           if (keywordsActiveAgainst.length > 0) {
-            entry.kwActiveAgainst = keywordsActiveAgainst;
+            entry.data.kwActiveAgainst = keywordsActiveAgainst;
           }
         }
         // if taxons is not empty, get unique keywords of taxonomies for the current noStereoID
@@ -171,7 +171,7 @@ export async function aggregate(connection) {
           const keywordsTaxonomies = getTaxonomyKeywords(taxons);
 
           if (keywordsTaxonomies.length > 0) {
-            entry.kwTaxonomies = keywordsTaxonomies;
+            entry.data.kwTaxonomies = keywordsTaxonomies;
           }
         }
         // if activityInfo is not empty, define entry.data.activities
