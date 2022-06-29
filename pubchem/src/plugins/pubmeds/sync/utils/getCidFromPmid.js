@@ -38,11 +38,10 @@ export async function getCidFromPmid(filePath, connection) {
       }
     }
     for (let key in data) {
-	if (data[key].length>5000) {
-		data[key].length=0
-	}
+      if (data[key].length > 1000) {
+        data[key].length = 0;
+      }
     }
-
 
     return data;
   } catch (error) {
