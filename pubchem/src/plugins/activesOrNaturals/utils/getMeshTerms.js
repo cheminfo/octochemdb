@@ -20,7 +20,7 @@ export async function getMeshTerms(cid, collection, connection) {
       const doc = await cursor.next();
       if (doc.data.meshHeadings) {
         for (let meshHeading of doc.data.meshHeadings) {
-          uniqueMeshTerms[meshHeading.descriptorName] = true;
+          uniqueMeshTerms[meshHeading.descriptorName.toLowerCase()] = true;
         }
         pmIds.push(doc._id);
       }
