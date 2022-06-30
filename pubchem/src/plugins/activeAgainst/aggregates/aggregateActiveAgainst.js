@@ -50,7 +50,8 @@ export async function aggregate(connection) {
       const result = collectionActivesOrNaturals.aggregate([
         { $project: { activities: '$data.activities' } },
         { $unwind: '$activities' },
-        { $project: { taxonomy: '$activities.taxonomy' } },
+        { $unwind: '$activities.targetTaxonomies' },
+        { $project: { taxonomy: '$activities.targetTaxonomies' } },
         {
           $project: {
             superkingdom: '$taxonomy.superkingdom',
@@ -63,7 +64,7 @@ export async function aggregate(connection) {
           $group: {
             _id: {
               $concat: [
-                '$_id',
+                '$_id',``
                 '$superkingdom',
                 'kingdom',
                 '$phylum',
