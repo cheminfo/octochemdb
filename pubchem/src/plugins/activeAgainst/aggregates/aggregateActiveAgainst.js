@@ -88,6 +88,10 @@ export async function aggregate(connection) {
           },
         },
         { $out: `activeAgainst_tmp` },
+        {
+          allowDiskUse: true, // allow aggregation to use disk if necessary
+          maxTimeMS: 60 * 60 * 1000, // 1h
+        },
       ]);
       await result.hasNext();
       // remove null _id
