@@ -1,7 +1,7 @@
 import removeEntriesFromFile from '../../../../sync/utils/removeEntriesFromFile.js';
 import Debug from '../../../../utils/Debug.js';
 
-import importOnePubmedFile from './importOnePubmedFile';
+import importOnePubmedFile from './importOnePubmedFile.js';
 /**
  * @description start import of pubmeds files
  * @param {*} connection  - mongo connection
