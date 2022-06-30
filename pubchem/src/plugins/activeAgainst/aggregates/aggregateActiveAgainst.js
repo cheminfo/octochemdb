@@ -47,52 +47,56 @@ export async function aggregate(connection) {
       progress.state = 'aggregating';
       await connection.setProgress(progress);
       // Aggregate the data from the activesOrNaturals collection
-      const result = collectionActivesOrNaturals.aggregate([
-        { $project: { activities: '$data.activities' } },
-        { $unwind: '$activities' },
-        { $unwind: '$activities.targetTaxonomies' },
-        { $project: { taxonomy: '$activities.targetTaxonomies' } },
-        {
-          $project: {
-            superkingdom: '$taxonomy.superkingdom',
-            kingdom: '$taxonomy.kingdom',
-            phylum: '$taxonomy.phylum',
-            class: '$taxonomy.class',
-          },
-        },
-        {
-          $group: {
-            _id: {
-              $concat: [
-                '$_id',
-                '$superkingdom',
-                'kingdom',
-                '$phylum',
-                '$class',
-              ],
+      const result = collectionActivesOrNaturals.aggregate(
+        [
+          { $project: { activities: '$data.activities' } },
+          { $unwind: '$activities' },
+          { $unwind: '$activities.targetTaxonomies' },
+          { $project: { taxonomy: '$activities.targetTaxonomies' } },
+          {
+            $project: {
+              superkingdom: '$taxonomy.superkingdom',
+              kingdom: '$taxonomy.kingdom',
+              phylum: '$taxonomy.phylum',
+              class: '$taxonomy.class',
             },
-            superkingdom: { $first: '$superkingdom' },
-            kingdom: { $first: '$kingdom' },
-            phylum: { $first: '$phylum' },
-            class: { $first: '$class' },
           },
-        },
-        {
-          $group: {
-            _id: { $concat: ['$superkingdom', 'kingdom', '$phylum', '$class'] },
-            count: { $sum: 1 },
-            superkingdom: { $first: '$superkingdom' },
-            kingdom: { $first: '$kingdom' },
-            phylum: { $first: '$phylum' },
-            class: { $first: '$class' },
+          {
+            $group: {
+              _id: {
+                $concat: [
+                  '$_id',
+                  '$superkingdom',
+                  'kingdom',
+                  '$phylum',
+                  '$class',
+                ],
+              },
+              superkingdom: { $first: '$superkingdom' },
+              kingdom: { $first: '$kingdom' },
+              phylum: { $first: '$phylum' },
+              class: { $first: '$class' },
+            },
           },
-        },
-        { $out: `activeAgainst_tmp` },
+          {
+            $group: {
+              _id: {
+                $concat: ['$superkingdom', 'kingdom', '$phylum', '$class'],
+              },
+              count: { $sum: 1 },
+              superkingdom: { $first: '$superkingdom' },
+              kingdom: { $first: '$kingdom' },
+              phylum: { $first: '$phylum' },
+              class: { $first: '$class' },
+            },
+          },
+          { $out: `activeAgainst_tmp` },
+        ],
         {
           allowDiskUse: true, // allow aggregation to use disk if necessary
           maxTimeMS: 60 * 60 * 1000, // 1h
         },
-      ]);
+      );
       await result.hasNext();
       // remove null _id
       await temporaryCollection.deleteOne({ _id: null });
