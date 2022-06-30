@@ -64,7 +64,7 @@ export async function aggregate(connection) {
           $group: {
             _id: {
               $concat: [
-                '$_id',``
+                '$_id',
                 '$superkingdom',
                 'kingdom',
                 '$phylum',
