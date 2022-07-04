@@ -158,7 +158,7 @@ async function searchHandler(request) {
         },
       ])
       .toArray();
-    return { result: results };
+    return { data: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'activesOrNaturals_tmp', connection });

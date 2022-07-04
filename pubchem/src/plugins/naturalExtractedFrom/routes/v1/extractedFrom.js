@@ -27,7 +27,7 @@ async function searchHandler() {
     const results = await collection
       .aggregate([{ $match: { _id: { $exists: true } } }])
       .toArray();
-    return results;
+    return { data: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'naturalExtractedFrom', connection });

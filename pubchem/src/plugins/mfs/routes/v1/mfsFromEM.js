@@ -99,7 +99,7 @@ async function searchHandler(request) {
         { $limit: Number(limit) },
       ])
       .toArray();
-    return results;
+    return { data: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'mfs', connection });

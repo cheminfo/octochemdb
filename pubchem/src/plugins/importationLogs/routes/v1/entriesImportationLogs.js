@@ -72,7 +72,7 @@ async function searchHandler(request) {
       collectionName: collectionName,
     });
 
-    return results;
+    return { data: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'importationLogs', connection });

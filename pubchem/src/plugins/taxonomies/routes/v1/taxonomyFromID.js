@@ -39,7 +39,7 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('taxonomies');
     // need to await otherwise connectioin is closed before execution
     const result = await collection.findOne({ _id: id });
-    return result;
+    return { data: result };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'taxonomies', connection });

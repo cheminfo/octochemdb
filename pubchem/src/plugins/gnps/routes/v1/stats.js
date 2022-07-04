@@ -26,7 +26,7 @@ async function searchHandler() {
 
     const results = await collection.stats();
 
-    return results;
+    return { data: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'gnps', connection });

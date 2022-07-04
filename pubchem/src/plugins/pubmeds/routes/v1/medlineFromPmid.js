@@ -57,7 +57,7 @@ async function searchHandler(request) {
         },
       ])
       .toArray();
-    return results[0];
+    return { data: results[0] };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'pubmeds', connection });

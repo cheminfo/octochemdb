@@ -78,7 +78,8 @@ async function searchHandler(request) {
         },
       ])
       .toArray();
-    return results;
+
+    return { data: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'compounds', connection });
