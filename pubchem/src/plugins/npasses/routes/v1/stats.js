@@ -31,6 +31,7 @@ async function searchHandler() {
     if (connection) {
       debug(e, { collection: 'npasses', connection });
     }
+    return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

@@ -158,11 +158,12 @@ async function searchHandler(request) {
         },
       ])
       .toArray();
-    return results;
+    return { result: results };
   } catch (e) {
     if (connection) {
       debug(e, { collection: 'activesOrNaturals_tmp', connection });
     }
+    return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

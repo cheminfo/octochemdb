@@ -70,6 +70,7 @@ async function searchHandler(request) {
     if (connection) {
       debug(e, { collection: 'admin', connection });
     }
+    return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();
