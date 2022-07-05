@@ -27,7 +27,7 @@ async function searchHandler() {
       .filter((entry) => String(entry._id).match(/_progress$/))
       .forEach((entry) => {
         adminInfo[String(entry._id).replace('_progress', '')] = {
-          date: entry.date,
+          date: entry.dateEnd,
           state: entry.state,
           seq: entry.seq,
           logs: entry.logs,
