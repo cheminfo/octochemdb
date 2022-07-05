@@ -75,7 +75,11 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'importationLogs', connection });
+      debug(e.message, {
+        collection: 'importationLogs',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

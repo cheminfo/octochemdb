@@ -28,7 +28,11 @@ export default async function getTaxonomiesInfo(data, connection) {
         );
       } catch (e) {
         if (connection) {
-          debug(e, { collection: 'activesOrNaturals', connection });
+          debug(e.message, {
+            collection: 'activesOrNaturals',
+            connection,
+            stack: e.stack,
+          });
         }
       }
     }
@@ -36,7 +40,11 @@ export default async function getTaxonomiesInfo(data, connection) {
     return taxons;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals', connection });
+      debug(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

@@ -102,7 +102,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'mfs', connection });
+      debug(e.message, { collection: 'mfs', connection, stack: e.stack });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

@@ -108,7 +108,7 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'gnps', connection });
+      debug(e.message, { collection: 'gnps', connection, stack: e.stack });
     }
   }
 }

@@ -107,7 +107,11 @@ export async function aggregate(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'naturalExtractedFrom', connection });
+      debug(e.message, {
+        collection: 'naturalExtractedFrom',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

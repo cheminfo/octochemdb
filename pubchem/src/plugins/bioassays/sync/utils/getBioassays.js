@@ -105,7 +105,7 @@ export default async function getBioassays(
     return bioassays;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'bioassays', connection });
+      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
     }
   }
 }

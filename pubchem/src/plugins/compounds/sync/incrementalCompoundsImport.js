@@ -35,7 +35,7 @@ async function incrementalCompoundImport(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'compounds', connection });
+      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
     }
   }
 }

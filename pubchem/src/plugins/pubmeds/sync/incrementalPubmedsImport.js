@@ -47,7 +47,7 @@ async function incrementalPubmedImport(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'pubmeds', connection });
+      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
     }
   }
 }

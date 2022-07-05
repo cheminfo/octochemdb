@@ -62,14 +62,18 @@ export async function* parseNpatlases(json, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e, { collection: 'npAtlases', connection });
+          debug(e.message, {
+            collection: 'npAtlases',
+            connection,
+            stack: e.stack,
+          });
         }
         continue;
       }
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'npAtlases', connection });
+      debug(e.message, { collection: 'npAtlases', connection, stack: e.stack });
     }
   }
 }

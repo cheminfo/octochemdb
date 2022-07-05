@@ -145,14 +145,18 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e, { collection: 'lotuses', connection });
+          debug(e.message, {
+            collection: 'lotuses',
+            connection,
+            stack: e.stack,
+          });
         }
         continue;
       }
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'lotuses', connection });
+      debug(e.message, { collection: 'lotuses', connection, stack: e.stack });
     }
   }
 }

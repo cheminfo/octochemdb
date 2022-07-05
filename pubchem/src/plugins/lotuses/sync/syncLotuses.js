@@ -118,7 +118,7 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'lotuses', connection });
+      debug(e.message, { collection: 'lotuses', connection, stack: e.stack });
     }
   }
 }

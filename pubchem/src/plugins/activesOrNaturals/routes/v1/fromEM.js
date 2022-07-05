@@ -161,7 +161,11 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals', connection });
+      debug(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

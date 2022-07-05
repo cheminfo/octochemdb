@@ -29,7 +29,11 @@ export function getTaxonomiesNodes(arrayBuffer, connection) {
     return result;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'taxonomies', connection });
+      debug(e.message, {
+        collection: 'taxonomies',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

@@ -120,7 +120,11 @@ export async function aggregate(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activeAgainst', connection });
+      debug(e.message, {
+        collection: 'activeAgainst',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

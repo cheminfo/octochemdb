@@ -80,7 +80,11 @@ export default async function getCompoundsInfo(
     return entry;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals', connection });
+      debug(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

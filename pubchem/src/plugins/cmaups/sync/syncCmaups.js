@@ -121,7 +121,7 @@ export async function sync(connection) {
   } catch (e) {
     // If error is catch, debug it on telegram
     if (connection) {
-      debug(e, { collection: 'bioassays', connection });
+      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
     }
   }
 }

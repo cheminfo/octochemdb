@@ -38,7 +38,11 @@ export async function importSubstanceFiles(
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'substances', connection });
+      debug(e.message, {
+        collection: 'substances',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

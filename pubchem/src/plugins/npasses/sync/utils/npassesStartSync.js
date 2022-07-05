@@ -54,7 +54,7 @@ export default async function npassStartSync(connection) {
     };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'npasses', connection });
+      debug(e.message, { collection: 'npasses', connection, stack: e.stack });
     }
   }
 }

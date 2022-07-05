@@ -13,7 +13,7 @@ async function doAll() {
     debug(results);
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'test', connection });
+      debug(e.message, { collection: 'test', connection, stack: e.stack });
     }
   } finally {
     debug('Closing connection');

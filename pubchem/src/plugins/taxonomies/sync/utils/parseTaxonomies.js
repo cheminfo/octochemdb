@@ -74,7 +74,11 @@ export function* parseTaxonomies(arrayBuffer, nodes, connection) {
     return;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'taxonomies', connection });
+      debug(e.message, {
+        collection: 'taxonomies',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

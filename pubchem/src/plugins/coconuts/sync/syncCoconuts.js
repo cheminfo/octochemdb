@@ -113,7 +113,11 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: options.collectionName, connection });
+      debug(e.message, {
+        collection: options.collectionName,
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

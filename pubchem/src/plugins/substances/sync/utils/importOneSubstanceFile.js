@@ -111,7 +111,11 @@ export default async function importOneSubstanceFile(
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'substances', connection });
+      debug(e.message, {
+        collection: 'substances',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

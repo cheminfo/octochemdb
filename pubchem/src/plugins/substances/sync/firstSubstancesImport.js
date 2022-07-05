@@ -45,7 +45,11 @@ async function firstSubstanceImport(connection) {
     await substanceCollection.createIndex({ 'data.ocl.noStereoID': 1 });
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'substances', connection });
+      debug(e.message, {
+        collection: 'substances',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

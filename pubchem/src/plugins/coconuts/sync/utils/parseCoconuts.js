@@ -61,14 +61,18 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e, { collection: 'coconuts', connection });
+          debug(e.message, {
+            collection: 'coconuts',
+            connection,
+            stack: e.stack,
+          });
         }
         continue;
       }
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'coconuts', connection });
+      debug(e.message, { collection: 'coconuts', connection, stack: e.stack });
     }
   }
 }

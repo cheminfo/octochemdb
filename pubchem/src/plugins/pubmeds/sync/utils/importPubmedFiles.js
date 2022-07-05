@@ -55,7 +55,7 @@ export async function importPubmedFiles(
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'pubmeds', connection });
+      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
     }
   }
 }

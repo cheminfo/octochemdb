@@ -70,7 +70,11 @@ export async function aggregate(connection) {
     progress.state = 'error';
     await connection.setProgress(progress);
     if (connection) {
-      debug(e, { collection: 'mfsCHNOSClF', connection });
+      debug(e.message, {
+        collection: 'mfsCHNOSClF',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

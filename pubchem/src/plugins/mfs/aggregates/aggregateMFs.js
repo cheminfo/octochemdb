@@ -70,7 +70,7 @@ export async function aggregate(connection) {
     progress.state = 'error';
     await connection.setProgress(progress);
     if (connection) {
-      debug(e, { collection: 'mfs', connection });
+      debug(e.message, { collection: 'mfs', connection, stack: e.stack });
     }
   }
 }

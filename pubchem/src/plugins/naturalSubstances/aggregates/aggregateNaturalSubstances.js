@@ -137,7 +137,11 @@ export async function aggregate(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'naturalSubstances', connection });
+      debug(e.message, {
+        collection: 'naturalSubstances',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

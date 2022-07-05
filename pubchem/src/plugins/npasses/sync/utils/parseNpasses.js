@@ -69,7 +69,11 @@ export async function* parseNpasses(
         noStereoID = oclMolecule.getIDCode();
       } catch (e) {
         if (connection) {
-          debug(e, { collection: 'npasses', connection });
+          debug(e.message, {
+            collection: 'npasses',
+            connection,
+            stack: e.stack,
+          });
           continue;
         }
       }
@@ -140,7 +144,7 @@ export async function* parseNpasses(
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'npasses', connection });
+      debug(e.message, { collection: 'npasses', connection, stack: e.stack });
     }
   }
 }

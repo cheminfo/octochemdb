@@ -218,7 +218,11 @@ export async function aggregate(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals', connection });
+      debug(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

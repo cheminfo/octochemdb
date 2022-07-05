@@ -38,7 +38,11 @@ export default async function getActivitiesInfo(data, connection) {
     return activityInfos;
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals', connection });
+      debug(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

@@ -29,7 +29,7 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'gnps', connection });
+      debug(e.message, { collection: 'gnps', connection, stack: e.stack });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

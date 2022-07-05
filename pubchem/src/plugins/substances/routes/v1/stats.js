@@ -29,7 +29,11 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'substances', connection });
+      debug(e.message, {
+        collection: 'substances',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

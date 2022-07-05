@@ -61,7 +61,7 @@ async function firstPubmedImport(connection) {
     await collection.createIndex({ _id: 1 });
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'pubmeds', connection });
+      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
     }
   }
 }

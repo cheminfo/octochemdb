@@ -49,7 +49,7 @@ export async function getFilesToImport(
     return { files: allFiles.slice(firstIndex), lastDocument };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'compounds', connection });
+      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
     }
   }
 }

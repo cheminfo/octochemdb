@@ -30,7 +30,11 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activeAgainst', connection });
+      debug(e.message, {
+        collection: 'activeAgainst',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

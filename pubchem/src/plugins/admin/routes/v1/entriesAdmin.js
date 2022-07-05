@@ -68,7 +68,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'admin', connection });
+      debug(e.message, { collection: 'admin', connection, stack: e.stack });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

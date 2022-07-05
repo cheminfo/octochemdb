@@ -121,7 +121,7 @@ export async function sync(connection) {
     // we remove all the entries that are not imported by the last file
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'npasses', connection });
+      debug(e.message, { collection: 'npasses', connection, stack: e.stack });
     }
   }
 }

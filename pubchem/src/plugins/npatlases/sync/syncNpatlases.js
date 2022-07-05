@@ -119,7 +119,7 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'npAtlases', connection });
+      debug(e.message, { collection: 'npAtlases', connection, stack: e.stack });
     }
   }
 }

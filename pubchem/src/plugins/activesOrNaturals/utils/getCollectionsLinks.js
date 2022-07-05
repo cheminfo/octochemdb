@@ -42,7 +42,11 @@ export default async function getCollectionsLinks(connection, collectionNames) {
     return { links, collectionSources };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals', connection });
+      debug(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }
