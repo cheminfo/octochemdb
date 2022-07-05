@@ -45,7 +45,7 @@ async function firstCompoundImport(connection) {
     let compoundsCollection = await connection.getCollection('compounds');
     await compoundsCollection.createIndex({ 'data.em': 1 });
     await compoundsCollection.createIndex({ 'data.mf': 1 });
-    await compoundsCollection.createIndex({ 'data.ocl.id': 1 });
+    await compoundsCollection.createIndex({ 'data.ocl.idCode': 1 });
     await compoundsCollection.createIndex({ 'data.ocl.noStereoID': 1 });
     await compoundsCollection.createIndex({
       'data.nbFragments': 1,

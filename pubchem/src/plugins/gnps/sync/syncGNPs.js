@@ -93,7 +93,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // create indexes on the collection
       await collection.createIndex({ _id: 1 });
-      await collection.createIndex({ 'data.ocl.id': 1 });
+      await collection.createIndex({ 'data.ocl.idCode': 1 });
       await collection.createIndex({ 'data.ocl.noStereoID': 1 });
       await collection.createIndex({ 'spectralData.msLevel': 1 });
       await collection.createIndex({ 'spectralData.ionSource': 1 });
