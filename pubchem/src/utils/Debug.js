@@ -10,14 +10,17 @@ export default function Debug(context) {
 
   return (message, options) => {
     realDebug(message);
-
-    messages.push({
+    let messageDebug = {
       epoch: Date.now(),
       text: `${new Date()
         .toISOString()
         .replace(/.*T/, '')
         .replace('Z', ' - ')}${context}:${message}`,
-    });
+    };
+    if (options?.stack) {
+      messageDebug.stack = options.stack;
+    }
+    messages.push(messageDebug);
 
     sendTelegrams();
     if (options) {
@@ -36,7 +39,7 @@ async function sendTelegrams() {
 }
 
 async function logInDB(message, options) {
-  const { collection, connection } = options;
+  const { collection, connection, stack } = options;
   if (!collection) return;
   const progress = await connection.getProgress(collection);
   if (progress.logs === null || progress.logs === undefined) {
@@ -48,6 +51,7 @@ async function logInDB(message, options) {
     logs.push({
       epoch: `${new Date().toISOString()}`,
       message: `${collection}:${message}`,
+      stack: `${collection}:${stack}`,
     });
   }
   if (logs && logs.length === 49) {
@@ -55,6 +59,7 @@ async function logInDB(message, options) {
     logs.push({
       epoch: `${new Date().toISOString()}`,
       message: `${collection}:${message}`,
+      stack: `${collection}:${stack}`,
     });
   }
 
