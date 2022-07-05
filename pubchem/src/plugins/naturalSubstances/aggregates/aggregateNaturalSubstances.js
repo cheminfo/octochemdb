@@ -32,7 +32,7 @@ export async function aggregate(connection) {
       progress.state !== 'aggregated'
     ) {
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}_tmp`,
+        `${COLLECTION_NAME}`,
       );
       debug('start Aggregation process');
       progress.state = 'aggregating';

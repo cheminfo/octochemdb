@@ -123,7 +123,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
-    const collection = await connection.getCollection('activesOrNaturals_tmp');
+    const collection = await connection.getCollection('activesOrNaturals');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
     formattedFields._id = 0;
@@ -161,7 +161,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e, { collection: 'activesOrNaturals_tmp', connection });
+      debug(e, { collection: 'activesOrNaturals', connection });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {

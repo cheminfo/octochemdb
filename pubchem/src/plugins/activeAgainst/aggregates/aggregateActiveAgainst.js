@@ -41,7 +41,7 @@ export async function aggregate(connection) {
     ) {
       // If the last document imported is null, or the sources are different, or the state is not updated, then we need to import the data
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}_tmp`,
+        `${COLLECTION_NAME}`,
       );
       debug('start Aggregation process');
       progress.state = 'aggregating';
@@ -90,7 +90,7 @@ export async function aggregate(connection) {
               class: { $first: '$class' },
             },
           },
-          { $out: `activeAgainst_tmp` },
+          { $out: `activeAgainst` },
         ],
         {
           allowDiskUse: true, // allow aggregation to use disk if necessary

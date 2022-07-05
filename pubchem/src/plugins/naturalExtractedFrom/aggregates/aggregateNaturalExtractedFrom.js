@@ -79,12 +79,12 @@ export async function aggregate(connection) {
             class: { $first: '$class' },
           },
         },
-        { $out: 'naturalExtractedFrom_tmp' }, // output temporary collection
+        { $out: 'naturalExtractedFrom' }, // output temporary collection
       ]);
       await result.hasNext();
       // delete null case from temporary collection
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}_tmp`,
+        `${COLLECTION_NAME}`,
       );
       await temporaryCollection.deleteOne({ _id: null });
       // rename temporary collection to naturalExtractedFrom

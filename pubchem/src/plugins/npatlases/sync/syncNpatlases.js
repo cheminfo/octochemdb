@@ -57,9 +57,7 @@ export async function sync(connection) {
       progress.state !== 'updated'
     ) {
       // create temporary collection
-      const temporaryCollection = await connection.getCollection(
-        'npAtlases_tmp',
-      );
+      const temporaryCollection = await connection.getCollection('npAtlases');
       debug(`Start parsing: ${lastFile}`);
       // set progress to updating
       progress.state = 'updating';
