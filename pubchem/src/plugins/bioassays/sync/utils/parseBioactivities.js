@@ -72,7 +72,7 @@ async function* parseBioactivities(
           aid,
           assay: bioassays[aid].name,
           ocl: {
-            id: compoundData.id,
+            idCode: compoundData.id,
             noStereoID: compoundData.noStereoID,
           },
         },

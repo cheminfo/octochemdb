@@ -90,7 +90,7 @@ export async function* parseGNPs(jsonPath, connection) {
           _id: entry.value.spectrum_id,
           data: {
             ocl: {
-              id: oclID.idCode,
+              idCode: oclID.idCode,
               noStereoID,
             },
             spectralData,

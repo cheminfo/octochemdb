@@ -116,7 +116,7 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
           _id: entry.lotus_id,
           data: {
             ocl: {
-              id: oclID.idCode,
+              idCode: oclID.idCode,
               noStereoID,
             },
           },

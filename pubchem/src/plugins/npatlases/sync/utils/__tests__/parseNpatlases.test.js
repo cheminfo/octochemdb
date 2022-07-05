@@ -17,7 +17,7 @@ test('parseNpatlases', async () => {
     _id: 'NPA000001',
     data: {
       ocl: {
-        id: 'ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjjXRLPiZIUU@d@',
+        idCode: 'ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjjXRLPiZIUU@d@',
         noStereoID: 'ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjj@@',
       },
       taxonomies: [

@@ -123,7 +123,7 @@ export async function* parseNpasses(
         _id: item.np_id,
         data: {
           ocl: {
-            id: oclID.idCode,
+            idCode: oclID.idCode,
             noStereoID: noStereoID,
           },
         },

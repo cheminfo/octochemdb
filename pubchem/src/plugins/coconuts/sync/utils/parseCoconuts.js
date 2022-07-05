@@ -47,7 +47,7 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
           _id: entry.coconut_id,
           data: {
             ocl: {
-              id: oclID.idCode,
+              idCode: oclID.idCode,
               noStereoID,
             },
           },

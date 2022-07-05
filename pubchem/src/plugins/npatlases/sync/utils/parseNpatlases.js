@@ -46,7 +46,7 @@ export async function* parseNpatlases(json, connection) {
           _id: entry.npaid,
           data: {
             ocl: {
-              id: oclID.idCode,
+              idCode: oclID.idCode,
               noStereoID,
             },
           },

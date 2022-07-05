@@ -110,7 +110,7 @@ export async function* parseCmaups(
             _id: item.Ingredient_ID,
             data: {
               ocl: {
-                id: oclID.idCode,
+                idCode: oclID.idCode,
                 noStereoID: noStereoID,
               },
             },

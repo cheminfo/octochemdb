@@ -32,7 +32,7 @@ export function getCompoundsData(molecule) {
   let result = {
     data: {
       ocl: {
-        id: oclID.idCode,
+        idCode: oclID.idCode,
         coordinates: oclID.coordinates,
         index: oclIndex,
         noStereoID,

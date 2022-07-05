@@ -13,7 +13,7 @@ test('parseCoconuts', async () => {
     _id: 'CNP0330764',
     data: {
       ocl: {
-        id: 'eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@',
+        idCode: 'eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@',
         noStereoID: 'eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@',
       },
       iupacName:

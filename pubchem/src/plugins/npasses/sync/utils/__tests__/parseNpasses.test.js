@@ -46,7 +46,8 @@ test('simple case', async () => {
     _id: 'NPC10005',
     data: {
       ocl: {
-        id: 'e`rpD@@@DLbbRbTbReTRTJbRdJVTrbRtUQcfURqtNHjkUUUUUUUUUUUUUUUTtHPiHxheUAhBlX@@',
+        idCode:
+          'e`rpD@@@DLbbRbTbReTRTJbRdJVTrbRtUQcfURqtNHjkUUUUUUUUUUUUUUUTtHPiHxheUAhBlX@@',
         noStereoID:
           'e`rpD@@@DLbbRbTbReTRTJbRdJVTrbRtUQcfURqtNHjkUUUUUUUUUUUUUUUTt@@@',
       },

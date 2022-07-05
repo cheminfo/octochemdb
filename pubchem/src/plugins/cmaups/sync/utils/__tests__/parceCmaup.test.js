@@ -38,7 +38,7 @@ test('parseCmaups', () => {
     _id: 'NPC146355',
     data: {
       ocl: {
-        id: 'fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuTEATAAEPDaBRbe@@',
+        idCode: 'fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuTEATAAEPDaBRbe@@',
         coordinates:
           '!Bs|uTn{\\BSk}}m{_}?`A}mtz?m?rw@eR{bGvw?_x@?g~H?K\\BbGvH__y?b@JH_P',
         noStereoID: 'fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuTEATAAEP@@@',
