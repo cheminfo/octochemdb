@@ -13,7 +13,7 @@ const debug = Debug('getCompoundsData');
  */
 export function getCompoundsData(molecule) {
   let oclMolecule;
-  if (molecule.molefile) {
+  if (molecule.molfile) {
     oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
   } else {
     oclMolecule = OCL.Molecule.fromIDCode(molecule.noStereoID);
