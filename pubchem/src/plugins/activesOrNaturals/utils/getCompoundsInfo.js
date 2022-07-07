@@ -51,16 +51,17 @@ export default async function getCompoundsInfo(
       .find({ 'data.ocl.noStereoID': noStereoID })
       .limit(1);
 
-    let compoundIfo = await cursor.next();
+    let compoundInfo = await cursor.next();
 
-    if (compoundIfo !== null) {
-      entry.data.em = compoundIfo.data.em;
-      entry.data.charge = compoundIfo.data.charge;
-      entry.data.unsaturation = compoundIfo.data.unsaturation;
-      entry.data.mf = compoundIfo.data.mf;
+    if (compoundInfo !== null) {
+      entry.data.em = compoundInfo.data.em;
+      entry.data.charge = compoundInfo.data.charge;
+      entry.data.unsaturation = compoundInfo.data.unsaturation;
+      entry.data.mf = compoundInfo.data.mf;
       entry.data.bioActive = bioActive;
+      cid[compoundInfo._id] = true;
     }
-    if (compoundIfo === null) {
+    if (compoundInfo === null) {
       const molecule = { noStereoID: noStereoID };
       let compoundData = await getCompoundsData(molecule);
       entry.data.em = compoundData.data.em;
