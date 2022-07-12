@@ -36,33 +36,28 @@ export default async function importOneCompoundFile(
   // Create a readStream for the file
   let bufferValue = '';
   let newCompounds = 0;
-  try {
-    const readStream = fs.createReadStream(file.path);
-    const unzipStream = readStream.pipe(zlib.createGunzip());
-    for await (const chunk of unzipStream) {
-      bufferValue += chunk;
-      if (bufferValue.length < 128 * 1024 * 1024) continue;
-      let lastIndex = bufferValue.lastIndexOf('$$$$');
-      if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
-        newCompounds += await parseSDF(bufferValue.substring(0, lastIndex + 5));
-        bufferValue = bufferValue.substring(lastIndex + 5);
-      }
-    }
-    // parse the last chunk
-    newCompounds += await parseSDF(bufferValue);
-    // update logs
-    logs.dateEnd = Date.now();
-    logs.endSequenceID = progress.seq;
-    logs.status = 'updated';
-    await connection.updateImportationLog(logs);
-    debug(`${newCompounds} compounds imported from ${file.name}`);
-    // return the new compounds count
-    return newCompounds;
-  } catch (e) {
-    if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+
+  const readStream = fs.createReadStream(file.path);
+  const unzipStream = readStream.pipe(zlib.createGunzip());
+  for await (const chunk of unzipStream) {
+    bufferValue += chunk;
+    if (bufferValue.length < 128 * 1024 * 1024) continue;
+    let lastIndex = bufferValue.lastIndexOf('$$$$');
+    if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
+      newCompounds += await parseSDF(bufferValue.substring(0, lastIndex + 5));
+      bufferValue = bufferValue.substring(lastIndex + 5);
     }
   }
+  // parse the last chunk
+  newCompounds += await parseSDF(bufferValue);
+  // update logs
+  logs.dateEnd = Date.now();
+  logs.endSequenceID = progress.seq;
+  logs.status = 'updated';
+  await connection.updateImportationLog(logs);
+  debug(`${newCompounds} compounds imported from ${file.name}`);
+  // return the new compounds count
+  return newCompounds;
 
   // parse the SDF file (function called in line 50) and import the compounds in the compounds collection
   async function parseSDF(sdf) {
