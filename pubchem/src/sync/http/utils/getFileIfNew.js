@@ -33,7 +33,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     setTimeout(() => controller.abort(), 1800 * 1000);
     mkdirpSync(targetFolder);
     const response = await fetch(file.url, { signal: controller.signal });
-
+    if (response.status !== 200) {
+      throw new Error(`Could not fetch file: ${file.url}`);
+    }
     const headers = Array.from(response.headers);
     let lastMofidied =
       headers.filter((row) => row[0] === 'last-modified')[0] ||
