@@ -5,7 +5,7 @@ import pkg from 'fs-extra';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 
-import calculateDiff from './utils/calculateDiff';
+import calculateDiff from './utils/calculateDiff.js';
 import { getLatestsImportedFile } from './utils/getLatestsImportedFile.js';
 import parsePatents from './utils/parsePatents.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
