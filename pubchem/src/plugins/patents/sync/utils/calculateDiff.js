@@ -2,8 +2,8 @@ import { promises as FS } from 'fs';
 
 import Debug from 'debug';
 
-import appendDiff from './appendDiff';
-import appendLines from './appendLines';
+import appendDiff from './appendDiff.js';
+import appendLines from './appendLines.js';
 
 const debug = Debug.debug('calculateDiff');
 
