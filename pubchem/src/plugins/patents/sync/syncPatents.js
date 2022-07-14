@@ -29,13 +29,13 @@ export async function sync(connection) {
     const collection = await connection.getCollection(options.collectionName);
 
     // get last files cidToPatens available in the PubChem database
-    //   const lastFile = await getLastFileSync(options);
+    const lastFile = await getLastFileSync(options);
     // sort file by cid
-    //  const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
-    // await ungzipAndSort(lastFile, sortedFile);
-    // remove non-sorted file
-    // removeSync(lastFile);
-    /*  const lastImportedFilePath = await getLatestsImportedFile(
+    const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
+    await ungzipAndSort(lastFile, sortedFile);
+    //  remove non-sorted file
+    removeSync(lastFile);
+    const lastImportedFilePath = await getLatestsImportedFile(
       `${options.destinationLocal}/old`,
       'cidToPatents',
     );
@@ -55,10 +55,9 @@ export async function sync(connection) {
         }
         linkSync(filenames.lastFile, filenames.previousFile);
       }
-*/ // } else {
-    const sortedFile = `${options.destinationLocal}/old/2022-07-14/cidToPatents.2022-07-14.sorted`;
-    await parsePatents(sortedFile, collection, connection);
-    //}
+    } else {
+      await parsePatents(sortedFile, collection, connection);
+    }
   } catch (e) {
     if (connection) {
       debug(e.message, { collection: 'patents', connection, stack: e.stack });
