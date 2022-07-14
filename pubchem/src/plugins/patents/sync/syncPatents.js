@@ -55,10 +55,12 @@ export async function sync(connection) {
         }
         linkSync(filenames.lastFile, filenames.previousFile);
       }
+    } else {
+      await parsePatents(sortedFile, collection, connection);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'npAtlases', connection, stack: e.stack });
+      debug(e.message, { collection: 'patents', connection, stack: e.stack });
     }
   }
 }
