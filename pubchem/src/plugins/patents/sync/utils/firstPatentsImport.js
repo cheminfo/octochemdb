@@ -1,6 +1,5 @@
 import { createReadStream } from 'fs';
-
-import split2 from 'split2';
+import { createInterface } from 'readline';
 
 import Debug from '../../../../utils/Debug.js';
 
@@ -11,9 +10,10 @@ export default async function firstPatentsImport(
   connection,
 ) {
   try {
-    const readStream = createReadStream(filneName).pipe(split2('\n'));
+    const readStream = createReadStream(filneName);
+    const lines = createInterface({ input: readStream });
     let entry = {};
-    for await (const line of readStream) {
+    for await (const line of lines) {
       let fields = line.split('\t');
       if (!fields.length === 2) continue;
       const [productID, patentID] = fields;
