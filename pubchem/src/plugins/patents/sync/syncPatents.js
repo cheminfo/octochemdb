@@ -58,6 +58,7 @@ export async function sync(connection) {
         linkSync(filenames.lastFile, filenames.previousFile);
       }
     } else {
+      collection.drop();
       await firstPatentsImport(sortedFile, collection, connection);
     }
   } catch (e) {
