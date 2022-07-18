@@ -20,6 +20,8 @@ export default async function firstPatentsImport(
       let fields = line.split('\t');
       if (!fields.length === 2) continue;
       const [productID, patentID] = fields;
+      // if array size is greater than 500, skip till next productID
+
       if (!entry[productID]) {
         if (currentID !== Number(productID)) {
           collection.updateOne(
@@ -32,6 +34,9 @@ export default async function firstPatentsImport(
           counter++;
         }
         entry[productID] = [];
+      }
+      if (entry[productID].length > 500) {
+        continue;
       }
       entry[productID].push(patentID);
       if (Date.now() - start > 10000) {
