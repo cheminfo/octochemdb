@@ -13,19 +13,22 @@ export default async function firstPatentsImport(
     const readStream = createReadStream(filneName);
     const lines = createInterface({ input: readStream });
     let entry = {};
+    let currentID = 1;
     for await (const line of lines) {
       let fields = line.split('\t');
       if (!fields.length === 2) continue;
       const [productID, patentID] = fields;
       if (!entry[productID]) {
-        collection.insertOne({
-          _id: Number(productID),
-          patents: entry[productID],
-        });
-        entry = {};
+        if (currentID !== Number(productID)) {
+          collection.insertOne({
+            _id: Number(currentID),
+            patents: entry[currentID],
+          });
+          entry = {};
+          currentID = Number(productID);
+        }
         entry[productID] = [];
       }
-      debug(entry[productID]);
       entry[productID].push(patentID);
     }
   } catch (e) {
