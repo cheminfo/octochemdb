@@ -59,6 +59,8 @@ export async function sync(connection) {
     } else {
       await firstPatentsImport(sortedFile, collection, connection);
     }
+    await collection.createIndex({ _id: 1 });
+    await collection.createIndex({ data: 1 });
   } catch (e) {
     if (connection) {
       debug(e.message, { collection: 'patents', connection, stack: e.stack });
