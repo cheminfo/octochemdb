@@ -25,8 +25,7 @@ export default async function firstPatentsImport(
         entry = {};
         entry[productID] = [];
       }
-      debug(productID);
-      debug(patentID);
+      debug(entry[productID]);
       entry[productID].push(patentID);
     }
   } catch (e) {
