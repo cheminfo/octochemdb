@@ -35,7 +35,7 @@ export default async function firstPatentsImport(
       entry[productID].push(patentID);
       if (Date.now() - start > 10000) {
         start = Date.now();
-        debug(`Processed: ${counter}`);
+        debug(`Processed: ${counter} compounds`);
       }
     }
   } catch (e) {
