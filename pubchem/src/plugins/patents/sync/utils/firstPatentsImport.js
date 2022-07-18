@@ -22,10 +22,11 @@ export default async function firstPatentsImport(
       const [productID, patentID] = fields;
       if (!entry[productID]) {
         if (currentID !== Number(productID)) {
-          collection.insertOne({
-            _id: Number(currentID),
-            patents: entry[currentID],
-          });
+          collection.updateOne(
+            { _id: Number(currentID) },
+            { $set: { data: entry[currentID] } },
+            { upsert: true },
+          );
           entry = {};
           currentID = Number(productID);
           counter++;
