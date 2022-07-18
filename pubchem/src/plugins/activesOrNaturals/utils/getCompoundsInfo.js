@@ -17,6 +17,7 @@ export default async function getCompoundsInfo(
   compoundsCollection,
   noStereoID,
   connection,
+  patentsCollection,
 ) {
   try {
     let patents = [];
@@ -71,8 +72,22 @@ export default async function getCompoundsInfo(
       entry.data.bioActive = bioActive;
     }
     cid = Object.keys(cid);
+    let patentsForCid = [];
+    if (cid.length > 0) {
+      for (let i = 0; i < cid.length; i++) {
+        let cid = Number(cid[i]);
+        let cursor = await patentsCollection.find({ _id: cid });
+        let patent = await cursor.next();
+        if (patent !== null) {
+          patentsForCid = patentsForCid.concat(patent.data);
+        }
+      }
+    }
     cid.map(Number);
     cas = Object.keys(cas);
+    if (patentsForCid.length > 0) {
+      entry.data.patents = patentsForCid;
+    }
     if (cid.length > 0) entry.data.cids = cid;
     if (cas.length > 0) entry.data.cas = cas;
     if (patents.length > 0) entry.data.patents = patents;

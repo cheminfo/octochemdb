@@ -32,6 +32,7 @@ export async function aggregate(connection) {
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
+    const patents = await connection.getCollection('patents');
     let { links, collectionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -108,6 +109,7 @@ export async function aggregate(connection) {
           compoundsCollection,
           noStereoID,
           connection,
+          patents,
         );
         if (entry.data.cids) {
           // cids are from compunds collection
