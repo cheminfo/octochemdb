@@ -6,6 +6,7 @@ import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
 
 import calculateDiff from './utils/calculateDiff.js';
+import firstPatentsImport from './utils/firstPatentsImport.js';
 import { getLatestsImportedFile } from './utils/getLatestsImportedFile.js';
 import parsePatents from './utils/parsePatents.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
@@ -29,17 +30,18 @@ export async function sync(connection) {
     const collection = await connection.getCollection(options.collectionName);
 
     // get last files cidToPatens available in the PubChem database
-    const lastFile = await getLastFileSync(options);
+    //  const lastFile = await getLastFileSync(options);
     // sort file by cid
-    const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
-    await ungzipAndSort(lastFile, sortedFile);
+    // const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
+    //  await ungzipAndSort(lastFile, sortedFile);
     //  remove non-sorted file
-    removeSync(lastFile);
+    //  removeSync(lastFile);
+    const sortedFile = `${options.destinationLocal}/cidToPatents.2022-07-14.sorted`;
     const lastImportedFilePath = await getLatestsImportedFile(
       `${options.destinationLocal}/old`,
       'cidToPatents',
     );
-    if (lastImportedFilePath !== null) {
+    if (lastImportedFilePath === 'tests') {
       const filenames = await createDiffFromLastTwoFiles(
         lastImportedFilePath,
         sortedFile,
@@ -56,7 +58,7 @@ export async function sync(connection) {
         linkSync(filenames.lastFile, filenames.previousFile);
       }
     } else {
-      await parsePatents(sortedFile, collection, connection);
+      await firstPatentsImport(sortedFile, collection, connection);
     }
   } catch (e) {
     if (connection) {
