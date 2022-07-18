@@ -15,6 +15,7 @@ export default async function firstPatentsImport(
     let entry = {};
     for await (const line of lines) {
       let fields = line.split('\t');
+      debug(fields);
       if (!fields.length === 2) continue;
       const [productID, patentID] = fields;
       if (!entry[productID]) {
