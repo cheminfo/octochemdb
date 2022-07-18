@@ -14,6 +14,8 @@ export default async function firstPatentsImport(
     const lines = createInterface({ input: readStream });
     let entry = {};
     let currentID = 1;
+    let counter = 0;
+    let start = Date.now();
     for await (const line of lines) {
       let fields = line.split('\t');
       if (!fields.length === 2) continue;
@@ -26,10 +28,15 @@ export default async function firstPatentsImport(
           });
           entry = {};
           currentID = Number(productID);
+          counter++;
         }
         entry[productID] = [];
       }
       entry[productID].push(patentID);
+      if (Date.now() - start > 10000) {
+        start = Date.now();
+        debug(`Processed: ${counter}`);
+      }
     }
   } catch (e) {
     if (connection) {
