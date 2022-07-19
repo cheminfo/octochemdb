@@ -17,7 +17,7 @@ export default async function getCompoundsInfo(
   compoundsCollection,
   noStereoID,
   connection,
-  patentsCollection,
+  // patentsCollection,
 ) {
   try {
     let patents = [];
@@ -26,11 +26,11 @@ export default async function getCompoundsInfo(
     let pmids = [];
     let meshTerms = [];
     for (const info of data) {
-      if (info.data.patents) {
+      /* if (info.data.patents) {
         patents.push(
           info.data.patents.filter((k) => patents.indexOf(k) === -1),
         );
-      }
+      }*/
       if (info.data.pmids) {
         pmids.push(info.data.pmids.filter((k) => pmids.indexOf(k) === -1));
       }
@@ -72,8 +72,8 @@ export default async function getCompoundsInfo(
       entry.data.bioActive = bioActive;
     }
     cid = Object.keys(cid);
-    let patentsForCid = [];
-    if (cid.length > 0) {
+    // let patentsForCid = [];
+    /* if (cid.length > 0) {
       for (let i = 0; i < cid.length; i++) {
         let cid = Number(cid[i]);
         let cursor = await patentsCollection.find({ _id: cid });
@@ -82,16 +82,19 @@ export default async function getCompoundsInfo(
           patentsForCid = patentsForCid.concat(patent.data);
         }
       }
-    }
+    }*/
     cid.map(Number);
     cas = Object.keys(cas);
-    if (patentsForCid.length > 0) {
+    /* if (patentsForCid.length > 0) {
       entry.data.patents = patentsForCid;
-    }
+    }*/
     if (cid.length > 0) entry.data.cids = cid;
     if (cas.length > 0) entry.data.cas = cas;
     if (patents.length > 0) entry.data.patents = patents;
-    if (pmids.length > 0) entry.data.pmids = pmids;
+    if (pmids.length > 0) {
+      entry.data.pmids = pmids;
+      entry.data.nbPmids = pmids.length;
+    }
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
     return entry;
   } catch (e) {

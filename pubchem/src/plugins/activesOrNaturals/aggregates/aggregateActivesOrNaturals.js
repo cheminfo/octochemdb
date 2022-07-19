@@ -32,7 +32,7 @@ export async function aggregate(connection) {
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
-    const patents = await connection.getCollection('patents');
+    // const patents = await connection.getCollection('patents');
     let { links, collectionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -109,7 +109,7 @@ export async function aggregate(connection) {
           compoundsCollection,
           noStereoID,
           connection,
-          patents,
+          //patents,
         );
         if (entry.data.cids) {
           // cids are from compunds collection
@@ -168,10 +168,12 @@ export async function aggregate(connection) {
         // if activityInfo is not empty, define entry.data.activities
         if (activityInfo.length > 0) {
           entry.data.activities = activityInfo;
+          entry.data.nbActivities = activityInfo.length;
         }
         // if taxons is not empty, define entry.data.taxonomies
         if (taxons.length > 0) {
           entry.data.taxonomies = taxons;
+          entry.data.nbTaxonomies = taxons.length;
         }
         entry._seq = ++progress.seq;
         // update collection with new entry
