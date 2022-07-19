@@ -1,5 +1,5 @@
 import { createReadStream } from 'fs';
-import createInterface from 'readline';
+import { createInterface } from 'readline';
 
 export async function testTimeReadLine() {
   const fileName =
