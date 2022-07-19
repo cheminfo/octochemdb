@@ -65,7 +65,7 @@ export async function aggregate(connection) {
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}`,
+        `${COLLECTION_NAME}_tmp`,
       );
 
       // debug unique numbers of noStereoIDs
