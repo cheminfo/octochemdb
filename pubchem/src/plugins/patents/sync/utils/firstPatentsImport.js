@@ -21,7 +21,6 @@ export default async function firstPatentsImport(
       if (!fields.length === 2) continue;
       const [productID, patentID] = fields;
       // if array size is greater than 500, skip till next productID
-
       if (!entry[productID]) {
         if (currentID !== Number(productID)) {
           collection.updateOne(
@@ -29,7 +28,7 @@ export default async function firstPatentsImport(
             { $set: { data: entry[currentID] } },
             { upsert: true },
           );
-          entry = {};
+          delete entry[currentID];
           currentID = Number(productID);
           counter++;
         }

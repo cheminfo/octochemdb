@@ -30,17 +30,18 @@ export async function sync(connection) {
     const collection = await connection.getCollection(options.collectionName);
 
     // get last files cidToPatens available in the PubChem database
-    const lastFile = await getLastFileSync(options);
+    // const lastFile = await getLastFileSync(options);
     //sort file by cid
-    const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
-    await ungzipAndSort(lastFile, sortedFile);
+    // const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
+    // await ungzipAndSort(lastFile, sortedFile);
     //  remove non-sorted file
-    removeSync(lastFile);
+    // removeSync(lastFile);
     const lastImportedFilePath = await getLatestsImportedFile(
       `${options.destinationLocal}/old`,
       'cidToPatents',
     );
-    if (lastImportedFilePath !== null) {
+    const sortedFile = `${process.env.ORIGINAL_DATA_PATH}/patents/cidToPatents/cidToPatents.2022-07-14.sorted`;
+    if (lastImportedFilePath === 'test') {
       const filenames = await createDiffFromLastTwoFiles(
         lastImportedFilePath,
         sortedFile,
