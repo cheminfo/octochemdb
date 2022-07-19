@@ -33,17 +33,7 @@ export async function appendLines(fileHandler, data) {
   }
   let newLines = decoder.decode(chunk).split('\n');
   newLines[0] = data.residual + newLines[0];
-  for (let i = 0; i < newLines.length - 1; i++) {
-    let fields = newLines[i].split('\t');
-    if (fields.length !== 2) {
-      continue;
-    }
-    const [productID, patentID] = fields;
-    if (!data.productsIDs[productID]) {
-      data.productsIDs[productID] = [];
-    }
-    data.productsIDs[productID].push(patentID);
-  }
+  for (let i = 0; i < newLines.length - 1; i++) {}
 
   data.residual = newLines[newLines.length - 1];
 }
