@@ -93,7 +93,6 @@ export default async function getCompoundsInfo(
     if (patents.length > 0) entry.data.patents = patents;
     if (pmids.length > 0) {
       entry.data.pmids = pmids;
-      entry.data.nbPmids = pmids.length;
     }
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
     return entry;

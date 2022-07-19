@@ -143,6 +143,7 @@ export async function aggregate(connection) {
           }
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
+            entry.data.nbPubmeds = dbRefs.length;
           }
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
