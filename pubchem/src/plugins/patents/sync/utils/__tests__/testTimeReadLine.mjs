@@ -9,9 +9,8 @@ export async function testTimeReadLine() {
   const lines = createInterface({ input: stream });
   let counter = 0;
   for await (const line of lines) {
-    counter++;
-    if (counter % 100 === 0) {
-      console.log(counter);
+    if (line) {
+      counter++;
     }
   }
   const timeEnd = Date.now();
