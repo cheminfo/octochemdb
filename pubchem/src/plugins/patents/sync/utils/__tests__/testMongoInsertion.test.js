@@ -16,23 +16,44 @@ test('syncTaxonomies', async () => {
   const connection = new PubChemConnection();
 
   // generate array with where each entry is a combination of random number and letters to a maximum of 10 characters
-
+  let patents = [];
+  let randomString = Math.random().toString(36).substring(0, 10);
+  for (let i = 0; i < 100; i++) {
+    patents.push(randomString);
+  }
+  let nbDocuments = 1000;
   let timeStart = Date.now();
-  await sync(connection);
+  //await syncInsertMany(connection, patents, nbDocuments);
+  await syncInsertOne(connection, patents, nbDocuments);
   let timeEnd = Date.now();
   let finalTime = timeEnd - timeStart;
 
   expect(finalTime).toBe(1000);
 }, 50000);
 
-async function sync(connection) {
+async function syncInsertMany(connection, patents, nbDocuments) {
   let index = 1;
-  let nbDocuments = 150;
-  let patents = [];
-  let randomString = Math.random().toString(36).substring(0, 10);
-  for (let i = 0; i < 10000; i++) {
-    patents.push(randomString);
+
+  const collection = await connection.getCollection('test_tmp');
+  const toBeInserted = [];
+  for (let i = 0; i < nbDocuments; i++) {
+    toBeInserted.push({
+      _id: index,
+      data: { patents, nbPatents: patents.length },
+    });
+    if (toBeInserted.length === 1000) {
+      await collection.insertMany(toBeInserted);
+      toBeInserted.length = 0;
+    }
+
+    index++;
   }
+  await collection.drop();
+}
+
+async function syncInsertOne(connection, patents, nbDocuments) {
+  let index = 1;
+
   const collection = await connection.getCollection('test_tmp');
   for (let i = 0; i < nbDocuments; i++) {
     await collection.insertOne({
