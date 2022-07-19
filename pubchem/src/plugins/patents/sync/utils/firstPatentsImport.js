@@ -31,7 +31,9 @@ export default async function firstPatentsImport(filneName, connection) {
         counter++;
         if (counter % 10000 === 0) {
           const timeEndTenThousand = Date.now();
-          debug(`Time: ${timeEndTenThousand - timeStartTenThousand}`);
+          debug(
+            `_____Time: ${timeEndTenThousand - timeStartTenThousand}_______`,
+          );
           timeStartTenThousand = Date.now();
         }
       }
