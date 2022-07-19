@@ -2,7 +2,8 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 
 export async function testTimeReadLine() {
-  const fileName = `${process.env.ORIGINAL_DATA_PATH}/patents/cidToPatents/cidToPatents.2022-07-14.sorted`;
+  const fileName =
+    '/usr/local/docker/pubchem/originalData/patents/cidToPatents/cidToPatents.2022-07-14.sorted';
   const timeStart = Date.now();
   const stream = createReadStream(fileName);
   const lines = createInterface({ input: stream });
