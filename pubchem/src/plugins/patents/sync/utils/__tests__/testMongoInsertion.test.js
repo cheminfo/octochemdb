@@ -18,10 +18,11 @@ test('syncTaxonomies', async () => {
   // generate array with where each entry is a combination of random number and letters to a maximum of 10 characters
   let patents = [];
   let randomString = Math.random().toString(36).substring(0, 10);
-  for (let i = 0; i < 100; i++) {
+  let nbDocuments = 1000;
+  let nbPatentsToInsert = 1000;
+  for (let i = 0; i < nbPatentsToInsert; i++) {
     patents.push(randomString);
   }
-  let nbDocuments = 1000;
   let timeStart = Date.now();
   //await syncInsertMany(connection, patents, nbDocuments);
   await syncInsertOne(connection, patents, nbDocuments);
