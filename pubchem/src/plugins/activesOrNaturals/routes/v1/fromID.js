@@ -49,7 +49,7 @@ async function searchHandler(request) {
           $project: formattedFields,
         },
       ])
-      .toArray()[0];
+      .next();
     return { data: results };
   } catch (e) {
     if (connection) {
