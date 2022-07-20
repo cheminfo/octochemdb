@@ -2,9 +2,9 @@
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('mfsFromEM');
+const debug = Debug('fromEM');
 
-const mfsFromEM = {
+const fromEM = {
   method: 'GET',
   schema: {
     querystring: {
@@ -39,7 +39,7 @@ const mfsFromEM = {
   handler: searchHandler,
 };
 
-export default mfsFromEM;
+export default fromEM;
 
 /**
  * Find molecular formula from a monoisotopic mass
