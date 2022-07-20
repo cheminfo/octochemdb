@@ -44,7 +44,7 @@ export async function aggregate(connection) {
             em: { $first: '$em' },
             unsaturation: { $first: '$unsaturation' },
             atom: { $first: '$atom' },
-            total: { $sum: 1 },
+            count: { $sum: 1 },
           },
         },
 
