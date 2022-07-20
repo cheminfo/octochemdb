@@ -2,9 +2,9 @@
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('articlesFromPMID');
+const debug = Debug('fromPMID');
 
-const articlesFromPMID = {
+const fromPMID = {
   method: 'GET',
   schema: {
     summary: 'Retrieve article from a PubMed ID',
@@ -27,7 +27,7 @@ const articlesFromPMID = {
   handler: searchHandler,
 };
 
-export default articlesFromPMID;
+export default fromPMID;
 /**
  * Find article from PubMed ID
  * @param {object} [request={}]
