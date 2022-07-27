@@ -26,7 +26,9 @@ export async function aggregate(connection) {
           $match: {
             'data.nbFragments': 1,
             'data.charge': 0,
-            'data.mf': /^[^\]]+$/,
+            'data.mf': {
+              $regex: /^[^\]]+$/,
+            },
           },
         }, // one fragment, no charge and no isotopes
         {
@@ -47,7 +49,6 @@ export async function aggregate(connection) {
             count: { $sum: 1 },
           },
         },
-
         { $out: 'mfs' },
       ],
       {
