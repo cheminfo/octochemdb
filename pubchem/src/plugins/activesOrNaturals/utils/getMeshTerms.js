@@ -28,11 +28,9 @@ export async function getMeshTerms(cid, collection, connection) {
         pmIds.push(doc._id);
       }
     }
-    const counterPmids = await collection
-      .find({
-        'data.cids': cid,
-      })
-      .count();
+    const counterPmids = await collection.countDocuments({
+      'data.cids': cid,
+    });
     // get result array with uniques strings
     return {
       meshTermsForCid: Object.keys(uniqueMeshTerms),
