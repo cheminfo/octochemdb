@@ -115,14 +115,16 @@ export async function aggregate(connection) {
           // cids are from compunds collection
           const uniqueMeshTerms = {};
           const uniquePmIds = {};
+          let nbPubmeds = 0;
           for (let i = 0; i < entry.data.cids.length; i++) {
             let cid = Number(entry.data.cids[i]);
-            const { meshTermsForCid, pmIds } = await getMeshTerms(
+            const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
               cid,
               pubmedCollection,
               connection,
             );
-
+            nbPubmeds += Number(counterPmids);
+            debug(counterPmids);
             meshTermsForCid.forEach((term) => {
               uniqueMeshTerms[term] = true;
             });
@@ -143,8 +145,8 @@ export async function aggregate(connection) {
           }
           if (dbRefs.length > 0) {
             entry.data.pubmeds = dbRefs;
-            entry.data.nbPubmeds = dbRefs.length;
           }
+          entry.data.nbPubmeds = nbPubmeds;
         }
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
@@ -216,6 +218,10 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.kwBioassays': 1 });
       await targetCollection.createIndex({ 'data.meshTerms': 1 });
       await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
+      await targetCollection.createIndex({ 'data.nbActivities': 1 });
+      await targetCollection.createIndex({ 'data.pubmeds': 1 });
+      await targetCollection.createIndex({ 'data.nbPubmeds': 1 });
+      await targetCollection.createIndex({ 'data.nbTaxonomies': 1 });
 
       debug('Aggregation Done');
     } else {

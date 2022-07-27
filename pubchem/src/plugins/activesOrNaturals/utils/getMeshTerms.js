@@ -28,8 +28,17 @@ export async function getMeshTerms(cid, collection, connection) {
         pmIds.push(doc._id);
       }
     }
+    const counterPmids = await collection
+      .find({
+        'data.cids': cid,
+      })
+      .count();
     // get result array with uniques strings
-    return { meshTermsForCid: Object.keys(uniqueMeshTerms), pmIds };
+    return {
+      meshTermsForCid: Object.keys(uniqueMeshTerms),
+      pmIds,
+      counterPmids,
+    };
   } catch (error) {
     if (connection) {
       debug(error, { collection: collection.collectionName, connection });
