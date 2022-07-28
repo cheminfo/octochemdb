@@ -19,7 +19,7 @@ export async function aggregate(connection) {
       return;
     }
 
-    debug(`Need to aggregate' ${await collection.count()} entries`);
+    debug(`Need to aggregate ${await collection.count()} entries`);
     let result = await collection.aggregate(
       [
         {
@@ -27,7 +27,7 @@ export async function aggregate(connection) {
             'data.nbFragments': 1,
             'data.charge': 0,
             'data.mf': {
-              $regex: /^[^\]]+$/,
+              $regexMatch: /^[^\]]+$/,
             },
           },
         }, // one fragment, no charge and no isotopes
