@@ -48,7 +48,7 @@ export async function aggregate(connection) {
         },
         {
           $match: {
-            'data.mf': {
+            mf: {
               $regex: /^[^\]]+$/,
             },
           },
