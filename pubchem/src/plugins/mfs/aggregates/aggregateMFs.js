@@ -53,7 +53,7 @@ export async function aggregate(connection) {
       ],
       {
         allowDiskUse: true,
-        maxTimeMS: 60 * 60 * 1000 * 6, // 6h
+        maxTimeMS: 60 * 60 * 1000 * 12, // 6h
       },
     );
     await result.hasNext();
