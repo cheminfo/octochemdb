@@ -24,8 +24,11 @@ export async function aggregate(connection) {
       [
         {
           $match: {
-            'data.nbFragments': 1,
-            'data.charge': 0,
+            'data.nbFragments': { $lte: 1, $gte: 1 },
+            'data.charge': { $lte: 0, $gte: 0 },
+            'data.mf': {
+              $regex: /^[^\]]+$/,
+            },
           },
         }, // one fragment, no charge and no isotopes
         {
@@ -44,13 +47,6 @@ export async function aggregate(connection) {
             unsaturation: { $first: '$unsaturation' },
             atom: { $first: '$atom' },
             count: { $sum: 1 },
-          },
-        },
-        {
-          $match: {
-            mf: {
-              $regex: /^[^\]]+$/,
-            },
           },
         },
         { $out: 'mfs' },
