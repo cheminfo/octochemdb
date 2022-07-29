@@ -6,7 +6,7 @@ import Debug from '../../../../utils/Debug.js';
 const debug = Debug('parsePatents');
 export default async function firstPatentsImport(filneName, connection) {
   try {
-    const temporaryCollection = await connection.getCollection('patents_tpm');
+    const temporaryCollection = await connection.getCollection('patents_tmp');
     const readStream = createReadStream(filneName);
     const lines = createInterface({ input: readStream });
     let entry = [];
@@ -14,6 +14,8 @@ export default async function firstPatentsImport(filneName, connection) {
     let counter = 0;
     let start = Date.now();
     let timeStartTenThousand = Date.now();
+    const progress = await connection.getProgress('patents');
+
     for await (const line of lines) {
       let fields = line.split('\t');
       if (!fields.length === 2) continue;
@@ -24,6 +26,7 @@ export default async function firstPatentsImport(filneName, connection) {
       if (currentProductID !== Number(productID)) {
         await temporaryCollection.insertOne({
           _id: Number(currentProductID),
+          _seq: ++progress.seq,
           data: { patents: entry.slice(0, 1000), nbPatents: entry.length },
         });
         entry.length = 0;
