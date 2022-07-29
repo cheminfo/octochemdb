@@ -24,9 +24,8 @@ export async function sync(connection) {
     };
 
     // get last files cidToPatens available in the PubChem database
-    //const lastFile = await getLastFileSync(options);
-    //const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
-    const sources = `${options.destinationLocal}/cidToPatents.2022-07-14.sorted`;
+    const lastFile = await getLastFileSync(options);
+    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('patents');
     const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
@@ -38,13 +37,13 @@ export async function sync(connection) {
       progress.state !== 'updated'
     ) {
       progress.state = 'updating';
-      //await connection.setProgress(progress);
+      await connection.setProgress(progress);
       //sort file by cid
-      // const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
-      //await ungzipAndSort(lastFile, sortedFile);
+      const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
+      await ungzipAndSort(lastFile, sortedFile);
       //  remove non-sorted file
-      //removeSync(lastFile);
-      const sortedFile = `${options.destinationLocal}/cidToPatents.2022-07-14.sorted`;
+      removeSync(lastFile);
+      //  const sortedFile = `${options.destinationLocal}/cidToPatents.2022-07-14.sorted`;
       await firstPatentsImport(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
       await collection.createIndex({ _id: 1 });
