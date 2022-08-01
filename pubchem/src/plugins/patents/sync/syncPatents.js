@@ -1,4 +1,5 @@
 import pkg from 'fs-extra';
+import md5 from 'md5';
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import Debug from '../../../utils/Debug.js';
@@ -27,6 +28,14 @@ export async function sync(connection) {
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('patents');
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.PATENT_DATE_INTERVAL &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
     const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
@@ -50,9 +59,15 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.patents': 1 });
       await collection.createIndex({ 'data.nbPatents': 1 });
       // update Logs in importationLogs collection
+      progress.sources = md5(JSON.stringify(sources));
+      progress.state = 'updated';
+      progress.dateEnd = Date.now();
+      await connection.setProgress(progress);
+
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
+
       await connection.updateImportationLog(logs);
     }
   } catch (e) {

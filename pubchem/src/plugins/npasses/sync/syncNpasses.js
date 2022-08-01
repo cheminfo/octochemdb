@@ -30,12 +30,20 @@ export async function sync(connection) {
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.NPASS_UPDATE_INTERVAL &&
+      JSON.stringify(sources) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
     // Reimport collection again only if lastDocument imported changed or importation was not completed
     if (
       lastDocumentImported === null ||
-      sources !== progress.sources ||
-      progress.state !== 'updated'
+      ((JSON.stringify(sources) !== progress.sources ||
+        progress.state !== 'updated') &&
+        progress.dateEnd - Date.now() > process.env.NPASS_UPDATE_INTERVAL)
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection(

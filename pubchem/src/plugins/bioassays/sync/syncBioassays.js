@@ -33,6 +33,14 @@ export async function sync(connection) {
     const bioassaysFile = await getLastFileSync(options);
     // Get progress of last sync and the bioassays collection
     const progress = await connection.getProgress(options.collectionName);
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.BIOASSAY_UPDATE_INTERVAL &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
     const collection = await connection.getCollection(options.collectionName);
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
@@ -52,8 +60,9 @@ export async function sync(connection) {
 
     if (
       lastDocumentImported === null ||
-      md5(JSON.stringify(sources)) !== progress.sources ||
-      progress.state !== 'updated'
+      ((md5(JSON.stringify(sources)) !== progress.sources ||
+        progress.state !== 'updated') &&
+        progress.dateEnd - Date.now() > process.env.BIOASSAY_UPDATE_INTERVAL)
     ) {
       // Generate Logs for the sync
       const logs = await connection.getImportationLog({

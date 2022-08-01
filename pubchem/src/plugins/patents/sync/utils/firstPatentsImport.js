@@ -55,6 +55,7 @@ export default async function firstPatentsImport(filneName, connection) {
     await temporaryCollection.rename('patents', {
       dropTarget: true,
     });
+    await connection.setProgress(progress);
   } catch (e) {
     if (connection) {
       debug(e.message, { collection: 'patents', connection, stack: e.stack });

@@ -24,7 +24,19 @@ async function incrementalPubmedImport(connection) {
       allFiles,
       'incremental',
     );
-    if (!files.includes(progress.sources) && progress.state === 'updated') {
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.PUBMED_UPDATE_INTERVAL &&
+      !files.includes(progress.sources)
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
+    if (
+      !files.includes(progress.sources) &&
+      progress.state === 'updated' &&
+      progress.dateEnd - Date.now() > process.env.PUBMED_UPDATE_INTERVAL
+    ) {
       let options = {
         collectionSource: process.env.CIDTOPMID_SOURCE,
         destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/pubmeds/cidToPmid`,

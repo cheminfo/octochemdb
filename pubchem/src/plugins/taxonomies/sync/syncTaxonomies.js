@@ -27,6 +27,14 @@ export async function sync(connection) {
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress(options.collectionName);
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.TAXONOMY_DATE_INTERVAL &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
     const collection = await connection.getCollection(options.collectionName);
 
     const logs = await connection.getImportationLog({
@@ -51,8 +59,9 @@ export async function sync(connection) {
 
     if (
       lastDocumentImported === null ||
-      md5(JSON.stringify(sources)) !== progress.sources ||
-      progress.state !== 'updated'
+      ((md5(JSON.stringify(sources)) !== progress.sources ||
+        progress.state !== 'updated') &&
+        progress.dateEnd - Date.now() > process.env.TAXONOMY_DATE_INTERVAL)
     ) {
       progress.state = 'updating';
       await connection.setProgress(progress);

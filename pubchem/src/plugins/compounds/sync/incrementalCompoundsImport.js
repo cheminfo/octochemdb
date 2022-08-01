@@ -16,6 +16,7 @@ async function incrementalCompoundImport(connection) {
     // Synchronize the compounds folder with the weekly updates
     const allFiles = await syncCompoundFolder(connection, 'incremental');
     const progress = await connection.getProgress('compounds');
+
     // Get list of files to import and last document imported
     const { files, lastDocument } = await getFilesToImport(
       connection,
@@ -23,8 +24,21 @@ async function incrementalCompoundImport(connection) {
       allFiles,
       'incremental',
     );
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL &&
+      !files.includes(progress.sources)
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
     // Import the files
-    if (progress.state === 'updated') {
+
+    if (
+      !files.includes(progress.sources) &&
+      progress.state === 'updated' &&
+      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL
+    ) {
       await importCompoundFiles(
         connection,
         progress,

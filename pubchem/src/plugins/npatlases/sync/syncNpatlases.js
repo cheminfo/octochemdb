@@ -33,6 +33,14 @@ export async function sync(connection) {
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
     const collection = await connection.getCollection(options.collectionName);
     // get logs and last document imported
     const logs = await connection.getImportationLog({
@@ -53,8 +61,9 @@ export async function sync(connection) {
     let start = Date.now();
     if (
       lastDocumentImported === null ||
-      md5(JSON.stringify(sources)) !== progress.sources ||
-      progress.state !== 'updated'
+      ((md5(JSON.stringify(sources)) !== progress.sources ||
+        progress.state !== 'updated') &&
+        progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL)
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection('npAtlases');

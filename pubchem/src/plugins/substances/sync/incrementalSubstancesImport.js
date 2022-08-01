@@ -14,6 +14,7 @@ async function incrementalSubstanceImport(connection) {
     const allFiles = await syncSubstanceFolder(connection, 'incremental');
 
     const progress = await connection.getProgress('substances');
+
     if (progress.state !== 'updated') {
       throw new Error('Should never happens.');
     }
@@ -23,7 +24,19 @@ async function incrementalSubstanceImport(connection) {
       allFiles,
       'incremental',
     );
-    if (!files.includes(progress.sources) && progress.state === 'updated') {
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL &&
+      !files.includes(progress.sources)
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
+    if (
+      !files.includes(progress.sources) &&
+      progress.state === 'updated' &&
+      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL
+    ) {
       await importSubstanceFiles(
         connection,
         progress,
