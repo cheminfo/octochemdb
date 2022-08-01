@@ -50,7 +50,7 @@ export async function sync(connection) {
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
-        `${options.collectionName}`,
+        `${options.collectionName}_tmp`,
       );
       debug(`Start parsing: ${lastFile}`);
       // set progress to updating
