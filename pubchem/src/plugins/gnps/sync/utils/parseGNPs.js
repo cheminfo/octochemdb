@@ -64,6 +64,7 @@ export async function* parseGNPs(jsonPath, connection) {
           spectrum.x.push(peak[0]);
           spectrum.y.push(peak[1]);
         }
+        debug(spectrum);
         // if spectrum has more than 1000 peaks, keep most intense 1000 peaks
         if (spectrum.y.length > 1000) {
           let copySpectrumInt = [...spectrum.y];
