@@ -73,12 +73,13 @@ export default async function getCompoundsInfo(
       for (let i = 0; i < cids.length; i++) {
         let cursor = await patentsCollection.find({ _id: Number(5904) });
         let patent = await cursor.next();
-        debug(cids[i]);
-        debug(patent);
+
         if (patent !== null) {
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
           nbPatents += patent.data.nbPatents;
+          debug(compoundsPatents);
+          debug(nbPatents);
         }
       }
     }
