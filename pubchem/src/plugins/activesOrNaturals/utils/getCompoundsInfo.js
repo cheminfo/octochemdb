@@ -65,8 +65,7 @@ export default async function getCompoundsInfo(
       entry.data.mf = compoundData.data.mf;
       entry.data.bioActive = bioActive;
     }
-    // cids = Object.keys(cids);
-    cids = ['1'];
+    cids = Object.keys(cids);
     let compoundsPatents = [];
     let nbPatents = 0;
     if (cids.length > 0) {
@@ -79,6 +78,7 @@ export default async function getCompoundsInfo(
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
           nbPatents += patent.data.nbPatents;
+          debug(`${currentCid} patents: ${nbPatents}`);
         }
       }
     }
@@ -96,7 +96,6 @@ export default async function getCompoundsInfo(
       entry.data.pmids = pmids;
     }
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
-    debug(entry);
     return entry;
   } catch (e) {
     if (connection) {
