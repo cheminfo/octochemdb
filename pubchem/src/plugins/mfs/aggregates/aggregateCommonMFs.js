@@ -41,7 +41,7 @@ export async function aggregate(connection) {
             count: { $sum: 1 },
           },
         },
-        { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
+        { $match: { count: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
         { $out: 'mfsCommon' },
       ],
       {
