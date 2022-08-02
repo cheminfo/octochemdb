@@ -60,8 +60,6 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext(); // trigger the creation of the output collection
-    const mfsCHNOSClFCollection = await connection.getCollection('mfsCHNOSClF');
-    await mfsCHNOSClFCollection.createIndexes([{ em: 1 }, { count: 1 }]);
     // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
