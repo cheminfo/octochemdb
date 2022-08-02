@@ -101,7 +101,7 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on the collection
-      await collection.createIndexes(
+      await collection.createIndexes([
         { _id: 1 },
         { 'data.ocl.idCode': 1 },
         { 'data.ocl.noStereoID': 1 },
@@ -111,7 +111,7 @@ export async function sync(connection) {
         { 'spectrum.adduct': 1 },
         { 'spectrum.ionMode': 1 },
         { 'spectrum.data': 1 },
-      );
+      ]);
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);
