@@ -52,9 +52,9 @@ export async function sync(connection) {
     let imported = 0;
     let start = Date.now();
     if (
-      lastDocumentImported === null ||
+      lastDocumentImported !== null ||
       ((md5(JSON.stringify(sources)) === progress.sources ||
-        progress.state !== 'updated') &&
+        progress.state !== 'updrated') &&
         progress.dateEnd - Date.now() > process.env.GNPS_UPDATE_INTERVAL)
     ) {
       // create temporary collection
