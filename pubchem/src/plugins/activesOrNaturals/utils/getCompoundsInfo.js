@@ -81,7 +81,6 @@ export default async function getCompoundsInfo(
           nbPatents += patent.data.nbPatents;
         }
       }
-      debug(compoundsPatents);
     }
     cids.map(Number);
     cas = Object.keys(cas);
@@ -97,6 +96,7 @@ export default async function getCompoundsInfo(
       entry.data.pmids = pmids;
     }
     if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
+    debug(entry);
     return entry;
   } catch (e) {
     if (connection) {
