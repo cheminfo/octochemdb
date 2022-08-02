@@ -32,7 +32,7 @@ export async function aggregate(connection) {
               $regex:
                 /^C[0-9]*H[0-9]*Cl?[0-9]*F?[0-9]*N?[0-9]*O?[0-9]*S?[0-9]*$/,
             },
-            'data.charge': { $lte: 1, $gte: -1 },
+            'data.charge': 0,
           },
         },
         {
@@ -60,6 +60,8 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext(); // trigger the creation of the output collection
+    const mfsCHNOSClFCollection = await connection.getCollection('mfsCHNOSClF');
+    await mfsCHNOSClFCollection.createIndexes([{ em: 1 }, { count: 1 }]);
     // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';

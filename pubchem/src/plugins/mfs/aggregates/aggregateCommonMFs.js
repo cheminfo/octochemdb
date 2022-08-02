@@ -52,7 +52,7 @@ export async function aggregate(connection) {
     await result.hasNext();
     // create index on mfsCommon
     const collectionMfsCommon = await connection.getCollection('mfsCommon');
-    await collectionMfsCommon.createIndex({ em: 1 });
+    await collectionMfsCommon.createIndexes([{ em: 1 }, { count: 1 }]);
     // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';

@@ -24,10 +24,10 @@ export async function aggregate(connection) {
       [
         {
           $match: {
-            'data.nbFragments': { $lte: 1, $gte: 1 },
-            'data.charge': { $lte: 0, $gte: 0 },
+            'data.nbFragments': 1,
+            'data.charge': 0,
             'data.mf': {
-              $regex: /^[^\]]+$/,
+              $regex: '^[^]]+$',
             },
           },
         }, // one fragment, no charge and no isotopes
@@ -59,8 +59,7 @@ export async function aggregate(connection) {
     await result.hasNext();
     // create index on mfs
     let mfsCollection = await connection.getCollection('mfs');
-    await mfsCollection.createIndex({ em: 1 });
-    await mfsCollection.createIndex({ total: 1 });
+    await mfsCollection.createIndexes([{ em: 1 }, { count: 1 }]);
     // set progress to aggregated
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
