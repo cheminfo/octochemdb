@@ -58,7 +58,7 @@ const entriesFromEM = {
         type: 'string',
         description: 'Fields to retrieve',
         default:
-          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.nbActivities,data.nbTaxonomies,data.nbPubmeds',
+          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.nbActivities,data.nbTaxonomies,data.nbPubmeds,data.nbPatents',
       },
     },
   },
