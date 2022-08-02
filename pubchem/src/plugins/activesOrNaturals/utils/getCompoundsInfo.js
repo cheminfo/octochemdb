@@ -67,13 +67,14 @@ export default async function getCompoundsInfo(
       entry.data.bioActive = bioActive;
     }
     cids = Object.keys(cids);
-    cids.map(Number);
     let compoundsPatents = [];
     let nbPatents = 0;
     if (cids.length > 0) {
       for (let i = 0; i < cids.length; i++) {
-        let cursor = await patentsCollection.find({ _id: cids[i] });
+        let cursor = await patentsCollection.find({ _id: Number(5904) });
         let patent = await cursor.next();
+        debug(cids[i]);
+        debug(patent);
         if (patent !== null) {
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
@@ -81,6 +82,7 @@ export default async function getCompoundsInfo(
         }
       }
     }
+    cids.map(Number);
     cas = Object.keys(cas);
     if (nbPatents > 0) {
       entry.data.nbPatents = nbPatents;
