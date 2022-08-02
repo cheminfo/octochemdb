@@ -105,12 +105,12 @@ export async function sync(connection) {
         { _id: 1 },
         { 'data.ocl.idCode': 1 },
         { 'data.ocl.noStereoID': 1 },
-        { 'spectrum.msLevel': 1 },
-        { 'spectrum.ionSource': 1 },
-        { 'spectrum.precursorMz': 1 },
-        { 'spectrum.adduct': 1 },
-        { 'spectrum.ionMode': 1 },
-        { 'spectrum.data': 1 },
+        { 'data.spectrum.msLevel': 1 },
+        { 'data.spectrum.ionSource': 1 },
+        { 'data.spectrum.precursorMz': 1 },
+        { 'data.spectrum.adduct': 1 },
+        { 'data.spectrum.ionMode': 1 },
+        { 'data.spectrum.data': 1 },
       ]);
       debug(`${imported} compounds processed`);
     } else {
