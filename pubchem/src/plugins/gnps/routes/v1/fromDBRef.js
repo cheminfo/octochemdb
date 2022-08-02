@@ -10,7 +10,7 @@ const fromDBRef = {
     description: '',
     querystring: {
       id: {
-        type: 'string',
+        type: 'Array',
         description: 'GNPS ID',
         example: 'CCMSLIB00000001547',
         default: null,
@@ -40,10 +40,15 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('compounds');
 
     debug(id);
-    const results = await collection.findOne(
-      { _id: id },
-      { fields: getFields(fields) },
-    );
+    const results = await collection
+      .aggregate([
+        { $match: { _id: id } },
+        { $limit: 1 },
+        {
+          $project: getFields(fields),
+        },
+      ])
+      .next();
     return { data: results };
   } catch (e) {
     if (connection) {
