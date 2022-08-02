@@ -61,7 +61,7 @@ export async function aggregate(connection) {
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
-      progress.state !== 'aggregated'
+      progress.state !== 'aggregatd'
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
@@ -124,7 +124,6 @@ export async function aggregate(connection) {
               connection,
             );
             nbPubmeds += Number(counterPmids);
-            debug(counterPmids);
             meshTermsForCid.forEach((term) => {
               uniqueMeshTerms[term] = true;
             });
