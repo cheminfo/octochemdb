@@ -10,7 +10,7 @@ const fromDBRef = {
     description: '',
     querystring: {
       id: {
-        type: 'Array',
+        type: 'string',
         description: 'GNPS ID',
         example: 'CCMSLIB00000001547',
         default: null,
