@@ -24,7 +24,6 @@ export async function getMassSpectraRef(connection, noStereoID) {
         },
       ])
       .toArray();
-    debug(`Loaded ${massSpectra.length} mass spectra from gnps`);
     return massSpectra;
   } catch (e) {
     if (connection) {
