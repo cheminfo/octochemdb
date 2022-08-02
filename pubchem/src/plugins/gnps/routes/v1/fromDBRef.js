@@ -37,6 +37,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new PubChemConnection();
+    // get the collection
     const collection = await connection.getCollection('gnps');
 
     debug(id);
