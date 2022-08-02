@@ -66,20 +66,20 @@ export default async function getCompoundsInfo(
       entry.data.mf = compoundData.data.mf;
       entry.data.bioActive = bioActive;
     }
-    cids = Object.keys(cids);
+    // cids = Object.keys(cids);
+    cids = ['1'];
     let compoundsPatents = [];
     let nbPatents = 0;
     if (cids.length > 0) {
-      for (let i = 0; i < cids.length; i++) {
-        let cursor = await patentsCollection.find({ _id: Number(5904) });
+      for (let compound of cids) {
+        let currentCid = Number(compound);
+        let cursor = await patentsCollection.find({ _id: currentCid });
         let patent = await cursor.next();
 
         if (patent !== null) {
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
           nbPatents += patent.data.nbPatents;
-          debug(compoundsPatents);
-          debug(nbPatents);
         }
       }
     }
