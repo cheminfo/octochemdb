@@ -107,14 +107,16 @@ export async function sync(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      await collection.createIndex({ _id: 1 });
-      await collection.createIndex({ 'data.phylum': 1 });
-      await collection.createIndex({ 'data.class': 1 });
-      await collection.createIndex({ 'data.order': 1 });
-      await collection.createIndex({ 'data.family': 1 });
-      await collection.createIndex({ 'data.genus': 1 });
-      await collection.createIndex({ 'data.species': 1 });
-      await collection.createIndex({ 'data.organism': 1 });
+      await collection.createIndexes(
+        { _id: 1 },
+        { 'data.phylum': 1 },
+        { 'data.class': 1 },
+        { 'data.order': 1 },
+        { 'data.family': 1 },
+        { 'data.genus': 1 },
+        { 'data.species': 1 },
+        { 'data.organism': 1 },
+      );
 
       debug(`${imported} taxonomies processed`);
     } else {

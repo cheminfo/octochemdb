@@ -211,18 +211,20 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
 
       // Create Indexes
-      await targetCollection.createIndex({ _seq: 1 });
-      await targetCollection.createIndex({ _id: 1 });
-      await targetCollection.createIndex({ 'data.em': 1 });
-      await targetCollection.createIndex({ 'data.kwBioassays': 1 });
-      await targetCollection.createIndex({ 'data.meshTerms': 1 });
-      await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
-      await targetCollection.createIndex({ 'data.nbActivities': 1 });
-      await targetCollection.createIndex({ 'data.pubmeds': 1 });
-      await targetCollection.createIndex({ 'data.nbPubmeds': 1 });
-      await targetCollection.createIndex({ 'data.patents': 1 });
-      await targetCollection.createIndex({ 'data.nbPatents': 1 });
-      await targetCollection.createIndex({ 'data.nbTaxonomies': 1 });
+      await targetCollection.createIndexes([
+        { _seq: 1 },
+        { _id: 1 },
+        { 'data.em': 1 },
+        { 'data.kwBioassays': 1 },
+        { 'data.meshTerms': 1 },
+        { 'data.kwTaxonomies': 1 },
+        { 'data.nbActivities': 1 },
+        { 'data.pubmeds': 1 },
+        { 'data.nbPubmeds': 1 },
+        { 'data.patents': 1 },
+        { 'data.nbPatents': 1 },
+        { 'data.nbTaxonomies': 1 },
+      ]);
 
       debug('Aggregation Done');
     } else {

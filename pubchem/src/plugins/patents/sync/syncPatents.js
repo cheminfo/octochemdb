@@ -55,9 +55,12 @@ export async function sync(connection) {
       //  const sortedFile = `${options.destinationLocal}/cidToPatents.2022-07-14.sorted`;
       await firstPatentsImport(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
-      await collection.createIndex({ _id: 1 });
-      await collection.createIndex({ 'data.patents': 1 });
-      await collection.createIndex({ 'data.nbPatents': 1 });
+      await collection.createIndexes(
+        { _id: 1 },
+        { 'data.patents': 1 },
+        { 'data.nbPatents': 1 },
+      );
+
       // update Logs in importationLogs collection
       progress.sources = md5(JSON.stringify(sources));
       progress.state = 'updated';

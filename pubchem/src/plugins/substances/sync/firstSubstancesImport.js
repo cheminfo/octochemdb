@@ -39,10 +39,12 @@ async function firstSubstanceImport(connection) {
     await connection.setProgress(progress);
 
     let substanceCollection = await connection.getCollection('substances');
-    await substanceCollection.createIndex({ _id: 1 });
-    await substanceCollection.createIndex({ _seq: 1 });
-    await substanceCollection.createIndex({ naturalProduct: 1 });
-    await substanceCollection.createIndex({ 'data.ocl.noStereoID': 1 });
+    await substanceCollection.createIndexes(
+      { _id: 1 },
+      { _seq: 1 },
+      { naturalProduct: 1 },
+      { 'data.ocl.noStereoID': 1 },
+    );
   } catch (e) {
     if (connection) {
       debug(e.message, {

@@ -56,9 +56,11 @@ async function firstPubmedImport(connection) {
     await connection.setProgress(progress);
     // create indexes
     const collection = await connection.getCollection('pubmeds');
-    await collection.createIndex({ 'data.meshHeadings': 1 });
-    await collection.createIndex({ 'data.cids': 1 });
-    await collection.createIndex({ _id: 1 });
+    await collection.createIndexes(
+      { 'data.meshHeadings': 1 },
+      { 'data.cids': 1 },
+      { _id: 1 },
+    );
   } catch (e) {
     if (connection) {
       debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
