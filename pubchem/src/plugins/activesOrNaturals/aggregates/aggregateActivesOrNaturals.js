@@ -22,9 +22,9 @@ export async function aggregate(connection) {
     'lotuses',
     'npasses',
     'npAtlases',
-    'cmaups',
-    'coconuts',
-    'bioassays',
+    // 'cmaups',
+    // 'coconuts',
+    // 'bioassays',
   ];
   const debug = Debug('aggregateActivesOrNaturals');
   const COLLECTION_NAME = 'activesOrNaturals';
@@ -149,11 +149,14 @@ export async function aggregate(connection) {
           entry.data.nbPubmeds = nbPubmeds;
         }
         const massSpectraRefs = await getMassSpectraRef(connection, noStereoID);
-        if (massSpectraRefs.length > 0) {
-          entry.data.massSpectraRefs = massSpectraRefs;
-          entry.data.nbMassSpectra = massSpectraRefs.length;
+        let dbRefsMs = [];
+        massSpectraRefs.forEach((ref) => {
+          dbRefsMs.push(ref.dbRef);
+        });
+        if (dbRefsMs.length > 0) {
+          entry.data.massSpectraRefs = dbRefsMs;
+          entry.data.nbMassSpectra = dbRefsMs.length;
         }
-
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
           entry.data.bioActive = true;

@@ -19,7 +19,7 @@ export async function getMassSpectraRef(connection, noStereoID) {
         {
           $project: {
             _id: 0,
-            dbRef: { id: '$_id', collection: 'gnps' },
+            dbRef: { $id: '$_id', $ref: 'gnps' },
           },
         },
       ])
