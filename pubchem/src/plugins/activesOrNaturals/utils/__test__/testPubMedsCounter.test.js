@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { PubChemConnection } from '../../../../utils/PubChemConnection.js';
 
-test('syncTaxonomies', async () => {
+test('getPubMedsCounter', async () => {
   const connection = new PubChemConnection();
 
   const collection = await connection.getCollection('pubmeds');
