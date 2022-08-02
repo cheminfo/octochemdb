@@ -78,7 +78,6 @@ export default async function getCompoundsInfo(
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
           nbPatents += patent.data.nbPatents;
-          debug(`${currentCid} patents: ${nbPatents}`);
         }
       }
     }
