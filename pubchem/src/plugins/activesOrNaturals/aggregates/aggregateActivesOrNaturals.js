@@ -7,6 +7,7 @@ import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
+import { getMassSpectraRef } from '../utils/getMassSpectraRef.js';
 import { getMeshTerms } from '../utils/getMeshTerms.js';
 import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
@@ -147,6 +148,12 @@ export async function aggregate(connection) {
           }
           entry.data.nbPubmeds = nbPubmeds;
         }
+        const massSpectraRefs = await getMassSpectraRef(connection, noStereoID);
+        if (massSpectraRefs.length > 0) {
+          entry.data.massSpectraRefs = massSpectraRefs;
+          entry.data.nbMassSpectra = massSpectraRefs.length;
+        }
+
         // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
         if (activityInfo.length > 0) {
           entry.data.bioActive = true;
