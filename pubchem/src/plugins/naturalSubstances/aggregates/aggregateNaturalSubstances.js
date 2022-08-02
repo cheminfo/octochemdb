@@ -129,7 +129,6 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
       await targetCollection.createIndexes(
         { _id: 1 },
-        { _seq: 1 },
         { naturalProduct: 1 },
         { 'data.ocl.noStereoID': 1 },
       );

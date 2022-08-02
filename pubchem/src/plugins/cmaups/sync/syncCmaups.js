@@ -121,7 +121,6 @@ export async function sync(connection) {
       // Indexing of properties in collection
       await collection.createIndexes([
         { _id: 1 },
-        { _seq: 1 },
         { 'data.ocl.noStereoID': 1 },
       ]);
 

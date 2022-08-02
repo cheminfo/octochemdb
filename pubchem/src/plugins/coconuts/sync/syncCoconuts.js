@@ -114,7 +114,6 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       await collection.createIndexes([
         { _id: 1 },
-        { _seq: 1 },
         { 'data.ocl.noStereoID': 1 },
       ]);
       debug(`${imported} compounds processed`);
