@@ -35,56 +35,39 @@ export async function* parseGNPs(jsonPath, connection) {
         oclMolecule.stripStereoInformation();
         const noStereoID = oclMolecule.getIDCode();
         // Get spectrum metadata
-        let spectralData = {};
+        let spectrum = {};
         if (entry.value.ms_level !== 'N/A') {
-          spectralData.msLevel = Number(entry.value.ms_level);
+          spectrum.msLevel = Number(entry.value.ms_level);
         }
         if (entry.value.Ion_Source !== 'N/A') {
-          spectralData.ionSource = entry.value.Ion_Source;
+          spectrum.ionSource = entry.value.Ion_Source;
         }
         if (entry.value.Instrument !== 'N/A') {
-          spectralData.instrument = entry.value.Instrument;
+          spectrum.instrument = entry.value.Instrument;
         }
         if (entry.value.Precursor_MZ !== 'N/A') {
-          spectralData.precursorMz = Number(entry.value.Precursor_MZ);
+          spectrum.precursorMz = Number(entry.value.Precursor_MZ);
         }
         if (entry.value.Adduct !== 'N/A') {
-          spectralData.adduct = entry.value.Adduct;
+          spectrum.adduct = entry.value.Adduct;
         }
         if (entry.value.Ion_Mode !== 'N/A') {
-          spectralData.ionMode = entry.value.Ion_Mode;
+          spectrum.ionMode = entry.value.Ion_Mode;
         }
         // Get spectrum peaks
-        let spectrum = {
+        let data = {
           x: [],
           y: [],
         };
-        let peaks = JSON.parse(entry.value.peaks_json); //centroid
+        let peaks = JSON.parse(entry.value.peaks_json)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 1000)
+          .sort((a, b) => a[0] - b[0]); //centroid
         for (let peak of peaks) {
-          spectrum.x.push(peak[0]);
-          spectrum.y.push(peak[1]);
+          data.x.push(peak[0]);
+          data.y.push(peak[1]);
         }
-        // if spectrum has more than 1000 peaks, keep most intense 1000 peaks
-        if (spectrum.y.length > 1000) {
-          let copySpectrumInt = [...spectrum.y];
-          copySpectrumInt
-            .sort((a, b) => {
-              return b - a;
-            })
-            .slice(0, 999);
-          let newSpectrum = {
-            x: [],
-            y: [],
-          };
-          for (let i = 0; i < spectrum.x.length; i++) {
-            if (copySpectrumInt.includes(spectrum.y[i])) {
-              newSpectrum.x.push(spectrum.x[i]);
-              newSpectrum.y.push(spectrum.y[i]);
-            }
-          }
-          spectrum = newSpectrum;
-        }
-        spectralData.spectrum = spectrum;
+        spectrum.data = data;
         // define final result to be imported in GNPs collection
         const result = {
           _id: entry.value.spectrum_id,
@@ -93,7 +76,7 @@ export async function* parseGNPs(jsonPath, connection) {
               idCode: oclID.idCode,
               noStereoID,
             },
-            spectralData,
+            spectrum,
           },
         };
         if (entry.value.Pubmed_ID !== 'N/A') {
