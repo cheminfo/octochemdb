@@ -153,7 +153,6 @@ export async function aggregate(connection) {
         massSpectraRefs.forEach((ref) => {
           dbRefsMs.push(ref.dbRef);
         });
-        debug(dbRefsMs);
         if (dbRefsMs.length > 0) {
           entry.data.massSpectraRefs = dbRefsMs;
           entry.data.nbMassSpectra = dbRefsMs.length;
