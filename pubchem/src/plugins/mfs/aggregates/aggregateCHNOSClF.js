@@ -61,6 +61,7 @@ export async function aggregate(connection) {
     );
     await result.hasNext(); // trigger the creation of the output collection
     // set progress to aggregated
+    progress.dateEnd = new Date();
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);
