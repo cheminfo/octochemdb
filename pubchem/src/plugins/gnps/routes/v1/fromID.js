@@ -1,12 +1,12 @@
 import { PubChemConnection, getFields } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
-const debug = Debug('fromDBRef');
+const debug = Debug('fromID');
 
-const fromDBRef = {
+const fromID = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve massSpectrum from a DBRef',
+    summary: 'Retrieve massSpectrum from ID',
     description: '',
     querystring: {
       id: {
@@ -26,7 +26,7 @@ const fromDBRef = {
   handler: searchHandler,
 };
 
-export default fromDBRef;
+export default fromID;
 
 async function searchHandler(request) {
   let {
