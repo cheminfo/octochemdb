@@ -34,7 +34,7 @@ export async function aggregate(connection) {
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
-      progress.state !== 'updated'
+      progress.state !== 'aggregated'
     ) {
       debug('start Aggregation process');
       // set progress to aggregating
@@ -50,6 +50,9 @@ export async function aggregate(connection) {
             kingdom: '$taxonomies.kingdom',
             phylum: '$taxonomies.phylum',
             class: '$taxonomies.class',
+            order: '$taxonomies.order',
+            family: '$taxonomies.family',
+            genus: '$taxonomies.genus',
           },
         },
         {
@@ -61,30 +64,49 @@ export async function aggregate(connection) {
                 'kingdom',
                 '$phylum',
                 '$class',
+                '$order',
+                '$family',
+                '$genus',
               ],
             },
             superkingdom: { $first: '$superkingdom' },
             kingdom: { $first: '$kingdom' },
             phylum: { $first: '$phylum' },
             class: { $first: '$class' },
+            order: { $first: '$order' },
+            family: { $first: '$family' },
+            genus: { $first: '$genus' },
           },
         },
         {
           $group: {
-            _id: { $concat: ['$superkingdom', 'kingdom', '$phylum', '$class'] },
+            _id: {
+              $concat: [
+                '$superkingdom',
+                'kingdom',
+                '$phylum',
+                '$class',
+                '$order',
+                '$family',
+                '$genus',
+              ],
+            },
             count: { $sum: 1 },
             superkingdom: { $first: '$superkingdom' },
             kingdom: { $first: '$kingdom' },
             phylum: { $first: '$phylum' },
             class: { $first: '$class' },
+            order: { $first: '$order' },
+            family: { $first: '$family' },
+            genus: { $first: '$genus' },
           },
         },
-        { $out: 'naturalExtractedFrom' }, // output temporary collection
+        { $out: 'naturalExtractedFrom_tmp' }, // output temporary collection
       ]);
       await result.hasNext();
       // delete null case from temporary collection
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}`,
+        `${options.collection}_tmp`,
       );
       await temporaryCollection.deleteOne({ _id: null });
       // rename temporary collection to naturalExtractedFrom
