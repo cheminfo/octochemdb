@@ -11,14 +11,14 @@ export async function aggregate(connection) {
   const progressCompounds = await connection.getProgress('compounds');
   // set progress to aggregating
   const progress = await connection.getProgress('mfs');
-  progress.state = 'aggregating';
   await connection.setProgress(progress);
   try {
     if (progressCompounds.seq === progress.seq) {
       debug('Aggregation up-to-date');
       return;
     }
-
+    progress.state = 'aggregating';
+    await connection.setProgress(progress);
     debug(`Need to aggregate ${await collection.count()} entries`);
     let result = await collection.aggregate(
       [
@@ -49,7 +49,7 @@ export async function aggregate(connection) {
             count: { $sum: 1 },
           },
         },
-        { $out: 'mfs' },
+        { $out: 'mfs_tmp' },
       ],
       {
         allowDiskUse: true,
@@ -57,7 +57,9 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext();
-
+    const temporaryCollection = await connection.getCollection('mfs_tmp');
+    // rename temporary collection to mfs
+    await temporaryCollection.rename('mfs', { dropTarget: true });
     // set progress to aggregated
     progress.dateEnd = new Date();
     progress.seq = progressCompounds.seq;

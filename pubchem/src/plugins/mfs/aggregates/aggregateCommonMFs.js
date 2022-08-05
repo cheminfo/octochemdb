@@ -11,13 +11,15 @@ export async function aggregate(connection) {
   // get progress collection mfsCommon
   const progressCompounds = await connection.getProgress('compounds');
   const progress = await connection.getProgress('mfsCommon');
-  progress.state = 'aggregating';
   await connection.setProgress(progress);
   try {
     if (progressCompounds.seq === progress.seq) {
       debug('Aggregation up-to-date');
       return;
     }
+    // set progress to aggregating
+    progress.state = 'aggregating';
+    await connection.setProgress(progress);
     debug(`mfsCommon: Need to aggregate: ${await collection.count()}`);
     // aggregate compounds with with mfs who have at least 5 entries
     let result = await collection.aggregate(
@@ -42,7 +44,7 @@ export async function aggregate(connection) {
           },
         },
         { $match: { count: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
-        { $out: 'mfsCommon' },
+        { $out: 'mfsCommon_tmp' },
       ],
       {
         allowDiskUse: true, // allow aggregation to use disk if necessary
@@ -50,6 +52,9 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext();
+    const temporaryCollection = await connection.getCollection('mfsCommon_tmp');
+    //rename temporary collection to mfsCommon
+    await temporaryCollection.rename('mfsCommon', { dropTarget: true });
 
     // set progress to aggregated
     progress.dateEnd = new Date();

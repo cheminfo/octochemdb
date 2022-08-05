@@ -13,14 +13,15 @@ export async function aggregate(connection) {
   // get progress collection mfsCHNOSClF
   const progress = await connection.getProgress('mfsCHNOSClF');
   // set progress to aggregating
-  progress.state = 'aggregating';
   await connection.setProgress(progress);
   try {
     if (progressCompounds.seq === progress.seq) {
       debug('Aggregation up-to-date');
       return;
     }
-
+    // set progress to aggregating
+    progress.state = 'aggregating';
+    await connection.setProgress(progress);
     debug('Need to aggregate', await collection.countDocuments());
     // aggregate compounds with mf containing CHNOSClF
     let result = collection.aggregate(
@@ -52,7 +53,7 @@ export async function aggregate(connection) {
           },
         },
 
-        { $out: 'mfsCHNOSClF' },
+        { $out: 'mfsCHNOSClF_tmp' },
       ],
       {
         allowDiskUse: true, // allow aggregation to use disk if necessary
@@ -60,6 +61,11 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext(); // trigger the creation of the output collection
+    const temporaryCollection = await connection.getCollection(
+      'mfsCHNOSClF_tmp',
+    );
+    // rename temporary collection to mfsCHNOSClF
+    await temporaryCollection.rename('mfsCHNOSClF', { dropTarget: true });
     // set progress to aggregated
     progress.dateEnd = new Date();
     progress.seq = progressCompounds.seq;
