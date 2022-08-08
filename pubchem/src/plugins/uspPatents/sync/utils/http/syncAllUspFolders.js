@@ -16,9 +16,12 @@ export async function syncAllUspFolders(connection) {
       const source = `${process.env.USP_SOURCE}${year}/`;
       const destination = `${process.env.ORIGINAL_DATA_PATH}/usp/${year}/`;
       debug(`Starting sync for ${year}`);
-      const { newFiles } = await syncUspFolder(source, destination, year);
-      files = files.concat(newFiles);
+      const filesDownloaded = await syncUspFolder(source, destination, year);
+      files = files.concat(filesDownloaded);
       debug(`${year} done`);
+      if (year === 2001) {
+        break;
+      }
     }
     return files.sort((a, b) => {
       if (a.path < b.path) return -1;
@@ -35,3 +38,4 @@ export async function syncAllUspFolders(connection) {
     }
   }
 }
+// the problem is that we don't return the file path for the importation of the usp patents
