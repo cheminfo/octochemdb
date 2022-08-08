@@ -16,12 +16,13 @@ export async function sync(connection) {
 
     // get all files to import
     const allFiles = await syncAllUspFolders(connection);
-
+    debug(allFiles);
     const { files, lastDocument } = await getFilesToImportForUsp(
       connection,
       progress,
       allFiles,
     );
+    debug(files);
     //set progress to updating
     progress.state = 'updating';
     await connection.setProgress(progress);

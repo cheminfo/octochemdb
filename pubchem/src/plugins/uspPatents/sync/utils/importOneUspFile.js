@@ -13,7 +13,7 @@ import Debug from '../../../../utils/Debug.js';
 import { parseUsp } from './parseUsp.js';
 import { unzipFile } from './unzip.js';
 
-const debug = Debug('importOnePubmedFile');
+const debug = Debug('importOneUspFile');
 
 export async function importOneUspFile(connection, progress, file, options) {
   try {
@@ -22,8 +22,10 @@ export async function importOneUspFile(connection, progress, file, options) {
     // unzip file and get xmlpath
 
     const xmlPath = await unzipFile(file.path);
+    debug(xmlPath);
     const fileStream = await open(xmlPath, 'r');
     const readableStream = fileStream.readableWebStream();
+    debug(readableStream);
     let imported = 0;
     const fileName = xmlPath.split('/')[xmlPath.split('/').length - 1];
     // get last element of array
@@ -35,7 +37,7 @@ export async function importOneUspFile(connection, progress, file, options) {
       startSequenceID: progress.seq,
     });
     let { shouldImport, lastDocument } = options;
-
+    debug(fileStream);
     for await (const entry of parseStream(
       readableStream,
       'us-patent-application',
@@ -65,7 +67,6 @@ export async function importOneUspFile(connection, progress, file, options) {
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
     await connection.updateImportationLog(logs);
-    debug(`${imported} articles processed`);
     // Remove the decompressed gzip file after it has been imported
     await fileStream.close();
     return imported;
