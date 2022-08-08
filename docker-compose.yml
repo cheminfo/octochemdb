@@ -8,6 +8,10 @@ services:
     volumes:
       - ./mongo-data:/data/db
       - ./mongo-tools:/tools
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
 
   import:
     build: ./pubchem
@@ -17,6 +21,10 @@ services:
       - mongo
     volumes:
       - ./originalData:/originalData
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
     environment:
       - MONGODB_URL=mongodb://mongo:27017
       - ORIGINAL_DATA_PATH=/originalData
@@ -31,3 +39,7 @@ services:
       - MONGODB_URL=mongodb://mongo:27017
     depends_on:
       - mongo
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
