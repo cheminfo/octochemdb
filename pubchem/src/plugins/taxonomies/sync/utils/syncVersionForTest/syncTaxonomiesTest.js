@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-import { fileListFromZip } from 'filelist-from';
+import { fileListFromZip } from 'filelist-utils';
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../../../sync/http/utils/getLastDocumentImported.js';

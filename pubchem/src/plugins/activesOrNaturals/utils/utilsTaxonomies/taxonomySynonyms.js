@@ -2,7 +2,7 @@
 
 import { createInterface } from 'readline';
 
-import { fileListFromPath } from 'filelist-from';
+import { fileListFromPath } from 'filelist-utils';
 
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 /**

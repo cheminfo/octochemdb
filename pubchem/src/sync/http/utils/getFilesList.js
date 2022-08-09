@@ -1,5 +1,3 @@
-import fetch from 'cross-fetch';
-
 import Debug from '../../../utils/Debug.js';
 
 const debug = Debug('getFilesList');
@@ -19,13 +17,13 @@ async function getFilesList(url, options = {}) {
       let groups = match.groups;
       if (groups.size) {
         if (groups.size.endsWith('K')) {
-          groups.size = parseInt(groups.size) * 1024;
+          groups.size = parseInt(groups.size, 10) * 1024;
         } else if (groups.size.endsWith('M')) {
-          groups.size = parseInt(groups.size) * 1024 * 1024;
+          groups.size = parseInt(groups.size, 10) * 1024 * 1024;
         } else if (groups.size.endsWith('G')) {
-          groups.size = parseInt(groups.size) * 1024 * 1024 * 1024;
+          groups.size = parseInt(groups.size, 10) * 1024 * 1024 * 1024;
         } else {
-          groups.size = parseInt(groups.size);
+          groups.size = parseInt(groups.size, 10);
         }
       }
       groups.url = `${url}/${groups.name}`;
