@@ -7,13 +7,13 @@
   "scripts": {
     "cron": " DEBUG=* node -r dotenv/config src/sync/cron",
     "crontest": "DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
-    "dev": "cross-env DEBUG=* LOGGER_PRETTY_PRINT=true nodemon -r dotenv/config src/server/server.js",
+    "dev": "cross-env DEBUG=* LOGGER_PRETTY_PRINT=true nodemon -r dotenv/config src/server/index.js",
     "eslint": "eslint src",
     "eslint-fix": "npm run eslint -- --fix",
     "prettier": "prettier --check src",
     "prettier-write": "prettier --write src",
-    "start": "DEBUG=* node -r dotenv/config src/server/server.js",
-    "start-dev": "DEBUG=* nodemon -r dotenv/config src/server/server.js",
+    "start": "DEBUG=* node -r dotenv/config src/server/index.js",
+    "start-dev": "DEBUG=* nodemon -r dotenv/config src/server/index.js",
     "test": "npm run eslint && npm run prettier && jest",
     "test-only": "jest"
   },
