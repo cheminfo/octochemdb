@@ -14,9 +14,15 @@ const app = createApp({
   },
 });
 
-app.listen(process.env.PORT || 11015, '0.0.0.0', (err) => {
-  if (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
-});
+app.listen(
+  {
+    port: process.env.PORT ? Number(process.env.PORT) : 11015,
+    host: '0.0.0.0',
+  },
+  (err) => {
+    if (err) {
+      app.log.error(err);
+      process.exit(1);
+    }
+  },
+);
