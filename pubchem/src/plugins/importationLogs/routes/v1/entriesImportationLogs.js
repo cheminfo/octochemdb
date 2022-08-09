@@ -69,7 +69,7 @@ async function searchHandler(request) {
       ])
       .toArray();
     debug({
-      collectionName: collectionName,
+      collectionName,
     });
 
     return { data: results };

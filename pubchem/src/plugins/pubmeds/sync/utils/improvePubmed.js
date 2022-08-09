@@ -34,18 +34,16 @@ export async function improvePubmed(entry, pmidToCid) {
     if (medlineArticle.ArticleTitle) {
       if (medlineArticle.ArticleTitle['#text']) {
         parsedArticle.title = medlineArticle.ArticleTitle['#text'];
+      } else if (
+        medlineArticle.ArticleTitle.includes('[') &&
+        medlineArticle.ArticleTitle.includes(']')
+      ) {
+        parsedArticle.title = medlineArticle.ArticleTitle.replace(
+          '[',
+          '',
+        ).replace(']', '');
       } else {
-        if (
-          medlineArticle.ArticleTitle.includes('[') &&
-          medlineArticle.ArticleTitle.includes(']')
-        ) {
-          parsedArticle.title = medlineArticle.ArticleTitle.replace(
-            '[',
-            '',
-          ).replace(']', '');
-        } else {
-          parsedArticle.title = medlineArticle.ArticleTitle;
-        }
+        parsedArticle.title = medlineArticle.ArticleTitle;
       }
     }
     // get abstract

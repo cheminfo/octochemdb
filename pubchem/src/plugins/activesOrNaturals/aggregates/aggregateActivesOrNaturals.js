@@ -29,7 +29,7 @@ export async function aggregate(connection) {
   const debug = Debug('aggregateActivesOrNaturals');
   const COLLECTION_NAME = 'activesOrNaturals';
   try {
-    const options = { collection: COLLECTION_NAME, connection: connection };
+    const options = { collection: COLLECTION_NAME, connection };
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);

@@ -60,7 +60,7 @@ async function syncInsertOne(connection, patents, nbDocuments) {
     await collection.insertOne({
       _id: index,
       data: {
-        patents: patents,
+        patents,
         nbPatents: patents.length,
       },
     });

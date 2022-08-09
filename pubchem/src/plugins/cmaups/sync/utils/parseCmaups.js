@@ -115,7 +115,7 @@ export async function* parseCmaups(
             data: {
               ocl: {
                 idCode: oclID.idCode,
-                noStereoID: noStereoID,
+                noStereoID,
               },
             },
           };

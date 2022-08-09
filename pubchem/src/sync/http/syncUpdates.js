@@ -28,7 +28,6 @@ async function syncUpdates() {
       `./originalData/substances/weekly/${week.name}killed-CIDs`,
     );
   }
-  return;
 }
 
 export default syncUpdates;

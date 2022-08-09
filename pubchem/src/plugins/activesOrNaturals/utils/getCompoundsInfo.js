@@ -57,7 +57,7 @@ export default async function getCompoundsInfo(
       cids[compoundInfo._id] = true;
     }
     if (compoundInfo === null) {
-      const molecule = { noStereoID: noStereoID };
+      const molecule = { noStereoID };
       let compoundData = await getCompoundsData(molecule);
       entry.data.em = compoundData.data.em;
       entry.data.charge = compoundData.data.charge;

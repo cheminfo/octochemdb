@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
 
+import fastifyCors from '@fastify/cors';
+import fastifySensible from '@fastify/sensible';
 import fastify from 'fastify';
-import fastifyCors from 'fastify-cors';
-import fastifySensible from 'fastify-sensible';
 
 import setupV1 from './index.js';
 

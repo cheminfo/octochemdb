@@ -1,8 +1,8 @@
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import fastifyStatic from 'fastify-static';
-import fastifySwagger from 'fastify-swagger';
+import fastifyStatic from '@fastify/static';
+import fastifySwagger from '@fastify/swagger';
 
 import { recursiveDir } from '../utils/recursiveDir.js';
 

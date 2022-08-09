@@ -50,7 +50,7 @@ async function generateStats() {
       minMass: mass - stepMass,
       maxMass: mass,
       nFormulas: sliced.length,
-      stats: stats,
+      stats,
     });
     start = end;
   }
@@ -69,7 +69,7 @@ async function generateStats() {
     _id: id,
     options: result.options,
     allStats: result.results,
-    info: info,
+    info,
   };
   await statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
     upsert: true,

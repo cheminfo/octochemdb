@@ -70,7 +70,7 @@ co(function* formulaMongo() {
 function analyseFormula(mf, index) {
   debug(`${mf} (${index})`);
   const result = {
-    mf: mf,
+    mf,
     em: 0,
     ppm: new Array(ppm.length),
   };
