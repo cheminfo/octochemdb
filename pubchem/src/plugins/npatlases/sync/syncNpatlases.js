@@ -66,7 +66,9 @@ export async function sync(connection) {
         progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL)
     ) {
       // create temporary collection
-      const temporaryCollection = await connection.getCollection('npAtlases');
+      const temporaryCollection = await connection.getCollection(
+        'npAtlases_tmp',
+      );
       debug(`Start parsing: ${lastFile}`);
       // set progress to updating
       progress.state = 'updating';
