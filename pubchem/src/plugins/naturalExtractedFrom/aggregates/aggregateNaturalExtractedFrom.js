@@ -12,7 +12,7 @@ export async function aggregate(connection) {
   const COLLECTION_NAME = 'naturalExtractedFrom';
   try {
     // get activesOrNaturals collection and progress
-    const options = { collection: COLLECTION_NAME, connection: connection };
+    const options = { collection: COLLECTION_NAME, connection };
     const progress = await connection.getProgress(options.collection);
     const collectionSource = await connection.getProgress('activesOrNaturals');
     const collectionActivesOrNaturals = await connection.getCollection(

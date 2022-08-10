@@ -54,7 +54,7 @@ export default async function getBioassays(
 
       if (aid === 'AID') continue; // avoid to import headers
       // For each aid (assay ID), save the name of the bioassay
-      bioassays[aid] = { name: name };
+      bioassays[aid] = { name };
       let targetTaxonomies = {};
       // Taxonomies IDs can be either in targetTaxIDs or taxonomyIDs
       // The difference between the two is that taxonomyIDs contains identifiers derived from targetTaxIDs and links provided by depositor

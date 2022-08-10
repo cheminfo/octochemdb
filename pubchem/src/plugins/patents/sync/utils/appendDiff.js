@@ -37,16 +37,14 @@ export default async function appendDiff(
         await destinationFileHandler.write(
           `CHANGE\t${key}\t${patents.join(',')}\n`,
         );
+      } else if (newData.productsIDs[key]) {
+        await destinationFileHandler.write(
+          `ADD\t${key}\t${patents.join(',')}\n`,
+        );
       } else {
-        if (newData.productsIDs[key]) {
-          await destinationFileHandler.write(
-            `ADD\t${key}\t${patents.join(',')}\n`,
-          );
-        } else {
-          await destinationFileHandler.write(
-            `DELETE\t${key}\t${patents.join(',')}\n`,
-          );
-        }
+        await destinationFileHandler.write(
+          `DELETE\t${key}\t${patents.join(',')}\n`,
+        );
       }
     }
     delete newData.productsIDs[key];

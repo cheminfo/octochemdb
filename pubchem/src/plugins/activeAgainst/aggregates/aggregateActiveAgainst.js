@@ -12,7 +12,7 @@ export async function aggregate(connection) {
   const COLLECTION_NAME = 'activeAgainst';
   try {
     // Get collections from the database
-    const options = { collection: COLLECTION_NAME, connection: connection };
+    const options = { collection: COLLECTION_NAME, connection };
     const progress = await connection.getProgress(options.collection);
     const progressOfSourceCollection = await connection.getProgress(
       'activesOrNaturals',

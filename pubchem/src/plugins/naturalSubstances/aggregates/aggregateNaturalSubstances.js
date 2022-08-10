@@ -7,7 +7,7 @@ export async function aggregate(connection) {
   const debug = Debug('naturalSubstances');
   const COLLECTION_NAME = 'naturalSubstances';
   try {
-    const options = { collection: COLLECTION_NAME, connection: connection };
+    const options = { collection: COLLECTION_NAME, connection };
     const targetCollection = await connection.getCollection(options.collection);
     const compoundsCollection = await connection.getCollection('compounds');
     const progress = await connection.getProgress(options.collection);

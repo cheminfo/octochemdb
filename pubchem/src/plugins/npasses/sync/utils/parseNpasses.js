@@ -128,7 +128,7 @@ export async function* parseNpasses(
         data: {
           ocl: {
             idCode: oclID.idCode,
-            noStereoID: noStereoID,
+            noStereoID,
           },
         },
       };

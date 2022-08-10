@@ -14,6 +14,6 @@ export default async function getLastFileSync(options) {
   debug(`Syncing: ${source} to ${destination}`);
   return getFileIfNew({ url: source }, destination, {
     filename: fileName,
-    extension: extension,
+    extension,
   });
 }

@@ -45,7 +45,7 @@ export function getCompoundsData(molecule) {
         rotatableBondCount: oclProperties.rotatableBondCount,
         stereoCenterCount: oclProperties.stereoCenterCount,
       },
-      mf: mf,
+      mf,
       nbFragments,
     },
   };

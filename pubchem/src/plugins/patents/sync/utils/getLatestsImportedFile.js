@@ -1,4 +1,4 @@
-import { fileListFromPath } from 'filelist-from';
+import { fileListFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
 
 const { existsSync } = pkg;

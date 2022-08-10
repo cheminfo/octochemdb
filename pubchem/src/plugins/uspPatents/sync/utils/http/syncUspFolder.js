@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { fileListFromPath } from 'filelist-from';
+import { fileListFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
 import getFile from '../../../../../sync/http/utils/getFile.js';
