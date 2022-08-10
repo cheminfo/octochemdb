@@ -107,7 +107,7 @@ export async function sync(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      await collection.createIndexes(
+      await collection.createIndexes([
         { _id: 1 },
         { 'data.phylum': 1 },
         { 'data.class': 1 },
@@ -116,7 +116,7 @@ export async function sync(connection) {
         { 'data.genus': 1 },
         { 'data.species': 1 },
         { 'data.organism': 1 },
-      );
+      ]);
 
       debug(`${imported} taxonomies processed`);
     } else {

@@ -83,7 +83,7 @@ export async function sync(connection) {
     options.collectionName,
   );
   await connection.setProgress(progress);
-  await collection.createIndexes(
+  await collection.createIndexes([
     { _id: 1 },
     { 'data.phylum': 1 },
     { 'data.class': 1 },
@@ -92,7 +92,7 @@ export async function sync(connection) {
     { 'data.genus': 1 },
     { 'data.species': 1 },
     { 'data.organism': 1 },
-  );
+  ]);
   // remove data from admin and logs collections
   const adminCollection = await connection.getCollection('admin');
   await adminCollection.deleteOne({ _id: 'taxonomies_test_progress' });
