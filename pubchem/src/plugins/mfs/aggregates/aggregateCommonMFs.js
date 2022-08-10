@@ -1,60 +1,73 @@
 import Debug from '../../../utils/Debug.js';
-
-const debug = Debug('aggregateCommonMFs');
-
+/**
+ * @description Aggregate function for most common mfs in compounds collection
+ * @param {*} connection mongo connection
+ * @returns {Promise} returns mfsCommon collection
+ */
 export async function aggregate(connection) {
+  const debug = Debug('aggregatemfsCommon');
+  // get compounds collection and progress
   const collection = await connection.getCollection('compounds');
-
+  // get progress collection mfsCommon
   const progressCompounds = await connection.getProgress('compounds');
-  const progress = await connection.getProgress('commonMFs');
-  if (progressCompounds.seq === progress.seq) {
-    debug('Aggregation up-to-date');
-    return;
-  }
-
-  debug(
-    'commonMFs: Need to aggregate',
-    await collection.countDocuments(),
-    'entries',
-  );
-  let result = await collection.aggregate(
-    [
-      //    { $limit: 1e4 },
-      { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
-      {
-        $project: {
-          _id: 0,
-          mf: '$data.mf',
-          em: '$data.em',
-          unsaturation: '$data.unsaturation',
-          atom: '$data.atom',
-        },
-      },
-      {
-        $group: {
-          _id: '$mf',
-          em: { $first: '$em' },
-          unsaturation: { $first: '$unsaturation' },
-          atom: { $first: '$atom' },
-          total: { $sum: 1 },
-        },
-      },
-      { $match: { total: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
-      { $out: 'commonMFs' },
-    ],
-    {
-      allowDiskUse: true,
-      maxTimeMS: 60 * 60 * 1000, // 1h
-    },
-  );
-  await result.hasNext();
-
-  const collectionCommonMFs = await connection.getCollection('mfsCommon');
-
-  await collectionCommonMFs.createIndex({ em: 1 });
-
-  progress.seq = progressCompounds.seq;
+  const progress = await connection.getProgress('mfsCommon');
   await connection.setProgress(progress);
+  try {
+    if (progressCompounds.seq === progress.seq) {
+      debug('Aggregation up-to-date');
+      return;
+    }
+    // set progress to aggregating
+    progress.state = 'aggregating';
+    await connection.setProgress(progress);
+    debug(`mfsCommon: Need to aggregate: ${await collection.count()}`);
+    // aggregate compounds with with mfs who have at least 5 entries
+    let result = await collection.aggregate(
+      [
+        { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
+        {
+          $project: {
+            _id: 0,
+            mf: '$data.mf',
+            em: '$data.em',
+            unsaturation: '$data.unsaturation',
+            atom: '$data.atom',
+          },
+        },
+        {
+          $group: {
+            _id: '$mf',
+            em: { $first: '$em' },
+            unsaturation: { $first: '$unsaturation' },
+            atom: { $first: '$atom' },
+            count: { $sum: 1 },
+          },
+        },
+        { $match: { count: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
+        { $out: 'mfsCommon_tmp' },
+      ],
+      {
+        allowDiskUse: true, // allow aggregation to use disk if necessary
+        maxTimeMS: 60 * 60 * 3000, // 3h
+      },
+    );
+    await result.hasNext();
+    const temporaryCollection = await connection.getCollection('mfsCommon_tmp');
+    //rename temporary collection to mfsCommon
+    await temporaryCollection.rename('mfsCommon', { dropTarget: true });
 
-  return result;
+    // set progress to aggregated
+    progress.dateEnd = new Date();
+    progress.seq = progressCompounds.seq;
+    progress.state = 'aggregated';
+    await connection.setProgress(progress);
+
+    return result;
+  } catch (e) {
+    progress.state = 'error';
+    await connection.setProgress(progress);
+    if (connection) {
+      debug(e.message, { collection: 'mfs', connection, stack: e.stack });
+    }
+  }
 }

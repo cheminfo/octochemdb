@@ -10,18 +10,22 @@ export default function Debug(context) {
 
   return (message, options = {}) => {
     realDebug(message);
-
-    await logInDB(message, options);
-
-    messages.push({
+    let messageDebug = {
       epoch: Date.now(),
       text: `${new Date()
         .toISOString()
         .replace(/.*T/, '')
         .replace('Z', ' - ')}${context}:${message}`,
-    });
+    };
+    if (options?.stack) {
+      messageDebug.stack = options.stack;
+    }
+    messages.push(messageDebug);
 
     sendTelegrams();
+    if (options) {
+      logInDB(message, options);
+    }
   };
 }
 
@@ -35,13 +39,29 @@ async function sendTelegrams() {
 }
 
 async function logInDB(message, options) {
-  const { collection } = options;
+  const { collection, connection, stack } = options;
   if (!collection) return;
-  // TODO
-// load admin -> collection entry
-// record.logs=[{epoch, event}]
-// logs.prepend
-// logs.slice(0,50)
+  const progress = await connection.getProgress(collection);
+  if (progress.logs === null || progress.logs === undefined) {
+    progress.logs = [];
+  }
 
+  let logs = progress.logs;
+  if (logs && logs.length < 49) {
+    logs.push({
+      epoch: `${new Date().toISOString()}`,
+      message: `${collection}:${message}`,
+      stack: `${collection}:${stack}`,
+    });
+  }
+  if (logs && logs.length === 49) {
+    logs.shift();
+    logs.push({
+      epoch: `${new Date().toISOString()}`,
+      message: `${collection}:${message}`,
+      stack: `${collection}:${stack}`,
+    });
+  }
 
+  await connection.setProgress(progress);
 }

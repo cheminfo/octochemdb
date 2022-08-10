@@ -51,7 +51,7 @@ co(function* () {
     _id: id,
     options: rules,
     formulas,
-    info: info,
+    info,
   };
 
   fs.writeFileSync(`/tmp/${rules.collection}`, JSON.stringify(statsEntry));
@@ -65,7 +65,7 @@ co(function* () {
 })
   .catch((e) => {
     debug('error');
-    debug(e);
+    debug(e.stack);
   })
   .then(() => {
     debug('closing DB');

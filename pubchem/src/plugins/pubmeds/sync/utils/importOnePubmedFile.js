@@ -1,75 +1,81 @@
-import { readFileSync } from 'fs';
-import { gunzipSync } from 'zlib';
+import { rmSync } from 'fs';
+import { open } from 'fs/promises';
 
-import { XMLParser } from 'fast-xml-parser';
+import { parseStream } from 'arraybuffer-xml-parser';
 
 import Debug from '../../../../utils/Debug.js';
 
-import improvePubmed from './improvePubmed.js';
-
-const debug = Debug('importOnePubmedFile');
-
+import { decompressGziped } from './decompressGziped.js';
+import { improvePubmed } from './improvePubmed.js';
+/**
+ * @description  import one PubMed file
+ * @param {*} connection  - mongo connection
+ * @param {*} progress - pubmeds progress
+ * @param {Array} file - file to import
+ * @param {object} options - options { shouldImport ,lastDocument }
+ * @param {object} pmidToCid - pmid to cid map
+ * @returns {Promise} pubmeds collection
+ */
 export default async function importOnePubmedFile(
   connection,
   progress,
   file,
   options,
+  pmidToCid,
 ) {
-  const collection = await connection.getCollection('pubmeds');
-
-  debug(`Importing: ${file.name}`);
-  // should we directly import the data how wait that we reach the previously imported information
-  let { shouldImport = true, lastDocument } = options;
-  let inflated = gunzipSync(readFileSync(file.path));
-  const decoder = new TextDecoder();
-  inflated = decoder.decode(inflated);
-
-  const parser = new XMLParser({
-    textNodeName: '_text',
-    attributeNameProcessor: (name) => {
-      if (name.match(/^[A-Z]+$/)) {
-        return name.toLowerCase();
-      } else if (name.match(/^[A-Z]/)) {
-        return name.toLowerCase() + name.substring(1);
-      }
-      return name;
-    },
-  });
-
-  const parsed = parser.parse(inflated);
-
-  let pubmeds = parsed.PubmedArticleSet.PubmedArticle;
-  if (process.env.TEST === 'true') pubmeds = pubmeds.slice(0, 10);
-
-  let imported = 0;
-  debug(`Need to process ${pubmeds.length} pubmeds`);
-  let start = Date.now();
-  for (let pubmed of pubmeds) {
-    let medlineCitation = pubmed.MedlineCitation;
-    if (!medlineCitation) throw new Error('citation not found', pubmed);
-    if (!shouldImport) {
-      if (medlineCitation.PMID !== lastDocument._id) {
-        continue;
-      }
-      shouldImport = true;
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+  const debug = Debug('importOnePubmedFile');
+  try {
+    // get pubmeds collection
+    const collection = await connection.getCollection('pubmeds');
+    debug(`Importing: ${file.name}`);
+    // get logs
+    const logs = await connection.getImportationLog({
+      collectionName: 'pubmeds',
+      sources: file.name,
+      startSequenceID: progress.seq,
+    });
+    // create stream from file
+    const filePath = await decompressGziped(file.path);
+    const fileStream = await open(filePath, 'r');
+    const readableStream = fileStream.readableWebStream();
+    let { shouldImport, lastDocument } = options;
+    let imported = 0;
+    debug(`Importing ${file.name}`);
+    // parse the pubmed file stream
+    for await (const entry of parseStream(readableStream, 'PubmedArticle')) {
+      if (!shouldImport) {
+        if (entry.MedlineCitation.PMID['#text'] !== lastDocument._id) {
+          continue;
+        }
+        shouldImport = true;
         debug(`Skipping pubmeds till: ${lastDocument._id}`);
-        start = Date.now();
         continue;
+      }
+      if (shouldImport) {
+        let result = await improvePubmed(entry, pmidToCid);
+        imported++;
+        result._seq = ++progress.seq;
+        // insert entry into pubmeds collection
+        await collection.updateOne(
+          { _id: result._id },
+          { $set: result },
+          { upsert: true },
+        );
       }
     }
-    const article = improvePubmed(medlineCitation);
-    article._seq = ++progress.seq;
-    article._source = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
-    await collection.updateOne(
-      { _id: article._id },
-      { $set: article },
-      { upsert: true },
-    );
+    // set logs and progress
+    progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
     await connection.setProgress(progress);
-    imported++;
+    logs.dateEnd = Date.now();
+    logs.endSequenceID = progress.seq;
+    logs.status = 'updated';
+    await connection.updateImportationLog(logs);
+    debug(`${imported} articles processed`);
+    // Remove the decompressed gzip file after it has been imported
+    await fileStream.close();
+    rmSync(filePath, { recursive: true });
+    return imported;
+  } catch (err) {
+    debug(err, { collection: 'pubmeds', connection });
   }
-  debug(`${imported} pubmeds processed`);
-  // save the pubmeds in the database
-  return pubmeds.length;
 }

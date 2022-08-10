@@ -1,10 +1,8 @@
-// query for molecules from monoisotopic mass
-
 import { PubChemConnection } from '../../../../server/utils.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('info');
-
+// export default searchHandler;
 const stats = {
   method: 'GET',
   schema: {
@@ -15,8 +13,8 @@ const stats = {
 
 export default stats;
 /**
- * Returns statistics about the collection
- * @return {Promise}
+ * @description Retrieve an overview (stored in admin) and statistics about all the collections
+ * @returns {Promise} returns an overview of the collections and their statistics
  */
 
 async function searchHandler() {
@@ -29,19 +27,20 @@ async function searchHandler() {
       .filter((entry) => String(entry._id).match(/_progress$/))
       .forEach((entry) => {
         adminInfo[String(entry._id).replace('_progress', '')] = {
-          date: entry.date,
+          date: entry.dateEnd,
           state: entry.state,
           seq: entry.seq,
+          logs: entry.logs,
         };
       });
     const names = await connection.getCollectionNames();
 
     const results = [];
-    debug(adminInfo);
+    debug(JSON.stringify(adminInfo));
     for (let name of names) {
       const collection = await connection.getCollection(name);
       const stats = await collection.stats();
-      debug(`${name}, ${adminInfo[name]}`);
+      debug(`${name}, ${JSON.stringify(adminInfo[name])}`);
       results.push({
         ns: stats.ns,
         size: stats.size,
@@ -53,10 +52,12 @@ async function searchHandler() {
         ...adminInfo[name],
       });
     }
-
-    return results;
+    return { data: results };
   } catch (e) {
-    debug(e);
+    if (connection) {
+      debug(e.message, { collection: 'admin', connection, stack: e.stack });
+    }
+    return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
     debug('Closing connection');
     if (connection) await connection.close();

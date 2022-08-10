@@ -60,7 +60,7 @@ co(function* formulaMongo() {
 })
   .catch((e) => {
     debug('error');
-    debug(e);
+    debug(e.stack);
   })
   .then(() => {
     debug('closing DB');
@@ -70,7 +70,7 @@ co(function* formulaMongo() {
 function analyseFormula(mf, index) {
   debug(`${mf} (${index})`);
   const result = {
-    mf: mf,
+    mf,
     em: 0,
     ppm: new Array(ppm.length),
   };

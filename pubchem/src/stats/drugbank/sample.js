@@ -39,8 +39,8 @@ for (let i = 2; i < data.length; i++) {
     const em = formula.em;
     const mf = formula.mf;
     const result = {
-      mf: mf,
-      em: em,
+      mf,
+      em,
       ppm: new Array(ppm.length),
     };
     results[j] = result;

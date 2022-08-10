@@ -1,45 +1,78 @@
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import fastifyStatic from 'fastify-static';
-import fastifySwagger from 'fastify-swagger';
+import fastifyCors from '@fastify/cors';
+import fastifySensible from '@fastify/sensible';
+import fastifyStatic from '@fastify/static';
+import fastifySwagger from '@fastify/swagger';
+import Fastify from 'fastify';
 
-import { recursiveDir } from '../utils/recursiveDir.js';
+import v1 from './v1.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default async function setupV1(app, _, done) {
-  app.register(fastifySwagger, {
-    swagger: {
-      info: {
-        title: 'Search a copy of pubchem database',
-        description: ``,
-        version: '1.0.0',
-      },
+const fastify = Fastify({
+  logger: {
+    transport: process.env.LOGGER_PRETTY_PRINT
+      ? {
+          target: 'pino-pretty',
+          options: {
+            translateTime: 'HH:MM:ss Z',
+            ignore: 'pid,hostname',
+          },
+        }
+      : undefined,
+  },
+  ajv: {
+    customOptions: {
+      strict: false,
     },
-    exposeRoute: true,
-  });
+  },
+});
 
-  app.register(fastifyStatic, {
-    root: join(__dirname, 'public'),
-    prefix: '/public/', // optional: default '/'
-  });
+fastify.register(fastifyCors, {
+  maxAge: 86400,
+});
+fastify.register(fastifySensible);
 
-  const url = new URL('../plugins/', import.meta.url);
-  const routeURLs = (await recursiveDir(url)).filter((file) =>
-    file.href.match(/routes/),
-  );
+fastify.get('/', (_, reply) => {
+  reply.redirect('/documentation');
+});
 
-  for (let routeURL of routeURLs) {
-    const route = (await import(routeURL)).default;
-    if (typeof route.schema !== 'object') continue;
-    const path = routeURL.pathname
-      .replace(url.pathname, '')
-      .replace('/routes', '')
-      .replace('.js', '');
-    route.url = path;
-    app.route(route);
-  }
+fastify.register(fastifySwagger, {
+  swagger: {
+    info: {
+      title: 'Search a copy of pubchem database',
+      description: ``,
+      version: '1.0.0',
+    },
+  },
+  exposeRoute: true,
+});
 
-  done();
-}
+fastify.register(fastifyStatic, {
+  root: join(__dirname, 'public'),
+  prefix: '/public/', // optional: default '/'
+});
+
+fastify.addHook('onRegister', (instance, opts) => {
+  console.log(instance.getSchema());
+});
+
+fastify.register(v1);
+
+await fastify.ready();
+fastify.swagger();
+
+fastify.listen(
+  {
+    port: process.env.PORT ? Number(process.env.PORT) : 11015,
+    host: '0.0.0.0',
+  },
+  (err) => {
+    if (err) {
+      fastify.log.error(err);
+      process.exit(1);
+    }
+  },
+);

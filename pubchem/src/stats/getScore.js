@@ -16,8 +16,8 @@ debug(JSON.stringify(result, null, 2));
 
 function analyseMass(em, ppm) {
   const result = {
-    em: em,
-    ppm: ppm,
+    em,
+    ppm,
   };
 
   let allCandidates = CC.mfFromMonoisotopicMass(em, {

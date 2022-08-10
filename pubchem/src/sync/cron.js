@@ -27,7 +27,22 @@ async function cron() {
       return false;
     });
   }
-
+  if (process.env.EXCLUDEPLUGINS) {
+    const notAllowedPlugins = process.env.EXCLUDEPLUGINS.split(',');
+    syncURLs = syncURLs.filter((url) => {
+      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      if (!notAllowedPlugins.includes(pluginName)) return true;
+      return false;
+    });
+  }
+  for (let syncURL of syncURLs) {
+    if (
+      syncURL.pathname.includes('syncTaxonomies') ||
+      syncURL.pathname.includes('syncCompounds')
+    ) {
+      syncURLs.unshift(syncURLs.splice(syncURLs.indexOf(syncURL), 1)[0]);
+    }
+  }
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
     if (typeof sync.sync !== 'function') continue;
@@ -59,7 +74,13 @@ async function cron() {
       return false;
     });
   }
-
+  for (let aggregateURL of aggregateURLs) {
+    if (aggregateURL.pathname.includes('activesOrNaturals')) {
+      aggregateURLs.unshift(
+        aggregateURLs.splice(aggregateURLs.indexOf(aggregateURL), 1)[0],
+      );
+    }
+  }
   for (let aggregateURL of aggregateURLs) {
     const aggregate = await import(aggregateURL);
 

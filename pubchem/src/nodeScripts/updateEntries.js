@@ -4,7 +4,7 @@ const pubChemConnection = new (require('../util/PubChemConnection'))();
 
 const debug = Debug('updateEntries');
 update()
-  .catch((e) => debug(e))
+  .catch((e) => debug(e.stack))
   .then(() => {
     debug('Done');
     pubChemConnection.close();

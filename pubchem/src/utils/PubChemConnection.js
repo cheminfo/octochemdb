@@ -1,4 +1,5 @@
 import delay from 'delay';
+import md5 from 'md5';
 import { MongoClient } from 'mongodb';
 
 import Debug from './Debug.js';
@@ -31,6 +32,41 @@ PubChemConnection.prototype.getCollection = async function getCollection(
   return (await this.getDatabase()).collection(collectionName);
 };
 
+PubChemConnection.prototype.getImportationLog =
+  async function getImportationLog(options) {
+    const { collectionName, sources, startSequenceID } = options;
+    const logsCollection = await this.getImportationLogsCollection();
+    const sourcesHash = md5(JSON.stringify(sources));
+    const _id = sourcesHash;
+    let logs = await logsCollection.find({ _id }).next();
+    if (logs === null) {
+      logs = {
+        _id,
+        collectionName,
+        sources,
+        sourcesHash,
+        dateStart: Date.now(),
+        dateEnd: Date.now(),
+        startSequenceID,
+        endSequenceID: 0,
+        status: 'updating',
+      };
+      await logsCollection.insertOne(logs);
+    }
+    return logs;
+  };
+PubChemConnection.prototype.updateImportationLog =
+  async function updateImportationLog(logs) {
+    const collection = await this.getImportationLogsCollection();
+    logs.dateEnd = Date.now();
+    await collection.replaceOne({ _id: logs._id }, logs);
+  };
+
+PubChemConnection.prototype.getImportationLogsCollection =
+  async function getCollection() {
+    return (await this.getDatabase()).collection('importationLogs');
+  };
+
 PubChemConnection.prototype.getAdminCollection =
   async function getAdminCollection() {
     return this.getCollection('admin');
@@ -50,9 +86,10 @@ PubChemConnection.prototype.getProgress = async function getProgress(
   if (progress === null) {
     progress = {
       _id,
-      state: 'import',
+      state: 'updating',
       seq: 0,
-      date: new Date(),
+      dateStart: Date.now(),
+      dateEnd: 0,
     };
     await adminCollection.insertOne(progress);
   }

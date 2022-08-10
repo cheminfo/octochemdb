@@ -1,22 +1,37 @@
-import { readFileSync } from 'fs';
+import { createReadStream } from 'fs';
 import { join } from 'path';
+import { createGunzip } from 'zlib';
 
-import { parse } from 'arraybuffer-xml-parser';
+import pkg, { toXml } from 'xml-flow';
+import { toJson } from 'xml2json';
 
-import Debug from '../../../../../utils/Debug.js';
 import improvePubmed from '../improvePubmed.js';
 
-const debug = Debug('testPubMeds');
-test('pubmeds', () => {
-  const parsed = parse(readFileSync(join(__dirname, 'data.xml')), {
-    textNodeName: '_text',
-  });
+const flow = pkg;
+test('pubmeds', async () => {
+  const stream = createReadStream(join(__dirname, 'pubmedTest.gz')).pipe(
+    createGunzip(),
+  );
 
+  const xmlStream = flow(stream);
   const results = [];
-  for (let entry of parsed.PubmedArticleSet.PubmedArticle.slice(0, 10)) {
-    if (!entry.PubmedCitation) {
-      debug(`No PubmedCitation' ${entry}`);
-    }
-    results.push(improvePubmed(entry.PubmedCitation));
-  }
+  let counter = 0;
+  await new Promise((resolve) => {
+    xmlStream
+      .on('tag:pubmedarticle', async (article) => {
+        let recovertToXml = toXml(article);
+        let pubMedObject = toJson(recovertToXml, {
+          object: true,
+          alternateTextNode: true,
+        }).pubmedarticle.medlinecitation;
+        let result = improvePubmed(pubMedObject);
+        results.push(result);
+        counter++;
+        if (counter > 0) resolve();
+      })
+      .on('end', async () => {
+        resolve();
+      });
+  });
+  expect(results).toMatchSnapshot();
 });

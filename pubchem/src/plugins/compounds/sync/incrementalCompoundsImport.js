@@ -1,109 +1,57 @@
-import getFilesList from '../../../sync/http/utils/getFilesList.js';
-import syncFolder from '../../../sync/http/utils/syncFolder.js';
-import removeEntriesFromFile from '../../../sync/utils/removeEntriesFromFile.js';
 import Debug from '../../../utils/Debug.js';
 
-import importOneCompoundFile from './utils/importOneCompoundFile.js';
+import { getFilesToImport } from './utils/getFilesToImport.js';
+import { importCompoundFiles } from './utils/importCompoundFiles.js';
+import { syncCompoundFolder } from './utils/syncCompoundFolder.js';
 
 const debug = Debug('incrementalCompoundImport');
 
+/**
+ * @description Synchronize the compounds database from the pubchem database
+ * @param {*} connection MongoDB connection
+ * @returns {Promise} returns compounds collections
+ */
 async function incrementalCompoundImport(connection) {
-  const allFiles = await syncIncrementalCompoundFolder();
+  try {
+    // Synchronize the compounds folder with the weekly updates
+    const allFiles = await syncCompoundFolder(connection, 'incremental');
+    const progress = await connection.getProgress('compounds');
 
-  const progress = await connection.getProgress('compounds');
+    // Get list of files to import and last document imported
+    const { files, lastDocument } = await getFilesToImport(
+      connection,
+      progress,
+      allFiles,
+      'incremental',
+    );
+    if (
+      progress.dateEnd !== 0 &&
+      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL &&
+      !files.includes(progress.sources)
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+    }
+    // Import the files
 
-  const { files, lastDocument } = await getFilesToImport(
-    connection,
-    progress,
-    allFiles,
-  );
-  const lastDocumentImported = lastDocument;
-  if (
-    (!files.includes(lastDocumentImported._source) &&
-      progress.state === 'updated') ||
-    progress.state !== 'updated'
-  ) {
-    progress.state = 'updating';
-    await connection.setProgress(progress);
-    await importCompoundFiles(connection, progress, files, { lastDocument });
-    progress.state = 'updated';
-    await connection.setProgress(progress);
-  }
-}
-
-async function importCompoundFiles(connection, progress, files, options) {
-  options = { shouldImport: false, ...options };
-  for (let file of files) {
-    if (file.name.endsWith('.gz')) {
-      await importOneCompoundFile(connection, progress, file, options);
-      options.shouldImport = true;
-    } else if (file.name.startsWith('killed')) {
-      await removeEntriesFromFile(connection, 'compounds', file);
+    if (
+      !files.includes(progress.sources) &&
+      progress.state === 'updated' &&
+      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL
+    ) {
+      await importCompoundFiles(
+        connection,
+        progress,
+        files,
+        { lastDocument },
+        'incremental',
+      );
+    }
+  } catch (e) {
+    if (connection) {
+      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
     }
   }
-}
-
-async function getFilesToImport(connection, progress, allFiles) {
-  const collection = await connection.getCollection('compounds');
-  const lastDocument = await collection
-    .find({ _seq: { $lte: progress.seq } })
-    .sort('_seq', -1)
-    .limit(1)
-    .next();
-
-  if (!lastDocument) {
-    throw new Error('This should never happen');
-  }
-
-  debug(`last file processed: ${lastDocument._source}`);
-
-  const firstIndex = allFiles.findIndex((n) =>
-    n.path.endsWith(lastDocument._source),
-  );
-
-  if (firstIndex === -1) {
-    debug('Should import all the incremental updates');
-    return { files: allFiles, lastDocument: {} };
-  }
-
-  debug(`starting with file ${lastDocument._source}`);
-
-  return { lastDocument, files: allFiles.slice(firstIndex) };
-}
-
-async function syncIncrementalCompoundFolder() {
-  debug('Synchronize incremental compound folder');
-
-  const source = `${process.env.PUBCHEM_SOURCE}Compound/Weekly/`;
-  const destination = `${process.env.ORIGINAL_DATA_PATH}/compound/weekly`;
-  const allFiles = [];
-  const weeks = await getFilesList(source, {
-    fileFilter: (file) => file && file.name.match(/\d{4}-\d{2}-\d{2}/),
-  });
-  for (let week of weeks) {
-    const baseSource = `${source}/${week.name}`;
-    debug(`Processing week: ${week.name}`);
-    allFiles.push(
-      ...(
-        await syncFolder(`${baseSource}SDF/`, `${destination}/${week.name}/`, {
-          fileFilter: (file) => file && file.name.endsWith('.gz'),
-        })
-      ).allFiles,
-    );
-    allFiles.push(
-      ...(
-        await syncFolder(`${baseSource}/`, `${destination}/${week.name}/`, {
-          fileFilter: (file) => file && file.name.endsWith('killed-CIDs'),
-        })
-      ).allFiles,
-    );
-  }
-
-  return allFiles.sort((a, b) => {
-    if (a.path < b.path) return -1;
-    if (a.path > b.path) return 1;
-    return 0;
-  });
 }
 
 export default incrementalCompoundImport;
