@@ -112,7 +112,7 @@ export async function sync(connection) {
       progress.state = 'updated';
       // create indexes on the collection for faster search
       await connection.setProgress(progress);
-      await collection.createIndexes([{ 'data.ocl.noStereoID': 1 }]);
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

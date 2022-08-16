@@ -101,16 +101,16 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on the collection
-      await collection.createIndexes([
-        { 'data.ocl.idCode': 1 },
-        { 'data.ocl.noStereoID': 1 },
-        { 'data.spectrum.msLevel': 1 },
-        { 'data.spectrum.ionSource': 1 },
-        { 'data.spectrum.precursorMz': 1 },
-        { 'data.spectrum.adduct': 1 },
-        { 'data.spectrum.ionMode': 1 },
-        { 'data.spectrum.data': 1 },
-      ]);
+      await collection.createIndex({ 'data.ocl.idCode': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.spectrum.msLevel': 1 });
+      await collection.createIndex({ 'data.spectrum.ionSource': 1 });
+      await collection.createIndex({ 'data.spectrum.precursorMz': 1 });
+      await collection.createIndex({ 'data.spectrum.adduct': 1 });
+      await collection.createIndex({ 'data.spectrum.ionMode': 1 });
+      await collection.createIndex({ 'data.spectrum.data': 1 });
+      await collection.createIndex({ _seq: 1 });
+
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

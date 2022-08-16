@@ -43,19 +43,18 @@ async function firstCompoundImport(connection) {
     await connection.setProgress(progress);
     // create indexes on the compounds collection
     let compoundsCollection = await connection.getCollection('compounds');
-    await compoundsCollection.createIndexes([
-      { 'data.em': 1 },
-      { 'data.mf': 1 },
-      { 'data.nbFragments': 1 },
-      { 'data.charge': 1 },
-      {
-        'data.mf': 1,
-        'data.nbFragments': 1,
-        'data.charge': 1,
-      },
-      { 'data.ocl.idCode': 1 },
-      { 'data.ocl.noStereoID': 1 },
-    ]);
+    await compoundsCollection.createIndex({ 'data.em': 1 });
+    await compoundsCollection.createIndex({ 'data.mf': 1 });
+    await compoundsCollection.createIndex({ 'data.nbFragments': 1 });
+    await compoundsCollection.createIndex({ 'data.charge': 1 });
+    await compoundsCollection.createIndex({
+      'data.mf': 1,
+      'data.nbFragments': 1,
+      'data.charge': 1,
+    });
+    await compoundsCollection.createIndex({ 'data.ocl.idCode': 1 });
+    await compoundsCollection.createIndex({ 'data.ocl.noStereoID': 1 });
+    await compoundsCollection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
       debug(e.message, { collection: 'compounds', connection, stack: e.stack });

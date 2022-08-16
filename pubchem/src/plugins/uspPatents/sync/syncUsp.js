@@ -32,13 +32,12 @@ export async function sync(connection) {
     await connection.setProgress(progress);
     // create indexes
     const collection = await connection.getCollection('uspPatents');
-    await collection.createIndexes([
-      { 'data.title': 1 },
-      { 'data.language': 1 },
-      { 'data.patentNumber': 1 },
-      { 'data.applicationType': 1 },
-      { 'data.pubchemPatentId': 1 },
-    ]);
+    await collection.createIndex({ 'data.title': 1 });
+    await collection.createIndex({ 'data.language': 1 });
+    await collection.createIndex({ 'data.patentNumber': 1 });
+    await collection.createIndex({ 'data.applicationType': 1 });
+    await collection.createIndex({ 'data.pubchemPatentId': 1 });
+    await collection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
       debug(e.message, {

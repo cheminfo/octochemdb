@@ -126,10 +126,9 @@ export async function aggregate(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
-      await targetCollection.createIndexes([
-        { naturalProduct: 1 },
-        { 'data.ocl.noStereoID': 1 },
-      ]);
+      await targetCollection.createIndex({ naturalProduct: 1 });
+      await targetCollection.createIndex({ _seq: 1 });
+      await targetCollection.createIndex({ 'data.ocl.noStereoID': 1 });
 
       debug('Aggregation Done');
     } else {

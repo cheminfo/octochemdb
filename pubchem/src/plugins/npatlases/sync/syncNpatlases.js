@@ -121,7 +121,8 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on npAtlases collection
-      await collection.createIndexes([{ 'data.ocl.noStereoID': 1 }]);
+      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ _seq: 1 });
 
       debug(`${imported} compounds processed`);
     } else {
