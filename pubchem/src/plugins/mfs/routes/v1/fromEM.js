@@ -72,7 +72,8 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('mfs');
 
     debug(JSON.stringify({ em, error }));
-
+    let fieldsToRetrieve = getFields(fields);
+    delete fieldsToRetrieve.id;
     const results = await collection
       .aggregate([
         {
@@ -82,11 +83,10 @@ async function searchHandler(request) {
           },
         },
         {
-          $project: getFields(fields),
+          $project: fieldsToRetrieve,
         },
         {
           $addFields: {
-            mf: '$_id',
             ppm: {
               $divide: [
                 { $multiply: [{ $abs: { $subtract: ['$em', em] } }, 1e6] },
