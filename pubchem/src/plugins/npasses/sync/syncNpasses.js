@@ -46,9 +46,7 @@ export async function sync(connection) {
         progress.dateEnd - Date.now() > process.env.NPASS_UPDATE_INTERVAL)
     ) {
       // create temporary collection
-      const temporaryCollection = await connection.getCollection(
-        'temporaryNpasses',
-      );
+      const temporaryCollection = await connection.getCollection('npasses_tmp');
       debug(`Start parsing npasses`);
       // set progress to updating
       progress.state = 'updating';

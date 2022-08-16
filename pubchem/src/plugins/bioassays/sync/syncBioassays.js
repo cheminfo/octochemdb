@@ -75,7 +75,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // Temporary collection to store the new data
       const temporaryCollection = await connection.getCollection(
-        'temporaryBioassays',
+        `${options.collectionName}_tmp`,
       );
       debug(`Start parsing`);
       for await (let entry of parseBioactivities(

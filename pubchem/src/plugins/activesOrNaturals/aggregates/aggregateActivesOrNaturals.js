@@ -27,9 +27,8 @@ export async function aggregate(connection) {
     'bioassays',
   ];
   const debug = Debug('aggregateActivesOrNaturals');
-  const COLLECTION_NAME = 'activesOrNaturals';
   try {
-    const options = { collection: COLLECTION_NAME, connection };
+    const options = { collection: 'activesOrNaturals', connection };
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
@@ -66,7 +65,7 @@ export async function aggregate(connection) {
     ) {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}_tmp`,
+        `${options.collection}_tmp`,
       );
 
       // debug unique numbers of noStereoIDs

@@ -57,7 +57,7 @@ export async function sync(connection) {
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
-        'temporaryLotuses',
+        `${options.collectionName}_tmp`,
       );
       debug(`Start parsing: ${fileName}`);
       // set progress state to updating

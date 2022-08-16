@@ -64,7 +64,7 @@ export async function sync(connection) {
       debug(`Start parsing: ${fileName}`);
       // create temporary collection to import
       const temporaryCollection = await connection.getCollection(
-        'temporaryCoconuts',
+        `${options.collectionName}_tmp`,
       );
       // set progress to updating
       progress.state = 'updating';

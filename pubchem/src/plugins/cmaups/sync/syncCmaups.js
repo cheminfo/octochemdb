@@ -52,9 +52,7 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       // Create a temporaty collection to avoid to drop the data already imported before the new ones are ready
-      const temporaryCollection = await connection.getCollection(
-        'temporaryCmaups',
-      );
+      const temporaryCollection = await connection.getCollection('cmaups_tmp');
       debug(`Start parsing cmaup`);
       for await (const entry of parseCmaups(
         general,

@@ -9,10 +9,9 @@ import Debug from '../../../utils/Debug.js';
  */
 export async function aggregate(connection) {
   const debug = Debug('aggregateActiveAgainst');
-  const COLLECTION_NAME = 'activeAgainst';
   try {
     // Get collections from the database
-    const options = { collection: COLLECTION_NAME, connection };
+    const options = { collection: 'activeAgainst', connection };
     const progress = await connection.getProgress(options.collection);
     const progressOfSourceCollection = await connection.getProgress(
       'activesOrNaturals',
@@ -41,7 +40,7 @@ export async function aggregate(connection) {
     ) {
       // If the last document imported is null, or the sources are different, or the state is not updated, then we need to import the data
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}`,
+        `${options.collection}_tmp`,
       );
       debug('start Aggregation process');
       progress.state = 'aggregating';

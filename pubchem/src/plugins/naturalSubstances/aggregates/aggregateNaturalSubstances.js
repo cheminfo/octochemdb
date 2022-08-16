@@ -5,9 +5,8 @@ import Debug from '../../../utils/Debug.js';
 
 export async function aggregate(connection) {
   const debug = Debug('naturalSubstances');
-  const COLLECTION_NAME = 'naturalSubstances';
   try {
-    const options = { collection: COLLECTION_NAME, connection };
+    const options = { collection: 'naturalSubstances', connection };
     const targetCollection = await connection.getCollection(options.collection);
     const compoundsCollection = await connection.getCollection('compounds');
     const progress = await connection.getProgress(options.collection);
@@ -32,7 +31,7 @@ export async function aggregate(connection) {
       progress.state !== 'aggregated'
     ) {
       const temporaryCollection = await connection.getCollection(
-        `${COLLECTION_NAME}`,
+        `${options.collection}_tmp`,
       );
       debug('start Aggregation process');
       progress.state = 'aggregating';
