@@ -22,10 +22,8 @@ export async function importOneUspFile(connection, progress, file, options) {
     // unzip file and get xmlpath
 
     const xmlPath = await unzipFile(file.path);
-    debug(xmlPath);
     const fileStream = await open(xmlPath, 'r');
     const readableStream = fileStream.readableWebStream();
-    debug(readableStream);
     let imported = 0;
     const fileName = xmlPath.split('/')[xmlPath.split('/').length - 1];
     // get last element of array
@@ -37,7 +35,16 @@ export async function importOneUspFile(connection, progress, file, options) {
       startSequenceID: progress.seq,
     });
     let { shouldImport, lastDocument } = options;
-    debug(fileStream);
+    /*
+    2001 version 1.5
+    2002,2003,2004 version 1.6
+    2005 XML Version 4.0 ICE
+    2006 XML Version 4.1 ICE
+    2007,2008,2009,2010,2011,2012 XML Version 4.2 ICE
+    2013,2014 XML Version 4.3 ICE
+    2015,2016,2017,2018,2019,2020,2021 XML Version 4.4 ICE
+    2022 XML Version 4.5 or 4.6 ICE
+    */
     for await (const entry of parseStream(
       readableStream,
       'us-patent-application',
