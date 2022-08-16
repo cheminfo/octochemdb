@@ -38,7 +38,6 @@ export async function sync(connection) {
       { 'data.patentNumber': 1 },
       { 'data.applicationType': 1 },
       { 'data.pubchemPatentId': 1 },
-      { _id: 1 },
     ]);
   } catch (e) {
     if (connection) {

@@ -56,7 +56,6 @@ export async function sync(connection) {
       await firstPatentsImport(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
       await collection.createIndexes([
-        { _id: 1 },
         { 'data.patents': 1 },
         { 'data.nbPatents': 1 },
       ]);

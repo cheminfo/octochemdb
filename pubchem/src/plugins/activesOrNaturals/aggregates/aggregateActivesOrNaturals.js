@@ -221,7 +221,6 @@ export async function aggregate(connection) {
 
       // Create Indexes
       await targetCollection.createIndexes([
-        { _id: 1 },
         { 'data.em': 1 },
         { 'data.kwBioassays': 1 },
         { 'data.meshTerms': 1 },

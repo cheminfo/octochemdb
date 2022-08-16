@@ -102,7 +102,6 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // create indexes on the collection
       await collection.createIndexes([
-        { _id: 1 },
         { 'data.ocl.idCode': 1 },
         { 'data.ocl.noStereoID': 1 },
         { 'data.spectrum.msLevel': 1 },

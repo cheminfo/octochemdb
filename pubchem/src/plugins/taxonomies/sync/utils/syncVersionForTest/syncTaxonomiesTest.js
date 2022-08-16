@@ -84,7 +84,6 @@ export async function sync(connection) {
   );
   await connection.setProgress(progress);
   await collection.createIndexes([
-    { _id: 1 },
     { 'data.phylum': 1 },
     { 'data.class': 1 },
     { 'data.order': 1 },

@@ -59,7 +59,6 @@ async function firstPubmedImport(connection) {
     await collection.createIndexes([
       { 'data.meshHeadings': 1 },
       { 'data.cids': 1 },
-      { _id: 1 },
     ]);
   } catch (e) {
     if (connection) {
