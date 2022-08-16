@@ -1,3 +1,5 @@
+import { fetch } from 'cross-fetch';
+
 export async function sendTelegram(message) {
   if (!process.env.TELEGRAM_BOT_ID || !process.env.TELEGRAM_CHAT_ID) {
     return;
