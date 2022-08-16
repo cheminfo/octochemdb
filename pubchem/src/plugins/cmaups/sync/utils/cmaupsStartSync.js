@@ -49,7 +49,7 @@ export default async function cmaupsStartSync(connection) {
     ];
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
+      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
     }
   }
 }

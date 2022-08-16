@@ -55,7 +55,7 @@ export default function readCmaupsFiles(
   } catch (e) {
     // If error is catch, debug it on telegram
     if (connection) {
-      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
+      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
     }
   }
 }

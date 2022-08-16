@@ -68,7 +68,7 @@ export default async function getCmaupsLastFiles(connection) {
   } catch (e) {
     // If error is chatched, debug it on telegram
     if (connection) {
-      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
+      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
     }
   }
 }

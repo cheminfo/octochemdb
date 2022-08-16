@@ -60,7 +60,7 @@ export async function* parseCmaups(
           } catch (e) {
             if (connection) {
               debug(e.message, {
-                collection: 'bioassays',
+                collection: 'cmaups',
                 connection,
                 stack: e.stack,
               });
@@ -131,7 +131,7 @@ export async function* parseCmaups(
       } catch (e) {
         if (connection) {
           debug(e.message, {
-            collection: 'bioassays',
+            collection: 'cmaups',
             connection,
             stack: e.stack,
           });
@@ -140,7 +140,7 @@ export async function* parseCmaups(
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
+      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
     }
   }
 }
