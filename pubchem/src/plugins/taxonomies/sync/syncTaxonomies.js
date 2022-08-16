@@ -66,7 +66,7 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       const temporaryCollection = await connection.getCollection(
-        'temporaryTaxonomies',
+        'taxonomies_tmp',
       );
       const fileListNodes = (
         await fileListFromZip(readFileSync(lastFile))
