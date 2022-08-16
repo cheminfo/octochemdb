@@ -39,6 +39,7 @@
     "bson-iterator": "^1.0.0",
     "camelcase": "^6.3.0",
     "camelcase-keys": "^7.0.2",
+    "cross-fetch": "^3.1.5",
     "debug": "^4.3.4",
     "delay": "^5.0.0",
     "dotenv": "^16.0.1",
