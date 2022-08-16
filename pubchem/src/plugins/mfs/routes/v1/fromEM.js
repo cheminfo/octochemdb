@@ -32,7 +32,7 @@ const fromEM = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'em,mf,total,atom,unsaturation',
+        default: 'em,_id,count,atom,unsaturation',
       },
     },
   },
@@ -48,7 +48,7 @@ export default fromEM;
  * @param {number} [request.query.em=0]
  * @param {number} [request.query.limit=1000]
  * @param {number} [request.query.precision=100]
- * @param {string} [request.query.fields='em,mf,total,atom,unsaturation']
+ * @param {string} [request.query.fields='em,_id,count,atom,unsaturation']
  * @param {number} [request.query.minPubchemEntries=0]
  * @return {Promise<Document[]>}
  */
@@ -59,7 +59,7 @@ async function searchHandler(request) {
     limit = 1e3,
     precision = 100,
     minPubchemEntries = 0,
-    fields = 'em,mf,total,atom,unsaturation',
+    fields = 'em,_id,count,atom,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
@@ -78,7 +78,7 @@ async function searchHandler(request) {
         {
           $match: {
             em: { $lt: em + error, $gt: em - error },
-            total: { $gte: minPubchemEntries },
+            count: { $gte: minPubchemEntries },
           },
         },
         {
