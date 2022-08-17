@@ -1,6 +1,7 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
@@ -21,9 +22,8 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         // generate molecule from smiles
         const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();
-        oclMolecule.stripStereoInformation();
         // get noStereoID
-        const noStereoID = oclMolecule.getIDCode();
+        const noStereoID = getNoStereoIDCode(oclMolecule);
         // parse taxonomies
         const taxonomy = entry.taxonomyReferenceObjects;
         const key = Object.keys(taxonomy)[0];

@@ -1,5 +1,6 @@
 import OCL from 'openchemlib';
 
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 /**
  * @description calculate the ocl substance data
@@ -11,8 +12,7 @@ export function getSubstanceData(molecule) {
   try {
     let oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
     const oclID = oclMolecule.getIDCodeAndCoordinates();
-    oclMolecule.stripStereoInformation();
-    const noStereoID = oclMolecule.getIDCode();
+    const noStereoID = getNoStereoIDCode(oclMolecule);
     let result = {
       id: oclID.idCode,
       coordinates: oclID.coordinates,

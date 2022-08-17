@@ -1,6 +1,7 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
@@ -20,8 +21,7 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
         // get noStereoID for the molecule
         const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();
-        oclMolecule.stripStereoInformation();
-        const noStereoID = oclMolecule.getIDCode();
+        const noStereoID = getNoStereoIDCode(oclMolecule);
         // parse taxonomies if available
         const taxonomies = entry?.textTaxa;
         const finalTaxonomies = [];

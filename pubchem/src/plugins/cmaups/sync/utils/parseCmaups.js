@@ -1,5 +1,6 @@
 import OCL from 'openchemlib';
 
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('parseCmaups');
@@ -55,8 +56,7 @@ export async function* parseCmaups(
           try {
             const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
             oclID = oclMolecule.getIDCodeAndCoordinates();
-            oclMolecule.stripStereoInformation();
-            noStereoID = oclMolecule.getIDCode();
+            noStereoID = getNoStereoIDCode(oclMolecule);
           } catch (e) {
             if (connection) {
               debug(e.message, {
@@ -104,7 +104,7 @@ export async function* parseCmaups(
               if (infos?.Family_Name && infos?.Family_Name !== 'NA') {
                 taxons.family = infos?.Family_Name;
               }
-              if (taxons !== {}) {
+              if (Object.keys(taxons).length > 0) {
                 finalTaxonomies.push(taxons);
               }
             }

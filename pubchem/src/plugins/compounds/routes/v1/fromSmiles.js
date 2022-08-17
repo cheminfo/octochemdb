@@ -2,6 +2,7 @@
 import OCL from 'openchemlib';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 
 const debug = Debug('fromSmiles');
@@ -70,9 +71,8 @@ async function searchHandler(request) {
       'data.ocl.idCode': molecule.getIDCode(),
     };
   } else {
-    molecule.stripStereoInformation();
     mongoQuery = {
-      'data.noStereoID': molecule.getIDCode(),
+      'data.noStereoID': getNoStereoIDCode(molecule),
     };
   }
 

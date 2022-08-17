@@ -2,6 +2,7 @@ import pkg from 'fs-extra';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 
 const { createReadStream } = pkg;
@@ -32,8 +33,7 @@ export async function* parseGNPs(jsonPath, connection) {
         // create a molecule from the entry smiles and get noStereoID
         const oclMolecule = OCL.Molecule.fromSmiles(entry.value.Smiles);
         const oclID = oclMolecule.getIDCodeAndCoordinates();
-        oclMolecule.stripStereoInformation();
-        const noStereoID = oclMolecule.getIDCode();
+        const noStereoID = getNoStereoIDCode(oclMolecule);
         // Get spectrum metadata
         let spectrum = {};
         if (entry.value.ms_level !== 'N/A') {

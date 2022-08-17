@@ -2,6 +2,7 @@ import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
 
+import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 
 const { MF } = MFParser;
@@ -27,8 +28,8 @@ export function getCompoundsData(molecule) {
   const nbFragments = mfParts.length;
   const mf = mfParts.join(' . ');
   const globalMF = moleculeMF.mf;
-  oclMolecule.stripStereoInformation();
-  const noStereoID = oclMolecule.getIDCode();
+
+  const noStereoID = getNoStereoIDCode(oclMolecule);
   let result = {
     data: {
       ocl: {
