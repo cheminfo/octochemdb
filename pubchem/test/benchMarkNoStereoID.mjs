@@ -57,8 +57,8 @@ suite
   .on('complete', function onComplete() {
     console.log(`Fastest is ${this.filter('fastest').map('name')}`);
     // get time in ms
-    console.log(this[0]);
-    console.log(this[1]);
-    console.log(this[2]);
+    console.log(this[0].times.period);
+    console.log(this[1].times.period);
+    console.log(this[2].times.period);
   })
   .run();
