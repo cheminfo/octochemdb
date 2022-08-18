@@ -1,28 +1,64 @@
+import { join } from 'path';
+
 import Benchmark from 'benchmark';
+import fs from 'fs-extra';
 import OCL from 'openchemlib';
 
-import getNoStereoIDCode from '../src/sync/utils/getNoStreoIDCode.js';
+// 1. stripStereoInformation + getIDCode (oldMethod)
+// 2. CanonizerUtil with NOSTEREO (newMethodNoStereo)
+// 3. CanonizerUtil NOSTEREO_TAUTOMER (newMethodNoStereoTautomer)
+// 4. Using old version OCL: method stripStereoInformation + getIDCode npm i openchemlib-js@8.0.1
+// 5. npm i openchemlib-js@latest
 
-// benchmark to get no stereo ID code with getNoStereoIDCode or with OCL stripStereoInformation method
-// 1. getNoStereoIDCode
-// 2. OCL stripStereoInformation
-// 3. OCL stripStereoInformation and getIDCodeAndCoordinates
+// read text file with 4096 SMILES
+const text = fs.readFileSync(join('pubchem/test/smilesList.txt'), 'utf8');
+const smilesList = text.split('\n');
+
+// methods to be call
+function oldMethod(smiles) {
+  const oclMolecule = OCL.Molecule.fromSmiles(smiles);
+  oclMolecule.stripStereoInformation();
+  return oclMolecule.getIDCode();
+}
+
+function newMethodNoStereo(smiles) {
+  const oclMolecule = OCL.Molecule.fromSmiles(smiles);
+  return OCL.CanonizerUtil.getIDCode(oclMolecule, OCL.CanonizerUtil.NOSTEREO);
+}
+
+function newMethodNoStereoTautomer(smiles) {
+  const oclMolecule = OCL.Molecule.fromSmiles(smiles);
+  return OCL.CanonizerUtil.getIDCode(
+    oclMolecule,
+    OCL.CanonizerUtil.NOSTEREO_TAUTOMER,
+  );
+}
 
 const suite = new Benchmark.Suite();
 suite
-  .add('old', () => {
-    const oclMolecule2 = OCL.Molecule.fromSmiles('CCC(=O)CC');
-    oclMolecule2.stripStereoInformation();
-    const noStereoID2 = oclMolecule2.getIDCode();
+  .add('oldMethod', () => {
+    for (let i = 0; i < smilesList.length; i++) {
+      oldMethod(smilesList[i]);
+    }
   })
-  .add('new', () => {
-    const oclMolecule = OCL.Molecule.fromSmiles('CC=C(O)CC');
-    const noStereoID = getNoStereoIDCode(oclMolecule);
+  .add('newMethodNoStereo', () => {
+    for (let i = 0; i < smilesList.length; i++) {
+      newMethodNoStereo(smilesList[i]);
+    }
+  })
+  .add('newMethodNoStereoTautomer', () => {
+    for (let i = 0; i < smilesList.length; i++) {
+      newMethodNoStereoTautomer(smilesList[i]);
+    }
   })
   .on('cycle', (event) => {
     console.log(String(event.target));
   })
   .on('complete', function onComplete() {
     console.log(`Fastest is ${this.filter('fastest').map('name')}`);
+    // get time in ms
+    console.log(this[0]);
+    console.log(this[1]);
+    console.log(this[2]);
   })
   .run();
