@@ -11,12 +11,12 @@ import getNoStereoIDCode from '../src/sync/utils/getNoStreoIDCode.js';
 const suite = new Benchmark.Suite();
 suite
   .add('old', () => {
-    const oclMolecule2 = OCL.Molecule.fromSmiles('C1=CC=C(C=C1)C2=CC=CC=C2');
+    const oclMolecule2 = OCL.Molecule.fromSmiles('CCC(=O)CC');
     oclMolecule2.stripStereoInformation();
     const noStereoID2 = oclMolecule2.getIDCode();
   })
   .add('new', () => {
-    const oclMolecule = OCL.Molecule.fromSmiles('C1=CC=C(C=C1)C2=CC=CC=C2');
+    const oclMolecule = OCL.Molecule.fromSmiles('CC=C(O)CC');
     const noStereoID = getNoStereoIDCode(oclMolecule);
   })
   .on('cycle', (event) => {
