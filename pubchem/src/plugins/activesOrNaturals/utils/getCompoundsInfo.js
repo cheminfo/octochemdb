@@ -1,4 +1,5 @@
 import Debug from '../../../utils/Debug.js';
+import { fetchPatentsTitles } from '../../../utils/fetchPatentsTitles.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
 const debug = Debug('getCompoundsInfo');
@@ -67,16 +68,19 @@ export default async function getCompoundsInfo(
     }
     cids = Object.keys(cids);
     let compoundsPatents = [];
+    let patentsTitles = {};
     let nbPatents = 0;
     if (cids.length > 0) {
       for (let compound of cids) {
         let currentCid = Number(compound);
         let cursor = await patentsCollection.find({ _id: currentCid });
         let patent = await cursor.next();
-
         if (patent !== null) {
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
+          for (let id of compoundsPatents) {
+            patentsTitles[id] = await fetchPatentsTitles(id);
+          }
           nbPatents += patent.data.nbPatents;
         }
       }
@@ -85,6 +89,9 @@ export default async function getCompoundsInfo(
     cas = Object.keys(cas);
     if (nbPatents > 0) {
       entry.data.nbPatents = nbPatents;
+    }
+    if (patentsTitles.length > 0) {
+      entry.data.patentsTitles = patentsTitles;
     }
     if (compoundsPatents.length > 0) {
       entry.data.patents = compoundsPatents;
