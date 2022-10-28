@@ -1,6 +1,5 @@
 import { fetchPatentsTitles } from '../fetchPatentsTitles.js';
 
-jest.setTimeout(30000);
 test('Get titles', async () => {
   const patentIDs = [
     'AU-2012294448-A1',
