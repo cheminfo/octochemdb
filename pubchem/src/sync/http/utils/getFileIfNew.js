@@ -7,7 +7,7 @@ import {
 } from 'fs';
 import { join } from 'path';
 
-//import { fetch } from 'cross-fetch';
+import { fetch } from 'cross-fetch';
 import { fileListFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
 
@@ -24,6 +24,7 @@ const debug = Debug('getFileIfNew');
  */
 async function getFileIfNew(file, targetFolder, options = {}) {
   const { filename, extension } = options;
+
   if (!filename || !extension) {
     throw new Error('options filename and extension are mandatory');
   }

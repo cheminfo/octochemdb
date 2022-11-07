@@ -17,7 +17,7 @@ export async function sync(connection) {
   const debug = Debug('syncPatents');
   try {
     let options = {
-      collectionSource: process.env.CIDTOPATENTS_SOURCE,
+      collectionSource: process.env.CIDTOPATENT_SOURCE,
       destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/patents/cidToPatents`,
       collectionName: 'patents',
       filenameNew: 'cidToPatents',
