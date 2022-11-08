@@ -90,12 +90,14 @@ export default async function importOneCompoundFile(
         actions.push(
           improveCompoundPool(compound)
             .then((result) => {
-              result._seq = ++progress.seq;
-              return collection.updateOne(
-                { _id: result._id },
-                { $set: result },
-                { upsert: true },
-              );
+              if (result) {
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
+                );
+              }
             })
             .then(() => {
               progress.sources = file.path.replace(
