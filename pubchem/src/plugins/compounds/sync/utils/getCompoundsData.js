@@ -23,13 +23,13 @@ export async function getCompoundsData(molecule) {
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     let urlIDCode = encodeURIComponent(idCode);
     let dataCompound = await fetch(
-      `powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+      `http://powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
     );
     // if fetch request failed re try 3 times
     let count = 0;
     while (!dataCompound.ok && count < 3) {
       dataCompound = await fetch(
-        `powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+        `http://powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
       );
       count++;
     }
