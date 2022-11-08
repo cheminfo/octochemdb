@@ -85,25 +85,35 @@ export default async function importOneCompoundFile(
           continue;
         }
       }
-      // promises to be resolved
-      actions.push(
-        improveCompoundPool(compound)
-          .then((result) => {
-            result._seq = ++progress.seq;
-            return collection.updateOne(
-              { _id: result._id },
-              { $set: result },
-              { upsert: true },
-            );
-          })
-          .then(() => {
-            progress.sources = file.path.replace(
-              process.env.ORIGINAL_DATA_PATH,
-              '',
-            );
-            return connection.setProgress(progress);
-          }),
-      );
+      try {
+        // promises to be resolved
+        actions.push(
+          improveCompoundPool(compound)
+            .then((result) => {
+              result._seq = ++progress.seq;
+              return collection.updateOne(
+                { _id: result._id },
+                { $set: result },
+                { upsert: true },
+              );
+            })
+            .then(() => {
+              progress.sources = file.path.replace(
+                process.env.ORIGINAL_DATA_PATH,
+                '',
+              );
+              return connection.setProgress(progress);
+            }),
+        );
+      } catch (e) {
+        if (connection) {
+          debug(e.message, {
+            collection: 'compounds',
+            connection,
+            stack: e.stack,
+          });
+        }
+      }
     }
     newCompounds += actions.length;
     // wait for all the promises to be resolved
