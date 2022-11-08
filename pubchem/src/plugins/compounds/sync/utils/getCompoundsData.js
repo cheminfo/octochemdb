@@ -55,8 +55,8 @@ export async function getCompoundsData(molecule) {
     const mfInfo = new MF(result.data.mf).getInfo();
     result.data.unsaturation = mfInfo.unsaturation;
     result.data.atom = mfInfo.atoms;
+    return result;
   } catch (e) {
     debug(e);
   }
-  return result;
 }
