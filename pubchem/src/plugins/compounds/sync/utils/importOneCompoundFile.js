@@ -113,6 +113,7 @@ export default async function importOneCompoundFile(
             stack: e.stack,
           });
         }
+        continue;
       }
     }
     newCompounds += actions.length;
