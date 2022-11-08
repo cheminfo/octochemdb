@@ -33,37 +33,39 @@ export async function getCompoundsData(molecule) {
       );
       count++;
     }
-    let data = await dataCompound.json();
+    if (!dataCompound.ok) {
+      let data = await dataCompound.json();
 
-    let result = {
-      data: {
-        ocl: {
-          idCode: data.result.idCode,
-          coordinates: oclID.coordinates,
-          index: data.result.ssIndex,
-          noStereoID: data.result.noStereoID,
-          noStereoTautomerID: data.result.noStereoTautomerID,
+      let result = {
+        data: {
+          ocl: {
+            idCode: data.result.idCode,
+            coordinates: oclID.coordinates,
+            index: data.result.ssIndex,
+            noStereoID: data.result.noStereoID,
+            noStereoTautomerID: data.result.noStereoTautomerID,
 
-          acceptorCount: data.result.acceptorCount,
-          donorCount: data.result.donorCount,
-          logP: data.result.logP,
-          logS: data.result.logS,
-          polarSurfaceArea: data.result.polarSurfaceArea,
-          rotatableBondCount: data.result.rotatableBondCount,
-          stereoCenterCount: data.result.stereoCenterCount,
+            acceptorCount: data.result.acceptorCount,
+            donorCount: data.result.donorCount,
+            logP: data.result.logP,
+            logS: data.result.logS,
+            polarSurfaceArea: data.result.polarSurfaceArea,
+            rotatableBondCount: data.result.rotatableBondCount,
+            stereoCenterCount: data.result.stereoCenterCount,
+          },
+          mf: data.result.mf,
+          em: data.result.em,
+          charge: data.result.charge,
+          mw: data.result.mw,
         },
-        mf: data.result.mf,
-        em: data.result.em,
-        charge: data.result.charge,
-        mw: data.result.mw,
-      },
-    };
+      };
 
-    // calculate molecular formula properties (ex. exact mass, unsaturations, etc.)
-    const mfInfo = new MF(result.data.mf).getInfo();
-    result.data.unsaturation = mfInfo.unsaturation;
-    result.data.atom = mfInfo.atoms;
-    return result;
+      // calculate molecular formula properties (ex. exact mass, unsaturations, etc.)
+      const mfInfo = new MF(result.data.mf).getInfo();
+      result.data.unsaturation = mfInfo.unsaturation;
+      result.data.atom = mfInfo.atoms;
+      return result;
+    }
   } catch (e) {
     debug(e);
   }
