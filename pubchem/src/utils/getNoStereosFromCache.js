@@ -29,6 +29,8 @@ export async function getNoStereosFromCache(molecule, connection) {
         noStereoTautomerID: data.result.noStereoTautomerID,
       };
       return ocl;
+    } else {
+      debug(`Error: ${dataCompound.status} ${dataCompound}`);
     }
   } catch (e) {
     if (connection) {

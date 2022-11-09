@@ -65,6 +65,8 @@ export async function getSubstanceData(molecule) {
       result.data.unsaturation = mfInfo.unsaturation;
       result.data.atom = mfInfo.atoms;
       return result;
+    } else {
+      debug(`Error: ${dataSubstance.status} ${dataSubstance}`);
     }
   } catch (e) {
     debug(e);
