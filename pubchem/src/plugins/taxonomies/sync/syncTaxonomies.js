@@ -61,7 +61,8 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.TAXONOMY_DATE_INTERVAL)
+        Date.now() - progress.dateEnd >
+          Number(process.env.TAXONOMY_DATE_INTERVAL))
     ) {
       progress.state = 'updating';
       await connection.setProgress(progress);
