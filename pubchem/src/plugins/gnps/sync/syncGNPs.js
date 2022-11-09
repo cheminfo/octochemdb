@@ -28,7 +28,7 @@ export async function sync(connection) {
     const progress = await connection.getProgress(options.collectionName);
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.GNPS_DATE_INTERVAL &&
+      Date.now() - progress.dateEnd > Number(process.env.GNPS_DATE_INTERVAL) &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -55,7 +55,7 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.GNPS_UPDATE_INTERVAL)
+        Date.now() - progress.dateEnd > Number(process.env.GNPS_DATE_INTERVAL))
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
