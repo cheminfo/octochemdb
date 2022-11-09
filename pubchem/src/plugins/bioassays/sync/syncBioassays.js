@@ -33,9 +33,14 @@ export async function sync(connection) {
     const bioassaysFile = await getLastFileSync(options);
     // Get progress of last sync and the bioassays collection
     const progress = await connection.getProgress(options.collectionName);
+    const sources = [
+      bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+      bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    ];
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.BIOASSAY_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.BIOASSAY_UPDATE_INTERVA) &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -48,10 +53,6 @@ export async function sync(connection) {
       progress,
       options.collectionName,
     );
-    const sources = [
-      bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
-      bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
-    ];
 
     // Define different coulters
     let counter = 0;
@@ -62,7 +63,8 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.BIOASSAY_UPDATE_INTERVAL)
+        Date.now() - progress.dateEnd >
+          Number(process.env.BIOASSAY_UPDATE_INTERVAL))
     ) {
       // Generate Logs for the sync
       const logs = await connection.getImportationLog({
