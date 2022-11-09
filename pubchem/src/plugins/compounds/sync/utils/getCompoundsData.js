@@ -21,6 +21,8 @@ export async function getCompoundsData(molecule) {
     }
     let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
+    let fragmentMap = [];
+    let nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
     let urlIDCode = encodeURIComponent(idCode);
     let dataCompound = await fetch(
       `http://powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
@@ -57,6 +59,7 @@ export async function getCompoundsData(molecule) {
           em: data.result.em,
           charge: data.result.charge,
           mw: data.result.mw,
+          nbFragments,
         },
       };
 
