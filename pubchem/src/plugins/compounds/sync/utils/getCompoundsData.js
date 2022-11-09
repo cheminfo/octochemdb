@@ -33,9 +33,9 @@ export async function getCompoundsData(molecule) {
       );
       count++;
     }
-    if (!dataCompound.ok) {
+    if (dataCompound.ok) {
       let data = await dataCompound.json();
-
+      //  console.log(data);
       let result = {
         data: {
           ocl: {
