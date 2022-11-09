@@ -1,7 +1,7 @@
 import OCL from 'openchemlib';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 const debug = Debug('parseCmaups');
 /**
@@ -51,12 +51,10 @@ export async function* parseCmaups(
           }
           // Get molecule structure data
           const smilesDb = item.__parsed_extra.slice(-1)[0];
-          let oclID;
-          let noStereoID;
+          let ocl;
           try {
             const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
-            oclID = oclMolecule.getIDCodeAndCoordinates();
-            noStereoID = getNoStereoIDCode(oclMolecule);
+            ocl = await getNoStereosFromCache(oclMolecule, connection);
           } catch (e) {
             if (connection) {
               debug(e.message, {
@@ -113,10 +111,7 @@ export async function* parseCmaups(
           const result = {
             _id: item.Ingredient_ID,
             data: {
-              ocl: {
-                idCode: oclID.idCode,
-                noStereoID,
-              },
+              ocl,
             },
           };
           if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
