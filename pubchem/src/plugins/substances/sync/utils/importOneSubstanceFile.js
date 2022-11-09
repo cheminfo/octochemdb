@@ -78,20 +78,22 @@ export default async function importOneSubstanceFile(
         actions.push(
           improveSubstancePool(substance)
             .then((result) => {
-              if (result.data.taxonomyIDs) {
-                let taxonomies = getTaxonomiesSubstances(
-                  result,
-                  collectionTaxonomies,
-                  oldToNewTaxIDs,
+              if (result) {
+                if (result.data.taxonomyIDs) {
+                  let taxonomies = getTaxonomiesSubstances(
+                    result,
+                    collectionTaxonomies,
+                    oldToNewTaxIDs,
+                  );
+                  result.data.taxonomies = taxonomies;
+                }
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
                 );
-                result.data.taxonomies = taxonomies;
               }
-              result._seq = ++progress.seq;
-              return collection.updateOne(
-                { _id: result._id },
-                { $set: result },
-                { upsert: true },
-              );
             })
             .then(() => {
               progress.sources = file.path.replace(
