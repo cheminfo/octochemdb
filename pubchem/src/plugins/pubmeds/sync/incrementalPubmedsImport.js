@@ -26,7 +26,8 @@ async function incrementalPubmedImport(connection) {
     );
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.PUBMED_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.PUBMED_UPDATE_INTERVAL) &&
       !files.includes(progress.sources)
     ) {
       progress.dateStart = Date.now();
@@ -35,7 +36,7 @@ async function incrementalPubmedImport(connection) {
     if (
       !files.includes(progress.sources) &&
       progress.state === 'updated' &&
-      progress.dateEnd - Date.now() > process.env.PUBMED_UPDATE_INTERVAL
+      Date.now() - progress.dateEnd > Number(process.env.PUBMED_UPDATE_INTERVAL)
     ) {
       let options = {
         collectionSource: process.env.CIDTOPMID_SOURCE,
