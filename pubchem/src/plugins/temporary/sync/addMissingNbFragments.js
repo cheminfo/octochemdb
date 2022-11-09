@@ -30,6 +30,7 @@ export async function sync(connection) {
       await collectionCompounds.updateOne(
         { _id: entry._id },
         { $set: { 'data.nbFragments': nbFragments } },
+        { upsert: true },
       );
     }
     fixed++;
