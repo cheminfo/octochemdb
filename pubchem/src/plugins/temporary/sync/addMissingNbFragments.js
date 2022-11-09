@@ -1,6 +1,6 @@
-import OCL from 'openchemlib';
-
 import Debug from '../../../utils/Debug.js';
+
+import improvePool from './improvePool.js';
 
 export async function sync(connection) {
   const debug = Debug('addMissingNbFragments');
@@ -8,32 +8,27 @@ export async function sync(connection) {
     // get compounds collection
     const collectionCompounds = await connection.getCollection('compounds');
     // get collectionCompounds count
-    // iterate each entry of the collection
-    const cursor = collectionCompounds.find({});
-    let counter = 0;
-    let fixed = 0;
-    let start = Date.now();
-    for await (const entry of cursor) {
-      // get the oclID
-      const oclID = entry.data.ocl.noStereoTautomerID;
-      // get the molecule
-      const molecule = OCL.Molecule.fromIDCode(oclID);
+    // iterate each entry of the collection in parallel to n-1 cpu
+    // iterate each entry wich has not nbFragments
+    const cursor = collectionCompounds.find({
+      'data.nbFragments': { $exists: false },
+    });
 
-      let fragmentMap = [];
-      let nbFragments = molecule.getFragmentNumbers(fragmentMap, false, false);
-      if (Date.now() - start > 10000) {
-        debug(`Processing: counter: ${counter} - Fixed: ${fixed} of 17258291`);
-        start = Date.now();
-      }
-      // insert the number of fragments in the entry
-      entry.data.nbFragments = nbFragments;
-      await collectionCompounds.updateOne(
-        { _id: entry._id },
-        { $set: { entry } },
-        { upsert: true },
+    let actions = [];
+    for await (const entry of cursor) {
+      actions.push(
+        improvePool(entry).then((result) => {
+          return collectionCompounds.updateOne(
+            { _id: result._id },
+            { $set: result },
+            { upsert: true },
+          );
+        }),
       );
-      fixed++;
     }
+
+    // insert the number of fragments in the entry
+    await Promise.all(actions);
   } catch (e) {
     debug(e);
   }
