@@ -8,7 +8,6 @@ export async function sync(connection) {
     // get compounds collection
     const collectionCompounds = await connection.getCollection('compounds');
     // get collectionCompounds count
-    const count = await collectionCompounds.countDocuments();
     // iterate each entry of the collection
     const cursor = collectionCompounds.find({});
     let counter = 0;
@@ -22,18 +21,19 @@ export async function sync(connection) {
 
       let fragmentMap = [];
       let nbFragments = molecule.getFragmentNumbers(fragmentMap, false, false);
-      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(`Processing: counter: ${counter} - Fixed: ${fixed} of ${count}`);
+      if (Date.now() - start > 10000) {
+        debug(`Processing: counter: ${counter} - Fixed: ${fixed} of 17258291`);
         start = Date.now();
       }
       // insert the number of fragments in the entry
+      entry.data.nbFragments = nbFragments;
       await collectionCompounds.updateOne(
         { _id: entry._id },
-        { $set: { 'data.nbFragments': nbFragments } },
+        { $set: { entry } },
         { upsert: true },
       );
+      fixed++;
     }
-    fixed++;
   } catch (e) {
     debug(e);
   }
