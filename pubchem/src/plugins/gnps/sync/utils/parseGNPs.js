@@ -2,8 +2,8 @@ import pkg from 'fs-extra';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
@@ -31,9 +31,10 @@ export async function* parseGNPs(jsonPath, connection) {
           continue;
         }
         // create a molecule from the entry smiles and get noStereoID
+        // should get noStereoID, noStereoTautomer,  coordinates getNoStereosFromCache
+
         const oclMolecule = OCL.Molecule.fromSmiles(entry.value.Smiles);
-        const oclID = oclMolecule.getIDCodeAndCoordinates();
-        const noStereoID = getNoStereoIDCode(oclMolecule);
+        const ocl = await getNoStereosFromCache(oclMolecule, connection);
         // Get spectrum metadata
         let spectrum = {};
         if (entry.value.ms_level !== 'N/A') {
@@ -72,10 +73,7 @@ export async function* parseGNPs(jsonPath, connection) {
         const result = {
           _id: entry.value.spectrum_id,
           data: {
-            ocl: {
-              idCode: oclID.idCode,
-              noStereoID,
-            },
+            ocl,
             spectrum,
           },
         };
