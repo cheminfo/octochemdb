@@ -23,9 +23,7 @@ export async function sync(connection) {
       let fragmentMap = [];
       let nbFragments = molecule.getFragmentNumbers(fragmentMap, false, false);
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
-        debug(
-          `Processing: counter: ${counter} - imported: ${fixed} of ${count}`,
-        );
+        debug(`Processing: counter: ${counter} - Fixed: ${fixed} of ${count}`);
         start = Date.now();
       }
       // insert the number of fragments in the entry
