@@ -102,7 +102,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // create indexes on the collection
       await collection.createIndex({ 'data.ocl.idCode': 1 });
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ 'data.spectrum.msLevel': 1 });
       await collection.createIndex({ 'data.spectrum.ionSource': 1 });
       await collection.createIndex({ 'data.spectrum.precursorMz': 1 });

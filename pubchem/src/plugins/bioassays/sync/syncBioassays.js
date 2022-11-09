@@ -126,7 +126,7 @@ export async function sync(connection) {
       debug(`${imported} compounds processed`);
 
       // Indexing of properties in collection
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
     } else {
       debug(`file already processed`);

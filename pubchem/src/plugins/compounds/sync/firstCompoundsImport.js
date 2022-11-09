@@ -53,7 +53,7 @@ async function firstCompoundImport(connection) {
       'data.charge': 1,
     });
     await compoundsCollection.createIndex({ 'data.ocl.idCode': 1 });
-    await compoundsCollection.createIndex({ 'data.ocl.noStereoID': 1 });
+    await compoundsCollection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
     await compoundsCollection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
