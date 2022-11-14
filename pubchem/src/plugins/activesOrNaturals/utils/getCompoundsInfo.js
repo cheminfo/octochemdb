@@ -8,7 +8,7 @@ const debug = Debug('getCompoundsInfo');
  * @param {*} entry Entry from the aggregation process
  * @param {*} data Array of all data for the current noStereoID
  * @param {*} compoundsCollection Compounds collection
- * @param {*} noStereoID current noStereoID
+ * @param {*} noStereoTautomerID current noStereoTautomerID
  * @param {*} connection PubChem connection
  * @returns {Promise} Returns the entry with the compounds information
  */
@@ -16,7 +16,7 @@ export default async function getCompoundsInfo(
   entry,
   data,
   compoundsCollection,
-  noStereoID,
+  noStereoTautomerID,
   connection,
   patentsCollection,
 ) {
@@ -44,7 +44,7 @@ export default async function getCompoundsInfo(
     }
     let bioActive = false;
     let cursor = await compoundsCollection
-      .find({ 'data.ocl.noStereoID': noStereoID })
+      .find({ 'data.ocl.noStereoTautomerID': noStereoTautomerID })
       .limit(1);
 
     let compoundInfo = await cursor.next();
@@ -58,12 +58,12 @@ export default async function getCompoundsInfo(
       cids[compoundInfo._id] = true;
     }
     if (compoundInfo === null) {
-      const molecule = { noStereoID };
+      const molecule = { noStereoTautomerID };
       let compoundData = await getCompoundsData(molecule);
-      entry.data.em = compoundData.data.em;
-      entry.data.charge = compoundData.data.charge;
-      entry.data.unsaturation = compoundData.data.unsaturation;
-      entry.data.mf = compoundData.data.mf;
+      entry.data.em = compoundData?.data.em;
+      entry.data.charge = compoundData?.data.charge;
+      entry.data.unsaturation = compoundData?.data.unsaturation;
+      entry.data.mf = compoundData?.data.mf;
       entry.data.bioActive = bioActive;
     }
     cids = Object.keys(cids);

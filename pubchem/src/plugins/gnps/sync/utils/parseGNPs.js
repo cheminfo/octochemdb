@@ -30,7 +30,7 @@ export async function* parseGNPs(jsonPath, connection) {
         ) {
           continue;
         }
-        // create a molecule from the entry smiles and get noStereoID
+        // create a molecule from the entry smiles and get noStereoTautomerID
         // should get noStereoID, noStereoTautomer,  coordinates getNoStereosFromCache
 
         const oclMolecule = OCL.Molecule.fromSmiles(entry.value.Smiles);

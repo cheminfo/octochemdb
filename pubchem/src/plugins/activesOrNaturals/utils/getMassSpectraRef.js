@@ -2,10 +2,10 @@ import Debug from '../../../utils/Debug.js';
 /**
  * Get DbRefs of mass spectra in gnps collection
  * @param {*} connection - mongo connection
- * @param {*} noStereoID - noStereoID
+ * @param {*} noStereoTautomerID - noStereoID
  * @returns {Promise<Array>} - DbRefs of mass spectra in gnps collection
  */
-export async function getMassSpectraRef(connection, noStereoID) {
+export async function getMassSpectraRef(connection, noStereoTautomerID) {
   const debug = Debug('getMassSpectra');
   try {
     const gnpsCollection = await connection.getCollection('gnps');
@@ -13,7 +13,7 @@ export async function getMassSpectraRef(connection, noStereoID) {
       .aggregate([
         {
           $match: {
-            'data.ocl.noStereoID': noStereoID,
+            'data.ocl.noStereoTautomerID': noStereoTautomerID,
           },
         },
         {

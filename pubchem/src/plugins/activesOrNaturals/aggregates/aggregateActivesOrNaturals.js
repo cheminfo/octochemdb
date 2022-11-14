@@ -68,27 +68,24 @@ export async function aggregate(connection) {
         `${options.collection}_tmp`,
       );
 
-      // debug unique numbers of noStereoIDs
-      debug(`Unique numbers of noStereoIDs: ${Object.keys(links).length}`);
+      // debug unique numbers of noStereoTautomerIDs
+      debug(
+        `Unique numbers of noStereoTautomerIDs: ${Object.keys(links).length}`,
+      );
       debug('start Aggregation process');
       // set progress to aggregating
       progress.state = 'aggregating';
       await connection.setProgress(progress);
-      // parse all noStereoIDs and get their info
-      for (const [noStereoID, sourcesLink] of Object.entries(links)) {
+      // parse all noStereoTautomerIDs and get their info
+      for (const [noStereoTautomerID, sourcesLink] of Object.entries(links)) {
         let entry = { data: { naturalProduct: false } };
         // get all documents from all collections
         let data = [];
         for (const source of sourcesLink) {
           if (
-            [
-              'npasses',
-              'cmaups',
-              'coconuts',
-              'lotuses',
-              'npAtlases',
-              'substances',
-            ].includes(source.collection)
+            ['npasses', 'cmaups', 'coconuts', 'lotuses', 'npAtlases'].includes(
+              source.collection,
+            )
           ) {
             entry.data.naturalProduct = true;
           }
@@ -98,16 +95,16 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
-        // get unique taxonomies from all collections for the current noStereoID
+        // get unique taxonomies from all collections for the current noStereoTautomerIDs
         let taxons = await getTaxonomiesInfo(data, connection);
-        // get unique activities from all collections for the current noStereoID
+        // get unique activities from all collections for the current noStereoTautomerIDs
         let activityInfo = await getActivitiesInfo(data, connection);
-        // get unique compound information from all collections for the current noStereoID
+        // get unique compound information from all collections for the current noStereoTautomerIDs
         entry = await getCompoundsInfo(
           entry,
           data,
           compoundsCollection,
-          noStereoID,
+          noStereoTautomerID,
           connection,
           patentsCollection,
         );
@@ -147,7 +144,10 @@ export async function aggregate(connection) {
           }
           entry.data.nbPubmeds = nbPubmeds;
         }
-        const massSpectraRefs = await getMassSpectraRef(connection, noStereoID);
+        const massSpectraRefs = await getMassSpectraRef(
+          connection,
+          noStereoTautomerID,
+        );
         let dbRefsMs = [];
         massSpectraRefs.forEach((ref) => {
           dbRefsMs.push(ref.dbRef);
@@ -156,7 +156,7 @@ export async function aggregate(connection) {
           entry.data.massSpectraRefs = dbRefsMs;
           entry.data.nbMassSpectra = dbRefsMs.length;
         }
-        // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoID
+        // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
         if (activityInfo.length > 0) {
           entry.data.bioActive = true;
           const keywordsActivities = getActivityKeywords(activityInfo);
@@ -169,7 +169,7 @@ export async function aggregate(connection) {
             entry.data.kwActiveAgainst = keywordsActiveAgainst;
           }
         }
-        // if taxons is not empty, get unique keywords of taxonomies for the current noStereoID
+        // if taxons is not empty, get unique keywords of taxonomies for the current noStereoTautomerID
         if (taxons.length > 0) {
           const keywordsTaxonomies = getTaxonomyKeywords(taxons);
           if (keywordsTaxonomies.length > 0) {
@@ -189,7 +189,7 @@ export async function aggregate(connection) {
         entry._seq = ++progress.seq;
         // update collection with new entry
         await temporaryCollection.updateOne(
-          { _id: noStereoID },
+          { _id: noStereoTautomerID },
           { $set: entry },
           { upsert: true },
         );
