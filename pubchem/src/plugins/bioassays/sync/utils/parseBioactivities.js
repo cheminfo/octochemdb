@@ -60,8 +60,9 @@ async function* parseBioactivities(
         let compound = await collectionCompounds.findOne({ _id: cid });
         if (compound) {
           compoundData.cid = cid;
-          compoundData.id = compound.data.ocl.noStereoID;
-          compoundData.noStereoID = compound.data.ocl.noStereoID;
+          compoundData.idCode = compound.data.ocl.idCode;
+          compoundData.noStereoTautomerID =
+            compound.data.ocl.noStereoTautomerID;
         }
       }
 
@@ -72,8 +73,8 @@ async function* parseBioactivities(
           aid,
           assay: bioassays[aid].name,
           ocl: {
-            idCode: compoundData.id,
-            noStereoID: compoundData.noStereoID,
+            idCode: compoundData.idCode,
+            noStereoTautomerID: compoundData.noStereoTautomerID,
           },
         },
       };
