@@ -1,7 +1,7 @@
 import OCL from 'openchemlib';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 /**
  * @description parse all npasses files and returns the data to be imported
@@ -59,23 +59,9 @@ export async function* parseNpasses(
       }
       // get ocl molecule and noStereoID
       const smilesDb = property.canonical_smiles;
-      let oclID;
-      let noStereoID;
-      try {
-        const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
+      const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
+      const ocl = getNoStereosFromCache(oclMolecule, connection);
 
-        oclID = oclMolecule.getIDCodeAndCoordinates();
-        noStereoID = getNoStereoIDCode(oclMolecule);
-      } catch (e) {
-        if (connection) {
-          debug(e.message, {
-            collection: 'npasses',
-            connection,
-            stack: e.stack,
-          });
-          continue;
-        }
-      }
       // get taxonomies from which the molecule is derived
       const orgIDs = speciesPair[item.np_id];
       const taxonomies = [];
@@ -125,10 +111,7 @@ export async function* parseNpasses(
       const result = {
         _id: item.np_id,
         data: {
-          ocl: {
-            idCode: oclID.idCode,
-            noStereoID,
-          },
+          ocl,
         },
       };
       if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
