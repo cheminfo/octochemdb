@@ -35,7 +35,8 @@ export async function sync(connection) {
     const progress = await connection.getProgress(options.collectionName);
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.NPATLAS_UPDATE_INTERVAL) &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -63,7 +64,8 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL)
+        Date.now() - progress.dateEnd >
+          Number(process.env.NPATLAS_UPDATE_INTERVAL))
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
@@ -121,7 +123,7 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on npAtlases collection
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
 
       debug(`${imported} compounds processed`);

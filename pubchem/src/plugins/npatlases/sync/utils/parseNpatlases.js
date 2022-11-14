@@ -1,7 +1,7 @@
 import OCL from 'openchemlib';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 /**
  * @description parse NPATLAS file and return entries to be imported
  * @param {*} json - NPATLAS file
@@ -13,10 +13,8 @@ export async function* parseNpatlases(json, connection) {
   try {
     for await (const entry of json) {
       try {
-        const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
-        const oclID = oclMolecule.getIDCodeAndCoordinates();
-
-        const noStereoID = getNoStereoIDCode(oclMolecule);
+        const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
+        const ocl = getNoStereosFromCache(oclMolecule, connection);
         const taxonomies = entry.origin_organism;
         const doi = entry.origin_reference.doi;
         let taxon = {};
@@ -46,10 +44,7 @@ export async function* parseNpatlases(json, connection) {
         const result = {
           _id: entry.npaid,
           data: {
-            ocl: {
-              idCode: oclID.idCode,
-              noStereoID,
-            },
+            ocl,
           },
         };
         if (entry.pubchem_cid) result.data.cid = entry.pubchem_cid;
