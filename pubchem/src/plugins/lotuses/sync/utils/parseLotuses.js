@@ -1,8 +1,8 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
 const debug = Debug('parseLotuses');
@@ -20,10 +20,9 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
     for await (const entry of bsonIterator(readStream)) {
       try {
         // generate molecule from smiles
-        const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
-        const oclID = oclMolecule.getIDCodeAndCoordinates();
-        // get noStereoID
-        const noStereoID = getNoStereoIDCode(oclMolecule);
+        // get noStereoID for the molecule
+        const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
+        const ocl = getNoStereosFromCache(oclMolecule, connection);
         // parse taxonomies
         const taxonomy = entry.taxonomyReferenceObjects;
         const key = Object.keys(taxonomy)[0];
@@ -115,10 +114,7 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         const result = {
           _id: entry.lotus_id,
           data: {
-            ocl: {
-              idCode: oclID.idCode,
-              noStereoID,
-            },
+            ocl,
           },
         };
         if (entry?.iupac_name) result.data.iupacName = entry?.iupac_name;
