@@ -1,3 +1,5 @@
+import OCL from 'openchemlib';
+
 import Debug from '../../../utils/Debug.js';
 import { fetchPatentsTitles } from '../../../utils/fetchPatentsTitles.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
@@ -58,8 +60,10 @@ export default async function getCompoundsInfo(
       cids[compoundInfo._id] = true;
     }
     if (compoundInfo === null) {
-      const molecule = { noStereoTautomerID };
+      const molecule = OCL.Molecule.fromIDCode(noStereoTautomerID);
+      const smiles = molecule.toSmiles();
       let compoundData = await getCompoundsData(molecule);
+      entry.data.smiles = smiles;
       entry.data.em = compoundData?.data.em;
       entry.data.charge = compoundData?.data.charge;
       entry.data.unsaturation = compoundData?.data.unsaturation;
