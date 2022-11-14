@@ -86,7 +86,7 @@ export default async function getBioassays(
           }
           let taxonomy = await collectionTaxonomies.findOne({ _id: idToUse });
           if (taxonomy) {
-            if (taxonomy.data !== {}) {
+            if (taxonomy.data !== undefined) {
               taxonomies.push(taxonomy.data);
             }
           }
