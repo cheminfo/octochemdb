@@ -24,7 +24,6 @@ async function incrementalPubmedImport(connection) {
       allFiles,
       'incremental',
     );
-    debug(allFiles);
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -34,6 +33,10 @@ async function incrementalPubmedImport(connection) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
     }
+    debug(
+      Date.now() - progress.dateEnd >
+        Number(process.env.PUBMED_UPDATE_INTERVAL),
+    );
     if (
       !files.includes(progress.sources) &&
       progress.state === 'updated' &&

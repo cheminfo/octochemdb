@@ -37,7 +37,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
     if (skipping) {
-      if (file.name !== lastFileImported.name && fileList !== []) {
+      if (file.name !== lastFileImported.name && fileList.length !== 0) {
         if (!file.name.includes('killed')) {
           continue;
         }
