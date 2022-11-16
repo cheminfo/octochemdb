@@ -24,6 +24,7 @@ async function incrementalPubmedImport(connection) {
       allFiles,
       'incremental',
     );
+    debug(allFiles);
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
