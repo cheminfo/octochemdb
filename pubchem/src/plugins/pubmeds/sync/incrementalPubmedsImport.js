@@ -33,7 +33,7 @@ async function incrementalPubmedImport(connection) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
     }
-    debug(Number(process.env.PUBMED_UPDATE_INTERVAL));
+    debug(process.env.PUBMED_UPDATE_INTERVAL);
     if (
       !files.includes(progress.sources) &&
       progress.state === 'updated' &&
