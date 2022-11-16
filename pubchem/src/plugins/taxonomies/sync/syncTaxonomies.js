@@ -30,7 +30,7 @@ export async function sync(connection) {
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
-        Number(process.env.TAXONOMY_DATE_INTERVAL) &&
+        Number(process.env.TAXONOMY_DATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -63,7 +63,7 @@ export async function sync(connection) {
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
         Date.now() - progress.dateEnd >
-          Number(process.env.TAXONOMY_DATE_INTERVAL))
+          Number(process.env.TAXONOMY_DATE_INTERVAL) * 24 * 60 * 60 * 1000)
     ) {
       progress.state = 'updating';
       await connection.setProgress(progress);

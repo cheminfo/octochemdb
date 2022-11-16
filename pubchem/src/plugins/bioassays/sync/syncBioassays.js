@@ -64,7 +64,7 @@ export async function sync(connection) {
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
         Date.now() - progress.dateEnd >
-          Number(process.env.BIOASSAY_UPDATE_INTERVAL))
+          Number(process.env.BIOASSAY_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
     ) {
       // Generate Logs for the sync
       const logs = await connection.getImportationLog({

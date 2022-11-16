@@ -35,7 +35,8 @@ export async function sync(connection) {
     let start = Date.now();
     if (
       progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd > Number(process.env.CMAUP_UPDATE_INTERVAL) &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.CMAUP_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       JSON.stringify(sources) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -46,7 +47,8 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((JSON.stringify(sources) !== progress.sources ||
         progress.state !== 'updated') &&
-        Date.now() - progress.dateEnd > Number(process.env.CMAUP_UPDATE_INTERVAL) 
+        Date.now() - progress.dateEnd >
+          Number(process.env.CMAUP_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
     ) {
       // Define stat updating because in case of failure Cron will retry importation in 24h
       progress.state = 'updating';

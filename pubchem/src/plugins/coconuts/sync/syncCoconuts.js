@@ -29,7 +29,7 @@ export async function sync(connection) {
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
-        Number(process.env.COCONUT_UPDATE_INTERVAL) &&
+        Number(process.env.COCONUT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -61,7 +61,7 @@ export async function sync(connection) {
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
         Date.now() - progress.dateEnd >
-          Number(process.env.COCONUT_UPDATE_INTERVAL))
+          Number(process.env.COCONUT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
     ) {
       debug(`Start parsing: ${fileName}`);
       // create temporary collection to import

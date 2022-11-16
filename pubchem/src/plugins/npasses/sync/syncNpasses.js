@@ -33,7 +33,7 @@ export async function sync(connection) {
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
-        Number(process.env.NPASS_UPDATE_INTERVAL) &&
+        Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       JSON.stringify(sources) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -45,7 +45,7 @@ export async function sync(connection) {
       ((JSON.stringify(sources) !== progress.sources ||
         progress.state !== 'updated') &&
         Date.now() - progress.dateEnd >
-          Number(process.env.NPASS_UPDATE_INTERVAL))
+          Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
     ) {
       // create temporary collection
       const temporaryCollection = await connection.getCollection('npasses_tmp');
