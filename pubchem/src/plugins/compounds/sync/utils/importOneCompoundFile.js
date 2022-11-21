@@ -117,6 +117,12 @@ export default async function importOneCompoundFile(
         }
         continue;
       }
+      // if the array action contains more than 20 promises, we resolve them
+      if (actions.length > 20) {
+        newCompounds += actions.length;
+        await Promise.all(actions);
+        actions.length = 0;
+      }
     }
     newCompounds += actions.length;
     // wait for all the promises to be resolved
