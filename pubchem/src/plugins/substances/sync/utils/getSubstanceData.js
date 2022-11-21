@@ -25,13 +25,13 @@ export async function getSubstanceData(molecule) {
     let nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
     let urlIDCode = encodeURIComponent(idCode);
     let dataSubstance = await fetch(
-      `http://127.0.0.1:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+      `https://powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
     );
     // if fetch request failed re try 3 times
     let count = 0;
     while (!dataSubstance.ok && count < 3) {
       dataSubstance = await fetch(
-        `http://127.0.0.1:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        `https://powernuc.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
       );
       count++;
     }

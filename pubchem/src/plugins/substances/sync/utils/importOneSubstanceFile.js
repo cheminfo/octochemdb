@@ -103,6 +103,12 @@ export default async function importOneSubstanceFile(
               return connection.setProgress(progress);
             }),
         );
+        // if the array action contains more than 500 promises, we resolve them
+        if (actions.length > 500) {
+          newSubstances += actions.length;
+          await Promise.all(actions);
+          actions.length = 0;
+        }
       }
       newSubstances += actions.length;
       await Promise.all(actions);
