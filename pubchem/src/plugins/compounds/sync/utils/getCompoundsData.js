@@ -25,13 +25,13 @@ export async function getCompoundsData(molecule) {
     let nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
     let urlIDCode = encodeURIComponent(idCode);
     let dataCompound = await fetch(
-      `https://172.23.0.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+      `https://128.178.43.10:20822/v1/fromIDCode?idCode=${urlIDCode}`,
     );
     // if fetch request failed re try 3 times
     let count = 0;
     while (!dataCompound.ok && count < 3) {
       dataCompound = await fetch(
-        `https://172.23.0.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        `https://128.178.43.10:20822/v1/fromIDCode?idCode=${urlIDCode}`,
       );
       count++;
     }
