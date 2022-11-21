@@ -69,7 +69,6 @@ export default async function importOneCompoundFile(
     // the array action will contain the promises to be resolved
     const actions = [];
     let start = Date.now();
-    let counter = 0;
     for (const compound of compounds) {
       // skip till CID corresponds to the last document imported ID
       if (!shouldImport) {
@@ -118,25 +117,11 @@ export default async function importOneCompoundFile(
         }
         continue;
       }
-      // if we have more than 1000 promises to be resolved, we resolve them
-      if (actions.length > 1000) {
-        await Promise.all(actions);
-        newCompounds += actions.length;
-        actions.length = 0;
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
-          debug(`Processed ${counter} compounds`);
-          start = Date.now();
-        }
-      }
     }
     newCompounds += actions.length;
     // wait for all the promises to be resolved
-    if (actions.length > 0) {
-      await Promise.all(actions);
-    }
+    await Promise.all(actions);
+
     debug(`${newCompounds} compounds processed`);
     return compounds.length;
   }
