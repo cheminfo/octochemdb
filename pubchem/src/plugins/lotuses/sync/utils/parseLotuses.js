@@ -24,18 +24,18 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
         const ocl = getNoStereosFromCache(oclMolecule, connection);
         // parse taxonomies
-        const taxonomy = entry.taxonomyReferenceObjects;
-        const key = Object.keys(taxonomy)[0];
-        const taxonomySources = taxonomy[key];
-        const ncbi = [];
-        const gBifBackboneTaxonomy = [];
-        const iNaturalist = [];
-        const openTreeOfLife = [];
-        const iTIS = [];
+        let taxonomy = entry.taxonomyReferenceObjects;
+        let key = Object.keys(taxonomy)[0];
+        let taxonomySources = taxonomy[key];
+        let ncbi = [];
+        let gBifBackboneTaxonomy = [];
+        let iNaturalist = [];
+        let openTreeOfLife = [];
+        let iTIS = [];
         // keep information of all taxonomies sources
         if ('NCBI' in taxonomySources) {
           for (let entry of taxonomySources.NCBI) {
-            const result = {};
+            let result = {};
             if (entry?.cleaned_organism_id) {
               result.organismID = entry?.cleaned_organism_id;
             }
