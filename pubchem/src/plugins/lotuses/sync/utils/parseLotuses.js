@@ -119,25 +119,25 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         };
         if (entry?.iupac_name) result.data.iupacName = entry?.iupac_name;
         if (
-          ncbi.length !== 0 ||
-          gBifBackboneTaxonomy.length !== 0 ||
-          iNaturalist.length !== 0 ||
-          openTreeOfLife.length !== 0 ||
-          iTIS.length !== 0
+          ncbi?.length !== 0 ||
+          gBifBackboneTaxonomy?.length !== 0 ||
+          iNaturalist?.length !== 0 ||
+          openTreeOfLife?.length !== 0 ||
+          iTIS?.length !== 0
         ) {
           result.data.taxonomies = {};
         }
-        if (ncbi.length !== 0) result.data.taxonomies.ncbi = ncbi;
-        if (gBifBackboneTaxonomy.length !== 0) {
+        if (ncbi?.length !== 0) result.data.taxonomies.ncbi = ncbi;
+        if (gBifBackboneTaxonomy?.length !== 0) {
           result.data.taxonomies.gBifBackboneTaxonomy = gBifBackboneTaxonomy;
         }
-        if (iNaturalist.length !== 0) {
+        if (iNaturalist?.length !== 0) {
           result.data.taxonomies.iNaturalist = iNaturalist;
         }
-        if (openTreeOfLife.length !== 0) {
+        if (openTreeOfLife?.length !== 0) {
           result.data.taxonomies.openTreeOfLife = openTreeOfLife;
         }
-        if (iTIS.length !== 0) result.data.taxonomies.iTIS = iTIS;
+        if (iTIS?.length !== 0) result.data.taxonomies.iTIS = iTIS;
         yield result;
       } catch (e) {
         if (connection) {
