@@ -14,7 +14,7 @@ export async function* parseNpatlases(json, connection) {
     for await (const entry of json) {
       try {
         const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
-        const ocl = getNoStereosFromCache(oclMolecule, connection);
+        const ocl = await getNoStereosFromCache(oclMolecule, connection);
         const taxonomies = entry.origin_organism;
         const doi = entry.origin_reference.doi;
         let taxon = {};

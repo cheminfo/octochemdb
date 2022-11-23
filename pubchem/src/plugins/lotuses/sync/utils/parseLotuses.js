@@ -23,7 +23,7 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         // generate molecule from smiles
         // get noStereoID for the molecule
         const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
-        const ocl = getNoStereosFromCache(oclMolecule, connection);
+        const ocl = await getNoStereosFromCache(oclMolecule, connection);
         // parse taxonomies
         const taxonomy = entry.taxonomyReferenceObjects;
         const key = Object.keys(taxonomy)[0];

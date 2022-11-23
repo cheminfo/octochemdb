@@ -60,7 +60,7 @@ export async function* parseNpasses(
       // get ocl molecule and noStereoID
       const smilesDb = property.canonical_smiles;
       const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
-      const ocl = getNoStereosFromCache(oclMolecule, connection);
+      const ocl = await getNoStereosFromCache(oclMolecule, connection);
 
       // get taxonomies from which the molecule is derived
       const orgIDs = speciesPair[item.np_id];

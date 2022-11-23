@@ -20,7 +20,7 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
       try {
         // get noStereoID for the molecule
         const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
-        const ocl = getNoStereosFromCache(oclMolecule, connection);
+        const ocl = await getNoStereosFromCache(oclMolecule, connection);
         // parse taxonomies if available
         const taxonomies = entry?.textTaxa;
         const finalTaxonomies = [];
