@@ -1,3 +1,4 @@
+import fetch from 'cross-fetch';
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 
