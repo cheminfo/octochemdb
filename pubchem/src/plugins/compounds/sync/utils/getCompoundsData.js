@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+import delay from 'delay';
 import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 
@@ -28,6 +29,7 @@ export async function getCompoundsData(molecule) {
       `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
     );
     // if fetch request failed re try 3 times
+    delay(10000);
     let count = 0;
     while (!dataCompound.ok && count < 3) {
       dataCompound = await fetch(
