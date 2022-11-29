@@ -1,11 +1,9 @@
 import fetch from 'cross-fetch';
 import delay from 'delay';
-import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
 
-const { MF } = MFParser;
 const debug = Debug('getCompoundsData');
 /**
  * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
@@ -22,22 +20,29 @@ export async function getCompoundsData(molecule) {
     }
     let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
-    let fragmentMap = [];
-    let nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
     let urlIDCode = encodeURIComponent(idCode);
-    let dataCompound = await fetch(
-      `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-    );
-    // if fetch request failed re try 3 times
-    delay(10000);
+    let success = false;
     let count = 0;
-    while (!dataCompound.ok && count < 3) {
-      dataCompound = await fetch(
-        `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-      );
-      count++;
+    let dataCompound;
+    while (!success && count < 3) {
+      try {
+        dataCompound = await fetch(
+          `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        );
+        if (dataCompound.ok) {
+          success = true;
+        } else {
+          delay(1000);
+        }
+        count++;
+      } catch (e) {
+        debug(e);
+      }
     }
-    if (dataCompound.ok) {
+    if (!success) {
+      throw new Error('Failed to fetch data');
+    }
+    if (dataCompound?.ok) {
       let data = await dataCompound.json();
       //  console.log(data);
       let result = {
@@ -61,17 +66,15 @@ export async function getCompoundsData(molecule) {
           em: data.result.em,
           charge: data.result.charge,
           mw: data.result.mw,
-          nbFragments,
+          nbFragments: data.result.nbFragments,
+          atom: data.result.atom,
+          unsaturation: data.result.unsaturation,
         },
       };
 
-      // calculate molecular formula properties (ex. exact mass, unsaturations, etc.)
-      const mfInfo = new MF(result.data.mf).getInfo();
-      result.data.unsaturation = mfInfo.unsaturation;
-      result.data.atom = mfInfo.atoms;
       return result;
     } else {
-      debug(`Error: ${dataCompound.status} ${dataCompound}`);
+      debug(`Error: ${dataCompound?.status} ${dataCompound}`);
     }
   } catch (e) {
     debug(e);

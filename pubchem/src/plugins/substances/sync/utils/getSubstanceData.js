@@ -1,6 +1,5 @@
 import fetch from 'cross-fetch';
 import delay from 'delay';
-import MFParser from 'mf-parser';
 import OCL from 'openchemlib';
 
 import Debug from '../../../../utils/Debug.js';
@@ -9,7 +8,6 @@ import Debug from '../../../../utils/Debug.js';
  * @param {*} molecule data of the molecule in substance file
  * @returns {Promise} ocl molecule data
  */
-const { MF } = MFParser;
 
 export async function getSubstanceData(molecule) {
   const debug = Debug('getSubstanceData');
@@ -23,8 +21,6 @@ export async function getSubstanceData(molecule) {
     }
     let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
-    let fragmentMap = [];
-    let nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
     let urlIDCode = encodeURIComponent(idCode);
     let dataSubstance = await fetch(
       `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
@@ -62,14 +58,12 @@ export async function getSubstanceData(molecule) {
           em: data.result.em,
           charge: data.result.charge,
           mw: data.result.mw,
-          nbFragments,
+          nbFragments: data.result.nbFragments,
+          atom: data.result.atom,
+          unsaturation: data.result.unsaturation,
         },
       };
 
-      // calculate molecular formula properties (ex. exact mass, unsaturations, etc.)
-      const mfInfo = new MF(result.data.mf).getInfo();
-      result.data.unsaturation = mfInfo.unsaturation;
-      result.data.atom = mfInfo.atoms;
       return result;
     } else {
       debug(`Error: ${dataSubstance.status} ${dataSubstance}`);
