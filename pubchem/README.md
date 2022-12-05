@@ -11,7 +11,7 @@ You can then easily create a new install of mongod
 
 In this project we make a copy of multiple databases and carefully calculate the monoisotopic mass of each of the molecule as well as the molecular formula taking into account charges, parts and isotopes.
 
-We then provide an API that allows to search in the database quickly and efficiently. (Read more [here](../README.md))
+We then provide an API that allows to search in the database quickly and efficiently. (Read more [here](../README.md#api))
 
 # Workflow
 
