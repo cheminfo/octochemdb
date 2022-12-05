@@ -33,7 +33,7 @@ Parameters:
 - limit: maximal number of results (default: 1000)
 - fields: fields to retrieve (default: em, \_id, count, atom, unsaturation)
 
-Example: [mfs fromEM](`http://localhost:3001/mfs/v1/fromEM?em=300&precision=100&limit=10&fields=_id`)
+Example: [mfs fromEM](http://localhost:3001/mfs/v1/fromEM?em=300&precision=100&limit=10&fields=_id)
 
 ### <ins>/gnps/v1/fromID</ins>
 
@@ -44,7 +44,7 @@ Parameters:
 - id: gnps ID (default: CCMSLIB00000001547)
 - fields: fields to retrieve (default: data.ocl.noStereoTautomerID)
 
-Example: [GNPS fromID](`http://localhost:3001/gnps/v1/fromID?id=CCMSLIB00000001547&fields=data.ocl.noStereoTautomerID`)
+Example: [GNPS fromID](http://localhost:3001/gnps/v1/fromID?id=CCMSLIB00000001547&fields=data.ocl.noStereoTautomerID)
 
 ### <ins>/pubmeds/v1/fromPMID</ins>
 
@@ -55,7 +55,7 @@ Parameters:
 - pmid: PubMed ID of the publication (default: 1)
 - fields: fields to be retrieved (default: data.article.title, data.cids)
 
-Example: [PubMed fromPMID](`http://localhost:3001/pubmeds/v1/fromPMID?pmid=1&fields=data.article.title%2Cdata.cids`)
+Example: [PubMed fromPMID](http://localhost:3001/pubmeds/v1/fromPMID?pmid=1&fields=data.article.title%2Cdata.cids)
 
 ### <ins>/taxonomies/v1/taxonomyFromID</ins>
 
@@ -65,7 +65,7 @@ Parameters:
 
 - id: NCBI ID of the organism (default: 562)
 
-Example: [NCBI taxonomyFromID](`http://localhost:3001/taxonomies/v1/taxonomyFromID?id=562`)
+Example: [NCBI taxonomyFromID](http://localhost:3001/taxonomies/v1/taxonomyFromID?id=562)
 
 ### <ins>/activesOrNaturals/v1/fromEM</ins>
 
@@ -82,7 +82,7 @@ Parameters:
 - limit: maximal number of results (default: 1000)
 - fields: fields to retrieve (default: data.em, data.mf)
 
-Example: [ActivesOrNaturals fromEM](`http://localhost:3001/activesOrNaturals/v1/fromEM?em=334.17&precision=1000&kwActiveAgainst=viruses&limit=10&fields=data.em%2C%20data.mf`)
+Example: [ActivesOrNaturals fromEM](http://localhost:3001/activesOrNaturals/v1/fromEM?em=334.17&precision=1000&kwActiveAgainst=viruses&limit=10&fields=data.em%2C%20data.mf)
 
 ### <ins>/activesOrNaturals/v1/fromID</ins>
 
@@ -92,7 +92,7 @@ Parameters:
 
 - id: noStereoTautomerID of the structure
 
-Example: [ActivesOrNaturals fromID](`http://localhost:3001/activesOrNaturals/v1/fromID?id=fasAP@@JlDnRJJJIRZIUHqPcINjjjjjjZj%60@uTcFLLpKEl%5EqGF%5CEpOGzPpMGGpq%7CL`)
+Example: [ActivesOrNaturals fromID](http://localhost:3001/activesOrNaturals/v1/fromID?id=fasAP@@JlDnRJJJIRZIUHqPcINjjjjjjZj%60@uTcFLLpKEl%5EqGF%5CEpOGzPpMGGpq%7CL)
 
 ## Sources
 
