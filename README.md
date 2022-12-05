@@ -59,7 +59,7 @@ Example: [PubMed fromPMID](http://localhost:3001/pubmeds/v1/fromPMID?pmid=1&fiel
 
 ### <ins>/taxonomies/v1/taxonomyFromID</ins>
 
-Search standerized taxonomy from a NCBI Taxonomy ID.
+Search standardized taxonomy from a NCBI Taxonomy ID.
 
 Parameters:
 
