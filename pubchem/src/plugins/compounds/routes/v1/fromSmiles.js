@@ -17,7 +17,7 @@ const fromSmiles = {
         type: 'string',
         description: 'SMILES',
         example: 'c1ccccc1',
-        default: null,
+        default: 'c1ccccc1',
       },
       stereo: {
         type: 'boolean',

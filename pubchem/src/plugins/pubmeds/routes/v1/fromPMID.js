@@ -14,13 +14,12 @@ const fromPMID = {
         type: 'number',
         description: 'PubMed ID',
         example: 1,
-        default: null,
+        default: 1,
       },
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default:
-          'data.cids,data.dateCreated,data.dateCompleted,data.dateRevised,data.article,data.chemicals,data.supplMesh,data.meshHeadings,data.journalInfo',
+        default: 'data.article.title,data.cids',
       },
     },
   },
@@ -39,10 +38,7 @@ export default fromPMID;
  */
 
 async function searchHandler(request) {
-  let {
-    pmid = 1,
-    fields = 'data.cids,data.dateCreated,data.dateCompleted,data.dateRevised,data.article,data.chemicals,data.supplMesh,data.meshHeadings,data.journalInfo',
-  } = request.query;
+  let { pmid = 1, fields = 'data.article.title,data.cids' } = request.query;
 
   let connection;
   try {

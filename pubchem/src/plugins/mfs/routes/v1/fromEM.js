@@ -24,11 +24,6 @@ const fromEM = {
         description: 'Maximum number of results to return',
         default: 1000,
       },
-      minPubchemEntries: {
-        type: 'number',
-        description: 'Minimal number of entries in pubhcem',
-        default: 0,
-      },
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
@@ -49,7 +44,6 @@ export default fromEM;
  * @param {number} [request.query.limit=1000]
  * @param {number} [request.query.precision=100]
  * @param {string} [request.query.fields='em,_id,count,atom,unsaturation']
- * @param {number} [request.query.minPubchemEntries=0]
  * @return {Promise<Document[]>}
  */
 
@@ -58,7 +52,6 @@ async function searchHandler(request) {
     em = 0,
     limit = 1e3,
     precision = 100,
-    minPubchemEntries = 0,
     fields = 'em,_id,count,atom,unsaturation',
   } = request.query;
 
@@ -79,7 +72,6 @@ async function searchHandler(request) {
         {
           $match: {
             em: { $lt: em + error, $gt: em - error },
-            count: { $gte: minPubchemEntries },
           },
         },
         {
