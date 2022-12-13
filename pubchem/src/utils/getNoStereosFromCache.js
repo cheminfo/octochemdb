@@ -9,13 +9,13 @@ export async function getNoStereosFromCache(molecule, connection) {
     let urlIDCode = encodeURIComponent(idCode);
     const oclID = molecule.getIDCodeAndCoordinates();
     let dataCompound = await fetch(
-      `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+      `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
     );
     // if fetch request failed re try 3 times
     let count = 0;
     while (!dataCompound.ok && count < 3) {
       dataCompound = await fetch(
-        `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
       );
       count++;
     }

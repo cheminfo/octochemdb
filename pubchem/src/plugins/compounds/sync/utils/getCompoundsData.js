@@ -27,7 +27,7 @@ export async function getCompoundsData(molecule) {
     while (!success && count < 3) {
       try {
         dataCompound = await fetch(
-          `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+          `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
         );
         if (dataCompound.ok) {
           success = true;

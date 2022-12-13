@@ -23,14 +23,14 @@ export async function getSubstanceData(molecule) {
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     let urlIDCode = encodeURIComponent(idCode);
     let dataSubstance = await fetch(
-      `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+      `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
     );
     // if fetch request failed re try 3 times
     delay(10000);
     let count = 0;
     while (!dataSubstance.ok && count < 3) {
       dataSubstance = await fetch(
-        `http://192.168.80.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
       );
       count++;
     }
