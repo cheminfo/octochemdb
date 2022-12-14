@@ -17,15 +17,15 @@ export async function getNoStereosFromCache(molecule, connection) {
         dataCompound = await fetch(
           `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
         );
-        if (dataCompound.ok) {
-          success = true;
-        } else {
-          delay(5000);
-        }
-        count++;
       } catch (e) {
         debug(e);
       }
+      if (dataCompound?.ok) {
+        success = true;
+      } else {
+        await delay(10000);
+      }
+      count++;
     }
     if (!success) {
       throw new Error('Failed to fetch data');

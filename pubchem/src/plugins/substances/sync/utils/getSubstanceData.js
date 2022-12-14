@@ -30,15 +30,15 @@ export async function getSubstanceData(molecule) {
         dataSubstance = await fetch(
           `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
         );
-        if (dataSubstance.ok) {
-          success = true;
-        } else {
-          delay(5000);
-        }
-        count++;
       } catch (e) {
         debug(e);
       }
+      if (dataSubstance?.ok) {
+        success = true;
+      } else {
+        await delay(10000);
+      }
+      count++;
     }
     if (!success) {
       throw new Error('Failed to fetch data');
