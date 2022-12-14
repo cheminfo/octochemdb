@@ -15,7 +15,7 @@ export async function getNoStereosFromCache(molecule, connection) {
     while (!success && count < 3) {
       try {
         dataCompound = await fetch(
-          `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+          `http://ocl-cache-docker-ocl-cache-1:20822/v1/fromIDCode?idCode=${urlIDCode}`,
         );
       } catch (e) {
         debug(e);
