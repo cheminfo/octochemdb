@@ -1,3 +1,5 @@
+import delay from 'delay';
+
 import Debug from './Debug.js';
 
 const debug = Debug('parseGNPs');
@@ -5,21 +7,30 @@ const debug = Debug('parseGNPs');
 export async function getNoStereosFromCache(molecule, connection) {
   try {
     let idCode = molecule.getIDCode();
-
     let urlIDCode = encodeURIComponent(idCode);
     const oclID = molecule.getIDCodeAndCoordinates();
-    let dataCompound = await fetch(
-      `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-    );
-    // if fetch request failed re try 3 times
+    let success = false;
     let count = 0;
-    while (!dataCompound.ok && count < 3) {
-      dataCompound = await fetch(
-        `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-      );
-      count++;
+    let dataCompound;
+    while (!success && count < 3) {
+      try {
+        dataCompound = await fetch(
+          `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        );
+        if (dataCompound.ok) {
+          success = true;
+        } else {
+          delay(5000);
+        }
+        count++;
+      } catch (e) {
+        debug(e);
+      }
     }
-    if (dataCompound.ok) {
+    if (!success) {
+      throw new Error('Failed to fetch data');
+    }
+    if (dataCompound?.ok) {
       let data = await dataCompound.json();
       let ocl = {
         idCode: data.result.idCode,
@@ -30,7 +41,7 @@ export async function getNoStereosFromCache(molecule, connection) {
       };
       return ocl;
     } else {
-      debug(`Error: ${dataCompound.status} ${dataCompound}`);
+      debug(`Error: ${dataCompound?.status} ${dataCompound}`);
     }
   } catch (e) {
     if (connection) {

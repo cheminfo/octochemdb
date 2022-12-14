@@ -32,7 +32,7 @@ export async function getCompoundsData(molecule) {
         if (dataCompound.ok) {
           success = true;
         } else {
-          delay(1000);
+          delay(5000);
         }
         count++;
       } catch (e) {

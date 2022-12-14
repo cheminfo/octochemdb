@@ -22,19 +22,28 @@ export async function getSubstanceData(molecule) {
     let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
     let urlIDCode = encodeURIComponent(idCode);
-    let dataSubstance = await fetch(
-      `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-    );
-    // if fetch request failed re try 3 times
-    delay(10000);
     let count = 0;
-    while (!dataSubstance.ok && count < 3) {
-      dataSubstance = await fetch(
-        `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-      );
-      count++;
+    let success = false;
+    let dataSubstance;
+    while (!success && count < 3) {
+      try {
+        dataSubstance = await fetch(
+          `http://192.168.160.2:20822/v1/fromIDCode?idCode=${urlIDCode}`,
+        );
+        if (dataSubstance.ok) {
+          success = true;
+        } else {
+          delay(5000);
+        }
+        count++;
+      } catch (e) {
+        debug(e);
+      }
     }
-    if (dataSubstance.ok) {
+    if (!success) {
+      throw new Error('Failed to fetch data');
+    }
+    if (dataSubstance?.ok) {
       let data = await dataSubstance.json();
       //  console.log(data);
       let result = {
@@ -66,7 +75,7 @@ export async function getSubstanceData(molecule) {
 
       return result;
     } else {
-      debug(`Error: ${dataSubstance.status} ${dataSubstance}`);
+      debug(`Error: ${dataSubstance?.status} ${dataSubstance}`);
     }
   } catch (e) {
     debug(e);

@@ -107,6 +107,11 @@ export default async function importOneCompoundFile(
               return connection.setProgress(progress);
             }),
         );
+        if (actions.length > 20) {
+          newCompounds += actions.length;
+          await Promise.all(actions);
+          actions.length = 0;
+        }
       } catch (e) {
         if (connection) {
           debug(e.message, {
@@ -118,6 +123,7 @@ export default async function importOneCompoundFile(
         continue;
       }
     }
+
     newCompounds += actions.length;
     // wait for all the promises to be resolved
     await Promise.all(actions);
