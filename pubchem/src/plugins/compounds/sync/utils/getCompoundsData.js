@@ -23,7 +23,7 @@ export async function getCompoundsData(molecule) {
     let success = false;
     let count = 0;
     let dataCompound;
-    while (!success && count < 3) {
+    while (success === false && count < 3) {
       try {
         dataCompound = await fetch(
           `http://ocl-cache-docker-ocl-cache-1:20822/v1/fromIDCode?idCode=${urlIDCode}`,
