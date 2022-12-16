@@ -23,7 +23,7 @@ export async function getNoStereosFromCache(molecule, connection) {
       if (dataCompound?.ok) {
         success = true;
       } else {
-        await delay(10000);
+        await delay(1000);
       }
       count++;
     }

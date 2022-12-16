@@ -34,7 +34,7 @@ export async function getCompoundsData(molecule) {
       if (dataCompound?.ok) {
         success = true;
       } else {
-        await delay(10000);
+        await delay(1000);
       }
       count++;
     }
