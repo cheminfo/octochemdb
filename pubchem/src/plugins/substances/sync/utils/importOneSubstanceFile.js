@@ -103,8 +103,8 @@ export default async function importOneSubstanceFile(
               return connection.setProgress(progress);
             }),
         );
-        // if actions array is > 100 we execute them
-        if (actions.length > 20) {
+        // if actions array is > 5000 we execute them
+        if (actions.length > 5000) {
           newSubstances += actions.length;
           await Promise.all(actions);
           actions.length = 0;
