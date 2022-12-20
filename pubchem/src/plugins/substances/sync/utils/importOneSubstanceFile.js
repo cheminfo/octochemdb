@@ -104,10 +104,11 @@ export default async function importOneSubstanceFile(
             }),
         );
         // if actions array is > 5000 we execute them
-        if (actions.length > 3000) {
+        if (actions.length > 1000) {
           newSubstances += actions.length;
           await Promise.all(actions);
           actions.length = 0;
+          debug(`${actions} actions remaining`);
         }
       }
       newSubstances += actions.length;
