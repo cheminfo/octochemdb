@@ -108,7 +108,6 @@ export default async function importOneSubstanceFile(
           newSubstances += actions.length;
           await Promise.all(actions);
           actions.length = 0;
-          debug(`${actions} actions remaining`);
         }
       }
       newSubstances += actions.length;
