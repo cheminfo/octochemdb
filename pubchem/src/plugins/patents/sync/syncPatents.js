@@ -31,7 +31,7 @@ export async function sync(connection) {
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
-        Number(process.env.PATENT_DATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
+        Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();

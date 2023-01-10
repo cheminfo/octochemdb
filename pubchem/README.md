@@ -25,18 +25,18 @@ The file [env.example](./.env.exemple) contains different type of variables (see
 
 <!-- TABLE_GENERATE_START -->
 
-| Variable                | Function                                             |
-| ----------------------- | ---------------------------------------------------- |
-| MONGODB_URL             | URL to local mongoDB                                 |
-| MONGO_DB_NAME           | Name of the mongo database                           |
-| ORIGINAL_DATA_PATH      | Path where fetched data are stored                   |
-| "NameDB"\_SOURCE        | Source for all databases fetched                     |
-| PORT                    | Exposed port                                         |
-| DEBUG_THROTTLING        | Time interval between each debug (in ms)             |
-| TELEGRAM_BOT_ID         | Telegram BOT to send debug messages                  |
-| TELEGRAM_CHAT_ID        | Telegram chat where debug messages are shown         |
-| PLUGINS                 | List of plugins to be executed, if empty execute all |
-| EXCLUDEPLUGINS          | List of plugins to not be executed                   |
-| "NameDB"\_DATE_INTERVAL | The updating interval for each plugin (in days)      |
+| Variable                  | Function                                             |
+| ------------------------- | ---------------------------------------------------- |
+| MONGODB_URL               | URL to local mongoDB                                 |
+| MONGO_DB_NAME             | Name of the mongo database                           |
+| ORIGINAL_DATA_PATH        | Path where fetched data are stored                   |
+| "NameDB"\_SOURCE          | Source for all databases fetched                     |
+| PORT                      | Exposed port                                         |
+| DEBUG_THROTTLING          | Time interval between each debug (in ms)             |
+| TELEGRAM_BOT_ID           | Telegram BOT to send debug messages                  |
+| TELEGRAM_CHAT_ID          | Telegram chat where debug messages are shown         |
+| PLUGINS                   | List of plugins to be executed, if empty execute all |
+| EXCLUDEPLUGINS            | List of plugins to not be executed                   |
+| "NameDB"\_UPDATE_INTERVAL | The updating interval for each plugin (in days)      |
 
 <!-- TABLE_GENERATE_END -->
