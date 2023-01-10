@@ -2,7 +2,7 @@ import delay from 'delay';
 
 import Debug from './Debug.js';
 
-const debug = Debug('parseGNPs');
+const debug = Debug('fetchNoStereosFromCache');
 
 export async function getNoStereosFromCache(molecule, connection) {
   try {

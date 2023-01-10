@@ -6,14 +6,16 @@ import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.j
  * @description parse NPATLAS file and return entries to be imported
  * @param {*} json - NPATLAS file
  * @param {*} connection - mongo connection
- * @returns {Promise} returns entries to be imported
+ * @yields {Object} yields the result to be imported
  */
 export async function* parseNpatlases(json, connection) {
   const debug = Debug('parseNpatlases');
   try {
     for await (const entry of json) {
       try {
-        const oclMolecule = OCL.Molecule.fromSmiles(entry.clean_smiles);
+        const oclMolecule = OCL.Molecule.fromSmiles(
+          entry.clean_smiles || entry.smiles,
+        );
         const ocl = await getNoStereosFromCache(oclMolecule, connection);
         const taxonomies = entry.origin_organism;
         const doi = entry.origin_reference.doi;
