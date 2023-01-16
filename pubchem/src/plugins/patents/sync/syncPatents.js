@@ -23,15 +23,15 @@ export async function sync(connection) {
       filenameNew: 'cidToPatents',
       extensionNew: 'gz',
     };
-
-    // get last files cidToPatens available in the PubChem database
-    const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('patents');
     console.log(Date.now() - Number(progress.dateEnd));
     console.log(
       Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000,
     );
+    // get last files cidToPatens available in the PubChem database
+    const lastFile = await getLastFileSync(options);
+    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+
     if (
       progress.dateEnd !== 0 &&
       Date.now() - Number(progress.dateEnd) >
