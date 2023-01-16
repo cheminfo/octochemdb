@@ -28,9 +28,13 @@ export async function sync(connection) {
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('patents');
+    console.log(
+      Date.now() - Number(progress.dateEnd) >
+        Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000,
+    );
     if (
       progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
+      Date.now() - Number(progress.dateEnd) >
         Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
