@@ -29,7 +29,7 @@ export default entriesFromEM;
 async function searchHandler(request) {
   let {
     id = '',
-    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.pubmeds,data.nbActivities,data.nbTaxonomies,data.nbPubmeds,data.nbPatents,data.patents,data.nbMassSpectra,data.massSpectraRefs',
+    fields = 'data.cids,data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.pubmeds,data.nbActivities,data.nbTaxonomies,data.nbPubmeds,data.nbPatents,data.patents,data.nbMassSpectra,data.massSpectraRefs',
   } = request.query;
 
   let connection;
