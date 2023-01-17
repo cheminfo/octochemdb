@@ -25,11 +25,7 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     } = await npassesStartSync(connection);
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
-    let counter = 0;
-    let imported = 0;
-    let start = Date.now();
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -38,15 +34,20 @@ export async function sync(connection) {
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
+    let counter = 0;
+    let imported = 0;
+    let start = Date.now();
     // Reimport collection again only if lastDocument imported changed or importation was not completed
     if (
       lastDocumentImported === null ||
       ((JSON.stringify(sources) !== progress.sources ||
         progress.state !== 'updated') &&
-        Date.now() - progress.dateEnd >
-          Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
+        isTimeToUpdate)
     ) {
+      const oldToNewTaxIDs = await taxonomySynonyms();
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
       // create temporary collection
       const temporaryCollection = await connection.getCollection('npasses_tmp');
       debug(`Start parsing npasses`);

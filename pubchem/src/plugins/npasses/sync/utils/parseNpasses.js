@@ -11,7 +11,7 @@ import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.j
  * @param {object} speciesPair - species pair data
  * @param {object} speciesInfo - species info data
  * @param {*} connection - mongo connection
- * @returns {Promise<object>} returns the data to be imported
+ * @returns {*} returns the data to be imported
  */
 export async function* parseNpasses(
   general,
