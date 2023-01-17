@@ -59,7 +59,7 @@ export default async function getCompoundsInfo(
       entry.data.bioActive = bioActive;
       cids[compoundInfo._id] = true;
     }
-    if (compoundInfo === null) {
+    if (compoundInfo?.data?.em === undefined) {
       const molecule = OCL.Molecule.fromIDCode(noStereoTautomerID);
       const smiles = molecule.toSmiles();
       let compoundData = await getCompoundsData(molecule);
@@ -82,9 +82,9 @@ export default async function getCompoundsInfo(
         if (patent !== null) {
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
-          for (let id of compoundsPatents) {
+          /*for (let id of compoundsPatents) {
             patentsTitles[id] = await fetchPatentsTitles(id);
-          }
+          }*/
           nbPatents += patent.data.nbPatents;
         }
       }

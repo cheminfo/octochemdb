@@ -83,9 +83,14 @@ export async function aggregate(connection) {
         let data = [];
         for (const source of sourcesLink) {
           if (
-            ['npasses', 'cmaups', 'coconuts', 'lotuses', 'npAtlases'].includes(
-              source.collection,
-            )
+            [
+              'npasses',
+              'cmaups',
+              'coconuts',
+              'lotuses',
+              'npAtlases',
+              'gnps',
+            ].includes(source.collection)
           ) {
             entry.data.naturalProduct = true;
           }
