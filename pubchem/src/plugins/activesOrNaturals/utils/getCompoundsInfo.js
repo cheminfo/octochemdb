@@ -72,7 +72,7 @@ export default async function getCompoundsInfo(
     }
     cids = Object.keys(cids);
     let compoundsPatents = [];
-    let patentsTitles = {};
+    //let patentsTitles = {};
     let nbPatents = 0;
     if (cids.length > 0) {
       for (let compound of cids) {
@@ -94,9 +94,9 @@ export default async function getCompoundsInfo(
     if (nbPatents > 0) {
       entry.data.nbPatents = nbPatents;
     }
-    if (patentsTitles.length > 0) {
+    /*if (patentsTitles.length > 0) {
       entry.data.patentsTitles = patentsTitles;
-    }
+    }*/
     if (compoundsPatents.length > 0) {
       entry.data.patents = compoundsPatents;
     }
