@@ -44,13 +44,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
-    // get logs and last document imported
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
+
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
@@ -68,6 +62,13 @@ export async function sync(connection) {
         progress.state !== 'updated') &&
         isTimeToUpdate)
     ) {
+      const collection = await connection.getCollection(options.collectionName);
+      // get logs and last document imported
+      const logs = await connection.getImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         'npAtlases_tmp',
