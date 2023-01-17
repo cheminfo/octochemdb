@@ -39,7 +39,7 @@ export async function sync(connection) {
     debug(progress.dateEnd);
     debug(Date.now() - progress.dateEnd);
     debug(Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000);
-    debug(JSON.stringify(sources) !== progress.sources);
+    debug(JSON.stringify(sources) !== JSON.stringify(progress.sources));
     debug(isTimeToUpdate);
     debug(progress.sources);
     debug(sources);
@@ -115,16 +115,16 @@ export async function sync(connection) {
       await temporaryCollection.rename('npasses', {
         dropTarget: true,
       });
-      // set logs
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
       // set progress to updated
       progress.sources = sources;
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
+      // set logs
+      logs.dateEnd = Date.now();
+      logs.endSequenceID = progress.seq;
+      logs.status = 'updated';
+      await connection.updateImportationLog(logs);
       // create indexes
       await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
