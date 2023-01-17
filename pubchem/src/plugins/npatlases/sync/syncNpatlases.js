@@ -50,6 +50,7 @@ export async function sync(connection) {
       progress,
       options.collectionName,
     );
+    debug(lastDocumentImported);
     // read file synchronized from NPATLAS database
     const fileJson = readFileSync(lastFile, 'utf8');
     // define counters
