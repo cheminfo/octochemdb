@@ -42,7 +42,7 @@ export async function sync(connection) {
     // Reimport collection again only if lastDocument imported changed or importation was not completed
     if (
       lastDocumentImported === null ||
-      ((JSON.stringify(sources) !== progress.sources ||
+      ((JSON.stringify(sources) !== JSON.stringify(progress.sources) ||
         progress.state !== 'updated') &&
         isTimeToUpdate)
     ) {
