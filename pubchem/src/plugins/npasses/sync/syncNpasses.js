@@ -46,14 +46,8 @@ export async function sync(connection) {
         progress.state !== 'updated') &&
         isTimeToUpdate)
     ) {
-      debug(lastDocumentImported === null);
-      debug(JSON.stringify(sources) !== JSON.stringify(progress.sources));
-      debug(isTimeToUpdate);
-      debug(
-        (JSON.stringify(sources) !== JSON.stringify(progress.sources) ||
-          progress.state !== 'updated') &&
-          isTimeToUpdate,
-      );
+      debug(lastDocumentImported);
+
       const oldToNewTaxIDs = await taxonomySynonyms();
       const collectionTaxonomies = await connection.getCollection('taxonomies');
       // create temporary collection

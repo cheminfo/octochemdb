@@ -29,6 +29,7 @@ export default async function npassStartSync(connection) {
       progress,
       'npasses',
     );
+    debug(lastDocumentImported);
     // read npasses synchronized files
     const { general, activities, properties, speciesPair, speciesInfo } =
       readNpassesLastFiles(
