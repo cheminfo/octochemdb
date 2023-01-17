@@ -24,14 +24,12 @@ export default async function npassStartSync(connection) {
     } = await getNpassesLastFiles(connection);
     //get npasses collection and last document imported
     const collection = await connection.getCollection('npasses');
-    debug(progress);
     const options = { collectionName: 'npasses' };
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-    debug(lastDocumentImported);
     // read npasses synchronized files
     const { general, activities, properties, speciesPair, speciesInfo } =
       readNpassesLastFiles(
