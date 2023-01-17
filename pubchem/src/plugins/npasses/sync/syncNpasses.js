@@ -30,19 +30,12 @@ export async function sync(connection) {
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
         Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      JSON.stringify(sources) !== progress.sources
+      JSON.stringify(sources) !== JSON.stringify(progress.sources)
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
       isTimeToUpdate = true;
     }
-    debug(progress.dateEnd);
-    debug(Date.now() - progress.dateEnd);
-    debug(Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000);
-    debug(JSON.stringify(sources) !== JSON.stringify(progress.sources));
-    debug(isTimeToUpdate);
-    debug(progress.sources);
-    debug(sources);
     let counter = 0;
     let imported = 0;
     let start = Date.now();
