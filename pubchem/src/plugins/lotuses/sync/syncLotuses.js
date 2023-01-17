@@ -27,34 +27,47 @@ export async function sync(connection) {
     // get sources, progress and lotuses collection
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('lotuses');
-    const collection = await connection.getCollection('lotuses');
-    // get old to new taxonomies ids mapping
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    // get taxonomies collection
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
-    // get logs
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
+    let isTimeToUpdate = false;
+    if (
+      progress.dateEnd !== 0 &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.LOTUS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      await connection.setProgress(progress);
+      isTimeToUpdate = true;
+    }
     // get last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-    // define file inside zip folder to use for importation
-    let fileName = 'lotusUniqueNaturalProduct.bson';
+
     // define counter
     let counter = 0;
     let imported = 0;
     let start = Date.now();
     if (
       lastDocumentImported === null ||
-      md5(JSON.stringify(sources)) !== progress.sources ||
-      progress.state !== 'updated'
+      ((md5(JSON.stringify(sources)) !== progress.sources ||
+        progress.state !== 'updated') &&
+        isTimeToUpdate)
     ) {
+      const collection = await connection.getCollection('lotuses');
+      // get old to new taxonomies ids mapping
+      const oldToNewTaxIDs = await taxonomySynonyms();
+      // get taxonomies collection
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
+      // get logs
+      const logs = await connection.getImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
+      // define file inside zip folder to use for importation
+      let fileName = 'lotusUniqueNaturalProduct.bson';
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,

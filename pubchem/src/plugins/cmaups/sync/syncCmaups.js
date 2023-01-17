@@ -26,13 +26,11 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     ] = await cmaupsStartSync(connection);
-    // get old to new taxonomies ids and taxonomies collection
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
     // Define counters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -41,15 +39,18 @@ export async function sync(connection) {
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
     // Reimport collection again only if lastDocument imported changed or importation was not completed
     if (
       lastDocumentImported === null ||
       ((JSON.stringify(sources) !== progress.sources ||
         progress.state !== 'updated') &&
-        Date.now() - progress.dateEnd >
-          Number(process.env.CMAUP_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
+        isTimeToUpdate)
     ) {
+      // get old to new taxonomies ids and taxonomies collection
+      const oldToNewTaxIDs = await taxonomySynonyms();
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
       // Define stat updating because in case of failure Cron will retry importation in 24h
       progress.state = 'updating';
       await connection.setProgress(progress);

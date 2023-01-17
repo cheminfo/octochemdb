@@ -26,6 +26,7 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
 
     const progress = await connection.getProgress(options.collectionName);
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -34,14 +35,8 @@ export async function sync(connection) {
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
-
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
@@ -56,9 +51,15 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        Date.now() - progress.dateEnd >
-          Number(process.env.GNPS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
+        isTimeToUpdate)
     ) {
+      const collection = await connection.getCollection(options.collectionName);
+
+      const logs = await connection.getImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,

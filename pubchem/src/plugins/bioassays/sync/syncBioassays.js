@@ -22,10 +22,6 @@ export async function sync(connection) {
     extensionNew: 'tsv.gz',
   };
   try {
-    // get compounds and taxonomies collections
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
-    const collectionCompounds = await connection.getCollection('compounds');
     // Download the bioActivities and bioAssays files if newer than last sync
     const bioactivitiesFile = await getLastFileSync(options);
     options.collectionSource = process.env.BIOASSAY_SOURCE;
@@ -37,6 +33,7 @@ export async function sync(connection) {
       bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
       bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
     ];
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -45,8 +42,8 @@ export async function sync(connection) {
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
@@ -63,9 +60,13 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        Date.now() - progress.dateEnd >
-          Number(process.env.BIOASSAY_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000)
+        isTimeToUpdate)
     ) {
+      // get compounds and taxonomies collections
+      const oldToNewTaxIDs = await taxonomySynonyms();
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
+      const collectionCompounds = await connection.getCollection('compounds');
+      const collection = await connection.getCollection(options.collectionName);
       // Generate Logs for the sync
       const logs = await connection.getImportationLog({
         collectionName: options.collectionName,
