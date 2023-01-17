@@ -26,9 +26,7 @@ export async function getSubstanceData(molecule) {
     let dataSubstance;
     while (success === false && count < 3) {
       try {
-        dataSubstance = await fetch(
-          `http://ocl-cache-docker-ocl-cache-1:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-        );
+        dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
       } catch (e) {
         debug(e);
       }

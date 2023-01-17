@@ -14,9 +14,7 @@ export async function getNoStereosFromCache(molecule, connection) {
     let dataCompound;
     while (success === false && count < 3) {
       try {
-        dataCompound = await fetch(
-          `http://ocl-cache-docker-ocl-cache-1:20822/v1/fromIDCode?idCode=${urlIDCode}`,
-        );
+        dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
       } catch (e) {
         debug(e);
       }
