@@ -36,6 +36,13 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       isTimeToUpdate = true;
     }
+    debug(progress.dateEnd);
+    debug(Date.now() - progress.dateEnd);
+    debug(Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000);
+    debug(JSON.stringify(sources) !== progress.sources);
+    debug(isTimeToUpdate);
+    debug(progress.sources);
+    debug(sources);
     let counter = 0;
     let imported = 0;
     let start = Date.now();
@@ -126,7 +133,6 @@ export async function sync(connection) {
     } else {
       debug(`file already processed`);
     }
-    // we remove all the entries that are not imported by the last file
   } catch (e) {
     if (connection) {
       debug(e.message, { collection: 'npasses', connection, stack: e.stack });
