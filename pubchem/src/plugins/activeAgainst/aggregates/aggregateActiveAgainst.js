@@ -89,7 +89,7 @@ export async function aggregate(connection) {
               class: { $first: '$class' },
             },
           },
-          { $out: `activeAgainst` },
+          { $out: `activeAgainst_tmp` },
         ],
         {
           allowDiskUse: true, // allow aggregation to use disk if necessary
