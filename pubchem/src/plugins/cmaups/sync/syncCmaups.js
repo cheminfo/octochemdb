@@ -69,10 +69,7 @@ export async function sync(connection) {
         if (process.env.TEST === 'true' && counter > 20) break;
 
         // Debug the processing progress every 10s or the defined time in process env
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }

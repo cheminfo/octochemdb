@@ -20,7 +20,7 @@ async function getFile(file, targetFile) {
 
     utimesSync(targetFile, file.epoch, file.epoch);
 
-    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING || 10000)) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
       debug(`Downloaded from: ${lastFileName} till ${file.name}`);
       start = Date.now();
       lastFileName = file.name;

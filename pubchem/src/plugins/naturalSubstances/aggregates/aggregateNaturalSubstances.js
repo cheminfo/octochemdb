@@ -107,7 +107,7 @@ export async function aggregate(connection) {
         if (
           Date.now() - start >
           // @ts-ignore
-          Number(process.env.DEBUG_THROTTLING || 10000)
+          Number(process.env.DEBUG_THROTTLING)
         ) {
           debug(`Processing: counter: ${counter} `);
           start = Date.now();

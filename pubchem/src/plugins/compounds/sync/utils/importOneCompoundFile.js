@@ -76,10 +76,7 @@ export default async function importOneCompoundFile(
           continue;
         }
         shouldImport = true;
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Skipping compounds till: ${lastDocument._id}`);
           start = Date.now();
           continue;

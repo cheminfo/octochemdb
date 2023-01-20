@@ -67,10 +67,7 @@ export async function sync(connection) {
         // if test mode, stop after 20 entries
         if (process.env.TEST === 'true' && counter > 20) break;
 
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }

@@ -199,10 +199,7 @@ export async function aggregate(connection) {
           { upsert: true },
         );
 
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} `);
           start = Date.now();
         }

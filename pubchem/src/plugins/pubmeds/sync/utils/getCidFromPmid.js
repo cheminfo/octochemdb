@@ -28,7 +28,7 @@ export async function getCidFromPmid(filePath, connection) {
         data[pmid] = [];
       }
       data[pmid].push(Number(cid));
-      if (Date.now() - date > 10000) {
+      if (Date.now() - date > Number(process.env.DEBUG_THROTTLING)) {
         date = Date.now();
         debug(
           `Processed PMIDs:${
