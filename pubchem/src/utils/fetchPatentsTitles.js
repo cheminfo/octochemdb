@@ -1,5 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
-import fetch from 'node-fetch';
+
 /**
  * @description Fetches the titles of the patents from PubChem associated with a given Patent ID
  * @param {String} patentID
