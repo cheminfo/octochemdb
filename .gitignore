@@ -3,8 +3,8 @@ originalData
 node_modules
 .DS_Store
 
-pubchem/.env
-pubchem/src/plugins/taxonomies/sync/utils/uniqueTaxonomies.mjs
-pubchem/src/plugins/pubmeds/sync/utils/__tests__/pubmedTest.xml
-pubchem/src/plugins/pubmeds/sync/utils/__tests__/testpub.js
-pubchem/src/plugins/uspPatents/sync/utils/__tests__/data/2001.xml
+octochemdb/.env
+octochemdb/src/plugins/taxonomies/sync/utils/uniqueTaxonomies.mjs
+octochemdb/src/plugins/pubmeds/sync/utils/__tests__/pubmedTest.xml
+octochemdb/src/plugins/pubmeds/sync/utils/__tests__/testpub.js
+octochemdb/src/plugins/uspPatents/sync/utils/__tests__/data/2001.xml
