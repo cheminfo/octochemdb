@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: 'If you use this software, please cite it as below.'
-title: 'OctoChemDB: a web service resulting from the synchronization and aggregation of various scientific databases'
+title: 'OctoChemDB: A Comprehensive Web Service for Chemical Data Integration'
 abstract: 'OctoChemDB is a web service with a two-step process: synchronization and aggregation. The synchronization phase uses plugins to create and maintain local copies of the synchronized databases, which are then linked in the aggregation phase based on their 2D structure. The resulting database can be queried with various criteria, and results are returned as a JSON object for integration into web application.'
 repository-artifact: http://cheminfo.github.io/mass-tools/
 repository-code: https://github.com/cheminfo/mass-tools
