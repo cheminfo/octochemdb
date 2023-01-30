@@ -12,17 +12,14 @@ const debug = Debug('getSubstanceData');
  * @returns {Promise} data to be imported
  */
 async function improveSubstance(molecule) {
-  let result = {
-    _id: +molecule.PUBCHEM_SUBSTANCE_ID,
-    _seq: 0,
-    naturalProduct: false,
-    data: {
-      molfile: molecule.molfile,
-    },
-  };
-  try {
-    let ocl = getSubstanceData(molecule);
-    result.data.ocl = ocl;
+  let dataCompound = await getSubstanceData(molecule);
+  if (dataCompound?.data) {
+    let result = {
+      _id: +molecule.PUBCHEM_SUBSTANCE_ID,
+      _seq: 0,
+      naturalProduct: false,
+      data: dataCompound.data,
+    };
 
     if (molecule.PUBCHEM_CID_ASSOCIATIONS !== undefined) {
       let arrayCIDs = molecule.PUBCHEM_CID_ASSOCIATIONS.toString()
@@ -36,9 +33,7 @@ async function improveSubstance(molecule) {
       }
       result.data.cids = cids;
     }
-    if (molecule.PUBCHEM_TOTAL_CHARGE !== undefined) {
-      result.data.charge = molecule.PUBCHEM_TOTAL_CHARGE;
-    }
+
     if (molecule.PUBCHEM_NCBI_TAXONOMY_ID !== undefined) {
       result.data.taxonomyIDs = molecule.PUBCHEM_NCBI_TAXONOMY_ID.toString()
         .replace(/(\r\n|\n|\r)/gm, '  ')
@@ -71,10 +66,9 @@ async function improveSubstance(molecule) {
     if (molecule.PUBCHEM_PUBMED_MESH_TERM !== undefined) {
       result.data.meshTerms = molecule.PUBCHEM_PUBMED_MESH_TERM;
     }
-  } catch (e) {
-    debug(e);
+
+    return result;
   }
-  return result;
 }
 
 workerpool.worker({

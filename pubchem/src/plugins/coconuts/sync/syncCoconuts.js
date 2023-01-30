@@ -26,22 +26,18 @@ export async function sync(connection) {
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress(options.collectionName);
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.COCONUT_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.COCONUT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
-    // Get taxonomies collection
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
+
     // Get last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
@@ -52,16 +48,25 @@ export async function sync(connection) {
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-    // define file to use for importation inside the zip file
-    let fileName = 'uniqueNaturalProduct.bson';
+
     // check if importation is necessary
     if (
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.COCONUT_UPDATE_INTERVAL)
+        isTimeToUpdate)
     ) {
+      // define file to use for importation inside the zip file
+      let fileName = 'uniqueNaturalProduct.bson';
       debug(`Start parsing: ${fileName}`);
+      const collection = await connection.getCollection(options.collectionName);
+      const logs = await connection.getImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
+      // Get taxonomies collection
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
       // create temporary collection to import
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
@@ -74,10 +79,7 @@ export async function sync(connection) {
         counter++;
         if (process.env.TEST === 'true' && counter > 20) break;
 
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
@@ -112,7 +114,7 @@ export async function sync(connection) {
       progress.state = 'updated';
       // create indexes on the collection for faster search
       await connection.setProgress(progress);
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);

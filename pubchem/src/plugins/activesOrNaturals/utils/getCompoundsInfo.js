@@ -1,4 +1,7 @@
+import OCL from 'openchemlib';
+
 import Debug from '../../../utils/Debug.js';
+import { fetchPatentsTitles } from '../../../utils/fetchPatentsTitles.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
 const debug = Debug('getCompoundsInfo');
@@ -7,7 +10,7 @@ const debug = Debug('getCompoundsInfo');
  * @param {*} entry Entry from the aggregation process
  * @param {*} data Array of all data for the current noStereoID
  * @param {*} compoundsCollection Compounds collection
- * @param {*} noStereoID current noStereoID
+ * @param {*} noStereoTautomerID current noStereoTautomerID
  * @param {*} connection PubChem connection
  * @returns {Promise} Returns the entry with the compounds information
  */
@@ -15,7 +18,7 @@ export default async function getCompoundsInfo(
   entry,
   data,
   compoundsCollection,
-  noStereoID,
+  noStereoTautomerID,
   connection,
   patentsCollection,
 ) {
@@ -43,7 +46,7 @@ export default async function getCompoundsInfo(
     }
     let bioActive = false;
     let cursor = await compoundsCollection
-      .find({ 'data.ocl.noStereoID': noStereoID })
+      .find({ 'data.ocl.noStereoTautomerID': noStereoTautomerID })
       .limit(1);
 
     let compoundInfo = await cursor.next();
@@ -56,27 +59,32 @@ export default async function getCompoundsInfo(
       entry.data.bioActive = bioActive;
       cids[compoundInfo._id] = true;
     }
-    if (compoundInfo === null) {
-      const molecule = { noStereoID };
+    if (compoundInfo?.data?.em === undefined) {
+      const molecule = OCL.Molecule.fromIDCode(noStereoTautomerID);
+      const smiles = molecule.toSmiles();
       let compoundData = await getCompoundsData(molecule);
-      entry.data.em = compoundData.data.em;
-      entry.data.charge = compoundData.data.charge;
-      entry.data.unsaturation = compoundData.data.unsaturation;
-      entry.data.mf = compoundData.data.mf;
+      entry.data.smiles = smiles;
+      entry.data.em = compoundData?.data.em;
+      entry.data.charge = compoundData?.data.charge;
+      entry.data.unsaturation = compoundData?.data.unsaturation;
+      entry.data.mf = compoundData?.data.mf;
       entry.data.bioActive = bioActive;
     }
     cids = Object.keys(cids);
     let compoundsPatents = [];
+    //let patentsTitles = {};
     let nbPatents = 0;
     if (cids.length > 0) {
       for (let compound of cids) {
         let currentCid = Number(compound);
         let cursor = await patentsCollection.find({ _id: currentCid });
         let patent = await cursor.next();
-
         if (patent !== null) {
           // merge array compoundsPatents with patent.data.patents
           compoundsPatents = compoundsPatents.concat(patent.data.patents);
+          /*for (let id of compoundsPatents) {
+            patentsTitles[id] = await fetchPatentsTitles(id);
+          }*/
           nbPatents += patent.data.nbPatents;
         }
       }
@@ -86,6 +94,9 @@ export default async function getCompoundsInfo(
     if (nbPatents > 0) {
       entry.data.nbPatents = nbPatents;
     }
+    /*if (patentsTitles.length > 0) {
+      entry.data.patentsTitles = patentsTitles;
+    }*/
     if (compoundsPatents.length > 0) {
       entry.data.patents = compoundsPatents;
     }

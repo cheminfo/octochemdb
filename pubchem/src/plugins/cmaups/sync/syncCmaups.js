@@ -26,28 +26,31 @@ export async function sync(connection) {
       speciesInfo,
       logs,
     ] = await cmaupsStartSync(connection);
-    // get old to new taxonomies ids and taxonomies collection
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
     // Define counters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.CMAUP_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.CMAUP_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       JSON.stringify(sources) !== progress.sources
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
     // Reimport collection again only if lastDocument imported changed or importation was not completed
     if (
       lastDocumentImported === null ||
       ((JSON.stringify(sources) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.CMAUP_UPDATE_INTERVAL)
+        isTimeToUpdate)
     ) {
+      // get old to new taxonomies ids and taxonomies collection
+      const oldToNewTaxIDs = await taxonomySynonyms();
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
       // Define stat updating because in case of failure Cron will retry importation in 24h
       progress.state = 'updating';
       await connection.setProgress(progress);
@@ -66,10 +69,7 @@ export async function sync(connection) {
         if (process.env.TEST === 'true' && counter > 20) break;
 
         // Debug the processing progress every 10s or the defined time in process env
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
@@ -117,7 +117,7 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // Indexing of properties in collection
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
 
       debug(`${imported} compounds processed`);

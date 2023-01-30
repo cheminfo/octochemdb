@@ -40,7 +40,7 @@ async function firstSubstanceImport(connection) {
 
     let substanceCollection = await connection.getCollection('substances');
     await substanceCollection.createIndex({ naturalProduct: 1 });
-    await substanceCollection.createIndex({ 'data.ocl.noStereoID': 1 });
+    await substanceCollection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
     await substanceCollection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {

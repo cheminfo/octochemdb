@@ -26,7 +26,8 @@ async function incrementalCompoundImport(connection) {
     );
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.PUBCHEM_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       !files.includes(progress.sources)
     ) {
       progress.dateStart = Date.now();
@@ -37,7 +38,8 @@ async function incrementalCompoundImport(connection) {
     if (
       !files.includes(progress.sources) &&
       progress.state === 'updated' &&
-      progress.dateEnd - Date.now() > process.env.PUBCHEM_UPDATE_INTERVAL
+      Date.now() - progress.dateEnd >
+        Number(process.env.PUBCHEM_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
       await importCompoundFiles(
         connection,

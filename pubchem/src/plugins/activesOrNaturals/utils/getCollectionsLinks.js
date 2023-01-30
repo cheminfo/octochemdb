@@ -22,20 +22,22 @@ export default async function getCollectionsLinks(connection, collectionNames) {
           {
             $project: {
               _id: 0,
-              noStereoID: '$data.ocl.noStereoID',
+              noStereoTautomerID: '$data.ocl.noStereoTautomerID',
               source: { id: '$_id', collection: collectionName },
             },
           },
         ])
         .toArray();
 
-      debug(`Loaded ${results.length} noStereoIDs from ${collectionName}`);
+      debug(
+        `Loaded ${results.length} noStereoTautomerIDs from ${collectionName}`,
+      );
       for (const entry of results) {
-        if (entry?.noStereoID) {
-          if (!links[entry.noStereoID]) {
-            links[entry.noStereoID] = [];
+        if (entry?.noStereoTautomerID) {
+          if (!links[entry.noStereoTautomerID]) {
+            links[entry.noStereoTautomerID] = [];
           }
-          links[entry.noStereoID].push(entry.source);
+          links[entry.noStereoTautomerID].push(entry.source);
         }
       }
     }

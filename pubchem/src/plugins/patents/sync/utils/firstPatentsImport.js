@@ -11,14 +11,11 @@ export default async function firstPatentsImport(filneName, connection) {
     const lines = createInterface({ input: readStream });
     let entry = [];
     let currentProductID = -1;
-    let counter = 0;
-    let start = Date.now();
-    let timeStartTenThousand = Date.now();
     const progress = await connection.getProgress('patents');
 
     for await (const line of lines) {
       let fields = line.split('\t');
-      if (!fields.length === 2) continue;
+      if (fields.length !== 2) continue;
       const [productID, patentID] = fields;
       if (currentProductID === -1) {
         currentProductID = Number(productID);
@@ -31,20 +28,8 @@ export default async function firstPatentsImport(filneName, connection) {
         });
         entry.length = 0;
         currentProductID = Number(productID);
-        counter++;
-        if (counter % 10000 === 0) {
-          const timeEndTenThousand = Date.now();
-          debug(
-            `_____Time: ${timeEndTenThousand - timeStartTenThousand}_______`,
-          );
-          timeStartTenThousand = Date.now();
-        }
       }
       entry.push(patentID);
-      if (Date.now() - start > 10000) {
-        start = Date.now();
-        debug(`Processed: ${counter} compounds`);
-      }
     }
     if (entry.length) {
       await temporaryCollection.insertOne({

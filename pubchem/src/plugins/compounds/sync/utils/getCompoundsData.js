@@ -1,66 +1,79 @@
-import MFParser from 'mf-parser';
+import delay from 'delay';
 import OCL from 'openchemlib';
-import { getMF } from 'openchemlib-utils';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
 
-const { MF } = MFParser;
 const debug = Debug('getCompoundsData');
 /**
  * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
  * @param {*} molecule molecule from pubchem file
- * @returns {Object} compounds properties
+ * @returns  compounds properties
  */
-export function getCompoundsData(molecule) {
-  let oclMolecule;
-  if (molecule.molfile) {
-    oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
-  } else {
-    oclMolecule = OCL.Molecule.fromIDCode(molecule.noStereoID);
-  }
-  // calculate molecule properties (e.g. charge, OCL ID, molecular formula, etc.)
-  const oclProperties = new OCL.MoleculeProperties(oclMolecule);
-  const oclID = oclMolecule.getIDCodeAndCoordinates();
-  const oclIndex = Array.from(oclMolecule.getIndex());
-  const moleculeMF = getMF(oclMolecule);
-  const mfParts = moleculeMF.parts;
-  const nbFragments = mfParts.length;
-  const mf = mfParts.join(' . ');
-  const globalMF = moleculeMF.mf;
-
-  const noStereoID = getNoStereoIDCode(oclMolecule);
-  let result = {
-    data: {
-      ocl: {
-        idCode: oclID.idCode,
-        coordinates: oclID.coordinates,
-        index: oclIndex,
-        noStereoID,
-
-        acceptorCount: oclProperties.acceptorCount,
-        donorCount: oclProperties.donorCount,
-        logP: oclProperties.logP,
-        logS: oclProperties.logS,
-        polarSurfaceArea: oclProperties.polarSurfaceArea,
-        rotatableBondCount: oclProperties.rotatableBondCount,
-        stereoCenterCount: oclProperties.stereoCenterCount,
-      },
-      mf,
-      nbFragments,
-    },
-  };
-
+export async function getCompoundsData(molecule) {
   try {
-    // calculate molecular formula properties (ex. exact mass, unsaturations, etc.)
-    const mfInfo = new MF(globalMF).getInfo();
-    result.data.em = mfInfo.monoisotopicMass;
-    result.data.mw = mfInfo.mass;
-    result.data.unsaturation = mfInfo.unsaturation;
-    result.data.charge = mfInfo.charge;
-    result.data.atom = mfInfo.atoms;
+    let oclMolecule;
+    if (molecule.molfile) {
+      oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
+    } else {
+      oclMolecule = OCL.Molecule.fromIDCode(molecule.idCode);
+    }
+    let idCode = oclMolecule.getIDCode();
+    const oclID = oclMolecule.getIDCodeAndCoordinates();
+    let urlIDCode = encodeURIComponent(idCode);
+    let success = false;
+    let count = 0;
+    let dataCompound;
+    while (success === false && count < 3) {
+      try {
+        dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
+      } catch (e) {
+        debug(e);
+      }
+      if (dataCompound?.ok) {
+        success = true;
+      } else {
+        await delay(1000);
+      }
+      count++;
+    }
+    if (!success) {
+      throw new Error('Failed to fetch data');
+    }
+    if (dataCompound?.ok) {
+      let data = await dataCompound.json();
+      //  console.log(data);
+      let result = {
+        data: {
+          ocl: {
+            idCode: data.result.idCode,
+            coordinates: oclID.coordinates,
+            index: data.result.ssIndex,
+            noStereoID: data.result.noStereoID,
+            noStereoTautomerID: data.result.noStereoTautomerID,
+
+            acceptorCount: data.result.acceptorCount,
+            donorCount: data.result.donorCount,
+            logP: data.result.logP,
+            logS: data.result.logS,
+            polarSurfaceArea: data.result.polarSurfaceArea,
+            rotatableBondCount: data.result.rotatableBondCount,
+            stereoCenterCount: data.result.stereoCenterCount,
+          },
+          mf: data.result.mf,
+          em: data.result.em,
+          charge: data.result.charge,
+          mw: data.result.mw,
+          nbFragments: data.result.nbFragments,
+          atom: data.result.atom,
+          unsaturation: data.result.unsaturation,
+        },
+      };
+
+      return result;
+    } else {
+      debug(`Error: ${dataCompound?.status} ${dataCompound}`);
+    }
   } catch (e) {
     debug(e);
   }
-  return result;
 }

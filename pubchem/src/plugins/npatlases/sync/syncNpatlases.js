@@ -33,26 +33,24 @@ export async function sync(connection) {
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.NPATLAS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
-    // get logs and last document imported
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
+
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
+
     // read file synchronized from NPATLAS database
     const fileJson = readFileSync(lastFile, 'utf8');
     // define counters
@@ -63,8 +61,15 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.NPATLAS_UPDATE_INTERVAL)
+        isTimeToUpdate)
     ) {
+      const collection = await connection.getCollection(options.collectionName);
+      // get logs and last document imported
+      const logs = await connection.getImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         'npAtlases_tmp',
@@ -81,10 +86,7 @@ export async function sync(connection) {
         counter++;
         if (process.env.TEST === 'true' && counter > 20) break;
 
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
@@ -121,7 +123,7 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on npAtlases collection
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
 
       debug(`${imported} compounds processed`);

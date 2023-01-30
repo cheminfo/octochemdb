@@ -24,6 +24,7 @@ const debug = Debug('getFileIfNew');
  */
 async function getFileIfNew(file, targetFolder, options = {}) {
   const { filename, extension } = options;
+
   if (!filename || !extension) {
     throw new Error('options filename and extension are mandatory');
   }

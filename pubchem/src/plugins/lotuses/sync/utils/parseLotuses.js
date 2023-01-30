@@ -1,8 +1,8 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import Debug from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
 const debug = Debug('parseLotuses');
@@ -17,13 +17,13 @@ const debug = Debug('parseLotuses');
 export async function* parseLotuses(lotusFilePath, filename, connection) {
   try {
     const readStream = await readStreamInZipFolder(lotusFilePath, filename);
+
     for await (const entry of bsonIterator(readStream)) {
       try {
         // generate molecule from smiles
+        // get noStereoID for the molecule
         const oclMolecule = OCL.Molecule.fromSmiles(entry.smiles);
-        const oclID = oclMolecule.getIDCodeAndCoordinates();
-        // get noStereoID
-        const noStereoID = getNoStereoIDCode(oclMolecule);
+        const ocl = await getNoStereosFromCache(oclMolecule, connection);
         // parse taxonomies
         const taxonomy = entry.taxonomyReferenceObjects;
         const key = Object.keys(taxonomy)[0];
@@ -115,33 +115,30 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         const result = {
           _id: entry.lotus_id,
           data: {
-            ocl: {
-              idCode: oclID.idCode,
-              noStereoID,
-            },
+            ocl,
           },
         };
         if (entry?.iupac_name) result.data.iupacName = entry?.iupac_name;
         if (
-          ncbi.length !== 0 ||
-          gBifBackboneTaxonomy.length !== 0 ||
-          iNaturalist.length !== 0 ||
-          openTreeOfLife.length !== 0 ||
-          iTIS.length !== 0
+          ncbi?.length !== 0 ||
+          gBifBackboneTaxonomy?.length !== 0 ||
+          iNaturalist?.length !== 0 ||
+          openTreeOfLife?.length !== 0 ||
+          iTIS?.length !== 0
         ) {
           result.data.taxonomies = {};
         }
-        if (ncbi.length !== 0) result.data.taxonomies.ncbi = ncbi;
-        if (gBifBackboneTaxonomy.length !== 0) {
+        if (ncbi?.length !== 0) result.data.taxonomies.ncbi = ncbi;
+        if (gBifBackboneTaxonomy?.length !== 0) {
           result.data.taxonomies.gBifBackboneTaxonomy = gBifBackboneTaxonomy;
         }
-        if (iNaturalist.length !== 0) {
+        if (iNaturalist?.length !== 0) {
           result.data.taxonomies.iNaturalist = iNaturalist;
         }
-        if (openTreeOfLife.length !== 0) {
+        if (openTreeOfLife?.length !== 0) {
           result.data.taxonomies.openTreeOfLife = openTreeOfLife;
         }
-        if (iTIS.length !== 0) result.data.taxonomies.iTIS = iTIS;
+        if (iTIS?.length !== 0) result.data.taxonomies.iTIS = iTIS;
         yield result;
       } catch (e) {
         if (connection) {

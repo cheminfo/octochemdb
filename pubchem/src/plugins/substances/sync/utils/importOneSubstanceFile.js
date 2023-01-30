@@ -78,20 +78,22 @@ export default async function importOneSubstanceFile(
         actions.push(
           improveSubstancePool(substance)
             .then((result) => {
-              if (result.data.taxonomyIDs) {
-                let taxonomies = getTaxonomiesSubstances(
-                  result,
-                  collectionTaxonomies,
-                  oldToNewTaxIDs,
+              if (result) {
+                if (result.data.taxonomyIDs) {
+                  let taxonomies = getTaxonomiesSubstances(
+                    result,
+                    collectionTaxonomies,
+                    oldToNewTaxIDs,
+                  );
+                  result.data.taxonomies = taxonomies;
+                }
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
                 );
-                result.data.taxonomies = taxonomies;
               }
-              result._seq = ++progress.seq;
-              return collection.updateOne(
-                { _id: result._id },
-                { $set: result },
-                { upsert: true },
-              );
             })
             .then(() => {
               progress.sources = file.path.replace(
@@ -101,6 +103,12 @@ export default async function importOneSubstanceFile(
               return connection.setProgress(progress);
             }),
         );
+        // if actions array is > 5000 we execute them
+        if (actions.length > 1000) {
+          newSubstances += actions.length;
+          await Promise.all(actions);
+          actions.length = 0;
+        }
       }
       newSubstances += actions.length;
       await Promise.all(actions);

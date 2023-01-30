@@ -17,7 +17,7 @@ export async function sync(connection) {
   const debug = Debug('syncPatents');
   try {
     let options = {
-      collectionSource: process.env.CIDTOPATENTS_SOURCE,
+      collectionSource: process.env.CIDTOPATENT_SOURCE,
       destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/patents/cidToPatents`,
       collectionName: 'patents',
       filenameNew: 'cidToPatents',
@@ -28,12 +28,15 @@ export async function sync(connection) {
     const lastFile = await getLastFileSync(options);
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
     const progress = await connection.getProgress('patents');
+    let shouldUpdate = false;
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.PATENT_DATE_INTERVAL &&
+      Date.now() - Number(progress.dateEnd) >
+        Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
+      shouldUpdate = true;
       await connection.setProgress(progress);
     }
     const logs = await connection.getImportationLog({
@@ -42,7 +45,7 @@ export async function sync(connection) {
       startSequenceID: progress.seq,
     });
     if (
-      JSON.stringify(sources) !== progress.sources ||
+      (JSON.stringify(sources) !== progress.sources && shouldUpdate) ||
       progress.state !== 'updated'
     ) {
       progress.state = 'updating';

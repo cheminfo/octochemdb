@@ -14,7 +14,7 @@ const taxonomyFromID = {
         type: 'number',
         description: 'ncbi taxonomy ID',
         example: 662756,
-        default: null,
+        default: 562,
       },
     },
   },

@@ -26,21 +26,17 @@ export async function sync(connection) {
     const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
 
     const progress = await connection.getProgress(options.collectionName);
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.GNPS_DATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.GNPS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
-
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
@@ -55,8 +51,15 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.GNPS_UPDATE_INTERVAL)
+        isTimeToUpdate)
     ) {
+      const collection = await connection.getCollection(options.collectionName);
+
+      const logs = await connection.getImportationLog({
+        collectionName: options.collectionName,
+        sources,
+        startSequenceID: progress.seq,
+      });
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
@@ -71,10 +74,7 @@ export async function sync(connection) {
         // if test mode is enabled, stop after 20 entries
         if (process.env.TEST === 'true' && counter > 20) break;
 
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
@@ -102,7 +102,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // create indexes on the collection
       await collection.createIndex({ 'data.ocl.idCode': 1 });
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ 'data.spectrum.msLevel': 1 });
       await collection.createIndex({ 'data.spectrum.ionSource': 1 });
       await collection.createIndex({ 'data.spectrum.precursorMz': 1 });

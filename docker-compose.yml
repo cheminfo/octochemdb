@@ -12,6 +12,8 @@ services:
       driver: 'json-file'
       options:
         max-size: '50m'
+    networks:
+      - ocl-cache-docker_some-net
 
   import:
     build: ./pubchem
@@ -31,6 +33,8 @@ services:
       - MONGODB_URL=mongodb://mongo:27017
       - ORIGINAL_DATA_PATH=/originalData
     command: npm run cron
+    networks:
+      - ocl-cache-docker_some-net
 
   pubchem:
     build: ./pubchem
@@ -45,3 +49,8 @@ services:
       driver: 'json-file'
       options:
         max-size: '50m'
+    networks:
+      - ocl-cache-docker_some-net
+networks:
+  ocl-cache-docker_some-net:
+    external: true

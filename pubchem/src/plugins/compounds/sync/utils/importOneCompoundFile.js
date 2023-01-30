@@ -76,38 +76,55 @@ export default async function importOneCompoundFile(
           continue;
         }
         shouldImport = true;
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Skipping compounds till: ${lastDocument._id}`);
           start = Date.now();
           continue;
         }
       }
-      // promises to be resolved
-      actions.push(
-        improveCompoundPool(compound)
-          .then((result) => {
-            result._seq = ++progress.seq;
-            return collection.updateOne(
-              { _id: result._id },
-              { $set: result },
-              { upsert: true },
-            );
-          })
-          .then(() => {
-            progress.sources = file.path.replace(
-              process.env.ORIGINAL_DATA_PATH,
-              '',
-            );
-            return connection.setProgress(progress);
-          }),
-      );
+      try {
+        // promises to be resolved
+        actions.push(
+          improveCompoundPool(compound)
+            .then((result) => {
+              if (result) {
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
+                );
+              }
+            })
+            .then(() => {
+              progress.sources = file.path.replace(
+                process.env.ORIGINAL_DATA_PATH,
+                '',
+              );
+              return connection.setProgress(progress);
+            }),
+        );
+        if (actions.length > 20) {
+          newCompounds += actions.length;
+          await Promise.all(actions);
+          actions.length = 0;
+        }
+      } catch (e) {
+        if (connection) {
+          debug(e.message, {
+            collection: 'compounds',
+            connection,
+            stack: e.stack,
+          });
+        }
+        continue;
+      }
     }
+
     newCompounds += actions.length;
     // wait for all the promises to be resolved
     await Promise.all(actions);
+
     debug(`${newCompounds} compounds processed`);
     return compounds.length;
   }

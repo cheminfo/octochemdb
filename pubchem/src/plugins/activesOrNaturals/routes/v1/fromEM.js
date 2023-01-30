@@ -10,13 +10,13 @@ const entriesFromEM = {
   schema: {
     summary: 'Retrieve compounds from a monoisotopic mass',
     description:
-      'Allows to search for PubChem compounds based on a monoisotopic mass, precision (accuracy) of the measurement, taxonomy or bioassay.',
+      'Allows to search for compounds based on a monoisotopic mass, precision (accuracy) of the measurement, taxonomy or bioassay.',
     querystring: {
       em: {
         type: 'number',
         description: 'Monoisotopic mass',
         example: 300.123,
-        default: 0,
+        default: 300,
       },
       precision: {
         type: 'number',
@@ -57,8 +57,7 @@ const entriesFromEM = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default:
-          'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.nbActivities,data.nbTaxonomies,data.nbPubmeds,data.nbPatents,data.nbMassSpectra,data.massSpectraRefs',
+        default: 'data.em,data.mf',
       },
     },
   },
@@ -73,14 +72,14 @@ export default entriesFromEM;
  */
 async function searchHandler(request) {
   let {
-    em = 0,
+    em = 300,
     kwTaxonomies = '',
     kwBioassays = '',
     kwActiveAgainst = '',
     kwMeshTerms = '',
     limit = 1e3,
     precision = 100,
-    fields = 'data.em,data.mf,data.charge,data.unsaturation,data.bioActive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.nbMassSpectra,data.massSpectraRefs',
+    fields = 'data.em,data.mf',
   } = request.query;
   // This keywords use regular expressions to search even for incomplete terms
   let wordsWithRegexBioassays = [];

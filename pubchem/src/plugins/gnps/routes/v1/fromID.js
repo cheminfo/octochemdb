@@ -13,13 +13,12 @@ const fromID = {
         type: 'string',
         description: 'GNPS ID',
         example: 'CCMSLIB00000001547',
-        default: null,
+        default: 'CCMSLIB00000001547',
       },
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default:
-          'data.ocl.noStereoID,data.ocl.idCode,data.spectrum.msLevel,data.spectrum.ionSource,data.spectrum.instrument,data.spectrum.precursorMz,data.spectrum.adduct,data.spectrum.ionMode,data.spectrum.data',
+        default: 'data.ocl.noStereoTautomerID',
       },
     },
   },
@@ -29,10 +28,7 @@ const fromID = {
 export default fromID;
 
 async function searchHandler(request) {
-  let {
-    id = '',
-    fields = 'data.ocl.noStereoID,data.ocl.idCode,data.spectrum.msLevel,data.spectrum.ionSource,data.spectrum.instrument,data.spectrum.precursorMz,data.spectrum.adduct,data.spectrum.ionMode,data.spectrum.data',
-  } = request.query;
+  let { id = '', fields = 'data.ocl.noStereoTautomerID' } = request.query;
 
   let connection;
   try {

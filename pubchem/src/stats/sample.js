@@ -1,4 +1,3 @@
-import bluebird from 'bluebird';
 import CC from 'chemcalc';
 import co from 'co';
 import functions from 'mf';
@@ -9,10 +8,9 @@ import stats from '../../stats.json.js';
 import Debug from '../utils/Debug.js';
 
 const debug = Debug('sample');
-process.on('unhandledRejection', function (e) {
+process.on('unhandledRejection', (e) => {
   throw e;
 });
-const fs = bluebird.promisifyAll(require('fs-extra'));
 
 const ppm = rules.samplePpm;
 const penality = rules.ratioPenality;

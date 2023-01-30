@@ -86,7 +86,7 @@ export default async function getBioassays(
           }
           let taxonomy = await collectionTaxonomies.findOne({ _id: idToUse });
           if (taxonomy) {
-            if (taxonomy.data !== {}) {
+            if (taxonomy.data !== undefined) {
               taxonomies.push(taxonomy.data);
             }
           }
@@ -96,7 +96,7 @@ export default async function getBioassays(
         }
       }
       // Debug the progress every 30000 bioassays
-      if (Date.now() - start > Number(30000)) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
         debug(`Processed: ${counter} assays`);
         start = Date.now();
       }

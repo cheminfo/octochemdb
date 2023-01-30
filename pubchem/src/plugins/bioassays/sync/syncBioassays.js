@@ -22,10 +22,6 @@ export async function sync(connection) {
     extensionNew: 'tsv.gz',
   };
   try {
-    // get compounds and taxonomies collections
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    const collectionTaxonomies = await connection.getCollection('taxonomies');
-    const collectionCompounds = await connection.getCollection('compounds');
     // Download the bioActivities and bioAssays files if newer than last sync
     const bioactivitiesFile = await getLastFileSync(options);
     options.collectionSource = process.env.BIOASSAY_SOURCE;
@@ -33,25 +29,27 @@ export async function sync(connection) {
     const bioassaysFile = await getLastFileSync(options);
     // Get progress of last sync and the bioassays collection
     const progress = await connection.getProgress(options.collectionName);
+    const sources = [
+      bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+      bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
+    ];
+    let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
-      progress.dateEnd - Date.now() > process.env.BIOASSAY_UPDATE_INTERVAL &&
+      Date.now() - progress.dateEnd >
+        Number(process.env.BIOASSAY_UPDATE_INTERVA) &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
+      isTimeToUpdate = true;
     }
-    const collection = await connection.getCollection(options.collectionName);
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-    const sources = [
-      bioassaysFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
-      bioactivitiesFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
-    ];
 
     // Define different coulters
     let counter = 0;
@@ -62,8 +60,13 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        progress.dateEnd - Date.now() > process.env.BIOASSAY_UPDATE_INTERVAL)
+        isTimeToUpdate)
     ) {
+      // get compounds and taxonomies collections
+      const oldToNewTaxIDs = await taxonomySynonyms();
+      const collectionTaxonomies = await connection.getCollection('taxonomies');
+      const collectionCompounds = await connection.getCollection('compounds');
+      const collection = await connection.getCollection(options.collectionName);
       // Generate Logs for the sync
       const logs = await connection.getImportationLog({
         collectionName: options.collectionName,
@@ -89,10 +92,7 @@ export async function sync(connection) {
         // If cron launched in mode test, the importation will be stopped after 20 iteration
         if (process.env.TEST === 'true' && counter > 20) break;
         // Debug the processing progress every 10s or the defined time in process env
-        if (
-          Date.now() - start >
-          Number(process.env.DEBUG_THROTTLING || 10000)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
@@ -124,7 +124,7 @@ export async function sync(connection) {
       debug(`${imported} compounds processed`);
 
       // Indexing of properties in collection
-      await collection.createIndex({ 'data.ocl.noStereoID': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
     } else {
       debug(`file already processed`);
