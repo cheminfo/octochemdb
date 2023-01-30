@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImport } from './utils/getFilesToImport.js';
 import { importSubstanceFiles } from './utils/importSubstanceFiles.js';
@@ -9,7 +9,7 @@ import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
  * @param {*} connection
  */
 async function incrementalSubstanceImport(connection) {
-  const debug = Debug('incrementalSubstanceImport');
+  const debug = debugLibrary('incrementalSubstanceImport');
   try {
     const allFiles = await syncSubstanceFolder(connection, 'incremental');
 

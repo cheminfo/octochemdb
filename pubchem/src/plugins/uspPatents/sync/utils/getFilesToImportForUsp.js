@@ -1,15 +1,14 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 /**
  * @description get list of files to import
  * @param {*} connection - mongo connection
  * @param {*} progress - pubmeds progress
  * @param {Array} allFiles - list of files to import
- * @param {string} importType - first or incremental
  * @returns {Promise} list of files to import
  */
 export async function getFilesToImportForUsp(connection, progress, allFiles) {
-  const debug = Debug('getFilesToImportForUsp');
+  const debug = debugLibrary('getFilesToImportForUsp');
   try {
     const collection = await connection.getCollection('uspPatents');
     const lastDocument = await collection

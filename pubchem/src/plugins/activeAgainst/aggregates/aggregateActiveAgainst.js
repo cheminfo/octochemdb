@@ -1,14 +1,14 @@
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 /**
  * @description Aggregate the active against data from the activeOrNaturals collection
  * @param {*} connection
  * @output {collection} activeAgainst collection
  */
 export async function aggregate(connection) {
-  const debug = Debug('aggregateActiveAgainst');
+  const debug = debugLibrary('aggregateActiveAgainst');
   try {
     // Get collections from the database
     const options = { collection: 'activeAgainst', connection };

@@ -5,9 +5,9 @@ import mfUtil from 'mf';
 import rules from 'rules';
 
 import stats from '../../../stats.json.js';
-import Debug from '../../utils/Debug.js';
+import debugLibrary from '../../utils/Debug.js';
 
-const debug = Debug('sample');
+const debug = debugLibrary('sample');
 const ppm = rules.samplePpm;
 const penality = rules.ratioPenality;
 

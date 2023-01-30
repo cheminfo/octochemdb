@@ -3,9 +3,9 @@ import OCL from 'openchemlib';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
 import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('fromSmiles');
+const debug = debugLibrary('fromSmiles');
 
 const fromSmiles = {
   method: 'GET',

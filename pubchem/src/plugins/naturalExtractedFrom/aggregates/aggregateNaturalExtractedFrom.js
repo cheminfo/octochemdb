@@ -1,14 +1,14 @@
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 /**
  * @description Aggregate molecules in function of the organism taxonomy from which they are extracted
  * @param {*} connection mongo connection
  * @returns {Promise} returns naturalExtractedFrom collection
  */
 export async function aggregate(connection) {
-  const debug = Debug('aggregateNaturalExtractedFrom');
+  const debug = debugLibrary('aggregateNaturalExtractedFrom');
   const COLLECTION_NAME = 'naturalExtractedFrom';
   try {
     // get activesOrNaturals collection and progress

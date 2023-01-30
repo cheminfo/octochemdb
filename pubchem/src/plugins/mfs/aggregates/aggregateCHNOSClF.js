@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 /**
  * @description Aggregate function for molecules with mf containing CHNOSClF elements (most common element in organic compounds)
@@ -6,7 +6,7 @@ import Debug from '../../../utils/Debug.js';
  * @returns {Promise} returns mfsCHNOSClF collection
  */
 export async function aggregate(connection) {
-  const debug = Debug('aggregateCHNOSClF');
+  const debug = debugLibrary('aggregateCHNOSClF');
   // get compounds collection and progress
   const collection = await connection.getCollection('compounds');
   const progressCompounds = await connection.getProgress('compounds');

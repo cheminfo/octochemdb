@@ -1,5 +1,5 @@
 import getLastDocumentImported from '../../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import getNpassesLastFiles from './getNpassesLastFiles.js';
 import readNpassesLastFiles from './readNpassesLastFiles.js';
@@ -9,7 +9,7 @@ import readNpassesLastFiles from './readNpassesLastFiles.js';
  * @returns {object} returns the variables {lastDocumentImported, progress, sources, collection, general, activities, properties, speciesPair, speciesInfo, logs}
  */
 export default async function npassStartSync(connection) {
-  const debug = Debug('npassStartSync');
+  const debug = debugLibrary('npassStartSync');
   try {
     // get lastFile, lastFileActivity, lastFileSpeciesProperties, lastFileSpeciesInfo, lastFileSpeciesPair, Sources, progress and logs
     const {

@@ -1,11 +1,11 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
-const debug = Debug('parseCoconuts');
+const debug = debugLibrary('parseCoconuts');
 /**
  * @description Parse the coconuts file from the coconut database and yield result to be imported
  * @param {*} bsonPath path to the bson file

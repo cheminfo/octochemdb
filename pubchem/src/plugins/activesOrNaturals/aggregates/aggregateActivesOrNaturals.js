@@ -1,7 +1,7 @@
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 import getActivityKeywords from '../utils/getAcitivityKeywords.js';
 import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
@@ -26,7 +26,7 @@ export async function aggregate(connection) {
     'coconuts',
     'bioassays',
   ];
-  const debug = Debug('aggregateActivesOrNaturals');
+  const debug = debugLibrary('aggregateActivesOrNaturals');
   try {
     const options = { collection: 'activesOrNaturals', connection };
     // Get progress,logs, target, lastDocument and links of the collection

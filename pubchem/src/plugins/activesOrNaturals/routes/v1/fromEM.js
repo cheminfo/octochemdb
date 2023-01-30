@@ -1,9 +1,9 @@
 import escapeRegExp from 'lodash.escaperegexp';
 
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('entriesFromEM');
+const debug = debugLibrary('entriesFromEM');
 // export the handler
 const entriesFromEM = {
   method: 'GET',

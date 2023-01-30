@@ -1,6 +1,6 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('getTaxonomiesInfo');
+const debug = debugLibrary('getTaxonomiesInfo');
 
 /**
  * @description Get unique taxonomies from the aggregation process data

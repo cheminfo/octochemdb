@@ -1,10 +1,10 @@
-import Debug from '../../utils/Debug.js';
+import debugLibrary from '../../utils/Debug.js';
 
 import getFile from './utils/getFile.js';
 import getFilesList from './utils/getFilesList.js';
 import syncFolder from './utils/syncFolder.js';
 
-const debug = Debug('syncUpdates');
+const debug = debugLibrary('syncUpdates');
 
 const SOURCE = 'https://ftp.ncbi.nlm.nih.gov/pubchem/';
 

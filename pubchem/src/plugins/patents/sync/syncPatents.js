@@ -2,7 +2,7 @@ import pkg from 'fs-extra';
 import md5 from 'md5';
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import firstPatentsImport from './utils/firstPatentsImport.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
@@ -14,7 +14,7 @@ const { removeSync } = pkg;
  * @returns {Promise} returns patents collection
  */
 export async function sync(connection) {
-  const debug = Debug('syncPatents');
+  const debug = debugLibrary('syncPatents');
   try {
     let options = {
       collectionSource: process.env.CIDTOPATENT_SOURCE,

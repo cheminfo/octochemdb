@@ -2,9 +2,9 @@ import { writeFileSync, utimesSync } from 'fs';
 
 import fetch from 'cross-fetch';
 
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
-const debug = Debug('getFile');
+const debug = debugLibrary('getFile');
 let start = Date.now();
 let lastFileName = 'Start Import';
 

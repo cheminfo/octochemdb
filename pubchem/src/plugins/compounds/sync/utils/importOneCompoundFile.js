@@ -3,11 +3,11 @@ import zlib from 'zlib';
 
 import { parse } from 'sdf-parser';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import improveCompoundPool from './improveCompoundPool.js';
 
-const debug = Debug('importOneCompoundFile');
+const debug = debugLibrary('importOneCompoundFile');
 /**
  * @description import compounds from a PubChem Compound file
  * @param {*} connection MongoDB connection

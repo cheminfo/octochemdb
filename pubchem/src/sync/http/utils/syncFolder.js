@@ -4,13 +4,13 @@ import { fetch } from 'cross-fetch';
 import { fileListFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import getFile from './getFile.js';
 import getFilesList from './getFilesList.js';
 
 const { mkdirpSync, existsSync, statSync, rmSync } = FSExtra;
-const debug = Debug('syncFolder');
+const debug = debugLibrary('syncFolder');
 
 async function syncFolder(source, destinationFolder, options = {}) {
   if (!existsSync(destinationFolder)) {

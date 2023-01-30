@@ -1,8 +1,8 @@
 import { fetch } from 'cross-fetch';
 
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
-const debug = Debug('getFilesList');
+const debug = debugLibrary('getFilesList');
 
 async function getFilesList(url, options = {}) {
   const { fileFilter = () => true, md5 = false } = options;

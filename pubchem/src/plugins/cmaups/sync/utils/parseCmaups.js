@@ -1,9 +1,9 @@
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
-const debug = Debug('parseCmaups');
+const debug = debugLibrary('parseCmaups');
 /**
  * @description parse the cmaups files and return the data to be imported in the database
  * @param {*} general the general data readed from the file

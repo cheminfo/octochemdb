@@ -1,5 +1,5 @@
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getCidFromPmid } from './utils/getCidFromPmid.js';
 import { getFilesToImport } from './utils/getFilesToImport.js';
@@ -12,7 +12,7 @@ import { syncPubmedFolder } from './utils/syncPubmedFolder.js';
  * @returns {Promise} pubmeds collection
  */
 async function incrementalPubmedImport(connection) {
-  const debug = Debug('incrementalPubmedImport');
+  const debug = debugLibrary('incrementalPubmedImport');
   try {
     // get progress
     const progress = await connection.getProgress('pubmeds');

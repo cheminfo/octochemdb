@@ -1,10 +1,10 @@
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 export async function aggregate(connection) {
-  const debug = Debug('naturalSubstances');
+  const debug = debugLibrary('naturalSubstances');
   try {
     const options = { collection: 'naturalSubstances', connection };
     const targetCollection = await connection.getCollection(options.collection);

@@ -1,6 +1,6 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('appendLines');
+const debug = debugLibrary('appendLines');
 
 const decoder = new TextDecoder('utf8');
 const BUFFER_SIZE = 2 ** 24;

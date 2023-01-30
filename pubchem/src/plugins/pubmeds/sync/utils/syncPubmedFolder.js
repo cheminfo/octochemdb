@@ -1,5 +1,5 @@
 import syncFolder from '../../../../sync/http/utils/syncFolder.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 /**
  * @description get all files to import available in the PubMed database
  * @param {*} connection - mongo connection
@@ -7,7 +7,7 @@ import Debug from '../../../../utils/Debug.js';
  * @returns {Promise} list of all files to import
  */
 export async function syncPubmedFolder(connection, importType) {
-  const debug = Debug('syncFullPubmedFolder');
+  const debug = debugLibrary('syncFullPubmedFolder');
   try {
     debug(`Synchronize ${importType} pubmed folder`);
     let source;

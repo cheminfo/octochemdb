@@ -1,9 +1,9 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import { importOneUspFile } from './importOneUspFile.js';
 
 export async function importUspFiles(connection, progress, files, options) {
-  const debug = Debug('importUspFiles');
+  const debug = debugLibrary('importUspFiles');
   try {
     options = { shouldImport: progress.seq === 0, ...options };
     for (let file of files) {

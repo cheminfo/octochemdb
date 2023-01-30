@@ -1,6 +1,6 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('parseTaxonomies');
+const debug = debugLibrary('parseTaxonomies');
 
 export function* parseTaxonomies(arrayBuffer, nodes, connection) {
   try {

@@ -3,12 +3,12 @@ import co from 'co';
 import fs from 'fs-extra';
 import mongo from 'mongo';
 
-import Debug from '../utils/Debug.js';
+import debugLibrary from '../utils/Debug.js';
 
 process.on('unhandledRejection', (e) => {
   throw e;
 });
-const debug = Debug('addStatsCHNOSCIF');
+const debug = debugLibrary('addStatsCHNOSCIF');
 let limit = 1e10;
 let rules = {
   minMass: 50,

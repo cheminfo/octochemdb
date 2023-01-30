@@ -1,8 +1,8 @@
 import delay from 'delay';
 
-import Debug from './Debug.js';
+import debugLibrary from './Debug.js';
 
-const debug = Debug('fetchNoStereosFromCache');
+const debug = debugLibrary('fetchNoStereosFromCache');
 
 export async function getNoStereosFromCache(molecule, connection) {
   try {

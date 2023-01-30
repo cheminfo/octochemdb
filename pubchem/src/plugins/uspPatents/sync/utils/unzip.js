@@ -4,11 +4,11 @@ import { join } from 'path';
 import pkg from 'fs-extra';
 import unzipper from 'unzipper';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 const { existsSync, rmSync } = pkg;
 
-const debug = Debug('unzipFile');
+const debug = debugLibrary('unzipFile');
 
 export async function unzipFile(inputFilename) {
   // file output will have extension .xml instead of zip extension

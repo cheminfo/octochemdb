@@ -4,10 +4,10 @@ import { pipeline } from 'stream';
 import { promisify } from 'util';
 import { createGunzip } from 'zlib';
 
-import Debug from './Debug.js';
+import debugLibrary from './Debug.js';
 
 const pipe = promisify(pipeline);
-const debug = Debug('gunzipStream');
+const debug = debugLibrary('gunzipStream');
 
 async function gunzipStream(inputFilename, outputFilename) {
   if (!existsSync(outputFilename)) {

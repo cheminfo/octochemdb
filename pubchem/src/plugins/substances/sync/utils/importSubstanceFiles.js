@@ -1,5 +1,5 @@
 import removeEntriesFromFile from '../../../../sync/utils/removeEntriesFromFile.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import importOneSubstanceFile from './importOneSubstanceFile.js';
 /**
@@ -18,7 +18,7 @@ export async function importSubstanceFiles(
   options,
   importType,
 ) {
-  const debug = Debug('importSubstanceFiles');
+  const debug = debugLibrary('importSubstanceFiles');
   try {
     if (importType === 'first') {
       options = { shouldImport: progress.seq === 0, ...options };

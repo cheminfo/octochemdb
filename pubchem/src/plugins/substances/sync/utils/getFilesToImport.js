@@ -1,4 +1,4 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 /**
  * @description get list of files to import
  * @param {*} connection  connection to mongo
@@ -13,7 +13,7 @@ export async function getFilesToImport(
   allFiles,
   importType,
 ) {
-  const debug = Debug('getFilesToImport');
+  const debug = debugLibrary('getFilesToImport');
   try {
     const collection = await connection.getCollection('substances');
     const lastDocument = await collection

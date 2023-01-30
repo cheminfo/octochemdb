@@ -12,12 +12,12 @@ import { createGunzip } from 'zlib';
 
 import pkg from 'fs-extra';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 const { existsSync } = pkg;
 
 const pipe = promisify(pipeline);
-const debug = Debug('extractGziped');
+const debug = debugLibrary('extractGziped');
 
 export async function decompressGziped(inputFilename) {
   const outputFilename = inputFilename.replace('.gz', '');

@@ -1,8 +1,8 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import getFileIfNew from './getFileIfNew.js';
 
-const debug = Debug(`getLastFileSync`);
+const debug = debugLibrary(`getLastFileSync`);
 
 export default async function getLastFileSync(options) {
   debug(`Get last ${options.collectionName} file if new`);

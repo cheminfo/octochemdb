@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImport } from './utils/getFilesToImport.js';
 import { importSubstanceFiles } from './utils/importSubstanceFiles.js';
@@ -10,7 +10,7 @@ import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
  * @returns {Promise} - collection substances
  */
 async function firstSubstanceImport(connection) {
-  const debug = Debug('firstSubstanceImport');
+  const debug = debugLibrary('firstSubstanceImport');
   try {
     const progress = await connection.getProgress('substances');
     if (progress.state === 'updated') {

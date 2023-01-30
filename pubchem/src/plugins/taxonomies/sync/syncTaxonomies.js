@@ -5,12 +5,12 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getTaxonomiesNodes } from './utils/getTaxonomiesNodes.js';
 import { parseTaxonomies } from './utils/parseTaxonomies.js';
 
-const debug = Debug('syncTaxonomies');
+const debug = debugLibrary('syncTaxonomies');
 /**
  * sync NCBI taxonomies
  * @param {*} connection connection to mongo

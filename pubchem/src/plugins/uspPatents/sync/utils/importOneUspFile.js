@@ -8,12 +8,12 @@ import { open } from 'fs/promises';
 
 import { parseStream } from 'arraybuffer-xml-parser';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import { parseUsp } from './parseUsp.js';
 import { unzipFile } from './unzip.js';
 
-const debug = Debug('importOneUspFile');
+const debug = debugLibrary('importOneUspFile');
 
 export async function importOneUspFile(connection, progress, file, options) {
   try {

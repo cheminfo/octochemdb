@@ -1,6 +1,6 @@
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 /**
@@ -21,7 +21,7 @@ export async function* parseNpasses(
   speciesInfo,
   connection,
 ) {
-  const debug = Debug('parseNpasses');
+  const debug = debugLibrary('parseNpasses');
   try {
     // for each molecule in general data
     for await (const item of general) {

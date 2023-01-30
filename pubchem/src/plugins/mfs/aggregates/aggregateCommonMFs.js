@@ -1,11 +1,11 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 /**
  * @description Aggregate function for most common mfs in compounds collection
  * @param {*} connection mongo connection
  * @returns {Promise} returns mfsCommon collection
  */
 export async function aggregate(connection) {
-  const debug = Debug('aggregatemfsCommon');
+  const debug = debugLibrary('aggregatemfsCommon');
   // get compounds collection and progress
   const collection = await connection.getCollection('compounds');
   // get progress collection mfsCommon

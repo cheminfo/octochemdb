@@ -1,8 +1,8 @@
 import OCLE from 'openchemlib-extended';
 
-import Debug from '../utils/Debug.js';
+import debugLibrary from '../utils/Debug.js';
 
-const debug = Debug('queryForSpecificMF');
+const debug = debugLibrary('queryForSpecificMF');
 const limit = 10000000;
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();

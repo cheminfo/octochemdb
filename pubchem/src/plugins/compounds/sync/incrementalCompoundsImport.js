@@ -1,10 +1,10 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImport } from './utils/getFilesToImport.js';
 import { importCompoundFiles } from './utils/importCompoundFiles.js';
 import { syncCompoundFolder } from './utils/syncCompoundFolder.js';
 
-const debug = Debug('incrementalCompoundImport');
+const debug = debugLibrary('incrementalCompoundImport');
 
 /**
  * @description Synchronize the compounds database from the pubchem database

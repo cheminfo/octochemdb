@@ -2,11 +2,11 @@ import { createReadStream } from 'fs';
 
 import split2 from 'split2';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import { updateEntry } from './updateEntry.js';
 
-const debug = Debug('parsePatents');
+const debug = debugLibrary('parsePatents');
 export default async function parsePatents(filename, collection, connection) {
   try {
     const readStream = createReadStream(filename).pipe(split2('\n'));

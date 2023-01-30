@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 /**
  * @description Get the mesh terms and dbRef for a given cid inside the pubmeds collection
@@ -8,7 +8,7 @@ import Debug from '../../../utils/Debug.js';
  * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
  */
 export async function getMeshTerms(cid, collection, connection) {
-  const debug = Debug('getMeshTerms');
+  const debug = debugLibrary('getMeshTerms');
   try {
     const cursor = await collection
       .find({

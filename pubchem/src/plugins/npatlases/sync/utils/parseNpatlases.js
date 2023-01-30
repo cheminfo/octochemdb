@@ -1,6 +1,6 @@
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 /**
  * @description parse NPATLAS file and return entries to be imported
@@ -9,7 +9,7 @@ import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.j
  * @yields {Object} yields the result to be imported
  */
 export async function* parseNpatlases(json, connection) {
-  const debug = Debug('parseNpatlases');
+  const debug = debugLibrary('parseNpatlases');
   try {
     for await (const entry of json) {
       try {

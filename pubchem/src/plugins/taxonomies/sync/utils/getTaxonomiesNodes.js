@@ -1,6 +1,6 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('getTaxonomiesNodes');
+const debug = debugLibrary('getTaxonomiesNodes');
 export function getTaxonomiesNodes(arrayBuffer, connection) {
   try {
     const decoder = new TextDecoder();

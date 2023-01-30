@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImport } from './utils/getFilesToImport.js';
 import { importCompoundFiles } from './utils/importCompoundFiles.js';
@@ -10,7 +10,7 @@ import { syncCompoundFolder } from './utils/syncCompoundFolder.js';
  * @returns {Promise} returns compounds collections
  */
 async function firstCompoundImport(connection) {
-  const debug = Debug('firstCompoundImport');
+  const debug = debugLibrary('firstCompoundImport');
 
   try {
     const progress = await connection.getProgress('compounds');

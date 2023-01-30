@@ -1,9 +1,9 @@
 import delay from 'delay';
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('getCompoundsData');
+const debug = debugLibrary('getCompoundsData');
 /**
  * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
  * @param {*} molecule molecule from pubchem file

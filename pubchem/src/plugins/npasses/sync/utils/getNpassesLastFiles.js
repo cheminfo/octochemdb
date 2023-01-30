@@ -1,7 +1,7 @@
 import md5 from 'md5';
 
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 /**
  * @description get last npass files available in the NPASS database
@@ -9,7 +9,7 @@ import Debug from '../../../../utils/Debug.js';
  * @returns {object} returns the variables {lastFile, lastFileActivity, lastFileSpeciesProperties, lastFileSpeciesInfo, lastFileSpeciesPair, sources, progress, logs}
  */
 export default async function getNpassesLastFiles(connection) {
-  const debug = Debug('getNpassesLastFiles');
+  const debug = debugLibrary('getNpassesLastFiles');
   try {
     let options = {
       collectionSource: process.env.NPASS_SOURCE_GENERALINFO,

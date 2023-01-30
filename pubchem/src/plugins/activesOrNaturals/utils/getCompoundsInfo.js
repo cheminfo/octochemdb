@@ -1,10 +1,10 @@
 import OCL from 'openchemlib';
 
-import Debug from '../../../utils/Debug.js';
-import { fetchPatentsTitles } from '../../../utils/fetchPatentsTitles.js';
+import debugLibrary from '../../../utils/Debug.js';
+//import { fetchPatentsTitles } from '../../../utils/fetchPatentsTitles.js';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
-const debug = Debug('getCompoundsInfo');
+const debug = debugLibrary('getCompoundsInfo');
 /**
  * @description Get compounds information compounds collection and data array
  * @param {*} entry Entry from the aggregation process

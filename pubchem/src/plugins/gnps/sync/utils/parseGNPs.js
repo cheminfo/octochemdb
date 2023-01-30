@@ -2,12 +2,12 @@ import pkg from 'fs-extra';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
-const debug = Debug('parseGNPs');
+const debug = debugLibrary('parseGNPs');
 /**
  * @description Parse GNPs file and return data to be imported in GNPs collection
  * @param {*} jsonPath path to the GNPs file

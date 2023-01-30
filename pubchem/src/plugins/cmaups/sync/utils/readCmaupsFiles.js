@@ -2,10 +2,10 @@ import { readFileSync } from 'fs';
 
 import pkg from 'papaparse';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 const { parse } = pkg;
-const debug = Debug('readCmaupsFiles');
+const debug = debugLibrary('readCmaupsFiles');
 
 /**
  * @description read the cmaups files and return the data

@@ -1,8 +1,8 @@
 import { exec } from 'node-exec-promise';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('ungzipAndSort');
+const debug = debugLibrary('ungzipAndSort');
 export default async function ungzipAndSort(source, destination) {
   debug(`Ungzip and sorting file: ${source}`);
   // sort --parallel 8

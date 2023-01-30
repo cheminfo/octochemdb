@@ -1,10 +1,10 @@
 import delay from 'delay';
 
-import Debug from '../utils/Debug.js';
+import debugLibrary from '../utils/Debug.js';
 import { PubChemConnection } from '../utils/PubChemConnection.js';
 import { recursiveDir } from '../utils/recursiveDir.js';
 
-const debug = Debug('cron');
+const debug = debugLibrary('cron');
 
 let sleepTime = 24; // in hours
 

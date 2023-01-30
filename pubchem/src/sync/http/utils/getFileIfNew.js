@@ -11,10 +11,10 @@ import { fetch } from 'cross-fetch';
 import { fileListFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
 
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 const { mkdirpSync } = pkg;
-const debug = Debug('getFileIfNew');
+const debug = debugLibrary('getFileIfNew');
 
 /**
  * We will extract the date of last modification of the file and only copy if new.

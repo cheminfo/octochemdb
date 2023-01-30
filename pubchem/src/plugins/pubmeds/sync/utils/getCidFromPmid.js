@@ -2,7 +2,7 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 /**
  * @description Get compound ID from PMID mapping
@@ -10,7 +10,7 @@ import Debug from '../../../../utils/Debug.js';
  * @returns {Promise} Returns object { PMID: [CIDs] }
  */
 export async function getCidFromPmid(filePath, connection) {
-  const debug = Debug('getCidFromPmid');
+  const debug = debugLibrary('getCidFromPmid');
   try {
     const readStream = createReadStream(filePath);
     const stream = readStream.pipe(createGunzip());

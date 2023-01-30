@@ -1,6 +1,6 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
-const debug = Debug('getActivityInfo');
+const debug = debugLibrary('getActivityInfo');
 /**
  * @description Get unique activities from bioassays, npasses and cmaups collections
  * @param {*} data Array of data from aggregation process

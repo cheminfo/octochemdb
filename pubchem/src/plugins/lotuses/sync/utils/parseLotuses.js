@@ -1,11 +1,11 @@
 import { bsonIterator } from 'bson-iterator';
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
-const debug = Debug('parseLotuses');
+const debug = debugLibrary('parseLotuses');
 
 /**
  * @description parse lotus file and yield data to be imported

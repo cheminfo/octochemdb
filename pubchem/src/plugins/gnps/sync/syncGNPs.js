@@ -2,11 +2,11 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { parseGNPs } from './utils/parseGNPs.js';
 
-const debug = Debug('syncGNPs');
+const debug = debugLibrary('syncGNPs');
 /**
  * @description Synchronize GNPS collection with the GNPS database
  * @param {*} connection MongoDB connection

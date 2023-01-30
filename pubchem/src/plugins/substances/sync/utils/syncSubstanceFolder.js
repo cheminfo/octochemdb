@@ -1,6 +1,6 @@
 import getFilesList from '../../../../sync/http/utils/getFilesList.js';
 import syncFolder from '../../../../sync/http/utils/syncFolder.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 /**
  * @description synchronize a folder of substances
  * @param {*} connection  connection to mongo
@@ -8,7 +8,7 @@ import Debug from '../../../../utils/Debug.js';
  * @returns {Promise} file list of the folder
  */
 export async function syncSubstanceFolder(connection, importType) {
-  const debug = Debug('syncSubstanceFolder');
+  const debug = debugLibrary('syncSubstanceFolder');
   try {
     debug('Synchronize full substance folder');
     if (importType === 'first') {

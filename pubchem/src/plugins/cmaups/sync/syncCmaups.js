@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
@@ -6,7 +6,7 @@ import cmaupsStartSync from './utils/cmaupsStartSync.js';
 import { getNormalizedActivities } from './utils/getNormalizedActivities.js';
 import { parseCmaups } from './utils/parseCmaups.js';
 
-const debug = Debug('syncCmaups');
+const debug = debugLibrary('syncCmaups');
 /**
  * @description sync the cmaups collection
  * @param {*} connection the connection to the database

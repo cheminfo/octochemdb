@@ -2,7 +2,7 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 import { getTaxonomiesForLotuses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForLotuses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
@@ -13,7 +13,7 @@ import { parseLotuses } from './utils/parseLotuses.js';
  * @returns {Promise} returns collection lotuses
  */
 export async function sync(connection) {
-  const debug = Debug('syncLotuses');
+  const debug = debugLibrary('syncLotuses');
   let options = {
     collectionSource: process.env.LOTUS_SOURCE,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/lotuses/full`,

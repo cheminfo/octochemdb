@@ -1,6 +1,6 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
-const debug = Debug('getCollectionLinks');
+const debug = debugLibrary('getCollectionLinks');
 /**
  * @description Get collection links from all collections
  * @param {*} connection PubChem connection

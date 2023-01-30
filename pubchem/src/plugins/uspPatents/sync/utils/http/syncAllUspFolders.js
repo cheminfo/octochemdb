@@ -1,4 +1,4 @@
-import Debug from '../../../../../utils/Debug.js';
+import debugLibrary from '../../../../../utils/Debug.js';
 
 import syncUspFolder from './syncUspFolder.js';
 /**
@@ -7,7 +7,7 @@ import syncUspFolder from './syncUspFolder.js';
  * @returns {Promise} list of all files to import
  */
 export async function syncAllUspFolders(connection) {
-  const debug = Debug('syncAllUspFolders');
+  const debug = debugLibrary('syncAllUspFolders');
   try {
     const currentYear = new Date().getFullYear();
     const startingYear = 2001;

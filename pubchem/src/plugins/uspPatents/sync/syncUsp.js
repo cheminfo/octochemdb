@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImportForUsp } from './utils/getFilesToImportForUsp.js';
 import { syncAllUspFolders } from './utils/http/syncAllUspFolders.js';
@@ -9,7 +9,7 @@ import { importUspFiles } from './utils/importUspFiles.js';
  * @returns {Promise} usp collection
  */
 export async function sync(connection) {
-  const debug = Debug('syncUsp');
+  const debug = debugLibrary('syncUsp');
   try {
     // get progress
     const progress = await connection.getProgress('uspPatents');

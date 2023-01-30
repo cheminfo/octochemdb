@@ -2,9 +2,9 @@ import delay from 'delay';
 import md5 from 'md5';
 import { MongoClient } from 'mongodb';
 
-import Debug from './Debug.js';
+import debugLibrary from './Debug.js';
 
-const debug = Debug('PubChemConnection');
+const debug = debugLibrary('PubChemConnection');
 
 export function PubChemConnection() {
   this.client = new MongoClient(process.env.MONGODB_URL, {

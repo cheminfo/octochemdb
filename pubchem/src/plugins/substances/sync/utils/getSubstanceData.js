@@ -1,7 +1,7 @@
 import delay from 'delay';
 import OCL from 'openchemlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 /**
  * @description calculate the ocl substance data
  * @param {*} molecule data of the molecule in substance file
@@ -9,7 +9,7 @@ import Debug from '../../../../utils/Debug.js';
  */
 
 export async function getSubstanceData(molecule) {
-  const debug = Debug('getSubstanceData');
+  const debug = debugLibrary('getSubstanceData');
 
   try {
     let oclMolecule;

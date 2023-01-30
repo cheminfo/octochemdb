@@ -1,5 +1,5 @@
 import removeEntriesFromFile from '../../../../sync/utils/removeEntriesFromFile.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import importOneCompoundFile from './importOneCompoundFile.js';
 
@@ -18,7 +18,7 @@ export async function importCompoundFiles(
   options,
   importType,
 ) {
-  const debug = Debug('importCompoundFiles');
+  const debug = debugLibrary('importCompoundFiles');
   try {
     if (importType === 'first') {
       options = { shouldImport: progress.seq === 0, ...options };

@@ -4,7 +4,7 @@ import zlib from 'zlib';
 
 import { parse } from 'sdf-parser';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
@@ -23,7 +23,7 @@ export default async function importOneSubstanceFile(
   file,
   options,
 ) {
-  const debug = Debug('improveOneSubstanceFile');
+  const debug = debugLibrary('improveOneSubstanceFile');
   try {
     const collection = await connection.getCollection('substances');
     const logs = await connection.getImportationLog({

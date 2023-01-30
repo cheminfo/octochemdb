@@ -1,10 +1,10 @@
 import workerpool from 'workerpool';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import { getSubstanceData } from './getSubstanceData.js';
 
-const debug = Debug('getSubstanceData');
+const debug = debugLibrary('getSubstanceData');
 
 /**
  * @description parse the substance molecule and return the data to be imported

@@ -1,7 +1,7 @@
 import { PubChemConnection, getFields } from '../../../../server/utils.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('fromID');
+const debug = debugLibrary('fromID');
 
 const fromID = {
   method: 'GET',

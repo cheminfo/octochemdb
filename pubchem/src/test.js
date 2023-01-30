@@ -1,7 +1,7 @@
 import { PubChemConnection } from './server/utils.js';
-import Debug from './utils/Debug.js';
+import debugLibrary from './utils/Debug.js';
 
-const debug = Debug('test');
+const debug = debugLibrary('test');
 
 async function doAll() {
   let connection;

@@ -4,7 +4,7 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 import { getTaxonomiesForNpAtlases } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForNpAtlases.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
@@ -15,7 +15,7 @@ import { parseNpatlases } from './utils/parseNpatlases.js';
  * @returns {Promise} returns npatlases collection
  */
 export async function sync(connection) {
-  const debug = Debug('syncNpAtlases');
+  const debug = debugLibrary('syncNpAtlases');
   try {
     let options = {
       collectionSource: process.env.NPATLAS_SOURCE,

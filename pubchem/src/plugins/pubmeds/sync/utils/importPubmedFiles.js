@@ -1,5 +1,5 @@
 import removeEntriesFromFile from '../../../../sync/utils/removeEntriesFromFile.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import importOnePubmedFile from './importOnePubmedFile.js';
 /**
@@ -20,7 +20,7 @@ export async function importPubmedFiles(
   pmidToCid,
   importType,
 ) {
-  const debug = Debug('importPubmedFiles');
+  const debug = debugLibrary('importPubmedFiles');
   try {
     if (importType === 'first') {
       options = { shouldImport: progress.seq === 0, ...options };

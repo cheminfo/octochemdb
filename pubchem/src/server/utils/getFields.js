@@ -1,6 +1,6 @@
-import Debug from '../../utils/Debug.js';
+import debugLibrary from '../../utils/Debug.js';
 
-const debug = Debug('getFields');
+const debug = debugLibrary('getFields');
 
 export function getFields(fields = '') {
   let result = { id: '$_id' };

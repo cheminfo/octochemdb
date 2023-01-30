@@ -1,4 +1,4 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 /**
  * @description Get the list of files to import
@@ -14,7 +14,7 @@ export async function getFilesToImport(
   allFiles,
   importType,
 ) {
-  const debug = Debug('getFilesToImport');
+  const debug = debugLibrary('getFilesToImport');
   try {
     const collection = await connection.getCollection('compounds');
     const lastDocument = await collection

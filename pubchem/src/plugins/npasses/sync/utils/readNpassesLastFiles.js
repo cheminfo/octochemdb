@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 
 import pkg from 'papaparse';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 const { parse } = pkg;
 /**
@@ -23,7 +23,7 @@ export default function readNpassesLastFiles(
   lastFileSpeciesPair,
   connection,
 ) {
-  const debug = Debug('readNpassesLastFiles');
+  const debug = debugLibrary('readNpassesLastFiles');
   try {
     // read last file and get general data
     const general = parse(readFileSync(lastFile, 'utf8'), {

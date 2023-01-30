@@ -3,9 +3,9 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('getBioassays');
+const debug = debugLibrary('getBioassays');
 
 /**
  * @description  function to parse bioassays file and return the bioassays objects to be inserted in the database

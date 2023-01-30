@@ -4,8 +4,8 @@ import fs   from 'fs-extra';
 import mkdirp   from 'mkdirp'.sync;
 import path   from 'path';
 import rules   from 'rules';
-import Debug from '../../utils/Debug';
-const debug=Debug('candidates')
+import debugLibrary from '../../utils/Debug';
+const debug=debugLibrary('candidates')
 const data = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data/mfs.json'), 'utf8'),
 );

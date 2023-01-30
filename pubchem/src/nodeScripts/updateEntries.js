@@ -1,8 +1,8 @@
-import Debug from '../utils/Debug.js';
+import debugLibrary from '../utils/Debug.js';
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
 
-const debug = Debug('updateEntries');
+const debug = debugLibrary('updateEntries');
 update()
   .catch((e) => debug(e.stack))
   .then(() => {

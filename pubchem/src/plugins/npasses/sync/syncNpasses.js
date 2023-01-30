@@ -1,4 +1,4 @@
-import Debug from '../../../utils/Debug.js';
+import debugLibrary from '../../../utils/Debug.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 import { getNormalizedActivities } from '../../cmaups/sync/utils/getNormalizedActivities.js';
@@ -11,7 +11,7 @@ import { parseNpasses } from './utils/parseNpasses.js';
  * @returns {Promise} returns npasses collection
  */
 export async function sync(connection) {
-  const debug = Debug('syncNpasses');
+  const debug = debugLibrary('syncNpasses');
   try {
     const {
       lastDocumentImported,

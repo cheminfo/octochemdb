@@ -1,8 +1,8 @@
 // query for molecules from monoisotopic mass
 import { PubChemConnection } from '../../../../server/utils.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('naturalExtractedFrom');
+const debug = debugLibrary('naturalExtractedFrom');
 // searchHandler()
 const extractedFrom = {
   method: 'GET',

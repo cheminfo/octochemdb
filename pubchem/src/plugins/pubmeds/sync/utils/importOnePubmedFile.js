@@ -3,7 +3,7 @@ import { open } from 'fs/promises';
 
 import { parseStream } from 'arraybuffer-xml-parser';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import { decompressGziped } from './decompressGziped.js';
 import { improvePubmed } from './improvePubmed.js';
@@ -23,7 +23,7 @@ export default async function importOnePubmedFile(
   options,
   pmidToCid,
 ) {
-  const debug = Debug('importOnePubmedFile');
+  const debug = debugLibrary('importOnePubmedFile');
   try {
     // get pubmeds collection
     const collection = await connection.getCollection('pubmeds');

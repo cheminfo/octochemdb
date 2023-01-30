@@ -1,8 +1,8 @@
 // query for molecules from monoisotopic mass
 import { getFields, PubChemConnection } from '../../../../server/utils.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('fromEM');
+const debug = debugLibrary('fromEM');
 
 const fromEM = {
   method: 'GET',

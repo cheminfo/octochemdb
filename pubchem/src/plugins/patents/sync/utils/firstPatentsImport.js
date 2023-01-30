@@ -1,9 +1,9 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('parsePatents');
+const debug = debugLibrary('parsePatents');
 export default async function firstPatentsImport(filneName, connection) {
   try {
     const temporaryCollection = await connection.getCollection('patents_tmp');

@@ -1,4 +1,4 @@
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 /**
  * @description parse and make pubmed entry human readable
  * @param {object} entry - pubmed entry
@@ -6,7 +6,7 @@ import Debug from '../../../../utils/Debug.js';
  * @returns {object} pubmed entry to be imported
  */
 export async function improvePubmed(entry, pmidToCid) {
-  const debug = Debug('improvePubmed');
+  const debug = debugLibraryv('improvePubmed');
   // get medlineCitation
   let medlineCitation = entry.MedlineCitation;
   // get generic information

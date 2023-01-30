@@ -1,7 +1,7 @@
 import { PubChemConnection } from '../../../../server/utils.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('info');
+const debug = debugLibrary('info');
 // export default searchHandler;
 const stats = {
   method: 'GET',

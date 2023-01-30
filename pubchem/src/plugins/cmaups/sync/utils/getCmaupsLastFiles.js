@@ -1,9 +1,9 @@
 import md5 from 'md5';
 
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = Debug('getCmaupsLastFiles');
+const debug = debugLibrary('getCmaupsLastFiles');
 /**
  * @description get necessary variables to start the sync
  * @param {*} connection the connection to the database

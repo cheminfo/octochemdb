@@ -1,8 +1,8 @@
 import fs from 'fs';
 
-import Debug from '../../utils/Debug.js';
+import debugLibrary from '../../utils/Debug.js';
 
-const debug = Debug('removeEntriesFromFile');
+const debug = debugLibrary('removeEntriesFromFile');
 
 export default async function removeEntriesFromFile(
   connection,

@@ -1,10 +1,10 @@
 import getLastDocumentImported from '../../../../sync/http/utils/getLastDocumentImported.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import getCmaupsLastFiles from './getCmaupsLastFiles.js';
 import readCmaupFiles from './readCmaupsFiles.js';
 
-const debug = Debug('cmaupsStartSync');
+const debug = debugLibrary('cmaupsStartSync');
 /**
  * @description get necessary variables to start the sync
  * @param {*} connection the connection to the database

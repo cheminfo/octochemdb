@@ -1,6 +1,6 @@
 import getFilesList from '../../../../sync/http/utils/getFilesList.js';
 import syncFolder from '../../../../sync/http/utils/syncFolder.js';
-import Debug from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../utils/Debug.js';
 
 /**
  * @description Synchronize the compounds folder from the PubChem database
@@ -9,7 +9,7 @@ import Debug from '../../../../utils/Debug.js';
  * @returns {Promise} return array of files list
  */
 export async function syncCompoundFolder(connection, importType) {
-  const debug = Debug('syncCompoundFolder');
+  const debug = debugLibrary('syncCompoundFolder');
   try {
     debug(`Synchronize compound folder (${importType} importation)`);
     // if importType is 'first', then we need to sync the whole folder

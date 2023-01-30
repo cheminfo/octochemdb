@@ -1,6 +1,6 @@
-import Debug from '../utils/Debug.js';
+import debugLibrary from '../utils/Debug.js';
 
-const debug = Debug('queryForMFexample');
+const debug = debugLibrary('queryForMFexample');
 const limit = 10;
 
 const pubChemConnection = new (require('../util/PubChemConnection'))();
