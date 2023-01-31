@@ -3,7 +3,7 @@ import debugLibrary from '../../../utils/Debug.js';
  * Get DbRefs of mass spectra in gnps collection
  * @param {*} connection - mongo connection
  * @param {*} noStereoTautomerID - noStereoTautomerID
- * @returns {Promise<Array>} - DbRefs of mass spectra in gnps collection
+ * @returns {Promise} - DbRefs of mass spectra in gnps collection
  */
 export async function getMassSpectraRef(connection, noStereoTautomerID) {
   const debug = debugLibrary('getMassSpectra');
