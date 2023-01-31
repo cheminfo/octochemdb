@@ -3,6 +3,7 @@ import md5 from 'md5';
 import { MongoClient } from 'mongodb';
 
 import debugLibrary from './Debug.js';
+import 'dotenv/config';
 
 const debug = debugLibrary('PubChemConnection');
 
