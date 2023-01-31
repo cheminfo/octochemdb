@@ -7,7 +7,8 @@ test('parseBioactivities', async () => {
   const activity = join(__dirname, 'data/bioactivities.tsv.gz');
   const bioassays = join(__dirname, 'data/bioassays.tsv.gz');
   let results = [];
-  for await (let result of parseBioactivities(activity, bioassays)) {
+  let oldIds = {};
+  for await (let result of parseBioactivities(activity, bioassays, oldIds)) {
     results.push(result);
   }
   expect(results).toStrictEqual([
