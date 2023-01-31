@@ -1,4 +1,4 @@
-import DebugLibrary from 'debug';
+import debugLibrary from 'debug';
 import delay from 'delay';
 
 import { sendTelegram } from './sendTelegram.js';
@@ -6,7 +6,7 @@ import { sendTelegram } from './sendTelegram.js';
 const messages = [];
 
 export default function Debug(context) {
-  const realDebug = DebugLibrary(context);
+  const realDebug = debugLibrary(context);
 
   return (message, options = {}) => {
     realDebug(message);

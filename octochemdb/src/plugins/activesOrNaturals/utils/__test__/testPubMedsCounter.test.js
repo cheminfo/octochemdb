@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 import { PubChemConnection } from '../../../../utils/PubChemConnection.js';
 
 test('getPubMedsCounter', async () => {

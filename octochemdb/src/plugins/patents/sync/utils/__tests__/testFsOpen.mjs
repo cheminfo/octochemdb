@@ -1,7 +1,6 @@
 import { promises as FS } from 'fs';
 
 export default async function calculateDiff(newFilename) {
-  const timeStart = Date.now();
   const newFileHandle = await FS.open(newFilename);
 
   const newData = {
@@ -17,8 +16,6 @@ export default async function calculateDiff(newFilename) {
   }
 
   await newFileHandle.close();
-  const timeEnd = Date.now();
-  console.log(`Time: ${timeEnd - timeStart}`);
 }
 
 const decoder = new TextDecoder('utf8');
@@ -33,7 +30,6 @@ export async function appendLines(fileHandler, data) {
   }
   let newLines = decoder.decode(chunk).split('\n');
   newLines[0] = data.residual + newLines[0];
-  for (let i = 0; i < newLines.length - 1; i++) {}
 
   data.residual = newLines[newLines.length - 1];
 }
