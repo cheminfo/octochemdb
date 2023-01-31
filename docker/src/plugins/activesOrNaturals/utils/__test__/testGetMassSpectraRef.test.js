@@ -1,8 +1,5 @@
-import { getMassSpectraRef } from '../getMassSpectraRef.js';
-
-import 'dotenv/config';
-
 import { PubChemConnection } from '../../../../utils/PubChemConnection.js';
+import { getMassSpectraRef } from '../getMassSpectraRef.js';
 
 test('syncTaxonomies', async () => {
   const connection = new PubChemConnection();
