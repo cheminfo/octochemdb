@@ -1,5 +1,3 @@
-import { join } from 'path';
-
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncTaxonomies';
 
