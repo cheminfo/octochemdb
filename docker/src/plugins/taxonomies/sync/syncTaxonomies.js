@@ -24,8 +24,15 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   try {
-    const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+    let sources;
+    let lastFile;
+    if (process.env.NODE_ENV !== undefined) {
+      lastFile = `${process.env.TAXONOMY_SOURCE_TEST}`;
+      sources = [process.env.TAXONOMY_SOURCE_TEST];
+    } else {
+      lastFile = await getLastFileSync(options);
+      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    }
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;
     if (
@@ -62,8 +69,9 @@ export async function sync(connection) {
         startSequenceID: progress.seq,
       });
       const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
-        (file) => file.name === 'rankedlineage.dmp',
+        (file) => file.name === 'rankedLineage.dmp',
       );
+
       const arrayBuffer = await fileList[0].arrayBuffer();
       progress.state = 'updating';
       await connection.setProgress(progress);
@@ -84,7 +92,6 @@ export async function sync(connection) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);
           start = Date.now();
         }
-
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },

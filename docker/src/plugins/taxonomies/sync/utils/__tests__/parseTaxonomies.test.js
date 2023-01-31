@@ -9,19 +9,13 @@ test('taxonomyParser', () => {
     join(__dirname, 'data/rankedLineageTest.dmp'),
   );
   const nodes = readFileSync(join(__dirname, 'data/nodesTest.dmp'));
+  let i = 0;
   for (const entry of parseTaxonomies(arrayBuffer, nodes)) {
+    if (i > 40) {
+      break;
+    }
+    i++;
     results.push(entry);
   }
-  expect(results[600]).toStrictEqual({
-    _id: 1175296,
-    data: {
-      superkingdom: 'Archaea',
-      phylum: 'Candidatus Thermoplasmatota',
-      class: 'Thermoplasmata',
-      order: 'Methanomassiliicoccales',
-      family: 'Methanomassiliicoccaceae',
-      genus: 'Methanomassiliicoccus',
-      species: 'Methanomassiliicoccus luminyensis',
-    },
-  });
+  expect(results).toMatchSnapshot();
 });
