@@ -28,6 +28,7 @@ export async function importCompoundFiles(
     }
     if (importType === 'first') {
       for (let file of files) {
+        debug(file);
         await importOneCompoundFile(connection, progress, file, options);
         options.shouldImport = true;
       }

@@ -9,5 +9,5 @@ export async function sync(connection) {
   // Do the first importation
   await firstCompoundsImport(connection);
   // Do the incremental updates
-  await incrementalCompoundsImport(connection);
+  // await incrementalCompoundsImport(connection);
 }

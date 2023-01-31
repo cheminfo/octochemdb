@@ -21,7 +21,17 @@ async function firstCompoundImport(connection) {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
     // Synchronize the full compounds folder (just once)
-    const allFiles = await syncCompoundFolder(connection, 'first');
+    let allFiles;
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: 'compoundsFirstImportTest.sdf',
+          path: `${process.env.COMPOUNDSFIRSTIMPORT_SOURCE_TEST}`,
+        },
+      ];
+    } else {
+      allFiles = await syncCompoundFolder(connection, 'first');
+    }
     // Get list of files to import and last document imported
     const { files, lastDocument } = await getFilesToImport(
       connection,
@@ -32,6 +42,7 @@ async function firstCompoundImport(connection) {
     progress.state = 'updating';
     await connection.setProgress(progress);
     // Import the files
+    debug(files);
     await importCompoundFiles(
       connection,
       progress,

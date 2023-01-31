@@ -39,6 +39,7 @@ export default async function importOneCompoundFile(
 
   const readStream = fs.createReadStream(file.path);
   const unzipStream = readStream.pipe(zlib.createGunzip());
+  //PROBLEM IS HERE SOMEWHERE
   for await (const chunk of unzipStream) {
     bufferValue += chunk;
     if (bufferValue.length < 128 * 1024 * 1024) continue;
@@ -48,6 +49,7 @@ export default async function importOneCompoundFile(
       bufferValue = bufferValue.substring(lastIndex + 5);
     }
   }
+
   // parse the last chunk
   newCompounds += await parseSDF(bufferValue);
   // update logs
@@ -62,6 +64,7 @@ export default async function importOneCompoundFile(
   // parse the SDF file (function called in line 50) and import the compounds in the compounds collection
   async function parseSDF(sdf) {
     // parse the SDF file
+
     let compounds = parse(sdf).molecules;
     debug(`Need to process ${compounds.length} compounds`);
     // if test mode is enabled, we only process the first 10 compounds

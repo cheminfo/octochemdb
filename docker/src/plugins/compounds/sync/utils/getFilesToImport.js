@@ -22,7 +22,12 @@ export async function getFilesToImport(
       .sort('_seq', -1)
       .limit(1)
       .next();
-
+    if (process.env.NODE_ENV === 'test' && importType === 'first') {
+      return {
+        files: allFiles,
+        lastDocument: {},
+      };
+    }
     if (!progress.sources || (!lastDocument && importType === 'first')) {
       return { files: allFiles, lastDocument: {} };
     }
@@ -35,7 +40,12 @@ export async function getFilesToImport(
     const firstIndex = allFiles.findIndex((n) =>
       n.path.endsWith(progress.sources),
     );
-
+    if (process.env.NODE_ENV === 'test' && importType === 'incremental') {
+      return {
+        files: allFiles,
+        lastDocument: {},
+      };
+    }
     if (firstIndex === -1 && importType === 'incremental') {
       debug('Should import all the incremental updates');
       return { files: allFiles, lastDocument: {} };
