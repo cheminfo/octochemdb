@@ -2,7 +2,7 @@ import debugLibrary from '../../../utils/Debug.js';
 
 /**
  * @description Get the mesh terms and dbRef for a given cid inside the pubmeds collection
- * @param {*} cid CID
+ * @param {Number} cid CID
  * @param {*} collection : PUBMEDS collection
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
@@ -16,25 +16,25 @@ export async function getMeshTerms(cid, collection, connection) {
       })
       .limit(1000);
     let uniqueMeshTerms = {};
-    let pmIds = [];
+    let pmids = [];
     while (await cursor.hasNext()) {
       const doc = await cursor.next();
       if (doc.data.meshHeadings) {
         for (let meshHeading of doc.data.meshHeadings) {
           if (meshHeading.descriptorName) {
-            uniqueMeshTerms[meshHeading.descriptorName.toLowerCase()] = true;
+            const descriptorName = meshHeading.descriptorName.toLowerCase();
+            uniqueMeshTerms[descriptorName] = true;
           }
         }
-        pmIds.push(doc._id);
+        pmids.push(doc._id);
       }
     }
     const counterPmids = await collection.countDocuments({
       'data.cids': cid,
     });
-    // get result array with uniques strings
     return {
       meshTermsForCid: Object.keys(uniqueMeshTerms),
-      pmIds,
+      pmIds: pmids,
       counterPmids,
     };
   } catch (error) {
