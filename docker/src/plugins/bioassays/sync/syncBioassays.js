@@ -27,15 +27,15 @@ export async function sync(connection) {
     let bioassaysFile;
     let sources;
     if (process.env.NODE_ENV === 'test') {
-      const bioactivitiesFile = `${process.env.BIOACTIVITIES_SOURCE_TEST}`;
-      const bioassaysFile = `${process.env.BIOASSAYS_SOURCE_TEST}`;
+      bioactivitiesFile = `${process.env.BIOACTIVITIES_SOURCE_TEST}`;
+      bioassaysFile = `${process.env.BIOASSAY_SOURCE_TEST}`;
       sources = [bioassaysFile, bioactivitiesFile];
     } else {
       // Download the bioActivities and bioAssays files if newer than last sync
-      const bioactivitiesFile = await getLastFileSync(options);
+      bioactivitiesFile = await getLastFileSync(options);
       options.collectionSource = process.env.BIOASSAY_SOURCE;
       options.filenameNew = 'bioassays';
-      const bioassaysFile = await getLastFileSync(options);
+      bioassaysFile = await getLastFileSync(options);
       // Get progress of last sync and the bioassays collection
       sources = [
         bioassaysFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),

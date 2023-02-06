@@ -9,7 +9,7 @@ test('syncBioassays', async () => {
   const collection = await connection.getCollection('bioassays');
   const collectionEntry = await collection.find({ _id: '59478_1' }).limit(1);
   const result = await collectionEntry.next();
-  expect(result).toStrictEqual({});
+  expect(result).toMatchSnapshot();
   if (connection) {
     await connection.close();
   }
