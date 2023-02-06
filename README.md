@@ -1,7 +1,7 @@
 # Docker PubChem
 
 [![DOI](https://www.zenodo.org/badge/134719303.svg)](https://www.zenodo.org/badge/latestdoi/134719303)
-
+![](https://user-images.githubusercontent.com/92425679/216966923-1ce0ddc0-ee39-44cf-9727-85c907922c6b.png)
 This project will fetch [multiple](#Sources) databases data in order to create a local database searchable by experimental monoisotopic mass and molecular formula. When building this database we will correctly take into account the charges and isotopes present in the molfile describing the structure.
 
 ## Quick start
