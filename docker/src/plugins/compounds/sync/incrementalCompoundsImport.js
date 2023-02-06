@@ -14,9 +14,18 @@ const debug = debugLibrary('incrementalCompoundImport');
 async function incrementalCompoundImport(connection) {
   try {
     // Synchronize the compounds folder with the weekly updates
-    const allFiles = await syncCompoundFolder(connection, 'incremental');
+    let allFiles;
     const progress = await connection.getProgress('compounds');
-
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: 'compoundsIncrementalTest.sdf.gz',
+          path: `${process.env.COMPOUNDSINCREMENTAL_SOURCE_TEST}`,
+        },
+      ];
+    } else {
+      allFiles = await syncCompoundFolder(connection, 'incremental');
+    }
     // Get list of files to import and last document imported
     const { files, lastDocument } = await getFilesToImport(
       connection,
@@ -36,10 +45,11 @@ async function incrementalCompoundImport(connection) {
     // Import the files
 
     if (
-      !files.includes(progress.sources) &&
-      progress.state === 'updated' &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.PUBCHEM_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
+      (!files.includes(progress.sources) &&
+        progress.state === 'updated' &&
+        Date.now() - progress.dateEnd >
+          Number(process.env.PUBCHEM_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000) ||
+      process.env.NODE_ENV === 'test'
     ) {
       await importCompoundFiles(
         connection,

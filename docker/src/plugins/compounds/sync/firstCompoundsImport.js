@@ -25,7 +25,7 @@ async function firstCompoundImport(connection) {
     if (process.env.NODE_ENV === 'test') {
       allFiles = [
         {
-          name: 'compoundsFirstImportTest.sdf',
+          name: 'compoundsFirstImportTest.sdf.gz',
           path: `${process.env.COMPOUNDSFIRSTIMPORT_SOURCE_TEST}`,
         },
       ];
@@ -42,7 +42,6 @@ async function firstCompoundImport(connection) {
     progress.state = 'updating';
     await connection.setProgress(progress);
     // Import the files
-    debug(files);
     await importCompoundFiles(
       connection,
       progress,

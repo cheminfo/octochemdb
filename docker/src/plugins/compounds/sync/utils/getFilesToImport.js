@@ -43,7 +43,7 @@ export async function getFilesToImport(
     if (process.env.NODE_ENV === 'test' && importType === 'incremental') {
       return {
         files: allFiles,
-        lastDocument: {},
+        lastDocument,
       };
     }
     if (firstIndex === -1 && importType === 'incremental') {

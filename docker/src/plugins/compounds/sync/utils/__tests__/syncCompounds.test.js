@@ -7,19 +7,19 @@ test('syncCompounds First Importation', async () => {
   const collection = await connection.getCollection('compounds');
   const collectionEntry = await collection.find({ _id: 59478 }).limit(1);
   const result = await collectionEntry.next();
-  console.log(result);
-  expect(result).toStrictEqual();
+  expect(result).toMatchSnapshot();
   if (connection) {
     await connection.close();
   }
 });
-test('synCompounds incremental importation', async () => {
+test('syncCompounds Incremental Importation', async () => {
   const connection = new PubChemConnection();
-  await sync(connection);
   const collection = await connection.getCollection('compounds');
-  const collectionEntry = await collection.find({ _id: 160056959 }).limit(1);
-  const result = await collectionEntry.next();
-  expect(result).toStrictEqual();
+  const collectionEntryIncremental = await collection
+    .find({ _id: 160056959 })
+    .limit(1);
+  const resultIncremental = await collectionEntryIncremental.next();
+  expect(resultIncremental).toMatchSnapshot();
   if (connection) {
     await connection.close();
   }

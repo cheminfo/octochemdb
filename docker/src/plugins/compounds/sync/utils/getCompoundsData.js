@@ -25,7 +25,14 @@ export async function getCompoundsData(molecule) {
     let dataCompound;
     while (success === false && count < 3) {
       try {
-        dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
+        // workerpool does not access the .env file for some reason, this is a workaround
+        if (process.env.NODE_ENV === 'test') {
+          dataCompound = await fetch(
+            `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+          );
+        } else {
+          dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
+        }
       } catch (e) {
         debug(e);
       }

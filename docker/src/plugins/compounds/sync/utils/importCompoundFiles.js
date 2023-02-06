@@ -24,11 +24,13 @@ export async function importCompoundFiles(
       options = { shouldImport: progress.seq === 0, ...options };
     }
     if (importType === 'incremental') {
-      options = { shouldImport: false, ...options };
+      options = {
+        shouldImport: progress.sources !== files[0].path,
+        ...options,
+      };
     }
     if (importType === 'first') {
       for (let file of files) {
-        debug(file);
         await importOneCompoundFile(connection, progress, file, options);
         options.shouldImport = true;
       }

@@ -64,11 +64,8 @@ export default async function importOneCompoundFile(
   // parse the SDF file (function called in line 50) and import the compounds in the compounds collection
   async function parseSDF(sdf) {
     // parse the SDF file
-
     let compounds = parse(sdf).molecules;
     debug(`Need to process ${compounds.length} compounds`);
-    // if test mode is enabled, we only process the first 10 compounds
-    if (process.env.TEST === 'true') compounds = compounds.slice(0, 10);
     // the array action will contain the promises to be resolved
     const actions = [];
     let start = Date.now();
