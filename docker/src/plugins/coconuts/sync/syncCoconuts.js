@@ -24,7 +24,7 @@ export async function sync(connection) {
   try {
     // Get lastFile available in the online database, the local database collection and the progress of the import
     const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;
     if (

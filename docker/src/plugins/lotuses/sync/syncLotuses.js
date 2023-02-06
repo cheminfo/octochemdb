@@ -25,7 +25,7 @@ export async function sync(connection) {
     // get last file from lotus database
     const lastFile = await getLastFileSync(options);
     // get sources, progress and lotuses collection
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     const progress = await connection.getProgress('lotuses');
     let isTimeToUpdate = false;
     if (

@@ -34,11 +34,14 @@ export default async function getNpassesLastFiles(connection) {
     const lastFileSpeciesInfo = await getLastFileSync(options);
     // define sources
     const source = [
-      lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
-      lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
-      lastFileSpeciesProperties.replace(process.env.ORIGINAL_DATA_PATH, ''),
-      lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
-      lastFileSpeciesPair.replace(process.env.ORIGINAL_DATA_PATH, ''),
+      lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+      lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+      lastFileSpeciesProperties.replace(
+        `${process.env.ORIGINAL_DATA_PATH}`,
+        '',
+      ),
+      lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+      lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
     ];
     // set logs
     const progress = await connection.getProgress('npasses');
@@ -50,11 +53,14 @@ export default async function getNpassesLastFiles(connection) {
 
     const sources = md5(
       JSON.stringify([
-        lastFile.replace(process.env.ORIGINAL_DATA_PATH, ''),
-        lastFileActivity.replace(process.env.ORIGINAL_DATA_PATH, ''),
-        lastFileSpeciesProperties.replace(process.env.ORIGINAL_DATA_PATH, ''),
-        lastFileSpeciesInfo.replace(process.env.ORIGINAL_DATA_PATH, ''),
-        lastFileSpeciesPair.replace(process.env.ORIGINAL_DATA_PATH, ''),
+        lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileSpeciesProperties.replace(
+          `${process.env.ORIGINAL_DATA_PATH}`,
+          '',
+        ),
+        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ]),
     );
 

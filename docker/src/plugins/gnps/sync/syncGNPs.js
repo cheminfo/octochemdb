@@ -23,7 +23,7 @@ export async function sync(connection) {
     };
     // Get lastFile (path), sources, progress, logs,lastDocumentImported and collection gnps
     const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
 
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;

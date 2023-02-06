@@ -26,7 +26,7 @@ export async function sync(connection) {
 
     // get last files cidToPatens available in the PubChem database
     const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     const progress = await connection.getProgress('patents');
     let shouldUpdate = false;
     if (

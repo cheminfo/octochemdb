@@ -68,7 +68,7 @@ export async function importOneUspFile(connection, progress, file, options) {
         );
       }
     }
-    progress.sources = xmlPath.replace(process.env.ORIGINAL_DATA_PATH, '');
+    progress.sources = xmlPath.replace(`${process.env.ORIGINAL_DATA_PATH}`, '');
     await connection.setProgress(progress);
     logs.dateEnd = Date.now();
     logs.endSequenceID = progress.seq;

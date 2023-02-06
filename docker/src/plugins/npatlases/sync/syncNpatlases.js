@@ -26,7 +26,7 @@ export async function sync(connection) {
     };
     // get last files available in the NPATLAS database
     const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(process.env.ORIGINAL_DATA_PATH, '')];
+    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     // get taxonomies old to new IDs mapping
     const oldToNewTaxIDs = await taxonomySynonyms();
     // get taxonomies collection
