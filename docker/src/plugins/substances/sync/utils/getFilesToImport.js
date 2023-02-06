@@ -21,6 +21,18 @@ export async function getFilesToImport(
       .sort('_seq', -1)
       .limit(1)
       .next();
+    if (process.env.NODE_ENV === 'test' && importType === 'first') {
+      return {
+        files: allFiles,
+        lastDocument: {},
+      };
+    }
+    if (process.env.NODE_ENV === 'test' && importType === 'incremental') {
+      return {
+        files: allFiles,
+        lastDocument,
+      };
+    }
     if (importType === 'first') {
       if (!progress.sources || !lastDocument) {
         return { files: allFiles, lastDocument: {} };

@@ -11,8 +11,17 @@ import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
 async function incrementalSubstanceImport(connection) {
   const debug = debugLibrary('incrementalSubstanceImport');
   try {
-    const allFiles = await syncSubstanceFolder(connection, 'incremental');
-
+    let allFiles;
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: 'incrementalImportSubstances.sdf.gz',
+          path: `${process.env.SUBSTANCESINCREMENTALIMPORT_SOURCE_TEST}`,
+        },
+      ];
+    } else {
+      allFiles = await syncSubstanceFolder(connection, 'incremental');
+    }
     const progress = await connection.getProgress('substances');
 
     if (progress.state !== 'updated') {
@@ -34,10 +43,11 @@ async function incrementalSubstanceImport(connection) {
       await connection.setProgress(progress);
     }
     if (
-      !files.includes(progress.sources) &&
-      progress.state === 'updated' &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.PUBCHEM_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
+      (!files.includes(progress.sources) &&
+        progress.state === 'updated' &&
+        Date.now() - progress.dateEnd >
+          Number(process.env.PUBCHEM_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000) ||
+      process.env.NODE_ENV === 'test'
     ) {
       await importSubstanceFiles(
         connection,

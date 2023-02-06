@@ -23,7 +23,10 @@ export async function importSubstanceFiles(
     if (importType === 'first') {
       options = { shouldImport: progress.seq === 0, ...options };
     } else if (importType === 'incremental') {
-      options = { shouldImport: false, ...options };
+      options = {
+        shouldImport: progress.sources !== files[0].path,
+        ...options,
+      };
     }
     for (let file of files) {
       if (file.name.endsWith('.gz')) {

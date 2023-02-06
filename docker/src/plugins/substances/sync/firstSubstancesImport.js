@@ -19,7 +19,17 @@ async function firstSubstanceImport(connection) {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
-    const allFiles = await syncSubstanceFolder(connection, 'first');
+    let allFiles;
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: 'firstImportSubstances.sdf.gz',
+          path: `${process.env.SUBSTANCESFIRSTIMPORT_SOURCE_TEST}`,
+        },
+      ];
+    } else {
+      allFiles = await syncSubstanceFolder(connection, 'first');
+    }
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,

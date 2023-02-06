@@ -7,7 +7,7 @@ import improveSubstance from '../improveSubstance.js';
 
 test('improveSubstance', () => {
   const molecules = parse(
-    readFileSync(join(__dirname, 'data.sdf'), 'utf8'),
+    readFileSync(join(__dirname, 'data/data.sdf'), 'utf8'),
   ).molecules;
   const results = [];
   for (let molfile of molecules) {

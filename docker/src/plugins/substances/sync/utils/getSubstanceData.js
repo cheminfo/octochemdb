@@ -26,7 +26,13 @@ export async function getSubstanceData(molecule) {
     let dataSubstance;
     while (success === false && count < 3) {
       try {
-        dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
+        if (process.env.NODE_ENV === 'test') {
+          dataSubstance = await fetch(
+            `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+          );
+        } else {
+          dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
+        }
       } catch (e) {
         debug(e);
       }
