@@ -22,8 +22,15 @@ export async function sync(connection) {
       extensionNew: 'json',
     };
     // Get lastFile (path), sources, progress, logs,lastDocumentImported and collection gnps
-    const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    let sources;
+    let lastFile;
+    if (process.env.NODE_ENV === 'test') {
+      lastFile = `${process.env.GNPS_SOURCE_TEST}`;
+      sources = [process.env.GNPS_SOURCE_TEST];
+    } else {
+      lastFile = await getLastFileSync(options);
+      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    }
 
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;
@@ -51,7 +58,8 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        isTimeToUpdate)
+        isTimeToUpdate) ||
+      process.env.NODE_ENV === 'test'
     ) {
       const collection = await connection.getCollection(options.collectionName);
 

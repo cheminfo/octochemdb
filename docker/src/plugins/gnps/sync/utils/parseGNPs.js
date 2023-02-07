@@ -1,4 +1,5 @@
 import pkg from 'fs-extra';
+import { xNormed, xyFilterMinYValue, xy2ToXY } from 'ml-spectra-processing';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 
@@ -56,19 +57,15 @@ export async function* parseGNPs(jsonPath, connection) {
           spectrum.ionMode = entry.value.Ion_Mode;
         }
         // Get spectrum peaks
-        let data = {
-          x: [],
-          y: [],
-        };
-        let peaks = JSON.parse(entry.value.peaks_json)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 1000)
-          .sort((a, b) => a[0] - b[0]); //centroid
-        for (let peak of peaks) {
-          data.x.push(peak[0]);
-          data.y.push(peak[1]);
-        }
-        spectrum.data = data;
+
+        let peaksArray = JSON.parse(entry.value.peaks_json);
+        let spectrumEntry = xy2ToXY(peaksArray);
+        let filteredSpectrum = xyFilterMinYValue(spectrumEntry, 0.01);
+        xNormed(filteredSpectrum.y, {
+          algorithm: 'max',
+          output: filteredSpectrum.y,
+        });
+        spectrum.data = filteredSpectrum;
         // define final result to be imported in GNPs collection
         const result = {
           _id: entry.value.spectrum_id,
