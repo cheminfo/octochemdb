@@ -11,5 +11,5 @@ COPY . /git/pubchem
 WORKDIR /git/pubchem
 RUN npm i --production && rm -rf /root/.npm /usr/local/share/.cache /root/.cache
 
-CMD Debug=* npm run start
+CMD npm run start
 
