@@ -65,12 +65,8 @@ async function searchHandler(request) {
       const mass = Number(massString);
       matchParameter.push({
         'data.spectrum.data.x': {
-          $lte:
-            mass +
-            mass / 1e6 * precision,
-          $gte:
-            mass -
-            mass / 1e6 * precision,
+          $lte: mass + (mass / 1e6) * precision,
+          $gte: mass - (mass / 1e6) * precision,
         },
       });
     }
