@@ -13,13 +13,13 @@ const fromMasses = {
       masses: {
         type: 'string',
         description: 'List Monoisotopic mass',
-        example: '300.123,250.2',
-        default: '300, 250',
+        example: '289.2,295.5',
+        default: '289.2,295.5',
       },
       precision: {
         type: 'number',
         description: 'Precision (in ppm) of the monoisotopic mass',
-        default: 100,
+        default: 10,
       },
       limit: {
         type: 'number',
@@ -44,8 +44,8 @@ export default fromMasses;
  */
 async function searchHandler(request) {
   let {
-    masses = '300,250',
-    precision = 100,
+    masses = '289.2,295.5',
+    precision = 10,
     limit = 10,
     fields = 'data.spectrum,data.ocl',
   } = request.query;
