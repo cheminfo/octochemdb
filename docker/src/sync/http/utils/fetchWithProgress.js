@@ -1,5 +1,3 @@
-import { fetch } from 'cross-fetch';
-
 export async function fetchWithProgress(url, options) {
   const { callback } = options;
   const response = await fetch(url);

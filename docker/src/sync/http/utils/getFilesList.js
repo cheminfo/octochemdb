@@ -1,5 +1,3 @@
-import { fetch } from 'cross-fetch';
-
 import debugLibrary from '../../../utils/Debug.js';
 
 const debug = debugLibrary('getFilesList');

@@ -1,6 +1,5 @@
 import { join } from 'path';
 
-import { fetch } from 'cross-fetch';
 import { fileListFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 

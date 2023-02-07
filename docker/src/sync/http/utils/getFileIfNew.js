@@ -7,7 +7,6 @@ import {
 } from 'fs';
 import { join } from 'path';
 
-import { fetch } from 'cross-fetch';
 import { fileListFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
 

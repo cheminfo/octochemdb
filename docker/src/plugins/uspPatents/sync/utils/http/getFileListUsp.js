@@ -1,5 +1,3 @@
-import { fetch } from 'cross-fetch';
-
 async function getFilesListUsp(url, year) {
   const response = await fetch(url);
   const options = {};
