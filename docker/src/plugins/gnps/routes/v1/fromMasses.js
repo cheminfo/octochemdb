@@ -59,17 +59,18 @@ async function searchHandler(request) {
     let formattedFields = getFields(fields);
     formattedFields._id = 0;
 
-    let massesToSearch = masses.split(',');
+    let massesArray = masses.split(',');
     let matchParameter = [];
-    for (let i = 0; i < massesToSearch.length; i++) {
+    for (let massString of massesArray) {
+      const mass = Number(massString);
       matchParameter.push({
         'data.spectrum.data.x': {
           $lte:
-            Number(massesToSearch[i]) +
-            (Number(massesToSearch[i]) / 1e6) * precision,
+            mass +
+            mass / 1e6 * precision,
           $gte:
-            Number(massesToSearch[i]) -
-            (Number(massesToSearch[i]) / 1e6) * precision,
+            mass -
+            mass / 1e6 * precision,
         },
       });
     }
