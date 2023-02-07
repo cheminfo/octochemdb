@@ -26,7 +26,7 @@ export async function sync(connection) {
   try {
     let sources;
     let lastFile;
-    if (process.env.NODE_ENV !== undefined) {
+    if (process.env.NODE_ENV === 'test') {
       lastFile = `${process.env.TAXONOMY_SOURCE_TEST}`;
       sources = [process.env.TAXONOMY_SOURCE_TEST];
     } else {
@@ -59,7 +59,8 @@ export async function sync(connection) {
       lastDocumentImported === null ||
       ((md5(JSON.stringify(sources)) !== progress.sources ||
         progress.state !== 'updated') &&
-        isTimeToUpdate)
+        isTimeToUpdate) ||
+      process.env.NODE_ENV === 'test'
     ) {
       const collection = await connection.getCollection(options.collectionName);
 
