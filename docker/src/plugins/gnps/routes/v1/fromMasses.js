@@ -63,10 +63,11 @@ async function searchHandler(request) {
     let matchParameters = [];
     for (let massString of massesArray) {
       const mass = Number(massString);
+      const error = (mass / 1e6) * precision;
       matchParameters.push({
         'data.spectrum.data.x': {
-          $lte: mass + (mass / 1e6) * precision,
-          $gte: mass - (mass / 1e6) * precision,
+          $gte: mass - error,
+          $lte: mass + error,
         },
       });
     }
