@@ -59,7 +59,7 @@ async function searchHandler(request) {
     let formattedFields = getFields(fields);
     formattedFields._id = 0;
 
-    let massesArray = masses.split(',');
+    let massesArray = masses.split(/[, \t\n\r:;]+/);
     let matchParameters = [];
     for (let massString of massesArray) {
       const mass = Number(massString);
