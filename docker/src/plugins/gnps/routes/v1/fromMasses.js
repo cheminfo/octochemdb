@@ -60,10 +60,10 @@ async function searchHandler(request) {
     formattedFields._id = 0;
 
     let massesArray = masses.split(',');
-    let matchParameter = [];
+    let matchParameters = [];
     for (let massString of massesArray) {
       const mass = Number(massString);
-      matchParameter.push({
+      matchParameters.push({
         'data.spectrum.data.x': {
           $lte: mass + (mass / 1e6) * precision,
           $gte: mass - (mass / 1e6) * precision,
@@ -74,7 +74,7 @@ async function searchHandler(request) {
     // search for the entries
     const results = await collection
       .aggregate([
-        { $match: { $and: matchParameter } },
+        { $match: { $and: matchParameters } },
         { $limit: limit },
         {
           $project: formattedFields,
