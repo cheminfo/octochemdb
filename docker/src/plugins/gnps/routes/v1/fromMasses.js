@@ -66,12 +66,13 @@ async function searchHandler(request) {
       const error = (mass / 1e6) * precision;
       matchParameters.push({
         'data.spectrum.data.x': {
-          $gte: mass - error,
-          $lte: mass + error,
+          $elemMatch: {
+            $gte: mass - error,
+            $lte: mass + error,
+          },
         },
       });
     }
-
     // search for the entries
     const results = await collection
       .aggregate([
@@ -97,3 +98,24 @@ async function searchHandler(request) {
     if (connection) await connection.close();
   }
 }
+
+/*  example of query
+ db.gnps.aggregate([
+  {
+    $match: {
+      $and: [
+        {
+          'data.spectrum.data.x': {
+            $elemMatch: {
+              $gte: 101,
+              $lte: 100,
+            },
+          },
+        },
+      ],
+    },
+  },
+  { $limit: 1 },
+  { $project: { 'data.spectrum.data.x': 1, _id: 0 } },
+]);
+*/
