@@ -22,9 +22,16 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   try {
-    // Get lastFile available in the online database, the local database collection and the progress of the import
-    const lastFile = await getLastFileSync(options);
-    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    let sources;
+    let lastFile;
+    if (process.env.NODE_ENV === 'test') {
+      lastFile = `${process.env.COCONUTS_SOURCE_TEST}`;
+      sources = [lastFile];
+    } else {
+      // Get lastFile available in the online database, the local database collection and the progress of the import
+      const lastFile = await getLastFileSync(options);
+      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    }
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;
     if (

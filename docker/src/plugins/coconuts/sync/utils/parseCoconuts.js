@@ -43,6 +43,7 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
             }
           }
         }
+
         // define result to be imported
         const result = {
           _id: entry.coconut_id,
@@ -52,7 +53,7 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
         };
         if (entry.cas) result.data.cas = entry?.cas;
         if (entry.iupac_name) result.data.iupacName = entry?.iupac_name;
-        if (finalTaxonomies.length !== 0) {
+        if (finalTaxonomies.length > 0) {
           result.data.taxonomies = finalTaxonomies;
         }
         if (comments.length !== 0) result.data.comments = comments;
