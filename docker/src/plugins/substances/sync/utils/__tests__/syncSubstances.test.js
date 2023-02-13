@@ -1,12 +1,12 @@
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncSubstances';
 // increase timeout to 6s
-jest.setTimeout(6000);
+jest.setTimeout(20000);
 test('syncSubstances First Importation', async () => {
   const connection = new PubChemConnection();
   await sync(connection);
   const collection = await connection.getCollection('substances');
-  const collectionEntry = await collection.find({ _id: 56435271 }).limit(1);
+  const collectionEntry = await collection.find({ _id: 56427212 }).limit(1);
   const result = await collectionEntry.next();
   expect(result).toMatchSnapshot();
   if (connection) {

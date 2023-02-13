@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`syncBioassays 1`] = `
-Object {
+{
   "_id": "59478_1",
   "_seq": 1,
-  "data": Object {
+  "data": {
     "aid": 1,
     "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
     "cid": 59478,
-    "ocl": Object {
-      "idCode": "dgm@aHPH\`Nb\\\\BdfLRTr{UP@T@@",
-      "noStereoTautomerID": "dgm@aHPH\`Nb\\\\BdfLRTr{UP@T@@",
+    "ocl": {
+      "idCode": "dgm@aHPH\`Nb\\BdfLRTr{UP@T@@",
+      "noStereoTautomerID": "dgm@aHPH\`Nb\\BdfLRTr{UP@T@@",
     },
-    "targetTaxonomies": Array [
-      Object {
+    "targetTaxonomies": [
+      {
         "class": "Candidatus Borrarchaeia",
         "family": "Candidatus Borrarchaeaceae",
         "genus": "Candidatus Borrarchaeum",
