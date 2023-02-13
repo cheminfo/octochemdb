@@ -36,7 +36,10 @@ export async function importPubmedFiles(
       }
     } else if (importType === 'incremental') {
       debug('Starting incremental update');
-      options = { shouldImport: false, ...options };
+      options = {
+        shouldImport: progress.sources !== files[0].path,
+        ...options,
+      };
       for (let file of files) {
         debug(`Processing: ${file.name}`);
         if (file.name.endsWith('.gz')) {

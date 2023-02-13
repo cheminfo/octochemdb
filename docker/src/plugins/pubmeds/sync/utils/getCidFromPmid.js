@@ -15,7 +15,6 @@ export async function getCidFromPmid(filePath, connection) {
     const readStream = createReadStream(filePath);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
-
     const data = {};
 
     let date = Date.now();

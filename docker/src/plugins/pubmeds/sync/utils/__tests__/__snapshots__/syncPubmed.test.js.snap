@@ -1,0 +1,235 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`syncPubmed First Importation 1`] = `
+{
+  "_id": 14248047,
+  "_seq": 2,
+  "data": {
+    "article": {
+      "authors": [
+        {
+          "firstName": "G",
+          "initials": "G",
+          "lastName": "HEVESY",
+        },
+      ],
+      "journal": {
+        "iSSN": "0030-6002",
+        "isoAbbreviation": "Orv Hetil",
+        "pubDate": {
+          "Day": 3,
+          "Month": "Jan",
+          "Year": 1965,
+        },
+        "title": "Orvosi hetilap",
+      },
+      "language": "hun",
+      "publicationTypeList": [
+        "Journal Article",
+      ],
+      "title": "USE OF ISOTOPE INDICATORS IN MEDICINE.",
+    },
+    "chemicals": [
+      {
+        "nameOfSubstance": "Isotopes",
+      },
+      {
+        "nameOfSubstance": "Radioisotopes",
+      },
+    ],
+    "dateCompleted": {
+      "Day": 1,
+      "Month": 12,
+      "Year": 1996,
+    },
+    "dateRevised": {
+      "Day": 1,
+      "Month": 12,
+      "Year": 2018,
+    },
+    "journalInfo": {
+      "Country": "Hungary",
+      "ISSNLinking": "0030-6002",
+      "MedlineTA": "Orv Hetil",
+      "NlmUniqueID": 376412,
+    },
+    "meshHeadings": [
+      {
+        "descriptorName": "Isotopes",
+      },
+      {
+        "descriptorName": "Medicine",
+      },
+      {
+        "descriptorName": "Radioisotopes",
+      },
+      {
+        "descriptorName": "Research",
+      },
+    ],
+  },
+}
+`;
+
+exports[`syncPubmed Incremental Importation 1`] = `
+{
+  "_id": 17200418,
+  "_seq": 4,
+  "data": {
+    "article": {
+      "abstract": null,
+      "authors": [
+        {
+          "firstName": "Youwen",
+          "initials": "Y",
+          "lastName": "Fang",
+        },
+        {
+          "firstName": "Elaine",
+          "initials": "E",
+          "lastName": "Studer",
+        },
+        {
+          "firstName": "Clint",
+          "initials": "C",
+          "lastName": "Mitchell",
+        },
+        {
+          "firstName": "Steven",
+          "initials": "S",
+          "lastName": "Grant",
+        },
+        {
+          "firstName": "William M",
+          "initials": "WM",
+          "lastName": "Pandak",
+        },
+        {
+          "firstName": "Philip B",
+          "initials": "PB",
+          "lastName": "Hylemon",
+        },
+        {
+          "firstName": "Paul",
+          "initials": "P",
+          "lastName": "Dent",
+        },
+      ],
+      "journal": {
+        "iSSN": "0026-895X",
+        "isoAbbreviation": "Mol Pharmacol",
+        "issue": 4,
+        "pubDate": {
+          "Month": "Apr",
+          "Year": 2007,
+        },
+        "title": "Molecular pharmacology",
+      },
+      "language": "eng",
+      "publicationTypeList": [
+        "Journal Article",
+        "Research Support, N.I.H., Extramural",
+        "Research Support, Non-U.S. Gov't",
+        "Research Support, U.S. Gov't, Non-P.H.S.",
+      ],
+      "title": "Conjugated bile acids regulate hepatocyte glycogen synthase activity in vitro and in vivo via Galphai signaling.",
+    },
+    "chemicals": [
+      {
+        "nameOfSubstance": "Bile Acids and Salts",
+      },
+      {
+        "nameOfSubstance": "Deoxycholic Acid",
+        "unii": "005990WHZZ",
+      },
+      {
+        "nameOfSubstance": "Taurodeoxycholic Acid",
+        "unii": "516-50-7",
+      },
+      {
+        "nameOfSubstance": "Glycogen Synthase",
+        "unii": "EC 2.4.1.11",
+      },
+      {
+        "nameOfSubstance": "Phosphatidylinositol 3-Kinases",
+        "unii": "EC 2.7.1.-",
+      },
+      {
+        "nameOfSubstance": "Proto-Oncogene Proteins c-akt",
+        "unii": "EC 2.7.11.1",
+      },
+      {
+        "nameOfSubstance": "GTP-Binding Protein alpha Subunits, Gi-Go",
+        "unii": "EC 3.6.5.1",
+      },
+    ],
+    "dateCompleted": {
+      "Day": 4,
+      "Month": 6,
+      "Year": 2007,
+    },
+    "dateRevised": {
+      "Day": 1,
+      "Month": 1,
+      "Year": 2023,
+    },
+    "journalInfo": {
+      "Country": "United States",
+      "ISSNLinking": "0026-895X",
+      "MedlineTA": "Mol Pharmacol",
+      "NlmUniqueID": 35623,
+    },
+    "meshHeadings": [
+      {
+        "descriptorName": "Animals",
+      },
+      {
+        "descriptorName": "Bile Acids and Salts",
+        "qualifierName": "physiology",
+      },
+      {
+        "descriptorName": "Cells, Cultured",
+      },
+      {
+        "descriptorName": "Deoxycholic Acid",
+        "qualifierName": "pharmacology",
+      },
+      {
+        "descriptorName": "GTP-Binding Protein alpha Subunits, Gi-Go",
+        "qualifierName": "physiology",
+      },
+      {
+        "descriptorName": "Glycogen Synthase",
+        "qualifierName": "metabolism",
+      },
+      {
+        "descriptorName": "Hepatocytes",
+      },
+      {
+        "descriptorName": "Male",
+      },
+      {
+        "descriptorName": "Phosphatidylinositol 3-Kinases",
+        "qualifierName": "metabolism",
+      },
+      {
+        "descriptorName": "Proto-Oncogene Proteins c-akt",
+        "qualifierName": "metabolism",
+      },
+      {
+        "descriptorName": "Rats",
+      },
+      {
+        "descriptorName": "Rats, Sprague-Dawley",
+      },
+      {
+        "descriptorName": "Signal Transduction",
+      },
+      {
+        "descriptorName": "Taurodeoxycholic Acid",
+        "qualifierName": "pharmacology",
+      },
+    ],
+  },
+}
+`;

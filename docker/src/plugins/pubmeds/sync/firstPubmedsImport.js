@@ -22,8 +22,18 @@ async function firstPubmedImport(connection) {
     } else {
       debug(`Continuing first importation from ${progress.seq}.`);
     }
-    // get all files to import
-    const allFiles = await syncPubmedFolder(connection, 'first');
+    let allFiles;
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: 'firstImportTest.xml.gz',
+          path: `${process.env.PUBMEDFIRSTIMPORT_SOURCE_TEST}`,
+        },
+      ];
+    } else {
+      // get all files to import
+      allFiles = await syncPubmedFolder(connection, 'first');
+    }
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
@@ -41,7 +51,12 @@ async function firstPubmedImport(connection) {
       filenameNew: 'cidToPmid',
       extensionNew: 'gz',
     };
-    const cidToPmidPath = await getLastFileSync(options);
+    let cidToPmidPath;
+    if (process.env.NODE_ENV === 'test') {
+      cidToPmidPath = `${process.env.CIDTOPMID_SOURCE_TEST}`;
+    } else {
+      cidToPmidPath = await getLastFileSync(options);
+    }
     const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
     await importPubmedFiles(
       connection,

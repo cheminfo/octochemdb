@@ -40,7 +40,6 @@ export default async function importOnePubmedFile(
     const readableStream = fileStream.readableWebStream();
     let { shouldImport, lastDocument } = options;
     let imported = 0;
-    debug(`Importing ${file.name}`);
     // parse the pubmed file stream
     for await (const entry of parseStream(readableStream, 'PubmedArticle')) {
       if (!shouldImport) {
@@ -56,6 +55,8 @@ export default async function importOnePubmedFile(
         imported++;
         result._seq = ++progress.seq;
         // insert entry into pubmeds collection
+        debug(entry);
+
         await collection.updateOne(
           { _id: result._id },
           { $set: result },

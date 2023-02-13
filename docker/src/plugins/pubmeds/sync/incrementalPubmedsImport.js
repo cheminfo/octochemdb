@@ -17,7 +17,19 @@ async function incrementalPubmedImport(connection) {
     // get progress
     const progress = await connection.getProgress('pubmeds');
     // get all files to import
-    const allFiles = await syncPubmedFolder(connection, 'incremental');
+    let allFiles;
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: 'incrementalImportTest.xml.gz',
+          path: `${process.env.PUBMEDINCREMENTAL_SOURCE_TEST}`,
+        },
+      ];
+    } else {
+      // get all files to import
+      allFiles = await syncPubmedFolder(connection, 'incremental');
+    }
+    debug('here');
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
@@ -35,10 +47,11 @@ async function incrementalPubmedImport(connection) {
     }
 
     if (
-      !files.includes(progress.sources) &&
-      progress.state === 'updated' &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.PUBMED_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
+      (!files.includes(progress.sources) &&
+        progress.state === 'updated' &&
+        Date.now() - progress.dateEnd >
+          Number(process.env.PUBMED_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000) ||
+      process.env.NODE_ENV === 'test'
     ) {
       let options = {
         collectionSource: process.env.CIDTOPMID_SOURCE,
@@ -47,8 +60,12 @@ async function incrementalPubmedImport(connection) {
         filenameNew: 'cidToPmid',
         extensionNew: 'gz',
       };
-      // get cidToPmid map
-      const cidToPmidPath = await getLastFileSync(options);
+      let cidToPmidPath;
+      if (process.env.NODE_ENV === 'test') {
+        cidToPmidPath = `${process.env.CIDTOPMID_SOURCE_TEST}`;
+      } else {
+        cidToPmidPath = await getLastFileSync(options);
+      }
       const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
       // import files
       await importPubmedFiles(

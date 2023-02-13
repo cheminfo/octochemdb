@@ -22,6 +22,12 @@ export async function getFilesToImport(
       .sort('_seq', -1)
       .limit(1)
       .next();
+    if (process.env.NODE_ENV === 'test' && importType === 'first') {
+      return {
+        files: allFiles,
+        lastDocument: {},
+      };
+    }
     if (importType === 'first') {
       if (!progress.sources || !lastDocument) {
         return { files: allFiles, lastDocument: {} };
@@ -31,7 +37,6 @@ export async function getFilesToImport(
       const firstIndex = allFiles.findIndex((n) =>
         n.path.endsWith(progress.sources),
       );
-
       if (firstIndex === -1) {
         throw new Error(`file not found: ${progress.sources}`);
       }
@@ -42,6 +47,12 @@ export async function getFilesToImport(
         throw new Error('This should never happen');
       }
       debug(`last file processed: ${progress.sources}`);
+      if (process.env.NODE_ENV === 'test' && importType === 'incremental') {
+        return {
+          files: allFiles,
+          lastDocument,
+        };
+      }
       const firstIndex = allFiles.findIndex((n) =>
         n.path.endsWith(progress.sources),
       );

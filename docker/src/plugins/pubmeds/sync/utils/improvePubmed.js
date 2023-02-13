@@ -3,10 +3,10 @@ import debugLibrary from '../../../../utils/Debug.js';
  * @description parse and make pubmed entry human readable
  * @param {object} entry - pubmed entry
  * @param {object} pmidToCid - pmid to cid map
- * @returns {object} pubmed entry to be imported
+ * @returns {Promise<Object>} pubmed entry to be imported
  */
 export async function improvePubmed(entry, pmidToCid) {
-  const debug = debugLibraryv('improvePubmed');
+  const debug = debugLibrary('improvePubmed');
   // get medlineCitation
   let medlineCitation = entry.MedlineCitation;
   // get generic information
