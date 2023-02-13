@@ -47,9 +47,9 @@ export async function aggregate(connection) {
         {
           $group: {
             _id: '$mf',
-            count: { $sum: 1 },
             em: { $first: '$em' },
             unsaturation: { $first: '$unsaturation' },
+            count: { $sum: 1 },
           },
         },
 
