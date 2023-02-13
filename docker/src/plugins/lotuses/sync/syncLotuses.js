@@ -22,10 +22,19 @@ export async function sync(connection) {
     extensionNew: 'zip',
   };
   try {
-    // get last file from lotus database
-    const lastFile = await getLastFileSync(options);
+    let sources;
+    let lastFile;
+    if (process.env.NODE_ENV === 'test') {
+      lastFile = `${process.env.LOTUS_SOURCE_TEST}`;
+      sources = [lastFile];
+    } else {
+      // get last file from lotus database
+      lastFile = await getLastFileSync(options);
+      // get sources, progress and lotuses collection
+      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    }
+    debug(lastFile);
     // get sources, progress and lotuses collection
-    const sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     const progress = await connection.getProgress('lotuses');
     let isTimeToUpdate = false;
     if (
