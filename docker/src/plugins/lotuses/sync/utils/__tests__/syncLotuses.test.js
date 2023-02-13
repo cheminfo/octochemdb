@@ -1,8 +1,6 @@
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncLotuses';
 
-//remove process.env.TEST from parseBioactivities to use this test
-
 test('syncLotuses', async () => {
   const connection = new PubChemConnection();
   await sync(connection);
