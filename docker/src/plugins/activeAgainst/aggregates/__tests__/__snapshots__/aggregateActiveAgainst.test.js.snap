@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Aggregation activeAgainst 1`] = `
+{
+  "_id": "ArchaeakingdomCandidatus BorrarchaeotaCandidatus Borrarchaeia",
+  "class": "Candidatus Borrarchaeia",
+  "count": 1,
+  "kingdom": null,
+  "phylum": "Candidatus Borrarchaeota",
+  "superkingdom": "Archaea",
+}
+`;
