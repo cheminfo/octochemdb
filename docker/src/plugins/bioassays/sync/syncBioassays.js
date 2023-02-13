@@ -46,7 +46,7 @@ export async function sync(connection) {
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
-        Number(process.env.BIOASSAY_UPDATE_INTERVA) &&
+        Number(process.env.BIOASSAY_UPDATE_INTERVAL) &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();

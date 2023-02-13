@@ -4531,7 +4531,7 @@ NPO4307	Canarium album	300208	Canarium album	43690	Canarium	4014	Burseraceae
 NPO4308	Pericome caudata	176559	Pericome caudata	176558	Pericome	4210	Asteraceae
 NPO4311	Asterolasia squamuligera	282650	Asterolasia squamuligera	282642	Asterolasia	23513	Rutaceae
 NPO4322	Scabiosa succisa	NA	NA	87007	Scabiosa	4200	Caprifoliaceae
-NPO4323	Morinda citrifolia	43522	Morinda citrifolia	43521	Morinda	24966	Rubiaceae
+NPO4323	Morinda citrifolia	2841639	Morinda citrifolia	2841639	Morinda	2841639	Rubiaceae
 NPO433	Geranium sibiricum	345237	Geranium sibiricum	4028	Geranium	4027	Geraniaceae
 NPO4336	Echiochilon pauciflorum	203771	Echiochilon pauciflorum	203735	Echiochilon	21571	Boraginaceae
 NPO4340	Peucedanum praeruptorum	312531	Peucedanum praeruptorum	49562	Peucedanum	4037	Apiaceae

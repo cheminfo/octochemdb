@@ -11,39 +11,53 @@ const debug = debugLibrary('getCmaupsLastFiles');
  */
 export default async function getCmaupsLastFiles(connection) {
   try {
-    let options = {
-      collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaups/full`,
-      collectionName: 'cmaups',
-      filenameNew: 'Ingredients',
-      extensionNew: 'txt',
-    };
-    // Get file Ingredients who contain general data about the molecule
-    const lastFileGeneral = await getLastFileSync(options);
-    // Get file containing activity data for all active ingredients (lastFileGeneral)
-    options.collectionSource = process.env.CMAUP_SOURCE_ACTIVITY;
-    options.filenameNew = 'activity';
-    const lastFileActivity = await getLastFileSync(options);
-    // Get file Species association allows to relate mocule ID with taxonomies IDs
-    options.collectionSource = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
-    options.filenameNew = 'speciesAssociation';
-    const lastFileSpeciesAssociation = await getLastFileSync(options);
-    // Get file with taxonomies informations
-    options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
-    options.filenameNew = 'speciesInfo';
-    const lastFileSpeciesInfo = await getLastFileSync(options);
+    let source = [];
+    let lastFileGeneral;
+    let lastFileActivity;
+    let lastFileSpeciesAssociation;
+    let lastFileSpeciesInfo;
+
+    if (process.env.NODE_ENV === 'test') {
+      lastFileGeneral = `${process.env.LAST_FILE_GENERAL_TEST}`;
+      lastFileActivity = `${process.env.LAST_FILE_ACTIVITY_TEST}`;
+      lastFileSpeciesAssociation = `${process.env.LAST_FILE_SPECIESASSOCIATION_TEST}`;
+      lastFileSpeciesInfo = `${process.env.LAST_FILE_SPECIESINFO_TEST}`;
+    } else {
+      let options = {
+        collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
+        destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaups/full`,
+        collectionName: 'cmaups',
+        filenameNew: 'Ingredients',
+        extensionNew: 'txt',
+      };
+      // Get file Ingredients who contain general data about the molecule
+      lastFileGeneral = await getLastFileSync(options);
+      // Get file containing activity data for all active ingredients (lastFileGeneral)
+      options.collectionSource = process.env.CMAUP_SOURCE_ACTIVITY;
+      options.filenameNew = 'activity';
+      lastFileActivity = await getLastFileSync(options);
+      // Get file Species association allows to relate mocule ID with taxonomies IDs
+      options.collectionSource = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
+      options.filenameNew = 'speciesAssociation';
+      lastFileSpeciesAssociation = await getLastFileSync(options);
+      // Get file with taxonomies informations
+      options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
+      options.filenameNew = 'speciesInfo';
+      lastFileSpeciesInfo = await getLastFileSync(options);
+
+      // Get collection importationLogs
+      source = [
+        lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileSpeciesAssociation.replace(
+          `${process.env.ORIGINAL_DATA_PATH}`,
+          '',
+        ),
+        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+      ];
+    }
     // Get collection admin
     const progress = await connection.getProgress('cmaups');
-    // Get collection importationLogs
-    let source = [
-      lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-      lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-      lastFileSpeciesAssociation.replace(
-        `${process.env.ORIGINAL_DATA_PATH}`,
-        '',
-      ),
-      lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-    ];
     const logs = await connection.getImportationLog({
       collectionName: 'cmaups',
       sources: source,
