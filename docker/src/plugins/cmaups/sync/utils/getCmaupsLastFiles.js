@@ -11,7 +11,7 @@ const debug = debugLibrary('getCmaupsLastFiles');
  */
 export default async function getCmaupsLastFiles(connection) {
   try {
-    let source = [];
+    let source;
     let lastFileGeneral;
     let lastFileActivity;
     let lastFileSpeciesAssociation;
@@ -22,6 +22,12 @@ export default async function getCmaupsLastFiles(connection) {
       lastFileActivity = `${process.env.LAST_FILE_ACTIVITY_TEST}`;
       lastFileSpeciesAssociation = `${process.env.LAST_FILE_SPECIESASSOCIATION_TEST}`;
       lastFileSpeciesInfo = `${process.env.LAST_FILE_SPECIESINFO_TEST}`;
+      source = [
+        lastFileGeneral,
+        lastFileActivity,
+        lastFileSpeciesAssociation,
+        lastFileSpeciesInfo,
+      ];
     } else {
       let options = {
         collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
