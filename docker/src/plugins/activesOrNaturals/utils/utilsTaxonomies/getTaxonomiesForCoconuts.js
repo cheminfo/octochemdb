@@ -21,17 +21,17 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
             taxonomiesCollection,
             searchParameter,
           );
+          let finalTaxonomy;
           if (result.length > 0) {
-            let finalTaxonomy = result[0].data;
+            finalTaxonomy = result[0].data;
             finalTaxonomy.species = entry.data.taxonomies[i].species;
             finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
             taxonomiesCoconuts.push(finalTaxonomy);
+          } else {
+            finalTaxonomy = entry.data.taxonomies[i];
+            finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
+            taxonomiesCoconuts.push(finalTaxonomy);
           }
-          // if the genus is not in the taxonomies collection, we keep the original taxonomy
-        } else {
-          let finalTaxonomy = entry.data.taxonomies[i];
-          finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
-          taxonomiesCoconuts.push(finalTaxonomy[0]);
         }
       }
     } else {
@@ -57,6 +57,5 @@ export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
       }
     }
   }
-
   return taxonomiesCoconuts;
 }
