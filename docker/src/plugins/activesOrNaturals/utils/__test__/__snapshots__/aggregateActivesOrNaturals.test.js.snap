@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Aggregation ActivesOrNaturals 1`] = `
+{
+  "_id": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+  "_seq": 1,
+  "data": {
+    "bioActive": false,
+    "charge": 0,
+    "cids": [
+      "undefined",
+    ],
+    "em": 632.42881889036,
+    "kwTaxonomies": [
+      "viridiplantae",
+      "streptophyta",
+      "magnoliopsida",
+      "cucurbitaceae",
+      "momordica",
+      "charantia",
+    ],
+    "mf": "C37H60O8",
+    "naturalProduct": true,
+    "nbPubmeds": 0,
+    "nbTaxonomies": 1,
+    "taxonomies": [
+      {
+        "class": "Magnoliopsida",
+        "dbRef": {
+          "$id": "LTS0257199",
+          "$ref": "lotuses",
+        },
+        "family": "Cucurbitaceae",
+        "genus": "Momordica",
+        "kingdom": "Viridiplantae",
+        "phylum": "Streptophyta",
+        "species": "Momordica charantia",
+      },
+    ],
+    "unsaturation": 8,
+  },
+}
+`;
