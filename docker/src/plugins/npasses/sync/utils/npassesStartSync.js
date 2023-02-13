@@ -6,7 +6,7 @@ import readNpassesLastFiles from './readNpassesLastFiles.js';
 /**
  * @description get all necessary variables to start npasses sync
  * @param {*} connection - mongo connection
- * @returns {object} returns the variables {lastDocumentImported, progress, sources, collection, general, activities, properties, speciesPair, speciesInfo, logs}
+ * @returns {Promise<Object>} returns the variables {lastDocumentImported, progress, sources, collection, general, activities, properties, speciesPair, speciesInfo, logs}
  */
 export default async function npassStartSync(connection) {
   const debug = debugLibrary('npassStartSync');
