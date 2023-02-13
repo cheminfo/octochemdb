@@ -16,18 +16,20 @@ export default async function getCmaupsLastFiles(connection) {
     let lastFileActivity;
     let lastFileSpeciesAssociation;
     let lastFileSpeciesInfo;
+    let sources;
 
     if (process.env.NODE_ENV === 'test') {
-      lastFileGeneral = `${process.env.LAST_FILE_GENERAL_TEST}`;
-      lastFileActivity = `${process.env.LAST_FILE_ACTIVITY_TEST}`;
-      lastFileSpeciesAssociation = `${process.env.LAST_FILE_SPECIESASSOCIATION_TEST}`;
-      lastFileSpeciesInfo = `${process.env.LAST_FILE_SPECIESINFO_TEST}`;
+      lastFileGeneral = `${process.env.CMAUPS_FILE_GENERAL_TEST}`;
+      lastFileActivity = `${process.env.CMAUPS_FILE_ACTIVITY_TEST}`;
+      lastFileSpeciesAssociation = `${process.env.CMAUPS_FILE_SPECIESASSOCIATION_TEST}`;
+      lastFileSpeciesInfo = `${process.env.CMAUPS_FILE_SPECIESINFO_TEST}`;
       source = [
         lastFileGeneral,
         lastFileActivity,
         lastFileSpeciesAssociation,
         lastFileSpeciesInfo,
       ];
+      sources = md5(JSON.stringify([source]));
     } else {
       let options = {
         collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
@@ -61,6 +63,18 @@ export default async function getCmaupsLastFiles(connection) {
         ),
         lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ];
+      // Get sources with new downloaded files (will be used to check if necessary to update collection)
+      sources = md5(
+        JSON.stringify([
+          lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+          lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+          lastFileSpeciesAssociation.replace(
+            `${process.env.ORIGINAL_DATA_PATH}`,
+            '',
+          ),
+          lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        ]),
+      );
     }
     // Get collection admin
     const progress = await connection.getProgress('cmaups');
@@ -69,18 +83,7 @@ export default async function getCmaupsLastFiles(connection) {
       sources: source,
       startSequenceID: progress.seq,
     });
-    // Get sources with new downloaded files (will be used to check if necessary to update collection)
-    const sources = md5(
-      JSON.stringify([
-        lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileSpeciesAssociation.replace(
-          `${process.env.ORIGINAL_DATA_PATH}`,
-          '',
-        ),
-        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-      ]),
-    );
+
     // return [lastFileGeneral, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs];
     return [
       lastFileGeneral,
