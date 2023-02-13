@@ -48,7 +48,6 @@ export async function getCompoundsData(molecule) {
     }
     if (dataCompound?.ok) {
       let data = await dataCompound.json();
-      //  console.log(data);
       let result = {
         data: {
           ocl: {
@@ -75,7 +74,6 @@ export async function getCompoundsData(molecule) {
           unsaturation: data.result.unsaturation,
         },
       };
-
       return result;
     } else {
       debug(`Error: ${dataCompound?.status} ${dataCompound}`);
