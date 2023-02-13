@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Aggregation mfs 1`] = `
+{
+  "_id": "C12H9N3S2",
+  "atom": "{"C":12,"H":9,"N":3,"S":2}",
+  "count": 1,
+  "em": 259.02378965215996,
+  "unsaturation": 10,
+}
+`;
