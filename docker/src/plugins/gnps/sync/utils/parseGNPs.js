@@ -1,6 +1,6 @@
 import pkg from 'fs-extra';
 import { Spectrum } from 'mass-tools';
-import { xNormed, xyFilterMinYValue, xy2ToXY } from 'ml-spectra-processing';
+import { xNormed, xy2ToXY } from 'ml-spectra-processing';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 
