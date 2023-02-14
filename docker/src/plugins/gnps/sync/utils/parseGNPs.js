@@ -21,16 +21,17 @@ export async function* parseGNPs(jsonPath, connection) {
   createReadStream(jsonPath, 'utf8').pipe(jsonStream);
   try {
     for await (const entry of jsonStream) {
+      const regex = /\s/g;
       try {
         // skip if the entry has no smiles, spectrum or a library class 3 or 10
         if (
+          regex.test(entry.value.Smiles) ||
           entry.value.Smiles === 'N/A' ||
-          entry.value.peaks_json === 'N/A' ||
-          entry.value.Library_Class === 10 ||
-          entry.value.Library_Class === 3 // GNPS classify spectra in 4 categories, gold silver (10 and 3), bronze (incomplete data are allowed), challenge(unknown identity is allowed)
+          entry.value.peaks_json === 'N/A'
         ) {
           continue;
         }
+
         // create a molecule from the entry smiles and get noStereoTautomerID
         // should get noStereoID, noStereoTautomer,  coordinates getNoStereosFromCache
 
