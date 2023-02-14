@@ -46,9 +46,13 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     );
     let fileList = fileListFromPath(targetFolder).filter(
       (file) =>
-        file.name.includes(
-          ('.zip' || '.txt' || '.json' || '.gz' || '.tsv.gz') && filename,
-        ) && !file.webkitRelativePath.includes('old'),
+        (file.name.includes('.zip') ||
+          file.name.includes('.txt') ||
+          file.name.includes('.json') ||
+          file.name.includes('.gz') ||
+          file.name.includes('.tsv.gz')) &&
+        file.name.includes(filename) &&
+        !file.webkitRelativePath.includes('old'),
     );
     let lastFilesSize;
     let lastFileTargetLocal;
