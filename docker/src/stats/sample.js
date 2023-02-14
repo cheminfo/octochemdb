@@ -121,7 +121,7 @@ function analyseFormula(mf, index) {
 function calculateScores(candidates) {
   for (let i = 0; i < candidates.length; i++) {
     let candidate = candidates[i];
-    var em = candidate.em;
+    let em = candidate.em;
     let ratioStat = ratioStats.find(
       (stat) => em >= stat.minMass && em < stat.maxMass,
     ).stats;
