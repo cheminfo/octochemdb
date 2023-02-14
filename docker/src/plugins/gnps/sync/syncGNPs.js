@@ -116,7 +116,9 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.spectrum.precursorMz': 1 });
       await collection.createIndex({ 'data.spectrum.adduct': 1 });
       await collection.createIndex({ 'data.spectrum.ionMode': 1 });
-      await collection.createIndex({ 'data.spectrum.data': 1 });
+      await collection.createIndex({ 'data.spectrum.data.x': 1 });
+      await collection.createIndex({ 'data.spectrum.data.y': 1 });
+      await collection.createIndex({ 'data.spectrum.numberOfPeaks': 1 });
       await collection.createIndex({ _seq: 1 });
 
       debug(`${imported} compounds processed`);

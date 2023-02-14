@@ -1,4 +1,5 @@
 import pkg from 'fs-extra';
+import { Spectrum } from 'mass-tools';
 import { xNormed, xyFilterMinYValue, xy2ToXY } from 'ml-spectra-processing';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
@@ -57,16 +58,37 @@ export async function* parseGNPs(jsonPath, connection) {
         if (entry.value.Ion_Mode !== 'N/A') {
           spectrum.ionMode = entry.value.Ion_Mode;
         }
+        if (entry.value.Library_Class === '1') {
+          spectrum.libraryQualityLevel = 'Gold';
+        }
+        if (entry.value.Library_Class === '2') {
+          spectrum.libraryQualityLevel = 'Silver';
+        }
+        if (entry.value.Library_Class === '3') {
+          spectrum.libraryQualityLevel = 'Bronze';
+        }
+        if (entry.value.Library_Class === '10') {
+          spectrum.libraryQualityLevel = 'Challenge';
+        }
         // Get spectrum peaks
 
-        let peaksArray = JSON.parse(entry.value.peaks_json);
-        let spectrumEntry = xy2ToXY(peaksArray);
-        let filteredSpectrum = xyFilterMinYValue(spectrumEntry, 0.01);
-        xNormed(filteredSpectrum.y, {
-          algorithm: 'max',
-          output: filteredSpectrum.y,
+        let dataPeaks = xy2ToXY(JSON.parse(entry.value.peaks_json));
+        const spectrumToBeFilter = new Spectrum(dataPeaks);
+        const minMaxX = spectrumToBeFilter.minMaxX();
+        const slots = (minMaxX.max - minMaxX.min) / 0.1 - 1;
+        const bestPeaks = spectrum.getBestPeaks({
+          numberSlots: slots,
+          numberCloseSlots: slots,
+          limit: 100,
+          threshold: 0.01,
         });
-        spectrum.data = filteredSpectrum;
+        xNormed(bestPeaks.y, {
+          algorithm: 'max',
+          output: bestPeaks.y,
+        });
+
+        spectrum.data = bestPeaks;
+        spectrum.numberOfPeaks = bestPeaks.x.length;
         // define final result to be imported in GNPs collection
         const result = {
           _id: entry.value.spectrum_id,
