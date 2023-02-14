@@ -1,4 +1,3 @@
-import bluebird from 'bluebird';
 import co from 'co';
 import fs from 'fs-extra';
 import mongo from 'mongo';
