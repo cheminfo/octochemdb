@@ -16,6 +16,9 @@ async function doAll() {
   )) {
     results = parseUsp2006(entry);
     count++;
+    if (!results) {
+      break; // shut to avoid eslint error, this function is used for development only and will be erased soon
+    }
     if (count > 0) {
       break;
     }
