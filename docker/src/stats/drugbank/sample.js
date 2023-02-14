@@ -14,63 +14,60 @@ const penality = rules.ratioPenality;
 const ratioStats = stats.results;
 const data = readJSON(path.join(__dirname, 'data/mfs.json'));
 
-for (let i = 2; i < data.length; i++) {
-  const folder = path.join(__dirname, `data/range${i}`);
-  const thisData = data[i];
-  const formulas = thisData.formulas;
-  const results = new Array(formulas.length);
-  let total = 0;
-  for (let j = 0; j < formulas.length; j++) {
-    const formula = readJSON(path.join(folder, `${formulas[j].mf}.json`));
-    const candidatesList = formula.results;
-    candidatesList.forEach((candidate) => {
-      const mf = candidate.mf;
-      const reg = mf.split(/(?=[A-Z])/);
-      candidate.atom = {};
-      reg.forEach((atom) => {
-        const result = atom.split(/(?=[0-9])/);
-        let number = result.slice(1).join('');
-        candidate.atom[result[0]] = number ? number >> 0 : 1;
-      });
-      mfUtil.addRatio(candidate);
-      addScore(candidate);
+const folder = path.join(__dirname, `data/range${2}`);
+const thisData = data[2];
+const formulas = thisData.formulas;
+const results = new Array(formulas.length);
+let total = 0;
+for (let j = 0; j < formulas.length; j++) {
+  const formula = readJSON(path.join(folder, `${formulas[j].mf}.json`));
+  const candidatesList = formula.results;
+  candidatesList.forEach((candidate) => {
+    const mf = candidate.mf;
+    const reg = mf.split(/(?=[A-Z])/);
+    candidate.atom = {};
+    reg.forEach((atom) => {
+      const result = atom.split(/(?=[0-9])/);
+      let number = result.slice(1).join('');
+      candidate.atom[result[0]] = number ? number >> 0 : 1;
     });
+    mfUtil.addRatio(candidate);
+    addScore(candidate);
+  });
 
-    const em = formula.em;
-    const mf = formula.mf;
-    const result = {
-      mf,
-      em,
-      ppm: new Array(ppm.length),
-    };
-    results[j] = result;
+  const em = formula.em;
+  const mf = formula.mf;
+  const result = {
+    mf,
+    em,
+    ppm: new Array(ppm.length),
+  };
+  results[j] = result;
 
-    let end = candidatesList.length - 1;
+  let end = candidatesList.length - 1;
 
-    for (let k = ppm.length - 1; k >= 0; k--) {
-      let ppmValue = ppm[k];
-      while (Math.abs(candidatesList[end].ppm) >= ppmValue && end >= 0) {
-        end--;
-      }
-      let candidates = candidatesList.slice(0, end + 1);
-      candidates.sort((candA, candB) => candB.ratioScore - candA.ratioScore);
-      let sortedIndex = candidates.findIndex((cand) => cand.mf === mf);
-
-      result.ppm[k] = {
-        ppm: ppmValue,
-        numberResults: candidates.length,
-        meanIndex: Math.floor(candidates.length / 2) + 1,
-        ratioIndex: sortedIndex + 1,
-        ratioScore: candidates[sortedIndex].ratioScore,
-      };
+  for (let k = ppm.length - 1; k >= 0; k--) {
+    let ppmValue = ppm[k];
+    while (Math.abs(candidatesList[end].ppm) >= ppmValue && end >= 0) {
+      end--;
     }
-    if (total % 100 === 0) debug(total);
-    total++;
-  }
+    let candidates = candidatesList.slice(0, end + 1);
+    candidates.sort((candA, candB) => candB.ratioScore - candA.ratioScore);
+    let sortedIndex = candidates.findIndex((cand) => cand.mf === mf);
 
-  fs.writeFileSync(`${folder}.json`, JSON.stringify(results));
-  break;
+    result.ppm[k] = {
+      ppm: ppmValue,
+      numberResults: candidates.length,
+      meanIndex: Math.floor(candidates.length / 2) + 1,
+      ratioIndex: sortedIndex + 1,
+      ratioScore: candidates[sortedIndex].ratioScore,
+    };
+  }
+  if (total % 100 === 0) debug(total);
+  total++;
 }
+
+fs.writeFileSync(`${folder}.json`, JSON.stringify(results));
 
 function addScore(candidate) {
   let em = candidate.em;
