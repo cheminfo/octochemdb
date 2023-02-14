@@ -1,6 +1,6 @@
 import pkg from 'fs-extra';
 import { Spectrum } from 'mass-tools';
-import { xNormed, xy2ToXY } from 'ml-spectra-processing';
+import { xNormed, xy2ToXY, xyObjectToXY } from 'ml-spectra-processing';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
 
@@ -32,7 +32,6 @@ export async function* parseGNPs(jsonPath, connection) {
         ) {
           continue;
         }
-
         // create a molecule from the entry smiles and get noStereoTautomerID
         // should get noStereoID, noStereoTautomer,  coordinates getNoStereosFromCache
 
@@ -71,24 +70,25 @@ export async function* parseGNPs(jsonPath, connection) {
           spectrum.libraryQualityLevel = 'Challenge';
         }
         // Get spectrum peaks
-
-        let dataPeaks = xy2ToXY(JSON.parse(entry.value.peaks_json));
+        const entryPeaks = JSON.parse(entry.value.peaks_json);
+        // convert entryPeaks to array
+        let dataPeaks = xy2ToXY(entryPeaks);
         const spectrumToBeFilter = new Spectrum(dataPeaks);
         const minMaxX = spectrumToBeFilter.minMaxX();
         const slots = (minMaxX.max - minMaxX.min) / 0.1 - 1;
-        const bestPeaks = spectrum.getBestPeaks({
+        xNormed(spectrumToBeFilter.data.y, {
+          algorithm: 'max',
+          output: spectrumToBeFilter.data.y,
+        });
+        const bestPeaks = spectrumToBeFilter.getBestPeaks({
           numberSlots: slots,
           numberCloseSlots: slots,
           limit: 100,
           threshold: 0.01,
         });
-        xNormed(bestPeaks.y, {
-          algorithm: 'max',
-          output: bestPeaks.y,
-        });
-
-        spectrum.data = bestPeaks;
-        spectrum.numberOfPeaks = bestPeaks.x.length;
+        const bestPeaksXY = xyObjectToXY(bestPeaks);
+        spectrum.data = bestPeaksXY;
+        spectrum.numberOfPeaks = bestPeaks.length;
         // define final result to be imported in GNPs collection
         const result = {
           _id: entry.value.spectrum_id,
@@ -97,6 +97,7 @@ export async function* parseGNPs(jsonPath, connection) {
             spectrum,
           },
         };
+
         if (entry.value.Pubmed_ID !== 'N/A') {
           result.data.pmid = Number(entry.value.Pubmed_ID);
         }
