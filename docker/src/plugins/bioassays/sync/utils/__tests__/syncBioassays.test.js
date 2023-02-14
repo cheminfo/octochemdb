@@ -1,10 +1,17 @@
+import delay from 'delay';
+
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncBioassays';
 
-//remove process.env.TEST from parseBioactivities to use this test
-
 test('syncBioassays', async () => {
   const connection = new PubChemConnection();
+  const collections = await connection.getCollectionNames();
+  while (
+    collections.includes('taxonomies') === false ||
+    collections.includes('compounds') === false
+  ) {
+    delay(1000);
+  }
   await sync(connection);
   const collection = await connection.getCollection('bioassays');
   const collectionEntry = await collection.find({ _id: '59478_1' }).limit(1);

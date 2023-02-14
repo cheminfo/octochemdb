@@ -22,12 +22,7 @@ export async function aggregate(connection) {
     await connection.setProgress(progress);
     debug(`mfsCommon: Need to aggregate: ${await collection.count()}`);
     // aggregate compounds with with mfs who have at least 5 entries
-    let numberOfMFs;
-    if (process.env.NODE_ENV === 'test') {
-      numberOfMFs = 0;
-    } else {
-      numberOfMFs = 5;
-    }
+
     let result = await collection.aggregate(
       [
         { $match: { 'data.nbFragments': 1, 'data.charge': 0 } }, // we don't want charges in MF
@@ -49,7 +44,7 @@ export async function aggregate(connection) {
             count: { $sum: 1 },
           },
         },
-        { $match: { count: { $gte: numberOfMFs } } }, // only MFs with at least 5 products in pubchem
+        { $match: { count: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
         { $out: 'mfsCommon_tmp' },
       ],
       {

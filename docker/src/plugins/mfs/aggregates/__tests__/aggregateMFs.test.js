@@ -4,6 +4,10 @@ import { aggregate } from '../aggregateMFs';
 jest.setTimeout(10000);
 test('Aggregation mfs', async () => {
   const connection = new PubChemConnection();
+  const collections = await connection.getCollectionNames();
+  while (collections.includes('compounds') === false) {
+    delay(1000);
+  }
   await aggregate(connection);
   const collection = await connection.getCollection('mfs');
   const collectionEntry = await collection

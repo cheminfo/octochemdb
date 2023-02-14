@@ -1,10 +1,14 @@
+import delay from 'delay';
+
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncCmaups';
 
-//remove process.env.TEST from parseBioactivities to use this test
-
 test('syncCmaups', async () => {
   const connection = new PubChemConnection();
+  const collections = await connection.getCollectionNames();
+  while (collections.includes('taxonomies') === false) {
+    delay(1000);
+  }
   await sync(connection);
   const collection = await connection.getCollection('cmaups');
   const collectionEntry = await collection.find({ _id: 'NPC146355' }).limit(1);

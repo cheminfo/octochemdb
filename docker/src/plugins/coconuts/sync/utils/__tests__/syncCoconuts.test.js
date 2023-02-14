@@ -5,6 +5,10 @@ import { sync } from '../../syncCoconuts';
 
 test('syncCoconuts', async () => {
   const connection = new PubChemConnection();
+  const collections = await connection.getCollectionNames();
+  while (collections.includes('taxonomies') === false) {
+    delay(1000);
+  }
   await sync(connection);
   const collection = await connection.getCollection('coconuts');
   const collectionEntry = await collection.find({ _id: 'CNP0330764' }).limit(1);
