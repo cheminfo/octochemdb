@@ -4,7 +4,7 @@ import CC from 'chemcalc';
 import fs from 'fs-extra';
 import mfUtil from 'mf';
 import OCL from 'openchemlib-extended';
-import parse from 'sdf-parser';
+import { parse } from 'sdf-parser';
 
 const fragmentContainer = new Array(1024);
 const theSet = new Set();
