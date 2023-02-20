@@ -1,5 +1,6 @@
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncGNPs';
+jest.setTimeout(300000);
 test('syncGNPs', async () => {
   const connection = new PubChemConnection();
   await sync(connection);
