@@ -1,39 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`readStreamInZipFolder 1`] = `
-Array [
-  Object {
+[
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de12c52bda1e67b75963",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@@H]4[C@@H]([C@H]([C@@H]([C@@H](CO)O4)O)O)O": "CNP0220816.1",
       "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@@H]4[C@@H]([C@H]([C@H]([C@@H](CO)O4)O)O)O": "CNP0220816.2",
       "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@H]4[C@@H]([C@H]([C@@H]([C@@H](CO)O4)O)O)O": "CNP0220816.3",
       "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@H]4[C@@H]([C@H]([C@H]([C@@H](CO)O4)O)O)O": "CNP0220816.4",
     },
-    "absolute_smiles_sources": Object {
-      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@@H]4[C@@H]([C@H]([C@@H]([C@@H](CO)O4)O)O)O": Array [
+    "absolute_smiles_sources": {
+      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@@H]4[C@@H]([C@H]([C@@H]([C@@H](CO)O4)O)O)O": [
         "supernatural2",
       ],
-      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@@H]4[C@@H]([C@H]([C@H]([C@@H](CO)O4)O)O)O": Array [
+      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@@H]4[C@@H]([C@H]([C@H]([C@@H](CO)O4)O)O)O": [
         "supernatural2",
       ],
-      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@H]4[C@@H]([C@H]([C@@H]([C@@H](CO)O4)O)O)O": Array [
+      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@H]4[C@@H]([C@H]([C@@H]([C@@H](CO)O4)O)O)O": [
         "ibs2019mar_nc",
       ],
-      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@H]4[C@@H]([C@H]([C@H]([C@@H](CO)O4)O)O)O": Array [
+      "CC1=CC(=C2C3=C(CCC3)C(=O)OC2=C1)O[C@H]4[C@@H]([C@H]([C@H]([C@@H](CO)O4)O)O)O": [
         "ibs2019mar_nc",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": -0.0925000000000014,
     "alogp2": 0.00855625000000026,
     "amralogp": 95.62410000000001,
     "annotationLevel": 1,
     "apol": 54.52544599999997,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.890000000000006,
       16.001952886018852,
       -0.39334986780817155,
@@ -47,7 +47,7 @@ Array [
     "chemicalClass": "Organooxygen compounds",
     "chemicalSubClass": "Carbohydrates and carbohydrate conjugates",
     "chemicalSuperClass": "Organic oxygen compounds",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       14,
       88,
       133,
@@ -97,29 +97,29 @@ Array [
       1011,
       1021,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "O=C1OC2=CC(=CC(OC3OC(CO)C(O)C(O)C3O)=C2C4=C1CCC4)C",
     "coconut_id": "CNP0220816",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Phenolic glycosides",
     "eccentricConnectivityIndexDescriptor": 514,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*O[C]O*": 1,
       "*o*": 1,
       "[H]O[C]": 4,
       "[c]=O": 1,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "RO*R": 1,
       "RO[C]OR": 1,
       "[C*]=O": 1,
       "[H]O[C]": 4,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       8,
       9,
       13,
@@ -357,13 +357,13 @@ Array [
       1015,
     ],
     "fmfDescriptor": 0.7407407407407407,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "supernatural2",
       "ibs2019mar_nc",
       "pubchem",
     ],
     "fragmentComplexityDescriptor": 2002.08,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C](=[C][H])[O])": 1,
       "[C](=[C]([C][C])[C](=[C][O])[H])": 1,
       "[C](=[C]([C][C])[C]([C]=[C])[C]([C][H][H]))": 1,
@@ -383,7 +383,7 @@ Array [
       "[O]([C]([C]=[C]))": 1,
       "[O]([C]([C]=[C])[C]([C]=[O]))": 1,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C](=[C][H])[O])": 1,
       "[C](=[C]([C][C])[C](=[C][O])[H])": 1,
       "[C](=[C]([C][C])[C]([C]=[C])[C]([C][H][H]))": 1,
@@ -404,7 +404,7 @@ Array [
       "[O]([C]([C]=[C])[C]([C]=[O]))": 1,
     },
     "fsp3": 0.5263157894736842,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -437,8 +437,8 @@ Array [
     "petitjeanNumber": 0.45454545454545453,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 0.8333333333333334,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -599,7 +599,7 @@ Array [
     },
     "pubchemBits": "AB48AAAAAAAAAAAAAAAAAACACAAAACwSAQAAAAAAAIADAABYAAAQAAAwKA0ZwExwAwBgAhFABUsQAEAQACQEAAARgGAQE7jsbCGsWEXeBqUHqPCV4BN3P3cDAIAQABAAAAEAQAgACAAAAAAQ",
     "pubchemBitsString": "0000000001111000001111000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000000000000000000000000000110100010010001000000000000000000000000000000000000000000000000000000000000001110000000000000000000000000110100000000000000000000010000000000000000000000011000001010010110000100110000000001100110010000011101100000000000000000001100100000010001000000000101010000011010010000010000000000000000010000010000000000000100100001000000000000000000000100010000000000100000110000010001100100000011101001101110011011010000100001101010001101010100010011110110110000010100101111000000001010100001111101010010000011111001000111011101111110011101110110000000000000000000001000010000000000000001000000000000000000010000000000000000000001000010000000000000001000000000000000000000000000000000000000010",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -760,10 +760,10 @@ Array [
     "sugar_free_heavy_atom_number": 16,
     "sugar_free_smiles": "O=C1OC=2C=C(C=C(O)C2C3=C1CCC3)C",
     "sugar_free_total_atom_number": 27,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 125.68000000000002,
@@ -775,18 +775,18 @@ Array [
     "weinerPathNumber": 1706,
     "weinerPolarityNumber": 50,
     "xlogp": 0.4079999999999992,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "supernatural2",
         "SN00071235",
         "http://bioinf-applied.charite.de/supernatural_new/index.php?site=compound_search&id=",
       ],
-      Array [
+      [
         "supernatural2",
         "SN00071572",
         "http://bioinf-applied.charite.de/supernatural_new/index.php?site=compound_search&id=",
       ],
-      Array [
+      [
         "pubchem_tested_np",
         "4564575",
         "https://pubchem.ncbi.nlm.nih.gov/compound/",
@@ -794,24 +794,24 @@ Array [
     ],
     "zagrebIndex": 150,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de12c52bda1e67b75964",
-    "absolute_smiles": Object {},
-    "absolute_smiles_sources": Object {
-      "nostereo": Array [
+    "absolute_smiles": {},
+    "absolute_smiles_sources": {
+      "nostereo": [
         "ibs2019mar_nc",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": 1.5698999999999994,
     "alogp2": 2.4645860099999983,
     "amralogp": 127.32220000000001,
     "annotationLevel": 1,
     "apol": 62.147859999999966,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.850000000000007,
       15.999952464292491,
       -0.36071906962798755,
@@ -825,7 +825,7 @@ Array [
     "chemicalClass": "Diarylheptanoids",
     "chemicalSubClass": "Linear diarylheptanoids",
     "chemicalSuperClass": "Phenylpropanoids and polyketides",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       19,
       41,
       43,
@@ -875,29 +875,29 @@ Array [
       967,
       986,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "O=C1C=C(OC=2C1=C(O)C=C(O)C2C(C=3C=CC=CC3)CC(=O)OC)C=4C=CC=CC4",
     "coconut_id": "CNP0293916",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Linear diarylheptanoids",
     "eccentricConnectivityIndexDescriptor": 620,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*OC(*)=O": 1,
       "*o*": 1,
       "[H]O[c]": 2,
       "[c]=O": 1,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "RO*R": 1,
       "ROC(R)=O": 1,
       "[C*]=O": 1,
       "[H]O[C*]": 2,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       0,
       4,
       9,
@@ -1099,12 +1099,12 @@ Array [
       1014,
     ],
     "fmfDescriptor": 0.7419354838709677,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "ibs2019mar_nc",
       "pubchem",
     ],
     "fragmentComplexityDescriptor": 1986.06,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 2,
       "[C](=[C]([C][C])[C](=[C][H])[O]([H]))": 1,
       "[C](=[C]([C][C])[C]([C]=[C])[O]([C]))": 1,
@@ -1134,7 +1134,7 @@ Array [
       "[O]([C]([C]=[C])[H])": 2,
       "[O]([C]([C]=[O])[C]([H][H][H]))": 1,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 2,
       "[C](=[C]([C][C])[C](=[C][H])[O]([H]))": 1,
       "[C](=[C]([C][C])[C]([C]=[C])[O]([C]))": 1,
@@ -1165,7 +1165,7 @@ Array [
       "[O]([C]([C]=[O])[C]([H][H][H]))": 1,
     },
     "fsp3": 0.12,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -1198,8 +1198,8 @@ Array [
     "petitjeanNumber": 0.5,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 1,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -1353,7 +1353,7 @@ Array [
     },
     "pubchemBits": "AB4cAAAAAAAAAAAAAAAAAAAAAAAAACwGgwAAAAAAAIArAABYAAAQAACwIAEZQExwAwBgAhFABUsQAEAQACQEABARgGAQEzDkbHGsWEGeBqUHqBCd4RF3P3cFAEAQABAAAAIAIAgACA==",
     "pubchemBitsString": "00000000011110000011100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001101000110000011000001000000000000000000000000000000000000000000000000000000011101010000000000000000000001101000000000000000000000100000000000000000000000110100000100100000001001100000000010001100100000111011000000000000000000011001000000100010000000001010100000110100100000100000000000000000100000100000000000001001000010000000000000000010001000100000000001000001100000100011001000000011000010011100110110100011100011010100011010100000100111100101100000101001011110000000010101000010001011100110000111100010001110111011111100111011101010000000000000000000100000100000000000000010000000000000000000010000000000000000000100000100000000000000010",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -1507,10 +1507,10 @@ Array [
     "sugar_free_heavy_atom_number": 31,
     "sugar_free_smiles": "O=C1C=C(OC=2C1=C(O)C=C(O)C2C(C=3C=CC=CC3)CC(=O)OC)C=4C=CC=CC4",
     "sugar_free_total_atom_number": 51,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 93.06000000000002,
@@ -1522,8 +1522,8 @@ Array [
     "weinerPathNumber": 2424,
     "weinerPolarityNumber": 54,
     "xlogp": 3.229,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "pubchem_tested_np",
         "71827163",
         "https://pubchem.ncbi.nlm.nih.gov/compound/",
@@ -1531,40 +1531,40 @@ Array [
     ],
     "zagrebIndex": 164,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de12c52bda1e67b75965",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "C=C1C[C@@]([C@@H](C(=N[C@@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)O)(OC)O[C@H](C)[C@@H]1C": "CNP0297651.2",
       "C=C1C[C@@]([C@@H](C(=O)N[C@@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)(OC)O[C@H](C)[C@@H]1C": "CNP0297651.1",
       "C=C1C[C@@]([C@@H](C(=O)N[C@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)(OC)O[C@H](C)[C@@H]1C": "CNP0297651.3",
     },
-    "absolute_smiles_sources": Object {
-      "C=C1C[C@@]([C@@H](C(=N[C@@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)O)(OC)O[C@H](C)[C@@H]1C": Array [
+    "absolute_smiles_sources": {
+      "C=C1C[C@@]([C@@H](C(=N[C@@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)O)(OC)O[C@H](C)[C@@H]1C": [
         "npass",
       ],
-      "C=C1C[C@@]([C@@H](C(=O)N[C@@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)(OC)O[C@H](C)[C@@H]1C": Array [
+      "C=C1C[C@@]([C@@H](C(=O)N[C@@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)(OC)O[C@H](C)[C@@H]1C": [
         "gnps",
         "cmnpd",
       ],
-      "C=C1C[C@@]([C@@H](C(=O)N[C@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)(OC)O[C@H](C)[C@@H]1C": Array [
+      "C=C1C[C@@]([C@@H](C(=O)N[C@H]2[C@@H]3[C@@H]([C@H](C(C)(C)[C@@H](C[C@@H](CO)OC)O3)OC)OCO2)O)(OC)O[C@H](C)[C@@H]1C": [
         "cmnpd",
       ],
-      "nostereo": Array [
+      "nostereo": [
         "unpd",
         "npcare",
         "mnp",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": 0.01659999999999695,
     "alogp2": 0.00027555999999989873,
     "amralogp": 127.24550000000002,
     "annotationLevel": 1,
     "apol": 81.792099,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.890000000000002,
       16.00398263669142,
       -0.3933663680250477,
@@ -1578,7 +1578,7 @@ Array [
     "chemicalClass": "Pyranodioxins",
     "chemicalSubClass": "NaN",
     "chemicalSuperClass": "Organoheterocyclic compounds",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       11,
       14,
       19,
@@ -1647,31 +1647,31 @@ Array [
       1008,
       1010,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "O=C(NC1OCOC2C1OC(CC(OC)CO)C(C)(C)C2OC)C(O)C3(OC)OC(C)C(C(=C)C3)C",
     "coconut_id": "CNP0297651",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Pyranodioxins",
     "eccentricConnectivityIndexDescriptor": 873,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*O*": 3,
       "*O[C]O*": 1,
       "*O[C]O[C]N(*)C(*)=O": 1,
       "[C]=[C]": 1,
       "[H]O[C]": 2,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "ROR": 3,
       "RO[C]OR": 1,
       "RO[C]O[C]N(R)C(R)=O": 1,
       "[C]=[C]": 1,
       "[H]O[C]": 2,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       8,
       14,
       18,
@@ -1860,7 +1860,7 @@ Array [
       1014,
     ],
     "fmfDescriptor": 0.5277777777777778,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "gnps",
       "unpd",
       "npass",
@@ -1870,7 +1870,7 @@ Array [
       "pubchem",
     ],
     "fragmentComplexityDescriptor": 5301.11,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[H][H])": 1,
       "[C](=[C]([H][H])[C]([C][C][H])[C]([C][H][H]))": 1,
       "[C]([C]([C]=[C])[C]([C][H][O])[C]([H][H][H])[H])": 1,
@@ -1915,7 +1915,7 @@ Array [
       "[O]([C]([C][H][H])[H])": 1,
       "[O]([C]([C][H][N])[C]([H][H][O]))": 1,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[H][H])": 1,
       "[C](=[C]([H][H])[C]([C][C][H])[C]([C][H][H]))": 1,
       "[C]([C]([C]=[C])[C]([C][H][O])[C]([H][H][H])[H])": 1,
@@ -1961,7 +1961,7 @@ Array [
       "[O]([C]([C][H][N])[C]([H][H][O]))": 1,
     },
     "fsp3": 0.88,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -1994,8 +1994,8 @@ Array [
     "petitjeanNumber": 0.4666666666666667,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 0.875,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -2108,7 +2108,7 @@ Array [
     },
     "pubchemBits": "AF48AAAAAAAAAAAAAAAAAAAAAAAAACQSCQAAAAAAAAAAAAB4AAgQAADwKIcB4EAQQANgABFAgEoIQAAAAAQAAAAAgRIAkMgIaACBAOQCAOBvAOkAgB8XP/E=",
     "pubchemBitsString": "00000000011110100011110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001001000100100010010000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111000000000000100000000100000000000000000000000111100010100111000011000000000000111000000100000100000000010110000000000011000000000100010000000001000000001010100100001000000000010000000000000000000000000001000000000000000000000000000000000000010000001010010000000000000001001000100110001000000010110000000001000000100000000001001110100000000000000000001111111011000000000100101110000000000000001111110001110100011111100100011110",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -2221,10 +2221,10 @@ Array [
     "sugar_free_heavy_atom_number": 36,
     "sugar_free_smiles": "O=C(NC1OCOC2C1OC(CC(OC)CO)C(C)(C)C2OC)C(O)C3(OC)OC(C)C(C(=C)C3)C",
     "sugar_free_total_atom_number": 79,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 134.17000000000002,
@@ -2236,13 +2236,13 @@ Array [
     "weinerPathNumber": 3930,
     "weinerPolarityNumber": 70,
     "xlogp": -0.40300000000000014,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "npass",
         "9659",
         "http://bidd2.nus.edu.sg/NPASS/browse_np.php?compound=",
       ],
-      Array [
+      [
         "pubchem_tested_np",
         "3755544",
         "https://pubchem.ncbi.nlm.nih.gov/compound/",
@@ -2250,31 +2250,31 @@ Array [
     ],
     "zagrebIndex": 190,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de13c52bda1e67b75966",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "CC(=CC(=O)O[C@H]1C(=C)[C@@H]2CC[C@]3([C@]4(C)CCC[C@](C)([C@H]4CC[C@]13C2)C(=O)O)O)C": "CNP0330764.1",
     },
-    "absolute_smiles_sources": Object {
-      "CC(=CC(=O)O[C@H]1C(=C)[C@@H]2CC[C@]3([C@]4(C)CCC[C@](C)([C@H]4CC[C@]13C2)C(=O)O)O)C": Array [
+    "absolute_smiles_sources": {
+      "CC(=CC(=O)O[C@H]1C(=C)[C@@H]2CC[C@]3([C@]4(C)CCC[C@](C)([C@H]4CC[C@]13C2)C(=O)O)O)C": [
         "cmaup",
         "supernatural2",
         "zincnp",
       ],
-      "nostereo": Array [
+      "nostereo": [
         "unpd",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": 4.762800000000005,
     "alogp2": 22.684263840000046,
     "amralogp": 113.9286,
     "annotationLevel": 3,
     "apol": 72.01454799999996,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.889999999999999,
       15.998946137887023,
       -0.38810738194019434,
@@ -2287,7 +2287,7 @@ Array [
     "chemicalClass": "Prenol lipids",
     "chemicalSubClass": "Diterpenoids",
     "chemicalSuperClass": "Lipids and lipid-like molecules",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       10,
       14,
       19,
@@ -2343,29 +2343,29 @@ Array [
       974,
       1013,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "O=C(OC1C(=C)C2CCC3(O)C4(C)CCCC(C(=O)O)(C)C4CCC13C2)C=C(C)C",
     "coconut_id": "CNP0330764",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Kaurane diterpenoids",
     "eccentricConnectivityIndexDescriptor": 580,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*C(=O)O[H]": 1,
       "*OC(=O)[C]=[C]": 1,
       "[C]=[C]": 1,
       "[H]O[C]": 1,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "RC(=O)O[H]": 1,
       "ROC(=O)[C]=[C]": 1,
       "[C]=[C]": 1,
       "[H]O[C]": 1,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       8,
       14,
       58,
@@ -2446,14 +2446,14 @@ Array [
       1016,
     ],
     "fmfDescriptor": 0.5333333333333333,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "cmaup",
       "supernatural2",
       "unpd",
       "zincnp",
     ],
     "fragmentComplexityDescriptor": 3891.05,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C]([O]=[O])[H])": 1,
       "[C](=[C]([C][C])[H][H])": 1,
       "[C](=[C]([C][H])[C]([H][H][H])[C]([H][H][H]))": 1,
@@ -2486,7 +2486,7 @@ Array [
       "[O]([C]([C]=[O])[H])": 1,
       "[O]([C]([C][C][C])[H])": 1,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C]([O]=[O])[H])": 1,
       "[C](=[C]([C][C])[H][H])": 1,
       "[C](=[C]([C][H])[C]([H][H][H])[C]([H][H][H]))": 1,
@@ -2520,7 +2520,7 @@ Array [
       "[O]([C]([C][C][C])[H])": 1,
     },
     "fsp3": 0.76,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -2553,8 +2553,8 @@ Array [
     "petitjeanNumber": 0.5,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 1,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -2650,7 +2650,7 @@ Array [
     },
     "pubchemBits": "AB4cAAAAAAAAAAAAAAAAAACAAQAAAAwGAwAAAAAAAAAAAABYAAAQAADwKgUBQEAQAABgABFABEsQAAAAAAQAAAAQgAAAEgAgSACEAEAKAKABAACEgBE3L/MBAAAAAAAAAAMAYAAADACAAQAg",
     "pubchemBitsString": "00000000011110000011100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000110000000000000000000000000000000001100000110000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001101000000000000000000000100000000000000000000000111101010100101000001000000000000010000000100000100000000000000000000000011000000000100010000000001000100000110100100000100000000000000000000000000000000000001000000000000000000000000000000000100000000001000000000000000001001000000000000000010000010010000000000010000100000000000000100101000000000000000001011000000000000000000000000010000100000001100010001110110011110100110011111000000000000000000000000000000000000000000000000000000000000000110000000000000000000110000000000000000000110000000000000000000110000000000000000000010",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -2746,8 +2746,8 @@ Array [
     "sugar_free_heavy_atom_number": 30,
     "sugar_free_smiles": "O=C(OC1C(=C)C2CCC3(O)C4(C)CCCC(C(=O)O)(C)C4CCC13C2)C=C(C)C",
     "sugar_free_total_atom_number": 66,
-    "synonyms": Array [],
-    "taxid": Array [
+    "synonyms": [],
+    "taxid": [
       1650718,
       469726,
       1441791,
@@ -2755,8 +2755,8 @@ Array [
       49789,
       286619,
     ],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "Adenocarpus foliolosus",
       "Piper taboganum",
       "Microglossa pyrrhopappa",
@@ -2782,13 +2782,13 @@ Array [
     "weinerPathNumber": 2090,
     "weinerPolarityNumber": 69,
     "xlogp": 3.8299999999999996,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "supernatural2",
         "SN00267254",
         "http://bioinf-applied.charite.de/supernatural_new/index.php?site=compound_search&id=",
       ],
-      Array [
+      [
         "cmaup",
         "NPC122996",
         "http://bidd2.nus.edu.sg/CMAUP/searchresults.php?keyword_search=",
@@ -2796,26 +2796,26 @@ Array [
     ],
     "zagrebIndex": 176,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de14c52bda1e67b75967",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "C([C@@H]1[C@H]([C@H]([C@H](O1)OP(=O)(O)O)O)O)OP(=O)(O)O": "CNP0125332.1",
     },
-    "absolute_smiles_sources": Object {
-      "C([C@@H]1[C@H]([C@H]([C@H](O1)OP(=O)(O)O)O)O)OP(=O)(O)O": Array [
+    "absolute_smiles_sources": {
+      "C([C@@H]1[C@H]([C@H]([C@H](O1)OP(=O)(O)O)O)O)OP(=O)(O)O": [
         "fooddb",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": -3.6233,
     "alogp2": 13.12830289,
     "amralogp": 52.24450000000001,
     "annotationLevel": 1,
     "apol": 32.88351599999999,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.996400214698278,
       30.97476362906955,
       -0.4103270416759186,
@@ -2829,7 +2829,7 @@ Array [
     "chemicalClass": "Organooxygen compounds",
     "chemicalSubClass": "Carbohydrates and carbohydrate conjugates",
     "chemicalSuperClass": "Organic oxygen compounds",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       23,
       53,
       56,
@@ -2859,27 +2859,27 @@ Array [
       953,
       973,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "O=P(O)(O)OCC1OC(OP(=O)(O)O)C(O)C1O",
     "coconut_id": "CNP0125332",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": true,
     "contains_sugar": 1,
     "deep_smiles": "",
     "directParentClassification": "Pentose phosphates",
     "eccentricConnectivityIndexDescriptor": 247,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*OP(=O)(O[H])O[H]": 1,
       "*O[C]OP(=O)(O[H])O[H]": 1,
       "[H]O[C]": 2,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "ROP(=O)(O[H])O[H]": 1,
       "RO[C]OP(=O)(O[H])O[H]": 1,
       "[H]O[C]": 2,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       5,
       8,
       18,
@@ -2973,12 +2973,12 @@ Array [
       1013,
     ],
     "fmfDescriptor": 0.2777777777777778,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "fooddb",
       "pubchem",
     ],
     "fragmentComplexityDescriptor": 594.13,
-    "fragments": Object {
+    "fragments": {
       "[C]([H][H][O]([P]))": 1,
       "[H]([C]([H][O]))": 2,
       "[H]([O]([P]))": 2,
@@ -2987,7 +2987,7 @@ Array [
       "[O]([H][P]([O][O]=[O]))": 2,
       "[P](=[O][O]([C])[O]([H])[O]([H]))": 1,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C]([H][H][O]([P]))": 1,
       "[H]([C]([H][O]))": 2,
       "[H]([O]([P]))": 4,
@@ -2999,7 +2999,7 @@ Array [
       "[P]([O]=[O][O]([H])[O]([H]))": 1,
     },
     "fsp3": 1,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -3031,8 +3031,8 @@ Array [
     "petitjeanNumber": 0.4444444444444444,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 0.8,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         18,
@@ -3083,7 +3083,7 @@ Array [
     },
     "pubchemBits": "AAY8wAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAAAAAAAAAABYAAAQBAAQKA0BwAAQAADgCAACAAAAAQAAAAAAAAAAAAAAAIgIQAAAAEACAKAAAOAAAAME",
     "pubchemBitsString": "00000000011000000011110000000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001101000000000000000000000100000100000000000000000100000010100101100001000000000000011000000000000100000000000000000000000011100010000000000000100000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010001000000000010000000000000000000000000000000100100000000000000000001010000000000000000000001110000000000000000110000000010",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       18,
@@ -3134,10 +3134,10 @@ Array [
     "sugar_free_heavy_atom_number": 6,
     "sugar_free_smiles": "O=P(O)(O)OC",
     "sugar_free_total_atom_number": 10,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 202.82999999999998,
@@ -3149,13 +3149,13 @@ Array [
     "weinerPathNumber": 637,
     "weinerPolarityNumber": 22,
     "xlogp": -4.77,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "pubchem_tested_np",
         "1073",
         "https://pubchem.ncbi.nlm.nih.gov/compound/",
       ],
-      Array [
+      [
         "fooddb",
         "Ribose_1,5-bisphosphate",
         "https://foodb.ca/compounds/",
@@ -3163,29 +3163,29 @@ Array [
     ],
     "zagrebIndex": 92,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de14c52bda1e67b75968",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "C[C@H]1[C@H](C2=C(C3=CC(=CC(=C3C(=C2CO1)O)OC)O)C4=C5C(=C(C6=C(C=C(C=C64)OC)OC)O)CO[C@@H](C)[C@H]5O)O": "CNP0356547.1",
     },
-    "absolute_smiles_sources": Object {
-      "C[C@H]1[C@H](C2=C(C3=CC(=CC(=C3C(=C2CO1)O)OC)O)C4=C5C(=C(C6=C(C=C(C=C64)OC)OC)O)CO[C@@H](C)[C@H]5O)O": Array [
+    "absolute_smiles_sources": {
+      "C[C@H]1[C@H](C2=C(C3=CC(=CC(=C3C(=C2CO1)O)OC)O)C4=C5C(=C(C6=C(C=C(C=C64)OC)OC)O)CO[C@@H](C)[C@H]5O)O": [
         "npatlas",
         "np-mrd",
         "np_atlas_2019_12",
         "npass",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": -0.9913000000000005,
     "alogp2": 0.982675690000001,
     "amralogp": 158.58039999999997,
     "annotationLevel": 5,
     "apol": 83.917376,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.889999999999997,
       16.003992769090907,
       -0.38613490329455624,
@@ -3199,7 +3199,7 @@ Array [
     "chemicalClass": "Arylnaphthalene lignans",
     "chemicalSubClass": "NaN",
     "chemicalSuperClass": "Lignans, neolignans and related compounds",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       3,
       14,
       16,
@@ -3246,30 +3246,30 @@ Array [
       992,
       1010,
     ],
-    "citationDOI": Array [
+    "citationDOI": [
       "NA",
       "10.1021/np070357h",
     ],
     "clean_smiles": "OC=1C=C(OC)C=2C(O)=C3C(=C(C2C1)C=4C=5C=C(OC)C=C(OC)C5C(O)=C6C4C(O)C(OC6)C)C(O)C(OC3)C",
     "coconut_id": "CNP0356547",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Arylnaphthalene lignans",
     "eccentricConnectivityIndexDescriptor": 789,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*O*": 5,
       "[H]O[C]": 2,
       "[H]O[c]": 3,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "ROR": 5,
       "[H]O[C*]": 3,
       "[H]O[C]": 2,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       0,
       14,
       24,
@@ -3437,7 +3437,7 @@ Array [
       1015,
     ],
     "fmfDescriptor": 0.6829268292682927,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "npatlas",
       "np-mrd",
       "np_atlas_2019_12",
@@ -3445,7 +3445,7 @@ Array [
       "pubchem",
     ],
     "fragmentComplexityDescriptor": 4444.1,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C](=[C][H])[O]([C]))": 1,
       "[C](=[C]([C][C])[C](=[C][O])[C](=[C][O]))": 1,
       "[C](=[C]([C][C])[C](=[C][O])[H])": 1,
@@ -3477,7 +3477,7 @@ Array [
       "[O]([C]([C][C][H])[C]([C][H][H]))": 2,
       "[O]([C]([C][C][H])[H])": 2,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C](=[C][H])[O]([C]))": 1,
       "[C](=[C]([C][C])[C](=[C][O])[C](=[C][O]))": 1,
       "[C](=[C]([C][C])[C](=[C][O])[H])": 1,
@@ -3510,7 +3510,7 @@ Array [
       "[O]([C]([C][C][H])[H])": 2,
     },
     "fsp3": 0.3548387096774194,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -3543,8 +3543,8 @@ Array [
     "petitjeanNumber": 0.45454545454545453,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 0.8333333333333334,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -3684,7 +3684,7 @@ Array [
     },
     "pubchemBits": "AB48AAAAAAAAAAAAAAAAAAAAAAAAAAyHg0EAAAAAAIAqAABYAAAQAAAwKAUZQExgAwBgAAFABEIAAEAQAAQEAAARAGAQEbDsRGGMWEEOBKQDqNAd4AMHP3AHAMAQABgAAAMAYAgADA==",
     "pubchemBitsString": "00000000011110000011110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001100001110000111000001100000100000000000000000000000000000000000000000000000010101010000000000000000000001101000000000000000000000100000000000000000000000110000010100101000001001100000000010001100100000011011000000000000000000011000000000100000000000001000100000010000100000000000000000000000100000100000000000001000000010000000000000000000001000100000000000000001100000100010001000000011010011011100100010100001100011000100011010100000100111000000100000001001011100000000010101000010111011100000000111110000001110000011111100000011101110000000000000000000110000100000000000000110000000000000000000110000000000000000000110000100000000000000110",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -3824,16 +3824,16 @@ Array [
     "sugar_free_heavy_atom_number": 41,
     "sugar_free_smiles": "OC=1C=C(OC)C=2C(O)=C3C(=C(C2C1)C=4C=5C=C(OC)C=C(OC)C5C(O)=C6C4C(O)C(OC6)C)C(O)C(OC3)C",
     "sugar_free_total_atom_number": 73,
-    "synonyms": Array [
+    "synonyms": [
       "6'-O-Desmethyl Es-242-4",
     ],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [
-      Object {
+    "taxid": [],
+    "taxonomyReferenceObjects": [
+      {
         "superkingdom": "Eukaryota$$$$kingdom",
       },
     ],
-    "textTaxa": Array [
+    "textTaxa": [
       "Eukaryota$$$$kingdom",
     ],
     "topoPSA": 147.3,
@@ -3845,23 +3845,23 @@ Array [
     "weinerPathNumber": 4404,
     "weinerPolarityNumber": 90,
     "xlogp": 0.7789999999999999,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "pubchem_tested_np",
         "74081398",
         "https://pubchem.ncbi.nlm.nih.gov/compound/",
       ],
-      Array [
+      [
         "np_atlas_2019_12",
         "6'-O-desmethyl ES-242-4",
         "https://www.npatlas.org/joomla/index.php/explore/compounds#npaid=",
       ],
-      Array [
+      [
         "npass",
         "13342",
         "http://bidd2.nus.edu.sg/NPASS/browse_np.php?compound=",
       ],
-      Array [
+      [
         "npatlas",
         "f16086",
         "https://www.npatlas.org/joomla/index.php/explore/compounds#npaid=",
@@ -3869,26 +3869,26 @@ Array [
     ],
     "zagrebIndex": 234,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de14c52bda1e67b75969",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "C1=CC=C(C=C1)[C@@H](C(=O)N2C[C@H]3C[C@@H](C2)C4=CC=CC(=O)N4C3)N5C=NN=N5": "CNP0168019.1",
     },
-    "absolute_smiles_sources": Object {
-      "C1=CC=C(C=C1)[C@@H](C(=O)N2C[C@H]3C[C@@H](C2)C4=CC=CC(=O)N4C3)N5C=NN=N5": Array [
+    "absolute_smiles_sources": {
+      "C1=CC=C(C=C1)[C@@H](C(=O)N2C[C@H]3C[C@@H](C2)C4=CC=CC(=O)N4C3)N5C=NN=N5": [
         "ibs2019mar_nc",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": 0.9018999999999987,
     "alogp2": 0.8134236099999976,
     "amralogp": 113.7579,
     "annotationLevel": 1,
     "apol": 56.73985999999998,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.899999999999997,
       15.995930801451804,
       -0.27841317553941314,
@@ -3901,7 +3901,7 @@ Array [
     "chemicalClass": "Lupin alkaloids",
     "chemicalSubClass": "Cytisine and derivatives",
     "chemicalSuperClass": "Alkaloids and derivatives",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       2,
       14,
       19,
@@ -3957,27 +3957,27 @@ Array [
       963,
       967,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "O=C1C=CC=C2N1CC3CN(C(=O)C(C=4C=CC=CC4)N5N=NN=C5)CC2C3",
     "coconut_id": "CNP0168019",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Cytisine and derivatives",
     "eccentricConnectivityIndexDescriptor": 597,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*C(=O)N(*)*": 1,
       "*n(*)*": 5,
       "[c]=O": 1,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "RC(=O)N(R)R": 1,
       "RN*(R)R": 5,
       "[C*]=O": 1,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       2,
       4,
       26,
@@ -4204,11 +4204,11 @@ Array [
       1015,
     ],
     "fmfDescriptor": 0.9285714285714286,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "ibs2019mar_nc",
     ],
     "fragmentComplexityDescriptor": 1948.08,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 1,
       "[C](=[C]([C][H])[C](=[C][H])[C]([C][H][N]))": 1,
       "[C](=[C]([C][H])[C](=[C][H])[H])": 4,
@@ -4238,7 +4238,7 @@ Array [
       "[N]([N](=[C])=[N]([N]))": 1,
       "[O](=[C]([C][N]))": 2,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 1,
       "[C](=[C]([C][H])[C](=[C][H])[C]([C][H][N]))": 1,
       "[C](=[C]([C][H])[C](=[C][H])[H])": 4,
@@ -4269,7 +4269,7 @@ Array [
       "[O](=[C]([C][N]))": 2,
     },
     "fsp3": 0.35,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -4302,8 +4302,8 @@ Array [
     "petitjeanNumber": 0.5,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 1,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -4480,7 +4480,7 @@ Array [
     },
     "pubchemBits": "AN4NAAAAAAAAAAAAAAAAAACABgAAALwbgQAAAAAAAIAPAAB4ABAAAACwFIN5IKwp6TAIAFXApM4uAEEBxKxBBbgbhB0mGxEGTwO7jSmEEAZhQBOT4RiRA3k=",
     "pubchemBitsString": "0000000001111011101100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010110000000000000000000000000000000111101110110001000000100000000000000000000000000000000000000000000000000000001111100000000000000000000000111100000000000001000000000000000000000000000000011010010100011000001100111100000010000110101100101001001011100001100000100000000000010101010000000110010010101110011011101000000000010000010100000000010001100110101100000101010000000011101110110000010000110111000011001001101100010001000011000001111001011000000110111011011000110010100001000010000100001100000100001100000001011001000110010011000011100011000100010011100000010011110",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -4657,10 +4657,10 @@ Array [
     "sugar_free_heavy_atom_number": 28,
     "sugar_free_smiles": "O=C1C=CC=C2N1CC3CN(C(=O)C(C=4C=CC=CC4)N5N=NN=C5)CC2C3",
     "sugar_free_total_atom_number": 48,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 80.94000000000001,
@@ -4672,27 +4672,27 @@ Array [
     "weinerPathNumber": 1933,
     "weinerPolarityNumber": 48,
     "xlogp": -0.7879999999999999,
-    "xrefs": Array [],
+    "xrefs": [],
     "zagrebIndex": 156,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de15c52bda1e67b7596a",
-    "absolute_smiles": Object {},
-    "absolute_smiles_sources": Object {
-      "nostereo": Array [
+    "absolute_smiles": {},
+    "absolute_smiles_sources": {
+      "nostereo": [
         "npass",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": -1.4269000000000023,
     "alogp2": 2.0360436100000063,
     "amralogp": 142.2959,
     "annotationLevel": 1,
     "apol": 73.28741099999996,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.994253664770811,
       15.995932859502851,
       -0.3477882978616004,
@@ -4705,7 +4705,7 @@ Array [
     "chemicalClass": "",
     "chemicalSubClass": "",
     "chemicalSuperClass": "",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       3,
       14,
       19,
@@ -4762,34 +4762,34 @@ Array [
       1007,
       1016,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "N=1C=C(OC)C=2C=3C=CC=CC3NC2C1C4CCCC5C=6NC=7C=CC=CC7C6C(OC)=C[NH+]45",
-    "clean_xrefs": Array [
-      Object {
+    "clean_xrefs": [
+      {
         "id_in_source": "16507",
         "link_to_source": "http://bidd2.nus.edu.sg/NPASS/browse_np.php?compound=",
         "source": "NPASS",
       },
     ],
     "coconut_id": "CNP0436856",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "",
     "eccentricConnectivityIndexDescriptor": 808,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "*O*": 1,
       "*O[C]=[C][N](*)(*)*": 1,
       "*n(*)*": 3,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "RN*(R)R": 3,
       "ROR": 1,
       "RO[C]=[C][N](R)(R)R": 1,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       1,
       5,
       14,
@@ -5118,11 +5118,11 @@ Array [
       1016,
     ],
     "fmfDescriptor": 0.8823529411764706,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "npass",
     ],
     "fragmentComplexityDescriptor": 3367.06,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 2,
       "[C](=[C]([C][C])[C]([C][H][N])[N]([C][H]))": 1,
       "[C](=[C]([C][C])[C]([H]=[N])[O]([C]))": 1,
@@ -5154,7 +5154,7 @@ Array [
       "[N]([C]([C]=[C])[C]([C]=[C])[H])": 2,
       "[O]([C]([C]=[C])[C]([H][H][H]))": 2,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 2,
       "[C](=[C]([C][C])[C]([C][H][N])[N]([C][H]))": 1,
       "[C](=[C]([C][C])[C]([H]=[N])[O]([C]))": 1,
@@ -5187,7 +5187,7 @@ Array [
       "[O]([C]([C]=[C])[C]([H][H][H]))": 2,
     },
     "fsp3": 0.25,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -5219,8 +5219,8 @@ Array [
     "petitjeanNumber": 0.46153846153846156,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 0.8571428571428571,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -5424,7 +5424,7 @@ Array [
     },
     "pubchemBits": "AN4NAAAAAAAAAAAAAAAAAACARgMAALwfgUAAAAAAAIA/AAB4AAgAAAAwNIN5YHxjz5MpAAXALOYiIEERJIxOBBCbBfw+GXBmRyOP2akMFGYLmBsX4A0Lx3ABAAAAAEAAAAAAAAAAIA==",
     "pubchemBitsString": "0000000001111011101100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010110001011000000000000000000000000111101111110001000000100000010000000000000000000000000000000000000000000000001111111000000000000000000000111100000000000010000000000000000000000000000000011000010110011000001100111100000011000111110110001101111001111001001100101000000000010100000000000110011010001100111010001000000010010000010100010000010010000110001011100100010000000001000110110011010000000111111011111001001100000001110011001101110001011000100111100011001101110010101001100000010100001100110110100000001100111011000111010000000011110110000110100001110001100001110100000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000010",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -5628,10 +5628,10 @@ Array [
     "sugar_free_heavy_atom_number": 34,
     "sugar_free_smiles": "N=1C=C(OC)C=2C=3C=CC=CC3NC2C1C4CCCC5C=6NC=7C=CC=CC7C6C(OC)=C[NH+]45",
     "sugar_free_total_atom_number": 61,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 59.31999999999999,
@@ -5643,8 +5643,8 @@ Array [
     "weinerPathNumber": 3107,
     "weinerPolarityNumber": 68,
     "xlogp": 3.2230000000000003,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "npass",
         "16507",
         "http://bidd2.nus.edu.sg/NPASS/browse_np.php?compound=",
@@ -5652,26 +5652,26 @@ Array [
     ],
     "zagrebIndex": 200,
   },
-  Object {
+  {
     "_class": "de.unijena.cheminf.npopensourcecollector.mongocollections.UniqueNaturalProduct",
     "_id": "61a4de15c52bda1e67b7596b",
-    "absolute_smiles": Object {
+    "absolute_smiles": {
       "CC(=CC=C[C@@H](C)[C@]1(C)CC=C2[C@@H]3CC[C@H]4C(C)(C)[C@@H](CC[C@]4(C)[C@]3(CC[C@]21C)O)O)C": "CNP0115481.1",
     },
-    "absolute_smiles_sources": Object {
-      "CC(=CC=C[C@@H](C)[C@]1(C)CC=C2[C@@H]3CC[C@H]4C(C)(C)[C@@H](CC[C@]4(C)[C@]3(CC[C@]21C)O)O)C": Array [
+    "absolute_smiles_sources": {
+      "CC(=CC=C[C@@H](C)[C@]1(C)CC=C2[C@@H]3CC[C@H]4C(C)(C)[C@@H](CC[C@]4(C)[C@]3(CC[C@]21C)O)O)C": [
         "npass",
       ],
     },
-    "allChemClassifications": Array [],
-    "allTaxa": Array [],
-    "allWikidataIds": Array [],
+    "allChemClassifications": [],
+    "allTaxa": [],
+    "allWikidataIds": [],
     "alogp": 6.466999999999996,
     "alogp2": 41.82208899999995,
     "amralogp": 137.378,
     "annotationLevel": 1,
     "apol": 86.410064,
-    "bcutDescriptor": Array [
+    "bcutDescriptor": [
       11.889999999999997,
       15.995929773530573,
       -0.3922053874725253,
@@ -5684,7 +5684,7 @@ Array [
     "chemicalClass": "Steroids and steroid derivatives",
     "chemicalSubClass": "Cholestane steroids",
     "chemicalSuperClass": "Lipids and lipid-like molecules",
-    "circularFingerprint": Array [
+    "circularFingerprint": [
       13,
       14,
       19,
@@ -5740,27 +5740,27 @@ Array [
       1013,
       1019,
     ],
-    "citationDOI": Array [],
+    "citationDOI": [],
     "clean_smiles": "OC1CCC2(C)C(CCC3C4=CCC(C)(C(C=CC=C(C)C)C)C4(C)CCC32O)C1(C)C",
     "coconut_id": "CNP0115481",
-    "collection": Array [],
+    "collection": [],
     "contains_linear_sugars": false,
     "contains_ring_sugars": false,
     "contains_sugar": 0,
     "deep_smiles": "",
     "directParentClassification": "Cholesterols and derivatives",
     "eccentricConnectivityIndexDescriptor": 763,
-    "ertlFunctionalFragments": Object {
+    "ertlFunctionalFragments": {
       "[C]=[C]": 1,
       "[C]=[C][C]=[C]": 1,
       "[H]O[C]": 2,
     },
-    "ertlFunctionalFragmentsPseudoSmiles": Object {
+    "ertlFunctionalFragmentsPseudoSmiles": {
       "[C]=[C]": 1,
       "[C]=[C][C]=[C]": 1,
       "[H]O[C]": 2,
     },
-    "extendedFingerprint": Array [
+    "extendedFingerprint": [
       29,
       60,
       65,
@@ -5819,11 +5819,11 @@ Array [
       1016,
     ],
     "fmfDescriptor": 0.53125,
-    "found_in_databases": Array [
+    "found_in_databases": [
       "npass",
     ],
     "fragmentComplexityDescriptor": 5897.02,
-    "fragments": Object {
+    "fragments": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 1,
       "[C](=[C]([C][C])[C]([C][H][H])[H])": 1,
       "[C](=[C]([C][H])[C](=[C][H])[H])": 1,
@@ -5856,7 +5856,7 @@ Array [
       "[O]([C]([C][C][C])[H])": 1,
       "[O]([C]([C][C][H])[H])": 1,
     },
-    "fragmentsWithSugar": Object {
+    "fragmentsWithSugar": {
       "[C](=[C]([C][C])[C](=[C][H])[H])": 1,
       "[C](=[C]([C][C])[C]([C][H][H])[H])": 1,
       "[C](=[C]([C][H])[C](=[C][H])[H])": 1,
@@ -5890,7 +5890,7 @@ Array [
       "[O]([C]([C][C][H])[H])": 1,
     },
     "fsp3": 0.8,
-    "geoLocation": Array [
+    "geoLocation": [
       "nogeo",
     ],
     "gravitationalIndexHeavyAtoms": NaN,
@@ -5923,8 +5923,8 @@ Array [
     "petitjeanNumber": 0.4666666666666667,
     "petitjeanShapeGeom": NaN,
     "petitjeanShapeTopo": 0.875,
-    "pfCounts": Object {
-      "bits": Array [
+    "pfCounts": {
+      "bits": [
         9,
         10,
         11,
@@ -6002,7 +6002,7 @@ Array [
     },
     "pubchemBits": "AB4MAAAAAAAAAAAAAAAAAACACAAAAAwGAwAAAAAAAAAAAABYAAAQAADwKgUBQEAAAABAAAFABEIAAAAAAAQAABAQAAAAEBAIQACAAAACACADABABwAEHL/ABAAAAAAAAAAMAYAAADA==",
     "pubchemBitsString": "00000000011110000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100010000000000000000000000000000001100000110000011000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001101000000000000000000000100000000000000000000000111101010100101000001000000000000010000000100000000000000000000000000000001000000000100000000000001000100000010000100000000000000000000000000000000000000000001000000000000000000000000010000000100000000000000000000000000000001000000010000001000000000010000000000000000100000000000000000100000000000000000001001100000000000000000010001000000000000011100000001110000011110100000011111000000000000000000000000000000000000000000000000000000000000000110000000000000000000110000000000000000000110",
-    "pubchemFingerprint": Array [
+    "pubchemFingerprint": [
       9,
       10,
       11,
@@ -6080,10 +6080,10 @@ Array [
     "sugar_free_heavy_atom_number": 32,
     "sugar_free_smiles": "OC1CCC2(C)C(CCC3C4=CCC(C)(C(C=CC=C(C)C)C)C4(C)CCC32O)C1(C)C",
     "sugar_free_total_atom_number": 80,
-    "synonyms": Array [],
-    "taxid": Array [],
-    "taxonomyReferenceObjects": Array [],
-    "textTaxa": Array [
+    "synonyms": [],
+    "taxid": [],
+    "taxonomyReferenceObjects": [],
+    "textTaxa": [
       "notax",
     ],
     "topoPSA": 40.46,
@@ -6095,8 +6095,8 @@ Array [
     "weinerPathNumber": 2710,
     "weinerPolarityNumber": 74,
     "xlogp": 7.909000000000004,
-    "xrefs": Array [
-      Array [
+    "xrefs": [
+      [
         "npass",
         "23688",
         "http://bidd2.nus.edu.sg/NPASS/browse_np.php?compound=",

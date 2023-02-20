@@ -1,23 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parsers 2001 1`] = `
-Object {
-  "_id": "US-20010000001-A1",
-  "data": Object {
-    "abstract": "The invention provides a solvent mixture comprising n-propyl bromide, a mixture of low boiling solvents and, preferably, a defluxing and/or ionics removing additive and/or at least one saturated terpene. The invention also provides a method of cleaning an article (e.g., an electrical, plastic, or metal part) in a vapor degreaser using the solvent mixture. The solvent mixture of the invention is non-flammable, non-corrosive, and non-hazardous. In addition, it has a high solvency and a very low ozone depletion potential. Thus, using the solvent mixture of the invention, oil, grease, rosin flux, and other organic material can be readily removed from the article of interest in an environmentally safe manner.",
-    "applicationType": "new-utility",
-    "dateProduced": 20001129,
-    "datePublished": 20010315,
-    "pubchemPatentId": "US20010000001A1",
-    "title": "Solvent mixture for use in a vapor degreaser and method of cleaning an article in a vapor degreaser utilizing said solvent",
-  },
-}
-`;
-
 exports[`parsers 2002 1`] = `
-Object {
+{
   "_id": "US-20020000001-A1",
-  "data": Object {
+  "data": {
     "abstract": "A headwear assembly that includes a reversible crown, shaped to fit the head of a wearer with a prong buckle, fabric with hook and loop fasteners, fabric ties, plastic, one-size-fits-all or other size adjustment mechanisms, having first and second opposing major surfaces and a detachable and reversible single visor with first and second opposing major surfaces. A detachable and reversible dual visor with first and second opposing major surfaces can also be attached to the reversible crown. The reversible crown includes cooperating attachment members located on the inside non-focal surfaces of the first and second major opposing surfaces, providing the base for attaching, detaching and reattaching the removable and reversible single or dual visor. The detachable and reversible single visor has first and second major opposing surfaces along with cooperating attachment members to used to attach, detach and reattach itself to the reversible crown. The dual visor also has first and second major opposing surfaces with cooperating attachment members to attach, detach and reattach to the reversible crown. The visor and crown are easily removable and reversible to include one major surface each being displayed upwardly during wear and accounts for many different headwear assembly looks as well as having the reversible crown worn alone.",
     "applicationType": "new",
     "dateProduced": 20010418,
@@ -29,9 +15,9 @@ Object {
 `;
 
 exports[`parsers 2005 1`] = `
-Object {
+{
   "_id": "US-20050000001-A1",
-  "data": Object {
+  "data": {
     "abstract": "Novelty play jeans for children which include one or more active play features usable while the jeans are being worn. These various features include, but are not limited to a race course for a toy race car, a concealed pocket extractable to form a flag-like decoration, a window pocket, a secret tunnel pocket, a carry pouch convertible into a flat play area, and concealed knee pockets which enable the user of jeans to display a puppet show using built-in features of the jeans, while worn by the user.",
     "applicationType": "utility",
     "country": "US",
@@ -41,6 +27,19 @@ Object {
     "pubchemPatentId": "US20050000001A1",
     "status": "PARALLEL-RUN",
     "title": "Novelty jeans",
+  },
+}
+`;
+
+exports[`parsers 2006 1`] = `
+{
+  "_id": "US-20030000001-A1",
+  "data": {
+    "abstract": "A multi-phase headset () for aircraft crew members is provided which includes an inflatable gas mask unit () and a visor unit (), supported on the head of a user () by mounting assembly (). The overall headset () also has a selectively and/or automatically operable motive and control assembly (). Preferably; the mounting assembly () includes a pair of ear pieces () and a strap assembly () to allow positioning of the headset () on the user&apos;s head, with the mask and visor units () adjacent the crown of the user&apos;s head. In the event of an emergency, the mask unit () is lowered and the mask body () is inflated for delivery of breathable gas to the user (). Also, the visor unit () may be lowered to a use position atop mask unit (). The pneumatically or electrically operated motive and control assembly () serves to move the mask and visor units () between their retracted and deployed position. In order to prevent ingress of smoke, physical seals or air curtain passageways () may be provided along the upper and lower margins of the visor and mask units ().",
+    "dateProduced": 20020524,
+    "datePublished": 20030102,
+    "patentNumber": 20030000001,
+    "pubchemPatentId": "US20030000001A1",
   },
 }
 `;

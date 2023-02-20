@@ -1,58 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`taxonomyParser 1`] = `
-Array [
-  Object {
+[
+  {
     "_id": 1,
-    "data": Object {},
+    "data": {},
   },
-  Object {
+  {
     "_id": 131567,
-    "data": Object {},
+    "data": {},
   },
-  Object {
+  {
     "_id": 2157,
-    "data": Object {},
+    "data": {},
   },
-  Object {
+  {
     "_id": 1935183,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798909,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798916,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Baldrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798922,
-    "data": Object {
+    "data": {
       "class": "Candidatus Baldrarchaeia",
       "phylum": "Candidatus Baldrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798928,
-    "data": Object {
+    "data": {
       "class": "Candidatus Baldrarchaeia",
       "order": "Candidatus Baldrarchaeales",
       "phylum": "Candidatus Baldrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798934,
-    "data": Object {
+    "data": {
       "class": "Candidatus Baldrarchaeia",
       "family": "Candidatus Baldrarchaeaceae",
       "order": "Candidatus Baldrarchaeales",
@@ -60,9 +60,9 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798940,
-    "data": Object {
+    "data": {
       "class": "Candidatus Baldrarchaeia",
       "family": "Candidatus Baldrarchaeaceae",
       "genus": "Candidatus Baldrarchaeum",
@@ -71,53 +71,53 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2799004,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Baldrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2799005,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Baldrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798908,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798915,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Borrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798921,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "phylum": "Candidatus Borrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798927,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "order": "Candidatus Borrarchaeales",
       "phylum": "Candidatus Borrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798933,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "family": "Candidatus Borrarchaeaceae",
       "order": "Candidatus Borrarchaeales",
@@ -125,9 +125,9 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2848170,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "family": "Candidatus Borrarchaeaceae",
       "genus": "Candidatus Borrarchaeum",
@@ -136,9 +136,9 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2798939,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "family": "Candidatus Borrarchaeaceae",
       "genus": "Candidatus Borrarchaeum",
@@ -147,9 +147,9 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2841639,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "family": "Candidatus Borrarchaeaceae",
       "genus": "Candidatus Borrarchaeum",
@@ -158,9 +158,9 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2841640,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "family": "Candidatus Borrarchaeaceae",
       "genus": "Candidatus Borrarchaeum",
@@ -169,9 +169,9 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2846742,
-    "data": Object {
+    "data": {
       "class": "Candidatus Borrarchaeia",
       "family": "Candidatus Borrarchaeaceae",
       "genus": "Candidatus Borrarchaeum",
@@ -180,131 +180,131 @@ Array [
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2799002,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Borrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2799003,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Borrarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2827219,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2830915,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Freyarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2830916,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Freyarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2795490,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2799006,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Gerdarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2795491,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Gerdarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 1936272,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2026747,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 1841596,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2012493,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2608077,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 1841597,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 1841598,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2876573,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2876572,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Heimdallarchaeota",
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2572044,
-    "data": Object {
+    "data": {
       "superkingdom": "Archaea",
     },
   },
-  Object {
+  {
     "_id": 2719382,
-    "data": Object {
+    "data": {
       "phylum": "Candidatus Helarchaeota",
       "superkingdom": "Archaea",
     },
