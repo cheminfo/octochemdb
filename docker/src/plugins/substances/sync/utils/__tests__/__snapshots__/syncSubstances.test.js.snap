@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`syncSubstances First Importation 1`] = `
+exports[`syncSubstances syncSubstances First Importation 1`] = `
 {
   "_id": 56427212,
-  "_seq": 1,
   "data": {
     "atom": null,
     "charge": 0,
@@ -101,10 +100,9 @@ exports[`syncSubstances First Importation 1`] = `
 }
 `;
 
-exports[`syncSubstances Incremental Importation 1`] = `
+exports[`syncSubstances syncSubstances Incremental Importation 1`] = `
 {
   "_id": 56435292,
-  "_seq": 24,
   "data": {
     "atom": "{"C":20,"H":17,"Cl":1,"N":2,"O":5,"S":1}",
     "charge": 0,

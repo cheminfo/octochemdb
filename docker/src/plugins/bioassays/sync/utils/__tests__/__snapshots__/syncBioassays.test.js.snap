@@ -9,8 +9,8 @@ exports[`syncBioassays 1`] = `
     "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
     "cid": 59478,
     "ocl": {
-      "idCode": "dgm@aHPH\`Nb\\BdfLRTr{UP@T@@",
-      "noStereoTautomerID": "dgm@aHPH\`Nb\\BdfLRTr{UP@T@@",
+      "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      "noStereoTautomerID": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
     },
     "targetTaxonomies": [
       {
