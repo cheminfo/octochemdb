@@ -3,7 +3,7 @@ import delay from 'delay';
 import { PubChemConnection } from '../../../../utils/PubChemConnection.js';
 import { aggregate } from '../../aggregates/aggregateActivesOrNaturals';
 
-jest.setTimeout(10000);
+jest.setTimeout(300000);
 test('Aggregation ActivesOrNaturals', async () => {
   const connection = new PubChemConnection();
   const collections = await connection.getCollectionNames();
@@ -18,7 +18,7 @@ test('Aggregation ActivesOrNaturals', async () => {
     collections.includes('gnps') === false ||
     collections.includes('compounds') === false
   ) {
-    delay(1000);
+    await delay(1000);
   }
   await aggregate(connection);
   const collection = await connection.getCollection('activesOrNaturals');

@@ -1,11 +1,14 @@
+import delay from 'delay';
+
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncLotuses';
 
+jest.setTimeout(300000);
 test('syncLotuses', async () => {
   const connection = new PubChemConnection();
   const collections = await connection.getCollectionNames();
   while (collections.includes('taxonomies') === false) {
-    delay(1000);
+    await delay(1000);
   }
   await sync(connection);
   const collection = await connection.getCollection('lotuses');

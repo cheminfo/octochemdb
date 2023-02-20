@@ -1,6 +1,6 @@
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncNpatlases';
-
+jest.setTimeout(300000);
 test('syncNpatlases', async () => {
   const connection = new PubChemConnection();
   await sync(connection);

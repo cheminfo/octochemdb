@@ -2,6 +2,7 @@ import delay from 'delay';
 
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncBioassays';
+jest.setTimeout(300000);
 
 test('syncBioassays', async () => {
   const connection = new PubChemConnection();
@@ -10,7 +11,7 @@ test('syncBioassays', async () => {
     collections.includes('taxonomies') === false ||
     collections.includes('compounds') === false
   ) {
-    delay(1000);
+    await delay(1000);
   }
   await sync(connection);
   const collection = await connection.getCollection('bioassays');

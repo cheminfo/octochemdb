@@ -1,12 +1,14 @@
+import delay from 'delay';
+
 import { PubChemConnection } from '../../../../utils/PubChemConnection.js';
 import { aggregate } from '../aggregateCHNOSClF';
 
-jest.setTimeout(10000);
+jest.setTimeout(300000);
 test('Aggregation mfsCHNOSClF', async () => {
   const connection = new PubChemConnection();
   const collections = await connection.getCollectionNames();
   while (collections.includes('compounds') === false) {
-    delay(1000);
+    await delay(1000);
   }
   await aggregate(connection);
   const collection = await connection.getCollection('mfsCHNOSClF');

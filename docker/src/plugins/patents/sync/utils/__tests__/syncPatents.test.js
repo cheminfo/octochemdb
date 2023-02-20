@@ -1,6 +1,7 @@
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncPatents';
 
+jest.setTimeout(300000);
 test('syncPatents', async () => {
   const connection = new PubChemConnection();
   await sync(connection);

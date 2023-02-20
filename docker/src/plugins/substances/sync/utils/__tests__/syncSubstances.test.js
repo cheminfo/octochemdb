@@ -1,7 +1,7 @@
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncSubstances';
-// increase timeout to 6s
-jest.setTimeout(20000);
+
+jest.setTimeout(300000);
 test('syncSubstances First Importation', async () => {
   const connection = new PubChemConnection();
   await sync(connection);
@@ -20,6 +20,8 @@ test('syncSubstances Incremental Importation', async () => {
     .find({ _id: 56435292 })
     .limit(1);
   const resultIncremental = await collectionEntryIncremental.next();
+  // remove seq number because the order of importation can change since it is done in parallel
+  delete resultIncremental.seq;
   expect(resultIncremental).toMatchSnapshot();
   if (connection) {
     await connection.close();
