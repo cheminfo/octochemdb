@@ -15,7 +15,7 @@
     "start": "DEBUG=* node -r dotenv/config src/server/index.js",
     "start-dev": "DEBUG=* nodemon -r dotenv/config src/server/index.js",
     "test": "npm run eslint && npm run prettier && jest",
-    "test-only": "jest"
+    "test-only": "vitest run --globals --coverage"
   },
   "repository": {
     "type": "git",
@@ -63,6 +63,7 @@
     "sdf-parser": "^5.0.1",
     "split2": "^4.1.0",
     "stream-json": "^1.7.4",
+    "vitest": "^0.28.5",
     "workerpool": "^6.2.0",
     "xml-flow": "^1.0.4",
     "xml2json": "^0.12.0"
@@ -70,14 +71,15 @@
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
     "@types/jest": "^27.4.1",
+    "@vitest/coverage-c8": "^0.25.3",
     "babel-plugin-transform-import-meta": "^2.1.1",
     "cheminfo-tools": "^1.23.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.21.0",
     "eslint-config-cheminfo": "^8.0.2",
-    "jest": "^29.4.1",
     "nodemon": "^2.0.15",
     "pino-pretty": "^8.1.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "vite": "^4.1.3"
   }
 }
