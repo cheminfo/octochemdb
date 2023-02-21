@@ -31,7 +31,7 @@ export async function aggregate(connection) {
             'data.nbFragments': 1,
             'data.mf': {
               $regex:
-                /^C[0-9]*H[0-9]*Cl?[0-9]*F?[0-9]*N?[0-9]*O?[0-9]*S?[0-9]*$/,
+                /^C[0-9]*H[0-9]*(?:Cl)?[0-9]*F?[0-9]*N?[0-9]*O?[0-9]*S?[0-9]*$/,
             },
             'data.charge': 0,
           },
