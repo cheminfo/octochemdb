@@ -7,7 +7,10 @@ import { aggregate } from '../aggregateMFs';
 test('Aggregation mfs', async () => {
   const connection = new PubChemConnection();
   let colllectionList = await connection.getCollectionNames();
-  while (!colllectionList.includes('activesOrNaturals')) {
+  while (
+    !colllectionList.includes('activesOrNaturals') &&
+    !colllectionList.includes('compounds')
+  ) {
     await delay(1000);
     colllectionList = await connection.getCollectionNames();
   }

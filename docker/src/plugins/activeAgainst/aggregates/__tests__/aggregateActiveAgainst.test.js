@@ -7,7 +7,10 @@ import { aggregate } from '../aggregateActiveAgainst';
 test('Aggregation activeAgainst', async () => {
   const connection = new PubChemConnection();
   let colllectionList = await connection.getCollectionNames();
-  while (!colllectionList.includes('activesOrNaturals')) {
+  while (
+    colllectionList.includes('activesOrNaturals') === false &&
+    colllectionList.includes('compounds') === false
+  ) {
     await delay(1000);
     colllectionList = await connection.getCollectionNames();
   }
