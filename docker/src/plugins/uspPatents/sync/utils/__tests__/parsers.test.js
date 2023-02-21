@@ -2,6 +2,7 @@ import { open } from 'fs/promises';
 import { join } from 'path';
 
 import { parseStream } from 'arraybuffer-xml-parser';
+import { describe, it, expect } from 'vitest';
 
 import { parsers } from '../parsers/parsers.js';
 

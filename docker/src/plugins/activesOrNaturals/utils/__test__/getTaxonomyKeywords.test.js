@@ -1,3 +1,5 @@
+import { test, expect } from 'vitest';
+
 import getTaxonomyKeywords from '../getTaxonomyKeywords';
 
 test('getTaxonomyKeywords', () => {

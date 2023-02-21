@@ -1,5 +1,7 @@
 import 'dotenv/config';
 
+import { test, expect } from 'vitest';
+
 import { PubChemConnection } from '../PubChemConnection';
 
 test('connection to DB', async () => {

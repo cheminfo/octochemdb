@@ -1,6 +1,7 @@
 import { join } from 'path';
 
 import { bsonIterator } from 'bson-iterator';
+import { test, expect } from 'vitest';
 
 import readStreamInZipFolder from '../readStreamInZipFolder';
 

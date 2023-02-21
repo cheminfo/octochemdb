@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { PubChemConnection } from '../../utils/PubChemConnection.js';
 import { aggregate as aggregateActiveAgainst } from '../activeAgainst/aggregates/aggregateActiveAgainst.js';
 import { aggregate as aggregateActivesOrNaturals } from '../activesOrNaturals/aggregates/aggregateActivesOrNaturals.js';
@@ -22,7 +24,7 @@ describe('test All Plugins', () => {
     const connection = new PubChemConnection();
     await syncTaxonomies(connection);
     const collection = await connection.getCollection('taxonomies');
-    const collectionEntry = await collection.find({ _id: 2841640 }).limit(1);
+    const collectionEntry = await collection.find({ _id: 2798939 }).limit(1);
     const result = await collectionEntry.next();
     if (result?._seq) {
       delete result._seq;
@@ -71,7 +73,7 @@ describe('test All Plugins', () => {
     const connection = new PubChemConnection();
     const collection = await connection.getCollection('substances');
     const collectionEntryIncremental = await collection
-      .find({ _id: 56435292 })
+      .find({ _id: 475724937 })
       .limit(1);
     const resultIncremental = await collectionEntryIncremental.next();
     if (resultIncremental?._seq) {

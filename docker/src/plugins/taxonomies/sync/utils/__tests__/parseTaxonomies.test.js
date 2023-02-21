@@ -1,6 +1,8 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+import { test, expect } from 'vitest';
+
 import { parseTaxonomies } from '../parseTaxonomies';
 
 test('taxonomyParser', () => {

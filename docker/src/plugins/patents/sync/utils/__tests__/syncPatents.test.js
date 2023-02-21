@@ -1,3 +1,5 @@
+import { test, expect } from 'vitest';
+
 import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
 import { sync } from '../../syncPatents';
 

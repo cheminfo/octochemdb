@@ -1,3 +1,5 @@
+import { test, expect } from 'vitest';
+
 import { fetchPatentsTitles } from '../fetchPatentsTitles.js';
 
 test('Get titles', async () => {
