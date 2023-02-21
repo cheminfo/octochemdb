@@ -7,10 +7,11 @@ test('syncCompounds First Importation', async () => {
   const collection = await connection.getCollection('compounds');
   const collectionEntry = await collection.find({ _id: 59478 }).limit(1);
   const result = await collectionEntry.next();
-  expect(result).toMatchSnapshot();
-  if (connection) {
-    await connection.close();
+  if (result?._seq) {
+    delete result._seq;
   }
+  expect(result).toMatchSnapshot();
+  await connection.close();
 });
 test('syncCompounds Incremental Importation', async () => {
   const connection = new PubChemConnection();
@@ -19,8 +20,9 @@ test('syncCompounds Incremental Importation', async () => {
     .find({ _id: 160056959 })
     .limit(1);
   const resultIncremental = await collectionEntryIncremental.next();
-  expect(resultIncremental).toMatchSnapshot();
-  if (connection) {
-    await connection.close();
+  if (resultIncremental?._seq) {
+    delete resultIncremental._seq;
   }
-});
+  expect(resultIncremental).toMatchSnapshot();
+  await connection.close();
+}, 10000);

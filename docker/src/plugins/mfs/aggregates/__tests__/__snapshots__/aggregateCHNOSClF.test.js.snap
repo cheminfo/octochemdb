@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Aggregation mfsCHNOSClF 1`] = `
+{
+  "_id": "C100H110N4",
+  "count": 4,
+  "em": 1366.87304956302,
+  "unsaturation": 48,
+}
+`;

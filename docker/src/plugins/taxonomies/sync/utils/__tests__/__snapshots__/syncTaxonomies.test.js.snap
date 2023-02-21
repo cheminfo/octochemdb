@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`syncTaxonomies 1`] = `
+{
+  "_id": 2841640,
+  "data": {
+    "class": "Candidatus Borrarchaeia",
+    "family": "Candidatus Borrarchaeaceae",
+    "genus": "Candidatus Borrarchaeum",
+    "order": "Candidatus Borrarchaeales",
+    "phylum": "Candidatus Borrarchaeota",
+    "superkingdom": "Archaea",
+  },
+}
+`;
