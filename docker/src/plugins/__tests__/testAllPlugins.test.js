@@ -217,22 +217,7 @@ describe('test All Plugins', () => {
     expect(resultIncremental).toMatchSnapshot();
     await connection.close();
   });
-  it('aggregate activeAgainst', async () => {
-    const connection = new PubChemConnection();
-    await aggregateActiveAgainst(connection);
-    const collection = await connection.getCollection('activeAgainst');
-    const collectionEntry = await collection
-      .find({
-        _id: 'ArchaeakingdomCandidatus BorrarchaeotaCandidatus Borrarchaeia',
-      })
-      .limit(1);
-    const result = await collectionEntry.next();
-    if (result?._seq) {
-      delete result._seq;
-    }
-    expect(result).toMatchSnapshot();
-    await connection.close();
-  });
+
   it('aggregate activesOrNaturals', async () => {
     const connection = new PubChemConnection();
 
@@ -250,6 +235,22 @@ describe('test All Plugins', () => {
     expect(result).toMatchSnapshot();
     await connection.close();
   }, 60000);
+  it('aggregate activeAgainst', async () => {
+    const connection = new PubChemConnection();
+    await aggregateActiveAgainst(connection);
+    const collection = await connection.getCollection('activeAgainst');
+    const collectionEntry = await collection
+      .find({
+        _id: 'ArchaeakingdomCandidatus BorrarchaeotaCandidatus Borrarchaeia',
+      })
+      .limit(1);
+    const result = await collectionEntry.next();
+    if (result?._seq) {
+      delete result._seq;
+    }
+    expect(result).toMatchSnapshot();
+    await connection.close();
+  });
   it('aggregate CHNOSClF', async () => {
     const connection = new PubChemConnection();
     await aggregateCHNOSClF(connection);

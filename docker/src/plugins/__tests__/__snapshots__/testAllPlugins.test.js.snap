@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test All Plugins aggregate CHNOSClF 1`] = `null`;
+exports[`test All Plugins aggregate CHNOSClF 1`] = `
+{
+  "_id": "C100H110N4",
+  "count": 5,
+  "em": 1366.87304956302,
+  "unsaturation": 48,
+}
+`;
 
 exports[`test All Plugins aggregate CommonMFs 1`] = `
 {
@@ -22,7 +29,16 @@ exports[`test All Plugins aggregate MFs 1`] = `
 }
 `;
 
-exports[`test All Plugins aggregate activeAgainst 1`] = `null`;
+exports[`test All Plugins aggregate activeAgainst 1`] = `
+{
+  "_id": "ArchaeakingdomCandidatus BorrarchaeotaCandidatus Borrarchaeia",
+  "class": "Candidatus Borrarchaeia",
+  "count": 1,
+  "kingdom": null,
+  "phylum": "Candidatus Borrarchaeota",
+  "superkingdom": "Archaea",
+}
+`;
 
 exports[`test All Plugins aggregate activesOrNaturals 1`] = `
 {
