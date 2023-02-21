@@ -5,6 +5,7 @@ import { sync } from '../../syncPubmed';
 
 test('syncPubmed First Importation', async () => {
   const connection = new PubChemConnection();
+
   await sync(connection);
   const collection = await connection.getCollection('pubmeds');
   const collectionEntry = await collection.find({ _id: 14248047 }).limit(1);
@@ -17,6 +18,7 @@ test('syncPubmed First Importation', async () => {
 }, 30000);
 test('syncPubmed Incremental Importation', async () => {
   const connection = new PubChemConnection();
+
   const collection = await connection.getCollection('pubmeds');
   const collectionEntryIncremental = await collection
     .find({ _id: 17200418 })

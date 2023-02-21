@@ -6,6 +6,7 @@ import { sync } from '../../syncSubstances';
 describe('syncSubstances', () => {
   it('syncSubstances First Importation', async () => {
     const connection = new PubChemConnection();
+
     await sync(connection);
     const collection = await connection.getCollection('substances');
     const collectionEntry = await collection.find({ _id: 56427212 }).limit(1);

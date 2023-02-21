@@ -1,3 +1,4 @@
+import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { PubChemConnection } from '../../../../utils/PubChemConnection.js';
@@ -5,6 +6,11 @@ import { aggregate } from '../aggregateMFs';
 
 test('Aggregation mfs', async () => {
   const connection = new PubChemConnection();
+  let colllectionList = await connection.getCollectionNames();
+  while (!colllectionList.includes('activesOrNaturals')) {
+    await delay(1000);
+    colllectionList = await connection.getCollectionNames();
+  }
   await aggregate(connection);
   const collection = await connection.getCollection('mfs');
   const collectionEntry = await collection
@@ -18,4 +24,4 @@ test('Aggregation mfs', async () => {
   }
   expect(result).toMatchSnapshot();
   await connection.close();
-});
+}, 30000000);
