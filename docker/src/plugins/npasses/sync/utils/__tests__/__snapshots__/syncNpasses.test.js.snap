@@ -1,9 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncNpasses 1`] = `
 {
   "_id": "NPC10005",
-  "_seq": 6,
   "data": {
     "activities": [
       {
@@ -93,7 +92,7 @@ exports[`syncNpasses 1`] = `
         0,
         8,
       ],
-      "noStereoID": "e\`rpD@@G\`\\ddTbbtVadLRVtTcJfRRRRRRTabce\`UPwVuUUMUUUUUUTuUUUUUT@@_f@",
+      "noStereoID": "e\`rpD@@G\`\\\\ddTbbtVadLRVtTcJfRRRRRRTabce\`UPwVuUUMUUUUUUTuUUUUUT@@_f@",
       "noStereoTautomerID": "e\`rpD@@@JLdTTTbreTRTJbRdJVTrbRtURRadVPrwtKHmUUUUUUUUUUUUUUUTt@Aj\`QbcGzPYQTq|L_C@",
     },
     "taxonomies": [

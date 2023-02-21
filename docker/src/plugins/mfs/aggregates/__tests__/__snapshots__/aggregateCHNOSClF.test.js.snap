@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`Aggregation mfsCHNOSClF 1`] = `
 {
   "_id": "C100H110N4",
-  "count": 4,
+  "count": 5,
   "em": 1366.87304956302,
   "unsaturation": 48,
 }

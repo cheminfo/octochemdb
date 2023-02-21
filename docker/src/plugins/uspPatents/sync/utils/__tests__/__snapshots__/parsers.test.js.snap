@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`parsers 2002 1`] = `
+exports[`parsers > 2002 1`] = `
 {
   "_id": "US-20020000001-A1",
   "data": {
@@ -14,7 +14,7 @@ exports[`parsers 2002 1`] = `
 }
 `;
 
-exports[`parsers 2005 1`] = `
+exports[`parsers > 2005 1`] = `
 {
   "_id": "US-20050000001-A1",
   "data": {
@@ -31,7 +31,7 @@ exports[`parsers 2005 1`] = `
 }
 `;
 
-exports[`parsers 2006 1`] = `
+exports[`parsers > 2006 1`] = `
 {
   "_id": "US-20030000001-A1",
   "data": {

@@ -1,9 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncCmaups 1`] = `
 {
   "_id": "NPC146355",
-  "_seq": 14,
   "data": {
     "activities": [
       {
@@ -17,8 +16,8 @@ exports[`syncCmaups 1`] = `
     ],
     "cid": "24992964",
     "ocl": {
-      "coordinates": "!Bs|uTn{\\BSk}}m{_}?\`A}mtz?m?rw@eR{bGvw?_x@?g~H?K\\BbGvH__y?b@JH_P",
-      "idCode": "fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuTEATAAEPDaBRbe@@",
+      "coordinates": "!Bs|uTn{\\\\BSk}}m{_}?\`A}mtz?m?rw@eR{bGvw?_x@?g~H?K\\\\BbGvH__y?b@JH_P",
+      "idCode": "fa{@p@@F\\\\fo\\\\dTRbRRRafRtIJRMkqVuTEATAAEPDaBRbe@@",
       "index": [
         229,
         95,
@@ -85,8 +84,8 @@ exports[`syncCmaups 1`] = `
         0,
         0,
       ],
-      "noStereoID": "fa{@p@NRmyo\\dbRbfbVQtRTuAJL{qZaAQUUP@TT@@_f@",
-      "noStereoTautomerID": "fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuUUUUUUUU@AkuFLXIbfFXy\`VIXU\`vKX]cv@xcaNLxKbnFx{b^ExRFN\\YL_CGpp",
+      "noStereoID": "fa{@p@NRmyo\\\\dbRbfbVQtRTuAJL{qZaAQUUP@TT@@_f@",
+      "noStereoTautomerID": "fa{@p@@F\\\\fo\\\\dTRbRRRafRtIJRMkqVuUUUUUUUU@AkuFLXIbfFXy\`VIXU\`vKX]cv@xcaNLxKbnFx{b^ExRFN\\\\YL_CGpp",
     },
     "taxonomies": [
       {

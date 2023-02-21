@@ -1,14 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncNpatlases 1`] = `
 {
   "_id": "NPA000001",
-  "_seq": 1,
   "data": {
     "iupacName": "Curvularide C",
     "ocl": {
-      "coordinates": "!B?g~w_Xa}mpJH@k]}?\`BH_[\\B?g~H?Oy?b@Jw?[]}bGw~@Ha}b@K~_xa}?g~H@ha}",
-      "idCode": "ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjjXRLPiZIUU@d@",
+      "coordinates": "!B?g~w_Xa}mpJH@k]}?\`BH_[\\\\B?g~H?Oy?b@Jw?[]}bGw~@Ha}b@K~_xa}?g~H@ha}",
+      "idCode": "ficaP@D@tZK\\\\bbRbTRdQT\\\\VfZfjjjjjjXRLPiZIUU@d@",
       "index": [
         255,
         239,
@@ -75,8 +74,8 @@ exports[`syncNpatlases 1`] = `
         8,
         0,
       ],
-      "noStereoID": "ficaP@KXxZO\\ddRbrabJbbtVjfjijjjj@@L@",
-      "noStereoTautomerID": "ficaP@K@xXO\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
+      "noStereoID": "ficaP@KXxZO\\\\ddRbrabJbbtVjfjijjjj@@L@",
+      "noStereoTautomerID": "ficaP@K@xXO\\\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
     },
     "taxonomies": [
       {

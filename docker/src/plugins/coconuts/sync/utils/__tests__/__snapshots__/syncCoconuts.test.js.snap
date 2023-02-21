@@ -1,13 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncCoconuts 1`] = `
 {
   "_id": "CNP0330764",
-  "_seq": 4,
   "data": {
     "iupacName": "10-hydroxy-5,9-dimethyl-15-[(3-methylbut-2-enoyl)oxy]-14-methylidenetetracyclo[11.2.1.0¹,¹⁰.0⁴,⁹]hexadecane-5-carboxylic acid",
     "ocl": {
-      "coordinates": "!B?l]kcQRMZ{HTlmlUd]c~vARMJX]CkHt@qKzGUcv\`NXa\\\`l^n\`hpx\\RUDG?ZBcHJLNGDeQEh{VcnBc@",
+      "coordinates": "!B?l]kcQRMZ{HTlmlUd]c~vARMJX]CkHt@qKzGUcv\`NXa\\\\\`l^n\`hpx\\\\RUDG?ZBcHJLNGDeQEh{VcnBc@",
       "idCode": "eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@",
       "index": [
         247,

@@ -1,16 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncBioassays 1`] = `
 {
   "_id": "59478_1",
-  "_seq": 1,
   "data": {
     "aid": 1,
     "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
     "cid": 59478,
     "ocl": {
-      "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
-      "noStereoTautomerID": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      "noStereoTautomerID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
     },
     "targetTaxonomies": [
       {

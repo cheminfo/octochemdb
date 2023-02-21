@@ -1,9 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncPubmed First Importation 1`] = `
 {
   "_id": 14248047,
-  "_seq": 2,
   "data": {
     "article": {
       "authors": [
@@ -74,7 +73,6 @@ exports[`syncPubmed First Importation 1`] = `
 exports[`syncPubmed Incremental Importation 1`] = `
 {
   "_id": 17200418,
-  "_seq": 4,
   "data": {
     "article": {
       "abstract": null,

@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`syncTaxonomies 1`] = `
 {
-  "_id": 2841640,
+  "_id": 2798939,
   "data": {
     "class": "Candidatus Borrarchaeia",
     "family": "Candidatus Borrarchaeaceae",
