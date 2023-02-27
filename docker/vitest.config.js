@@ -12,6 +12,9 @@ export default defineConfig({
         async sort(files) {
           // sort by putting files with regex /aggregage/ at the end
           const regex = /aggregate/i;
+          const regexCompounds = /syncCompounds/i;
+          const regexTaxonomies = /syncTaxonomies/i;
+          const regexBioassays = /syncBioassays/i;
           const sortedFiles = files.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
@@ -19,9 +22,20 @@ export default defineConfig({
             if (!regex.test(a) && regex.test(b)) {
               return -1;
             }
+
+            if (regexCompounds.test(a) && !regexCompounds.test(b)) {
+              return -1;
+            }
+            // regexTaxonomies should be after compounds and bioassays
+            if (regexTaxonomies.test(a) && !regexTaxonomies.test(b)) {
+              return -1;
+            }
+            if (regexBioassays.test(a) && !regexBioassays.test(b)) {
+              return -1;
+            }
+
             return 0;
           });
-          console.log(sortedFiles);
 
           return sortedFiles;
         }
