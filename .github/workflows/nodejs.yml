@@ -22,11 +22,14 @@ jobs:
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
+
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Start MongoDB
-        run: 'sudo docker run --name mongo -d -p 27017:27017 mongo:${{ matrix.mongodb-version }}'
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
 
       - run: npm install
 
