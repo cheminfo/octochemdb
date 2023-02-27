@@ -17,19 +17,23 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
-
+        working-directory: docker
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
+        working-directory: docker
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
+        working-directory: docker
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
       - run: npm install
+        working-directory: docker
 
       - run: npm test
+        working-directory: docker
         env:
           CI: true
