@@ -10,3 +10,4 @@ docker/src/plugins/pubmeds/sync/utils/__tests__/testpub.js
 docker/src/plugins/uspPatents/sync/utils/__tests__/data/2001.xml
 docker/coverage
 docker/src/plugins/patents/sync/utils/__tests__/data/patentsTest.sorted
+docker/.env
