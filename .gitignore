@@ -3,7 +3,7 @@ originalData
 node_modules
 .DS_Store
 
-
+docker/.env
 docker/src/plugins/taxonomies/sync/utils/uniqueTaxonomies.mjs
 docker/src/plugins/pubmeds/sync/utils/__tests__/pubmedTest.xml
 docker/src/plugins/pubmeds/sync/utils/__tests__/testpub.js
