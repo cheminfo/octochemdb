@@ -396,18 +396,13 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "mf": "C37H60O8",
     "naturalProduct": true,
     "nbActivities": 20,
-    "nbPatents": 8,
+    "nbPatents": 3,
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
     "patents": [
-      "EP-0765331-B1",
-      "DE-60022665-T2",
-      "EP-1355630-B1",
-      "JP-2007533747-A",
-      "US4652579A",
-      "WO-2006110441-A2",
-      "US20120207810A1",
-      "WO-02057300-A1",
+      "EP-2078065-A2",
+      "JP-2008031406-A",
+      "US20030147822A1",
     ],
     "taxonomies": [
       {
