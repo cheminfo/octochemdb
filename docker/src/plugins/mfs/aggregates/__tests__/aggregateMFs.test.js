@@ -8,7 +8,7 @@ test('Aggregation mfs', async () => {
   const connection = new PubChemConnection();
   let colllectionList = await connection.getCollectionNames();
   while (
-    !colllectionList.includes('activesOrNaturals') &&
+    !colllectionList.includes('activesOrNaturals') ||
     !colllectionList.includes('compounds')
   ) {
     await delay(1000);

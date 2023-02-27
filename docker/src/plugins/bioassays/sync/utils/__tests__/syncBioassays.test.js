@@ -8,7 +8,7 @@ test('syncBioassays', async () => {
   const connection = new PubChemConnection();
   let colllectionList = await connection.getCollectionNames();
   while (
-    !colllectionList.includes('compounds') &&
+    !colllectionList.includes('compounds') ||
     !colllectionList.includes('taxonomies')
   ) {
     await delay(1000);
