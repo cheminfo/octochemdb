@@ -9,7 +9,6 @@ test(
   async () => {
     const connection = new PubChemConnection();
     let colllectionList = await connection.getCollectionNames();
-    console.log(colllectionList);
     while (
       !colllectionList.includes('lotuses') ||
       !colllectionList.includes('npasses') ||
