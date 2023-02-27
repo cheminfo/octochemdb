@@ -16,4 +16,4 @@ test('connection to DB', async () => {
   if (connection) {
     await connection.close();
   }
-});
+}, 30000);
