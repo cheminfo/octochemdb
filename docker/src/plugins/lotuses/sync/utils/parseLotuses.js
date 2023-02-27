@@ -1,4 +1,5 @@
 import { bsonIterator } from 'bson-iterator';
+import { fileCollectionFromPath } from 'filelist-utils';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
@@ -16,7 +17,25 @@ const debug = debugLibrary('parseLotuses');
  */
 export async function* parseLotuses(lotusFilePath, filename, connection) {
   try {
-    const readStream = await readStreamInZipFolder(lotusFilePath, filename);
+    const fileToRead = (
+      await fileCollectionFromPath(lotusFilePath)
+    ).files.filter((file) => {
+      return file.name === filename;
+    })[0];
+    if (process.env.NODE_ENV === 'test') {
+      fileToRead.relativePath = lotusFilePath.replace(
+        'data/',
+        fileToRead.relativePath,
+      );
+    } else {
+      fileToRead.relativePath = lotusFilePath.replace(
+        'full/',
+        fileToRead.relativePath,
+      );
+    }
+
+    debug(lotusFilePath);
+    const readStream = await readStreamInZipFolder(fileToRead);
 
     for await (const entry of bsonIterator(readStream)) {
       try {

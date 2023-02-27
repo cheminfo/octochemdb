@@ -7,10 +7,12 @@ const debug = debugLibrary('parsePatents');
 export default async function firstPatentsImport(filneName, connection) {
   try {
     const temporaryCollection = await connection.getCollection('patents_tmp');
+    debug(filneName);
     const readStream = createReadStream(filneName);
     const lines = createInterface({ input: readStream });
     let entry = [];
     let currentProductID = -1;
+
     const progress = await connection.getProgress('patents');
 
     for await (const line of lines) {

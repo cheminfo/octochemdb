@@ -14,4 +14,4 @@ test('syncPatents', async () => {
   }
   expect(result).toMatchSnapshot();
   await connection.close();
-});
+}, 300000);

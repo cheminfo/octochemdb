@@ -66,6 +66,7 @@ export async function sync(connection) {
       // define file to use for importation inside the zip file
       let fileName = 'uniqueNaturalProduct.bson';
       debug(`Start parsing: ${fileName}`);
+      debug(lastFile);
       const collection = await connection.getCollection(options.collectionName);
       const logs = await connection.getImportationLog({
         collectionName: options.collectionName,

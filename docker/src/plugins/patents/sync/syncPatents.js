@@ -65,7 +65,6 @@ export async function sync(connection) {
         removeSync(lastFile);
       }
 
-      //  const sortedFile = `${options.destinationLocal}/cidToPatents.2022-07-14.sorted`;
       await firstPatentsImport(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
       await collection.createIndex({ 'data.patents': 1 });

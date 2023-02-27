@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-import { fileListFromZip } from 'filelist-utils';
+import { fileCollectionFromZip } from 'filelist-utils';
 import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
@@ -69,20 +69,21 @@ export async function sync(connection) {
         sources,
         startSequenceID: progress.seq,
       });
-      const fileList = (await fileListFromZip(readFileSync(lastFile))).filter(
-        (file) => file.name === 'rankedLineage.dmp',
-      );
+      const fileList = (
+        await fileCollectionFromZip(readFileSync(lastFile))
+      ).filter((file) => file.name === 'rankedLineage.dmp');
 
-      const arrayBuffer = await fileList[0].arrayBuffer();
+      const arrayBuffer = await fileList.files[0].arrayBuffer();
       progress.state = 'updating';
       await connection.setProgress(progress);
       const temporaryCollection = await connection.getCollection(
         'taxonomies_tmp',
       );
       const fileListNodes = (
-        await fileListFromZip(readFileSync(lastFile))
+        await fileCollectionFromZip(readFileSync(lastFile))
       ).filter((file) => file.name === 'nodes.dmp');
-      const arrayBufferNodes = await fileListNodes[0].arrayBuffer();
+
+      const arrayBufferNodes = await fileListNodes.files[0].arrayBuffer();
       debug('Get Nodes Taxonomies');
       let nodes = getTaxonomiesNodes(arrayBufferNodes);
       debug('start parsing taxonomies');

@@ -1,20 +1,11 @@
 import StreamZip from 'node-stream-zip';
 
-async function readStreamInZipFolder(filePath, fileNameInsideZip) {
-  const zip = new StreamZip.async({ file: filePath });
+async function readStreamInZipFolder(fileToRead) {
+  // split after 'zip' and add 'zip' again
 
-  let keys = Object.values(await zip.entries());
-  let fileName;
-
-  for (let key of keys) {
-    if (key.name.includes(fileNameInsideZip)) {
-      fileName = key;
-    }
-  }
-  if (fileName === undefined) {
-    throw new Error('File not found in zip folder');
-  }
-  const stm = await zip.stream(fileName);
+  const filePathZip = fileToRead.relativePath.split('.zip')[0].concat('.zip');
+  const zip = new StreamZip.async({ file: filePathZip });
+  const stm = await zip.stream(fileToRead.relativePath.split('.zip/')[1]);
   return stm;
 }
 
