@@ -7,11 +7,11 @@ test('syncPatents', async () => {
   const connection = new PubChemConnection();
   await sync(connection);
   const collection = await connection.getCollection('patents');
-  const collectionEntry = await collection.find({ _id: 5426 }).limit(1);
+  const collectionEntry = await collection.find({ _id: 59478 }).limit(1);
   const result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;
   }
   expect(result).toMatchSnapshot();
   await connection.close();
-}, 60000);
+});
