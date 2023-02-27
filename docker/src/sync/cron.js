@@ -22,7 +22,10 @@ async function cron() {
   if (process.env.PLUGINS) {
     const allowedPlugins = process.env.PLUGINS.split(',');
     syncURLs = syncURLs.filter((url) => {
-      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      const pluginName = url.pathname.replace(
+        /.*plugins\/\/?(?:.*?)\/.*/,
+        '$1',
+      );
       if (allowedPlugins.includes(pluginName)) return true;
       return false;
     });
@@ -30,7 +33,10 @@ async function cron() {
   if (process.env.EXCLUDEPLUGINS) {
     const notAllowedPlugins = process.env.EXCLUDEPLUGINS.split(',');
     syncURLs = syncURLs.filter((url) => {
-      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      const pluginName = url.pathname.replace(
+        /.*plugins\/\/?(?:.*?)\/.*/,
+        '$1',
+      );
       if (!notAllowedPlugins.includes(pluginName)) return true;
       return false;
     });
@@ -69,7 +75,10 @@ async function cron() {
   if (process.env.PLUGINS) {
     const allowedPlugins = process.env.PLUGINS.split(',');
     aggregateURLs = aggregateURLs.filter((url) => {
-      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      const pluginName = url.pathname.replace(
+        /.*plugins\/\/?(?:.*?)\/.*/,
+        '$1',
+      );
       if (allowedPlugins.includes(pluginName)) return true;
       return false;
     });

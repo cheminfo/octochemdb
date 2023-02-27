@@ -50,7 +50,7 @@ async function searchHandler(request) {
     connection = new PubChemConnection();
     const collection = await connection.getCollection('importationLogs');
     if (collectionName === '') {
-      collectionName = /(.*?)/;
+      collectionName = /(?:.*?)/;
     }
     let formatedFields = getFields(fields);
     formatedFields._id = 0;
