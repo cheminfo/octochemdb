@@ -15,7 +15,7 @@ export default defineConfig({
           const regexCompounds = /syncCompounds/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
-          const regexActiveAgainst = /aggregageActiveAgainst/i;
+          const regexActiveAgainst = /aggregateActiveAgainst/i;
           const sortedFiles = files.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
