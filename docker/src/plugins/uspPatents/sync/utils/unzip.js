@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import { createReadStream, createWriteStream, statSync } from 'fs';
 import { join } from 'path';
 
@@ -43,7 +44,6 @@ export async function unzipFile(inputFilename) {
           sizeFile === statSync(outputFilename).size &&
           existsSync(outputFilename) === true
         ) {
-          resolve();
           debug('File has the expected size');
           rmSync(inputFilename);
         } else {
