@@ -5,13 +5,13 @@ import fastifyCors from '@fastify/cors';
 import fastifySensible from '@fastify/sensible';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
-import Fastify from 'fastify';
+import fastify from 'fastify';
 
 import v1 from './v1.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const fastify = Fastify({
+const fastifyServer = fastify({
   logger: {
     transport: process.env.LOGGER_PRETTY_PRINT
       ? {
@@ -30,16 +30,16 @@ const fastify = Fastify({
   },
 });
 
-fastify.register(fastifyCors, {
+fastifyServer.register(fastifyCors, {
   maxAge: 86400,
 });
-fastify.register(fastifySensible);
+fastifyServer.register(fastifySensible);
 
-fastify.get('/', (_, reply) => {
+fastifyServer.get('/', (_, reply) => {
   reply.redirect('/documentation');
 });
 
-fastify.register(fastifySwagger, {
+fastifyServer.register(fastifySwagger, {
   swagger: {
     info: {
       title: 'Search a copy of pubchem database',
@@ -50,28 +50,29 @@ fastify.register(fastifySwagger, {
   exposeRoute: true,
 });
 
-fastify.register(fastifyStatic, {
+fastifyServer.register(fastifyStatic, {
   root: join(__dirname, 'public'),
   prefix: '/public/', // optional: default '/'
 });
 
-fastify.addHook('onRegister', (instance, opts) => {
+fastifyServer.addHook('onRegister', (instance) => {
+  // eslint-disable-next-line no-console
   console.log(instance.getSchema());
 });
 
-fastify.register(v1);
+fastifyServer.register(v1);
 
-await fastify.ready();
-fastify.swagger();
+await fastifyServer.ready();
+fastifyServer.swagger();
 
-fastify.listen(
+fastifyServer.listen(
   {
     port: process.env.PORT ? Number(process.env.PORT) : 11015,
     host: '0.0.0.0',
   },
   (err) => {
     if (err) {
-      fastify.log.error(err);
+      fastifyServer.log.error(err);
       process.exit(1);
     }
   },
