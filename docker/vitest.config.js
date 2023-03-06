@@ -15,6 +15,7 @@ export default defineConfig({
           const regexCompounds = /syncCompounds/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
+          const regexActiveAgainst = /aggregageActiveAgainst/i;
           const sortedFiles = files.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
@@ -34,6 +35,16 @@ export default defineConfig({
               return -1;
             }
 
+            return 0;
+          });
+          sortedFiles.sort((a, b) => {
+            // regexActiveAgainst should be the last (github actions executes one by one)
+            if (regexActiveAgainst.test(a) && !regexActiveAgainst.test(b)) {
+              return 1;
+            }
+            if (!regexActiveAgainst.test(a) && regexActiveAgainst.test(b)) {
+              return -1;
+            }
             return 0;
           });
 
