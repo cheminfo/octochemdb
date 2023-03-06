@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import StreamZip from 'node-stream-zip';
 
 async function readStreamInZipFolder(fileToRead) {
