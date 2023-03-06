@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { fileListFromPath } from 'filelist-utils';
+import { fileCollectionFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
 import getFile from '../../../../../sync/http/utils/getFile.js';
@@ -17,15 +17,15 @@ async function syncUspFolder(source, destinationFolder, year) {
   // get the list of files to import
   const files = await getFilesListUsp(source, year);
   // get last file downloaded
-  const lastFilesDownloaded = fileListFromPath(destinationFolder).sort(
-    (a, b) => {
-      a.path = a.webkitRelativePath;
-      b.path = b.webkitRelativePath;
-      if (a.path < b.path) return -1;
-      if (a.path > b.path) return 1;
-      return 0;
-    },
-  );
+  const lastFilesDownloaded = (
+    await fileCollectionFromPath(destinationFolder)
+  ).files.sort((a, b) => {
+    a.path = a.relativePath;
+    b.path = b.relativePath;
+    if (a.path < b.path) return -1;
+    if (a.path > b.path) return 1;
+    return 0;
+  });
 
   // download the files
   const filesToDownload = files
