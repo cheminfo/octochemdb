@@ -4,7 +4,7 @@ import { test, expect } from 'vitest';
 import getFileIfNew from '../getFileIfNew';
 
 test('getFileIfNew', async () => {
-  const destination = '../docker/src/sync/http/utils/__tests__/data/';
+  const destination = '../docker/src/sync/http/utils/__tests__/';
   const fileName = 'testResult';
   const extension = 'txt';
   const options = {

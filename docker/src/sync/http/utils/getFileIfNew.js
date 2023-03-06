@@ -33,7 +33,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
   try {
     const controller = new AbortController();
     setTimeout(() => controller.abort(), 1800 * 1000);
-    mkdirpSync(targetFolder);
+    if (process.env.NODE_ENV !== 'test') {
+      mkdirpSync(targetFolder);
+    }
     const response = await fetch(file.url, { signal: controller.signal });
 
     if (response.status !== 200) {
@@ -67,17 +69,23 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     } else {
       lastFilesSize = 0;
     }
+
     if (lastFilesSize !== newFileSize) {
       let modificationDate = new Date(lastMofidied[1])
         .toISOString()
         .substring(0, 10);
       debug(`Last modification date: ${modificationDate}`);
+      // in case of test we do not want to write to disk
+      if (process.env.NODE_ENV === 'test') {
+        return `${filename}.${modificationDate}.${extension}`;
+      }
       if (
         !existsSync(join(targetFolder, 'old', modificationDate)) &&
         process.env.NODE_ENV !== 'test'
       ) {
         mkdirpSync(join(targetFolder, 'old', modificationDate));
       }
+
       fileList.forEach((file) => {
         renameSync(
           file.relativePath,
@@ -97,6 +105,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       );
       const body = response.body;
       const encoding = body._readableState.defaultEncoding;
+
       const writeStream = createWriteStream(targetFile, encoding);
       for await (let part of body) {
         writeStream.write(part);
