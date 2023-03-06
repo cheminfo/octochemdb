@@ -1,6 +1,6 @@
 import { join } from 'path';
 
-import { fileListFromPath } from 'filelist-utils';
+import { fileCollectionFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
 import debugLibrary from '../../../utils/Debug.js';
@@ -22,11 +22,13 @@ async function syncFolder(source, destinationFolder, options = {}) {
 
   if (limit) allFiles = allFiles.slice(0, limit);
   const newFiles = [];
-  let fileList = fileListFromPath(destinationFolder).sort((a, b) => {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-  });
+  let fileList = (await fileCollectionFromPath(destinationFolder)).files.sort(
+    (a, b) => {
+      if (a < b) return -1;
+      if (a > b) return 1;
+      return 0;
+    },
+  );
   let lastFileImported = fileList.slice(-1)[0];
   let skipping = false;
   if (lastFileImported) {
