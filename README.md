@@ -1,4 +1,4 @@
-# Docker PubChem
+# OctoChemDB
 
 [![DOI](https://www.zenodo.org/badge/134719303.svg)](https://www.zenodo.org/badge/latestdoi/134719303)
 ![](https://user-images.githubusercontent.com/92425679/216966923-1ce0ddc0-ee39-44cf-9727-85c907922c6b.png)
@@ -14,7 +14,7 @@ By default the server will rebuild the full database. This process will take sev
 
 ### <ins>Attention:</ins>
 
-This project depends on [ocl-cache-docker](https://github.com/cheminfo/ocl-cache-docker), please be sure to build it before start using Docker PubChem.
+This project depends on [ocl-cache-docker](https://github.com/cheminfo/ocl-cache-docker), please be sure to build it before start using OctoChemDB.
 
 ## API
 
