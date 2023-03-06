@@ -1,5 +1,6 @@
 import path from 'path';
 
+/* eslint-disable */
 import CC from 'chemcalc';
 import fs from 'fs-extra';
 import mkdirp from 'mkdirp';

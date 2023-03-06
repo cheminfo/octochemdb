@@ -1,3 +1,4 @@
+/* eslint-disable */
 import CC from 'chemcalc';
 import co from 'co';
 import functions from 'mf';

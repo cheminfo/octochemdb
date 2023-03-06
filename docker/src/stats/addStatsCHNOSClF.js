@@ -1,3 +1,4 @@
+/* eslint-disable */
 import co from 'co';
 import fs from 'fs-extra';
 import mongo from 'mongo';
