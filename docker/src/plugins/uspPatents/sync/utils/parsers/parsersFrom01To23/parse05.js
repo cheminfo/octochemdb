@@ -8,30 +8,25 @@
     2015,2016,2017,2018,2019,2020,2021 XML Version 4.4 ICE
     2022 XML Version 4.5 or 4.6 ICE
     */
-export function parseUsp2001To2004(entry) {
+export function parse05(entry) {
   let usp = {};
-  // Get document reference id
-  const docRef = entry['subdoc-bibliographic-information']['document-id'];
-  usp.id = `US-${docRef['doc-number']}-${docRef['kind-code']}`;
-  usp.pubchemPatentId = `US${docRef['doc-number']}${docRef['kind-code']}`;
+  const documentReference =
+    entry['us-bibliographic-data-application']['publication-reference'];
+  usp.id = `${documentReference['document-id'].country}-${documentReference['document-id']['doc-number']}-${documentReference['document-id'].kind}`;
+  usp.pubchemPatentId = `${documentReference['document-id'].country}${documentReference['document-id']['doc-number']}${documentReference['document-id'].kind}`;
   usp.title =
-    entry['subdoc-bibliographic-information']['technical-information'][
-      'title-of-invention'
-    ];
-  usp.abstract = entry['subdoc-abstract'].paragraph['#text'];
-  usp.applicationType =
-    entry['subdoc-bibliographic-information']['publication-filing-type'];
-  usp.dateProduced =
-    entry['subdoc-bibliographic-information']['domestic-filing-data'][
-      'filing-date'
-    ];
-  usp.datePublished =
-    entry['subdoc-bibliographic-information']['document-id']['document-date'];
+    entry['us-bibliographic-data-application']['invention-title']['#text'];
+  usp.abstract = entry.abstract.p['#text'];
+  usp.patentNumber = documentReference['document-id']['doc-number'];
 
+  usp.dateProduced = entry['$date-produced'];
+  usp.datePublished = entry['$date-publ'];
+  // define final result
   let results = {
     _id: usp.id,
     data: {},
   };
+
   if (usp.title) {
     results.data.title = usp.title;
   }
@@ -45,9 +40,7 @@ export function parseUsp2001To2004(entry) {
   if (usp.datePublished) {
     results.data.datePublished = usp.datePublished;
   }
-  if (usp.applicationType) {
-    results.data.applicationType = usp.applicationType;
-  }
+
   if (usp.patentNumber) {
     results.data.patentNumber = usp.patentNumber;
   }

@@ -8,17 +8,15 @@
     2015,2016,2017,2018,2019,2020,2021 XML Version 4.4 ICE
     2022 XML Version 4.5 or 4.6 ICE
     */
-export function parseUsp2006(entry) {
+export function parse06(entry) {
   let usp = {};
   const documentReference = entry['subdoc-bibliographic-information'];
   usp.id = `US-${documentReference['document-id']['doc-number']}-${documentReference['document-id']['kind-code']}`;
   usp.pubchemPatentId = `US${documentReference['document-id']['doc-number']}${documentReference['document-id']['kind-code']}`;
-  usp.title = documentReference['title-of-invention'];
+  usp.title = documentReference['technical-information']['title-of-invention'];
   usp.abstract = entry['subdoc-abstract'].paragraph['#text'];
-
   usp.dateProduced = documentReference['domestic-filing-data']['filing-date'];
   usp.datePublished = documentReference['document-id']['document-date'];
-  usp.country = documentReference['document-id']['country-code'];
   usp.patentNumber = documentReference['document-id']['doc-number'];
   // define final result
   let results = {
@@ -31,13 +29,6 @@ export function parseUsp2006(entry) {
   }
   if (usp.abstract) {
     results.data.abstract = usp.abstract;
-  }
-  if (usp.status) {
-    results.data.status = usp.status;
-  }
-
-  if (usp.country) {
-    results.data.country = usp.country;
   }
 
   if (usp.dateProduced) {

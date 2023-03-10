@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE us-patent-application SYSTEM "us-patent-application-v42-2006-08-23.dtd" [ ]>
+<us-patent-application lang="EN" dtd-version="v4.2 2006-08-23" file="US20090019612A1-20090122.XML" status="PRODUCTION" id="us-patent-application" country="US" date-produced="20090107" date-publ="20090122">
+<us-bibliographic-data-application lang="EN" country="US">
+<publication-reference>
+<document-id>
+<country>US</country>
+<doc-number>20090019612</doc-number>
+<kind>A1</kind>
+<date>20090122</date>
+</document-id>
+</publication-reference>
+<application-reference appl-type="utility">
+<document-id>
+<country>US</country>
+<doc-number>11778340</doc-number>
+<date>20070716</date>
+</document-id>
+</application-reference>
+<us-application-series-code>11</us-application-series-code>
+<classifications-ipcr>
+<classification-ipcr>
+<ipc-version-indicator><date>20060101</date></ipc-version-indicator>
+<classification-level>A</classification-level>
+<section>F</section>
+<class>41</class>
+<subclass>H</subclass>
+<main-group>1</main-group>
+<subgroup>02</subgroup>
+<symbol-position>F</symbol-position>
+<classification-value>I</classification-value>
+<action-date><date>20090122</date></action-date>
+<generating-office><country>US</country></generating-office>
+<classification-status>B</classification-status>
+<classification-data-source>H</classification-data-source>
+</classification-ipcr>
+</classifications-ipcr>
+<classification-national>
+<country>US</country>
+<main-classification>  2  25</main-classification>
+</classification-national>
+<invention-title id="d0e43">CUT, SLASH AND/OR ABRASION RESISTANT PROTECTIVE FABRIC AND LIGHTWEIGHT SHAPED KNIT GARMENT MADE THEREFROM</invention-title>
+<parties>
+<applicants>
+<applicant sequence="00" app-type="applicant-inventor" designation="us-only">
+<addressbook>
+<last-name>Schulein</last-name>
+<first-name>Walter Gordon</first-name>
+<address>
+<city>Little Egg Harbor</city>
+<state>NJ</state>
+<country>US</country>
+</address>
+</addressbook>
+<nationality>
+<country>omitted</country>
+</nationality>
+<residence>
+<country>US</country>
+</residence>
+</applicant>
+<applicant sequence="01" app-type="applicant-inventor" designation="us-only">
+<addressbook>
+<last-name>Kolmes</last-name>
+<first-name>Nathaniel H.</first-name>
+<address>
+<city>Hickory</city>
+<state>NC</state>
+<country>US</country>
+</address>
+</addressbook>
+<nationality>
+<country>omitted</country>
+</nationality>
+<residence>
+<country>US</country>
+</residence>
+</applicant>
+<applicant sequence="02" app-type="applicant-inventor" designation="us-only">
+<addressbook>
+<last-name>Driver</last-name>
+<first-name>Fred Elton</first-name>
+<address>
+<city>Ronda</city>
+<state>NC</state>
+<country>US</country>
+</address>
+</addressbook>
+<nationality>
+<country>omitted</country>
+</nationality>
+<residence>
+<country>US</country>
+</residence>
+</applicant>
+</applicants>
+<correspondence-address>
+<addressbook>
+<name>OBLON, SPIVAK, MCCLELLAND MAIER &#x26; NEUSTADT, P.C.</name>
+<address>
+<address-1>1940 DUKE STREET</address-1>
+<city>ALEXANDRIA</city>
+<state>VA</state>
+<postcode>22314</postcode>
+<country>US</country>
+</address>
+</addressbook>
+</correspondence-address>
+</parties>
+<assignees>
+<assignee>
+<addressbook>
+<orgname>Supreme Elastic Corporation</orgname>
+<role>02</role>
+<address>
+<city>Conover</city>
+<state>NC</state>
+<country>US</country>
+</address>
+</addressbook>
+</assignee>
+</assignees>
+</us-bibliographic-data-application>
+<abstract id="abstract">
+<p id="p-0001" num="0000">A cut, slash and/or abrasion resistant shaped knit garment having both high cut resistance and preferably light fabric weight, a cut resistance of at least 1500 (as measured by ASTM-F1790-2005) and preferably a fabric weight of no more than 27.9 ounces/square yard (OPSY).</p>
+</abstract>
+<drawings id="DRAWINGS">
+<figure id="Fig-EMI-D00000" num="00000">
+<img id="EMI-D00000" he="106.51mm" wi="141.90mm" file="US20090019612A1-20090122-D00000.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00001" num="00001">
+<img id="EMI-D00001" he="134.87mm" wi="157.56mm" file="US20090019612A1-20090122-D00001.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00002" num="00002">
+<img id="EMI-D00002" he="153.42mm" wi="59.69mm" file="US20090019612A1-20090122-D00002.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00003" num="00003">
+<img id="EMI-D00003" he="124.12mm" wi="97.11mm" file="US20090019612A1-20090122-D00003.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+</drawings>
+<description id="description">
+<?summary-of-invention description="Summary of Invention" end="lead"?>
+<heading id="h-0001" level="1">BACKGROUND OF THE INVENTION</heading>
+<p id="p-0002" num="0001">1. Field of the Invention</p>
+<p id="p-0003" num="0002">The present invention relates to a lightweight protective fabric that is cut, slash and/or abrasion resistant, and garments made therefrom.</p>
+<p id="p-0004" num="0003">2. Discussion of the Background</p>
+<p id="p-0005" num="0004">In many industries and professions there is a need for protective wear that is cut and/or abrasion resistant, yet lightweight and comfortable for the wearer. From maintenance workers crawling through HVAC ventilation shafts to weekend warriors participating in various sporting events, many individuals need protection from cuts and scrapes as they go about their daily activities.</p>
+<p id="p-0006" num="0005">Typical examples of previous garments and modular systems are disclosed in U.S. Publication No. 2004/0199983 to Gillen; U.S. Pat. No. 6,892,392 to Crye; U.S. Pat. No. 6,698,024 to Graves; U.S. Pat. No. 6,263,509 to Bowen; U.S. Pat. No. 6,185,745 to Alger; U.S. Pat. No. 6,182,288 to Kibbee; U.S. Pat. No. 6,158,056 to Riley; U.S. Pat. No. 6,029,270 to Ost; U.S. Pat. No. 5,894,600 to Chenefront; U.S. Pat. No. 5,754,982 to Gainer; U.S. Pat. No. 5,718,000 to Ost; U.S. Pat. No. 5,717,999 to Lurry; U.S. Pat. No. 5,673,836 to Bush; U.S. Pat. No. 5,584,737 to Luhtala; U.S. Pat. No. 5,495,621 to Kibbee; U.S. Pat. No. 5,072,453 to Widder; U.S. Pat. No. 5,060,314 to Lewis; U.S. Pat. No. 4,497,069 to Braunhut; and U.S. Pat. No. 4,467,476 to Herbert, the disclosures of which are incorporated by reference herein in their entirety.</p>
+<p id="p-0007" num="0006">One industry where such protection is particularly important is the glass industry, where workers are subjected to frequent exposure to sharp edges of glass, either from large float glass panes to smaller glass panes, or from broken edges in the case of a mishap.</p>
+<p id="p-0008" num="0007">However, these and other known such garments suffer from numerous disadvantages. The garments are often unable to provide a satisfactory level of protection to a wearer of the garment, are easily damaged, are unwieldy and uncomfortable to the wearer, do not permit airflow therethrough, do not permit the escape of excess water vapor from the skin of the wearer, and often require the use of specialized over- or undergarments. Most of the modular systems in these patents require a central vest portion to be present in order to attach the other parts of the system.</p>
+<p id="p-0009" num="0008">Previous protective wear in the glass industry suffers from a variety of drawbacks, such as insufficient coverage of the wearer, the presence of metal grommets or other attachment devices which can scratch the surfaces of softer glass, inability to stretch in all directions, and often insufficient cut resistance or weak spots in the areas of seams.</p>
+<p id="p-0010" num="0009">An additional difficulty in preparing cut, slash and abrasion resistant fabrics and garments, is that in order to achieve sufficient cut and slash protection using high-performance fibers, the garments typically end up being too bulky, too heavy, and are difficult to put together, as the fabric cannot be readily cut to necessary size and shape without taking a high toll on the cutting apparatus.</p>
+<p id="p-0011" num="0010">Thus there is a need for a fabric that is cut, slash and/or abrasion resistant, and breathable while remaining lightweight. There is also a need for a method for preparing garments or coverings from such fabrics and the garments and coverings made therefrom. There is particularly a need in the glass industry for a protective garment that is lightweight, provides improved cut and/or abrasion resistance and covers particularly the vulnerable areas of the upper body of the worker.</p>
+<heading id="h-0002" level="1">SUMMARY OF THE INVENTION</heading>
+<p id="p-0012" num="0011">It is an object of the present invention to overcome these or other disadvantages of known cut, slash and/or abrasion resistant fabrics.</p>
+<p id="p-0013" num="0012">It is a further object of the present invention to provide a method to prepare a cut, slash and/or abrasion resistant garment or covering that is able to provide a satisfactory level of cut, slash and/or abrasion resistance protection to the wearer, able to resist damage, is light-weight, comfortable, able to permit airflow therethrough, and able to permit the escape of excess water vapor from the skin of the wearer.</p>
+<p id="p-0014" num="0013">These and other objects of the present invention can be provided by a shaped knit garment, wherein the entire garment comprises at least one cut, slash and/or abrasion resistant yarn, wherein the shaped knit fabric panel has a cut resistance of at least 1500 (as measured by ASTM-F1790-2005) and preferably a fabric weight of no more than 27.9 ounces/square yard (OPSY), wherein the garment is prepared using one or more shaped knit fabric panels which are joined using one or more cut, slash and/or abrasion resistant composite yarns, to provide the seams with the same cut, slash and/or abrasion resistance as the shaped knit fabric panels of the garment.</p>
+<?summary-of-invention description="Summary of Invention" end="tail"?>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="lead"?>
+<description-of-drawings>
+<heading id="h-0003" level="1">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+<p id="p-0015" num="0014">A more complete appreciation of the present invention, and many of the attendant advantages thereof, will be readily ascertained and obtained as the same becomes better understood by reference to the following detailed description when considered in connection with the accompanying drawings, wherein:</p>
+<p id="p-0016" num="0015"><figref idref="DRAWINGS">FIG. 1</figref> is an exemplary embodiment of a sweater according to the present invention.</p>
+<p id="p-0017" num="0016"><figref idref="DRAWINGS">FIGS. 2A-2C</figref> show shaped knit fabric panels according to a preferred embodiment of the present invention, as would be used to assemble a sweater according to <figref idref="DRAWINGS">FIG. 1</figref>.</p>
+</description-of-drawings>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="tail"?>
+<?detailed-description description="Detailed Description" end="lead"?>
+<heading id="h-0004" level="1">DETAILED DESCRIPTION OF THE INVENTION</heading>
+<p id="p-0018" num="0017">The term &#x201c;fiber&#x201d; as used herein refers to a fundamental component used in the assembly of yarns and fabrics. Generally, a fiber is a component which has a length dimension which is much greater than its diameter or width. This term includes ribbon, strip, staple, and other forms of chopped, cut or discontinuous fiber and the like having a regular or irregular cross section. &#x201c;Fiber&#x201d; also includes a plurality of any one of the above or a combination of the above.</p>
+<p id="p-0019" num="0018">As used herein, the term &#x201c;high performance fiber&#x201d; means that class of synthetic or natural non-glass fibers having high values of tenacity greater than 10 g/denier, such that they lend themselves for applications where high abrasion and/or cut resistance is important. Typically, high performance fibers have a very high degree of molecular orientation and crystallinity in the final fiber structure. An example of such would be high molecular weight polyethylene (HMWPE) or extended chain polyolefins.</p>
+<p id="p-0020" num="0019">The term &#x201c;filament&#x201d; as used herein refers to a fiber of indefinite or extreme length such as found naturally in silk. This term also refers to manufactured fibers produced by, among other things, extrusion processes. Individual filaments making up a fiber may have any one of a variety of cross sections to include round, serrated or crenular, bean-shaped or others.</p>
+<p id="p-0021" num="0020">The term &#x201c;yarn&#x201d; as used herein refers to a continuous strand of textile fibers, filaments or material in a form suitable for knitting, weaving, or otherwise intertwining to form a textile fabric. Yarn can occur in a variety of forms to include a spun yarn consisting of staple fibers usually bound together by twist; a multi filament yarn consisting of many continuous filaments or strands; or a mono filament yarn which consist of a single strand.</p>
+<p id="p-0022" num="0021">The term &#x201c;composite yarn&#x201d; (or &#x201c;engineered yarn&#x201d;) refers to a yarn prepared from two or more yarns (or &#x201c;ends&#x201d;), which can be the same or different. Composite yarn can occur in a variety of forms wherein the two or more ends are in differing orientations relative to one another, so long as the final composite yarn containing the two or more ends is stably assembled (i.e. will remain intact unless forcibly separated or disassembled). The two or more ends can, for example, be parallel, wrapped one around the other(s), twisted together, or combinations of any or all of these, as well as other orientations, depending on the properties of the composite yarn desired. Suitable composite yarns, which may be formed into fabric by any desired process, preferably knit or woven into the fabric, include, but are not limited to, those as described in U.S. Pat. No. 4,777,789, U.S. Pat. No. 4,838,017, U.S. Pat. No. 4,936,085, U.S. Pat. No. 5,177,948, U.S. Pat. No. 5,628,172, U.S. Pat. No. 5,632,137, U.S. Pat. No. 5,644,907, U.S. Pat. No. 5,655,358, U.S. Pat. No. 5,845,476, U.S. Pat. No. 6,212,914, U.S. Pat. No. 6,230,524, U.S. Pat. No. 6,341,483, U.S. Pat. No. 6,349,531, U.S. Pat. No. 6,363,703, U.S. Pat. No. 6,367,290, and U.S. Pat. No. 6,381,940, each to Kolmes, the contents of each of which are hereby incorporated by reference. Another term by which composite yarns are known is &#x201c;engineered yarn&#x201d;.</p>
+<p id="p-0023" num="0022">The present invention relates to a shaped knit protective garment having a cut resistance of at least 1500, according to the ASTM-F1790-2005.</p>
+<p id="p-0024" num="0023">The shaped knit protective garment of the present invention comprises sufficient cut, slash and/or abrasion resistant yarn to provide the fabric with the necessary level of cut resistance, such that the fabric has a cut resistance of at least 1500 as measured by ASTM-F1790-2005, the entire contents of which are hereby incorporated by reference. These cut, slash and/or abrasion resistant yarns can be any high performance yarn, a composite yarn, a yarn blend comprising one or more high performance or composite yarns, etc. Preferably, the cut, slash and/or abrasion resistant yarns comprise one or more yarns selected from polyolefins (such as ultra high molecular weight polyethylene or extended chain polyolefin), aramids, continuous filament glass fiber, filament stainless steel, and flat or spun synthetic thermoplastic yarns, such as polyester or nylon. The garment preferably has a cut resistance of from 1500 to 6200, more preferably from 2000 to 6200, most preferably having a cut resistance in the area of the cuffs of 2500 to 6200. The garment preferably is a jacket and most preferably is made from 100% of one or more cut, slash and/or abrasion resistant yarns, including the yarns making up the shaped knit panels, as well as including the yarn with which the panels are joined together (i.e. all yarns used in construction of the garment are cut, slash and/or abrasion resistant). In this preferred embodiment, the only portion of the jacket that would not be made of the one or more cut, slash and/or abrasion resistant yarns is the zipper on the front (or back) of the jacket, which is preferably a plastic zipper that is fully hidden during manufacturing and use. It can not damage glass products, and stops short of the top of the neck to avoid pinching.</p>
+<p id="p-0025" num="0024">In addition, the knitting of the garment may be performed, if desired, by plaiting the yarns during knitting. Within the context of the present invention, the term &#x201c;plaiting&#x201d; is given its normal meaning within the art, namely &#x201c;plaiting&#x201d; applies to knitting two different yarns simultaneously in the same row of stitches, such that one of the yarns covers the other.</p>
+<p id="p-0026" num="0025">In a less preferred embodiment, the garment may contain one or more cut, slash and/or abrasion resistant yarns, either alone or in combination with any other natural or synthetic fiber. Such natural or synthetic fibers include, but are not limited to, cotton, wool, nylon, polyester, rayon, cellulose acetate, etc. and in conjunction with using Lycra or Spandex for improved characteristics.</p>
+<p id="p-0027" num="0026">The fabric of the present invention further has a fabric weight that is sufficiently lightweight to be practical for wearing, having a fabric weight of no more than 27.9 ounces/square yard (OPSY), preferably a fabric weight of from 7 to 27.9 OPSY, more preferably from 8 to 20 OPSY, most preferably from 8 to 17 OPSY.</p>
+<p id="p-0028" num="0027">The protective garments of the present invention are made from the protective fabric and can be any form of garment, including, but not limited to, shirts (including tee-shirts, and with or without sleeves), socks, sweaters, jackets, vests, undergarments (including, but not limited to, pantyhose), pants, jumpsuits, dickeys, head coverings, and sleeves. For high risk industries, the protective garment is preferably a sweater or jacket. The sweater or jacket can be entirely a shaped knit garment, having no zipper or other connective device, or can have a connective device such as a zipper, or hook and loop connectors (such as VELCRO-type closures). When a zipper is present, it is preferred that the zipper is made of a material, such as plastic, that will not damage the products being handled in the industry, such as glass. The protective garment of the present invention can provide one or more of the following advantages, including the prevention or reduction of injury to the wearer, resistance to damage, and light-weight construction. In a preferred embodiment of the invention, the protective garment comprises a fabric made entirely from cut, slash and/or abrasion resistant composite yarns. The garments are made according to any known method useful for preparing garments from fabrics. Preferably, the garments are made by shaped knitting during preparation of the fabric. Shaped knitting is a process by which the various panels of a garment are formed directly in the shape needed for assembly, during the knitting process. This is preferred for the present invention, since the fabrics of the present invention have cut and slash resistance and are therefore extremely difficult to cut using conventional fabric cutting means. While it is possible to cut the fabric, the cutting process is very hard on the cutting surfaces, significantly reducing the interval between servicing of the cutting equipment, and thus increasing the cost of operations. Accordingly, shaped knitting is preferably used to prepare the panels of fabric which are assembled to prepare the present invention garments. These panels are then linked together to form the garment. Many types of seam construction can be used to attach panels to one another. Since these panels have been shaped during their construction, linking, looping of collars or cup seaming are the most preferred, due to the higher comfort provided by the seam against the wearer's skin as well as strength. The Knit Construction may be in various Gauges such as 3, 4, 5, 6, 7, 8, 10, 12, 13, 14, 16, and 18 gauges wherein within the context of the present invention, the term &#x201c;gauge&#x201d; means needles per inch on the specific machine on which the pieces are knit. By way of example, 18 Gauge would normally make a fine textured piece, whereas a 3 gauge piece would normally be of a coarser texture.</p>
+<p id="p-0029" num="0028">In a preferred embodiment, the fabric is prepared into a garment or other type of covering that is seamless. Such garments or coverings can be prepared using a knitting machine such as the &#x201c;WholeGarment&#x201d; machine sold by Shima Seiki of Japan, or the Knit-To-Wear machinery of Stoll Gmbh. of Germany. These garments could have any desired construction, but would typically be substantially tubular knit in construction, although the tubular construction could have apertures through which appendages could protrude when wearing the garment.</p>
+<p id="p-0030" num="0029">The preferred jacket or sweater garment of the present invention provides the following advantages, among others:
+<ul id="ul0001" list-style="none">
+    <li id="ul0001-0001" num="0000">
+    <ul id="ul0002" list-style="none">
+        <li id="ul0002-0001" num="0030">1) As a knit, the garment can stretch in every direction providing superior comfort and closer fit than any woven fabric, which stretches only on the bias, can offer.</li>
+        <li id="ul0002-0002" num="0031">2) The jacket has greater cut resistance than protection currently being used in the glass industry. The body of the garment has a cut test result of 2173.9 and the most preferred reinforced extended preferably 9&#x2033;) cuff has an (ASTM 1790-2005) cut test of 2761.6&#x2014;a high level 4. A woven aramid jacket tested using the same methods provides a typical cut test result of only 1120.3.</li>
+        <li id="ul0002-0003" num="0032">3) The extra yarn in the most preferred extended cuff eliminates the need for additional guarding in the wrist area and it is not removable for safety.</li>
+        <li id="ul0002-0004" num="0033">4) In the application tested, the life expectancy of a woven aramid jacket was approximately (3) months. The garment of the present invention has shown a life expectancy exceeding 8 months or more, with typically only minor damage to the lower front waist area.</li>
+        <li id="ul0002-0005" num="0034">5) Flexing the arm of a conventional aramid jacket can expose an area of the wrist between the lower cuff of the jacket and the cuff of a glove. The preferred jacket of the present invention has an elastic loop fixed into the inside of the cuff to be placed over the thumb holding the cuff in position and eliminating this potentially hazardous situation.</li>
+        <li id="ul0002-0006" num="0035">6) The present invention preferred jacket has no metal grommets for extra protection, or breath-ability. The use of the shaped knit fabric in constructing the present invention preferred garment permits the fabric to breathe well and does not need this extra protection.</li>
+        <li id="ul0002-0007" num="0036">7) Grommets can scratch soft glass surfaces. The most preferred jacket embodiment of the present invention has a comfortable full length zipper, made of plastic (not brass or other metal) that is fully hidden during manufacturing. It can not damage glass products, and preferably stops short of the top of the neck to avoid pinching.</li>
+        <li id="ul0002-0008" num="0037">8) The preferred garment of the present invention is linked together with the same (or a different) composite yarn as that from which the jacket is made. This eliminates any weak areas and is not as subject to failure.</li>
+        <li id="ul0002-0009" num="0038">9) The preferred semi-turtleneck collar (preferably 2&#x2033; in width) is most preferably a two bed full rib construction and is doubled over for extra protection and comfort.</li>
+        <li id="ul0002-0010" num="0039">10) The upper sleeves of the preferred jacket embodiment can be made in any desired color, particularly in a high visibility color such as bright orange, for high visibility to management, while the remainder of the jacket can be any desired color, preferably a muted color such as grey to hide dirt between launderings.</li>
+        <li id="ul0002-0011" num="0040">11) The garment of the present invention is washable, washable in bleach, soft, comfortable, and generally maintenance-free. It does not break down with UV light, most chemicals, salt water, or temperature extremes.</li>
+        <li id="ul0002-0012" num="0041">12) The garment of the present invention can be made in many colors, and, if desired, can be made permanently antimicrobial. This antimicrobial treatment, described in U.S. patent application Ser. No. 10/785,060, the entire contents of which are hereby incorporated by reference, can withstand up to (50) launderings and is completely safe containing no polluting heavy metals.</li>
+    </ul>
+    </li>
+</ul>
+</p>
+<p id="p-0031" num="0042">In preparing the garment of the present invention, the garment can be further modified and specialized by any one or more of the following:
+<ul id="ul0003" list-style="none">
+    <li id="ul0003-0001" num="0000">
+    <ul id="ul0004" list-style="none">
+        <li id="ul0004-0001" num="0043">1) Attaching patches of cut and/or abrasion resistant material to specific areas where necessary.</li>
+        <li id="ul0004-0002" num="0044">2) Changing the yarn in certain areas of the garment to provide different feel, look, color, etc.</li>
+        <li id="ul0004-0003" num="0045">3) Adding or removing yarn ends in any area of a garment to provide varying feel, thickness, density, etc.</li>
+        <li id="ul0004-0004" num="0046">4) Changing the physical knit stitch structure in any area of a garment to change feel, look, breathability, etc.</li>
+        <li id="ul0004-0005" num="0047">5) Changing the knitting gauge within a garment, again to alter the feel, look, density, thickness, etc.</li>
+    </ul>
+    </li>
+</ul>
+</p>
+<p id="p-0032" num="0048">Further, the yarns used in the present invention garment can be subjected to any of a variety of treatments conventional in the art, or described in the above noted &#x201c;Kolmes&#x201d; patents, such as fire retardant treatment, antimicrobial treatments, or surface coatings of the yarn or knit fabric to provide or enhance a desired property. The present invention garment can also be provided in any desired color, by dyeing the finished garment, forming the garment from previously colored yarns, or a combination thereof.</p>
+<heading id="h-0005" level="1">EXAMPLES</heading>
+<p id="p-0033" num="0049">As an example of a garment prepared according to the present invention, <figref idref="DRAWINGS">FIG. 1</figref> shows an example of a knit sweater or jacket construction. The sweater can have any desired measurements, depending on the size of the intended wearer. Such sizes and the needed measurements are well known in the art. For example, a knit sweater (<b>1</b>) as shown in <figref idref="DRAWINGS">FIG. 1</figref> would typically have a rib (<b>10</b>) around the neck opening (<b>11</b>) approximately 1 inch wide, with a front neck drop of 4-4.75 inches and a back neck drop of about 1 inch. The sleeves (<b>12</b>) would typically have a rib (<b>13</b>) at the end approximately 2.5 inches wide. The bottom of the sweater torso would likewise have a rib (<b>14</b>) of approximately 2.5 inches width. The line indicates as (<b>20</b>) represents a zipper, which may optionally be present, depending on whether the garment is a sweater (no zipper) or a jacket (with zipper).</p>
+<p id="p-0034" num="0050"><figref idref="DRAWINGS">FIGS. 2A-2C</figref> show the shaped knit fabric panels that would be used to prepare a preferred embodiment of sweater similar to that in <figref idref="DRAWINGS">FIG. 1</figref>. <figref idref="DRAWINGS">FIG. 2A</figref> shows a shaped knit panel that would be used to prepare the sleeves of a sweater such as in <figref idref="DRAWINGS">FIG. 1</figref>. The sleeve would be formed by joining the right and left edges of the shaped panel in a seam to form a substantially cylindrical sleeve that tapers from one end to the other, with the wider end then being attached to the torso panels. <figref idref="DRAWINGS">FIG. 2B</figref> shows a shaped knit panel that would be used to form a front or back panel of the sweater (with the primary difference being the amount of neck drop). A front panel and back panel would be joined together along the appropriate edges, leaving openings for the neck and sleeves and bottom opening. <figref idref="DRAWINGS">FIG. 2C</figref> shows a knit rib portion that would then be attached to the neck opening formed by joining of the front and back torso panels. The sizes and measurements of the various panels would be readily ascertainable by one of ordinary skill in the knitting and sewing arts.</p>
+<p id="p-0035" num="0051">Numerous additional modifications and variations of the present invention are possible in light of the above teachings. It is therefore to be understood that within the scope of the appended claims, the present invention may be practiced otherwise than as specifically described herein.</p>
+<?detailed-description description="Detailed Description" end="tail"?>
+</description>
+<claims id="claims">
+<claim id="CLM-00001" num="00001">
+<claim-text><b>1</b>. A shaped knit jacket, comprising:
+<claim-text>one or more fabric panels prepared from at least one cut, slash and/or abrasion resistant yarn, wherein the shaped knit jacket has a cut resistance of at least 1500 (as measured by ASTM-F1790-2005), wherein the one or more fabric panels are made by shaped knitting and form an entirety of the jacket body and arms, wherein the jacket has cuffs at an end of each arm, wherein each cuff has a loop affixed therein through which a wearer's thumb is placed to hold the cuff in position, wherein the jacket has a plastic zipper from neck to waist in front or back that is hidden from view when the jacket is worn, and wherein the jacket contains no metal grommets.</claim-text>
+</claim-text>
+</claim>
+<claim id="CLM-00002" num="00002">
+<claim-text><b>2</b>. The shaped knit jacket of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the cut resistance is from 1500 to 6200.</claim-text>
+</claim>
+<claim id="CLM-00003" num="00003">
+<claim-text><b>3</b>. The shaped knit jacket of <claim-ref idref="CLM-00002">claim 2</claim-ref>, wherein the cut resistance is from 2000 to 6200.</claim-text>
+</claim>
+<claim id="CLM-00004" num="00004">
+<claim-text><b>4</b>. The shaped knit jacket of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the fabric weight is no more than 27.9 OPSY.</claim-text>
+</claim>
+<claim id="CLM-00005" num="00005">
+<claim-text><b>5</b>. The shaped knit jacket of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the at least one cut, slash and/or abrasion resistant yarn is a high performance yarn.</claim-text>
+</claim>
+<claim id="CLM-00006" num="00006">
+<claim-text><b>6</b>. The shaped knit jacket of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the at least one cut, slash and/or abrasion resistant yarn is a composite yarn.</claim-text>
+</claim>
+<claim id="CLM-007-8" num="007-8">
+<claim-text><b>7</b>-<b>8</b>. (canceled)</claim-text>
+</claim>
+<claim id="CLM-00009" num="00009">
+<claim-text><b>9</b>. The shaped knit jacket of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein all yarns used in construction of the garment are cut, slash and/or abrasion resistant yarns.</claim-text>
+</claim>
+<claim id="CLM-10-13" num="10-13">
+<claim-text><b>10</b>-<b>13</b>. (canceled)</claim-text>
+</claim>
+</claims>
+</us-patent-application>

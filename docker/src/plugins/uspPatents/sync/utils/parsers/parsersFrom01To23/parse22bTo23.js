@@ -8,24 +8,20 @@
     2015,2016,2017,2018,2019,2020,2021 XML Version 4.4 ICE
     2022 XML Version 4.5 or 4.6 ICE
     */
-export function parseUsp2005(entry) {
+export function parse22bTo23(entry) {
   let usp = {};
-  const documentReference =
-    entry['us-bibliographic-data-application']['publication-reference'];
-  usp.id = `${documentReference['document-id'].country}-${documentReference['document-id']['doc-number']}-${documentReference['document-id'].kind}`;
-  usp.pubchemPatentId = `${documentReference['document-id'].country}${documentReference['document-id']['doc-number']}${documentReference['document-id'].kind}`;
-  usp.title =
-    entry['us-bibliographic-data-application']['invention-title']['#text'];
+
+  let documentReference = entry['us-bibliographic-data-application'];
+  usp.id = `US-${documentReference['publication-reference']['document-id']['doc-number']}-${documentReference['publication-reference']['document-id'].kind}`;
+  usp.pubchemPatentId = `US${documentReference['publication-reference']['document-id']['doc-number']}${documentReference['publication-reference']['document-id'].kind}`;
+  usp.title = documentReference['invention-title']['#text'];
+
   usp.abstract = entry.abstract.p['#text'];
-  usp.applicationType =
-    entry['us-bibliographic-data-application']['application-reference'][
-      '$appl-type'
-    ];
   usp.dateProduced = entry['$date-produced'];
   usp.datePublished = entry['$date-publ'];
-  usp.country = entry.$country;
-  usp.status = entry.$status;
-  usp.language = entry.$lang;
+
+  usp.patentNumber =
+    documentReference['publication-reference']['document-id']['doc-number'];
   // define final result
   let results = {
     _id: usp.id,
@@ -38,25 +34,14 @@ export function parseUsp2005(entry) {
   if (usp.abstract) {
     results.data.abstract = usp.abstract;
   }
-  if (usp.status) {
-    results.data.status = usp.status;
-  }
 
-  if (usp.country) {
-    results.data.country = usp.country;
-  }
-  if (usp.language) {
-    results.data.language = usp.language;
-  }
   if (usp.dateProduced) {
     results.data.dateProduced = usp.dateProduced;
   }
   if (usp.datePublished) {
     results.data.datePublished = usp.datePublished;
   }
-  if (usp.applicationType) {
-    results.data.applicationType = usp.applicationType;
-  }
+
   if (usp.patentNumber) {
     results.data.patentNumber = usp.patentNumber;
   }

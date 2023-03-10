@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE us-patent-application SYSTEM "us-patent-application-v42-2006-08-23.dtd" [ ]>
+<us-patent-application lang="EN" dtd-version="v4.2 2006-08-23" file="US20080016600A1-20080124.XML" status="PRODUCTION" id="us-patent-application" country="US" date-produced="20080109" date-publ="20080124">
+<us-bibliographic-data-application lang="EN" country="US">
+<publication-reference>
+<document-id>
+<country>US</country>
+<doc-number>20080016600</doc-number>
+<kind>A1</kind>
+<date>20080124</date>
+</document-id>
+</publication-reference>
+<application-reference appl-type="utility">
+<document-id>
+<country>US</country>
+<doc-number>11832366</doc-number>
+<date>20070801</date>
+</document-id>
+</application-reference>
+<us-application-series-code>11</us-application-series-code>
+<classifications-ipcr>
+<classification-ipcr>
+<ipc-version-indicator><date>20060101</date></ipc-version-indicator>
+<classification-level>A</classification-level>
+<section>A</section>
+<class>61</class>
+<subclass>F</subclass>
+<main-group>9</main-group>
+<subgroup>00</subgroup>
+<symbol-position>F</symbol-position>
+<classification-value>I</classification-value>
+<action-date><date>20080124</date></action-date>
+<generating-office><country>US</country></generating-office>
+<classification-status>B</classification-status>
+<classification-data-source>H</classification-data-source>
+</classification-ipcr>
+</classifications-ipcr>
+<classification-national>
+<country>US</country>
+<main-classification>002015000</main-classification>
+</classification-national>
+<invention-title id="d0e102">Protective Eyewear</invention-title>
+<us-related-documents>
+<division>
+<relation>
+<parent-doc>
+<document-id>
+<country>US</country>
+<doc-number>11001139</doc-number>
+<date>20041202</date>
+</document-id>
+<parent-status>GRANTED</parent-status>
+<parent-grant-document>
+<document-id>
+<country>US</country>
+<doc-number>7260854</doc-number>
+</document-id>
+</parent-grant-document>
+</parent-doc>
+<child-doc>
+<document-id>
+<country>US</country>
+<doc-number>11832366</doc-number>
+<kind>A1</kind>
+<date>20070801</date>
+</document-id>
+</child-doc>
+</relation>
+</division>
+</us-related-documents>
+<parties>
+<applicants>
+<applicant sequence="00" app-type="applicant-inventor" designation="us-only">
+<addressbook>
+<last-name>Hahn</last-name>
+<first-name>Helen</first-name>
+<middle-name>M.</middle-name>
+<address>
+<city>Catonsville</city>
+<state>MD</state>
+<country>US</country>
+</address>
+</addressbook>
+<nationality>
+<country>US</country>
+</nationality>
+<residence>
+<country>US</country>
+</residence>
+</applicant>
+<applicant sequence="01" app-type="applicant-inventor" designation="us-only">
+<addressbook>
+<last-name>Kohler</last-name>
+<first-name>Dale</first-name>
+<middle-name>W.</middle-name>
+<address>
+<city>Hunt Valley</city>
+<state>MD</state>
+<country>US</country>
+</address>
+</addressbook>
+<nationality>
+<country>US</country>
+</nationality>
+<residence>
+<country>US</country>
+</residence>
+</applicant>
+</applicants>
+<correspondence-address>
+<addressbook>
+<name>PAUL, HASTINGS, JANOFSKY &#x26; WALKER LLP</name>
+<address>
+<address-1>875 15th Street, NW</address-1>
+<city>Washington</city>
+<state>DC</state>
+<postcode>20005</postcode>
+<country>US</country>
+</address>
+</addressbook>
+</correspondence-address>
+</parties>
+<assignees>
+<assignee>
+<orgname>STX, LLC</orgname>
+<role>02</role>
+</assignee>
+</assignees>
+</us-bibliographic-data-application>
+<abstract id="abstract">
+<p id="p-0001" num="0000">A protective eyewear apparatus including a base substantially oval in shape, an upper bar connected to the base, a lower bar connected to the base, and a main support bar connected to the upper bar and the lower bar. Another embodiment includes two eyepieces attached by a flexible bridge member, in which an eyepiece comprises a base generally oval in shape and defining an opening, and an upper and lower bar spanning the opening and connected to the base. </p>
+</abstract>
+<drawings id="DRAWINGS">
+<figure id="figure-D00000" num="00000">
+<img id="EMI-D00000" he="117.54mm" wi="165.86mm" file="US20080016600A1-20080124-D00000.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00001" num="00001">
+<img id="EMI-D00001" he="203.03mm" wi="152.57mm" orientation="landscape" file="US20080016600A1-20080124-D00001.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00002" num="00002">
+<img id="EMI-D00002" he="217.68mm" wi="160.02mm" orientation="landscape" file="US20080016600A1-20080124-D00002.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00003" num="00003">
+<img id="EMI-D00003" he="192.87mm" wi="165.18mm" orientation="landscape" file="US20080016600A1-20080124-D00003.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00004" num="00004">
+<img id="EMI-D00004" he="155.02mm" wi="135.97mm" orientation="landscape" file="US20080016600A1-20080124-D00004.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00005" num="00005">
+<img id="EMI-D00005" he="123.70mm" wi="139.62mm" orientation="landscape" file="US20080016600A1-20080124-D00005.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00006" num="00006">
+<img id="EMI-D00006" he="128.95mm" wi="109.22mm" orientation="landscape" file="US20080016600A1-20080124-D00006.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00007" num="00007">
+<img id="EMI-D00007" he="131.74mm" wi="106.76mm" orientation="landscape" file="US20080016600A1-20080124-D00007.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00008" num="00008">
+<img id="EMI-D00008" he="119.38mm" wi="125.22mm" orientation="landscape" file="US20080016600A1-20080124-D00008.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00009" num="00009">
+<img id="EMI-D00009" he="124.04mm" wi="113.79mm" orientation="landscape" file="US20080016600A1-20080124-D00009.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00010" num="00010">
+<img id="EMI-D00010" he="80.60mm" wi="76.28mm" orientation="landscape" file="US20080016600A1-20080124-D00010.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00011" num="00011">
+<img id="EMI-D00011" he="121.84mm" wi="113.28mm" orientation="landscape" file="US20080016600A1-20080124-D00011.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00012" num="00012">
+<img id="EMI-D00012" he="145.80mm" wi="122.43mm" orientation="landscape" file="US20080016600A1-20080124-D00012.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="figure-D00013" num="00013">
+<img id="EMI-D00013" he="121.84mm" wi="107.70mm" orientation="landscape" file="US20080016600A1-20080124-D00013.TIF"  img-content="drawing" img-format="tif"/>
+</figure>
+</drawings>
+<description id="description">
+<?cross-reference-to-related-applications description="Cross Reference To Related Applications" end="lead"?>
+<p id="p-0002" num="0001"> This application is a division of U.S. patent application Ser. No. 11/001,139, filed Dec. 2, 2004, which is herein incorporated by reference in its entirety.</p>
+<?cross-reference-to-related-applications description="Cross Reference To Related Applications" end="tail"?>
+<?summary-of-invention description="Summary of Invention" end="lead"?>
+<heading level="2" id="h-0001">BACKGROUND </heading>
+<p id="p-0003" num="0002"> 1. Field of the Invention </p>
+<p id="p-0004" num="0003"> The present invention relates generally to protective eyewear, and more particularly, to a protective eyewear apparatus for sports such as women's lacrosse or field hockey. </p>
+<p id="p-0005" num="0004"> 2. Background of the Invention </p>
+<p id="p-0006" num="0005"> Protecting players from injury is a primary concern for any sport. The most vulnerable part of the body is the head, face, and eyes. Thus, protective face masks and eyewear are common in sports such as baseball, hockey, football, racquetball, squash, and lacrosse. </p>
+<p id="p-0007" num="0006"> In lacrosse, the hard, heavy rubber lacrosse ball can cause significant injury to unprotected eyes and faces. Most generally accepted rules for competitive lacrosse require a lacrosse ball made of solid rubber, between 7&#xbe; and 8 inches in circumference (about 2&#xbd; inches in diameter), and between 5 and 5&#xbc; ounces in weight. Because the lacrosse balls are routinely thrown at high speeds and with great force, the impact of the balls can cause bruises, broken bones, and, in rare cases, even death. Indeed, in addition to the long-standing requirement for helmets with face masks in men's lacrosse, protective eyewear is now mandatory in women's lacrosse. </p>
+<p id="p-0008" num="0007"> In general, manufacturers are continually striving to improve the impact resistance of protective eyewear. Improvements in the strength of the equipment, however, often cause the equipment to be too stiff, bulky, or obtrusive, and uncomfortable to wear. This discomfort can cause a player to wear the equipment improperly or not at all, thereby defeating any improvement in protection. </p>
+<p id="p-0009" num="0008"> Overall, protective eyewear should be comfortable to wear on a continuous basis and should provide protection meeting the applicable standards for its usage, such as ASTM F 803-03 impact requirements. In providing comfort, the eyewear should be lightweight, flexible, and comfortable against the skin, and should provide adequate ventilation allowing the user to dissipate heat and moisture. </p>
+<heading level="2" id="h-0002">BRIEF SUMMARY OF THE INVENTION </heading>
+<p id="p-0010" num="0009"> An embodiment of the present invention provides a protective eyewear apparatus including a base, a protective cage, and a main support bar. The base can be substantially oval in shape, such that the base can surround the eyes of a user wearing the protective eyewear apparatus. The protective cage can include an upper bar connected to the base and a lower bar connected to the base. The main support bar can be connected to the upper bar and the lower bar. Optionally, the upper bar has no more than the three connections to the base and the main support bar, and the lower bar has no more than the three connections to the base and the main support bar. </p>
+<p id="p-0011" num="0010"> In a further embodiment, the base can include a generally straight forehead member, and a generally arcuate cheek member having a first end connected to the forehead member and a second end connected to the forehead member to form the substantially oval shape. </p>
+<p id="p-0012" num="0011"> In another embodiment, the base can include a forehead member and a cheek member. The cheek member can have a generally arcuate shape and have a first and second end connected to the forehead member. The protective cage can include an upper bar and a lower bar. The upper bar has a first and second end connected to the cheek base member. The lower bar has a first and second end connected to the cheek base member. The upper bar is disposed closer to the forehead base member than the lower bar. The main support bar can be connected to the forehead base member, the upper bar, the lower bar, and the cheek base member. </p>
+<p id="p-0013" num="0012"> A further embodiment of the present invention includes a compressible layer disposed on at least a portion of the base, for example, in areas at which the base is intended to contact a user's skin. In one implementation, a first compressible layer is disposed on the forehead member and a second compressible layer is disposed on the cheek member. The upper and lower bars of the protective cage and the main support bar can also be covered with a compressible layer. </p>
+<p id="p-0014" num="0013"> A compressible layer can be, for example, a foam (e.g., open or closed cell) or elastomer. An elastomer can be overmolded onto the members of the eyewear apparatus. On the base members, the compressible layer is in contact with the user's face, and provides a compressible outer surface that conforms comfortably to the contours of a user's face. In a further embodiment, the compressible layer on the base members defines gutters that channel perspiration away from the user's eyes, nose, and mouth. In another embodiment, the compressible layer has a textured surface, with raised portions of the textured surface contacting a user's skin and depressed portions of the textured surface holding perspiration. </p>
+<p id="p-0015" num="0014"> In a further embodiment of the present invention, the protective eyewear apparatus includes a layer of performance fabric over the compressible layer. This performance fabric can be disposed over the portions of the eyewear apparatus that contact the user, such as locations at which the eyewear contacts the user's cheeks. </p>
+<p id="p-0016" num="0015"> In an embodiment of the invention, the frame has only one vertical protective bar in the user's field of vision, located substantially over the nose of the user. By minimizing vertical members and strategically sizing, spacing, and locating the protective bars, the frame of the present invention defines a wide unobstructed viewing area that extends around the sides of the user's eyes. This unobstructed area maximizes the user's field of vision, in directions straight ahead, up and down, and peripherally. At the same time, the protective bars of the frame prevent a standard sized lacrosse ball from impacting a user's eye and enable the present invention to comply with generally accepted rules on the construction of protective eyewear, such as the requirements of ASTM F803-03, the Protective Eyewear Certification Council (PECC), U.S. Lacrosse, and the National Federation of High Schools (NFHS). </p>
+<p id="p-0017" num="0016"> In a further embodiment of the present invention, the protective eyewear apparatus also includes four more support bars interconnecting the base and the protective cage, in addition to the main support bar. </p>
+<p id="p-0018" num="0017"> An alternative embodiment of the present invention provides a protective eyewear apparatus having two eyepieces attached by a flexible bridge member. An eyepiece comprises a base generally oval in shape and defining an opening, and an upper and lower bar spanning the opening.</p>
+<?summary-of-invention description="Summary of Invention" end="tail"?>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="lead"?>
+<heading level="2" id="h-0003">BRIEF DESCRIPTION OF THE DRAWINGS </heading>
+<p id="p-0019" num="0018"> <figref idref="DRAWINGS">FIG. 1A</figref> is a schematic diagram of an isometric view of an exemplary protective eyewear apparatus, according to an embodiment of the present invention. </p>
+<p id="p-0020" num="0019"> <figref idref="DRAWINGS">FIG. 1B</figref> is a schematic diagram of an isometric view of the frame of the protective eyewear apparatus shown in <figref idref="DRAWINGS">FIG. 1A</figref>, according to an embodiment of the present invention. </p>
+<p id="p-0021" num="0020"> <figref idref="DRAWINGS">FIG. 2</figref> is a schematic diagram of a front view of the frame shown in <figref idref="DRAWINGS">FIG. 1B</figref>. </p>
+<p id="p-0022" num="0021"> <figref idref="DRAWINGS">FIG. 3</figref> is a schematic diagram of a right side view of the frame shown in <figref idref="DRAWINGS">FIG. 1B</figref>. </p>
+<p id="p-0023" num="0022"> <figref idref="DRAWINGS">FIG. 4</figref> is a schematic diagram of a left side view of the frame shown in <figref idref="DRAWINGS">FIG. 1B</figref>. </p>
+<p id="p-0024" num="0023"> <figref idref="DRAWINGS">FIG. 5</figref> is a schematic diagram of a top view of the frame shown in <figref idref="DRAWINGS">FIG. 1B</figref>. </p>
+<p id="p-0025" num="0024"> <figref idref="DRAWINGS">FIG. 6</figref> is a schematic diagram of a cross-sectional view of the frame shown in <figref idref="DRAWINGS">FIG. 2</figref> along line A-A. </p>
+<p id="p-0026" num="0025"> <figref idref="DRAWINGS">FIG. 7</figref> is a schematic diagram of a cross-sectional view of the frame shown in <figref idref="DRAWINGS">FIG. 2</figref> along line B-B. </p>
+<p id="p-0027" num="0026"> <figref idref="DRAWINGS">FIG. 8</figref> is a schematic diagram of a cross-sectional view of the frame shown in <figref idref="DRAWINGS">FIG. 2</figref> along line C-C. </p>
+<p id="p-0028" num="0027"> <figref idref="DRAWINGS">FIG. 9A</figref> is a schematic diagram of a cross-sectional view of a compressible layer having a perspiration gutter taken along line A-A in <figref idref="DRAWINGS">FIG. 1A</figref>, according to an embodiment of the present invention. </p>
+<p id="p-0029" num="0028"> <figref idref="DRAWINGS">FIG. 9B</figref> is a schematic diagram of a portion of an exemplary textured compressible layer, according to an embodiment of the present invention. </p>
+<p id="p-0030" num="0029"> <figref idref="DRAWINGS">FIG. 10</figref> is a schematic diagram of another exemplary protective eyewear apparatus, according to an alternative embodiment of the present invention. </p>
+<p id="p-0031" num="0030"> <figref idref="DRAWINGS">FIG. 11</figref> is a schematic diagram of an exploded view of one eyepiece of the exemplary protective eyewear apparatus shown in <figref idref="DRAWINGS">FIG. 10</figref>. </p>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="tail"?>
+<?detailed-description description="Detailed Description" end="lead"?>
+<heading level="2" id="h-0004">DETAILED DESCRIPTION OF THE INVENTION </heading>
+<p id="p-0032" num="0031"> <figref idref="DRAWINGS">FIG. 1A</figref> is a schematic diagram of an isometric view of an exemplary protective eyewear apparatus <b>100</b>, according to an embodiment of the present invention. As shown, eyewear apparatus <b>100</b> includes a base <b>102</b>, a protective cage <b>104</b>, compressible layers <b>106</b>, and securing means <b>108</b>. Base <b>102</b> and protective cage <b>104</b> provide the frame of eyewear apparatus <b>100</b> and can be made of weldable and bendable steel, such as 3.8 mm 1008 solid carbon steel wire, ASTM Standard, Section 03.05. Other suitable materials include other metals, metal alloys, composite materials, and synthetic materials. In this example, compressible layers <b>106</b> are disposed on base <b>102</b> in areas at which eyewear apparatus <b>100</b> contacts the face of a user, along the inferior forehead and the zygomatic arch (the temporal bone of the skull that forms the prominence of the cheek). Compressible layers <b>106</b> could be separate pieces located at each area of contact (e.g., forehead and zygomatic arch) of base <b>106</b> or could be one continuous piece covering base <b>106</b>. Protective cage <b>104</b> is elevated away from the face of the user and can optionally also be covered by a compressible layer. </p>
+<p id="p-0033" num="0032"> <figref idref="DRAWINGS">FIGS. 1B-8</figref> are schematic diagrams that illustrate the base <b>102</b> and protective cage <b>104</b> in more detail, with the compressible layers <b>106</b> not shown. As shown in these figures, base <b>102</b> includes a cheek base member <b>120</b> and a forehead base member <b>122</b>. Forehead base member <b>122</b> can include a center portion <b>200</b> and two strap portions <b>124</b> for attaching a securing means <b>108</b> (<figref idref="DRAWINGS">FIG. 1A</figref>) to the eyewear apparatus <b>100</b>. This securing means could be any well known means for securing goggles, eyeglasses, or other eyewear apparatus to a user's face, for example, an elastic strap. </p>
+<p id="p-0034" num="0033"> In an embodiment of the present invention, forehead base member <b>122</b> and strap members <b>124</b> are formed from a single continuous member and cheek base member <b>120</b> is formed from another single continuous member, with the two continuous members attached at points <b>128</b>. In this embodiment, forehead base member <b>122</b> has a center portion <b>200</b> with a first strap portion <b>124</b> on one side of the center portion <b>200</b> and a second strap portion <b>124</b> on the opposite side. Cheek base member <b>120</b> is generally arcuate in shape, as shown best in <figref idref="DRAWINGS">FIG. 2</figref>, and connects to forehead base member <b>122</b> approximately between the center portion <b>200</b> and the first strap portion <b>124</b> and between the center portion <b>200</b> and the second strap portion <b>124</b>. The strap portions <b>124</b> provide means for securing a strap or other suitable securing means to the base <b>102</b> of the protective eyewear apparatus <b>100</b>. Optionally, the strap portions <b>124</b> are further attached to the cheek base member <b>120</b> at points <b>129</b> to form closed loops, e.g., on which a strap can be mounted. </p>
+<p id="p-0035" num="0034"> In a further aspect of the present invention, cheek base member <b>120</b> includes a projecting portion <b>502</b> as shown best in <figref idref="DRAWINGS">FIG. 5</figref>. This projecting portion <b>502</b> spans a user's nose such that the protective eyewear apparatus does not contact the user's nose when the protective eyewear apparatus is worn by the user. For this reason, the projecting portion <b>502</b> does not need a compressible layer and can remain uncovered as is shown in <figref idref="DRAWINGS">FIG. 1A</figref>. This aspect makes the protective eyewear apparatus of the present invention more comfortable to wear. </p>
+<p id="p-0036" num="0035"> Protective cage <b>104</b> includes an upper bar <b>130</b> and a lower bar <b>132</b>, both of which are substantially horizontal and are attached at their ends to cheek base member <b>120</b> at points <b>134</b> and <b>136</b>, respectively. Upper bar <b>130</b> is disposed closer to forehead base member <b>122</b> than lower bar <b>132</b>. As shown by the side views of <figref idref="DRAWINGS">FIGS. 3 and 4</figref>, bars <b>130</b> and <b>132</b> are positioned outward of base <b>102</b> relative to the user's face. In this maimer, bars <b>130</b> and <b>132</b> prevent a lacrosse ball from contacting a user's eye. Positioning bars <b>130</b> and <b>132</b> farther out from base <b>102</b> (as opposed to closer in) enables bars <b>130</b> and <b>132</b> to be spaced farther apart, therefore presenting less of an obstruction to the user's view. In an embodiment of the present invention, the opening defined by the protective cage <b>104</b> prevents objects larger than 2&#xbc; inches from passing into the protective cage <b>104</b>. </p>
+<p id="p-0037" num="0036"> To further strengthen upper bar <b>130</b> and lower bar <b>132</b>, eyewear apparatus <b>100</b> can include a main support bar <b>140</b> that is attached to both upper bar <b>130</b> and also lower bar <b>132</b>. The main support bar <b>140</b> can also be attached to forehead base member <b>122</b> and cheek base member <b>120</b>. Main support bar <b>140</b> can be substantially vertical and attach approximately to the centers of forehead base member <b>122</b>, upper bar <b>130</b>, lower bar <b>132</b>, and cheek base member <b>120</b>. </p>
+<p id="p-0038" num="0037"> To provide additional support between base <b>102</b> and protective cage <b>104</b>, eyewear apparatus <b>100</b> can also include upper support bars <b>142</b> that are connected to forehead base member <b>122</b> and upper bar <b>130</b>, and lower support bars <b>144</b> that are connected to cheek base member <b>120</b> and lower bar <b>132</b>. </p>
+<p id="p-0039" num="0038"> Main support bar <b>140</b> can be located substantially over the user's nose. Each of upper support bars <b>142</b> can be located approximately the same distance from main support bar <b>140</b>. Likewise, each of lower support bars <b>144</b> can be located approximately the same distance from main support bar <b>140</b>. </p>
+<p id="p-0040" num="0039"> An alternative embodiment of the present invention provides a protective eyewear apparatus having no support bars (such as main support bar <b>140</b>, upper support bars <b>142</b>, or lower support bars <b>144</b>). Instead, this alternative embodiment has only upper bar <b>130</b>, lower bar <b>132</b>, cheek base member <b>120</b>, and forehead base member <b>122</b>. To provide adequate protection against the impact of a lacrosse ball, these members can be constructed of a material sufficiently strong enough not to deflect or deform upon impact by the ball. In one embodiment, these members can be made of 1008 solid carbon steel wire of a sufficient thickness or of a composite resin, such as the composite resin bars used on the SUL200&#x2122; mask produced by +POS of Schaumburg, Ill. </p>
+<p id="p-0041" num="0040"> Another alternative embodiment of the present invention provides a protective eyewear apparatus having only one vertical support bar (such as the main support bar <b>140</b>) connected to the forehead base member <b>122</b>, upper bar <b>130</b>, lower bar <b>132</b>, and cheek base member <b>120</b>, without additional support bars such as upper support bars <b>142</b> and lower support bars <b>144</b>. In this case, upper bar <b>130</b> and lower bar <b>132</b> would have only three connections: two connections at their ends to cheek base member <b>120</b> and one connection at an intermediate location to the one vertical support bar (such as the main support bar <b>140</b>). To provide adequate protection against the impact of a lacrosse ball, these members can be constructed of a material sufficiently strong enough not to deflect or deform upon impact by the ball. In one embodiment, these members can be made of 1008 solid carbon steel wire of a sufficient thickness or of a composite resin, such as the composite resin bars used on the SUL200&#x2122; mask produced by +POS of Schaumburg, Ill. </p>
+<p id="p-0042" num="0041"> With reference to <figref idref="DRAWINGS">FIGS. 1A-8</figref>, in an implementation of the present invention that meets or exceeds the ASTM standard for women's adult and youth lacrosse (ASTM F803-03, which is herein incorporated by reference in its entirety), the base <b>102</b> and protective cage <b>104</b>, including main support bar <b>140</b>, upper support bars <b>142</b>, and lower support bars <b>144</b>, are made of 3.8 mm diameter 1008 solid carbon steel wire (ASTM Standard, Section 03.05). The wire is cut to the desired length for each member. The cut wires are then bent and pressed into the desired shapes, such as those shown in <figref idref="DRAWINGS">FIGS. 1B through 8</figref>. The shaped wires are then placed on a welding jig and welded point by point. The welded members arc then trimmed, polished, and coated with a polyester powder about 50 to 100 microns thick. Also according to this implementation, the compressible layers <b>106</b> are made of a silicone foam compound and the eyewear apparatus <b>100</b> has the dimensions set forth below. </p>
+<p id="p-0043" num="0042"> Referring to <figref idref="DRAWINGS">FIG. 3</figref>, the narrowest distance <b>300</b> between the upper and lower bars <b>130</b> and <b>132</b> is about 0.261 inches and the widest distance <b>302</b> between the upper and lower bars <b>130</b> and <b>132</b> is about 1.324 inches. </p>
+<p id="p-0044" num="0043"> Referring to <figref idref="DRAWINGS">FIG. 2</figref>, the total horizontal distance of the center portion <b>200</b> from the left strap member <b>124</b> to the right strap member <b>124</b> is about 5.970 inches. The distance <b>202</b> from the main support bar <b>140</b> to the lower most part of the upper support bar <b>142</b> is about 2.254 inches. The distance <b>204</b> from the main support bar <b>140</b> to the upper most point of the lower support bar <b>144</b> is about 1.903 inches. The distance <b>206</b> from the main support bar <b>140</b> to the upper most point of the upper support bar <b>142</b> is about 2.252 inches. The distance <b>208</b> from the main support bar <b>140</b> to the lower most point of the lower support bar <b>144</b> is about 1.276 inches. </p>
+<p id="p-0045" num="0044"> Referring to <figref idref="DRAWINGS">FIG. 4</figref>, the total depth <b>400</b> from the outer most point of the main support bar <b>140</b> to the most rearward point of the strap member <b>124</b> is about 3.427 inches. </p>
+<p id="p-0046" num="0045"> Referring to <figref idref="DRAWINGS">FIG. 6</figref>, the distance <b>600</b> from the intersection <b>602</b> of the forehead base member <b>122</b> and the main support bar <b>140</b> to the intersection <b>604</b> of the cheek base member <b>120</b> and the main support bar <b>140</b> is about 1.156 inches. </p>
+<p id="p-0047" num="0046"> Finally, the overall outer dimension of the compressible layers <b>106</b> shown in <figref idref="DRAWINGS">FIG. 1A</figref> can be approximately 0.55 inches, with a thickness of about 0.28 inches covering forehead base member <b>122</b> or cheek base member <b>120</b>. The outer dimension and thickness covering the members can, of course, vary as required to provide the desired cushioning. The position of the members within the compressible layers <b>106</b> can also vary, for example, being concentric in some locations and non-concentric in others. </p>
+<p id="p-0048" num="0047"> With these materials of construction and dimensions, the present invention provides comfortable eyewear that protects a user from the impact of a standard lacrosse ball, in compliance with the ASTM F803-03 standard. The configuration of the protective cage <b>104</b> also enables a wide field of vision obstructed only by one vertical member (main support member <b>140</b>) and open on both sides of the head for unhindered peripheral vision. <figref idref="DRAWINGS">FIGS. 3-5</figref> best illustrate this unobstructed field of peripheral vision <b>500</b>. </p>
+<p id="p-0049" num="0048"> Providing further details of the construction of exemplary eyewear apparatus <b>100</b>, <figref idref="DRAWINGS">FIG. 7</figref> illustrates a cross-sectional view of the frame shown in <figref idref="DRAWINGS">FIG. 2</figref> along line B-B. <figref idref="DRAWINGS">FIG. 8</figref> illustrates a cross-sectional view of the frame shown in <figref idref="DRAWINGS">FIG. 2</figref> along line C-C. </p>
+<p id="p-0050" num="0049"> In a further embodiment of the present invention, compressible layers <b>106</b> provide gutters that divert perspiration away from the eyes, nose, and mouth of a user. The compressible layers <b>106</b> applied to the forehead base member <b>122</b> catch perspiration from the user's forehead and divert it to the side of the user's head. The compressible layers <b>106</b> applied to the cheek base member <b>120</b> catch perspiration from the nose and beneath the eyes of the user, and divert it to the side of the user's cheeks. The gutters can be provided throughout the length of compressible layers <b>106</b>, or at isolated locations (e.g., at portions of the compressible layers <b>106</b> intended to contact a user's temple). </p>
+<p id="p-0051" num="0050"> As an example, <figref idref="DRAWINGS">FIG. 9A</figref> illustrates a shape of a compressible layer <b>106</b> adapted to divert perspiration away from a user's eyes and mouth. As shown in this cross-sectional view, compressible layer <b>106</b> encases forehead base member <b>122</b> and includes a concave channel <b>900</b> that collects the perspiration and a contact portion <b>902</b> that contacts the user's face. The channel <b>900</b> can be raised toward the middle of eyewear apparatus <b>100</b> so that the perspiration flows down toward the ends of the eyewear apparatus <b>100</b>. For example, the concave channel <b>900</b> of a gutter can slope down starting from an area proximate the main support <b>140</b> when the protective eyewear apparatus is worn by a user. </p>
+<p id="p-0052" num="0051"> Compressible layers <b>106</b> can be constructed of any compressible material that is comfortable against a player's body, such as a foam or a thermoplastic elastomer. According to embodiments of the present invention, compressible layers <b>106</b> are applied to the frame of eyewear apparatus <b>100</b> by insert molding, reaction injection molding, spray application, rotational molding, dual extrusion, or casting. Compressible layers <b>106</b> are made of a material that is complementary to the material of the frame, such that the compressible layers <b>106</b> strongly bond to the frame, preferably without the use of adhesives or other intermediate bonding layers. Examples of suitable materials include nylon, urethane (TPU), sanoprene, polycarbonate, alcryln (partially crosslinked halogenated polyolefin alloy), styrene-butadiene-styrene, styrene-ethylene-butylene styrene, thermoplastic olefinic (TPO), thermoplastic vulcanizate (TPV), ethylene-propylene rubber (EPDM), flexible PVC, polyethylene, polypropylene, EVA, and ABS. Compressible layers <b>106</b> could also be formed from multiple laminated materials or fabric coverings. </p>
+<p id="p-0053" num="0052"> If compressible layers <b>106</b> are not covered and directly contact a user's skin, compressible layers <b>106</b> can be made of anti-microbial silicone, to avoid skin irritations. The surface of compressible layers <b>106</b> can also be textured to help keep the eyewear apparatus <b>100</b> in place on the user's face when the user is sweating. <figref idref="DRAWINGS">FIG. 9B</figref> illustrates an example of a textured compressible layer <b>950</b>. The depressions <b>952</b> of the textured surface hold the sweat, allowing the raised portions <b>954</b> of the textured surface to remain in direct contact with the skin to secure the eyewear apparatus <b>100</b> to the user's face. Although <figref idref="DRAWINGS">FIG. 9B</figref> shows a grooved textured surface, other textured surfaces can, of course, be used, such as dimples, nubs, ridges, or protuberances. </p>
+<p id="p-0054" num="0053"> The textured surface can also be used in combination with gutters. For example, a textured surface can be applied to the faces of the gutters, or the textured surface can be applied to some portions of compressible layers <b>106</b> (e.g., in areas intended to contact the center of user's forehead) and the gutters can be applied to other portions (e.g., in areas intended to contact a user's temple). </p>
+<p id="p-0055" num="0054"> In a further embodiment of the present invention, eyewear apparatus <b>100</b> includes a layer of performance fabric over compressible layers <b>106</b>. This performance fabric can be disposed on the compressible layers <b>106</b> that cover the portions of eyewear apparatus <b>100</b> that contact the user, e.g., at cheek base members <b>120</b>, which contact the user's cheeks, and at forehead base member <b>122</b>, which contacts the user's lower forehead. In this case, the performance fabric, rather than the compressible layers <b>106</b>, contacts the user's skin. The performance fabric is an air permeable material that moves moisture away from the user's skin and dries quickly. An example of a suitable performance fabric is Cool Max&#x2122; produced by INVISTA of Wichita, Kans. </p>
+<p id="p-0056" num="0055"> Based on the features described above, the present invention provides critical eye protection, a large field of vision, and improved comfort. The eyewear apparatus <b>100</b> covers and protects the lower forehead, the eyes, the nose, and the upper cheeks of the user, and meets the ASTM F803 impact requirements. The configuration of the frame members, especially the use of a single vertical support bar (main support bar <b>140</b>) in the field of vision, maximizes a user's unobstructed view, straight ahead, up and down, and side to side. The open air design of the protective cage <b>104</b> also avoids the glaring, fogging, rain beading, cracking, and scratching problems known to occur with traditional clear plastic lens goggles (e.g., polycarbonate goggles). </p>
+<p id="p-0057" num="0056"> The compressible layers <b>106</b> provide a comfortable, compliant, and close fit with a user's face. In addition, when formed with gutters or textured surfaces, the compressible layers <b>106</b> keep perspiration away from the user's eyes, nose, and mouth to further increase comfort. When covered with a performance fabric, the compressible layers <b>106</b> also wick perspiration away from the user's skin. </p>
+<p id="p-0058" num="0057"> <figref idref="DRAWINGS">FIG. 10</figref> illustrates another protective eyewear apparatus <b>1000</b>, according to an alternative embodiment of the present invention. In this alternative embodiment, eyewear apparatus <b>1000</b> provides separate eyepieces <b>1002</b> over each eye. Each eyepiece <b>1002</b> includes its own base <b>1004</b> and protective cage <b>1006</b>. Base <b>1004</b> can be generally oval in shape and define an opening. Eyepieces <b>1002</b> are joined together by a bridge member <b>1007</b>, which can be soft and flexible and made of an elastomer. An eyewear securing means <b>1010</b> attaches to each of the eyepieces <b>1002</b>. Securing means <b>1010</b> could be any well known means for securing goggles, eyeglasses, or other eyewear apparatus to a user's face, for example, an elastic strap. </p>
+<p id="p-0059" num="0058"> Protective cage <b>1006</b> can include an upper and lower bar as shown in <figref idref="DRAWINGS">FIG. 10</figref>, which both attach to base <b>1004</b> and span the opening of base <b>1004</b>. The upper bar and the lower bar are spaced apart from each other and can be generally parallel and horizontal when the eyewear apparatus <b>1000</b> is worn by a user. The upper and lower bars can be attached by, for example, molding the base over the bars, mechanically fastening the wires to the base (e.g., using screws), or welding the bars to the base. In the embodiment of <figref idref="DRAWINGS">FIG. 10</figref>, protective cage <b>1006</b> is attached to base <b>1002</b> by both molding and mechanical means (described further below). The upper and lower bars can be formed from a single continuous member as shown in <figref idref="DRAWINGS">FIG. 10</figref>, or can be separate members. </p>
+<p id="p-0060" num="0059"> <figref idref="DRAWINGS">FIG. 11</figref> illustrates an exploded view of the right eyepiece <b>1002</b> of the protective eyewear apparatus <b>1000</b> of <figref idref="DRAWINGS">FIG. 10</figref>. As shown, eyepiece <b>1002</b> includes protective cage <b>1006</b>, base <b>1004</b>, and a pad <b>1106</b>. Protective cage <b>1006</b> can include a wire <b>1110</b> and a wire retainer <b>1102</b>. As shown, wire <b>1110</b> can be formed in a substantially &#x201c;U&#x201d; shape, with the ends of wire <b>1110</b> secured by wire retainer <b>1102</b>. Wire retainer <b>1102</b> can be an injection molded or overmolded part that encloses the ends of wire <b>1110</b>. Wire retainer <b>1102</b> is, for example, molded around the ends of wire <b>1110</b> and is made of an elastomer. </p>
+<p id="p-0061" num="0060"> Wire <b>1110</b> provides the immediate protection over a user's eye and prevents objects from penetrating eyewear apparatus <b>1000</b> and contacting the user's eye. As such, wire <b>1110</b> must be of a strength sufficient to resist deformation upon impact by a standard lacrosse ball traveling at speeds typically encountered during play. In one embodiment, wire <b>1110</b> is 3.8 mm 1008 solid carbon steel wire, ASTM Standard, Section 03.05. Other suitable materials include other metals, metal alloys, composite materials, and synthetic materials. </p>
+<p id="p-0062" num="0061"> Base <b>1004</b> provides the structure on which protective cage <b>1006</b> is mounted. Base <b>1004</b> can be more rigid than the wire retainer <b>1102</b> of the protective cage <b>1006</b>. For example, if wire retainer <b>1102</b> is a flexible elastomer, then base <b>1004</b> could be a more rigid polycarbonate. As another example, base <b>1004</b> could be a wire encased in a foam or elastomer. Base <b>1004</b> transfers a point force (e.g., impact of a ball) imposed on the protective cage <b>1006</b> to a user's bones surrounding the eye and distributes the force over a wide surface area to minimize the chance of injury. In one configuration, base <b>1004</b> is a clear injection molded plastic, such as polycarbonate, and is generally oval in shape. </p>
+<p id="p-0063" num="0062"> In one embodiment, as shown in <figref idref="DRAWINGS">FIG. 11</figref>, base <b>1004</b> includes a hook <b>1108</b> around which the closed end of wire <b>1110</b> is disposed. In this manner, hook <b>1108</b> further secures protective cage <b>1006</b> to base <b>1004</b>. The hook can be disposed on a portion of the base disposed substantially between an eye and a nose of a user when the user wears the protective eyewear apparatus, with the wire retainer attached to the base on a side substantially opposite to the hook. </p>
+<p id="p-0064" num="0063"> Base <b>1004</b> can also include at least one opening <b>1112</b> that receives a fastener that secures bridge member <b>1007</b> to base <b>1004</b>. In one embodiment, this fastener is a mushroom shaped projection formed in bridge member <b>1007</b> that deforms through and snaps into the at least one opening <b>1112</b>. </p>
+<p id="p-0065" num="0064"> Pad <b>1106</b> is attached to base <b>1004</b> by, for example, an adhesive. In one embodiment, pad <b>1106</b> is made of laminated perforated shock absorbing foam or a compression molded foam. In another embodiment in which base <b>1004</b> is a wire, pad <b>1106</b> can be a compressible layer (e.g., foam or elastomer) encasing the wire. </p>
+<p id="p-0066" num="0065"> Pad <b>1106</b> contacts the user's skin and provides form fitting comfort. In a further embodiment, the surface of pad <b>1106</b> that contacts the user's skin is covered with an air permeable performance fabric that moves moisture away from the user's skin and dries quickly. An example of a suitable performance fabric is Cool Max&#x2122; produced by INVISTA of Wichita, Kans. </p>
+<p id="p-0067" num="0066"> In an embodiment of the present invention, as shown in <figref idref="DRAWINGS">FIG. 11</figref>, protective cage <b>1006</b>, base <b>1004</b>, and pad <b>1106</b> are further secured by one or more fasteners disposed in openings <b>1122</b> of each piece. Protective cage <b>1006</b>, base <b>1004</b>, and pad <b>1106</b> also include aligned openings <b>120</b> that receive the securing means <b>1010</b> (<figref idref="DRAWINGS">FIG. 10</figref>). </p>
+<p id="p-0068" num="0067"> Although the present invention has been discussed primarily in the context of women's lacrosse, one of ordinary skill in the art would appreciate that the protective eyewear apparatus of the present invention is equally applicable to both men and women, and to other sports and other non-sport activities. For example, the protective eyewear apparatus of the present invention could be used for field hockey, or for construction or manufacturing activities in which large objects may contact a person's face. Thus, notwithstanding the particular benefits of the present invention in the context of women's lacrosse, the present invention should be understood to be broadly applicable to any situation in which eye protection is needed. </p>
+<p id="p-0069" num="0068"> The foregoing disclosure of the preferred embodiments of the present invention has been presented for purposes of illustration and description. It is not intended to be exhaustive or to limit the invention to the precise forms disclosed. Many variations and modifications of the embodiments described herein will be apparent to one of ordinary skill in the art in light of the above disclosure. The scope of the invention is to be defined only by the claims, and by their equivalents. </p>
+<?detailed-description description="Detailed Description" end="tail"?>
+</description>
+<us-claim-statement>What is claimed is: </us-claim-statement>
+<claims id="claims">
+<claim id="CLM-00001" num="00001">
+<claim-text><b>1</b>. A protective eyewear apparatus comprising: 
+<claim-text>a forehead member having 
+<claim-text>a center portion, </claim-text>
+<claim-text>a first strap portion adjacent to the center portion, and </claim-text>
+<claim-text>a second strap portion adjacent to the center portion and on a side of the center portion opposite to the first strap portion; </claim-text>
+</claim-text>
+<claim-text>a cheek member having a first end connected to the forehead member approximately between the first strap portion and the center portion, and a second end connected to the forehead member approximately between the second strap portion and the center portion, the cheek member spaced apart from the forehead member to define a base; </claim-text>
+<claim-text>an upper bar extending between the forehead member and the cheek member, the upper bar having a first end connected to the cheek member and a second end connected to the cheek member; </claim-text>
+<claim-text>a lower bar extending between the forehead member and the cheek member, the lower bar having a first end connected to the cheek member and a second end connected to the cheek member, the upper bar disposed closer to the forehead member than the lower bar; and </claim-text>
+<claim-text>a main support bar connected to the cheek member, the upper bar, the lower bar, and the center portion of the forehead member, the main support bar being generally vertical when viewing the protective eyewear apparatus from a front view worn on a user's face. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00002" num="00002">
+<claim-text><b>2</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, farther comprising a compressible layer on the forehead member, the compressible layer defining a perspiration gutter. </claim-text>
+ </claim>
+<claim id="CLM-00003" num="00003">
+<claim-text><b>3</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00002">claim 2</claim-ref>, the perspiration gutter comprising a concave channel sloping down starting from an area proximate the main support bar when the protective eyewear apparatus is worn by a user. </claim-text>
+ </claim>
+<claim id="CLM-00004" num="00004">
+<claim-text><b>4</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00002">claim 2</claim-ref>, the compressible layer defining a perspiration gutter at an area of the compressible layer intended to contact a user's temple. </claim-text>
+ </claim>
+<claim id="CLM-00005" num="00005">
+<claim-text><b>5</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00002">claim 2</claim-ref>, the compressible layer having a textured surface, the textured surface comprising raised portions adapted to contact a user's skin and depressed portions adapted to hold perspiration. </claim-text>
+ </claim>
+<claim id="CLM-00006" num="00006">
+<claim-text><b>6</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00005">claim 5</claim-ref>, the textured surface comprising grooves. </claim-text>
+ </claim>
+<claim id="CLM-00007" num="00007">
+<claim-text><b>7</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00002">claim 2</claim-ref>, the compressible layer comprising one of foam and elastomer. </claim-text>
+ </claim>
+<claim id="CLM-00008" num="00008">
+<claim-text><b>8</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising a compressible layer on the cheek member, the compressible layer defining a perspiration gutter that slopes down in a direction away from the main support bar. </claim-text>
+ </claim>
+<claim id="CLM-00009" num="00009">
+<claim-text><b>9</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the forehead member comprising a single continuous member. </claim-text>
+ </claim>
+<claim id="CLM-00010" num="00010">
+<claim-text><b>10</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the first strap portion further connected to the cheek member to provide a first closed loop, and the second strap portion further connected to the cheek member to provide a second closed loop. </claim-text>
+ </claim>
+<claim id="CLM-00011" num="00011">
+<claim-text><b>11</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00010">claim 10</claim-ref>, further comprising a strap disposed through the first closed loop and the second closed loop. </claim-text>
+ </claim>
+<claim id="CLM-00012" num="00012">
+<claim-text><b>12</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the main support bar, at the connection to the forehead member, being substantially perpendicular to the forehead member. </claim-text>
+ </claim>
+<claim id="CLM-00013" num="00013">
+<claim-text><b>13</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising: 
+<claim-text>a first support bar connecting the forehead member and the upper bar; </claim-text>
+<claim-text>a second support bar connecting the forehead member and the upper bar, the first support bar and the second support bar disposed on opposite sides of the main support bar; </claim-text>
+<claim-text>a third support bar connecting the cheek member and the lower bar; and </claim-text>
+<claim-text>a fourth support bar connecting the cheek member and the lower bar, the third support bar and the fourth support bar disposed on opposite sides of the main support bar. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00014" num="00014">
+<claim-text><b>14</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the protective eyewear apparatus meeting ASTM F803-03 impact requirements. </claim-text>
+ </claim>
+<claim id="CLM-00015" num="00015">
+<claim-text><b>15</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00014">claim 14</claim-ref>, the forehead member, the cheek member, the upper bar, the lower bar, and the main support bar comprising approximately 3.8 mm thick 1008 solid carbon steel wire. </claim-text>
+ </claim>
+<claim id="CLM-00016" num="00016">
+<claim-text><b>16</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the upper bar, the lower bar, and the cheek member defining an opening that extends around a side of a head of a user wearing the protective eyewear apparatus to enable unobstructed peripheral vision. </claim-text>
+ </claim>
+<claim id="CLM-00017" num="00017">
+<claim-text><b>17</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising eyewear securing means attached to the first strap portion and the second strap portion of the forehead member. </claim-text>
+ </claim>
+<claim id="CLM-00018" num="00018">
+<claim-text><b>18</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00017">claim 17</claim-ref>, the eyewear securing means comprising an elastic strap. </claim-text>
+ </claim>
+<claim id="CLM-00019" num="00019">
+<claim-text><b>19</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the forehead member, the cheek member, the upper bar, the lower bar, and the main support bar comprising composite resin. </claim-text>
+ </claim>
+<claim id="CLM-00020" num="00020">
+<claim-text><b>20</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the center portion of the forehead member comprising a center concave portion, a left convex portion, and a right convex portion, when viewing the protective eyewear apparatus from a front view worn on the user's face, 
+<claim-text>the cheek member comprising a center convex portion, a left concave portion, and a right concave portion, when viewing the protective eyewear apparatus from a front view worn on the user's face, </claim-text>
+<claim-text>the center concave portion of the forehead member vertically opposite to the center convex portion of the cheek member, </claim-text>
+<claim-text>the left convex portion of the forehead member vertically opposite to the left concave portion of the cheek member, and </claim-text>
+<claim-text>the right convex portion of the forehead member vertically opposite to the right concave portion of the cheek member. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00021" num="00021">
+<claim-text><b>21</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00020">claim 20</claim-ref>, the forehead member and the cheek member separated by a vertical distance that decreases from a maximum measured between the left convex portion of the forehead member and the left concave portion of the cheek member to a minimum measured between the concave portion of the forehead member and the convex portion of the cheek member, to enable a wide field of vision. </claim-text>
+ </claim>
+<claim id="CLM-00022" num="00022">
+<claim-text><b>22</b>. A protective eyewear apparatus comprising: 
+<claim-text>a forehead member comprising a center concave portion, a left convex portion, and a right convex portion, when viewing the protective eyewear apparatus from a front view worn on a user's face; </claim-text>
+<claim-text>a cheek member comprising 
+<claim-text>a first end connected to the forehead member on a side of the left convex portion of the forehead member opposite to the center concave portion of the forehead member, and </claim-text>
+<claim-text>a second end connected to the forehead member on a side of the right convex portion of the forehead member opposite to the center concave portion of the forehead member, </claim-text>
+<claim-text>the cheek member comprising a center convex portion, a left concave portion, and a right concave portion, when viewing the protective eyewear apparatus from a front view worn on the user's face, </claim-text>
+<claim-text>the center concave portion of the forehead member vertically opposite to the center convex portion of the cheek member, </claim-text>
+<claim-text>the left convex portion of the forehead member vertically opposite to the left concave portion of the cheek member, </claim-text>
+<claim-text>the right convex portion of the forehead member vertically opposite to the right concave portion of the cheek member, </claim-text>
+<claim-text>the forehead member and the cheek member separated by a vertical distance that decreases from a maximum measured between the left convex portion of the forehead member and the left concave portion of the cheek member to a minimum measured between the concave portion of the forehead member and the convex portion of the cheek member, to enable a wide field of vision; </claim-text>
+</claim-text>
+<claim-text>an upper bar extending between the forehead member and the cheek member when viewing the protective eyewear apparatus from a front view worn on the user's face, the upper bat having a first end connected to the left concave portion of the cheek member and a second end connected to the right concave portion of the cheek member; </claim-text>
+<claim-text>a lower bar extending between the forehead member and the cheek member when viewing the protective eyewear apparatus from a front view worn on the user's face, the lower bar having a first end connected to the left concave portion of the cheek member and a second end connected to the right concave portion of the cheek member, the lower bar being disposed closer to the cheek member than the upper bar; and </claim-text>
+<claim-text>a main support bar connected to the upper bar and the lower bar, the main support bar being generally vertical when viewing the protective eyewear apparatus from a front view worn on the user's face. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00023" num="00023">
+<claim-text><b>23</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, the main support bar having a first end connected to the concave portion of the forehead member and a second end connected to the convex portion of the cheek member. </claim-text>
+ </claim>
+<claim id="CLM-00024" num="00024">
+<claim-text><b>24</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, further comprising a compressible layer disposed on the forehead member, the compressible layer defining a gutter sloping down from the center of the forehead member when the protective eyewear apparatus is worn by the user. </claim-text>
+ </claim>
+<claim id="CLM-00025" num="00025">
+<claim-text><b>25</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, further comprising a compressible layer disposed on the forehead member, the compressible layer having a textured surface, the textured surface comprising raised portions adapted to contact the user's skin and depressed portions adapted to hold perspiration. </claim-text>
+ </claim>
+<claim id="CLM-00026" num="00026">
+<claim-text><b>26</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00025">claim 25</claim-ref>, the textured surface comprising grooves. </claim-text>
+ </claim>
+<claim id="CLM-00027" num="00027">
+<claim-text><b>27</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, the forehead member, the cheek member, the upper bar, the lower bar, and the main support bar comprising composite resin. </claim-text>
+ </claim>
+<claim id="CLM-00028" num="00028">
+<claim-text><b>28</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, the cheek member having a projecting portion that spans a user's nose such that the protective eyewear apparatus does not contact the user's nose when the protective eyewear apparatus is worn by the user. </claim-text>
+ </claim>
+<claim id="CLM-00029" num="00029">
+<claim-text><b>29</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, the forehead member further comprising 
+<claim-text>a first strap portion extending beyond a point at which the first end of the cheek member connects to the forehead member, </claim-text>
+<claim-text>a second strap portion extending beyond a second point at which the second end of the cheek member connects to the forehead member. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00030" num="00030">
+<claim-text><b>30</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00029">claim 29</claim-ref>, the first strap portion of the forehead member curved beyond the point at which the first end of the cheek member connects to the forehead member and attached to the cheek member to form a first closed loop, 
+<claim-text>the second strap portion of the forehead member curved beyond the point at which the second end of the cheek member connects to the forehead member and attached to the cheek member to form a second closed loop. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00031" num="00031">
+<claim-text><b>31</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00030">claim 30</claim-ref>, further comprising a strap attached through the first closed loop and the second closed loop. </claim-text>
+ </claim>
+<claim id="CLM-00032" num="00032">
+<claim-text><b>32</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, further comprising a strap attached to the protective eyewear apparatus. </claim-text>
+ </claim>
+<claim id="CLM-00033" num="00033">
+<claim-text><b>33</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, further comprising: 
+<claim-text>a first support bar connecting the forehead member and the upper bar; </claim-text>
+<claim-text>a second support bar connecting the forehead member and the upper bar, the first support bar and the second support bar disposed on opposite sides of the main support bar; </claim-text>
+<claim-text>a third support bar connecting the cheek member and the lower bar; </claim-text>
+<claim-text>a fourth support bar connecting the cheek member and the lower bar, the third support bar and the fourth support bar disposed on opposite sides of the main support bar. </claim-text>
+</claim-text>
+ </claim>
+<claim id="CLM-00034" num="00034">
+<claim-text><b>34</b>. The protective eyewear apparatus of <claim-ref idref="CLM-00022">claim 22</claim-ref>, the cheek member having a projecting portion that spans a user's nose such that the protective eyewear apparatus does not contact the user's nose when the protective eyewear apparatus is worn by the user.</claim-text>
+ </claim>
+</claims>
+</us-patent-application>
+<?xml version="1.0" encoding="UTF-8"?>

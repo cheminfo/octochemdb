@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE us-patent-application SYSTEM "us-patent-application-v43-2012-12-04.dtd" [ ]>
+<us-patent-application lang="EN" dtd-version="v4.3 2012-12-04" file="US20140047612A1-20140220.XML" status="PRODUCTION" id="us-patent-application" country="US" date-produced="20140205" date-publ="20140220">
+<us-bibliographic-data-application lang="EN" country="US">
+<publication-reference>
+<document-id>
+<country>US</country>
+<doc-number>20140047612</doc-number>
+<kind>A1</kind>
+<date>20140220</date>
+</document-id>
+</publication-reference>
+<application-reference appl-type="utility">
+<document-id>
+<country>US</country>
+<doc-number>13968105</doc-number>
+<date>20130815</date>
+</document-id>
+</application-reference>
+<us-application-series-code>13</us-application-series-code>
+<classifications-ipcr>
+<classification-ipcr>
+<ipc-version-indicator><date>20060101</date></ipc-version-indicator>
+<classification-level>A</classification-level>
+<section>B</section>
+<class>44</class>
+<subclass>D</subclass>
+<main-group>3</main-group>
+<subgroup>00</subgroup>
+<symbol-position>F</symbol-position>
+<classification-value>I</classification-value>
+<action-date><date>20140220</date></action-date>
+<generating-office><country>US</country></generating-office>
+<classification-status>B</classification-status>
+<classification-data-source>H</classification-data-source>
+</classification-ipcr>
+</classifications-ipcr>
+<classifications-cpc>
+<main-cpc>
+<classification-cpc>
+<cpc-version-indicator><date>20130101</date></cpc-version-indicator>
+<section>B</section>
+<class>44</class>
+<subclass>D</subclass>
+<main-group>3</main-group>
+<subgroup>00</subgroup>
+<symbol-position>F</symbol-position>
+<classification-value>I</classification-value>
+<action-date><date>20140220</date></action-date>
+<generating-office><country>US</country></generating-office>
+<classification-status>B</classification-status>
+<classification-data-source>H</classification-data-source>
+<scheme-origination-code>C</scheme-origination-code>
+</classification-cpc>
+</main-cpc>
+</classifications-cpc>
+<classification-national>
+<country>US</country>
+<main-classification>  2 16</main-classification>
+</classification-national>
+<invention-title id="d0e43">Hand Guard for Artists</invention-title>
+<us-related-documents>
+<us-provisional-application>
+<document-id>
+<country>US</country>
+<doc-number>61683266</doc-number>
+<date>20120815</date>
+</document-id>
+</us-provisional-application>
+</us-related-documents>
+<us-parties>
+<us-applicants>
+<us-applicant sequence="00" app-type="applicant" designation="us-only">
+<addressbook>
+<last-name>Schoultz</last-name>
+<first-name>Ronald W.</first-name>
+<address>
+<city>Bismarck</city>
+<state>AR</state>
+<country>US</country>
+</address>
+</addressbook>
+<residence>
+<country>US</country>
+</residence>
+</us-applicant>
+</us-applicants>
+<inventors>
+<inventor sequence="00" designation="us-only">
+<addressbook>
+<last-name>Schoultz</last-name>
+<first-name>Ronald W.</first-name>
+<address>
+<city>Bismarck</city>
+<state>AR</state>
+<country>US</country>
+</address>
+</addressbook>
+</inventor>
+</inventors>
+</us-parties>
+</us-bibliographic-data-application>
+<abstract id="abstract">
+<p id="p-0001" num="0000">A hand guard for artists including a base piece; a palm piece joined to the base piece; a first securing piece joined to the base piece to secure the hand guard to the hand of a wearer of the hand guard; and a second securing piece joined to the palm piece to secure the hand guard to a hand of a wearer of the hand guard. The wearer of the hand guard has greater hand control when writing and drawing because the wearer is able to rest the base piece of the hand guard on the working surface.</p>
+</abstract>
+<drawings id="DRAWINGS">
+<figure id="Fig-EMI-D00000" num="00000">
+<img id="EMI-D00000" he="190.58mm" wi="191.60mm" file="US20140047612A1-20140220-D00000.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00001" num="00001">
+<img id="EMI-D00001" he="255.78mm" wi="161.54mm" file="US20140047612A1-20140220-D00001.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00002" num="00002">
+<img id="EMI-D00002" he="241.64mm" wi="184.57mm" file="US20140047612A1-20140220-D00002.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00003" num="00003">
+<img id="EMI-D00003" he="219.20mm" wi="192.28mm" file="US20140047612A1-20140220-D00003.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+</drawings>
+<description id="description">
+<?cross-reference-to-related-applications description="Cross Reference To Related Applications" end="lead"?>
+<heading id="h-0001" level="1">CROSS-REFERENCE TO RELATED APPLICATIONS</heading>
+<p id="p-0002" num="0001">This application claims the benefit of U.S. Provisional Application No. 61/683,266, entitled &#x201c;Hand Guard for Artists&#x201d; and filed on Aug. 15, 2012. The complete disclosure of said provisional patent application is hereby incorporated by reference.</p>
+<?cross-reference-to-related-applications description="Cross Reference To Related Applications" end="tail"?>
+<?summary-of-invention description="Summary of Invention" end="lead"?>
+<heading id="h-0002" level="1">STATEMENT REGARDING FEDERALLY SPONSORED RESEARCH OR DEVELOPMENT</heading>
+<p id="p-0003" num="0002">Not applicable</p>
+<heading id="h-0003" level="1">BACKGROUND OF THE INVENTION</heading>
+<p id="p-0004" num="0003">1. Field of the Invention</p>
+<p id="p-0005" num="0004">The present invention relates to a hand guard and, more specifically, to a hand guard for artists that allows the artist to steady their hand by the resting the hand guard on the working surface for support while drawing and prevents smudging by limiting the exposure of the hand to the working surface.</p>
+<p id="p-0006" num="0005">2. Brief Description of the Related Art</p>
+<p id="p-0007" num="0006">Artists, especially those creating pencil or ink drawings, have two major challenges in creating those works. First, it is very common for artists to unintentionally smudge their work as their hand moves across the working surface (e.g. paper). Second, many artists have trouble keeping a steady hand when drawing. This can be increasingly challenging for disabled artists and all artists as they get older in age.</p>
+<p id="p-0008" num="0007">It would therefore be desirable to develop a hand guard that allows the artist to steady their hand by resting the hand guard on the working surface for support while drawing and prevent smudging by limiting the exposure of the hand to the working surface.</p>
+<heading id="h-0004" level="1">BRIEF SUMMARY OF THE INVENTION</heading>
+<p id="p-0009" num="0008">The present invention is directed to a hand guard for artists comprising a base piece; a palm piece joined to the base piece; a first securing piece joined to the base piece, wherein the first securing piece is operable to secure the hand guard to the hand of a wearer of the hand guard; and a second securing piece joined to the palm piece, wherein the second securing piece is operable to secure the hand guard to a hand of a wearer of the hand guard.</p>
+<p id="p-0010" num="0009">These and other features, objects and advantages of the present invention will become better understood from a consideration of the following detailed description of the preferred embodiments and appended claims in conjunction with the drawings as described following:</p>
+<?summary-of-invention description="Summary of Invention" end="tail"?>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="lead"?>
+<description-of-drawings>
+<heading id="h-0005" level="1">BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+<p id="p-0011" num="0010"><figref idref="DRAWINGS">FIG. 1</figref> is a perspective view of the hand guard of the present invention.</p>
+<p id="p-0012" num="0011"><figref idref="DRAWINGS">FIG. 2</figref> is a perspective view of the hand guard of the present invention.</p>
+<p id="p-0013" num="0012"><figref idref="DRAWINGS">FIG. 3</figref> is a perspective view of the hand guard of the present invention on the hand of an artist.</p>
+<p id="p-0014" num="0013"><figref idref="DRAWINGS">FIG. 4</figref> is a perspective view of the hand guard of the present invention on the hand of an artist.</p>
+</description-of-drawings>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="tail"?>
+<?detailed-description description="Detailed Description" end="lead"?>
+<heading id="h-0006" level="1">DETAILED DESCRIPTION OF THE INVENTION</heading>
+<p id="p-0015" num="0014">With reference to <figref idref="DRAWINGS">FIGS. 1-4</figref>, the preferred embodiments of the present invention may be described.</p>
+<p id="p-0016" num="0015">The hand guard <b>10</b> is preferably made of plastic or other similar materials that are durable, light-weight, and smooth-surfaced. The hand guard <b>10</b> is an irregular shape as shown in <figref idref="DRAWINGS">FIGS. 1-2</figref>. The hand guard <b>10</b> is comprised of a base piece <b>12</b> and a palm piece <b>14</b>. The base piece <b>12</b> is at one end, or the lower portion, of the hand guard <b>10</b>. As shown in <figref idref="DRAWINGS">FIGS. 1-2</figref>, the base piece <b>12</b> is a U-shaped arch. Joined to the base piece <b>12</b> is the palm piece <b>14</b> of the hand guard <b>10</b>. The palm piece <b>14</b> is substantially an upside-down U-shaped arch as shown in <figref idref="DRAWINGS">FIG. 1</figref>.</p>
+<p id="p-0017" num="0016">The hand guard <b>10</b> is intended to be worn on the dominant hand (i.e. the hand the wearer writes with) of the wearer. As shown in <figref idref="DRAWINGS">FIGS. 3</figref>, when the hand guard <b>10</b> is worn, the base piece <b>12</b> of the hand guard <b>10</b> is positioned below the pinky finger of the wearer and along the base of the hand. The palm piece <b>14</b> of the hand guard <b>10</b> is positioned across the palm of the hand of the wearer and curves between the thumb and index finger of the wearer. Joined at opposite ends of the base piece <b>12</b> and the palm piece <b>14</b> of the hand guard <b>10</b> are securing pieces <b>16</b>, <b>18</b>. As shown in <figref idref="DRAWINGS">FIG. 4</figref>, securing piece <b>16</b> is joined to the base piece and flushly contacts the back of the hand of the wearer and securing piece <b>18</b> is joined to the palm piece <b>14</b> and also flushly contacts the back of the hand of the wearer. Together, the securing pieces <b>16</b>, <b>18</b> secure the hand guard <b>10</b> to the wearer during use.</p>
+<p id="p-0018" num="0017">In an alternative embodiment, a strap (not shown) or other means for securing the hand guard <b>10</b> to the hand is connected to the hand guard <b>10</b>. On opposite sides of the base piece <b>12</b> are holes (not shown). The top of the palm piece <b>14</b> of the hand guard <b>10</b> also has at least one hole. The holes are preferably rectangular in shape. The holes are capable of receiving a strap or other means for securing the hand piece to the hand of the artist. In one embodiment, the strap is a VELCRO&#xae; strap. The strap can be threaded through the holes of the hand piece and wrapped around the back of the hand to secure the hand guard <b>10</b> to the hand of the wearer. It should be understood that the dimensions of the hand guard will vary depending on the size of the hand of the wearer of the hand guard <b>10</b>.</p>
+<p id="p-0019" num="0018">The inventor has observed that lead from pencils and ink from pens are not easily transferred from the working surface to the plastic material of the hand guard <b>10</b>. The wearer of the hand guard <b>10</b> is able to rest the base piece <b>14</b> of the hand guard <b>10</b> on the working surface with little risk of smudging the work. Because the plastic material of the hand guard <b>10</b> is substantially smooth, the inventor has observed that the hand guard <b>10</b> moves across the surface of the working surface with little resistance. The inventor has also observed that the wearer of the hand guard <b>10</b> has greater hand control when writing and drawing, including people with medical conditions characterized by shaking hands (e.g. Parkinson's disease). The inventor, therefore, believes that the hand guard <b>10</b> has great potential as a therapeutic and/or rehabilitation medical device.</p>
+<p id="p-0020" num="0019">The present invention has been described with reference to certain preferred and alternative embodiments that are intended to be exemplary only and not limiting to the full scope of the present invention as set forth in the appended claims.</p>
+<?detailed-description description="Detailed Description" end="tail"?>
+</description>
+<us-claim-statement>We claim:</us-claim-statement>
+<claims id="claims">
+<claim id="CLM-00001" num="00001">
+<claim-text><b>1</b>. A hand guard for artists comprising:
+<claim-text>(a) a base piece;</claim-text>
+<claim-text>(b) a palm piece joined to said base piece;</claim-text>
+<claim-text>(c) a first securing piece joined to said base piece, wherein said first securing piece is operable to secure said hand guard to a hand of a wearer of said hand guard; and</claim-text>
+<claim-text>(d) a second securing piece joined to said palm piece, wherein said second securing piece is operable to secure said hand guard to a hand of a wearer of said hand guard.</claim-text>
+</claim-text>
+</claim>
+<claim id="CLM-00002" num="00002">
+<claim-text><b>2</b>. The hand guard of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said hand guard is made of plastic.</claim-text>
+</claim>
+<claim id="CLM-00003" num="00003">
+<claim-text><b>3</b>. The hand guard of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising a strap.</claim-text>
+</claim>
+</claims>
+</us-patent-application>

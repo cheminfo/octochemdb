@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE us-patent-application SYSTEM "us-patent-application-v42-2006-08-23.dtd" [ ]>
+<us-patent-application lang="EN" dtd-version="v4.2 2006-08-23" file="US20120030850A1-20120209.XML" status="PRODUCTION" id="us-patent-application" country="US" date-produced="20120125" date-publ="20120209">
+<us-bibliographic-data-application lang="EN" country="US">
+<publication-reference>
+<document-id>
+<country>US</country>
+<doc-number>20120030850</doc-number>
+<kind>A1</kind>
+<date>20120209</date>
+</document-id>
+</publication-reference>
+<application-reference appl-type="utility">
+<document-id>
+<country>US</country>
+<doc-number>13148153</doc-number>
+<date>20100205</date>
+</document-id>
+</application-reference>
+<us-application-series-code>13</us-application-series-code>
+<priority-claims>
+<priority-claim sequence="01" kind="national">
+<country>GB</country>
+<doc-number>0901923.3</doc-number>
+<date>20090205</date>
+</priority-claim>
+</priority-claims>
+<classifications-ipcr>
+<classification-ipcr>
+<ipc-version-indicator><date>20060101</date></ipc-version-indicator>
+<classification-level>A</classification-level>
+<section>A</section>
+<class>41</class>
+<subclass>D</subclass>
+<main-group>13</main-group>
+<subgroup>06</subgroup>
+<symbol-position>F</symbol-position>
+<classification-value>I</classification-value>
+<action-date><date>20120209</date></action-date>
+<generating-office><country>US</country></generating-office>
+<classification-status>B</classification-status>
+<classification-data-source>H</classification-data-source>
+</classification-ipcr>
+</classifications-ipcr>
+<classification-national>
+<country>US</country>
+<main-classification>  2 24</main-classification>
+</classification-national>
+<invention-title id="d0e61">CUSHIONING PAD</invention-title>
+<parties>
+<applicants>
+<applicant sequence="00" app-type="applicant-inventor" designation="us-only">
+<addressbook>
+<last-name>Wood</last-name>
+<first-name>John</first-name>
+<address>
+<city>West Midlands</city>
+<country>GB</country>
+</address>
+</addressbook>
+<nationality>
+<country>omitted</country>
+</nationality>
+<residence>
+<country>GB</country>
+</residence>
+</applicant>
+</applicants>
+</parties>
+<assignees>
+<assignee>
+<addressbook>
+<orgname>CL-7 Limited</orgname>
+<role>03</role>
+<address>
+<city>Warwickshire</city>
+<country>GB</country>
+</address>
+</addressbook>
+</assignee>
+</assignees>
+<pct-or-regional-filing-data>
+<document-id>
+<country>WO</country>
+<doc-number>PCT/GB10/00200</doc-number>
+<kind>00</kind>
+<date>20100205</date>
+</document-id>
+<us-371c124-date><date>20111020</date></us-371c124-date>
+</pct-or-regional-filing-data>
+</us-bibliographic-data-application>
+<abstract id="abstract">
+<p id="p-0001" num="0000">The present invention relates to a knee pad and a knee pad assembly. A pad for cushioning the knee when kneeling on a surface comprises structure defining longitudinal first passageways with their longitudinal axes arranged to be positioned, in use, so that they intersect with the surface being knelt on.</p>
+</abstract>
+<drawings id="DRAWINGS">
+<figure id="Fig-EMI-D00000" num="00000">
+<img id="EMI-D00000" he="167.56mm" wi="128.10mm" file="US20120030850A1-20120209-D00000.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00001" num="00001">
+<img id="EMI-D00001" he="191.94mm" wi="164.68mm" file="US20120030850A1-20120209-D00001.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00002" num="00002">
+<img id="EMI-D00002" he="130.05mm" wi="172.21mm" file="US20120030850A1-20120209-D00002.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00003" num="00003">
+<img id="EMI-D00003" he="136.82mm" wi="172.21mm" file="US20120030850A1-20120209-D00003.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00004" num="00004">
+<img id="EMI-D00004" he="136.82mm" wi="164.08mm" file="US20120030850A1-20120209-D00004.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00005" num="00005">
+<img id="EMI-D00005" he="156.55mm" wi="140.29mm" file="US20120030850A1-20120209-D00005.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00006" num="00006">
+<img id="EMI-D00006" he="144.36mm" wi="149.10mm" file="US20120030850A1-20120209-D00006.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00007" num="00007">
+<img id="EMI-D00007" he="157.99mm" wi="127.34mm" file="US20120030850A1-20120209-D00007.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00008" num="00008">
+<img id="EMI-D00008" he="164.08mm" wi="155.87mm" file="US20120030850A1-20120209-D00008.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00009" num="00009">
+<img id="EMI-D00009" he="117.09mm" wi="121.84mm" file="US20120030850A1-20120209-D00009.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00010" num="00010">
+<img id="EMI-D00010" he="122.51mm" wi="150.45mm" file="US20120030850A1-20120209-D00010.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00011" num="00011">
+<img id="EMI-D00011" he="172.89mm" wi="142.32mm" file="US20120030850A1-20120209-D00011.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00012" num="00012">
+<img id="EMI-D00012" he="183.13mm" wi="147.07mm" file="US20120030850A1-20120209-D00012.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00013" num="00013">
+<img id="EMI-D00013" he="189.99mm" wi="159.34mm" file="US20120030850A1-20120209-D00013.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00014" num="00014">
+<img id="EMI-D00014" he="244.35mm" wi="155.87mm" orientation="landscape" file="US20120030850A1-20120209-D00014.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00015" num="00015">
+<img id="EMI-D00015" he="281.01mm" wi="151.72mm" orientation="landscape" file="US20120030850A1-20120209-D00015.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+<figure id="Fig-EMI-D00016" num="00016">
+<img id="EMI-D00016" he="247.14mm" wi="157.31mm" orientation="landscape" file="US20120030850A1-20120209-D00016.TIF" alt="embedded image" img-content="drawing" img-format="tif"/>
+</figure>
+</drawings>
+<description id="description">
+<?summary-of-invention description="Summary of Invention" end="lead"?>
+<p id="p-0002" num="0001">The present invention relates to a cushioning pad.</p>
+<p id="p-0003" num="0002">Knee pads are useful for people such as floorers, who must spend long periods of time kneeling on the floor. The knee pad provides cushioning and helps to minimise injuries to the knee caused by kneeling for long periods of time. A known knee pad comprises a piece of foam attached to a person's knee, so that when they kneel, the foam is compressed, thus cushioning the knee. However, over time, such foam knee pads tend to lose their resilience and become permanently compressed. Therefore, their efficiency at cushioning the wearer's knee is reduced.</p>
+<p id="p-0004" num="0003">According to the present invention there is provided a pad for cushioning the knee when kneeling on a surface, comprising structure defining longitudinal first passageways with their longitudinal axes arranged to be positioned, in use, so that they intersect with the surface being knelt on.</p>
+<p id="p-0005" num="0004">Preferably, the first passageways are arranged to be positioned, in use, substantially perpendicular to the surface being knelt on.</p>
+<p id="p-0006" num="0005">As the structure is made from solid material, rather than foam, it provides cushioning by flexing of the structure rather than by compression. The pad therefore shows improved compressive resilience over time than the known foam pad. In addition, the passageways allow air to circulate next to the knee, and therefore the pad is more breathable than the known foam pad, which may improve comfort for the user.</p>
+<p id="p-0007" num="0006">The first passageways are preferably arranged in an orderly formation. In other words, the formation is nonrandom. Preferably the first passageways are arranged in rows. Preferably all the first passageways have the same cross sectional area.</p>
+<p id="p-0008" num="0007">The structure may further define second passageways of a different size to the first passageways. The second passageways are preferably arranged in an orderly formation. In other words, the formation is nonrandom. The second passageways are preferably arranged in rows. The second passageways are preferably arranged in an alternate manner with the first passageways. Preferably, the second passageways are of a uniform cross sectional area.</p>
+<p id="p-0009" num="0008">Preferably, the first and second passageways together are arranged in an orderly formation. In other words, the formation is non-random.</p>
+<p id="p-0010" num="0009">Preferably, each first passageway has a cross sectional area between 10 mm<sup>2 </sup>and 20 mm<sup>2</sup>.</p>
+<p id="p-0011" num="0010">Preferably, each second passageway has a cross sectional area between 120 mm<sup>2 </sup>and 140 mm<sup>2</sup>.</p>
+<p id="p-0012" num="0011">The first passageways may be of any shape in cross section, but preferably are circular in cross section. The first passageways may be directly joined to each other, or may be joined via ribs, the ribs and outer edges of the first passageways defining the second passageways. Therefore, the structure comprises elements which are intended to flex (the ribs) and elements which are intended to provide rigidity (the walls of the first passageways).</p>
+<p id="p-0013" num="0012">Preferably, the ribs and the walls of the tubular elements are of the same thickness.</p>
+<p id="p-0014" num="0013">Preferably, the cross sectional area of each first passageway is less than 25% that each second passageway, more preferably less than 20%, and most preferably less than 16%.</p>
+<p id="p-0015" num="0014">The structure may be mesh-like in profile. Preferably, in profile, substantially perpendicular to the long axes of the passageways, the proportion of closed area of the structure to the total area of the structure is between 15% and 30%, more preferably between 18% and 26%, and most preferably between 21% and 23%. Therefore, there is only a small area of material in contact with the user's knee, further aiding the breatheability of the knee pad.</p>
+<p id="p-0016" num="0015">Preferably, the sides of the pad intended, in use, to be either side of the wearer's knee are curved in a direction which, in use, is away from the surface being knelt on.</p>
+<p id="p-0017" num="0016">Preferably, the pad has a first surface, the first surface being for contact with the knee and being concave in profile. The pad, therefore, is shaped to fit around the knee thus increasing the comfort of the wearer and reducing the likelihood of the pad slipping relative to the knee, and decreasing the bulkiness of the pad, when worn. Further, the curved sides allow greater freedom of movement over the surface being knelt on.</p>
+<p id="p-0018" num="0017">Preferably, the thickness of the knee pad is less than 40 mm. Therefore the thickness of the knee pad need not be substantially greater than that of the known foam pad.</p>
+<p id="p-0019" num="0018">The pad may further include a sheet member. The sheet member is preferably joined to tubular elements. The sheet member is preferably joined to ribs. The sheet member provides additional rigidity to the structure by reducing flexing in the structure.</p>
+<p id="p-0020" num="0019">The sheet member may be convex in profile, so that the apex of the arc of the sheet member faces towards the first surface. The sheet member therefore acts as a leaf spring. The sheet member therefore provides additional resilience to the structure.</p>
+<p id="p-0021" num="0020">Preferably, the radial centre of the arc defines an axis extending fore-aft.</p>
+<p id="p-0022" num="0021">The sheet member, alternatively, may be dome shaped.</p>
+<p id="p-0023" num="0022">Preferably, the sheet number is oriented so that the largest area of sheet member is visible when the sheet member is viewed from a plane parallel with the surface being knelt on.</p>
+<p id="p-0024" num="0023">Preferably, the sheet member is oriented so that at least half of its peripheral edge lies in a single plane, the plane being arranged to be substantially parallel, in use, to the surface being knelt on.</p>
+<p id="p-0025" num="0024">Therefore, the orientation of the sheet member, whether flat or not, is optimised to reduce flexing in the structure.</p>
+<p id="p-0026" num="0025">Preferably, the sheet member defines apertures which align with the centres of the first passageway, so that the first passageways are not blocked. Therefore, air can still circulate in the first passageway thus maintaining some breathability of the pad.</p>
+<p id="p-0027" num="0026">The sheet member is preferably thinner at the edges than in the centre. Preferably the thickness of the sheet member at the centre is between two to four times greater than at its edges, most preferably about three times greater.</p>
+<p id="p-0028" num="0027">The pad may be made from plastics material. The sheet member is preferably made of harder plastics material than the structure. This allows it to provide rigidity whilst the structure allows flexing. The structure is preferably made from a thermoplastic elastomer. Preferably, the structure is made from a material with a hardness of between 20 and 60 Shore A, and more preferably with a hardness of about 42 Shore A. The sheet member is preferably made from a thermoplastic elastomer. Preferably, the sheet member is made from a material with a hardness of between 50 and 90 Shore A, and more preferably with a hardness of about 70 Shore A.</p>
+<p id="p-0029" num="0028">According to another aspect of the present invention there is provided a knee pad assembly including a pad as previously described and means for attaching the pad to a person's leg. The means may comprise a holder with straps, the straps being suitable to wrap around a person's leg and keep the holder in the desired position on the leg.</p>
+<p id="p-0030" num="0029">According to a further aspect of the present invention there is provided the combination of a pad according to the first aspect of the present invention.</p>
+<?summary-of-invention description="Summary of Invention" end="tail"?>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="lead"?>
+<description-of-drawings>
+<p id="p-0031" num="0030">Two embodiments of the present invention will now be described by way of example and with reference to the accompanying drawings, in which:</p>
+<p id="p-0032" num="0031"><figref idref="DRAWINGS">FIG. 1</figref> is a perspective view of the pad of the first embodiment of the present invention, the pad being without the sheet member;</p>
+<p id="p-0033" num="0032"><figref idref="DRAWINGS">FIG. 2</figref> is an end view of the pad of <figref idref="DRAWINGS">FIG. 1</figref>;</p>
+<p id="p-0034" num="0033"><figref idref="DRAWINGS">FIG. 3</figref> is an end view of the pad of <figref idref="DRAWINGS">FIG. 1</figref> from the end opposite to that shown in <figref idref="DRAWINGS">FIG. 2</figref>;</p>
+<p id="p-0035" num="0034"><figref idref="DRAWINGS">FIG. 4</figref> is a side view of the pad shown in <figref idref="DRAWINGS">FIG. 1</figref>;</p>
+<p id="p-0036" num="0035"><figref idref="DRAWINGS">FIG. 5</figref> is a top view of the pad shown in <figref idref="DRAWINGS">FIG. 1</figref>;</p>
+<p id="p-0037" num="0036"><figref idref="DRAWINGS">FIG. 6</figref> is a perspective view from above of the pad of the second embodiment of the present invention;</p>
+<p id="p-0038" num="0037"><figref idref="DRAWINGS">FIG. 7</figref> is a top view of the pad of <figref idref="DRAWINGS">FIG. 6</figref>;</p>
+<p id="p-0039" num="0038"><figref idref="DRAWINGS">FIG. 8</figref> is a cross sectional view of the pad of <figref idref="DRAWINGS">FIG. 6</figref>, showing the convex profile of the sheet member;</p>
+<p id="p-0040" num="0039"><figref idref="DRAWINGS">FIG. 9</figref> shows the sheet member of the pad of <figref idref="DRAWINGS">FIG. 6</figref> without the structure of the pad;</p>
+<p id="p-0041" num="0040"><figref idref="DRAWINGS">FIG. 10</figref> shows the holder, without straps, for containing the pad and holding the pad against a person's knee;</p>
+<p id="p-0042" num="0041"><figref idref="DRAWINGS">FIG. 11</figref> shows a pad in the holder shown in <figref idref="DRAWINGS">FIG. 10</figref>, with straps;</p>
+<p id="p-0043" num="0042"><figref idref="DRAWINGS">FIG. 12</figref> shows the holder and pad in <figref idref="DRAWINGS">FIG. 11</figref> in place on a person's knee; and</p>
+<p id="p-0044" num="0043"><figref idref="DRAWINGS">FIG. 13</figref> is a top view of the pad of <figref idref="DRAWINGS">FIG. 11</figref>.</p>
+<p id="p-0045" num="0044"><figref idref="DRAWINGS">FIG. 14</figref> is a perspective view of the seat pad according to the third embodiment;</p>
+<p id="p-0046" num="0045"><figref idref="DRAWINGS">FIG. 15</figref> is a perspective view in cross section of the pad of <figref idref="DRAWINGS">FIG. 14</figref>; and</p>
+<p id="p-0047" num="0046"><figref idref="DRAWINGS">FIG. 16</figref> is a perspective view showing only the sheet members of the seat pad of <figref idref="DRAWINGS">FIG. 14</figref>.</p>
+</description-of-drawings>
+<?brief-description-of-drawings description="Brief Description of Drawings" end="tail"?>
+<?detailed-description description="Detailed Description" end="lead"?>
+<p id="p-0048" num="0047">With reference to <figref idref="DRAWINGS">FIGS. 1 to 5</figref>, the pad <b>10</b> of the first embodiment comprises a structure <b>12</b>, made from an injection moulded thermoplastic elastomer with a hardness of 42 Shore A, which comprises an array of circular tubular elements <b>14</b> arranged with their longitudinal axes in parallel. The tubular elements <b>14</b> are arranged in an orderly formation, in rows. The tubes <b>14</b> define first passageways <b>16</b>, the passageways <b>16</b> being circular in cross section. The inner diameter of each circular cross section is 5 mm. Each of the tubular elements <b>14</b> is connected to other tubular elements <b>14</b> by ribs <b>18</b>, <b>19</b>. Each tubular element <b>14</b> (apart from those at the edge of the pad) generally has four ribs <b>18</b> extending from it. The ribs <b>18</b> and the walls of the tubular elements <b>14</b> are all 2 mm thick. The ribs <b>18</b> run in diagonal series across the pad <b>10</b>. The ribs <b>18</b> and the outer edges of the tubular elements <b>14</b> together define second passageways <b>20</b>. The second passageways <b>20</b> are generally in the shape of diamonds with corners truncated by the tubular elements <b>14</b>. The second passageways are arranged in an orderly formation, in rows, and in an alternate manner with the first passageways. When viewed from above, as in <figref idref="DRAWINGS">FIG. 5</figref>, the structure comprises open areas (the passageways <b>16</b>, <b>20</b>) and closed areas (the tubes <b>14</b> and ribs <b>18</b>). The proportion of closed area to the total area is approximately 22%.</p>
+<p id="p-0049" num="0048">The spacing between the tubular elements <b>14</b>, and hence the lengths of the ribs <b>18</b>, is uniform across most of the the pad, between the sides <b>24</b>. Each rib <b>18</b> is 10 mm long. The outermost ribs <b>19</b> along the sides <b>24</b> are significantly longer than any of the others, as shown in <figref idref="DRAWINGS">FIG. 5</figref>, and, therefore, form third passageways <b>25</b>, which are of similar shape to the second passageways, but are of greater cross-sectional area.</p>
+<p id="p-0050" num="0049">The pad <b>10</b> has an upper surface <b>22</b>, which is for contact with the user's knee. The upper surface <b>22</b> is concave in profile. The bottom surface <b>26</b>, which is the surface of the pad which in use is nearest to the surface being knelt on, has a flat profile <b>28</b> in the centre but at the sides <b>24</b> of the pad <b>10</b> curves upwards towards the upper surface <b>22</b>. Therefore, the pad is thinner in the centre <b>28</b> than at the sides <b>24</b>. The portions of the pad with the third passageways are less important for weight bearing, but are important for fit. Therefore, the rigidity of the structure is less important in these areas.</p>
+<p id="p-0051" num="0050">The pad <b>10</b> is intended to be used in a specific orientation, with the edge <b>30</b> facing towards the upper leg and the edge <b>32</b> facing towards the lower leg. The edge <b>32</b> has a central curved tapered section <b>34</b>, so that a central section of the edge <b>32</b> is up to half the height of the thickness of the pad <b>10</b>. This section <b>34</b> improves the wearer's comfort by providing a gentler profile for the bottom of the wearer's knee/the wearer's shin to rest against.</p>
+<p id="p-0052" num="0051">As shown in <figref idref="DRAWINGS">FIG. 5</figref>, two additional series of ribs <b>36</b>, <b>38</b> run close to and parallel to the edges <b>30</b>, <b>32</b>, respectively, of the pad. The series of ribs <b>36</b> extends across the whole width of the pad, whereas the series of ribs <b>38</b> stops short of the sides <b>24</b> of the pad <b>10</b>, and extends only for the width of the section <b>34</b>.</p>
+<p id="p-0053" num="0052"><figref idref="DRAWINGS">FIGS. 6 to 9</figref> show the pad according to the second embodiment of the invention. The second embodiment is similar to the first embodiment, and so similar components are denoted by the same reference numerals but with the prefix &#x201c;1&#x201d;, and only the differences will be described.</p>
+<p id="p-0054" num="0053">The pad <b>110</b> includes a sheet member <b>150</b>, in this embodiment made from a thermoplastic elastomer with a hardness of 70 Shore A. The structure <b>112</b> and the sheet member <b>150</b> are injection moulded. The area of the sheet member <b>150</b>, when viewed from above as in <figref idref="DRAWINGS">FIG. 8</figref>, is around 35% of that of the whole pad. As shown in <figref idref="DRAWINGS">FIG. 8</figref> the sheet member <b>150</b> is provided centrally in the pad <b>110</b>. As shown in <figref idref="DRAWINGS">FIGS. 9 and 10</figref>, the sheet member <b>150</b> is convex in profile with the apex of the arc of the sheet member <b>150</b> facing towards the upper surface <b>122</b>. The radial centre of the arc defines an axis extending fore-aft, and only extends across the central portion of the pad, where there is most load. The peripheral edge of the sheet member comprises two side edges <b>152</b> and two end edges <b>154</b>. The side edges <b>152</b> are parallel with the sides <b>124</b> of the pad <b>110</b> and the end edges <b>154</b> are parallel with the ends <b>130</b>, <b>132</b> of the pad <b>110</b>. The end edges <b>154</b> are convex, and the side edges <b>152</b> are arranged to be, in use, parallel to the surface to be knelt on. The thickness of the sheet member at the edges is 1 mm. The thickness of the sheet member in its centre is 3 mm.</p>
+<p id="p-0055" num="0054">In use, the sheet member <b>150</b>, by joining the ribs <b>118</b> and the tubular elements <b>114</b>, provides extra rigidity to the structure by inhibiting buckling of the ribs <b>118</b> and the tubular elements <b>114</b>, and the concave shape of the sheet member <b>150</b> allows it to act as a leaf spring, thus providing further resilience and suspension in the structure <b>112</b>. As shown in <figref idref="DRAWINGS">FIG. 10</figref>, the sheet member <b>150</b> defines apertures <b>156</b> which are arranged in an ordered formation so as to align with the passageways <b>116</b> inside the tubular elements <b>114</b>. Therefore, air can still circulate from the knee to the outside of the pad <b>10</b>, thereby maintaining breathability of the pad <b>10</b>.</p>
+<p id="p-0056" num="0055">In use, the pad is placed in a holder <b>40</b>, as shown in <figref idref="DRAWINGS">FIGS. 11 to 13</figref>. The pad <b>210</b> shown in the holder in <figref idref="DRAWINGS">FIGS. 12 and 13</figref>, although it has a sheet member, has some differences from the pad <b>110</b> of the second embodiment. These differences can be seen in <figref idref="DRAWINGS">FIGS. 12</figref>, <b>13</b>, and <b>14</b>. Similar components to the pad <b>110</b> of the second embodiment will be denoted by the same reference numerals, but with the prefix &#x201c;2&#x201d; instead of &#x201c;1&#x201d;. Differences from the pad <b>110</b> of the second embodiment will be discussed later. The holder <b>40</b> comprises a base <b>42</b> and three sides, <b>44</b>, <b>46</b>, <b>48</b>. The fourth edge <b>50</b> of the base <b>42</b> is open. The pad <b>210</b> is placed so that the bottom surface <b>26</b> is in contact with the base <b>42</b> of the holder <b>40</b>. The base <b>42</b> of the holder <b>40</b> is shaped in a similar manner to the bottom surface <b>26</b> of the pad <b>10</b>, so that there is a large area of contact between the pad <b>210</b> and the holder <b>40</b>. The holder <b>40</b> further comprises straps <b>52</b>, <b>54</b> which, in use, can be used to keep the holder in place around the person's leg. The open edge <b>50</b> is arranged to be in use, the edge of the holder facing the wearer's lower leg, so that there are no edges which the wearer's leg presses against, thus improving comfort.</p>
+<p id="p-0057" num="0056">The outer surface of the base the pad <b>210</b> has a tapered section <b>234</b>, but this is not at the edge <b>232</b>, as in the second embodiment. Rather, the tapered section <b>234</b> is nearer the edge <b>230</b>, and, further, tapers upwards from the upper surface <b>222</b> to create a thicker portion <b>260</b> along the edge <b>230</b>. In use, the top of the wearer's knee is in contact with this thicker portion <b>260</b> of the pad <b>210</b>, rather than the edge <b>46</b> of the holder <b>40</b>, thus increasing comfort and stopping the knee from moving over the edge of the pad during use. The pad <b>210</b> has two additional series of ribs <b>236</b>, <b>238</b>. The series <b>236</b> is closer to the edge <b>230</b> than in the previously described pads <b>10</b>, <b>110</b>, and the series <b>238</b> is actually along the edge <b>232</b>. The closer proximity of the series <b>236</b>, <b>238</b> to the edges <b>230</b>, <b>232</b> increases the stability of the pad <b>210</b> in these regions, when a wearer is kneeling on the pad <b>210</b>. The sheet member <b>250</b>, when viewed from above, as in <figref idref="DRAWINGS">FIG. 13</figref>, has an area which is about 60% of that of the whole pad <b>210</b>, and thus is greater in area than the sheet member <b>150</b> of the pad <b>110</b> of the second embodiment.</p>
+<p id="p-0058" num="0057">Although the use of the pad <b>10</b> with the holder <b>40</b> has been described, it will of course be obvious that the manner in which pad <b>10</b> is positioned to cushion the knee can be varied. For example, a pocket could be created in the knee of a pair of trousers and the pad inserted into the pocket.</p>
+<p id="p-0059" num="0058"><figref idref="DRAWINGS">FIGS. 14 to 16</figref> show the pad according to the third embodiment of the invention. The third embodiment is similar to the first and second embodiments, and so similar components are denoted by the same reference numerals, but with the prefix &#x201c;3&#x201d;, and only the differences will be described.</p>
+<p id="p-0060" num="0059">The pad <b>310</b> in this embodiment is significantly larger than those of the previous embodiments, and is of a suitable size for the seat of a chair. The pad <b>310</b> has four edges, a front edge <b>360</b> which is the edge which are used as legs will overlap in use, a back edge <b>362</b>, and when viewed from the front, a left edge <b>364</b> and a right edge <b>366</b>.</p>
+<p id="p-0061" num="0060">Instead of the single sheet member as in the second embodiment, the pad includes three sheet members <b>368</b>, <b>370</b>, <b>372</b>. The sheet members <b>368</b>, <b>370</b>, <b>372</b> are elongate, with the direction of elongation being the same as the direction of the fore-aft axis of the sheet member <b>368</b>, <b>370</b>, <b>372</b>. The sheet members <b>368</b>, <b>370</b>, <b>372</b>, slightly spaced apart and aligned so that their fore-aft axes are parallel to each other and also parallel to the front edge <b>360</b> of the seat pad <b>310</b>.</p>
+<p id="p-0062" num="0061">In the above embodiment relating to a seat pad, the pad has structure which is a continuous moulding, but the pad could also be created from a number of separately moulded sections.</p>
+<p id="p-0063" num="0062">It will be apparent to the skilled man that the number of sheet members in a pad, and their relative arrangement may be varied, particularly in any arrangement which provides comfort for the user.</p>
+<p id="p-0064" num="0063">For example, in the seat pad, more or less than three sheet members may be provided, and there may be no spacing between the sheet members, or a large spacing. Further, each sheet member could be replaced by a plurality of shorter sheet members. the sheet members could also be oriented differently. For example, sheet members could be provided substantially perpendicular to the front of the pad. Sheet members may be positioned to correspond to pressure points likely to be created in use, or may be positioned randomly to provide a level of cushioning throughout the pad. Further, different shaped sheet members may be used, for example, dome shaped sheet members.</p>
+<p id="p-0065" num="0064">In all the embodiments, the tubular elements (apart from those at the edges of the pads) are depicted as being connected by ribs to four other tubular elements, so that four ribs extend from each tubular element. However, a different number of ribs could extend from each tube, for example, eight ribs.</p>
+<p id="p-0066" num="0065">Although in the first and second embodiments, extra series of ribs <b>36</b>, <b>38</b> and <b>236</b>, <b>238</b>, respectively, were provided. However, these are not essential, and the pad may be created without these additional ribs.</p>
+<p id="p-0067" num="0066">The tubular elements in the structure of the above described pads are all circular in cross section but, of course, the elements could be any shape in cross section, for example, oval, square, triangular, hexagonal. Further, it is, of course, possible for there to be only one type of passageway in the structure, for example, only square or hexagonal passageways. In this case, no ribs would be needed.</p>
+<p id="p-0068" num="0067">All the passageways in the described pads are arranged to be perpendicular to the surface to which pressure is applied by the user, as shown in the figures. However, the passages could be arranged to be at a different angle to the surface to which pressure is applied.</p>
+<p id="p-0069" num="0068">The sheet member in the second and third embodiments need not be curved in profile, but could be flat. Alternatively, it could also be a dome shape.</p>
+<p id="p-0070" num="0069">The sheet members in the first and second embodiments have areas of 35% and 48% of the total area of the pad, respectively. However, the sheet member could have an area up to 100% of the area of the pad, although typically its area will be between 25% and 75% of the area of the pad.</p>
+<p id="p-0071" num="0070">In the third embodiment, the seat pad is for a chair, but it would be apparent to the skilled may that such an arrangement could easily be adapted to any size of seat, for example bench-type seats found on public transport.</p>
+<p id="p-0072" num="0071">The surface of the seat pad which is to be sat on may be moulded for comfort. For example, the front edge may be tapered so that it does not dig into the back of a user's knees or the sides may have more sections which taper upwardly, to ensure the user is correctly positioned on the seat.</p>
+<p id="p-0073" num="0072">The seat pad could include a lumber support.</p>
+<p id="p-0074" num="0073">A pad, as well as being suitable for a seat, may be suitable for the whole of a chair, for example, a seat portion, a back portion, and even a headrest.</p>
+<p id="p-0075" num="0074">It will be apparent to the skilled man that pads as described above could be adapted without any inventive skill for use in cushioning any body part, for example, elbows, the back, the head, and could even be used as a floor covering. If provided with sheet members, the sheet members would preferably be provided in suitable locations relative to the pressure points in use.</p>
+<p id="p-0076" num="0075">Of course, the pads may include a cover, for example a fabric cover, so that the structure on the pad is hidden from view.</p>
+<?detailed-description description="Detailed Description" end="tail"?>
+</description>
+<claims id="claims">
+<claim id="CLM-01-52" num="01-52">
+<claim-text><b>1</b>-<b>52</b>. (canceled)</claim-text>
+</claim>
+<claim id="CLM-00053" num="00053">
+<claim-text><b>53</b>. A cushioning pad comprising:
+<claim-text>a support surface arranged to support an applied load;</claim-text>
+<claim-text>a structure defining longitudinal first passageways, each longitudinal first passageway defining a longitudinal axis, the structure being configured such that the first passageways and longitudinal axes thereof intersect with the support surface; and</claim-text>
+<claim-text>a sheet member, the sheet member being positioned substantially within the structure, the sheet member being convex in profile, so that an apex of an arc of the sheet member faces towards the support surface, the sheet member being made from a thermoplastic elastomer.</claim-text>
+</claim-text>
+</claim>
+<claim id="CLM-00054" num="00054">
+<claim-text><b>54</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the first passageways are arranged to be positioned, in use, substantially perpendicular to said support surface.</claim-text>
+</claim>
+<claim id="CLM-00055" num="00055">
+<claim-text><b>55</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the first passageways are directly joined to each other.</claim-text>
+</claim>
+<claim id="CLM-00056" num="00056">
+<claim-text><b>56</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein each first passageway is defined by a tubular element.</claim-text>
+</claim>
+<claim id="CLM-00057" num="00057">
+<claim-text><b>57</b>. The cushioning pad according to <claim-ref idref="CLM-00056">claim 56</claim-ref>, wherein the sheet member is joined to the tubular elements.</claim-text>
+</claim>
+<claim id="CLM-00058" num="00058">
+<claim-text><b>58</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the structure further defines second passageways of a different size from the first passageways.</claim-text>
+</claim>
+<claim id="CLM-00059" num="00059">
+<claim-text><b>59</b>. The cushioning pad according to <claim-ref idref="CLM-00058">claim 58</claim-ref>, wherein the second passageways are arranged in an alternate manner with the first passageways.</claim-text>
+</claim>
+<claim id="CLM-00060" num="00060">
+<claim-text><b>60</b>. The cushioning pad according to <claim-ref idref="CLM-00058">claim 58</claim-ref>, wherein the first passageways are of a smaller cross sectional area than the second passageways.</claim-text>
+</claim>
+<claim id="CLM-00061" num="00061">
+<claim-text><b>61</b>. The cushioning pad according to <claim-ref idref="CLM-00058">claim 58</claim-ref>, wherein the first passageways are joined via ribs, the ribs and outer edges of the first passageways defining the second passageways.</claim-text>
+</claim>
+<claim id="CLM-00062" num="00062">
+<claim-text><b>62</b>. The cushioning pad according to <claim-ref idref="CLM-00061">claim 61</claim-ref>, wherein the sheet member is joined to the ribs.</claim-text>
+</claim>
+<claim id="CLM-00063" num="00063">
+<claim-text><b>63</b>. The cushioning pad according to <claim-ref idref="CLM-00058">claim 58</claim-ref>, wherein the cross sectional area of each first passageway is less than 25% that of each second passageway.</claim-text>
+</claim>
+<claim id="CLM-00064" num="00064">
+<claim-text><b>64</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein a radial centre of the arc of the sheet member defines an axis.</claim-text>
+</claim>
+<claim id="CLM-00065" num="00065">
+<claim-text><b>65</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the sheet member defines apertures which align with centres of the first passageways, so that the first passageways are not blocked.</claim-text>
+</claim>
+<claim id="CLM-00066" num="00066">
+<claim-text><b>66</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the sheet member is made of harder plastics material than the structure.</claim-text>
+</claim>
+<claim id="CLM-00067" num="00067">
+<claim-text><b>67</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the support surface of the pad is for contact with a user and is concave in profile.</claim-text>
+</claim>
+<claim id="CLM-00068" num="00068">
+<claim-text><b>68</b>. The cushioning pad according to <claim-ref idref="CLM-00053">claim 53</claim-ref>, wherein the pad includes more than one sheet member.</claim-text>
+</claim>
+<claim id="CLM-00069" num="00069">
+<claim-text><b>69</b>. A cushioning pad for a knee and according to <claim-ref idref="CLM-00053">claim 53</claim-ref>.</claim-text>
+</claim>
+<claim id="CLM-00070" num="00070">
+<claim-text><b>70</b>. The cushioning pad for a knee according to <claim-ref idref="CLM-00069">claim 69</claim-ref>, wherein the cushioning pad includes sides, and the sides of the pad are intended, in use, to be either side of a wearer's knee are curved in a direction which, in use, is away from a surface being knelt on.</claim-text>
+</claim>
+<claim id="CLM-00071" num="00071">
+<claim-text><b>71</b>. A knee pad for cushioning the knee when kneeling on a surface, the knee pad comprising:
+<claim-text>a support surface arranged to support an applied load from a user's knee;</claim-text>
+<claim-text>a structure defining longitudinal first passageways, each longitudinal first passageway defining a longitudinal axis, the structure being such that the first passageways and longitudinal axes thereof intersect with the support surface; and</claim-text>
+<claim-text>a sheet member, the sheet member being positioned substantially within the structure, the sheet member being convex in profile, so that an apex of an arc of the sheet member faces towards the support surface and the sheet member acts as a leaf spring, the sheet member being made from a thermoplastic elastomer.</claim-text>
+</claim-text>
+</claim>
+<claim id="CLM-00072" num="00072">
+<claim-text><b>72</b>. A cushioning pad comprising:
+<claim-text>a support surface defined by said pad which is arranged to support an applied load;</claim-text>
+<claim-text>a structure defining longitudinal first passageways, each longitudinal first passageway being defined by a tubular element defining a longitudinal axis, the structure being such that the first passageways and longitudinal axes thereof intersect with the support surface; and</claim-text>
+<claim-text>a sheet member, the sheet member being positioned substantially within the structure, the sheet member being convex in profile, so that an apex of an arc of the sheet member faces towards the support surface and the sheet member acts as a leaf spring, the sheet member being made from a thermoplastic elastomer, the sheet member defining apertures which align with centres of the first passageways so that the first passageways are not blocked.</claim-text>
+</claim-text>
+</claim>
+</claims>
+</us-patent-application>
