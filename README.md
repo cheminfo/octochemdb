@@ -1,7 +1,9 @@
 # OctoChemDB
 
 [![DOI](https://www.zenodo.org/badge/134719303.svg)](https://www.zenodo.org/badge/latestdoi/134719303)
-![DALL·E 2023-03-02 14 35 19 - baby octopus cute cartoon grabbing chemicals and books](https://user-images.githubusercontent.com/92425679/223107434-a2c8633d-4ae9-428b-9ddd-5f24e39640d7.png)
+
+<img width="606" alt="image" src="https://user-images.githubusercontent.com/92425679/224554633-4c6e19fe-ed4f-4a16-8222-a540e55d10f8.png">
+
 This project will fetch [multiple](#Sources) databases data in order to create a local database searchable by experimental monoisotopic mass and molecular formula. When building this database we will correctly take into account the charges and isotopes present in the molfile describing the structure.
 ## Quick start
 
