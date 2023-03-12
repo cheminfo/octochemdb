@@ -1,5 +1,5 @@
 async function getFilesListUsp(url, year) {
-  const response = await fetch(url);
+  const response = await fetch(`${url}${year}`);
   const options = {};
   const { fileFilter = () => true } = options;
   const text = await response.text();
@@ -9,9 +9,10 @@ async function getFilesListUsp(url, year) {
     .map((line) => {
       let match = line.match(/.*href="(?<href>.*)">(?<name>.*)<\/a>/);
       if (!match) return undefined;
+      // groups object key are unprototype
       let groups = match.groups;
       if (match.groups.name) {
-        groups.url = `${url}${match.groups.name}`;
+        groups.url = `${url}${year}/${match.groups.name}`;
         groups.epoch = new Date(`${year}`).getTime();
       }
       return groups;

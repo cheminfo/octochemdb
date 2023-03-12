@@ -10,18 +10,23 @@ import { parseStream } from 'arraybuffer-xml-parser';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
-import { parseUsp } from './parseUsp.js';
-import { unzipFile } from './unzip.js';
+import { parsers } from './parsers/parsers';
+import { unzipFile } from './unzip';
 
 const debug = debugLibrary('importOneUspFile');
 
 export async function importOneUspFile(connection, progress, file, options) {
   try {
     const collection = await connection.getCollection('uspPatents');
-    const progress = connection.getProgress('uspPatents');
+    const progress = await connection.getProgress('uspPatents');
+    let xmlPath;
     // unzip file and get xmlpath
+    if (file.path.endsWith('.xml')) {
+      xmlPath = file.path;
+    } else {
+      xmlPath = await unzipFile(file.path);
+    }
 
-    const xmlPath = await unzipFile(file.path);
     const fileStream = await open(xmlPath, 'r');
     const readableStream = fileStream.readableWebStream();
     let imported = 0;
@@ -35,21 +40,24 @@ export async function importOneUspFile(connection, progress, file, options) {
       startSequenceID: progress.seq,
     });
     let { shouldImport, lastDocument } = options;
-    /*
-    2001 version 1.5
-    2002,2003,2004 version 1.6
-    2005 XML Version 4.0 ICE
-    2006 XML Version 4.1 ICE
-    2007,2008,2009,2010,2011,2012 XML Version 4.2 ICE
-    2013,2014 XML Version 4.3 ICE
-    2015,2016,2017,2018,2019,2020,2021 XML Version 4.4 ICE
-    2022 XML Version 4.5 or 4.6 ICE
-    */
-    for await (const entry of parseStream(
-      readableStream,
-      'us-patent-application',
-    )) {
-      let results = await parseUsp(entry);
+    // regex to get year from filename starting from 2001
+    let year = fileName.match(/^(?:[2][0][0-9][0-9])/);
+    if (year.length > 0) {
+      year = year[0];
+    } else {
+      throw new Error('Year not found in filename');
+    }
+
+    let header;
+
+    if (year < 2005 || year === 2006) {
+      header = 'patent-application-publication';
+    } else {
+      header = 'us-patent-application';
+    }
+
+    for await (const entry of parseStream(readableStream, header)) {
+      let results = await parsers(entry, year);
       if (!shouldImport) {
         if (results._id !== lastDocument._id) {
           continue;

@@ -8,15 +8,17 @@
     2015,2016,2017,2018,2019,2020,2021 XML Version 4.4 ICE
     2022 XML Version 4.5 or 4.6 ICE
     */
-export function parse22bTo23(entry) {
+export function parse22To23(entry) {
   let usp = {};
-
   let documentReference = entry['us-bibliographic-data-application'];
   usp.id = `US-${documentReference['publication-reference']['document-id']['doc-number']}-${documentReference['publication-reference']['document-id'].kind}`;
   usp.pubchemPatentId = `US${documentReference['publication-reference']['document-id']['doc-number']}${documentReference['publication-reference']['document-id'].kind}`;
   usp.title = documentReference['invention-title']['#text'];
-
-  usp.abstract = entry.abstract.p['#text'];
+  if (Array.isArray(entry.abstract.p)) {
+    usp.abstract = entry.abstract.p[1]['#text'];
+  } else {
+    usp.abstract = entry.abstract.p['#text'];
+  }
   usp.dateProduced = entry['$date-produced'];
   usp.datePublished = entry['$date-publ'];
 

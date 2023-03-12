@@ -13,16 +13,39 @@ export async function sync(connection) {
   try {
     // get progress
     const progress = await connection.getProgress('uspPatents');
-
+    let allFiles;
     // get all files to import
-    const allFiles = await syncAllUspFolders(connection);
-    debug(allFiles);
+    if (process.env.NODE_ENV === 'test') {
+      allFiles = [
+        {
+          name: '2001.xml',
+          path: `${process.env.USP_TEST_SOURCE}2001.xml`,
+        },
+        {
+          name: '2005.xml',
+          path: `${process.env.USP_TEST_SOURCE}2005.xml`,
+        },
+        {
+          name: '2006.xml',
+          path: `${process.env.USP_TEST_SOURCE}2006.xml`,
+        },
+        {
+          name: '2007.xml',
+          path: `${process.env.USP_TEST_SOURCE}2007.xml`,
+        },
+        {
+          name: '2023.xml',
+          path: `${process.env.USP_TEST_SOURCE}2023.xml`,
+        },
+      ];
+    } else {
+      allFiles = await syncAllUspFolders(connection);
+    }
     const { files, lastDocument } = await getFilesToImportForUsp(
       connection,
       progress,
       allFiles,
     );
-    debug(files);
     //set progress to updating
     progress.state = 'updating';
     await connection.setProgress(progress);

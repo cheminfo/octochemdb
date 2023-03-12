@@ -437,7 +437,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2022a');
+      results = parsers(entry, '2022');
       count++;
       if (count > 0) {
         break;
@@ -456,7 +456,8 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2022b');
+      results = parsers(entry, '2022');
+
       count++;
       if (count > 0) {
         break;

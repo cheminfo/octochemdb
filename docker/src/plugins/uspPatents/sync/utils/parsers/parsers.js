@@ -3,8 +3,7 @@ import { parse01To04 } from './parsersFrom01To23/parse01To04.js';
 import { parse05 } from './parsersFrom01To23/parse05.js';
 import { parse06 } from './parsersFrom01To23/parse06.js';
 import { parse07To21 } from './parsersFrom01To23/parse07To21.js';
-import { parse22a } from './parsersFrom01To23/parse22a.js';
-import { parse22bTo23 } from './parsersFrom01To23/parse22bTo23.js';
+import { parse22To23 } from './parsersFrom01To23/parse22To23.js';
 
 export function parsers(entry, parserYear) {
   switch (parserYear) {
@@ -50,12 +49,11 @@ export function parsers(entry, parserYear) {
       return parse07To21(entry);
     case '2021':
       return parse07To21(entry);
-    case '2022a':
-      return parse22a(entry);
-    case '2022b':
-      return parse22bTo23(entry);
+    case '2022':
+      return parse22To23(entry);
+
     case '2023':
-      return parse22bTo23(entry);
+      return parse22To23(entry);
     default:
       return null;
   }

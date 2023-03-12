@@ -57,23 +57,29 @@ async function syncUspFolder(source, destinationFolder, year) {
     })
     .filter((file) => file);
   // download the files
-  const filesDownloaded = await Promise.all(
-    filesToDownload.map(async (file) => {
-      const fileName = file.name;
-      const fileSize = file.size;
-      file.path = join(destinationFolder, fileName);
-      const fileExists = lastFilesDownloaded.find((lastFile) => {
-        return lastFile.path === file.path && lastFile.size === fileSize;
-      });
-      if (fileExists) {
-        return null;
-      }
-      await getFile(file, file.path);
-      return file;
-    }),
-  );
-  // return the files downloaded
-  return filesDownloaded;
+  let filesDownloaded;
+  if (process.env.NODE_ENV !== 'test') {
+    filesDownloaded = await Promise.all(
+      filesToDownload.map(async (file) => {
+        const fileName = file.name;
+        const fileSize = file.size;
+        file.path = join(destinationFolder, fileName);
+        const fileExists = lastFilesDownloaded.find((lastFile) => {
+          return lastFile.path === file.path && lastFile.size === fileSize;
+        });
+        if (fileExists) {
+          return null;
+        }
+        await getFile(file, file.path);
+        return file;
+      }),
+    );
+    // return the files downloaded
+    return filesDownloaded;
+  } else {
+    filesDownloaded = filesToDownload;
+    return filesDownloaded;
+  }
 }
 
 export default syncUspFolder;
