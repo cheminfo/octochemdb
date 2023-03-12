@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`USP Patents > syncUsp 1`] = `
+{
+  "_id": "US-20230012473-A1",
+  "data": {
+    "abstract": "An airbag deviceis an airbag device for a flying object including an upper cover memberand a lower cover memberas a housing, and a batteryprovided inside the housing and includes an expandable memberwhich is provided inside the housing of the flying objectand is expandable inside the housing, a gas generatorwhich is connected to the expandable memberand receives a predetermined amount of current to make gas flow into the expandable member, and a current supply section which supplies current to the gas generatoraccording to collision of the flying object",
+    "dateProduced": 20221231,
+    "datePublished": 20230119,
+    "patentNumber": 20230012473,
+    "pubchemPatentId": "US20230012473A1",
+    "title": "AIRBAG DEVICE FOR AIRCRAFT",
+  },
+}
+`;
