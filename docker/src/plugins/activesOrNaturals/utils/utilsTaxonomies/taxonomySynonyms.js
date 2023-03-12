@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 
-import { join } from 'path';
 import { createInterface } from 'readline';
 
 import { fileCollectionFromPath } from 'filelist-utils';
