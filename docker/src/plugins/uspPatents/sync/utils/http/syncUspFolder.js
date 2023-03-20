@@ -20,10 +20,8 @@ async function syncUspFolder(source, destinationFolder, year) {
   const lastFilesDownloaded = (
     await fileCollectionFromPath(destinationFolder)
   ).files.sort((a, b) => {
-    a.path = a.relativePath;
-    b.path = b.relativePath;
-    if (a.path < b.path) return -1;
-    if (a.path > b.path) return 1;
+    if (a.relativePath < b.relativePath) return -1;
+    if (a.relativePath > b.relativePath) return 1;
     return 0;
   });
 
@@ -33,10 +31,12 @@ async function syncUspFolder(source, destinationFolder, year) {
       // skip until the last file downloaded
       //check for each file if it exists in the destination folder or if should be downloaded
       const fileName = file.name;
-      const fileSize = file.size;
+      const fileSize = Number(file.size);
       file.path = join(destinationFolder, fileName);
       const fileExists = lastFilesDownloaded.find((lastFile) => {
-        return lastFile.path === file.path && lastFile.size === fileSize;
+        return (
+          lastFile.relativePath === file.path && lastFile.size === fileSize
+        );
       });
       if (fileExists) {
         return false;
@@ -45,10 +45,12 @@ async function syncUspFolder(source, destinationFolder, year) {
     })
     .map((file) => {
       const fileName = file.name;
-      const fileSize = file.size;
+      const fileSize = Number(file?.size);
       file.path = join(destinationFolder, fileName);
       const fileExists = lastFilesDownloaded.find((lastFile) => {
-        return lastFile.path === file.path && lastFile.size === fileSize;
+        return (
+          lastFile.relativePath === file.path && lastFile.size === fileSize
+        );
       });
       if (fileExists) {
         return null;
@@ -62,10 +64,12 @@ async function syncUspFolder(source, destinationFolder, year) {
     filesDownloaded = await Promise.all(
       filesToDownload.map(async (file) => {
         const fileName = file.name;
-        const fileSize = file.size;
+        const fileSize = Number(file.size);
         file.path = join(destinationFolder, fileName);
         const fileExists = lastFilesDownloaded.find((lastFile) => {
-          return lastFile.path === file.path && lastFile.size === fileSize;
+          return (
+            lastFile.relativePath === file.path && lastFile.size === fileSize
+          );
         });
         if (fileExists) {
           return null;
