@@ -1,5 +1,13 @@
+import delay from 'delay';
+
 async function getFilesListUsp(url, year) {
-  const response = await fetch(`${url}${year}`);
+  let response = await fetch(`${url}${year}`);
+  let count = 0;
+  while (!response.ok && count < 3) {
+    delay(1000);
+    response = await fetch(`${url}${year}`);
+    count++;
+  }
   const options = {};
   const { fileFilter = () => true } = options;
   const text = await response.text();
@@ -21,8 +29,14 @@ async function getFilesListUsp(url, year) {
   files = JSON.parse(JSON.stringify(files));
   // determine the file size of each file
   for (let file of files) {
-    const response = await fetch(file.url);
-    const headers = Array.from(response.headers);
+    let responseFile = await fetch(file.url);
+    let counter = 0;
+    while (!responseFile.ok && counter < 3) {
+      delay(1000);
+      responseFile = await fetch(file.url);
+      counter++;
+    }
+    const headers = Array.from(responseFile.headers);
     const size = Number(
       headers.filter((row) => row[0] === 'content-length')[0][1],
     );
