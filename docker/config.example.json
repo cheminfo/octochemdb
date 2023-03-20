@@ -1,6 +1,6 @@
 {
   "mongodbUrl": "mongodb://localhost:27017",
-  "databaseName": "pubchem",
+  "databaseName": "octochemdb",
   "dataFullDir": "./originalData/full",
   "dataWeeklyDir": "./originalData/weekly",
   "sourceServer": "ftp.ncbi.nlm.nih.gov"

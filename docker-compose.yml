@@ -12,11 +12,9 @@ services:
       driver: 'json-file'
       options:
         max-size: '50m'
-    networks:
-      - ocl-cache-docker_some-net
 
   import:
-    build: ./pubchem
+    build: ./docker
     restart: always
     privileged: true
     depends_on:
@@ -33,11 +31,9 @@ services:
       - MONGODB_URL=mongodb://mongo:27017
       - ORIGINAL_DATA_PATH=/originalData
     command: npm run cron
-    networks:
-      - ocl-cache-docker_some-net
 
   pubchem:
-    build: ./pubchem
+    build: ./docker
     restart: always
     ports:
       - 127.0.0.1:3001:11015
@@ -49,8 +45,3 @@ services:
       driver: 'json-file'
       options:
         max-size: '50m'
-    networks:
-      - ocl-cache-docker_some-net
-networks:
-  ocl-cache-docker_some-net:
-    external: true
