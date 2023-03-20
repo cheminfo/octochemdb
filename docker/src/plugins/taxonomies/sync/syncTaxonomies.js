@@ -69,12 +69,10 @@ export async function sync(connection) {
         sources,
         startSequenceID: progress.seq,
       });
-      console.log(await fileCollectionFromZip(readFileSync(lastFile)));
 
       const fileList = (
         await fileCollectionFromZip(readFileSync(lastFile))
       ).filter((file) => file.name === 'rankedlineage.dmp');
-      console.log(fileList);
       const arrayBuffer = await fileList.files[0].arrayBuffer();
       progress.state = 'updating';
       await connection.setProgress(progress);
