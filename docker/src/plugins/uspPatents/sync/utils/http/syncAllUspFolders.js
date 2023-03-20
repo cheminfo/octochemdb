@@ -13,15 +13,12 @@ export async function syncAllUspFolders(connection) {
     const startingYear = 2001;
     let files = [];
     for (let year = startingYear; year <= Number(currentYear); year++) {
-      const source = `${process.env.USP_SOURCE}${year}/`;
+      const source = `${process.env.USP_SOURCE}`;
       const destination = `${process.env.ORIGINAL_DATA_PATH}/usp/${year}/`;
       debug(`Starting sync for ${year}`);
       const filesDownloaded = await syncUspFolder(source, destination, year);
       files = files.concat(filesDownloaded);
       debug(`${year} done`);
-      if (year === 2001) {
-        break;
-      }
     }
     return files.sort((a, b) => {
       if (a.path < b.path) return -1;
