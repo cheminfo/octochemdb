@@ -10,8 +10,8 @@ import { parseStream } from 'arraybuffer-xml-parser';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
-import { parsers } from './parsers/parsers';
-import { unzipFile } from './unzip';
+import { parsers } from './parsers/parsers.js';
+import { unzipFile } from './unzip.js';
 
 const debug = debugLibrary('importOneUspFile');
 
@@ -41,7 +41,7 @@ export async function importOneUspFile(connection, progress, file, options) {
     });
     let { shouldImport, lastDocument } = options;
     // regex to get year from filename starting from 2001
-    let year = fileName.match(/^(?:[2][0][0-9][0-9])/);
+    let year = fileName.match(/^(?<temp1>[2][0][0-9][0-9])/);
     if (year.length > 0) {
       year = year[0];
     } else {
