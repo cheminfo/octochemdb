@@ -12,7 +12,7 @@ cron();
 
 async function cron() {
   const url = new URL('../plugins/', import.meta.url);
-  debug(url);
+
   let syncURLs = (await recursiveDir(url)).filter(
     (file) =>
       file.href.match(/sync/) &&
@@ -23,8 +23,11 @@ async function cron() {
   if (process.env.PLUGINS) {
     const allowedPlugins = process.env.PLUGINS.split(',');
     syncURLs = syncURLs.filter((url) => {
-      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
-      debug(pluginName);
+      const pluginName = url.pathname.replace(
+        /.*plugins\/\/?(?<temp1>.*?)\/.*/,
+        '$1',
+      );
+
       if (allowedPlugins.includes(pluginName)) return true;
       return false;
     });
@@ -32,7 +35,10 @@ async function cron() {
   if (process.env.EXCLUDEPLUGINS) {
     const notAllowedPlugins = process.env.EXCLUDEPLUGINS.split(',');
     syncURLs = syncURLs.filter((url) => {
-      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      const pluginName = url.pathname.replace(
+        /.*plugins\/\/?(?<temp2>.*?)\/.*/,
+        '$1',
+      );
       if (!notAllowedPlugins.includes(pluginName)) return true;
       return false;
     });
@@ -47,7 +53,6 @@ async function cron() {
   }
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
-    debug(sync);
     if (typeof sync.sync !== 'function') continue;
     debug(`sync: ${syncURL.pathname}`);
     let connection;
@@ -72,7 +77,10 @@ async function cron() {
   if (process.env.PLUGINS) {
     const allowedPlugins = process.env.PLUGINS.split(',');
     aggregateURLs = aggregateURLs.filter((url) => {
-      const pluginName = url.pathname.replace(/.*plugins\/\/?(.*?)\/.*/, '$1');
+      const pluginName = url.pathname.replace(
+        /.*plugins\/\/?(?<temp3>.*?)\/.*/,
+        '$1',
+      );
       if (allowedPlugins.includes(pluginName)) return true;
       return false;
     });

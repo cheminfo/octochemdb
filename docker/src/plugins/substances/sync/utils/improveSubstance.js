@@ -23,7 +23,7 @@ async function improveSubstance(molecule) {
 
     if (molecule.PUBCHEM_CID_ASSOCIATIONS !== undefined) {
       let arrayCIDs = molecule.PUBCHEM_CID_ASSOCIATIONS.toString()
-        .replace(/(?:\r\n|\n|\r)/gm, '  ')
+        .replace(/(?<temp1>\r\n|\n|\r)/gm, '  ')
         .split('  ');
       let cids = [];
       for (let i = 0; i < arrayCIDs.length; i++) {
@@ -36,13 +36,13 @@ async function improveSubstance(molecule) {
 
     if (molecule.PUBCHEM_NCBI_TAXONOMY_ID !== undefined) {
       result.data.taxonomyIDs = molecule.PUBCHEM_NCBI_TAXONOMY_ID.toString()
-        .replace(/(?:\r\n|\n|\r)/gm, '  ')
+        .replace(/(?<temp1>\r\n|\n|\r)/gm, '  ')
         .split('  ');
       result.naturalProduct = true;
     }
     if (molecule.PUBCHEM_PUBMED_ID !== undefined) {
       let pmidsString = molecule.PUBCHEM_PUBMED_ID.toString()
-        .replace(/(?:\r\n|\n|\r)/gm, '  ')
+        .replace(/(?<temp2>\r\n|\n|\r)/gm, '  ')
         .split('  ');
       let pmids = [];
       for (let pmid of pmidsString) {
@@ -53,14 +53,14 @@ async function improveSubstance(molecule) {
     if (molecule.PUBCHEM_SUBSTANCE_COMMENT !== undefined) {
       result.data.comment =
         molecule.PUBCHEM_SUBSTANCE_COMMENT.toString().replace(
-          /(?:\r\n|\n|\r)/gm,
+          /(?<temp3>\r\n|\n|\r)/gm,
           ' ',
         );
     }
 
     if (molecule.PUBCHEM_PATENT_ID !== undefined) {
       result.data.patents = molecule.PUBCHEM_PATENT_ID.toString()
-        .replace(/(?:\r\n|\n|\r)/gm, '  ')
+        .replace(/(?<temp4>\r\n|\n|\r)/gm, '  ')
         .split('  ');
     }
     if (molecule.PUBCHEM_PUBMED_MESH_TERM !== undefined) {
