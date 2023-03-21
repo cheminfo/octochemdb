@@ -94,7 +94,6 @@ async function searchHandler(request) {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
     if (connection) await connection.close();
   }
 }
