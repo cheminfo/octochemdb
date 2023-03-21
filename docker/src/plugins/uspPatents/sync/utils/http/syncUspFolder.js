@@ -15,7 +15,9 @@ async function syncUspFolder(source, destinationFolder, year) {
     await mkdirpSync(destinationFolder);
   }
   // get the list of files to import
-  const files = await getFilesListUsp(source, year);
+  const files = await getFilesListUsp(source, year, {
+    fileFilter: (file) => file && file.name.endsWith('.zip'),
+  });
   // get last file downloaded
   const lastFilesDownloaded = (
     await fileCollectionFromPath(destinationFolder)
@@ -49,7 +51,9 @@ async function syncUspFolder(source, destinationFolder, year) {
       file.path = join(destinationFolder, fileName);
       const fileExists = lastFilesDownloaded.find((lastFile) => {
         return (
-          lastFile.relativePath === file.path && lastFile.size === fileSize
+          // regex everithing after .zip/ but keep .zip
+          lastFile.relativePath.replace(/(?<=\.zip).*/g, '') === file.path &&
+          lastFile.size === fileSize
         );
       });
       if (fileExists) {

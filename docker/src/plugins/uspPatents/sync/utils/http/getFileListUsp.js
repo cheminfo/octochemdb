@@ -2,7 +2,7 @@ import delay from 'delay';
 
 import debugLibrary from '../../../../../utils/Debug.js';
 
-async function getFilesListUsp(url, year) {
+async function getFilesListUsp(url, year, options = {}) {
   const debug = debugLibrary('getFileListUsp');
   try {
     let response;
@@ -20,7 +20,6 @@ async function getFilesListUsp(url, year) {
         await delay(10000);
       }
     }
-    const options = {};
     const { fileFilter = () => true } = options;
 
     //console.log('text', text);
@@ -33,7 +32,7 @@ async function getFilesListUsp(url, year) {
         if (!match) return undefined;
         // groups object key are unprototype
         let groups = match.groups;
-        if (match.groups.name) {
+        if (match.groups.name && match.groups.name.endsWith('.zip')) {
           groups.url = `${url}${year}/${match.groups.name}`;
           groups.epoch = new Date(`${year}`).getTime();
         }
