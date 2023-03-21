@@ -19,7 +19,6 @@ async function syncFolder(source, destinationFolder, options = {}) {
   const limit = process.env.TEST === 'true' ? 5 : undefined;
 
   let allFiles = await getFilesList(source, options);
-
   if (limit) {
     allFiles = allFiles.slice(0, limit);
   }
@@ -31,9 +30,11 @@ async function syncFolder(source, destinationFolder, options = {}) {
       return 0;
     },
   );
-  let lastFileImported = fileList.slice(-1)[0];
-  lastFileImported.name = lastFileImported.name.replace('.sdf', '.sdf.gz');
-
+  let lastFileImported;
+  if (fileList.length > 0) {
+    lastFileImported = fileList.slice(-1)[0];
+    lastFileImported.name = lastFileImported.name.replace('.sdf', '.sdf.gz');
+  }
   let skipping = false;
   if (lastFileImported) {
     skipping = true;
