@@ -21,7 +21,6 @@ async function syncFolder(source, destinationFolder, options = {}) {
   let allFiles = await getFilesList(source, options);
 
   if (limit) {
-    console.log('limiting to', limit);
     allFiles = allFiles.slice(0, limit);
   }
   const newFiles = [];
@@ -32,9 +31,9 @@ async function syncFolder(source, destinationFolder, options = {}) {
       return 0;
     },
   );
-
   let lastFileImported = fileList.slice(-1)[0];
   lastFileImported.name = lastFileImported.name.replace('.sdf', '.sdf.gz');
+
   let skipping = false;
   if (lastFileImported) {
     skipping = true;
