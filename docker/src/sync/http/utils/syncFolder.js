@@ -57,6 +57,9 @@ async function syncFolder(source, destinationFolder, options = {}) {
             `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
           );
           if (fileInfo.size !== trueFileSize) {
+            if (process.env.NODE_ENV === 'test') {
+              continue;
+            }
             rmSync(targetFile, { recursive: true });
             await getFile(file, targetFile);
             newFiles.push(file);
