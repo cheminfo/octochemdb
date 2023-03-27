@@ -46,7 +46,10 @@ export default async function getCompoundsInfo(
         let cursor = await patentsCollection.find({ _id: currentCid });
         let patent = await cursor.next();
         if (patent !== null) {
-          compoundsPatents = compoundsPatents.concat(patent.data.patents);
+          for (let patentID of patent.data.patents) {
+            let dbRef = { $ref: 'uspPatents', $id: patentID };
+            compoundsPatents.push(dbRef);
+          }
           nbPatents += patent.data.nbPatents;
         }
       }

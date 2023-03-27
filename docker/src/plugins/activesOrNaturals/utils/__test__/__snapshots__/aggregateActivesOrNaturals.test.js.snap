@@ -400,9 +400,18 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
     "patents": [
-      "EP-2078065-A2",
-      "JP-2008031406-A",
-      "US20030147822A1",
+      {
+        "$id": "US20030147822A1",
+        "$ref": "uspPatents",
+      },
+      {
+        "$id": "EP2078065A2",
+        "$ref": "uspPatents",
+      },
+      {
+        "$id": "JP2008031406A",
+        "$ref": "uspPatents",
+      },
     ],
     "taxonomies": [
       {
