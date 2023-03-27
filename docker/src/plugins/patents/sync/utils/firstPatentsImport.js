@@ -22,7 +22,13 @@ export default async function firstPatentsImport(filneName, connection) {
       if (currentProductID === -1) {
         currentProductID = Number(productID);
       }
+      patentID.replace(/-/g, '');
       if (currentProductID !== Number(productID)) {
+        entry.sort((a, b) => {
+          if (a.startsWith('US') && !b.startsWith('US')) return -1;
+          if (!a.startsWith('US') && b.startsWith('US')) return 1;
+          return 0;
+        });
         await temporaryCollection.insertOne({
           _id: Number(currentProductID),
           _seq: ++progress.seq,
