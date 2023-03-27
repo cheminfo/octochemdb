@@ -80,7 +80,7 @@ export async function sync(connection) {
       for await (const entry of parseGNPs(lastFile, connection)) {
         counter++;
         // if test mode is enabled, stop after 20 entries
-        if (process.env.TEST === 'true' && counter > 20) break;
+        if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);

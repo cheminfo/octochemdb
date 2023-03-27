@@ -16,7 +16,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
     mkdirpSync(destinationFolder);
   }
 
-  const limit = process.env.TEST === 'true' ? 5 : undefined;
+  const limit = process.env.NODE_ENV === 'test' ? 5 : undefined;
 
   let allFiles = await getFilesList(source, options);
   if (limit) {

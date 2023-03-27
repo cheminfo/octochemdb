@@ -66,7 +66,7 @@ export async function sync(connection) {
       )) {
         counter++;
         // If cron launched in mode test, the importation will be stopped after 20 iteration
-        if (process.env.TEST === 'true' && counter > 20) break;
+        if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         // Debug the processing progress every 10s or the defined time in process env
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {

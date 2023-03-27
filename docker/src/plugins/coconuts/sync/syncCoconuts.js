@@ -85,7 +85,7 @@ export async function sync(connection) {
       // start importation
       for await (const entry of parseCoconuts(lastFile, fileName, connection)) {
         counter++;
-        if (process.env.TEST === 'true' && counter > 20) break;
+        if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug(`Processing: counter: ${counter} - imported: ${imported}`);

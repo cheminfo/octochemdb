@@ -86,7 +86,7 @@ async function* parseBioactivities(
 
       // If cron is launched in test mode, loop breaks after 1e6 lines parsed
       if (connection) {
-        if (process.env.TEST === 'true' && counter > 50) break;
+        if (process.env.NODE_ENV === 'test' && counter > 50) break;
       }
     }
   } catch (e) {

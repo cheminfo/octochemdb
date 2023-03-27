@@ -64,7 +64,7 @@ export default async function importOneSubstanceFile(
       let substances = parse(sdf).molecules;
       debug(`Need to process ${substances.length} substances`);
 
-      if (process.env.TEST === 'true') substances = substances.slice(0, 10);
+      if (process.env.NODE_ENV === 'test') substances = substances.slice(0, 10);
       const actions = [];
       for (let substance of substances) {
         if (!shouldImport) {
