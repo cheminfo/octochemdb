@@ -15,18 +15,15 @@ export async function getCompoundsData(molecule) {
   //console.log(OCL.Molecule.fromIDCode(molecule.idCode));
   try {
     let oclMolecule;
-    //     console.log(molecule);
     if (molecule.molfile) {
       oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
     } else {
       oclMolecule = OCL.Molecule.fromIDCode(molecule.idCode);
-      //console.log(oclMolecule);
     }
     let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
 
     let urlIDCode = encodeURIComponent(idCode);
-    // force the console.log to be executed before the fetch
 
     let success = false;
     let count = 0;

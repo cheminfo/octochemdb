@@ -65,7 +65,7 @@ export default async function importOneSubstanceFile(
       debug(`Need to process ${substances.length} substances`);
 
       if (process.env.NODE_ENV === 'test') substances = substances.slice(0, 10);
-      const actions = [];
+
       for (let substance of substances) {
         if (!shouldImport) {
           if (substance.PUBCHEM_SUBSTANCE_ID !== lastDocument._id) {
@@ -75,8 +75,9 @@ export default async function importOneSubstanceFile(
           debug(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
-        actions.push(
-          improveSubstancePool(substance)
+        try {
+          const { promise } = await improveSubstancePool(substance);
+          await promise
             .then((result) => {
               if (result) {
                 if (result.data.taxonomyIDs) {
@@ -101,20 +102,21 @@ export default async function importOneSubstanceFile(
                 '',
               );
               return connection.setProgress(progress);
-            }),
-        );
-        // if actions array is > 5000 we execute them
-        if (actions.length > 1000) {
-          newSubstances += actions.length;
-          await Promise.all(actions);
-          actions.length = 0;
+            });
+        } catch (e) {
+          if (connection) {
+            debug(e.message, {
+              collection: 'substances',
+              connection,
+              stack: e.stack,
+            });
+          }
+          continue;
         }
+        newSubstances++;
       }
-      newSubstances += actions.length;
-      await Promise.all(actions);
-      debug(`${newSubstances} substances processed`);
 
-      // save the substances in the database
+      debug(`${newSubstances} substances processed`);
       return substances.length;
     }
   } catch (e) {

@@ -1,5 +1,4 @@
 import { cpus } from 'os';
-import { join } from 'path';
 
 import { AbortController } from 'abort-controller';
 import delay from 'delay';

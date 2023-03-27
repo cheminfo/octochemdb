@@ -1,4 +1,5 @@
 import delay from 'delay';
+import fetch from 'node-fetch';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
@@ -27,8 +28,11 @@ export async function getSubstanceData(molecule) {
     while (success === false && count < 3) {
       try {
         if (process.env.NODE_ENV === 'test') {
+          const controller = new AbortController();
+          setTimeout(() => controller.abort(), 1800 * 1000);
           dataSubstance = await fetch(
             `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+            { signal: controller.signal },
           );
         } else {
           dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
@@ -36,7 +40,7 @@ export async function getSubstanceData(molecule) {
       } catch (e) {
         debug(e);
       }
-      if (dataSubstance?.ok) {
+      if (dataSubstance?.status === 200) {
         success = true;
       } else {
         await delay(1000);
@@ -46,7 +50,7 @@ export async function getSubstanceData(molecule) {
     if (!success) {
       throw new Error('Failed to fetch data');
     }
-    if (dataSubstance?.ok) {
+    if (dataSubstance?.status === 200) {
       let data = await dataSubstance.json();
       //  console.log(data);
       let result = {
