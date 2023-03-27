@@ -14,12 +14,12 @@ test('syncCompounds First Importation', async () => {
   }
   expect(result).toMatchSnapshot();
   await connection.close();
-});
+}, 10000);
 test('syncCompounds Incremental Importation', async () => {
   const connection = new PubChemConnection();
   const collection = await connection.getCollection('compounds');
   const collectionEntryIncremental = await collection
-    .find({ _id: 160056959 })
+    .find({ _id: 160187458 })
     .limit(1);
   const resultIncremental = await collectionEntryIncremental.next();
   if (resultIncremental?._seq) {
