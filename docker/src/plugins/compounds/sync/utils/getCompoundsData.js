@@ -1,25 +1,33 @@
 import delay from 'delay';
+import fetch from 'node-fetch';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('getCompoundsData');
+// node debug
 /**
  * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
  * @param {*} molecule molecule from pubchem file
  * @returns  compounds properties
  */
 export async function getCompoundsData(molecule) {
+  //console.log(OCL.Molecule.fromIDCode(molecule.idCode));
   try {
     let oclMolecule;
+    //     console.log(molecule);
     if (molecule.molfile) {
       oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
     } else {
       oclMolecule = OCL.Molecule.fromIDCode(molecule.idCode);
+      //console.log(oclMolecule);
     }
     let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
+
     let urlIDCode = encodeURIComponent(idCode);
+    // force the console.log to be executed before the fetch
+
     let success = false;
     let count = 0;
     let dataCompound;
@@ -27,26 +35,34 @@ export async function getCompoundsData(molecule) {
       try {
         // workerpool does not access the .env file for some reason, this is a workaround
         if (process.env.NODE_ENV === 'test') {
-          dataCompound = await fetch(
-            `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
-          );
+          const controller = new AbortController();
+          setTimeout(() => controller.abort(), 1800 * 1000);
+          try {
+            dataCompound = await fetch(
+              `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+              { signal: controller.signal },
+            );
+          } catch (e) {
+            debug(e);
+          }
         } else {
           dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
         }
       } catch (e) {
         debug(e);
       }
-      if (dataCompound?.ok) {
+      if (dataCompound?.status === 200) {
         success = true;
       } else {
         await delay(1000);
       }
       count++;
     }
+
     if (!success) {
       throw new Error('Failed to fetch data');
     }
-    if (dataCompound?.ok) {
+    if (dataCompound?.status === 200) {
       let data = await dataCompound.json();
       let result = {
         data: {
