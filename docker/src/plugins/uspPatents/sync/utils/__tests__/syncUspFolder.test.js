@@ -3,7 +3,7 @@ import { test, expect } from 'vitest';
 
 import syncUspFolder from '../http/syncUspFolder';
 
-test('getFileIfNew', async () => {
+test('syncUSPFolder 2001', async () => {
   const destination = './data/';
 
   const source = `${process.env.USP_SOURCE}`;
