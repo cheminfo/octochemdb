@@ -5,7 +5,7 @@ import { AbortController } from 'abort-controller';
 import delay from 'delay';
 import Piscina from 'piscina';
 
-import improveCompound from './improveCompound';
+import improveCompound from './improveCompound.js';
 
 const nbCPU = cpus().length;
 const piscina = new Piscina({
