@@ -18,11 +18,12 @@ export default async function firstPatentsImport(filneName, connection) {
     for await (const line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 2) continue;
-      const [productID, patentID] = fields;
+      let [productID, patentID] = fields;
+
+      patentID = patentID.replace(/-/g, '');
       if (currentProductID === -1) {
         currentProductID = Number(productID);
       }
-      patentID.replace(/-/g, '');
       if (currentProductID !== Number(productID)) {
         entry.sort((a, b) => {
           if (a.startsWith('US') && !b.startsWith('US')) return -1;
@@ -40,6 +41,11 @@ export default async function firstPatentsImport(filneName, connection) {
       entry.push(patentID);
     }
     if (entry.length) {
+      entry.sort((a, b) => {
+        if (a.startsWith('US') && !b.startsWith('US')) return -1;
+        if (!a.startsWith('US') && b.startsWith('US')) return 1;
+        return 0;
+      });
       await temporaryCollection.insertOne({
         _id: Number(currentProductID),
         data: { patents: entry.slice(0, 1000), nbPatents: entry.length },

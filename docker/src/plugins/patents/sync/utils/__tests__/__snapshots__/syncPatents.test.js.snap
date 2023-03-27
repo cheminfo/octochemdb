@@ -6,9 +6,9 @@ exports[`syncPatents 1`] = `
   "data": {
     "nbPatents": 3,
     "patents": [
-      "EP-2078065-A2",
-      "JP-2008031406-A",
       "US20030147822A1",
+      "EP2078065A2",
+      "JP2008031406A",
     ],
   },
 }
