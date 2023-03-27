@@ -7,9 +7,10 @@ import Piscina from 'piscina';
 
 import improveCompound from './improveCompound.js';
 
+const url = new URL('improveCompound.js', import.meta.url);
 const nbCPU = cpus().length;
 const piscina = new Piscina({
-  filename: join(__dirname, 'improveCompound.js'),
+  filename: url.pathname,
   minThreads: nbCPU,
   maxThreads: nbCPU,
   idleTimeout: 1000,
