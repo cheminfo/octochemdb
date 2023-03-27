@@ -11,8 +11,7 @@
 export function parse06(entry) {
   let usp = {};
   const documentReference = entry['subdoc-bibliographic-information'];
-  usp.id = `US-${documentReference['document-id']['doc-number']}-${documentReference['document-id']['kind-code']}`;
-  usp.pubchemPatentId = `US${documentReference['document-id']['doc-number']}${documentReference['document-id']['kind-code']}`;
+  usp.id = `US${documentReference['document-id']['doc-number']}${documentReference['document-id']['kind-code']}`;
   usp.title = documentReference['technical-information']['title-of-invention'];
   usp.abstract = entry['subdoc-abstract'].paragraph['#text'];
   usp.dateProduced = documentReference['domestic-filing-data']['filing-date'];
@@ -41,8 +40,6 @@ export function parse06(entry) {
   if (usp.patentNumber) {
     results.data.patentNumber = usp.patentNumber;
   }
-  if (usp.pubchemPatentId) {
-    results.data.pubchemPatentId = usp.pubchemPatentId;
-  }
+
   return results;
 }

@@ -12,8 +12,7 @@ export function parse05(entry) {
   let usp = {};
   const documentReference =
     entry['us-bibliographic-data-application']['publication-reference'];
-  usp.id = `${documentReference['document-id'].country}-${documentReference['document-id']['doc-number']}-${documentReference['document-id'].kind}`;
-  usp.pubchemPatentId = `${documentReference['document-id'].country}${documentReference['document-id']['doc-number']}${documentReference['document-id'].kind}`;
+  usp.id = `${documentReference['document-id'].country}${documentReference['document-id']['doc-number']}${documentReference['document-id'].kind}`;
   usp.title =
     entry['us-bibliographic-data-application']['invention-title']['#text'];
   usp.abstract = entry.abstract.p['#text'];
@@ -43,9 +42,6 @@ export function parse05(entry) {
 
   if (usp.patentNumber) {
     results.data.patentNumber = usp.patentNumber;
-  }
-  if (usp.pubchemPatentId) {
-    results.data.pubchemPatentId = usp.pubchemPatentId;
   }
 
   return results;

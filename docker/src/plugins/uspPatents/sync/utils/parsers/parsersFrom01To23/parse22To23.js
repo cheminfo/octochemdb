@@ -11,8 +11,7 @@
 export function parse22To23(entry) {
   let usp = {};
   let documentReference = entry['us-bibliographic-data-application'];
-  usp.id = `US-${documentReference['publication-reference']['document-id']['doc-number']}-${documentReference['publication-reference']['document-id'].kind}`;
-  usp.pubchemPatentId = `US${documentReference['publication-reference']['document-id']['doc-number']}${documentReference['publication-reference']['document-id'].kind}`;
+  usp.id = `US${documentReference['publication-reference']['document-id']['doc-number']}${documentReference['publication-reference']['document-id'].kind}`;
   usp.title = documentReference['invention-title']['#text'];
   if (Array.isArray(entry.abstract.p)) {
     usp.abstract = entry.abstract.p[1]['#text'];
@@ -47,8 +46,6 @@ export function parse22To23(entry) {
   if (usp.patentNumber) {
     results.data.patentNumber = usp.patentNumber;
   }
-  if (usp.pubchemPatentId) {
-    results.data.pubchemPatentId = usp.pubchemPatentId;
-  }
+
   return results;
 }

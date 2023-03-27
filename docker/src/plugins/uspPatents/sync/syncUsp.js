@@ -56,10 +56,7 @@ export async function sync(connection) {
     // create indexes
     const collection = await connection.getCollection('uspPatents');
     await collection.createIndex({ 'data.title': 1 });
-    await collection.createIndex({ 'data.language': 1 });
     await collection.createIndex({ 'data.patentNumber': 1 });
-    await collection.createIndex({ 'data.applicationType': 1 });
-    await collection.createIndex({ 'data.pubchemPatentId': 1 });
     await collection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
