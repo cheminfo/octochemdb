@@ -36,7 +36,6 @@ export default async function importOneCompoundFile(
   // Create a readStream for the file
   let bufferValue = '';
   let newCompounds = 0;
-
   const readStream = fs.createReadStream(file.path);
   const unzipStream = readStream.pipe(zlib.createGunzip());
   //PROBLEM IS HERE SOMEWHERE
@@ -67,7 +66,6 @@ export default async function importOneCompoundFile(
     let compounds = parse(sdf).molecules;
     debug(`Need to process ${compounds.length} compounds`);
     // the array action will contain the promises to be resolved
-    const actions = [];
     let start = Date.now();
     for (const compound of compounds) {
       // skip till CID corresponds to the last document imported ID
@@ -83,32 +81,27 @@ export default async function importOneCompoundFile(
         }
       }
       try {
-        // promises to be resolved
-        actions.push(
-          improveCompoundPool(compound)
-            .then((result) => {
-              if (result) {
-                result._seq = ++progress.seq;
-                return collection.updateOne(
-                  { _id: result._id },
-                  { $set: result },
-                  { upsert: true },
-                );
-              }
-            })
-            .then(() => {
-              progress.sources = file.path.replace(
-                process.env.ORIGINAL_DATA_PATH,
-                '',
+        const { promise } = await improveCompoundPool(compound);
+
+        await promise
+          .then((result) => {
+            // console.log(result);
+            if (result) {
+              result._seq = ++progress.seq;
+              return collection.updateOne(
+                { _id: result._id },
+                { $set: result },
+                { upsert: true },
               );
-              return connection.setProgress(progress);
-            }),
-        );
-        if (actions.length > 20) {
-          newCompounds += actions.length;
-          await Promise.all(actions);
-          actions.length = 0;
-        }
+            }
+          })
+          .then(() => {
+            progress.sources = file.path.replace(
+              process.env.ORIGINAL_DATA_PATH,
+              '',
+            );
+            return connection.setProgress(progress);
+          });
       } catch (e) {
         if (connection) {
           debug(e.message, {
@@ -119,11 +112,8 @@ export default async function importOneCompoundFile(
         }
         continue;
       }
+      newCompounds++;
     }
-
-    newCompounds += actions.length;
-    // wait for all the promises to be resolved
-    await Promise.all(actions);
 
     debug(`${newCompounds} compounds processed`);
     return compounds.length;
