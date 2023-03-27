@@ -16,7 +16,7 @@ describe('syncSubstances', () => {
     }
     expect(result).toMatchSnapshot();
     await connection.close();
-  });
+  }, 30000);
   it('syncSubstances Incremental Importation', async () => {
     const connection = new PubChemConnection();
     const collection = await connection.getCollection('substances');

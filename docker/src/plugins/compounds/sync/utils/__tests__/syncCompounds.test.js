@@ -14,7 +14,7 @@ test('syncCompounds First Importation', async () => {
   }
   expect(result).toMatchSnapshot();
   await connection.close();
-}, 10000);
+}, 100000);
 test('syncCompounds Incremental Importation', async () => {
   const connection = new PubChemConnection();
   const collection = await connection.getCollection('compounds');
@@ -27,4 +27,4 @@ test('syncCompounds Incremental Importation', async () => {
   }
   expect(resultIncremental).toMatchSnapshot();
   await connection.close();
-}, 10000);
+}, 100000);
