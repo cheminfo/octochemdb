@@ -5,17 +5,19 @@ import debugLibrary from '../utils/Debug.js';
 const debug = debugLibrary('queryForSpecificMF');
 const limit = 10000000;
 
-const pubChemConnection = new (require('../util/PubChemConnection'))();
+const octoChemConnection = new (require('../utils/OctoChemConnection'))();
 
 search()
   .catch((e) => debug(e.stack))
   .then(() => {
     debug('Done');
-    pubChemConnection.close();
+    octoChemConnection.close();
   });
 
 async function search() {
-  const collection = (await pubChemConnection.getDatabase()).collection('data');
+  const collection = (await octoChemConnection.getDatabase()).collection(
+    'data',
+  );
   debug('connected to MongoDB');
 
   let done = 0;

@@ -1,7 +1,7 @@
 // query for molecules from monoisotopic mass
 import OCL from 'openchemlib';
 
-import { getFields, PubChemConnection } from '../../../../server/utils.js';
+import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
@@ -78,7 +78,7 @@ async function searchHandler(request) {
 
   let connection;
   try {
-    connection = new PubChemConnection();
+    connection = new OctoChemConnection();
     const collection = await connection.getCollection('compounds');
 
     debug(smiles);

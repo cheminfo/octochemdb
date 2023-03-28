@@ -1,10 +1,10 @@
 import { test, expect } from 'vitest';
 
-import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncPatents';
 
 test('syncPatents', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
   await sync(connection);
   const collection = await connection.getCollection('patents');
   const collectionEntry = await collection.find({ _id: 59478 }).limit(1);

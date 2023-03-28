@@ -9,7 +9,7 @@ const debug = debugLibrary('getCompoundsInfo');
  * @param {*} data Array of all data for the current noStereoID
  * @param {*} compoundsCollection Compounds collection
  * @param {*} noStereoTautomerID current noStereoTautomerID
- * @param {*} connection PubChem connection
+ * @param {*} connection OctoChem connection
  * @returns {Promise} Returns the entry with the compounds information
  */
 export default async function getCompoundsInfo(

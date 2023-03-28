@@ -2,10 +2,10 @@ import 'dotenv/config';
 import delay from 'delay';
 import { test, expect } from 'vitest';
 
-import { PubChemConnection } from '../PubChemConnection';
+import { OctoChemConnection } from '../OctoChemConnection';
 
 test('connection to DB', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
   let colllectionList = await connection.getCollectionNames();
   while (!colllectionList.includes('compounds')) {
     await delay(1000);

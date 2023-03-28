@@ -1,10 +1,10 @@
 import { test, expect } from 'vitest';
 
-import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncCompounds';
 
 test('syncCompounds First Importation', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
   await sync(connection);
   const collection = await connection.getCollection('compounds');
   const collectionEntry = await collection.find({ _id: 59478 }).limit(1);
@@ -16,7 +16,7 @@ test('syncCompounds First Importation', async () => {
   await connection.close();
 }, 100000);
 test('syncCompounds Incremental Importation', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
   const collection = await connection.getCollection('compounds');
   const collectionEntryIncremental = await collection
     .find({ _id: 160187458 })

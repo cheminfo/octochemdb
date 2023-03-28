@@ -1,7 +1,7 @@
 import delay from 'delay';
 
 import debugLibrary from '../utils/Debug.js';
-import { PubChemConnection } from '../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../utils/OctoChemConnection.js';
 import { recursiveDir } from '../utils/recursiveDir.js';
 
 const debug = debugLibrary('cron');
@@ -57,7 +57,7 @@ async function cron() {
     debug(`sync: ${syncURL.pathname}`);
     let connection;
     try {
-      connection = new PubChemConnection();
+      connection = new OctoChemConnection();
       await sync.sync(connection);
     } catch (e) {
       debug(e.stack);
@@ -99,7 +99,7 @@ async function cron() {
     debug(`aggregate: ${aggregateURL.pathname}`);
     let connection;
     try {
-      connection = new PubChemConnection();
+      connection = new OctoChemConnection();
       await aggregate.aggregate(connection);
     } catch (e) {
       debug(e.stack);

@@ -1,4 +1,4 @@
-import { PubChemConnection, getFields } from '../../../../server/utils.js';
+import { OctoChemConnection, getFields } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromID');
@@ -32,7 +32,7 @@ async function searchHandler(request) {
 
   let connection;
   try {
-    connection = new PubChemConnection();
+    connection = new OctoChemConnection();
     // get the collection
     const collection = await connection.getCollection('gnps');
 

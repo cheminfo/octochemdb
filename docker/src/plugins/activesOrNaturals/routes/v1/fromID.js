@@ -1,4 +1,4 @@
-import { getFields, PubChemConnection } from '../../../../server/utils.js';
+import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('entriesFromEM');
@@ -34,7 +34,7 @@ async function searchHandler(request) {
 
   let connection;
   try {
-    connection = new PubChemConnection();
+    connection = new OctoChemConnection();
     const collection = await connection.getCollection('activesOrNaturals');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);

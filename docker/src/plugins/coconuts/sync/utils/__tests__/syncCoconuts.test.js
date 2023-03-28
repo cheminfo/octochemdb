@@ -1,11 +1,11 @@
 import delay from 'delay';
 import { test, expect } from 'vitest';
 
-import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncCoconuts';
 
 test('syncCoconuts', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
   let colllectionList = await connection.getCollectionNames();
   while (!colllectionList.includes('taxonomies')) {
     await delay(1000);

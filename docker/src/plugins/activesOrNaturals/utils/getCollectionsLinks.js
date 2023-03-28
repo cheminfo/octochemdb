@@ -3,7 +3,7 @@ import debugLibrary from '../../../utils/Debug.js';
 const debug = debugLibrary('getCollectionLinks');
 /**
  * @description Get collection links from all collections
- * @param {*} connection PubChem connection
+ * @param {*} connection OctoChem connection
  * @param {*} collectionNames Array of collection names
  * @returns {Promise} Returns the array of collection links and the array the sources in progress collection
  */

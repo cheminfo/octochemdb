@@ -4,14 +4,14 @@ import mfFunctions from '../util/mf';
 import rules from '../util/rules.js';
 import debugLibrary from '../utils/Debug';
 
-const pubChemConnection = new (require('../util/PubChemConnection'))();
+const OctoChemConnection = new (require('../utils/OctoChemConnection'))();
 
 const debug = debugLibrary('index');
 generateStats()
   .catch((e) => debug(e.stack))
   .then(() => {
     debug('Done');
-    pubChemConnection.close();
+    OctoChemConnection.close();
   });
 
 const { minMass, maxMass, stepMass, elementRatios } = rules;
@@ -19,7 +19,7 @@ const distributionLength =
   (rules.ratioMaxValue - rules.ratioMinValue) / rules.ratioSlotWidth;
 
 async function generateStats() {
-  const mfsCollection = await pubChemConnection.getMfsCollection();
+  const mfsCollection = await OctoChemConnection.getMfsCollection();
 
   const cursor = mfsCollection.find();
   const formulas = [];
@@ -64,7 +64,7 @@ async function generateStats() {
   let id = `${result.options.stepMass}_${result.options.elementRatios
     .join('.')
     .replace(/\//g, '-')}`;
-  const statsCollection = await pubChemConnection.getMfStatsCollection();
+  const statsCollection = await OctoChemConnection.getMfStatsCollection();
   let statsEntry = {
     _id: id,
     options: result.options,

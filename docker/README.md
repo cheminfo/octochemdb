@@ -7,7 +7,7 @@ Better if you have docker installed and create the 2 following aliases:
 
 You can then easily create a new install of mongod
 
-# node-pubchem
+# OctoChemDB
 
 In this project we make a copy of multiple databases and carefully calculate the monoisotopic mass of each of the molecule as well as the molecular formula taking into account charges, parts and isotopes.
 

@@ -3,17 +3,19 @@ import debugLibrary from '../utils/Debug.js';
 const debug = debugLibrary('queryForMFexample');
 const limit = 10;
 
-const pubChemConnection = new (require('../util/PubChemConnection'))();
+const octochemConnection = new (require('../utils/OctoChemConnection'))();
 
 search()
   .catch((e) => debug(e.stack))
   .then(() => {
     debug('Done');
-    pubChemConnection.close();
+    octochemConnection.close();
   });
 
 async function search() {
-  const collection = (await pubChemConnection.getDatabase()).collection('data');
+  const collection = (await octochemConnection.getDatabase()).collection(
+    'data',
+  );
   debug('connected to MongoDB');
   const cursor = collection
     .find({

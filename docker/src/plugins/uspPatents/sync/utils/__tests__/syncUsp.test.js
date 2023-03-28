@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 
-import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncUsp';
 
 describe('USP Patents', () => {
   it('syncUsp', async () => {
-    const connection = new PubChemConnection();
+    const connection = new OctoChemConnection();
 
     await sync(connection);
     const collection = await connection.getCollection('uspPatents');

@@ -1,10 +1,10 @@
 import { test, expect } from 'vitest';
 
-import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncGNPs';
 
 test('syncGNPs', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
   await sync(connection);
   const collection = await connection.getCollection('gnps');
   const collectionEntry = await collection

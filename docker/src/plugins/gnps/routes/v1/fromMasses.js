@@ -1,4 +1,4 @@
-import { getFields, PubChemConnection } from '../../../../server/utils.js';
+import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromMasses');
@@ -53,7 +53,7 @@ async function searchHandler(request) {
   // define the error allowed for the search
   let connection;
   try {
-    connection = new PubChemConnection();
+    connection = new OctoChemConnection();
     const collection = await connection.getCollection('gnps');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);

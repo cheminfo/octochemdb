@@ -1,10 +1,10 @@
 import { test, expect } from 'vitest';
 
-import { PubChemConnection } from '../../../../../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncPubmed';
 
 test('syncPubmed First Importation', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
 
   await sync(connection);
   const collection = await connection.getCollection('pubmeds');
@@ -17,7 +17,7 @@ test('syncPubmed First Importation', async () => {
   await connection.close();
 }, 30000);
 test('syncPubmed Incremental Importation', async () => {
-  const connection = new PubChemConnection();
+  const connection = new OctoChemConnection();
 
   const collection = await connection.getCollection('pubmeds');
   const collectionEntryIncremental = await collection

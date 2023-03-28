@@ -4,7 +4,7 @@ const debug = debugLibrary('getActivityInfo');
 /**
  * @description Get unique activities from bioassays, npasses and cmaups collections
  * @param {*} data Array of data from aggregation process
- * @param {*} connection PubChem connection
+ * @param {*} connection OctoChem connection
  * @returns {Promise} Returns the array of activities
  */
 export default async function getActivitiesInfo(data, connection) {

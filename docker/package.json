@@ -1,5 +1,5 @@
 {
-  "name": "node-pubchem",
+  "name": "octochemdb",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheminfo/node-pubchem.git"
+    "url": "git+https://github.com/cheminfo/octochemdb.git"
   },
   "author": "Michaël Zasso",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cheminfo/node-pubchem/issues"
+    "url": "https://github.com/cheminfo/octochemdb/issues"
   },
-  "homepage": "https://github.com/cheminfo/node-pubchem#readme",
+  "homepage": "https://github.com/cheminfo/octochemdb#readme",
   "jest": {
     "testEnvironment": "node"
   },

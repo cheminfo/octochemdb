@@ -5,9 +5,9 @@ import { MongoClient } from 'mongodb';
 import debugLibrary from './Debug.js';
 import 'dotenv/config';
 
-const debug = debugLibrary('PubChemConnection');
+const debug = debugLibrary('OctoChemConnection');
 
-export function PubChemConnection() {
+export function OctoChemConnection() {
   this.client = new MongoClient(process.env.MONGODB_URL, {
     keepAlive: true,
     connectTimeoutMS: 6 * 60 * 60 * 1000,
@@ -15,25 +15,25 @@ export function PubChemConnection() {
   });
 }
 
-PubChemConnection.prototype.close = async function close() {
+OctoChemConnection.prototype.close = async function close() {
   if (this.connection) return this.connection.close();
   return undefined;
 };
 
-PubChemConnection.prototype.getCollectionNames =
+OctoChemConnection.prototype.getCollectionNames =
   async function getCollectionNames() {
     return (await (await this.getDatabase()).listCollections().toArray()).map(
       (entry) => entry.name,
     );
   };
 
-PubChemConnection.prototype.getCollection = async function getCollection(
+OctoChemConnection.prototype.getCollection = async function getCollection(
   collectionName,
 ) {
   return (await this.getDatabase()).collection(collectionName);
 };
 
-PubChemConnection.prototype.getImportationLog =
+OctoChemConnection.prototype.getImportationLog =
   async function getImportationLog(options) {
     const { collectionName, sources, startSequenceID } = options;
     const logsCollection = await this.getImportationLogsCollection();
@@ -56,29 +56,31 @@ PubChemConnection.prototype.getImportationLog =
     }
     return logs;
   };
-PubChemConnection.prototype.updateImportationLog =
+OctoChemConnection.prototype.updateImportationLog =
   async function updateImportationLog(logs) {
     const collection = await this.getImportationLogsCollection();
     logs.dateEnd = Date.now();
     await collection.replaceOne({ _id: logs._id }, logs);
   };
 
-PubChemConnection.prototype.getImportationLogsCollection =
+OctoChemConnection.prototype.getImportationLogsCollection =
   async function getCollection() {
     return (await this.getDatabase()).collection('importationLogs');
   };
 
-PubChemConnection.prototype.getAdminCollection =
+OctoChemConnection.prototype.getAdminCollection =
   async function getAdminCollection() {
     return this.getCollection('admin');
   };
 
-PubChemConnection.prototype.setProgress = async function setProgress(progress) {
+OctoChemConnection.prototype.setProgress = async function setProgress(
+  progress,
+) {
   const collection = await this.getAdminCollection();
   await collection.replaceOne({ _id: progress._id }, progress);
 };
 
-PubChemConnection.prototype.getProgress = async function getProgress(
+OctoChemConnection.prototype.getProgress = async function getProgress(
   collectionName,
 ) {
   const adminCollection = await this.getAdminCollection();
@@ -97,7 +99,7 @@ PubChemConnection.prototype.getProgress = async function getProgress(
   return progress;
 };
 
-PubChemConnection.prototype.getDatabase = async function getDatabase() {
+OctoChemConnection.prototype.getDatabase = async function getDatabase() {
   while (true) {
     try {
       await this.init();
@@ -111,7 +113,7 @@ PubChemConnection.prototype.getDatabase = async function getDatabase() {
   return this.connection.db(process.env.MONGO_DB_NAME);
 };
 
-PubChemConnection.prototype.init = async function init() {
+OctoChemConnection.prototype.init = async function init() {
   if (this.connection) return;
 
   debug(`Trying to connect to: ${process.env.MONGODB_URL}`);

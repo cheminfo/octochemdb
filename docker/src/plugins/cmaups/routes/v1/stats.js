@@ -1,4 +1,4 @@
-import { PubChemConnection } from '../../../../server/utils.js';
+import { OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('stats');
@@ -20,7 +20,7 @@ export default stats;
 async function searchHandler() {
   let connection;
   try {
-    connection = new PubChemConnection();
+    connection = new OctoChemConnection();
     const collection = await connection.getCollection('cmaups');
 
     const results = await collection.stats();

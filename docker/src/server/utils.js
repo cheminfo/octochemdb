@@ -1,2 +1,2 @@
 export * from './utils/getFields.js';
-export * from '../utils/PubChemConnection.js';
+export * from '../utils/OctoChemConnection.js';

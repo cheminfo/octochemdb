@@ -1,20 +1,22 @@
 import debugLibrary from '../utils/Debug.js';
-import { PubChemConnection } from '../utils/PubChemConnection.js';
+import { OctoChemConnection } from '../utils/OctoChemConnection.js';
 
-const pubChemConnection = new PubChemConnection();
+const octoChemConnection = new OctoChemConnection();
 
 const debug = debugLibrary('updateEntries');
 update()
   .catch((e) => debug(e.stack))
   .then(() => {
     debug('Done');
-    pubChemConnection.close();
+    octoChemConnection.close();
   });
 
 let done = 0;
 
 async function update() {
-  const collection = (await pubChemConnection.getDatabase()).collection('data');
+  const collection = (await octoChemConnection.getDatabase()).collection(
+    'data',
+  );
   debug('connected to MongoDB');
   const cursor = collection.find();
   while (await cursor.hasNext()) {
