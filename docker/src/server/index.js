@@ -43,8 +43,8 @@ fastifyServer.get('/', (_, reply) => {
 fastifyServer.register(fastifySwagger, {
   swagger: {
     info: {
-      title: 'Search a copy of pubchem database',
-      description: ``,
+      title: 'Search on OctoChemDB collections',
+      description: `Allows to search on OctoChemDB collections`,
       version: '1.0.0',
     },
     produces: ['application/json'],
