@@ -5,6 +5,7 @@ import fastifyCors from '@fastify/cors';
 import fastifySensible from '@fastify/sensible';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
 import fastify from 'fastify';
 
 import v1 from './v1.js';
@@ -46,10 +47,16 @@ fastifyServer.register(fastifySwagger, {
       description: ``,
       version: '1.0.0',
     },
+    produces: ['application/json'],
   },
-  exposeRoute: true,
 });
-
+fastifyServer.register(fastifySwaggerUi, {
+  routePrefix: '/documentation',
+  uiConfig: {
+    docExpansion: 'full',
+    deepLinking: false,
+  },
+});
 fastifyServer.register(fastifyStatic, {
   root: join(__dirname, 'public'),
   prefix: '/public/', // optional: default '/'
