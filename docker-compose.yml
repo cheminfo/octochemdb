@@ -32,7 +32,7 @@ services:
       - ORIGINAL_DATA_PATH=/originalData
     command: npm run cron
 
-  octochemdb:
+  pubchem:
     build: ./docker
     restart: always
     ports:
