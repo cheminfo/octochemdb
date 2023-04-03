@@ -1,7 +1,9 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
 import getFile from '../getFile.js';
+
+dotenv.config();
 
 test('getFile', async () => {
   const targetFile = '';
