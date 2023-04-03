@@ -1,7 +1,9 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
 import getFileIfNew from '../getFileIfNew';
+
+dotenv.config();
 
 test('getFileIfNew', async () => {
   const destination = '../docker/src/sync/http/utils/__tests__/';

@@ -1,7 +1,9 @@
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
-import 'dotenv/config';
 
 import { getCompoundsData } from '../getCompoundsData';
+
+dotenv.config();
 
 test('getCompoundsData', async () => {
   let molecule = {

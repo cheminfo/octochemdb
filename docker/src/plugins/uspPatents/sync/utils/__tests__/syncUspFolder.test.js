@@ -1,7 +1,9 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
 import syncUspFolder from '../http/syncUspFolder';
+
+dotenv.config();
 
 test('syncUSPFolder 2001', async () => {
   const destination = './data/';

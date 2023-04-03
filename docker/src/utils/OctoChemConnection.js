@@ -1,10 +1,13 @@
 import delay from 'delay';
+import dotenv from 'dotenv';
 import md5 from 'md5';
 import { MongoClient } from 'mongodb';
 
 import debugLibrary from './Debug.js';
-import 'dotenv/config';
 
+dotenv.config();
+
+dotenv.config();
 const debug = debugLibrary('OctoChemConnection');
 
 export function OctoChemConnection() {
