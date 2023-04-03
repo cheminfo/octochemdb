@@ -6,6 +6,7 @@ import { MongoClient } from 'mongodb';
 import debugLibrary from './Debug.js';
 
 dotenv.config();
+
 const debug = debugLibrary('OctoChemConnection');
 
 export function OctoChemConnection() {

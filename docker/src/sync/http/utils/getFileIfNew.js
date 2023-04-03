@@ -37,7 +37,6 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       mkdirpSync(targetFolder);
     }
     const response = await fetch(file.url, { signal: controller.signal });
-
     if (response.status !== 200) {
       throw new Error(`Could not fetch file: ${file.url}`);
     }
@@ -55,6 +54,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
           file.name.includes('.txt') ||
           file.name.includes('.json') ||
           file.name.includes('.gz') ||
+          file.name.includes('.msp') ||
           file.name.includes('.tsv.gz')) &&
         file.name.includes(filename) &&
         !file.relativePath.includes('old'),

@@ -77,32 +77,61 @@ export default async function importOneSubstanceFile(
         }
         try {
           const { promise } = await improveSubstancePool(substance);
-          promise
-            .then((result) => {
-              if (result) {
-                if (result.data.taxonomyIDs) {
-                  let taxonomies = getTaxonomiesSubstances(
-                    result,
-                    collectionTaxonomies,
-                    oldToNewTaxIDs,
+          if (process.env.NODE_ENV === 'test') {
+            await promise
+              .then((result) => {
+                if (result) {
+                  if (result.data.taxonomyIDs) {
+                    let taxonomies = getTaxonomiesSubstances(
+                      result,
+                      collectionTaxonomies,
+                      oldToNewTaxIDs,
+                    );
+                    result.data.taxonomies = taxonomies;
+                  }
+                  result._seq = ++progress.seq;
+                  return collection.updateOne(
+                    { _id: result._id },
+                    { $set: result },
+                    { upsert: true },
                   );
-                  result.data.taxonomies = taxonomies;
                 }
-                result._seq = ++progress.seq;
-                return collection.updateOne(
-                  { _id: result._id },
-                  { $set: result },
-                  { upsert: true },
+              })
+              .then(() => {
+                progress.sources = file.path.replace(
+                  process.env.ORIGINAL_DATA_PATH,
+                  '',
                 );
-              }
-            })
-            .then(() => {
-              progress.sources = file.path.replace(
-                process.env.ORIGINAL_DATA_PATH,
-                '',
-              );
-              return connection.setProgress(progress);
-            });
+                return connection.setProgress(progress);
+              });
+          } else {
+            promise
+              .then((result) => {
+                if (result) {
+                  if (result.data.taxonomyIDs) {
+                    let taxonomies = getTaxonomiesSubstances(
+                      result,
+                      collectionTaxonomies,
+                      oldToNewTaxIDs,
+                    );
+                    result.data.taxonomies = taxonomies;
+                  }
+                  result._seq = ++progress.seq;
+                  return collection.updateOne(
+                    { _id: result._id },
+                    { $set: result },
+                    { upsert: true },
+                  );
+                }
+              })
+              .then(() => {
+                progress.sources = file.path.replace(
+                  process.env.ORIGINAL_DATA_PATH,
+                  '',
+                );
+                return connection.setProgress(progress);
+              });
+          }
         } catch (e) {
           if (connection) {
             debug(e.message, {

@@ -82,26 +82,45 @@ export default async function importOneCompoundFile(
       }
       try {
         const { promise } = await improveCompoundPool(compound);
-
-        promise
-          .then((result) => {
-            // console.log(result);
-            if (result) {
-              result._seq = ++progress.seq;
-              return collection.updateOne(
-                { _id: result._id },
-                { $set: result },
-                { upsert: true },
+        if (process.env.NODE_ENV === 'test') {
+          await promise
+            .then((result) => {
+              if (result) {
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
+                );
+              }
+            })
+            .then(() => {
+              progress.sources = file.path.replace(
+                process.env.ORIGINAL_DATA_PATH,
+                '',
               );
-            }
-          })
-          .then(() => {
-            progress.sources = file.path.replace(
-              process.env.ORIGINAL_DATA_PATH,
-              '',
-            );
-            return connection.setProgress(progress);
-          });
+              return connection.setProgress(progress);
+            });
+        } else {
+          promise
+            .then((result) => {
+              if (result) {
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
+                );
+              }
+            })
+            .then(() => {
+              progress.sources = file.path.replace(
+                process.env.ORIGINAL_DATA_PATH,
+                '',
+              );
+              return connection.setProgress(progress);
+            });
+        }
       } catch (e) {
         if (connection) {
           debug(e.message, {

@@ -10,12 +10,16 @@ async function getFilesListUsp(url, year, options = {}) {
     let counter = 0;
     while (true) {
       try {
-        response = await fetch(`${url}${year}`);
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), 1800 * 1000);
+        response = await fetch(`${url}${year}`, { signal: controller.signal });
         text = await response.text();
-        break;
+        if (response?.status === 200) {
+          break;
+        }
       } catch (e) {
         if (counter++ > 10) {
-          throw e;
+          debug(e);
         }
         await delay(10000);
       }
