@@ -54,7 +54,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
           file.name.includes('.txt') ||
           file.name.includes('.json') ||
           file.name.includes('.gz') ||
-          file.name.includes('.sql') ||
+          file.name.includes('.msp') ||
           file.name.includes('.tsv.gz')) &&
         file.name.includes(filename) &&
         !file.relativePath.includes('old'),
