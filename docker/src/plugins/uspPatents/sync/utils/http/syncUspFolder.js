@@ -32,7 +32,13 @@ async function syncUspFolder(source, destinationFolder, year) {
     }
     return filesDownloaded;
   } else {
-    filesDownloaded = files;
+    for (let file of files) {
+      console.log(file);
+      filesDownloaded.push(file);
+    }
+
+    // @ts-ignore
+    filesDownloaded = Array.from(files);
     return filesDownloaded;
   }
 }
