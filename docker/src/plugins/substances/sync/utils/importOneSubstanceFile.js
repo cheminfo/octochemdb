@@ -77,7 +77,7 @@ export default async function importOneSubstanceFile(
         }
         try {
           const { promise } = await improveSubstancePool(substance);
-          await promise
+          promise
             .then((result) => {
               if (result) {
                 if (result.data.taxonomyIDs) {
