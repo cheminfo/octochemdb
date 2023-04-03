@@ -5,7 +5,7 @@ import debugLibrary from '../../../utils/Debug.js';
  * @param {*} noStereoTautomerID - noStereoTautomerID
  * @returns {Promise} - DbRefs of mass spectra in gnps collection
  */
-export async function getMassSpectraRef(connection, noStereoTautomerID) {
+export async function getMassSpectraRefForGNPs(connection, noStereoTautomerID) {
   const debug = debugLibrary('getMassSpectra');
   try {
     const gnpsCollection = await connection.getCollection('gnps');

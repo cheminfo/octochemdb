@@ -7,7 +7,8 @@ import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
-import { getMassSpectraRef } from '../utils/getMassSpectraRef.js';
+import { getMassSpectraRefForGNPs } from '../utils/getMassSpectraRefForGNPs.js';
+import { getMassSpectraRefForMassBank } from '../utils/getMassSpectraRefForMassBank.js';
 import { getMeshTerms } from '../utils/getMeshTerms.js';
 import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
@@ -149,12 +150,19 @@ export async function aggregate(connection) {
           }
           entry.data.nbPubmeds = nbPubmeds;
         }
-        const massSpectraRefs = await getMassSpectraRef(
+        const massSpectraRefsForGNPs = await getMassSpectraRefForGNPs(
+          connection,
+          noStereoTautomerID,
+        );
+        const massSpectraRefsForMassBank = await getMassSpectraRefForMassBank(
           connection,
           noStereoTautomerID,
         );
         let dbRefsMs = [];
-        massSpectraRefs.forEach((ref) => {
+        massSpectraRefsForGNPs.forEach((ref) => {
+          dbRefsMs.push(ref.dbRef);
+        });
+        massSpectraRefsForMassBank.forEach((ref) => {
           dbRefsMs.push(ref.dbRef);
         });
         if (dbRefsMs.length > 0) {
