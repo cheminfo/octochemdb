@@ -1,3 +1,5 @@
+import md5 from 'md5';
+
 import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImportForUsp } from './utils/getFilesToImportForUsp.js';
@@ -46,18 +48,55 @@ export async function sync(connection) {
       progress,
       allFiles,
     );
-    //set progress to updating
-    progress.state = 'updating';
-    await connection.setProgress(progress);
-    await importUspFiles(connection, progress, files, { lastDocument });
-    // set progress to updated
-    progress.state = 'updated';
-    await connection.setProgress(progress);
-    // create indexes
-    const collection = await connection.getCollection('uspPatents');
-    await collection.createIndex({ 'data.title': 1 });
-    await collection.createIndex({ 'data.patentNumber': 1 });
-    await collection.createIndex({ _seq: 1 });
+    // put file.path in array
+    let sources = [];
+    files.forEach((file) => {
+      sources.push(file.path.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''));
+    });
+
+    let shouldUpdate = false;
+    if (
+      progress.dateEnd !== 0 &&
+      Date.now() - Number(progress.dateEnd) >
+        Number(process.env.USP_PATENTS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
+      md5(JSON.stringify(sources)) !== progress.sources
+    ) {
+      progress.dateStart = Date.now();
+      shouldUpdate = true;
+      await connection.setProgress(progress);
+    }
+    const logs = await connection.getImportationLog({
+      collectionName: 'uspPatents',
+      sources,
+      startSequenceID: progress.seq,
+    });
+    if (
+      (JSON.stringify(sources) !== progress.sources && shouldUpdate) ||
+      progress.state !== 'updated'
+    ) {
+      //set progress to updating
+      progress.state = 'updating';
+      await connection.setProgress(progress);
+      await importUspFiles(connection, progress, files, { lastDocument });
+      // set progress to updated
+      progress.state = 'updated';
+      await connection.setProgress(progress);
+      // create indexes
+      const collection = await connection.getCollection('uspPatents');
+      await collection.createIndex({ 'data.title': 1 });
+      await collection.createIndex({ 'data.patentNumber': 1 });
+      await collection.createIndex({ _seq: 1 });
+      progress.sources = md5(JSON.stringify(sources));
+      progress.state = 'updated';
+      progress.dateEnd = Date.now();
+      await connection.setProgress(progress);
+
+      logs.dateEnd = Date.now();
+      logs.endSequenceID = progress.seq;
+      logs.status = 'updated';
+
+      await connection.updateImportationLog(logs);
+    }
   } catch (e) {
     if (connection) {
       debug(e.message, {
