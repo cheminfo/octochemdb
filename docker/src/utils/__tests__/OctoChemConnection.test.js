@@ -1,9 +1,10 @@
-import dotenv from 'dotenv';
-dotenv.config();
 import delay from 'delay';
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../OctoChemConnection';
+
+dotenv.config();
 
 test('connection to DB', async () => {
   const connection = new OctoChemConnection();

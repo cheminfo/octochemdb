@@ -1,11 +1,12 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
 import { parseMassBank } from '../parseMassBank';
 
+dotenv.config();
 test('parseMassBank', async () => {
   const blob = readFileSync(join(__dirname, 'data/massBank.msp'));
   const connection = 'test';

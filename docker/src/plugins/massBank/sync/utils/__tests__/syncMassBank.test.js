@@ -1,8 +1,10 @@
+import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncMassBank';
 
+dotenv.config();
 test('syncMassBank', async () => {
   const connection = new OctoChemConnection();
   await sync(connection);
