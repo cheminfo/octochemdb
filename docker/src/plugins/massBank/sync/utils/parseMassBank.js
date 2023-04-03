@@ -1,84 +1,62 @@
-import { createInterface, createinterface } from 'readline';
-
-import pkg from 'fs-extra';
 import { Spectrum } from 'mass-tools';
-import { xNormed, xy2ToXY, xyObjectToXY } from 'ml-spectra-processing';
+import { xNormed, xyObjectToXY } from 'ml-spectra-processing';
+import { parseMSP } from 'msp-parser';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
-const { createReadStream } = pkg;
-const debug = debugLibrary('parseGNPs');
-export async function* parseMassBank(lines, connection) {
-  // create a stream to read the file
-  // read sql file dump without creating db
+const debug = debugLibrary('parseMassBank');
+export async function parseMassBank(blob, connection) {
+  try {
+    const parsedData = parseMSP(blob);
+    let results = [];
+    for (let data of parsedData) {
+      let result = {};
+      if (data.meta) {
+        result._id = data.meta['DB#'];
 
-  //console.log(sql);
-  let nextName;
-  let reset = true;
-  let result = {};
-  let count = 0;
-  result.spectrum = {};
-  let spectraToBeParsed = [];
-  for await (let line of lines) {
-    let splitedLine = line.split(/\r?\n/);
-    let spectraInfo = splitedLine[0].split(':');
-    if (reset === true && count > 0) {
-      spectraToBeParsed.length = 0;
-      result.spectrum = {};
-      result.spectrum.Name = nextName;
-      reset = false;
-    }
-    if (spectraInfo.length > 1) {
-      if (spectraInfo[0] === 'Name') {
-        continue;
+        let oclMolecule = OCL.Molecule.fromSmiles(data.meta.SMILES);
+        let ocl = await getNoStereosFromCache(oclMolecule, connection);
+        result.data = {
+          ocl,
+        };
+        let dataPeaks = { x: data.variables.x.data, y: data.variables.y.data };
+        let spectrumToBeFilter = new Spectrum(dataPeaks);
+        let minMaxX = spectrumToBeFilter.minMaxX();
+        let slots = (minMaxX.max - minMaxX.min) / 0.1 - 1;
+        xNormed(spectrumToBeFilter.data.y, {
+          algorithm: 'max',
+          output: spectrumToBeFilter.data.y,
+        });
+        let bestPeaks = spectrumToBeFilter.getBestPeaks({
+          numberSlots: slots,
+          numberCloseSlots: slots,
+          limit: 100,
+          threshold: 0.01,
+        });
+        let bestPeaksXY = xyObjectToXY(bestPeaks);
+        result.data.spectrum = bestPeaksXY;
+        result.data.spectrum.numberOfPeaks = bestPeaks.length;
+        result.data.spectrum.instrument = data.meta.Instrument;
+        result.data.spectrum.instrumentType = data.meta.Instrument_type;
+        result.data.spectrum.ionMode = data.meta.Ion_mode;
+        result.data.spectrum.adduct = data.meta.Spectrum_type;
+        result.data.spectrum.collisionEnergy = data.meta.Collision_energy;
+        result.data.spectrum.msLevel = data.meta.Spectrum_type.replace(
+          /MS/,
+          '',
+        );
+        result.data.spectrum.numberOfPeaks = bestPeaks.length;
+        results.push(result);
       }
-      // if spectrainfo[0] includes #, remove it
-      if (spectraInfo[0] === 'DB#') {
-        result._id = spectraInfo[1];
-      } else {
-        spectraInfo[0] = spectraInfo[0].replace(/\s/g, '_');
-        result.spectrum[spectraInfo[0]] = spectraInfo[1];
-      }
     }
-    if (spectraInfo.length === 1 && spectraInfo[0] !== '') {
-      // regex to replace space between two numbers with a comma
-      const spectraNotParsed = line.replace(/(\d)\s+(\d)/g, '$1,$2');
-      // convert them to an array of numbers
-      const spectra = spectraNotParsed.split(',').map(Number);
-
-      spectraToBeParsed.push(spectra);
-    }
-    if (
-      spectraToBeParsed.length > 0 &&
-      spectraInfo[0] === 'Name' &&
-      spectraInfo[1] !== result.spectrum.Name
-    ) {
-      let dataPeaks = xy2ToXY(spectraToBeParsed);
-      let spectrumToBeFilter = new Spectrum(dataPeaks);
-      let minMaxX = spectrumToBeFilter.minMaxX();
-      let slots = (minMaxX.max - minMaxX.min) / 0.1 - 1;
-      xNormed(spectrumToBeFilter.data.y, {
-        algorithm: 'max',
-        output: spectrumToBeFilter.data.y,
-      });
-      let bestPeaks = spectrumToBeFilter.getBestPeaks({
-        numberSlots: slots,
-        numberCloseSlots: slots,
-        limit: 100,
-        threshold: 0.01,
-      });
-      let bestPeaksXY = xyObjectToXY(bestPeaks);
-
-      ///
-      result.spectrum.data = bestPeaksXY;
-      result.spectrum.numberOfPeaks = bestPeaks.length;
-      reset = true;
-      nextName = spectraInfo[1];
-      console.log(result);
-      count++;
-      yield result;
-    }
+    return results;
+  } catch (e) {
+    debug(e.message, {
+      collection: 'massbank',
+      connection,
+      stack: e.stack,
+    });
   }
 }

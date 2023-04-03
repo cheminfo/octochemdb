@@ -1,18 +1,15 @@
-import { createReadStream } from 'fs';
-import { createInterface } from 'readline';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
+import 'dotenv/config';
 import { test, expect } from 'vitest';
 
 import { parseMassBank } from '../parseMassBank';
 
-test('syncGNPs', async () => {
-  const path = './__tests__/massBank.msp';
+test('parseMassBank', async () => {
+  const blob = readFileSync(join(__dirname, 'data/massBank.msp'));
   const connection = 'test';
-  const result = [];
-  const mspStream = createReadStream(path, 'utf8');
-  const lines = createInterface({ input: mspStream });
-  for await (let entry of parseMassBank(lines, connection)) {
-    result.push(entry);
-    console.log(entry);
-  }
+  const results = await parseMassBank(blob, connection);
+  expect(results).toHaveLength(2);
+  expect(results).toMatchSnapshot();
 }, 30000);

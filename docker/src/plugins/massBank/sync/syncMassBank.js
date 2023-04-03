@@ -77,42 +77,47 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       // parse massbank
-      for await (const entry of parseMassBank(lastFile, connection)) {
-        counter++;
-        // if test mode is enabled, stop after 20 entries
-        if (process.env.NODE_ENV === 'test' && counter > 20) break;
+      const parsedMassBank = await parseMassBank(lastFile, connection);
+      if (parsedMassBank?.length > 0) {
+        for (const entry of parsedMassBank) {
+          counter++;
+          // if test mode is enabled, stop after 20 entries
+          if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
-        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
-          start = Date.now();
+          if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+            debug(`Processing: counter: ${counter} - imported: ${imported}`);
+            start = Date.now();
+          }
+          // insert entry in temporary collection
+          entry._seq = ++progress.seq;
+          await temporaryCollection.updateOne(
+            { _id: entry._id },
+            { $set: entry },
+            { upsert: true },
+          );
+          imported++;
         }
-        // insert entry in temporary collection
-        entry._seq = ++progress.seq;
-        await temporaryCollection.updateOne(
-          { _id: entry._id },
-          { $set: entry },
-          { upsert: true },
-        );
-        imported++;
+        // rename the temporary collection to the final collection
+        await temporaryCollection.rename(options.collectionName, {
+          dropTarget: true,
+        });
+        // update the logs and progress
+        logs.dateEnd = Date.now();
+        logs.endSequenceID = progress.seq;
+        logs.status = 'updated';
+        await connection.updateImportationLog(logs);
+        progress.sources = md5(JSON.stringify(sources));
+        progress.dateEnd = Date.now();
+        progress.state = 'updated';
+        await connection.setProgress(progress);
+        // create indexes on the collection
+
+        await collection.createIndex({ _seq: 1 });
+
+        debug(`${imported} compounds processed`);
+      } else {
+        throw new Error('No data received from MassBank');
       }
-      // rename the temporary collection to the final collection
-      await temporaryCollection.rename(options.collectionName, {
-        dropTarget: true,
-      });
-      // update the logs and progress
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
-      progress.sources = md5(JSON.stringify(sources));
-      progress.dateEnd = Date.now();
-      progress.state = 'updated';
-      await connection.setProgress(progress);
-      // create indexes on the collection
-
-      await collection.createIndex({ _seq: 1 });
-
-      debug(`${imported} compounds processed`);
     } else {
       debug(`file already processed`);
     }
