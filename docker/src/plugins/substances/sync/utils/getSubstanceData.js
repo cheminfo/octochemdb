@@ -27,15 +27,17 @@ export async function getSubstanceData(molecule) {
     let dataSubstance;
     while (success === false && count < 3) {
       try {
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), 30 * 1000); // 30 seconds
         if (process.env.NODE_ENV === 'test') {
-          const controller = new AbortController();
-          setTimeout(() => controller.abort(), 30 * 1000); // 30 seconds
           dataSubstance = await fetch(
             `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
             { signal: controller.signal },
           );
         } else {
-          dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
+          dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
+            signal: controller.signal,
+          });
         }
       } catch (e) {
         debug(e);

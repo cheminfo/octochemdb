@@ -7,7 +7,6 @@ import debugLibrary from './Debug.js';
 
 dotenv.config();
 
-dotenv.config();
 const debug = debugLibrary('OctoChemConnection');
 
 export function OctoChemConnection() {

@@ -16,7 +16,7 @@ async function getFile(file, targetFile) {
     while (success === false && count < 3) {
       try {
         const controller = new AbortController();
-        setTimeout(() => controller.abort(), 1800 * 1000);
+        setTimeout(() => controller.abort(), 1800 * 1000); // 30 minutes
         response = await fetch(file.url, { signal: controller.signal });
       } catch (e) {
         debug(e);
