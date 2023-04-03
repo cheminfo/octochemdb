@@ -83,7 +83,7 @@ export default async function importOneCompoundFile(
       try {
         const { promise } = await improveCompoundPool(compound);
 
-        await promise
+        promise
           .then((result) => {
             // console.log(result);
             if (result) {
