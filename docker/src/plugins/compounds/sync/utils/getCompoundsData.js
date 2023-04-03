@@ -33,7 +33,7 @@ export async function getCompoundsData(molecule) {
         // workerpool does not access the .env file for some reason, this is a workaround
         if (process.env.NODE_ENV === 'test') {
           const controller = new AbortController();
-          setTimeout(() => controller.abort(), 1800 * 1000);
+          setTimeout(() => controller.abort(), 3 * 1000); // 3 seconds
           try {
             dataCompound = await fetch(
               `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,

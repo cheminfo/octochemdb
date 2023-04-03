@@ -32,7 +32,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
 
   try {
     const controller = new AbortController();
-    setTimeout(() => controller.abort(), 1800 * 1000);
+    setTimeout(() => controller.abort(), 3 * 1000); // 3 seconds
     if (process.env.NODE_ENV !== 'test') {
       mkdirpSync(targetFolder);
     }

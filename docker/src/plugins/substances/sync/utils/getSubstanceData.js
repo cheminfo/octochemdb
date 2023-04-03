@@ -29,7 +29,7 @@ export async function getSubstanceData(molecule) {
       try {
         if (process.env.NODE_ENV === 'test') {
           const controller = new AbortController();
-          setTimeout(() => controller.abort(), 1800 * 1000);
+          setTimeout(() => controller.abort(), 30 * 1000); // 30 seconds
           dataSubstance = await fetch(
             `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
             { signal: controller.signal },
