@@ -7,10 +7,9 @@ import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 const debug = debugLibrary('parseMassBank');
-export async function parseMassBank(blob, connection) {
+export async function* parseMassBank(blob, connection) {
   try {
     const parsedData = parseMSP(blob);
-    let results = [];
     for (let data of parsedData) {
       let result = {};
       if (data.meta) {
@@ -47,11 +46,9 @@ export async function parseMassBank(blob, connection) {
           /MS/,
           '',
         );
-        result.data.spectrum.numberOfPeaks = bestPeaks.length;
-        results.push(result);
       }
+      yield result;
     }
-    return results;
   } catch (e) {
     debug(e.message, {
       collection: 'massbank',

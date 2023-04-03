@@ -9,7 +9,10 @@ import { parseMassBank } from '../parseMassBank';
 test('parseMassBank', async () => {
   const blob = readFileSync(join(__dirname, 'data/massBank.msp'));
   const connection = 'test';
-  const results = await parseMassBank(blob, connection);
+  const results = [];
+  for await (const result of parseMassBank(blob, connection)) {
+    results.push(result);
+  }
   expect(results).toHaveLength(2);
   expect(results).toMatchSnapshot();
 }, 30000);
