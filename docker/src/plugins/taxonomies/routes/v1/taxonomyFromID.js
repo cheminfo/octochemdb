@@ -8,7 +8,7 @@ const taxonomyFromID = {
   method: 'GET',
   schema: {
     summary: 'Retrieve taxonomy from ncbi taxonomy ID',
-    description: 'Allows to search for taxonomy.',
+    description: 'Allows to search for the taxonomy from ncbi taxonomy ID.',
     querystring: {
       id: {
         type: 'number',
@@ -22,13 +22,6 @@ const taxonomyFromID = {
 };
 
 export default taxonomyFromID;
-/**
- * Find molecular formula from a monoisotopic mass
- * @param {object} [request={}]
- * @param {object} [request.query={}]
- * @param {number} [request.query.id]
- * @return {Promise}
- */
 
 async function searchHandler(request) {
   let { id } = request.query;
