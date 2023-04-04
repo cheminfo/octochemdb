@@ -1,10 +1,19 @@
-# OctoChemDB
+# OctoChemDB: A Comprehensive Web Service for Chemical Data Integration
 
 [![DOI](https://www.zenodo.org/badge/134719303.svg)](https://www.zenodo.org/badge/latestdoi/134719303)
 
 <img width="606" alt="image" src="https://user-images.githubusercontent.com/92425679/224554633-4c6e19fe-ed4f-4a16-8222-a540e55d10f8.png">
 
-This project will fetch [multiple](#Sources) databases data in order to create a local database searchable by experimental monoisotopic mass and molecular formula. When building this database we will correctly take into account the charges and isotopes present in the molfile describing the structure.
+OctoChemDB is a web service with a two-step process: synchronization and aggregation. The synchronization phase uses plugins to create and maintain local copies of the synchronized databases, which are then linked in the aggregation phase based on their 2D structure. The resulting database can be queried with various criteria, and results are returned as a JSON object for integration into web application.
+
+We then provide an API that allows to search in the database quickly and efficiently. (Read more [here](#api))
+
+## Workflow
+
+Multiple plugins systems automatic import and update the local databases from the different [sources](../README.md#sources). The schema bellow summarizes the workflow:
+
+![image](https://user-images.githubusercontent.com/92425679/205658491-6ba8a473-0c7e-461a-b409-f07180f9a471.png)
+
 ## Quick start
 
 ```
@@ -13,9 +22,32 @@ docker-compose up --build -d
 
 By default the server will rebuild the full database. This process will take several days !
 
-### <ins>Attention:</ins>
+## Follow importation progress
+
+```
+docker-compose logs --follow import
+```
+
+## Open mongo shell
+
+```
+docker-compose exec mongo-mongo
+```
+
+The database name is: `octochemdb`
+
+## Requirements
 
 This project depends on [ocl-cache-docker](https://github.com/cheminfo/ocl-cache-docker), please be sure to build it before start using OctoChemDB.
+
+## Local development
+
+Better if you have docker installed and create the 2 following aliases:
+
+- `alias mongod="docker container rm mongod; docker run --name mongod -p 27017:27017 mongo"`
+- `alias mongo="docker exec -it mongod mongo"`
+
+You can then easily create a new install of mongod
 
 ## API
 
@@ -23,91 +55,46 @@ By default the server is available on port 3001
 
 http://localhost:3001/mfs/em?em=300
 
-### <ins>/mfs/v1/fromEM</ins>
+## Setup environmental variables
 
-Search MF from monoisotopic mass
-
-Parameters:
-
-- em: the target monoisotopic mass, mandatory
-- precision: mass precision in ppm (default: 100)
-- limit: maximal number of results (default: 1000)
-- fields: fields to retrieve (default: em, \_id, count, atom, unsaturation)
-
-Example: [mfs fromEM](http://localhost:3001/mfs/v1/fromEM?em=300&precision=100&limit=10&fields=_id)
-
-### <ins>/gnps/v1/fromID</ins>
-
-Search mass spectra from GNPS ID
-
-Parameters:
-
-- id: gnps ID (default: CCMSLIB00000001547)
-- fields: fields to retrieve (default: data.ocl.noStereoTautomerID)
-
-Example: [GNPS fromID](http://localhost:3001/gnps/v1/fromID?id=CCMSLIB00000001547&fields=data.ocl.noStereoTautomerID)
-
-### <ins>/pubmeds/v1/fromPMID</ins>
-
-Search publication from a PubMed ID
-
-Parameters:
-
-- pmid: PubMed ID of the publication (default: 1)
-- fields: fields to be retrieved (default: data.article.title, data.cids)
-
-Example: [PubMed fromPMID](http://localhost:3001/pubmeds/v1/fromPMID?pmid=1&fields=data.article.title%2Cdata.cids)
-
-### <ins>/taxonomies/v1/taxonomyFromID</ins>
-
-Search standardized taxonomy from a NCBI Taxonomy ID.
-
-Parameters:
-
-- id: NCBI ID of the organism (default: 562)
-
-Example: [NCBI taxonomyFromID](http://localhost:3001/taxonomies/v1/taxonomyFromID?id=562)
-
-### <ins>/activesOrNaturals/v1/fromEM</ins>
-
-Search molecules known to be bioactives or naturals from monoisotopic mass.
-
-Parameters:
-
-- em: monoisotopic mass (default: 300)
-- precision: mass precision in ppm (default: 100)
-- kwTaxonomies: taxonomies family, genus or species (optional)
-- kwBioassays: keywords used on the bioassays (optional)
-- kwActiveAgainst: taxonomy superkingdom, kingdom or phylum of target organism in bioassays (optional)
-- kwMeshTerms: MeSH terms used by PubMed to indexing articles (optional)
-- limit: maximal number of results (default: 1000)
-- fields: fields to retrieve (default: data.em, data.mf)
-
-Example: [ActivesOrNaturals fromEM](http://localhost:3001/activesOrNaturals/v1/fromEM?em=334.17&precision=1000&kwActiveAgainst=viruses&limit=10&fields=data.em%2C%20data.mf)
-
-### <ins>/activesOrNaturals/v1/fromID</ins>
-
-Search all availeble data for a OCL noStereoTautomerID.
-
-Parameters:
-
-- id: noStereoTautomerID of the structure
-
-Example: [ActivesOrNaturals fromID](http://localhost:3001/activesOrNaturals/v1/fromID?id=fasAP@@JlDnRJJJIRZIUHqPcINjjjjjjZj%60@uTcFLLpKEl%5EqGF%5CEpOGzPpMGGpq%7CL)
-
-## Sources
+The file [env.example](./docker/.env.exemple) contains different type of variables (see table below). This file should be renamed ".env" and if a mobile monitoring is desired, the telegram variables should be defined.
 
 <!-- TABLE_GENERATE_START -->
 
-| Database | Source                                                          |
-| -------- | --------------------------------------------------------------- |
-| PubChem  | [Link](https://pubchem.ncbi.nlm.nih.gov/)                       |
-| PubMed   | [Link](https://pubmed.ncbi.nlm.nih.gov/)                        |
-| Lotus    | [Link](https://lotus.naturalproducts.net/)                      |
-| Coconut  | [Link](https://coconut.naturalproducts.net/)                    |
-| CMAUP    | [Link](https://bidd.group/CMAUP/)                               |
-| GNPS     | [Link](https://gnps.ucsd.edu/ProteoSAFe/static/gnps-splash.jsp) |
-| NPASS    | [Link](https://bidd.group/NPASS/)                               |
-| NP Atlas | [Link](https://www.npatlas.org/)                                |
+| Variable                  | Function                                             |
+| ------------------------- | ---------------------------------------------------- |
+| MONGODB_URL               | URL to local mongoDB                                 |
+| MONGO_DB_NAME             | Name of the mongo database                           |
+| ORIGINAL_DATA_PATH        | Path where fetched data are stored                   |
+| "NameDB"\_SOURCE          | Source for all databases fetched                     |
+| PORT                      | Exposed port                                         |
+| DEBUG_THROTTLING          | Time interval between each debug (in ms)             |
+| TELEGRAM_BOT_ID           | Telegram BOT to send debug messages                  |
+| TELEGRAM_CHAT_ID          | Telegram chat where debug messages are shown         |
+| PLUGINS                   | List of plugins to be executed, if empty execute all |
+| EXCLUDEPLUGINS            | List of plugins to not be executed                   |
+| "NameDB"\_UPDATE_INTERVAL | The updating interval for each plugin (in days)      |
+
+<!-- TABLE_GENERATE_END -->
+
+## Sources
+
+Here are listed the different sources that are used to fetch data. The list is not exhaustive and can be updated by adding a new plugin in the [plugins](./plugins) folder.
+
+<!-- TABLE_GENERATE_START -->
+
+| Database        | Source                                |
+| --------------- | ------------------------------------- |
+| PubChem         | https://pubchem.ncbi.nlm.nih.gov/     |
+| PubMed          | https://pubmed.ncbi.nlm.nih.gov/      |
+| Lotus           | https://lotus.naturalproducts.net/    |
+| Coconut         | https://coconut.naturalproducts.net/  |
+| CMAUP           | https://bidd.group/CMAUP/             |
+| GNPS            | https://gnps.ucsd.edu/                |
+| NPASS           | https://bidd.group/NPASS/             |
+| NP Atlas        | https://www.npatlas.org/              |
+| MassBank        | https://massbank.eu/MassBank/         |
+| USP Patents     | https://www.uspto.gov/                |
+| NCBI Taxonomies | https://www.ncbi.nlm.nih.gov/taxonomy |
 
 <!-- TABLE_GENERATE_END -->
