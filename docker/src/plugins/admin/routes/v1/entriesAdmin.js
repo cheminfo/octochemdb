@@ -6,6 +6,9 @@ const debug = debugLibrary('entries Admin');
 const entriesAdmin = {
   method: 'GET',
   schema: {
+    summary: 'Retrieve entries from the admin collection for monitoring',
+    description:
+      'This route retrieves the entries from the admin collection. This can be integrated in a monitoring system to keep under control the collection state and the last 50 logs.',
     querystring: {
       collectionToSearch: {
         type: 'string',
@@ -22,7 +25,7 @@ const entriesAdmin = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'state,seq,date,sources,logs',
+        default: 'state,seq,dateStart,dateEnd,sources,logs',
       },
     },
   },
