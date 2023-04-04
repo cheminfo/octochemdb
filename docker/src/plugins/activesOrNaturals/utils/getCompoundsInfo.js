@@ -30,7 +30,6 @@ export default async function getCompoundsInfo(
       compoundInfo,
       entry,
       data,
-      noStereoTautomerID,
     );
     const casNumber = parsedCompoundInfo.casNumbers;
     const pmids = parsedCompoundInfo.pmids;

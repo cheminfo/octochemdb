@@ -2,12 +2,7 @@ import OCL from 'openchemlib';
 
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
-export default async function parseCompoundInfo(
-  compoundInfo,
-  entry,
-  data,
-  noStereoTautomerID,
-) {
+export default async function parseCompoundInfo(compoundInfo, entry, data) {
   let cids = {};
   let cas = {};
   let pmids = [];
