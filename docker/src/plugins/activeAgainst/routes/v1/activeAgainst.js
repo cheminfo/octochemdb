@@ -8,11 +8,12 @@ const activeAgainst = {
   method: 'GET',
   schema: {
     summary: 'Retrieve all entries from the activeAgainst collection',
+    description:
+      'This route retrieves all entries from the activeAgainst collection, which contains information about the taxonomy of the targets organisms to which the active compounds are active. \n This is could be useful to determine the kind of bioassays that are performed (e.g. 20% of the bioassays are performed against bacteria, etc.) or to know if exists active compounds against a specific organism.',
   },
   handler: searchHandler,
 };
 export default activeAgainst;
-
 /**
  * @description Get all entries from the activeAgainst collection
  * @return {Promise} Returns statistics about the collection
