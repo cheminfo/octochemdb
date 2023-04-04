@@ -6,7 +6,7 @@ const debug = debugLibrary('fromID');
 const fromID = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve massSpectrum from ID',
+    summary: 'Retrieve mass spectrum from GNPS ID',
     description: '',
     querystring: {
       id: {
@@ -18,7 +18,7 @@ const fromID = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'data.ocl.noStereoTautomerID',
+        default: 'data.ocl.noStereoTautomerID, data.spectrum',
       },
     },
   },
@@ -49,7 +49,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+      debug(e.message, { collection: 'gnps', connection, stack: e.stack });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
