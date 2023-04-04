@@ -7,6 +7,9 @@ const debug = debugLibrary('entries importation Logs');
 const entriesImportationLogs = {
   method: 'GET',
   schema: {
+    summary: 'Retrieve importation logs from a collection',
+    description:
+      'This route retrieves the importation logs for a given collection. This can be integrated in a monitoring system to keep under control the importation/aggregation process.',
     querystring: {
       collectionName: {
         type: 'string',
