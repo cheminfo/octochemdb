@@ -132,18 +132,18 @@ async function searchHandler(request) {
       matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
     }
     if (kwTaxonomies) {
-      matchParameter.kwTaxonomies = {
+      matchParameter['data.kwTaxonomies'] = {
         $in: wordsToBeSearchedTaxonomies,
       };
     }
     if (kwBioassays) {
-      matchParameter.kwBioassays = { $in: wordsWithRegexBioassays };
+      matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
     }
     if (kwMeshTerms) {
-      matchParameter.kwMeshTerms = { $in: wordsWithRegexMeshTerms };
+      matchParameter['data.kwMeshTerms'] = { $in: wordsWithRegexMeshTerms };
     }
     if (kwActiveAgainst) {
-      matchParameter.kwActiveAgainst = {
+      matchParameter['data.kwActiveAgainst'] = {
         $in: wordsToBeSearchedActiveAgainst,
       };
     }
