@@ -35,7 +35,9 @@ export async function* parseMassBank(blob, connection) {
           threshold: 0.01,
         });
         let bestPeaksXY = xyObjectToXY(bestPeaks);
-        result.data.spectrum = bestPeaksXY;
+        result.data.spectrum = { data: {} };
+        result.data.spectrum.data.x = bestPeaksXY.x;
+        result.data.spectrum.data.y = bestPeaksXY.y;
         result.data.spectrum.numberOfPeaks = bestPeaks.length;
         result.data.spectrum.instrument = data.meta.Instrument;
         result.data.spectrum.instrumentType = data.meta.Instrument_type;
