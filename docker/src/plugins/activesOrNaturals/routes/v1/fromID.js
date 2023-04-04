@@ -6,14 +6,15 @@ const debug = debugLibrary('entriesFromEM');
 const entriesFromEM = {
   method: 'GET',
   schema: {
-    summary: 'Retrieve a compound from the racemic oclID',
-    description: '',
+    summary: 'Retrieve the entry for a given noStereoTautomerID',
+    description:
+      'This route retrieves the entry for a given noStereoTautomerID, which is a ocl idCode of the molecule without stereochemistry and tautomerism. \n This is could be useful to retrieve the information about the molecule, such as the molecular formula, the bioassays, the publications, etc.',
     querystring: {
       id: {
         type: 'string',
-        description: '',
-        example: '',
-        default: '',
+        description: 'noStereoTautomerID',
+        example:
+          'fhiAP@@Xe[vRJJFYIJJDYxMUUUUUP@ZzQcFBXiafNXecVCXm`NOtQfJvOacxZuSGpq|L',
       },
     },
   },

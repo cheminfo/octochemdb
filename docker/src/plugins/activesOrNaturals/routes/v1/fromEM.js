@@ -10,11 +10,11 @@ const entriesFromEM = {
   schema: {
     summary: 'Retrieve compounds from a monoisotopic mass',
     description:
-      'Allows to search for compounds based on a monoisotopic mass, precision (accuracy) of the measurement, taxonomy or bioassay.',
+      'Allows to search for compounds based on a monoisotopic mass and precision (accuracy) of the measurement. \n Optional parameters can be used to filter the results based on their taxonomy, bioactivity and topic (MeSH terms) of PubMed publications related to the the molecules.',
     querystring: {
       em: {
         type: 'number',
-        description: 'Monoisotopic mass',
+        description: 'Monoisotopic mass (in Da)',
         example: 300.123,
         default: 300,
       },
