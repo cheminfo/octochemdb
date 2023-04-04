@@ -37,9 +37,17 @@ export default async function parseCompoundInfo(
   }
 
   if (compoundInfo?.data?.em === undefined) {
-    const molecule = OCL.Molecule.fromIDCode(noStereoTautomerID);
+    let idToSearch;
+    for (const oneDataEntry of data) {
+      if (oneDataEntry.data.ocl.idCode) {
+        idToSearch = oneDataEntry.data.ocl.idCode;
+        break;
+      }
+    }
+    const molecule = OCL.Molecule.fromIDCode(idToSearch);
     const smiles = molecule.toSmiles();
-    let compoundData = await getCompoundsData(molecule);
+
+    let compoundData = await getCompoundsData({ idCode: idToSearch });
     entry.data.smiles = smiles;
     entry.data.em = compoundData?.data.em;
     entry.data.charge = compoundData?.data.charge;
