@@ -27,15 +27,6 @@ const fromPMID = {
 };
 
 export default fromPMID;
-/**
- * Find article from PubMed ID
- * @param {object} [request={}]
- * @param {object} [request.query={}]
- * @param {number} [request.query.pmid=1]
- * @param {string} [request.query.fields='data.cids,data.dateCreated,data.dateCompleted,data.dateRevised,data.article,data.chemicals,data.supplMesh,data.meshHeadings,data.journalInfo']
- * @param {number} [request.query.minPubchemEntries=0]
- * @return {Promise<Document[]>}
- */
 
 async function searchHandler(request) {
   let { pmid = 1, fields = 'data.article.title,data.cids' } = request.query;
