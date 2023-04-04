@@ -57,7 +57,7 @@ http://localhost:3001/mfs/em?em=300
 
 ## Setup environmental variables
 
-The file [env.example](./docker/.env.exemple) contains different type of variables (see table below). This file should be renamed ".env" and if a mobile monitoring is desired, the telegram variables should be defined.
+The file "env.example" contains different type of variables (see table below). This file should be renamed ".env" and if a mobile monitoring is desired, the telegram variables should be defined.
 
 <!-- TABLE_GENERATE_START -->
 
@@ -79,7 +79,7 @@ The file [env.example](./docker/.env.exemple) contains different type of variabl
 
 ## Sources
 
-Here are listed the different sources that are used to fetch data. The list is not exhaustive and can be updated by adding a new plugin in the [plugins](./plugins) folder.
+Here are listed the different sources that are used to fetch data. The list is not exhaustive and can be updated by adding a new plugin in the [plugins](./docker/src/plugins/) folder.
 
 <!-- TABLE_GENERATE_START -->
 
