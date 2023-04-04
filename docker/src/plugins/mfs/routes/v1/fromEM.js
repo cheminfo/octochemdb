@@ -7,6 +7,9 @@ const debug = debugLibrary('fromEM');
 const fromEM = {
   method: 'GET',
   schema: {
+    summary: 'Find molecular formula from a monoisotopic mass',
+    description:
+      'Useful to retrieve all the molecular formula that have a given monoisotopic mass',
     querystring: {
       em: {
         type: 'number',
@@ -36,17 +39,6 @@ const fromEM = {
 
 export default fromEM;
 
-/**
- * Find molecular formula from a monoisotopic mass
- * @param {object} [request={}]
- * @param {object} [request.query={}]
- * @param {number} [request.query.em=0]
- * @param {number} [request.query.limit=1000]
- * @param {number} [request.query.precision=100]
- * @param {string} [request.query.fields='em,_id,count,atom,unsaturation']
- * @return {Promise<Document[]>}
- */
-
 async function searchHandler(request) {
   let {
     em = 0,
@@ -66,7 +58,7 @@ async function searchHandler(request) {
 
     debug(JSON.stringify({ em, error }));
     let fieldsToRetrieve = getFields(fields);
-    delete fieldsToRetrieve.id;
+
     const results = await collection
       .aggregate([
         {
