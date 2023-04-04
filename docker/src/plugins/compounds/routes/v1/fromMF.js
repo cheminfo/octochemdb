@@ -8,13 +8,14 @@ const fromMF = {
   method: 'GET',
   schema: {
     summary: 'Retrieve compounds from a molecular formula',
-    description: '',
+    description:
+      'Useful to retrieve all the compounds that have a given molecular formula',
     querystring: {
       mf: {
         type: 'string',
         description: 'Molecular formula',
-        example: 'Et3N',
-        default: null,
+        example: 'C37H60O8',
+        default: '',
       },
       limit: {
         type: 'number',
@@ -32,16 +33,6 @@ const fromMF = {
 };
 
 export default fromMF;
-/**
- * Find molecular formula from a monoisotopic mass
- * @param {object} [request={}]
- * @param {object} [request.query={}]
- * @param {number} [request.query.mf='']
- * @param {number} [request.query.limit=1000]
- * @param {string} [request.query.fields='data.em,data.mf,data.total,data.atom,data.unsaturation']
- * @param {number} [request.query.minPubchemEntries=0]
- * @return {Promise<Document[]>}
- */
 
 async function searchHandler(request) {
   let {
@@ -57,8 +48,6 @@ async function searchHandler(request) {
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('compounds');
-
-    debug(mf);
 
     const results = await collection
       .aggregate([

@@ -1,9 +1,8 @@
-// query for molecules from monoisotopic mass
 import OCL from 'openchemlib';
 
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
-import getNoStereoIDCode from '../../../../sync/utils/getNoStreoIDCode.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 const debug = debugLibrary('fromSmiles');
 
@@ -11,7 +10,8 @@ const fromSmiles = {
   method: 'GET',
   schema: {
     summary: 'Retrieve compounds from a SMILES',
-    description: '',
+    description:
+      'Retrieve entry in compounds collection from a SMILES. This route can take into account the stereochemistry.',
     querystring: {
       smiles: {
         type: 'string',
@@ -41,18 +41,6 @@ const fromSmiles = {
 
 export default fromSmiles;
 
-/**
- * Find compounds from a SMILES
- * @param {object} [request={}]
- * @param {object} [request.query={}]
- * @param {number} [request.query.smiles='']
- * @param {boolean} [request.query.stereo=true]
- * @param {number} [request.query.limit=1000]
- * @param {string} [request.query.fields='data.em,data.mf,data.total,data.atom,data.unsaturation']
- * @param {number} [request.query.minPubchemEntries=0]
- * @return {Promise<Document[]>}
- */
-
 async function searchHandler(request) {
   let {
     smiles = '',
@@ -61,23 +49,26 @@ async function searchHandler(request) {
     fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
   } = request.query;
 
-  if (limit > 1e4) limit = 1e4;
-  if (limit < 1) limit = 1;
-
-  const molecule = OCL.Molecule.fromSmiles(smiles);
-  let mongoQuery = {};
-  if (stereo) {
-    mongoQuery = {
-      'data.ocl.idCode': molecule.getIDCode(),
-    };
-  } else {
-    mongoQuery = {
-      'data.noStereoID': getNoStereoIDCode(molecule),
-    };
-  }
-
   let connection;
   try {
+    if (limit > 1e4) limit = 1e4;
+    if (limit < 1) limit = 1;
+
+    const molecule = OCL.Molecule.fromSmiles(smiles);
+    let mongoQuery = {};
+    if (stereo) {
+      mongoQuery = {
+        'data.ocl.idCode': molecule.getIDCode(),
+      };
+    } else {
+      mongoQuery = {
+        'data.ocl.noStereoTautomerID': getNoStereosFromCache(
+          molecule,
+          connection,
+        ),
+      };
+    }
+
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('compounds');
 

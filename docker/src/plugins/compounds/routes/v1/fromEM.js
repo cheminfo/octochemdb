@@ -9,7 +9,7 @@ const fromEM = {
   schema: {
     summary: 'Retrieve compounds from a monoisotopic mass',
     description:
-      'Allows to search for pubchem compounds based on a monoisotopic mass, precision (accuracy) of the measurement.',
+      'Allows to search for compounds based on a monoisotopic mass, precision (accuracy) of the measurement.',
     querystring: {
       em: {
         type: 'number',
@@ -38,17 +38,6 @@ const fromEM = {
 };
 
 export default fromEM;
-/**
- * Find molecular formula from a monoisotopic mass
- * @param {object} [request={}]
- * @param {object} [request.query={}]
- * @param {number} [request.query.em=0]
- * @param {number} [request.query.limit=1000]
- * @param {number} [request.query.precision=100]
- * @param {string} [request.query.fields='data.em,data.mf,data.total,data.atom,data.unsaturation']
- * @param {number} [request.query.minPubchemEntries=0]
- * @return {Promise<Document[]>}
- */
 
 async function searchHandler(request) {
   let {
