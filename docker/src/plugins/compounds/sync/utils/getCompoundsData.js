@@ -32,7 +32,7 @@ export async function getCompoundsData(molecule) {
       try {
         // workerpool does not access the .env file for some reason, this is a workaround
         const controller = new AbortController();
-        setTimeout(() => controller.abort(), 30 * 1000); // 30 seconds
+        setTimeout(() => controller.abort(), 1000 * 1800);
         if (process.env.NODE_ENV === 'test') {
           try {
             dataCompound = await fetch(
