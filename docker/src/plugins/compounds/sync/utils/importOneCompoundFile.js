@@ -118,6 +118,7 @@ export default async function importOneCompoundFile(
                 process.env.ORIGINAL_DATA_PATH,
                 '',
               );
+              progress.dateEnd = Date.now();
               return connection.setProgress(progress);
             });
         }

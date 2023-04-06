@@ -102,6 +102,7 @@ export default async function importOneSubstanceFile(
                   process.env.ORIGINAL_DATA_PATH,
                   '',
                 );
+                progress.dateEnd = Date.now();
                 return connection.setProgress(progress);
               });
           } else {
