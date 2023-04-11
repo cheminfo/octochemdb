@@ -16,6 +16,7 @@ export async function taxonomySynonyms() {
   } else {
     path = `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full`;
   }
+
   let fileToRead = (
     await fileCollectionFromPath(`${path}`, {
       ungzip: { gzipExtensions: [] },
@@ -27,10 +28,13 @@ export async function taxonomySynonyms() {
       file.name === 'merged.dmp'
     );
   })[0];
+  let regex;
   if (process.env.NODE_ENV === 'test') {
-    fileToRead.relativePath = path.replace('data/', fileToRead.relativePath);
+    regex = /data.*/;
+    fileToRead.relativePath = path.replace(regex, fileToRead.relativePath);
   } else {
-    fileToRead.relativePath = path.replace('full/', fileToRead.relativePath);
+    regex = /full.*/;
+    fileToRead.relativePath = path.replace(regex, fileToRead.relativePath);
   }
   const readStream = await readStreamInZipFolder(fileToRead);
   const lines = createInterface({ input: readStream });
