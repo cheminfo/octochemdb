@@ -87,29 +87,28 @@ async function searchHandler(request) {
   // convert to lower case and remove spaces and split by ";" or ","
   let wordsToBeSearchedBioassays = kwBioassays
     .toLowerCase()
-    .split(/ *[,;\t\n\r]+ */)
+    .split(/ *[,;\t\n\r\s]+ */)
     .filter((entry) => entry);
 
   let wordsToBeSearchedActiveAgainst = kwActiveAgainst
     .toLowerCase()
-    .split(/ *[,;\t\n\r]+ */)
+    .split(/ *[,;\t\n\r\s]+ */)
     .filter((entry) => entry);
 
   let wordsToBeSearchedTaxonomies = kwTaxonomies
     .toLowerCase()
-    .split(/ *[,;\t\n\r]+ */)
+    .split(/ *[,;\t\n\r\s]+ */)
     .filter((entry) => entry);
 
   let wordsToBeSearchedMeshTerms = kwMeshTerms
-    .toUpperCase()
-    .split(/ *[;\t\n\r]+ */)
+    .toLowerCase()
+    .split(/ *[,;\t\n\r\s]+ */)
     .filter((entry) => entry);
   // convert words to be searched in bioassays to regex
   wordsToBeSearchedBioassays.forEach((word) => {
     wordsWithRegexBioassays.push(new RegExp(escapeRegExp(word), 'i'));
   });
   // convert phrases to regular expressions
-
   wordsToBeSearchedMeshTerms.forEach((word) => {
     wordsWithRegexMeshTerms.push(new RegExp(escapeRegExp(word), 'i'));
   });
