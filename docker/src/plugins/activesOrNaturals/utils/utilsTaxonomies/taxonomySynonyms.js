@@ -20,6 +20,7 @@ export async function taxonomySynonyms() {
   let fileToRead = (
     await fileCollectionFromPath(`${path}`, {
       ungzip: { gzipExtensions: [] },
+      unzip: { zipExtensions: [] },
     })
   ).files.filter((file) => {
     return (
