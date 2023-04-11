@@ -73,6 +73,22 @@ async function firstPubmedImport(connection) {
     const collection = await connection.getCollection('pubmeds');
     await collection.createIndex({ 'data.meshHeadings': 1 });
     await collection.createIndex({ 'data.cids': 1 });
+    // create text index where title and meshHeading have more weight than abstract
+    await collection.createIndex(
+      {
+        'data.title': 'text',
+        'data.meshHeadings': 'text',
+        'data.abstract': 'text',
+      },
+      {
+        weights: {
+          'data.title': 1,
+          'data.meshHeadings': 1,
+          'data.abstract': 0.1,
+        },
+      },
+    );
+
     await collection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {

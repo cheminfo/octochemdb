@@ -85,6 +85,11 @@ export async function sync(connection) {
       const collection = await connection.getCollection('uspPatents');
       await collection.createIndex({ 'data.title': 1 });
       await collection.createIndex({ 'data.patentNumber': 1 });
+      // create text index where title has more weight than abstract
+      await collection.createIndex(
+        { 'data.title': 'text', 'data.abstract': 'text' },
+        { weights: { 'data.title': 1, 'data.abstract': 0.1 } },
+      );
       await collection.createIndex({ _seq: 1 });
       progress.sources = md5(JSON.stringify(sources));
       progress.state = 'updated';
