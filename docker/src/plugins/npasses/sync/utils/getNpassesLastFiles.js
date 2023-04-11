@@ -41,19 +41,19 @@ export default async function getNpassesLastFiles(connection) {
         extensionNew: 'txt',
       };
       // get last files available in the NPASS database
-      const lastFile = await getLastFileSync(options);
+      lastFile = await getLastFileSync(options);
       options.collectionSource = process.env.NPASS_SOURCE_ACTIVITY;
       options.filenameNew = 'activities';
-      const lastFileActivity = await getLastFileSync(options);
+      lastFileActivity = await getLastFileSync(options);
       options.collectionSource = process.env.NPASS_SOURCE_PROPERTIES;
       options.filenameNew = 'properties';
-      const lastFileSpeciesProperties = await getLastFileSync(options);
+      lastFileSpeciesProperties = await getLastFileSync(options);
       options.collectionSource = process.env.NPASS_SOURCE_SPECIESPAIR;
       options.filenameNew = 'speciesPair';
-      const lastFileSpeciesPair = await getLastFileSync(options);
+      lastFileSpeciesPair = await getLastFileSync(options);
       options.collectionSource = process.env.NPASS_SOURCE_SPECIESINFO;
       options.filenameNew = 'speciesInfo';
-      const lastFileSpeciesInfo = await getLastFileSync(options);
+      lastFileSpeciesInfo = await getLastFileSync(options);
       // define sources
       source = [
         lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
