@@ -88,7 +88,7 @@ export async function sync(connection) {
       // create text index where title has more weight than abstract
       await collection.createIndex(
         { 'data.title': 'text', 'data.abstract': 'text' },
-        { weights: { 'data.title': 1, 'data.abstract': 0.1 } },
+        { weights: { 'data.title': 10, 'data.abstract': 1 } },
       );
       await collection.createIndex({ _seq: 1 });
       progress.sources = md5(JSON.stringify(sources));

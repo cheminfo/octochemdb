@@ -82,9 +82,9 @@ async function firstPubmedImport(connection) {
       },
       {
         weights: {
-          'data.title': 1,
-          'data.meshHeadings': 1,
-          'data.abstract': 0.1,
+          'data.title': 10,
+          'data.meshHeadings': 10,
+          'data.abstract': 1,
         },
       },
     );
