@@ -51,6 +51,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let fileList = (
       await fileCollectionFromPath(targetFolder, {
         ungzip: { gzipExtensions: [] },
+        unzip: { zipExtensions: [] },
       })
     ).files.filter(
       (file) =>
