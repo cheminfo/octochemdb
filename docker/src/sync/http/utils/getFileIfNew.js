@@ -48,7 +48,11 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let newFileSize = Number(
       headers.filter((row) => row[0] === 'content-length')[0][1],
     );
-    let fileList = (await fileCollectionFromPath(targetFolder)).files.filter(
+    let fileList = (
+      await fileCollectionFromPath(targetFolder, {
+        ungzip: { gzipExtensions: [] },
+      })
+    ).files.filter(
       (file) =>
         (file.name.includes('.zip') ||
           file.name.includes('.txt') ||
@@ -124,8 +128,8 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       return targetFile;
     }
   } catch (e) {
-    debug(`ERROR downloading: ${options.filename}`);
-    debug(target);
+    debug(`ERROR downloading: ${filename}`);
+    debug(e);
     if (existsSync(target)) {
       rmSync(target, { recursive: true });
     }

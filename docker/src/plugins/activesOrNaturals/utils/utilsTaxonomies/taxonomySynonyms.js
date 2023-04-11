@@ -16,15 +16,17 @@ export async function taxonomySynonyms() {
   } else {
     path = `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full`;
   }
-  let fileToRead = (await fileCollectionFromPath(`${path}`)).files.filter(
-    (file) => {
-      return (
-        file.relativePath.includes('zip') &&
-        !file.relativePath.includes('old') &&
-        file.name === 'merged.dmp'
-      );
-    },
-  )[0];
+  let fileToRead = (
+    await fileCollectionFromPath(`${path}`, {
+      ungzip: { gzipExtensions: [] },
+    })
+  ).files.filter((file) => {
+    return (
+      file.relativePath.includes('zip') &&
+      !file.relativePath.includes('old') &&
+      file.name === 'merged.dmp'
+    );
+  })[0];
   if (process.env.NODE_ENV === 'test') {
     fileToRead.relativePath = path.replace('data/', fileToRead.relativePath);
   } else {
