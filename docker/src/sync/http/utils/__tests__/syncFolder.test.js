@@ -5,7 +5,7 @@ import syncFolder from '../syncFolder';
 
 dotenv.config();
 
-test('getFileIfNew', async () => {
+test('syncFolder', async () => {
   const destination = '../docker/src/sync/http/utils/__tests__/data/';
 
   const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;

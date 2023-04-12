@@ -23,13 +23,15 @@ async function syncFolder(source, destinationFolder, options = {}) {
     allFiles = allFiles.slice(0, limit);
   }
   const newFiles = [];
-  let fileList = (await fileCollectionFromPath(destinationFolder)).files.sort(
-    (a, b) => {
-      if (a < b) return -1;
-      if (a > b) return 1;
-      return 0;
-    },
-  );
+  let fileList = (
+    await fileCollectionFromPath(destinationFolder, {
+      ungzip: { gzipExtensions: [] },
+    })
+  ).files.sort((a, b) => {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  });
   let lastFileImported;
   if (fileList.length > 0) {
     lastFileImported = fileList.slice(-1)[0];
