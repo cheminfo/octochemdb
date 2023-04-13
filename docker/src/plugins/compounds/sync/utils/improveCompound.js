@@ -17,7 +17,7 @@ export default async function improveCompound(molecule) {
         data: dataCompound.data,
       };
       if (molecule.molfile) {
-        result._id = +molecule.PUBCHEM_COMPOUND_CID;
+        result._id = molecule.PUBCHEM_COMPOUND_CID;
         result._seq = 0;
         result.data.inchi = molecule.PUBCHEM_IUPAC_INCHI;
         result.data.inchiKey = molecule.PUBCHEM_IUPAC_INCHIKEY;

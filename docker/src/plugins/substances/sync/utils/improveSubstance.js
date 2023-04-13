@@ -16,7 +16,7 @@ export default async function improveSubstance(molecule) {
     let dataCompound = await getSubstanceData(molecule);
     if (dataCompound?.data) {
       let result = {
-        _id: +molecule.PUBCHEM_SUBSTANCE_ID,
+        _id: molecule.PUBCHEM_SUBSTANCE_ID,
         _seq: 0,
         naturalProduct: false,
         data: dataCompound.data,

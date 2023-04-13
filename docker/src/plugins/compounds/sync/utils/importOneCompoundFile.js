@@ -38,7 +38,6 @@ export default async function importOneCompoundFile(
   let newCompounds = 0;
   const readStream = fs.createReadStream(file.path);
   const unzipStream = readStream.pipe(zlib.createGunzip());
-  //PROBLEM IS HERE SOMEWHERE
   for await (const chunk of unzipStream) {
     bufferValue += chunk;
     if (bufferValue.length < 128 * 1024 * 1024) continue;
