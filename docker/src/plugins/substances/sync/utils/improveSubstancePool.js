@@ -25,7 +25,7 @@ export default async function improveSubstancePool(molecule) {
   const timeout = setTimeout(() => abortController.abort(), 60000);
 
   // if in the queue we have over twice the number of cpu we wait
-  while (piscina.queueSize > nbCPU * 5) {
+  while (piscina.queueSize > nbCPU * 2) {
     await delay(1);
   }
   let promise;
