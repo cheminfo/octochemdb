@@ -82,12 +82,11 @@ export default async function importOneSubstanceFile(
               .then((result) => {
                 if (result) {
                   if (result.data.taxonomyIDs) {
-                    let taxonomies = getTaxonomiesSubstances(
+                    result = getTaxonomiesSubstances(
                       result,
                       collectionTaxonomies,
                       oldToNewTaxIDs,
                     );
-                    result.data.taxonomies = taxonomies;
                   }
                   result._seq = ++progress.seq;
                   return collection.updateOne(
@@ -110,12 +109,11 @@ export default async function importOneSubstanceFile(
               .then((result) => {
                 if (result) {
                   if (result.data.taxonomyIDs) {
-                    let taxonomies = getTaxonomiesSubstances(
+                    result = getTaxonomiesSubstances(
                       result,
                       collectionTaxonomies,
                       oldToNewTaxIDs,
                     );
-                    result.data.taxonomies = taxonomies;
                   }
                   result._seq = ++progress.seq;
                   return collection.updateOne(

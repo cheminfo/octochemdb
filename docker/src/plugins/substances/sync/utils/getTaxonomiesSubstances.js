@@ -51,5 +51,5 @@ export async function getTaxonomiesSubstances(
   if (taxonomiesSubstances.length > 0) {
     entry.data.taxonomies = taxonomiesSubstances;
   }
-  return taxonomiesSubstances;
+  return entry;
 }
