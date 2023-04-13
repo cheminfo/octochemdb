@@ -19,7 +19,7 @@ export async function getTaxonomiesSubstances(
       let taxId = entry.data.taxonomyIDs[i];
 
       let searchParameter = {
-        _id: taxId,
+        _id: Number(taxId),
       };
       let result = await searchTaxonomies(
         taxonomiesCollection,
