@@ -5,7 +5,6 @@ import zlib from 'zlib';
 import { parse } from 'sdf-parser';
 
 import debugLibrary from '../../../../utils/Debug.js';
-import { taxonomySynonyms } from '../../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import { getTaxonomiesSubstances } from './getTaxonomiesSubstances.js';
 import improveSubstancePool from './improveSubstancePool.js';
@@ -31,7 +30,6 @@ export default async function importOneSubstanceFile(
       sources: file.name,
       startSequenceID: progress.seq,
     });
-    const oldToNewTaxIDs = await taxonomySynonyms();
     const collectionTaxonomies = await connection.getCollection('taxonomies');
 
     debug(`Importing: ${file.name}`);
@@ -85,7 +83,6 @@ export default async function importOneSubstanceFile(
                     result = getTaxonomiesSubstances(
                       result,
                       collectionTaxonomies,
-                      oldToNewTaxIDs,
                     );
                   }
                   result._seq = ++progress.seq;
@@ -112,7 +109,6 @@ export default async function importOneSubstanceFile(
                     result = getTaxonomiesSubstances(
                       result,
                       collectionTaxonomies,
-                      oldToNewTaxIDs,
                     );
                   }
                   result._seq = ++progress.seq;
