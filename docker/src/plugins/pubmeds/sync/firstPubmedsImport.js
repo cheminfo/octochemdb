@@ -76,15 +76,15 @@ async function firstPubmedImport(connection) {
     // create text index where title and meshHeading have more weight than abstract
     await collection.createIndex(
       {
-        'data.title': 'text',
+        'data.article.title': 'text',
         'data.meshHeadings': 'text',
-        'data.abstract': 'text',
+        'data.article.abstract': 'text',
       },
       {
         weights: {
-          'data.title': 10,
+          'data.article.title': 10,
           'data.meshHeadings': 10,
-          'data.abstract': 1,
+          'data.article.abstract': 1,
         },
       },
     );
