@@ -17,24 +17,20 @@ export async function taxonomySynonyms() {
     path = `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full/`;
   }
 
-  let fileToRead = (await fileCollectionFromPath(`${path}`)).files.filter(
-    (file) => {
-      return (
-        file.relativePath.includes('zip') &&
-        !file.relativePath.includes('old') &&
-        file.name === 'merged.dmp'
-      );
-    },
-  )[0];
-  let regex;
-  if (process.env.NODE_ENV === 'test') {
-    regex = /data.*/;
-    fileToRead.relativePath = path.replace(regex, fileToRead.relativePath);
-  } else {
-    regex = /full.*/;
-    fileToRead.relativePath = path.replace(regex, fileToRead.relativePath);
-  }
-  const readStream = await readStreamInZipFolder(fileToRead);
+  let fileToRead = (
+    await fileCollectionFromPath(`${path}`, { unzip: { zipExtensions: [] } })
+  ).files.filter((file) => {
+    return (
+      file.relativePath.includes('zip') && !file.relativePath.includes('old')
+    );
+  })[0];
+  // replace full/ with relative path
+  fileToRead.relativePath = path.replace('full/', fileToRead.relativePath);
+  const readStream = await readStreamInZipFolder(
+    fileToRead.relativePath,
+    'merged.dmp',
+  );
+
   const lines = createInterface({ input: readStream });
 
   const newIDs = {};

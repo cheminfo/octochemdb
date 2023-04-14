@@ -1,12 +1,14 @@
 /* eslint-disable new-cap */
+
 import StreamZip from 'node-stream-zip';
 
-async function readStreamInZipFolder(fileToRead) {
-  // split after 'zip' and add 'zip' again
-
-  const filePathZip = fileToRead.relativePath.split('.zip')[0].concat('.zip');
+async function readStreamInZipFolder(filePathZip, fileNameInZip) {
   const zip = new StreamZip.async({ file: filePathZip });
-  const stm = await zip.stream(fileToRead.relativePath.split('.zip/')[1]);
+  const entries = await zip.entries();
+  const pathFileInZip = Object.keys(entries).filter((key) =>
+    key.includes(fileNameInZip),
+  )[0];
+  const stm = await zip.stream(pathFileInZip);
   return stm;
 }
 

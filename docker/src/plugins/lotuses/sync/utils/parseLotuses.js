@@ -17,25 +17,21 @@ const debug = debugLibrary('parseLotuses');
  */
 export async function* parseLotuses(lotusFilePath, filename, connection) {
   try {
-    const fileToRead = (
-      await fileCollectionFromPath(lotusFilePath)
-    ).files.filter((file) => {
-      return file.name === filename;
-    })[0];
-    if (process.env.NODE_ENV === 'test') {
-      fileToRead.relativePath = lotusFilePath.replace(
-        'data/',
-        fileToRead.relativePath,
-      );
-    } else {
-      fileToRead.relativePath = lotusFilePath.replace(
-        'full/',
-        fileToRead.relativePath,
-      );
-    }
-
-    debug(lotusFilePath);
-    const readStream = await readStreamInZipFolder(fileToRead);
+    let folderPath = lotusFilePath.replace(/full\/.*/, 'full/');
+    let fileToRead = (
+      await fileCollectionFromPath(folderPath, {
+        unzip: { zipExtensions: [] },
+      })
+    ).files.sort((a, b) => b.lastModified - a.lastModified)[0];
+    // replace full/ with relative path
+    fileToRead.relativePath = folderPath.replace(
+      'full/',
+      fileToRead.relativePath,
+    );
+    const readStream = await readStreamInZipFolder(
+      fileToRead.relativePath,
+      filename,
+    );
 
     for await (const entry of bsonIterator(readStream)) {
       try {
