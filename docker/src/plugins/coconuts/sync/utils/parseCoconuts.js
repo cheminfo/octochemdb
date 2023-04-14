@@ -16,23 +16,34 @@ const debug = debugLibrary('parseCoconuts');
  */
 export async function* parseCoconuts(bsonPath, filename, connection) {
   try {
-    let folderPath = bsonPath.replace(/full\/.*/, 'full/');
-
-    const fileToRead = (
+    let folderPath;
+    if (process.env.NODE_ENV === 'test') {
+      folderPath = bsonPath.replace(/data\/.*/, 'data/');
+    } else {
+      folderPath = bsonPath.replace(/full\/.*/, 'full/');
+    }
+    let fileToRead = (
       await fileCollectionFromPath(folderPath, {
         unzip: { zipExtensions: [] },
       })
     ).files.sort((a, b) => b.lastModified - a.lastModified)[0];
     // replace full/ with relative path
-    fileToRead.relativePath = folderPath.replace(
-      'full/',
-      fileToRead.relativePath,
-    );
-
+    if (process.env.NODE_ENV === 'test') {
+      fileToRead.relativePath = folderPath.replace(
+        'data/',
+        fileToRead.relativePath,
+      );
+    } else {
+      fileToRead.relativePath = folderPath.replace(
+        'full/',
+        fileToRead.relativePath,
+      );
+    }
     const readStream = await readStreamInZipFolder(
       fileToRead.relativePath,
       filename,
     );
+
     for await (const entry of bsonIterator(readStream)) {
       try {
         // get noStereoID for the molecule

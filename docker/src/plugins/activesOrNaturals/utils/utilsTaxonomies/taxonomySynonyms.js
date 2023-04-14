@@ -25,7 +25,11 @@ export async function taxonomySynonyms() {
     );
   })[0];
   // replace full/ with relative path
-  fileToRead.relativePath = path.replace('full/', fileToRead.relativePath);
+  if (process.env.NODE_ENV === 'test') {
+    fileToRead.relativePath = path.replace('data/', fileToRead.relativePath);
+  } else {
+    fileToRead.relativePath = path.replace('full/', fileToRead.relativePath);
+  }
   const readStream = await readStreamInZipFolder(
     fileToRead.relativePath,
     'merged.dmp',

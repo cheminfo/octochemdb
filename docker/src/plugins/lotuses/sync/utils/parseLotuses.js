@@ -17,17 +17,30 @@ const debug = debugLibrary('parseLotuses');
  */
 export async function* parseLotuses(lotusFilePath, filename, connection) {
   try {
-    let folderPath = lotusFilePath.replace(/full\/.*/, 'full/');
+    let folderPath;
+    if (process.env.NODE_ENV === 'test') {
+      folderPath = lotusFilePath.replace(/data\/.*/, 'data/');
+    } else {
+      folderPath = lotusFilePath.replace(/full\/.*/, 'full/');
+    }
     let fileToRead = (
       await fileCollectionFromPath(folderPath, {
         unzip: { zipExtensions: [] },
       })
     ).files.sort((a, b) => b.lastModified - a.lastModified)[0];
     // replace full/ with relative path
-    fileToRead.relativePath = folderPath.replace(
-      'full/',
-      fileToRead.relativePath,
-    );
+    if (process.env.NODE_ENV === 'test') {
+      fileToRead.relativePath = folderPath.replace(
+        'data/',
+        fileToRead.relativePath,
+      );
+    } else {
+      fileToRead.relativePath = folderPath.replace(
+        'full/',
+        fileToRead.relativePath,
+      );
+    }
+    debug('fileToRead', fileToRead);
     const readStream = await readStreamInZipFolder(
       fileToRead.relativePath,
       filename,
