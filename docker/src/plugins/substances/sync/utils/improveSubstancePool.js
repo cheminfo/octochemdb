@@ -18,31 +18,27 @@ const piscina = new Piscina({
 /**
  * @description Multithread import of substances
  * @param molecule
+ * @param {object} [options={}]
  * @returns result to be imported
  */
-export default async function improveSubstancePool(molecule) {
+export default async function improveSubstancePool(molecule, options = {}) {
+  const timeForTimeout = options.timeout || 60000;
   const abortController = new AbortController();
-  const timeout = setTimeout(() => abortController.abort(), 60000);
+  const timeout = setTimeout(() => abortController.abort(), timeForTimeout);
 
-  // if in the queue we have over twice the number of cpu we wait
   while (piscina.queueSize > nbCPU * 5) {
     await delay(1);
   }
   let promise;
-  try {
-    promise = piscina
-      .run(molecule, { signal: abortController.signal })
-      .then((info) => {
-        clearTimeout(timeout);
-        return info;
-      });
-  } catch (e) {
-    promise = Promise.resolve(improveSubstance(molecule));
-  }
-  // seems a little bit complex to return an object with a promise but it allows to deal
-  // with 'back pressure'
-  // we will not resolve the promise if this process has to wait because piscina does not have enough space in the queue
-  // by default we only allow 2 times the number of core in the piscina queue
+  promise = piscina
+    .run(molecule, { signal: abortController.signal })
+    .then((info) => {
+      clearTimeout(timeout);
+      return info;
+    })
+    .catch(() => {
+      return (promise = Promise.resolve(improveSubstance(molecule)));
+    });
   return {
     promise,
   };
