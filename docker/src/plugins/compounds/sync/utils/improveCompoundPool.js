@@ -4,8 +4,7 @@ import { AbortController } from 'abort-controller';
 import delay from 'delay';
 import Piscina from 'piscina';
 
-import DebugLibrary from '../../../../utils/debug.js';
-
+import DebugLibrary from '../../../../utils/Debug.js';
 // eslint-disable-next-line new-cap
 const debug = DebugLibrary('improveCompoundPool');
 const url = new URL('improveCompound.js', import.meta.url);
