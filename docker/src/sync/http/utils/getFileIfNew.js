@@ -90,10 +90,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       ) {
         mkdirpSync(join(targetFolder, 'old', modificationDate));
       }
-
       fileList.forEach((file) => {
         renameSync(
-          file.relativePath,
+          join(targetFolder, file.name),
           join(targetFolder, 'old', `${modificationDate}`, file.name),
         );
       });
