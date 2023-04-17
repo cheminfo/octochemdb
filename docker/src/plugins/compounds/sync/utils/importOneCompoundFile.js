@@ -84,6 +84,9 @@ export default async function importOneCompoundFile(
         if (process.env.NODE_ENV === 'test') {
           await promise
             .then((result) => {
+              if (result === undefined) {
+                return;
+              }
               if (result) {
                 result._seq = ++progress.seq;
                 return collection.updateOne(
@@ -104,6 +107,9 @@ export default async function importOneCompoundFile(
         } else {
           promise
             .then((result) => {
+              if (result === undefined) {
+                return;
+              }
               if (result) {
                 result._seq = ++progress.seq;
                 return collection.updateOne(

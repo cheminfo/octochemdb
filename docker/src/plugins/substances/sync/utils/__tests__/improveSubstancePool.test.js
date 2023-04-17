@@ -5,18 +5,25 @@ import improveSubstancePool from '../improveSubstancePool';
 
 dotenv.config();
 
-test('getCompoundsData', async () => {
+test('improveSubstancePool error', async () => {
   let molecule = {
     idCode:
       'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
   };
-  let actions = [];
-  for (let i = 0; i < 10; i++) {
-    let { promise } = await improveSubstancePool(molecule, { timeout: 1 });
-    actions.push(promise);
-  }
-  let result = await Promise.all(actions);
-  expect(result[0].data).toMatchInlineSnapshot(`
+
+  let { promise } = await improveSubstancePool(molecule, { timeout: 1 });
+
+  expect(await promise).toMatchInlineSnapshot('undefined');
+}, 10000);
+test('improveSubstancePool working', async () => {
+  let molecule = {
+    idCode:
+      'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
+  };
+
+  let { promise } = await improveSubstancePool(molecule, { timeout: 60000 });
+  const result = await promise;
+  expect(result.data).toMatchInlineSnapshot(`
     {
       "atom": "{\\"C\\":37,\\"H\\":60,\\"O\\":8}",
       "charge": 0,

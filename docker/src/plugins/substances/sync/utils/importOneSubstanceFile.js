@@ -79,6 +79,9 @@ export default async function importOneSubstanceFile(
             await promise
               .then((result) => {
                 if (result) {
+                  if (result === undefined) {
+                    return;
+                  }
                   if (result.data.taxonomyIDs) {
                     result = getTaxonomiesSubstances(
                       result,
@@ -104,6 +107,9 @@ export default async function importOneSubstanceFile(
           } else {
             promise
               .then((result) => {
+                if (result === undefined) {
+                  return;
+                }
                 if (result) {
                   if (result.data.taxonomyIDs) {
                     result = getTaxonomiesSubstances(

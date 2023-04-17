@@ -4,8 +4,10 @@ import { AbortController } from 'abort-controller';
 import delay from 'delay';
 import Piscina from 'piscina';
 
-import improveSubstance from './improveSubstance.js';
+import DebugLibrary from '../../../../utils/debug.js';
 
+// eslint-disable-next-line new-cap
+const debug = DebugLibrary('improveSubstancePool');
 const url = new URL('improveSubstance.js', import.meta.url);
 const nbCPU = cpus().length;
 const piscina = new Piscina({
@@ -36,8 +38,9 @@ export default async function improveSubstancePool(molecule, options = {}) {
       clearTimeout(timeout);
       return info;
     })
-    .catch(() => {
-      return (promise = Promise.resolve(improveSubstance(molecule)));
+    .catch((e) => {
+      debug(e);
+      return undefined;
     });
   return {
     promise,
