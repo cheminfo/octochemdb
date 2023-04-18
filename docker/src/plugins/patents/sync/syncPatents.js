@@ -1,4 +1,4 @@
-import pkg, { existsSync, rmSync } from 'fs-extra';
+import { existsSync, rmSync } from 'fs-extra';
 import md5 from 'md5';
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
@@ -7,7 +7,6 @@ import debugLibrary from '../../../utils/Debug.js';
 import firstPatentsImport from './utils/firstPatentsImport.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
 
-const { removeSync } = pkg;
 /**
  * @description sync patents from PubChem database
  * @param {*} connection - mongo connection
@@ -67,10 +66,6 @@ export async function sync(connection) {
       const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
       await ungzipAndSort(lastFile, sortedFile);
       debug('ungzip and sort done');
-      //  remove non-sorted file
-      if (process.env.NODE_ENV !== 'test') {
-        removeSync(lastFile);
-      }
 
       await firstPatentsImport(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
