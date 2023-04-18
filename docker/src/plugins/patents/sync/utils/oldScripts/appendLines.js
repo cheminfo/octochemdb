@@ -1,4 +1,4 @@
-import debugLibrary from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('appendLines');
 

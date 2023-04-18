@@ -2,7 +2,7 @@ import { createReadStream } from 'fs';
 
 import split2 from 'split2';
 
-import debugLibrary from '../../../../utils/Debug.js';
+import debugLibrary from '../../../../../utils/Debug.js';
 
 import { updateEntry } from './updateEntry.js';
 
@@ -13,7 +13,7 @@ export default async function parsePatents(filename, collection, connection) {
     const status = { add: 0, change: 0, delete: 0, notFound: 0 };
     for await (const line of readStream) {
       let fields = line.split('\t');
-      if (!fields.length === 3) continue;
+      if (fields.length !== 3) continue;
       const [action, productID, patents] = fields;
       switch (action) {
         case 'ADD':
@@ -27,6 +27,7 @@ export default async function parsePatents(filename, collection, connection) {
           break;
         default:
       }
+      // @ts-ignore
       status.notFound += !(await updateEntry(
         collection,
         Number(productID),
