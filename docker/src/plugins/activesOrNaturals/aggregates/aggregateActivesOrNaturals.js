@@ -115,7 +115,6 @@ export async function aggregate(connection) {
           patentsCollection,
         );
         if (entry.data.cids) {
-          // cids are from compunds collection
           const uniqueMeshTerms = {};
           const uniquePmIds = {};
           let nbPubmeds = 0;
