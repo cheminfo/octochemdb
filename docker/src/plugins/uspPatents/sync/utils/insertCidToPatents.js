@@ -51,7 +51,6 @@ export async function insertCidToPatents(patentIDToCid, connection) {
       }
       entry.push(Number(compoundID));
     }
-    throw new Error('Not implemented');
   } catch (e) {
     if (connection) {
       debug(e.message, {
