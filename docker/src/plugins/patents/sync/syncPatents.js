@@ -25,15 +25,22 @@ export async function sync(connection) {
     };
     let sources;
     let lastFile;
+    const progress = await connection.getProgress('patents');
     if (process.env.NODE_ENV === 'test') {
       lastFile = `${process.env.PATENTS_SOURCE_TEST}`;
       sources = [lastFile];
-    } else {
-      // get last files cidToPatens available in the PubChem database
+    }
+    // get last files cidToPatens available in the PubChem database
+    else if (
+      Date.now() - Number(progress.dateEnd) >
+      Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
+    ) {
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+    } else {
+      sources = progress.sources; // this will prevent to update the collection
     }
-    const progress = await connection.getProgress('patents');
+
     let shouldUpdate = false;
     if (
       progress.dateEnd !== 0 &&
