@@ -1,4 +1,4 @@
-import pkg from 'fs-extra';
+import pkg, { existsSync, rmSync } from 'fs-extra';
 import md5 from 'md5';
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
@@ -89,6 +89,10 @@ export async function sync(connection) {
       logs.status = 'updated';
 
       await connection.updateImportationLog(logs);
+      // remove recursively the sorted file
+      if (existsSync(sortedFile)) {
+        rmSync(sortedFile, { recursive: true });
+      }
     }
   } catch (e) {
     if (connection) {
