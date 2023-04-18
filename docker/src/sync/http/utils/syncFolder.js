@@ -70,7 +70,18 @@ async function syncFolder(source, destinationFolder, options = {}) {
         continue;
       }
     }
-    await getFile(file, targetFile);
+    try {
+      await getFile(file, targetFile);
+    } catch (e) {
+      debug(`Error downloading ${file.name}: ${e.message}`);
+      try {
+        debug(`trying again`);
+        await getFile(file, targetFile);
+      } catch (e2) {
+        debug(`Error downloading ${file.name}: ${e2.message}`);
+        continue;
+      }
+    }
     newFiles.push(file);
   }
 
