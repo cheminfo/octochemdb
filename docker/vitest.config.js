@@ -15,6 +15,7 @@ export default defineConfig({
           const regexCompounds = /syncCompounds/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
+          const regexUsp = /syncUsp/i;
           const regexActiveAgainst = /aggregateActiveAgainst/i;
           const sortedFiles = files.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
@@ -23,7 +24,9 @@ export default defineConfig({
             if (!regex.test(a) && regex.test(b)) {
               return -1;
             }
-
+            if (regexUsp.test(a) && !regexUsp.test(b)) {
+              return -1;
+            }
             if (regexCompounds.test(a) && !regexCompounds.test(b)) {
               return -1;
             }
@@ -34,7 +37,6 @@ export default defineConfig({
             if (regexBioassays.test(a) && !regexBioassays.test(b)) {
               return -1;
             }
-
             return 0;
           });
           sortedFiles.sort((a, b) => {
