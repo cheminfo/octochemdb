@@ -54,9 +54,6 @@ export default async function importOnePubmedFile(
         let result = await improvePubmed(entry, pmidToCid);
         imported++;
         result._seq = ++progress.seq;
-        // insert entry into pubmeds collection
-        debug(entry);
-
         await collection.updateOne(
           { _id: result._id },
           { $set: result },
