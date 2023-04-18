@@ -16,7 +16,8 @@ test('Aggregation ActivesOrNaturals', async () => {
     !colllectionList.includes('bioassays') ||
     !colllectionList.includes('gnps') ||
     !colllectionList.includes('pubmeds') ||
-    !colllectionList.includes('patents')
+    !colllectionList.includes('patents') ||
+    !colllectionList.includes('uspPatents')
   ) {
     await delay(1000);
     colllectionList = await connection.getCollectionNames();
