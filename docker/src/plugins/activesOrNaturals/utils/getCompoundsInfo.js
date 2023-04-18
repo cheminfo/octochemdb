@@ -37,19 +37,28 @@ export default async function getCompoundsInfo(
     entry = parsedCompoundInfo.entry;
     const compoundsIDs = parsedCompoundInfo.compoundsIds;
 
-    let compoundsPatents = [];
+    let compoundsPatents;
     let nbPatents = 0;
+    let uspPatents = [];
+    let uspCollection = await connection.getCollection('uspPatents');
     if (compoundsIDs.length > 0) {
       for (let compound of compoundsIDs) {
         let currentCid = Number(compound);
         let cursor = await patentsCollection.find({ _id: currentCid });
         let patent = await cursor.next();
         if (patent !== null) {
-          for (let patentID of patent.data.patents) {
-            let dbRef = { $ref: 'uspPatents', $id: patentID };
-            compoundsPatents.push(dbRef);
-          }
+          compoundsPatents = patent.data.patents;
           nbPatents += patent.data.nbPatents;
+        }
+        let uspCursor = await uspCollection.find({
+          'data.cids': { $exists: true, $in: [currentCid] },
+        });
+
+        while (await uspCursor.hasNext()) {
+          let uspPatent = await uspCursor.next();
+          if (uspPatent !== null) {
+            uspPatents.push({ $ref: 'uspPatents', $id: uspPatent._id });
+          }
         }
       }
     }
@@ -57,8 +66,12 @@ export default async function getCompoundsInfo(
     if (nbPatents > 0) {
       entry.data.nbPatents = nbPatents;
     }
-    if (compoundsPatents.length > 0) {
+    if (compoundsPatents?.length > 0) {
       entry.data.patents = compoundsPatents;
+    }
+    if (uspPatents.length > 0) {
+      entry.data.uspPatents = uspPatents;
+      entry.data.nbUspPatents = uspPatents.length;
     }
     if (compoundsIDs.length > 0) entry.data.cids = compoundsIDs;
     if (casNumber.length > 0) entry.data.cas = casNumber;
