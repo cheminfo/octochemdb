@@ -12,6 +12,8 @@ export async function insertCidToPatents(patentIDToCid, connection) {
     const collection = await connection.getCollection('uspPatents');
     let entry = [];
     let currentPatentID = 'start';
+    let count = 0;
+    let start = Date.now();
     for await (const line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 2) continue;
@@ -39,6 +41,11 @@ export async function insertCidToPatents(patentIDToCid, connection) {
           { $set: uspEntry },
           { upsert: true },
         );
+        count++;
+        if (Date.now() - start > 10000) {
+          start = Date.now();
+          debug(`Parsed ${count} patents to add cids`);
+        }
         entry.length = 0;
         currentPatentID = patentID;
       }
