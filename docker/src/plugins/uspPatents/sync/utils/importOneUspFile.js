@@ -18,7 +18,6 @@ const debug = debugLibrary('importOneUspFile');
 export async function importOneUspFile(connection, progress, file, options) {
   try {
     const collection = await connection.getCollection('uspPatents');
-    const progress = await connection.getProgress('uspPatents');
     let xmlPath;
     // unzip file and get xmlpath
     if (file.path.endsWith('.xml')) {
@@ -59,7 +58,7 @@ export async function importOneUspFile(connection, progress, file, options) {
     for await (const entry of parseStream(readableStream, header)) {
       let results = await parsers(entry, year);
       if (!shouldImport) {
-        if (results._id !== lastDocument._id) {
+        if (results?._id !== lastDocument._id) {
           continue;
         }
         shouldImport = true;
@@ -70,7 +69,7 @@ export async function importOneUspFile(connection, progress, file, options) {
         imported++;
         results._seq = ++progress.seq;
         await collection.updateOne(
-          { _id: results._id },
+          { _id: results?._id },
           { $set: results },
           { upsert: true },
         );

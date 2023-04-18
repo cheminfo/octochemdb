@@ -11,3 +11,4 @@ docker/coverage
 docker/src/plugins/patents/sync/utils/__tests__/data/patentsTest.sorted
 docker/.env
 docker/src/sync/http/utils/__tests__/data/testResult.2021-09-07.txt
+docker/src/plugins/uspPatents/sync/utils/__tests__/data/cidToPatentsTest.sorted

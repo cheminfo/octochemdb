@@ -1,10 +1,12 @@
 import md5 from 'md5';
 
+import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
 
 import { getFilesToImportForUsp } from './utils/getFilesToImportForUsp.js';
 import { syncAllUspFolders } from './utils/http/syncAllUspFolders.js';
 import { importUspFiles } from './utils/importUspFiles.js';
+import ungzipGrepAndSort from './utils/ungzipGrepAndSort.js';
 /**
  * @description performs the importation of usp patents
  * @param {*} connection - mongo connection
@@ -16,6 +18,14 @@ export async function sync(connection) {
     // get progress
     const progress = await connection.getProgress('uspPatents');
     let allFiles;
+    let lastFile;
+    let options = {
+      collectionSource: process.env.CIDTOPATENT_SOURCE,
+      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/uspPatents/cidToPatents`,
+      collectionName: 'uspPatents',
+      filenameNew: 'cidToPatents',
+      extensionNew: 'gz',
+    };
     // get all files to import
     if (process.env.NODE_ENV === 'test') {
       allFiles = [
@@ -40,9 +50,16 @@ export async function sync(connection) {
           path: `${process.env.USP_TEST_SOURCE}2023.xml`,
         },
       ];
-    } else {
+      lastFile = process.env.CIDTOPATENT_SOURCE_TEST;
+      // remember to add cidToPatents test file
+    } else if (
+      Date.now() - Number(progress.dateEnd) >
+      Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
+    ) {
+      lastFile = await getLastFileSync(options);
       allFiles = await syncAllUspFolders(connection);
     }
+
     const { files, lastDocument } = await getFilesToImportForUsp(
       connection,
       progress,
@@ -76,8 +93,13 @@ export async function sync(connection) {
     ) {
       //set progress to updating
       progress.state = 'updating';
+      const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
+      await ungzipGrepAndSort(lastFile, sortedFile);
+      debug('ungzip and sort done');
       await connection.setProgress(progress);
-      await importUspFiles(connection, progress, files, { lastDocument });
+      await importUspFiles(connection, progress, files, sortedFile, {
+        lastDocument,
+      });
       // set progress to updated
       progress.state = 'updated';
       await connection.setProgress(progress);
@@ -85,6 +107,7 @@ export async function sync(connection) {
       const collection = await connection.getCollection('uspPatents');
       await collection.createIndex({ 'data.title': 1 });
       await collection.createIndex({ 'data.patentNumber': 1 });
+      await collection.createIndex({ 'data.cids': 1 });
       // create text index where title has more weight than abstract
       await collection.createIndex(
         { 'data.title': 'text', 'data.abstract': 'text' },
