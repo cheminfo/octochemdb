@@ -5,7 +5,7 @@ import debugLibrary from '../../../../utils/Debug.js';
  * @param {object} pmidToCid - pmid to cid map
  * @returns {Promise<Object>} pubmed entry to be imported
  */
-export async function improvePubmed(entry, pmidToCid) {
+export async function improvePubmed(entry, pmidToCid, langPubmeds) {
   const debug = debugLibrary('improvePubmed');
   // get medlineCitation
   let medlineCitation = entry.MedlineCitation;
@@ -35,8 +35,8 @@ export async function improvePubmed(entry, pmidToCid) {
       if (medlineArticle.ArticleTitle['#text']) {
         parsedArticle.title = medlineArticle.ArticleTitle['#text'];
       } else if (
-        medlineArticle.ArticleTitle.includes('[') &&
-        medlineArticle.ArticleTitle.includes(']')
+        medlineArticle?.ArticleTitle?.includes('[') &&
+        medlineArticle?.ArticleTitle?.includes(']')
       ) {
         parsedArticle.title = medlineArticle.ArticleTitle.replace(
           '[',
@@ -107,6 +107,10 @@ export async function improvePubmed(entry, pmidToCid) {
     }
     // get language
     if (medlineArticle.Language) {
+      if (langPubmeds[medlineArticle.Language]) {
+        parsedArticle.languageTextSearch = langPubmeds[medlineArticle.Language];
+      }
+
       parsedArticle.language = medlineArticle.Language;
     }
     // get publication type

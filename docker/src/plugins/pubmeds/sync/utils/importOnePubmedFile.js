@@ -22,6 +22,7 @@ export default async function importOnePubmedFile(
   file,
   options,
   pmidToCid,
+  langPubmeds,
 ) {
   const debug = debugLibrary('importOnePubmedFile');
   try {
@@ -51,7 +52,7 @@ export default async function importOnePubmedFile(
         continue;
       }
       if (shouldImport) {
-        let result = await improvePubmed(entry, pmidToCid);
+        let result = await improvePubmed(entry, pmidToCid, langPubmeds);
         imported++;
         result._seq = ++progress.seq;
         await collection.updateOne(

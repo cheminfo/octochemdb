@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
 
@@ -80,6 +82,7 @@ async function firstPubmedImport(connection) {
         'data.meshHeadings': 'text',
         'data.article.abstract': 'text',
       },
+      { language_override: 'languageTextSearch' },
       {
         weights: {
           'data.article.title': 10,

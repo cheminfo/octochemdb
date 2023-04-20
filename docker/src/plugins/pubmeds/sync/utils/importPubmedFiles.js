@@ -1,7 +1,11 @@
+import pkg from 'fs-extra';
+
 import removeEntriesFromFile from '../../../../sync/utils/removeEntriesFromFile.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
 import importOnePubmedFile from './importOnePubmedFile.js';
+
+const { readFileSync } = pkg;
 /**
  * @description start import of pubmeds files
  * @param {*} connection  - mongo connection
@@ -21,6 +25,11 @@ export async function importPubmedFiles(
   importType,
 ) {
   const debug = debugLibrary('importPubmedFiles');
+  let langPubmeds = JSON.parse(
+    readFileSync(
+      '../docker/src/plugins/pubmeds/sync/utils/languagesPubMed.json',
+    ).toString(),
+  );
   try {
     if (importType === 'first') {
       options = { shouldImport: progress.seq === 0, ...options };
@@ -31,6 +40,7 @@ export async function importPubmedFiles(
           file,
           options,
           pmidToCid,
+          langPubmeds,
         );
         options.shouldImport = true;
       }
@@ -49,6 +59,7 @@ export async function importPubmedFiles(
             file,
             options,
             pmidToCid,
+            langPubmeds,
           );
           options.shouldImport = true;
         } else if (file.name.startsWith('killed')) {
