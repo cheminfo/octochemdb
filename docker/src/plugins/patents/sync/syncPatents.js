@@ -1,4 +1,4 @@
-import { existsSync, rmSync } from 'fs-extra';
+import pkg from 'fs-extra';
 import md5 from 'md5';
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
@@ -7,6 +7,7 @@ import debugLibrary from '../../../utils/Debug.js';
 import firstPatentsImport from './utils/firstPatentsImport.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
 
+const { existsSync, rmSync } = pkg;
 /**
  * @description sync patents from PubChem database
  * @param {*} connection - mongo connection
