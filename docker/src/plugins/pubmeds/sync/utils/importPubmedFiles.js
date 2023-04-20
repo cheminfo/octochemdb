@@ -29,7 +29,7 @@ export async function importPubmedFiles(
     readFileSync(
       '../docker/src/plugins/pubmeds/sync/utils/languagesPubMed.json',
     ).toString(),
-  );
+  )[0];
   try {
     if (importType === 'first') {
       options = { shouldImport: progress.seq === 0, ...options };

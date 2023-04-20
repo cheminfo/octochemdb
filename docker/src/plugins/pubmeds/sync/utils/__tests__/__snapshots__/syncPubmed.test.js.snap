@@ -23,6 +23,7 @@ exports[`syncPubmed First Importation 1`] = `
         "title": "Orvosi hetilap",
       },
       "language": "hun",
+      "languageTextSearch": "hungarian",
       "publicationTypeList": [
         "Journal Article",
       ],
@@ -124,6 +125,7 @@ exports[`syncPubmed Incremental Importation 1`] = `
         "title": "Molecular pharmacology",
       },
       "language": "eng",
+      "languageTextSearch": "english",
       "publicationTypeList": [
         "Journal Article",
         "Research Support, N.I.H., Extramural",
