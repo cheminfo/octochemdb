@@ -7,6 +7,7 @@ import {
 } from 'fs';
 import { join } from 'path';
 
+import delay from 'delay';
 import { fileCollectionFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
 import fetch from 'node-fetch'; //ATTENTION: node-fetch is not the same as fetch
@@ -36,8 +37,23 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     if (process.env.NODE_ENV !== 'test') {
       mkdirpSync(targetFolder);
     }
-    const response = await fetch(file.url, { signal: controller.signal });
-    if (response.status !== 200) {
+    let response;
+    let ok = false;
+    let counter = 0;
+    while (ok === false && counter < 3) {
+      try {
+        response = await fetch(file.url, { signal: controller.signal });
+      } catch (e) {
+        counter++;
+        await delay(1000);
+        continue;
+      }
+      counter++;
+      if (response.status === 200) {
+        ok = true;
+      }
+    }
+    if (ok === false) {
       throw new Error(`Could not fetch file: ${file.url}`);
     }
     const headers = Array.from(response.headers);
