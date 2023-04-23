@@ -10,7 +10,7 @@ export async function syncAllUspFolders(connection) {
   const debug = debugLibrary('syncAllUspFolders');
   try {
     const currentYear = new Date().getFullYear();
-    const startingYear = 2006;
+    const startingYear = 2001;
     let files = [];
     for (let year = startingYear; year <= Number(currentYear); year++) {
       const source = `${process.env.USP_SOURCE}`;
