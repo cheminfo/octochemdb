@@ -1,8 +1,10 @@
 import { join } from 'path';
 
+import delay from 'delay';
 import FSExtra from 'fs-extra';
 
 import getFileIfNew from '../../../../../sync/http/utils/getFileIfNew.js';
+import debugLibrary from '../../../../../utils/Debug.js';
 
 import getFilesListUsp from './getFileListUsp.js';
 
@@ -10,6 +12,7 @@ const { mkdirpSync, existsSync } = FSExtra;
 
 async function syncUspFolder(source, destinationFolder, year) {
   // create the destination folder if it doesn't exist
+  const debug = debugLibrary('syncUspFolder');
   if (await !existsSync(destinationFolder)) {
     await mkdirpSync(destinationFolder);
   }
@@ -29,6 +32,8 @@ async function syncUspFolder(source, destinationFolder, year) {
       if (fileDownloaded) {
         filesDownloaded.push(fileDownloaded);
       }
+      debug(`Waiting 5 seconds before next download...`);
+      await delay(5000);
     }
     return filesDownloaded;
   } else {
