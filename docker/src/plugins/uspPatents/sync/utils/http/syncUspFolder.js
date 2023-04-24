@@ -27,8 +27,8 @@ async function syncUspFolder(source, destinationFolder, year) {
         filename: file.name.replace('.zip', ''),
         extension: 'zip',
       };
-      let target = join(destinationFolder);
-      let fileDownloaded = await getFileIfNew(file, target, options);
+      // let target = join(destinationFolder);
+      let fileDownloaded = await getFileIfNew(file, destinationFolder, options);
       if (fileDownloaded) {
         filesDownloaded.push(fileDownloaded);
       }
