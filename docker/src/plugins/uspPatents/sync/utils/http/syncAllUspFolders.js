@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+
 import debugLibrary from '../../../../../utils/Debug.js';
 
 import syncUspFolder from './syncUspFolder.js';
@@ -6,16 +8,22 @@ import syncUspFolder from './syncUspFolder.js';
  * @param {*} connection - mongo connection
  * @returns {Promise} list of all files to import
  */
+
 export async function syncAllUspFolders(connection) {
+  dotenv.config();
   const debug = debugLibrary('syncAllUspFolders');
   try {
     const currentYear = new Date().getFullYear();
-    const startingYear = 2001;
+    const startingYear = 2016;
     let files = [];
     for (let year = startingYear; year <= Number(currentYear); year++) {
-      const source = `${process.env.USP_SOURCE}`;
-      const destination = `${process.env.ORIGINAL_DATA_PATH}/usp/${year}/`;
+      const source =
+        'https://bulkdata.uspto.gov/data/patent/application/redbook/fulltext/';
+      const destination = `../originalData/usp/${year}/`;
+      //      const source = `${process.env.USP_SOURCE}`;
+      // const destination = `${process.env.ORIGINAL_DATA_PATH}/usp/${year}/`;
       debug(`Starting sync for ${year}`);
+      debug(`source: ${source}`);
       const filesDownloaded = await syncUspFolder(source, destination, year);
       files = files.concat(filesDownloaded);
       debug(`${year} done`);
