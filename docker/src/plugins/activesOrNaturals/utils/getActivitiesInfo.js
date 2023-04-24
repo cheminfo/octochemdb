@@ -28,7 +28,9 @@ export default async function getActivitiesInfo(data, connection) {
       if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
         if (entry.data.activities) {
           for (let activity of entry.data.activities) {
-            activity.targetTaxonomies = [activity.targetTaxonomies];
+            if (activity?.targetTaxonomies !== null) {
+              activity.targetTaxonomies = [activity.targetTaxonomies];
+            }
             activityInfo.push(activity);
           }
         }
