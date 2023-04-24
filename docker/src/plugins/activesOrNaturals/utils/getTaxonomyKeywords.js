@@ -6,27 +6,26 @@
 export default function getTaxonomyKeywords(taxonomies) {
   const taxonomiesKW = new Set();
   for (let taxonomy of taxonomies) {
-    const keywordSuperKingdom = [taxonomy.superkingdom]
+    const keywordSuperKingdom = [taxonomy?.superkingdom]
       .join(' ')
       .toLowerCase()
       .split(/\W+/);
-    const keywordKingdom = [taxonomy.kingdom]
+    const keywordKingdom = [taxonomy?.kingdom]
       .join(' ')
       .toLowerCase()
       .split(/\W+/);
-    const keywordPhylum = [taxonomy.phylum]
+    const keywordPhylum = [taxonomy?.phylum]
       .join(' ')
       .toLowerCase()
       .split(/\W+/);
-    const keywordClass = [taxonomy.class].join(' ').toLowerCase().split(/\W+/);
-    const keywordOrder = [taxonomy.order].join(' ').toLowerCase().split(/\W+/);
-    const keywordFamily = [taxonomy.family]
+    const keywordClass = [taxonomy?.class].join(' ').toLowerCase().split(/\W+/);
+    const keywordOrder = [taxonomy?.order].join(' ').toLowerCase().split(/\W+/);
+    const keywordFamily = [taxonomy?.family]
       .join(' ')
       .toLowerCase()
       .split(/\W+/);
-    const keywordGenus = [taxonomy.genus].join(' ').toLowerCase().split(/\W+/);
-    const keywordSpecies = [taxonomy.species]
-
+    const keywordGenus = [taxonomy?.genus].join(' ').toLowerCase().split(/\W+/);
+    const keywordSpecies = [taxonomy?.species]
       .join(' ')
       .toLowerCase()
       .split(/\W+/);

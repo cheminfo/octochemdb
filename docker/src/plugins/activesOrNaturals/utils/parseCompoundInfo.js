@@ -1,5 +1,3 @@
-import OCL from 'openchemlib';
-
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
 export default async function parseCompoundInfo(compoundInfo, entry, data) {
@@ -39,11 +37,8 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
         break;
       }
     }
-    const molecule = OCL.Molecule.fromIDCode(idToSearch);
-    const smiles = molecule.toSmiles();
 
     let compoundData = await getCompoundsData({ idCode: idToSearch });
-    entry.data.smiles = smiles;
     entry.data.em = compoundData?.data.em;
     entry.data.charge = compoundData?.data.charge;
     entry.data.unsaturation = compoundData?.data.unsaturation;

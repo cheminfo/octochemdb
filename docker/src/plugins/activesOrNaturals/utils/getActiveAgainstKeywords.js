@@ -12,15 +12,35 @@ export default function getActiveAgainstKeywords(activities) {
         taxonomies = [taxonomies];
       }
       for (let taxonomy of taxonomies) {
-        const keywordsSuperKingdom = [taxonomy.superkingdom]
+        const keywordsSuperKingdom = [taxonomy?.superkingdom]
           .join(' ')
           .toLowerCase()
           .split(/\W+/);
-        const keywordsKingdom = [taxonomy.kingdom]
+        const keywordsKingdom = [taxonomy?.kingdom]
           .join(' ')
           .toLowerCase()
           .split(/\W+/);
-        const keywordsPhylum = [taxonomy.phylum]
+        const keywordsPhylum = [taxonomy?.phylum]
+          .join(' ')
+          .toLowerCase()
+          .split(/\W+/);
+        const keywordClass = [taxonomy?.class]
+          .join(' ')
+          .toLowerCase()
+          .split(/\W+/);
+        const keywordOrder = [taxonomy?.order]
+          .join(' ')
+          .toLowerCase()
+          .split(/\W+/);
+        const keywordFamily = [taxonomy?.family]
+          .join(' ')
+          .toLowerCase()
+          .split(/\W+/);
+        const keywordGenus = [taxonomy?.genus]
+          .join(' ')
+          .toLowerCase()
+          .split(/\W+/);
+        const keywordSpecies = [taxonomy?.species]
           .join(' ')
           .toLowerCase()
           .split(/\W+/);
@@ -28,6 +48,11 @@ export default function getActiveAgainstKeywords(activities) {
           ...keywordsSuperKingdom,
           ...keywordsKingdom,
           ...keywordsPhylum,
+          ...keywordClass,
+          ...keywordOrder,
+          ...keywordFamily,
+          ...keywordGenus,
+          ...keywordSpecies,
         ];
         for (let keyword of keywords) {
           if (keyword !== '') {

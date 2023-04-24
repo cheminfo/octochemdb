@@ -375,6 +375,10 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       "archaea",
       "candidatus",
       "borrarchaeota",
+      "borrarchaeia",
+      "borrarchaeales",
+      "borrarchaeaceae",
+      "borrarchaeum",
     ],
     "kwBioassays": [
       "uhts",
@@ -399,7 +403,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbPatents": 3,
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
-    "nbUspPatents": 1,
     "patents": [
       "US20030147822A1",
       "EP2078065A2",
@@ -420,12 +423,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       },
     ],
     "unsaturation": 8,
-    "uspPatents": [
-      {
-        "$id": "US20230012473A1",
-        "$ref": "uspPatents",
-      },
-    ],
   },
 }
 `;
