@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-
 import debugLibrary from '../../../../../utils/Debug.js';
 
 import syncUspFolder from './syncUspFolder.js';
@@ -10,7 +8,6 @@ import syncUspFolder from './syncUspFolder.js';
  */
 
 export async function syncAllUspFolders(connection) {
-  dotenv.config();
   const debug = debugLibrary('syncAllUspFolders');
   try {
     const currentYear = new Date().getFullYear();
