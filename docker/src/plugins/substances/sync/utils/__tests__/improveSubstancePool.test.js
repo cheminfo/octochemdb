@@ -5,25 +5,31 @@ import improveSubstancePool from '../improveSubstancePool';
 
 dotenv.config();
 
-test('improveSubstancePool error', async () => {
-  let molecule = {
-    idCode:
-      'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
-  };
+test(
+  'improveSubstancePool error',
+  async () => {
+    let molecule = {
+      idCode:
+        'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
+    };
 
-  let { promise } = await improveSubstancePool(molecule, { timeout: 1 });
+    let { promise } = await improveSubstancePool(molecule, { timeout: 1 });
 
-  expect(await promise).toMatchInlineSnapshot('undefined');
-}, 10000);
-test('improveSubstancePool working', async () => {
-  let molecule = {
-    idCode:
-      'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
-  };
+    expect(await promise).toMatchInlineSnapshot('undefined');
+  },
+  { timeout: 30000 },
+);
+test(
+  'improveSubstancePool working',
+  async () => {
+    let molecule = {
+      idCode:
+        'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
+    };
 
-  let { promise } = await improveSubstancePool(molecule, { timeout: 60000 });
-  const result = await promise;
-  expect(result.data).toMatchInlineSnapshot(`
+    let { promise } = await improveSubstancePool(molecule, { timeout: 60000 });
+    const result = await promise;
+    expect(result.data).toMatchInlineSnapshot(`
     {
       "atom": "{\\"C\\":37,\\"H\\":60,\\"O\\":8}",
       "charge": 0,
@@ -39,4 +45,6 @@ test('improveSubstancePool working', async () => {
       "unsaturation": 8,
     }
   `);
-}, 10000);
+  },
+  { timeout: 30000 },
+);

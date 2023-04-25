@@ -16,4 +16,4 @@ test('parseMassBank', async () => {
   }
   expect(results).toHaveLength(2);
   expect(results).toMatchSnapshot();
-}, 30000);
+}, { timeout: 30000 });
