@@ -33,8 +33,6 @@ export async function getNoStereosFromCache(molecule, connection) {
       let ocl = {
         idCode: data.result.idCode,
         coordinates: oclID.coordinates,
-        index: data.result.ssIndex,
-        noStereoID: data.result.noStereoID,
         noStereoTautomerID: data.result.noStereoTautomerID,
       };
       return ocl;
