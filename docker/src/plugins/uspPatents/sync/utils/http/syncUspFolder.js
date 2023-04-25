@@ -1,5 +1,3 @@
-import { join } from 'path';
-
 import delay from 'delay';
 import FSExtra from 'fs-extra';
 
