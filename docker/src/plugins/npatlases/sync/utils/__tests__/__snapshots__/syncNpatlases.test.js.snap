@@ -6,7 +6,6 @@ exports[`syncNpatlases 1`] = `
   "data": {
     "iupacName": "Curvularide C",
     "ocl": {
-      "coordinates": "!B?g~w_Xa}mpJH@k]}?\`BH_[\\\\B?g~H?Oy?b@Jw?[]}bGw~@Ha}b@K~_xa}?g~H@ha}",
       "idCode": "ficaP@D@tZK\\\\bbRbTRdQT\\\\VfZfjjjjjjXRLPiZIUU@d@",
       "noStereoTautomerID": "ficaP@K@xXO\\\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
     },

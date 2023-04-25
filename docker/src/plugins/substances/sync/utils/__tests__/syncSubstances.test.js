@@ -13,6 +13,7 @@ describe('syncSubstances', () => {
     const result = await collectionEntry.next();
     if (result?._seq) {
       delete result._seq;
+      delete result.data.ocl.coordinates; // they change every time
     }
     expect(result).toMatchSnapshot();
     await connection.close();
@@ -26,6 +27,7 @@ describe('syncSubstances', () => {
     const resultIncremental = await collectionEntryIncremental.next();
     if (resultIncremental?._seq) {
       delete resultIncremental._seq;
+      delete resultIncremental.data.ocl.coordinates; // they change every time
     }
     expect(resultIncremental).toMatchSnapshot();
     await connection.close();

@@ -16,7 +16,6 @@ exports[`syncSubstances > syncSubstances First Importation 1`] = `
     "mw": 355.86023183984963,
     "nbFragments": 2,
     "ocl": {
-      "coordinates": "!BAMvH@hc}?\`C~_x\`BmpJH__x@?\`Bw@ox@mpK~@K\\\\B?\`BH@k\\\\B?\`Bw?[\\\\BmpJw?P",
       "idCode": "facqb@BF}CDPQBBrrojk\\\\jkS^mUUUUL@D@@@",
       "noStereoTautomerID": "facqb@BF}CDPQBBrrojk\\\\jkS^mUUUUT@D@AjavOXRFQjX~FOa\`",
     },
@@ -40,7 +39,6 @@ exports[`syncSubstances > syncSubstances Incremental Importation 1`] = `
     "mw": 383.5027791447515,
     "nbFragments": 1,
     "ocl": {
-      "coordinates": "!B@k]}m{\\\\Bb@Jw__x@bOvw@h\`Bb@K~@K]}bOvw@k\\\\Bb@Jw?[\\\\Bmww~_{\\\\Bmwu}bK]}@k\\\\",
       "idCode": "fe{aR@DpQ\`mPAFRREQIJKIHiSJQUoQVhHJJjfjb@@",
       "noStereoTautomerID": "fe{aR@DpQ\`mPAFRREQIJKIHiQZQUoQVhHJJjjjb@CUB\\\\Eq~dLkTq|L_C@",
     },
