@@ -101,19 +101,56 @@ export async function aggregate(connection) {
           partialData.collection = source.collection;
           data.push(partialData);
         }
+        let actions = [];
+        // create promise for all functions that need to be executed in parallel
         // get unique taxonomies from all collections for the current noStereoTautomerIDs
-        let taxons = await getTaxonomiesInfo(data, connection);
-        // get unique activities from all collections for the current noStereoTautomerIDs
-        let activityInfo = await getActivitiesInfo(data, connection);
-        // get unique compound information from all collections for the current noStereoTautomerIDs
-        entry = await getCompoundsInfo(
-          entry,
-          data,
-          compoundsCollection,
-          noStereoTautomerID,
-          connection,
-          patentsCollection,
+        let taxons;
+        let activityInfo;
+        let dbRefsMs = [];
+        actions.push(
+          getTaxonomiesInfo(data, connection).then((taxonomies) => {
+            taxons = taxonomies;
+          }),
         );
+        // get unique activities from all collections for the current noStereoTautomerIDs
+        actions.push(
+          getActivitiesInfo(data, connection).then((activities) => {
+            activityInfo = activities;
+          }),
+        );
+        // get unique compound information from all collections for the current noStereoTautomerIDs
+        actions.push(
+          getCompoundsInfo(
+            entry,
+            data,
+            compoundsCollection,
+            noStereoTautomerID,
+            connection,
+            patentsCollection,
+          ).then((compoundInfo) => {
+            entry = compoundInfo;
+          }),
+        );
+        actions.push(
+          getMassSpectraRefForGNPs(connection, noStereoTautomerID).then(
+            (massSpectraRefsForGNPs) => {
+              massSpectraRefsForGNPs.forEach((ref) => {
+                dbRefsMs.push(ref.dbRef);
+              });
+            },
+          ),
+        );
+        actions.push(
+          getMassSpectraRefForMassBank(connection, noStereoTautomerID).then(
+            (massSpectraRefsForMassBank) => {
+              massSpectraRefsForMassBank.forEach((ref) => {
+                dbRefsMs.push(ref.dbRef);
+              });
+            },
+          ),
+        );
+        await Promise.all(actions);
+        actions.length = 0;
         if (entry.data.cids) {
           const uniqueMeshTerms = {};
           const uniquePmIds = {};
@@ -149,21 +186,7 @@ export async function aggregate(connection) {
           }
           entry.data.nbPubmeds = nbPubmeds;
         }
-        const massSpectraRefsForGNPs = await getMassSpectraRefForGNPs(
-          connection,
-          noStereoTautomerID,
-        );
-        const massSpectraRefsForMassBank = await getMassSpectraRefForMassBank(
-          connection,
-          noStereoTautomerID,
-        );
-        let dbRefsMs = [];
-        massSpectraRefsForGNPs.forEach((ref) => {
-          dbRefsMs.push(ref.dbRef);
-        });
-        massSpectraRefsForMassBank.forEach((ref) => {
-          dbRefsMs.push(ref.dbRef);
-        });
+
         if (dbRefsMs.length > 0) {
           entry.data.massSpectraRefs = dbRefsMs;
           entry.data.nbMassSpectra = dbRefsMs.length;

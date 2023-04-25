@@ -1,3 +1,5 @@
+import OCL from 'openchemlib';
+
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
 export default async function parseCompoundInfo(compoundInfo, entry, data) {
@@ -5,6 +7,7 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
   let cas = {};
   let pmids = [];
   let meshTerms = [];
+  let ocl = {};
   for (const oneDataEntry of data) {
     if (oneDataEntry.data.pmids) {
       oneDataEntry.data.pmids.forEach((k) => {
@@ -26,6 +29,13 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     }
     if (oneDataEntry.data.cas) {
       cas[oneDataEntry.data.cas] = true;
+    }
+    if (!ocl.idCode && !ocl.coordinates) {
+      ocl.coordinates = oneDataEntry.data.ocl.coordinates;
+      ocl.idCode = oneDataEntry.data.ocl.idCode;
+      let molecule = OCL.Molecule.fromIDCode(ocl.idCode);
+      molecule.stripStereoInformation();
+      ocl.noStereoID = molecule.getIDCode();
     }
   }
 
@@ -52,6 +62,7 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     entry.data.bioActive = false;
     cids[compoundInfo._id] = true;
   }
+  entry.data.ocl = ocl;
   let casNumbers = Object.keys(cas);
   let compoundsIds = Object.keys(cids);
   const parsedCompoundInfo = {
