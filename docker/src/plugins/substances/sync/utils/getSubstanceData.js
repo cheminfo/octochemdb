@@ -60,17 +60,7 @@ export async function getSubstanceData(molecule) {
           ocl: {
             idCode: data.result.idCode,
             coordinates: oclID.coordinates,
-            index: data.result.ssIndex,
-            noStereoID: data.result.noStereoID,
             noStereoTautomerID: data.result.noStereoTautomerID,
-
-            acceptorCount: data.result.acceptorCount,
-            donorCount: data.result.donorCount,
-            logP: data.result.logP,
-            logS: data.result.logS,
-            polarSurfaceArea: data.result.polarSurfaceArea,
-            rotatableBondCount: data.result.rotatableBondCount,
-            stereoCenterCount: data.result.stereoCenterCount,
           },
           mf: data.result.mf,
           em: data.result.em,
