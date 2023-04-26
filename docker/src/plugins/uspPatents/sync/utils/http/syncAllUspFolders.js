@@ -14,11 +14,8 @@ export async function syncAllUspFolders(connection) {
     const startingYear = 2016;
     let files = [];
     for (let year = startingYear; year <= Number(currentYear); year++) {
-      const source =
-        'https://bulkdata.uspto.gov/data/patent/application/redbook/fulltext/';
-      const destination = `../originalData/usp/${year}/`;
-      //      const source = `${process.env.USP_SOURCE}`;
-      // const destination = `${process.env.ORIGINAL_DATA_PATH}/usp/${year}/`;
+      const source = `${process.env.USP_SOURCE}`;
+      const destination = `${process.env.ORIGINAL_DATA_PATH}/usp/${year}/`;
       debug(`Starting sync for ${year}`);
       debug(`source: ${source}`);
       const filesDownloaded = await syncUspFolder(source, destination, year);
