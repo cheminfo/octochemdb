@@ -37,7 +37,7 @@ fastifyServer.register(fastifyCors, {
 fastifyServer.register(fastifySensible);
 
 fastifyServer.get('/', (_, reply) => {
-  reply.redirect('/documentation');
+  reply.redirect('/public/index.html');
 });
 
 fastifyServer.register(fastifySwagger, {
