@@ -90,7 +90,7 @@ export async function importOneUspFile(connection, progress, file, options) {
     await connection.updateImportationLog(logs);
     // Remove the decompressed gzip file after it has been imported
     await fileStream.close();
-    if (existsSync(xmlPath)) {
+    if (existsSync(xmlPath) && process.env.NODE_ENV !== 'test') {
       rmSync(xmlPath, { recursive: true });
     }
     return imported;
