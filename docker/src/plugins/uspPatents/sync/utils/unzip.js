@@ -1,6 +1,5 @@
 /* eslint-disable new-cap */
 import { createReadStream, createWriteStream, statSync } from 'fs';
-import { join } from 'path';
 
 import pkg from 'fs-extra';
 import unzipper from 'unzipper';
@@ -45,7 +44,6 @@ export async function unzipFile(inputFilename) {
           existsSync(outputFilename) === true
         ) {
           debug('File has the expected size');
-          rmSync(inputFilename);
         } else {
           if (existsSync(outputFilename)) {
             rmSync(outputFilename, { recursive: true });
@@ -55,8 +53,8 @@ export async function unzipFile(inputFilename) {
       })
       .on('error', (e) => {
         reject(e);
-      });
+      })
+      .on('finish', resolve);
   });
-
-  return join(outputFilename);
+  return outputFilename;
 }

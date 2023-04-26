@@ -1,9 +1,4 @@
-/**
- * @description Parses the USP XML and returns a JSON object.
- * @param {string} xmlPath - The path to USP XML.
- * @returns {object} - The JSON object.
- */
-
+import { existsSync, rmSync } from 'fs';
 import { open } from 'fs/promises';
 
 import { parseStream } from 'arraybuffer-xml-parser';
@@ -40,9 +35,14 @@ export async function importOneUspFile(connection, progress, file, options) {
     });
     let { shouldImport, lastDocument } = options;
     // regex to get year from filename starting from 2001
-    let year = fileName.match(/^(?<temp1>[2][0][0-9][0-9])/);
+    let year;
+    if (process.env.NODE_ENV === 'test') {
+      year = fileName.match(/^(?<temp1>[2][0][0-9][0-9])/);
+    } else {
+      year = fileName.match(/20\d\d/);
+    }
     if (year.length > 0) {
-      year = year[0];
+      year = Number(year[0]);
     } else {
       throw new Error('Year not found in filename');
     }
@@ -54,7 +54,7 @@ export async function importOneUspFile(connection, progress, file, options) {
     } else {
       header = 'us-patent-application';
     }
-
+    let start = Date.now();
     for await (const entry of parseStream(readableStream, header)) {
       let results = await parsers(entry, year);
       if (!shouldImport) {
@@ -67,7 +67,14 @@ export async function importOneUspFile(connection, progress, file, options) {
       }
       if (shouldImport) {
         imported++;
-        results._seq = ++progress.seq;
+        if (!results) {
+          continue;
+        }
+        if (Date.now() - start > 10000) {
+          debug(`imported: ${imported} patents`);
+          start = Date.now();
+        }
+
         await collection.updateOne(
           { _id: results?._id },
           { $set: results },
@@ -83,6 +90,9 @@ export async function importOneUspFile(connection, progress, file, options) {
     await connection.updateImportationLog(logs);
     // Remove the decompressed gzip file after it has been imported
     await fileStream.close();
+    if (existsSync(xmlPath)) {
+      rmSync(xmlPath, { recursive: true });
+    }
     return imported;
   } catch (err) {
     debug(err, { collection: 'uspPatents', connection });
