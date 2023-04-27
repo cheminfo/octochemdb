@@ -39,7 +39,7 @@ export async function importOneUspFile(connection, progress, file, options) {
     if (process.env.NODE_ENV === 'test') {
       year = fileName.match(/^(?<temp1>[2][0][0-9][0-9])/);
     } else {
-      year = fileName.match(/20\d\d/);
+      year = fileName.split('.')[1].match(/20\d\d/);
     }
     if (year.length > 0) {
       year = Number(year[0]);
