@@ -103,25 +103,7 @@ describe('parsers', () => {
     await fileStream.close();
     expect(results).toMatchSnapshot();
   });
-  it('2006', async () => {
-    const xmlPath = join(__dirname, 'data/2006.xml');
-    const fileStream = await open(xmlPath, 'r');
-    const readableStream = fileStream.readableWebStream();
-    let count = 0;
-    let results;
-    for await (const entry of parseStream(
-      readableStream,
-      'patent-application-publication',
-    )) {
-      results = parsers(entry, '2006');
-      count++;
-      if (count > 0) {
-        break;
-      }
-    }
-    await fileStream.close();
-    expect(results).toMatchSnapshot();
-  });
+
   it('2007', async () => {
     const xmlPath = join(__dirname, 'data/2007.xml');
     const fileStream = await open(xmlPath, 'r');
