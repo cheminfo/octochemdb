@@ -1,7 +1,6 @@
 // this function should switch parser function by second argument (parserYear)
 import { parse01To04 } from './parsersFrom01To23/parse01To04.js';
 import { parse05 } from './parsersFrom01To23/parse05.js';
-import { parse06 } from './parsersFrom01To23/parse06.js';
 import { parse07To21 } from './parsersFrom01To23/parse07To21.js';
 import { parse22To23 } from './parsersFrom01To23/parse22To23.js';
 
@@ -18,7 +17,7 @@ export function parsers(entry, parserYear) {
     case 2005:
       return parse05(entry);
     case 2006:
-      return parse06(entry);
+      return parse07To21(entry);
     case 2007:
       return parse07To21(entry);
     case 2008:
