@@ -20,7 +20,7 @@ export default async function getActivitiesInfo(data, connection) {
           assay: entry.data.assay,
           dbRef: { $ref: entry.collection, $id: entry._id },
         };
-        if (entry.data.targetTaxonomies) {
+        if (entry.data?.targetTaxonomies.length > 0) {
           activity.targetTaxonomies = entry.data.targetTaxonomies;
         }
         activityInfo.push(activity);
@@ -28,7 +28,7 @@ export default async function getActivitiesInfo(data, connection) {
       if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
         if (entry.data.activities) {
           for (let activity of entry.data.activities) {
-            if (activity?.targetTaxonomies !== null) {
+            if (activity?.targetTaxonomies) {
               activity.targetTaxonomies = [activity.targetTaxonomies];
             }
             activityInfo.push(activity);

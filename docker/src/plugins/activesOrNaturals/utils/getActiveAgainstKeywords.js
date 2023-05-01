@@ -6,7 +6,7 @@
 export default function getActiveAgainstKeywords(activities) {
   const activeAgainstKw = new Set();
   for (let activity of activities) {
-    if (activity.targetTaxonomies) {
+    if (activity?.targetTaxonomies?.length > 0) {
       let taxonomies = activity.targetTaxonomies;
       if (!Array.isArray(taxonomies)) {
         taxonomies = [taxonomies];
