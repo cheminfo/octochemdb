@@ -1,9 +1,9 @@
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = debugLibrary('entriesFromEM');
+const debug = debugLibrary('entriesFromID');
 // export the handler
-const entriesFromEM = {
+const entriesFromID = {
   method: 'GET',
   schema: {
     summary: 'Retrieve the entry for a given noStereoTautomerID',
@@ -20,7 +20,7 @@ const entriesFromEM = {
   },
   handler: searchHandler,
 };
-export default entriesFromEM;
+export default entriesFromID;
 
 /**
  * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays

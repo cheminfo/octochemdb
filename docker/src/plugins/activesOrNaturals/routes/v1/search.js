@@ -3,9 +3,9 @@ import escapeRegExp from 'lodash.escaperegexp';
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = debugLibrary('entriesFromEM');
+const debug = debugLibrary('entriesSearch');
 // export the handler
-const entriesFromEM = {
+const entriesSearch = {
   method: 'GET',
   schema: {
     summary: 'Retrieve compounds from a monoisotopic mass',
@@ -62,7 +62,7 @@ const entriesFromEM = {
   },
   handler: searchHandler,
 };
-export default entriesFromEM;
+export default entriesSearch;
 
 /**
  * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
