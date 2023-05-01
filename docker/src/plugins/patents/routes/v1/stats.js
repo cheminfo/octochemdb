@@ -24,14 +24,14 @@ async function searchHandler() {
   let connection;
   try {
     connection = new OctoChemConnection();
-    const collection = await connection.getCollection('npAtlases');
+    const collection = await connection.getCollection('patents');
 
     const results = await collection.stats();
 
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'npAtlases', connection, stack: e.stack });
+      debug(e.message, { collection: 'patents', connection, stack: e.stack });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
