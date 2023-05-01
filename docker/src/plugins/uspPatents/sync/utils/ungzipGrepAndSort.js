@@ -14,7 +14,7 @@ export default async function ungzipGrepAndSort(source, destination) {
 
   // after 2010 GNU sort is already executed in parallel
   return exec(
-    `gzip -dc "${source}" | grep $'\tUS'| sort -k2 -d  > "${destination}"`,
+    `gzip -dc ${source} | grep $'\tUS'| sort -k2 -d  > ${destination}`,
   ).then(
     (out) => {
       debug(out.stdout, out.stderr);
