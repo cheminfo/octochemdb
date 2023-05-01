@@ -41,15 +41,13 @@ export async function sync(connection) {
       Date.now() - Number(progress.dateEnd) >
       Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
-      titles2parse = [process.env.PATENTS_TITLES_TEST];
-      abstracts2parse = [process.env.PATENTS_ABSTRACTS_TEST];
-      /*  titlesAndPatents = await getTitlesAndAbstracts(
+      titlesAndPatents = await getTitlesAndAbstracts(
         process.env.PATENTS_TITLES_ABSTRACT_SOURCE,
         `${process.env.ORIGINAL_DATA_PATH}/patents/`,
       );
       titles2parse = titlesAndPatents?.titlesDownloaded;
       abstracts2parse = titlesAndPatents?.abstractsDownloaded;
-      */
+
       sources = [];
       titles2parse?.forEach((title) => {
         sources.push(title);
