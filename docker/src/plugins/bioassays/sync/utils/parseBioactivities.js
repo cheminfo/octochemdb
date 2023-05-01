@@ -75,6 +75,7 @@ async function* parseBioactivities(
           ocl: {
             idCode: compoundData.idCode,
             noStereoTautomerID: compoundData.noStereoTautomerID,
+            coordinates: compoundData.coordinates,
           },
         },
       };
