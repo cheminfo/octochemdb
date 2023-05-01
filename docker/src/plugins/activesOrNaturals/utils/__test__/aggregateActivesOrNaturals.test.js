@@ -24,6 +24,7 @@ test(
       await delay(1000);
       colllectionList = await connection.getCollectionNames();
     }
+    console.log('All collections are present');
     await aggregate(connection);
     const collection = await connection.getCollection('activesOrNaturals');
     const collectionEntry = await collection
@@ -31,6 +32,7 @@ test(
         _id: 'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
       })
       .limit(1);
+
     const result = await collectionEntry.next();
     if (result?._seq) {
       delete result._seq;

@@ -17,7 +17,7 @@ describe('parsers', () => {
       readableStream,
       'patent-application-publication',
     )) {
-      results = parsers(entry, '2001');
+      results = parsers(entry, 2001);
       count++;
       if (count > 0) {
         break;
@@ -36,7 +36,7 @@ describe('parsers', () => {
       readableStream,
       'patent-application-publication',
     )) {
-      results = parsers(entry, '2002');
+      results = parsers(entry, 2002);
       count++;
       if (count > 0) {
         break;
@@ -55,7 +55,7 @@ describe('parsers', () => {
       readableStream,
       'patent-application-publication',
     )) {
-      results = parsers(entry, '2003');
+      results = parsers(entry, 2003);
       count++;
       if (count > 0) {
         break;
@@ -74,7 +74,7 @@ describe('parsers', () => {
       readableStream,
       'patent-application-publication',
     )) {
-      results = parsers(entry, '2004');
+      results = parsers(entry, 2004);
       count++;
       if (count > 0) {
         break;
@@ -94,7 +94,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2005');
+      results = parsers(entry, 2005);
       count++;
       if (count > 0) {
         break;
@@ -114,7 +114,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2007');
+      results = parsers(entry, 2007);
       count++;
       if (count > 0) {
         break;
@@ -133,7 +133,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2008');
+      results = parsers(entry, 2008);
       count++;
       if (count > 0) {
         break;
@@ -152,7 +152,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2009');
+      results = parsers(entry, 2009);
       count++;
       if (count > 0) {
         break;
@@ -171,7 +171,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2010');
+      results = parsers(entry, 2010);
       count++;
       if (count > 0) {
         break;
@@ -190,7 +190,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2011');
+      results = parsers(entry, 2011);
       count++;
       if (count > 0) {
         break;
@@ -209,7 +209,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2012');
+      results = parsers(entry, 2012);
       count++;
       if (count > 0) {
         break;
@@ -228,7 +228,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2013');
+      results = parsers(entry, 2013);
       count++;
       if (count > 0) {
         break;
@@ -237,25 +237,7 @@ describe('parsers', () => {
     await fileStream.close();
     expect(results).toMatchSnapshot();
   });
-  it('2013', async () => {
-    const xmlPath = join(__dirname, 'data/2013.xml');
-    const fileStream = await open(xmlPath, 'r');
-    const readableStream = fileStream.readableWebStream();
-    let count = 0;
-    let results;
-    for await (const entry of parseStream(
-      readableStream,
-      'us-patent-application',
-    )) {
-      results = parsers(entry, '2013');
-      count++;
-      if (count > 0) {
-        break;
-      }
-    }
-    await fileStream.close();
-    expect(results).toMatchSnapshot();
-  });
+
   it('2014', async () => {
     const xmlPath = join(__dirname, 'data/2014.xml');
     const fileStream = await open(xmlPath, 'r');
@@ -266,7 +248,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2014');
+      results = parsers(entry, 2014);
       count++;
       if (count > 0) {
         break;
@@ -285,7 +267,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2015');
+      results = parsers(entry, 2015);
       count++;
       if (count > 0) {
         break;
@@ -304,7 +286,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2016');
+      results = parsers(entry, 2016);
       count++;
       if (count > 0) {
         break;
@@ -323,7 +305,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2017');
+      results = parsers(entry, 2017);
       count++;
       if (count > 0) {
         break;
@@ -342,7 +324,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2018');
+      results = parsers(entry, 2018);
       count++;
       if (count > 0) {
         break;
@@ -361,7 +343,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2019');
+      results = parsers(entry, 2019);
       count++;
       if (count > 0) {
         break;
@@ -380,7 +362,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2020');
+      results = parsers(entry, 2020);
       count++;
       if (count > 0) {
         break;
@@ -399,7 +381,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2021');
+      results = parsers(entry, 2021);
       count++;
       if (count > 0) {
         break;
@@ -419,7 +401,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2022');
+      results = parsers(entry, 2022);
       count++;
       if (count > 0) {
         break;
@@ -438,7 +420,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2022');
+      results = parsers(entry, 2022);
 
       count++;
       if (count > 0) {
@@ -458,7 +440,7 @@ describe('parsers', () => {
       readableStream,
       'us-patent-application',
     )) {
-      results = parsers(entry, '2023');
+      results = parsers(entry, 2023);
       count++;
       if (count > 0) {
         break;
