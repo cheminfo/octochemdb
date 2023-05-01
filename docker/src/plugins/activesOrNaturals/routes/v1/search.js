@@ -16,7 +16,6 @@ const entriesFromEM = {
         type: 'number',
         description: 'Monoisotopic mass (in Da)',
         example: 300.123,
-        default: 300,
       },
       precision: {
         type: 'number',
@@ -72,7 +71,7 @@ export default entriesFromEM;
  */
 async function searchHandler(request) {
   let {
-    em = 300,
+    em = 0,
     kwTaxonomies = '',
     kwBioassays = '',
     kwActiveAgainst = '',
