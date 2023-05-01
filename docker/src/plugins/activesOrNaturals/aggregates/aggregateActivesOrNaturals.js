@@ -2,17 +2,9 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import debugLibrary from '../../../utils/Debug.js';
-import getActivityKeywords from '../utils/getAcitivityKeywords.js';
-import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
-import getActivitiesInfo from '../utils/getActivitiesInfo.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
-import getCompoundsInfo from '../utils/getCompoundsInfo.js';
-import { getMassSpectraRefForGNPs } from '../utils/getMassSpectraRefForGNPs.js';
-import { getMassSpectraRefForMassBank } from '../utils/getMassSpectraRefForMassBank.js';
-import { getMeshTerms } from '../utils/getMeshTerms.js';
-import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
-import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
+import { main } from './main.js';
 /**
  * @description Aggregate all synchronized collections into one collection of Bioactivities or/and Natural Products
  * @param {*} connection MongoDB connection
@@ -33,7 +25,7 @@ export async function aggregate(connection) {
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
-    const patentsCollection = await connection.getCollection('patents');
+
     let { links, collectionSources } = await getCollectionsLinks(
       connection,
       collectionNames,
@@ -51,14 +43,7 @@ export async function aggregate(connection) {
       progress,
       options.collection,
     );
-    // get compounds collection
-    const compoundsCollection = await connection.getCollection('compounds');
-    // get pubmeds collection
-    const pubmedCollection = await connection.getCollection('pubmeds');
 
-    // start aggregation process
-    let counter = 0;
-    let start = Date.now();
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
@@ -75,167 +60,11 @@ export async function aggregate(connection) {
       );
       debug('start Aggregation process');
       // set progress to aggregating
+
       progress.state = 'aggregating';
       await connection.setProgress(progress);
       // parse all noStereoTautomerIDs and get their info
-      for (const [noStereoTautomerID, sourcesLink] of Object.entries(links)) {
-        let entry = { data: { naturalProduct: false } };
-        // get all documents from all collections
-        let data = [];
-        for (const source of sourcesLink) {
-          if (
-            [
-              'npasses',
-              'cmaups',
-              'coconuts',
-              'lotuses',
-              'npAtlases',
-              'gnps',
-            ].includes(source.collection)
-          ) {
-            entry.data.naturalProduct = true;
-          }
-
-          const collection = await connection.getCollection(source.collection);
-          let partialData = await collection.findOne({ _id: source.id });
-          partialData.collection = source.collection;
-          data.push(partialData);
-        }
-        let actions = [];
-        // create promise for all functions that need to be executed in parallel
-        // get unique taxonomies from all collections for the current noStereoTautomerIDs
-        let taxons;
-        let activityInfo;
-        let dbRefsMs = [];
-        actions.push(
-          getTaxonomiesInfo(data, connection).then((taxonomies) => {
-            taxons = taxonomies;
-          }),
-        );
-        // get unique activities from all collections for the current noStereoTautomerIDs
-        actions.push(
-          getActivitiesInfo(data, connection).then((activities) => {
-            activityInfo = activities;
-          }),
-        );
-        // get unique compound information from all collections for the current noStereoTautomerIDs
-        actions.push(
-          getCompoundsInfo(
-            entry,
-            data,
-            compoundsCollection,
-            noStereoTautomerID,
-            connection,
-            patentsCollection,
-          ).then((compoundInfo) => {
-            entry = compoundInfo;
-          }),
-        );
-        actions.push(
-          getMassSpectraRefForGNPs(connection, noStereoTautomerID).then(
-            (massSpectraRefsForGNPs) => {
-              massSpectraRefsForGNPs.forEach((ref) => {
-                dbRefsMs.push(ref.dbRef);
-              });
-            },
-          ),
-        );
-        actions.push(
-          getMassSpectraRefForMassBank(connection, noStereoTautomerID).then(
-            (massSpectraRefsForMassBank) => {
-              massSpectraRefsForMassBank.forEach((ref) => {
-                dbRefsMs.push(ref.dbRef);
-              });
-            },
-          ),
-        );
-        await Promise.all(actions);
-        actions.length = 0;
-        if (entry.data.cids) {
-          const uniqueMeshTerms = {};
-          const uniquePmIds = {};
-          let nbPubmeds = 0;
-          for (let i = 0; i < entry.data.cids.length; i++) {
-            let cid = Number(entry.data.cids[i]);
-            const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
-              cid,
-              pubmedCollection,
-              connection,
-            );
-            nbPubmeds += Number(counterPmids);
-            meshTermsForCid.forEach((term) => {
-              uniqueMeshTerms[term] = true;
-            });
-            pmIds.forEach((id) => {
-              uniquePmIds[id] = true;
-            });
-          }
-
-          let dbRefs = Object.keys(uniquePmIds).map((id) => ({
-            $ref: 'pubmeds',
-            $id: id,
-          }));
-
-          const meshTerms = Object.keys(uniqueMeshTerms);
-
-          if (meshTerms.length > 0) {
-            entry.data.kwMeshTerms = meshTerms;
-          }
-          if (dbRefs.length > 0) {
-            entry.data.pubmeds = dbRefs;
-          }
-          entry.data.nbPubmeds = nbPubmeds;
-        }
-
-        if (dbRefsMs.length > 0) {
-          entry.data.massSpectraRefs = dbRefsMs;
-          entry.data.nbMassSpectra = dbRefsMs.length;
-        }
-        // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
-        if (activityInfo.length > 0) {
-          entry.data.bioActive = true;
-          const keywordsActivities = getActivityKeywords(activityInfo);
-          if (keywordsActivities.length > 0) {
-            entry.data.kwBioassays = keywordsActivities;
-          }
-          const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
-
-          if (keywordsActiveAgainst.length > 0) {
-            entry.data.kwActiveAgainst = keywordsActiveAgainst;
-          }
-        }
-        // if taxons is not empty, get unique keywords of taxonomies for the current noStereoTautomerID
-        if (taxons.length > 0) {
-          const keywordsTaxonomies = getTaxonomyKeywords(taxons);
-          if (keywordsTaxonomies.length > 0) {
-            entry.data.kwTaxonomies = keywordsTaxonomies;
-          }
-        }
-        // if activityInfo is not empty, define entry.data.activities
-        if (activityInfo.length > 0) {
-          entry.data.activities = activityInfo;
-          entry.data.nbActivities = activityInfo.length;
-        }
-        // if taxons is not empty, define entry.data.taxonomies
-        if (taxons.length > 0) {
-          entry.data.taxonomies = taxons;
-          entry.data.nbTaxonomies = taxons.length;
-        }
-        entry._seq = ++progress.seq;
-        // update collection with new entry
-        await temporaryCollection.updateOne(
-          { _id: noStereoTautomerID },
-          { $set: entry },
-          { upsert: true },
-        );
-
-        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} `);
-          start = Date.now();
-        }
-
-        counter++;
-      }
+      await main(links);
       // rename temporary collection to activesOrNaturals
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,

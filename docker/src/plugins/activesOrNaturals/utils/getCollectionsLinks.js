@@ -35,9 +35,12 @@ export default async function getCollectionsLinks(connection, collectionNames) {
       for (const entry of results) {
         if (entry?.noStereoTautomerID) {
           if (!links[entry.noStereoTautomerID]) {
-            links[entry.noStereoTautomerID] = [];
+            links[entry.noStereoTautomerID] = {
+              id: entry.noStereoTautomerID,
+              sources: [],
+            };
           }
-          links[entry.noStereoTautomerID].push(entry.source);
+          links[entry.noStereoTautomerID].sources.push(entry.source);
         }
       }
     }
