@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`allPatents 1`] = `
+{
+  "_id": "JP2009128093A",
+  "data": {
+    "abstract": "Methods and compositions for enhancing plant growth provide for foliar application of a substance which enhances the accumulation of formyltetrahydropteroylpolyglutamate (C1-THF) in a treated plant. Treatment with substances that contribute to the structure of C1-THF increases the rate and quantity of carbon fixation by the plant. Thereafter, plant growth is further improved either by exposure of the plant to elevated oxygen, illumination and heat or by foliar input of single carbon fragment sources. Optimal results are obtained by combined treatment with a substance that can serve as a sink for C1 fragments produced in the leaf.",
+    "title": "Full recycling treatment method of sodium sulfate slag",
+  },
+}
+`;
