@@ -31,11 +31,11 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
       cas[oneDataEntry.data.cas] = true;
     }
     if (!ocl.idCode && !ocl.coordinates) {
-      ocl.coordinates = oneDataEntry.data.ocl.coordinates;
       ocl.idCode = oneDataEntry.data.ocl.idCode;
       let molecule = OCL.Molecule.fromIDCode(ocl.idCode);
       molecule.stripStereoInformation();
-      ocl.noStereoID = molecule.getIDCode();
+      ocl.noStereoID = molecule.getIDCodeAndCoordinates().idCode;
+      ocl.coordinates = molecule.getIDCodeAndCoordinates().coordinates;
     }
   }
 
