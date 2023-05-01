@@ -42,7 +42,6 @@ export default async function insertTitle(filneName, connection) {
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
         debug(`Tiles parsed ${count}`);
         start = Date.now();
-        count = 0;
       }
       count++;
       if (!entry._id) continue;
