@@ -21,6 +21,9 @@ async function syncUspFolder(source, destinationFolder, year) {
   let filesDownloaded = [];
   if (process.env.NODE_ENV !== 'test') {
     for (let file of files) {
+      if (file.name.match(/_r\d./)) {
+        continue;
+      }
       let options = {
         filename: file.name.replace('.zip', ''),
         extension: 'zip',
