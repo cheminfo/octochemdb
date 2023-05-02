@@ -55,8 +55,18 @@ export default async function getCompoundsInfo(
     if (nbPatents > 0) {
       entry.data.nbPatents = nbPatents;
     }
+
     if (compoundsPatents?.length > 0) {
-      entry.data.patents = compoundsPatents;
+      let dbRefsPatents = [];
+      let allPatentsCollection = await connection.getCollection('allPatents');
+      for (let patent of compoundsPatents) {
+        let patentCursor = await allPatentsCollection.find({ _id: patent });
+        let patentInfo = await patentCursor.next();
+        if (patentInfo !== null) {
+          dbRefsPatents.push({ $ref: 'allPatents', $id: patentInfo._id });
+        }
+      }
+      entry.data.patents = dbRefsPatents;
     }
     if (compoundsIDs.length > 0) entry.data.cids = compoundsIDs;
     if (casNumber.length > 0) entry.data.cas = casNumber;
