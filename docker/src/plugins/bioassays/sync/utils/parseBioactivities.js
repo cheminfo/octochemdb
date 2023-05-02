@@ -67,9 +67,9 @@ async function* parseBioactivities(
             compound.data.ocl.noStereoTautomerID;
           let molecule = OCL.Molecule.fromIDCode(compoundData.idCode);
           molecule.stripStereoInformation();
-          let codes = molecule.getIDCodeAndCoordinates();
-          compoundData.coordinates = codes.coordinates;
-          compoundData.noStereoID = codes.idCode;
+          let noStereo = molecule.getIDCode();
+          compoundData.coordinates = compoundData.data.ocl.coordinates;
+          compoundData.noStereoID = noStereo;
         }
       }
 
