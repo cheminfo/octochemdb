@@ -69,7 +69,6 @@ export async function getCompoundsData(molecule) {
             idCode: data.result.idCode,
             coordinates: oclID.coordinates,
             index: data.result.ssIndex,
-            noStereoID: data.result.noStereoID,
             noStereoTautomerID: data.result.noStereoTautomerID,
 
             acceptorCount: data.result.acceptorCount,
