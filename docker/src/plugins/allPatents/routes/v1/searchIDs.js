@@ -1,17 +1,22 @@
-// query for molecules from monoisotopic mass
 import { OctoChemConnection, getFields } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = debugLibrary('fromText');
+const debug = debugLibrary('searchIDs');
 
-const fromText = {
+const searchIDs = {
   method: 'GET',
   schema: {
     summary:
       'Retrieve articles which title or abstract contains the given text',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      wordsToSearch: {
+      patentsIDs: {
+        type: 'string',
+        description: 'patents IDs comma separated',
+        example: 'CN101597246A, KR20170097520A',
+        default: '',
+      },
+      keywords: {
         type: 'string',
         description: 'Text to be searched in articles Title and Abstract',
         example: 'antibiotic',
@@ -39,40 +44,57 @@ const fromText = {
   handler: searchHandler,
 };
 
-export default fromText;
+export default searchIDs;
 
 async function searchHandler(request) {
   let {
-    wordsToSearch = '',
+    patentsIDs = '',
+    keywords = '',
     fields = 'data.title, _id, data.abstract',
     minScore = 0,
     limit = 100,
   } = request.query;
   let formattedFields = getFields(fields);
-  formattedFields.score = { $meta: 'textScore' };
   let connection;
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('allPatents');
-    let wordsToBeMatched = '';
 
-    let words = wordsToSearch
-      .toLowerCase()
-      .split(/ *[,;\t\n\r\s]+ */)
-      .filter((entry) => entry);
-    for (let word of words) {
-      // eslint-disable-next-line no-useless-escape
-      word = `\"${word}\"`;
-      wordsToBeMatched = wordsToBeMatched.concat(word, ' ');
+    let matchParameters = {};
+    let aggregateParameters;
+
+    if (keywords !== '') {
+      matchParameters.$text = { $search: keywords };
+      formattedFields.score = { $meta: 'textScore' };
     }
-    const result = await collection
-      .aggregate([
-        { $match: { $text: { $search: wordsToBeMatched } } },
+    if (patentsIDs !== '') {
+      matchParameters._id = { $in: patentsIDs.split(',') };
+    }
+    if (keywords !== '' && patentsIDs !== '') {
+      aggregateParameters = [
+        {
+          $match: matchParameters,
+        },
+
         { $project: formattedFields },
-        { $match: { score: { $gt: minScore } } },
+        {
+          $match: { score: { $gt: minScore } },
+        },
+
         { $limit: Number(limit) },
-      ])
-      .toArray();
+      ];
+    }
+    if (keywords === '') {
+      aggregateParameters = [
+        {
+          $match: matchParameters,
+        },
+        { $project: formattedFields },
+        { $limit: Number(limit) },
+      ];
+    }
+
+    const result = await collection.aggregate(aggregateParameters).toArray();
 
     return { data: result };
   } catch (e) {

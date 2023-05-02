@@ -2,16 +2,22 @@
 import { OctoChemConnection, getFields } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = debugLibrary('fromText');
+const debug = debugLibrary('searchIDs');
 
-const fromText = {
+const searchIDs = {
   method: 'GET',
   schema: {
     summary:
       'Retrieve articles which title, MeSH terms or abstract contains the given text',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      wordsToSearch: {
+      pmids: {
+        type: 'string',
+        description: 'PubMed IDs comma separated',
+        example: '19342308,17200418',
+        default: '',
+      },
+      keywords: {
         type: 'string',
         description:
           'Text to be searched in articles Title, Abstract or MeSH terms',
@@ -40,42 +46,59 @@ const fromText = {
   handler: searchHandler,
 };
 
-export default fromText;
+export default searchIDs;
 
 async function searchHandler(request) {
   let {
-    wordsToSearch = '',
+    pmids = '',
+    keywords = '',
     fields = 'data.article.title, _id, data.article.abstract,data.meshHeadings',
     minScore = 0,
     limit = 100,
   } = request.query;
   let formattedFields = getFields(fields);
-  debug(formattedFields);
-  formattedFields.score = { $meta: 'textScore' };
   let connection;
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('pubmeds');
-    let wordsToBeMatched = '';
+    let matchParameters = {};
+    let aggregateParameters;
 
-    let words = wordsToSearch
-      .toLowerCase()
-      .split(/ *[,;\t\n\r\s]+ */)
-      .filter((entry) => entry);
-    for (let word of words) {
-      // eslint-disable-next-line no-useless-escape
-      word = `\"${word}\"`;
-      wordsToBeMatched = wordsToBeMatched.concat(word, ' ');
+    if (keywords !== '') {
+      matchParameters.$text = { $search: keywords };
+      formattedFields.score = { $meta: 'textScore' };
     }
-    debug(wordsToBeMatched);
-    const result = await collection
-      .aggregate([
-        { $match: { $text: { $search: wordsToBeMatched } } },
+    if (pmids !== '') {
+      matchParameters._id = {
+        $in: pmids.split(',').map((pmid) => Number(pmid)),
+      };
+    }
+    if (keywords !== '' && pmids !== '') {
+      aggregateParameters = [
+        {
+          $match: matchParameters,
+        },
+
         { $project: formattedFields },
-        { $match: { score: { $gt: minScore } } },
+        {
+          $match: { score: { $gt: minScore } },
+        },
+
         { $limit: Number(limit) },
-      ])
-      .toArray();
+      ];
+    }
+    if (keywords === '') {
+      aggregateParameters = [
+        {
+          $match: matchParameters,
+        },
+        { $project: formattedFields },
+        { $limit: Number(limit) },
+      ];
+    }
+    debug(aggregateParameters);
+
+    const result = await collection.aggregate(aggregateParameters).toArray();
 
     return { data: result };
   } catch (e) {
