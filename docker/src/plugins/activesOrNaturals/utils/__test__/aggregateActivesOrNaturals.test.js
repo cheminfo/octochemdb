@@ -18,13 +18,11 @@ test(
       !colllectionList.includes('bioassays') ||
       !colllectionList.includes('gnps') ||
       !colllectionList.includes('pubmeds') ||
-      !colllectionList.includes('patents') ||
-      !colllectionList.includes('uspPatents')
+      !colllectionList.includes('patents')
     ) {
       await delay(1000);
       colllectionList = await connection.getCollectionNames();
     }
-    console.log('All collections are present');
     await aggregate(connection);
     const collection = await connection.getCollection('activesOrNaturals');
     const collectionEntry = await collection
