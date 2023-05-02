@@ -29,6 +29,12 @@ const fromText = {
         example: 2,
         default: 1,
       },
+      limit: {
+        type: 'number',
+        description: 'Maximum number of results to return',
+        example: 200,
+        default: 100,
+      },
     },
   },
   handler: searchHandler,
@@ -41,8 +47,10 @@ async function searchHandler(request) {
     wordsToSearch = '',
     fields = 'data.article.title, _id, data.article.abstract,data.meshHeadings',
     minScore = 0,
+    limit = 100,
   } = request.query;
   let formattedFields = getFields(fields);
+  debug(formattedFields);
   formattedFields.score = { $meta: 'textScore' };
   let connection;
   try {
@@ -59,12 +67,13 @@ async function searchHandler(request) {
       word = `\"${word}\"`;
       wordsToBeMatched = wordsToBeMatched.concat(word, ' ');
     }
+    debug(wordsToBeMatched);
     const result = await collection
       .aggregate([
         { $match: { $text: { $search: wordsToBeMatched } } },
-        { $sort: { score: { $meta: 'textScore' } } },
         { $project: formattedFields },
         { $match: { score: { $gt: minScore } } },
+        { $limit: Number(limit) },
       ])
       .toArray();
 
