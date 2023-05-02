@@ -110,6 +110,8 @@ parentPort?.on('message', async (dataEntry) => {
         const meshTerms = Object.keys(uniqueMeshTerms);
 
         if (meshTerms.length > 0) {
+          // sort mesh terms by alphabetical order
+          meshTerms.sort();
           entry.data.kwMeshTerms = meshTerms;
         }
         if (dbRefs.length > 0) {
@@ -127,11 +129,13 @@ parentPort?.on('message', async (dataEntry) => {
         entry.data.bioActive = true;
         const keywordsActivities = getActivityKeywords(activityInfo);
         if (keywordsActivities.length > 0) {
+          keywordsActivities.sort();
           entry.data.kwBioassays = keywordsActivities;
         }
         const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
 
         if (keywordsActiveAgainst.length > 0) {
+          keywordsActiveAgainst.sort();
           entry.data.kwActiveAgainst = keywordsActiveAgainst;
         }
       }
@@ -162,7 +166,6 @@ parentPort?.on('message', async (dataEntry) => {
 
         count++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          // @ts-ignore
           debug(`${workerID} aggregated ${count}`);
           start = Date.now();
         }
