@@ -16,6 +16,7 @@ export default async function firstPatentsImport(filneName, connection) {
     const progress = await connection.getProgress('patents');
 
     for await (const line of lines) {
+      debug(line);
       let fields = line.split('\t');
       if (fields.length !== 2) continue;
       let [productID, patentID] = fields;
@@ -30,11 +31,17 @@ export default async function firstPatentsImport(filneName, connection) {
           if (!a.startsWith('US') && b.startsWith('US')) return 1;
           return 0;
         });
-        await temporaryCollection.insertOne({
-          _id: Number(currentProductID),
-          _seq: ++progress.seq,
-          data: { patents: entry.slice(0, 1000), nbPatents: entry.length },
-        });
+        await temporaryCollection.updateOne(
+          { _id: Number(currentProductID) },
+          {
+            $set: {
+              _id: Number(currentProductID),
+              _seq: ++progress.seq,
+              data: { patents: entry.slice(0, 1000), nbPatents: entry.length },
+            },
+          },
+          { upsert: true },
+        );
         entry.length = 0;
         currentProductID = Number(productID);
       }
@@ -46,10 +53,18 @@ export default async function firstPatentsImport(filneName, connection) {
         if (!a.startsWith('US') && b.startsWith('US')) return 1;
         return 0;
       });
-      await temporaryCollection.insertOne({
-        _id: Number(currentProductID),
-        data: { patents: entry.slice(0, 1000), nbPatents: entry.length },
-      });
+      // use updateOne instead of insertOne to avoid duplicate key error
+      await temporaryCollection.updateOne(
+        { _id: Number(currentProductID) },
+        {
+          $set: {
+            _id: Number(currentProductID),
+            _seq: ++progress.seq,
+            data: { patents: entry.slice(0, 1000), nbPatents: entry.length },
+          },
+        },
+        { upsert: true },
+      );
     }
     await temporaryCollection.rename('patents', {
       dropTarget: true,
