@@ -82,7 +82,6 @@ exports[`getCompoundsData 1`] = `
       ],
       "logP": 4.544999875128269,
       "logS": -5.477999992668629,
-      "noStereoID": "ekTpA@@BKBiod\\\\Q\\\\ddTbTRaURTTfbTVfQratRTdtd\\\\TLRjV^vnjjfjjjjjjjjjjfjjh@@L@",
       "noStereoTautomerID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
       "polarSurfaceArea": 117.83999633789062,
       "rotatableBondCount": 8,
