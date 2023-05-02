@@ -16,7 +16,6 @@ export default async function firstPatentsImport(filneName, connection) {
     const progress = await connection.getProgress('patents');
 
     for await (const line of lines) {
-      debug(line);
       let fields = line.split('\t');
       if (fields.length !== 2) continue;
       let [productID, patentID] = fields;
