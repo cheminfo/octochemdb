@@ -60,7 +60,7 @@ async function* parseBioactivities(
       // If the compound was already parsed, just add the bioassay and the taxonomies
       if (compoundData.cid !== cid) {
         let compound = await collectionCompounds.findOne({ _id: cid });
-        if (compound) {
+        if (compound !== null) {
           compoundData.cid = cid;
           compoundData.idCode = compound.data.ocl.idCode;
           compoundData.noStereoTautomerID =
@@ -68,7 +68,7 @@ async function* parseBioactivities(
           let molecule = OCL.Molecule.fromIDCode(compoundData.idCode);
           molecule.stripStereoInformation();
           let noStereo = molecule.getIDCode();
-          compoundData.coordinates = compoundData.data.ocl.coordinates;
+          compoundData.coordinates = compound.data.ocl.coordinates;
           compoundData.noStereoID = noStereo;
         }
       }
@@ -80,7 +80,6 @@ async function* parseBioactivities(
           aid,
           assay: bioassays[aid].name,
           ocl: {
-            idCode: compoundData.idCode,
             noStereoTautomerID: compoundData.noStereoTautomerID,
             coordinates: compoundData.coordinates,
             noStereoID: compoundData.noStereoID,
