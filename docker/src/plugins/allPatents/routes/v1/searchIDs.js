@@ -4,7 +4,7 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('searchIDs');
 
 const searchIDs = {
-  method: 'GET',
+  method: ['GET', 'POST'],
   schema: {
     summary:
       'Retrieve articles which title or abstract contains the given text',
@@ -47,13 +47,19 @@ const searchIDs = {
 export default searchIDs;
 
 async function searchHandler(request) {
+  let data;
+  if (request.method === 'GET') {
+    data = request.query;
+  } else {
+    data = request.body;
+  }
   let {
     patentsIDs = '',
     keywords = '',
     fields = 'data.title, _id, data.abstract',
     minScore = 0,
     limit = 100,
-  } = request.query;
+  } = data;
   let formattedFields = getFields(fields);
   let connection;
   try {

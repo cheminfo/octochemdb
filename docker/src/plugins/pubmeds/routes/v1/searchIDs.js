@@ -5,7 +5,7 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('searchIDs');
 
 const searchIDs = {
-  method: 'GET',
+  method: ['GET', 'POST'],
   schema: {
     summary:
       'Retrieve articles which title, MeSH terms or abstract contains the given text',
@@ -49,13 +49,21 @@ const searchIDs = {
 export default searchIDs;
 
 async function searchHandler(request) {
+  let data;
+  if (request.method === 'GET') {
+    data = request.query;
+  } else {
+    data = request.body;
+  }
   let {
     pmids = '',
     keywords = '',
     fields = 'data.article.title, _id, data.article.abstract,data.meshHeadings',
     minScore = 0,
     limit = 100,
-  } = request.query;
+  } = data;
+  debug(pmids);
+  debug(keywords);
   let formattedFields = getFields(fields);
   let connection;
   try {
