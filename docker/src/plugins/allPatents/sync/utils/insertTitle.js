@@ -28,12 +28,7 @@ export default async function insertTitle(filneName, connection) {
       // TITLE
       regex = /"(?<temp1>.*)"/;
       let title = fields[2].match(regex).groups.temp1;
-      // insert field in the temporary collection without deleting the previous data
-      if (patentID === 'JP2009128093A') {
-        console.log(patentID);
-        console.log(title);
-        console.log(fields);
-      }
+
       if (patentID && title) {
         entry._id = patentID;
         entry.data = {};
