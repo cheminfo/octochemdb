@@ -30,9 +30,9 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     if (oneDataEntry.data.cas) {
       cas[oneDataEntry.data.cas] = true;
     }
-    if (!ocl.idCode && !ocl.coordinates) {
-      ocl.idCode = oneDataEntry.data.ocl.idCode;
-      let molecule = OCL.Molecule.fromIDCode(ocl.idCode);
+    if (!ocl.coordinates) {
+      let idCode = oneDataEntry.data.ocl.idCode;
+      let molecule = OCL.Molecule.fromIDCode(idCode);
       molecule.stripStereoInformation();
       ocl.noStereoID = molecule.getIDCodeAndCoordinates().idCode;
       ocl.coordinates = molecule.getIDCodeAndCoordinates().coordinates;
