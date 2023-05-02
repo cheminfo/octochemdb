@@ -17,8 +17,9 @@ test(
       !colllectionList.includes('coconuts') ||
       !colllectionList.includes('bioassays') ||
       !colllectionList.includes('gnps') ||
-      !colllectionList.includes('pubmeds') ||
-      !colllectionList.includes('patents')
+      !colllectionList.includes('pubmeds')
+      //||
+      //!colllectionList.includes('patents')
     ) {
       await delay(1000);
       colllectionList = await connection.getCollectionNames();
@@ -31,10 +32,12 @@ test(
       })
       .limit(1);
 
-    const result = await collectionEntry.next();
+    let result = await collectionEntry.next();
     if (result?._seq) {
       delete result._seq;
-      delete result.data.ocl.coordinates; // they change every time
+    }
+    if (result?.data?.ocl?.coordinates) {
+      delete result.data.ocl.coordinates;
     }
     expect(result).toMatchSnapshot();
     await connection.close();
