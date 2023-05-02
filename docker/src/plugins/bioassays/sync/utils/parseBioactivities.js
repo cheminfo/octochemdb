@@ -2,6 +2,8 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
 
+import OCL from 'openchemlib';
+
 import debugLibrary from '../../../../utils/Debug.js';
 
 import getBioassays from './getBioassays.js';
@@ -63,6 +65,11 @@ async function* parseBioactivities(
           compoundData.idCode = compound.data.ocl.idCode;
           compoundData.noStereoTautomerID =
             compound.data.ocl.noStereoTautomerID;
+          let molecule = OCL.Molecule.fromIDCode(compoundData.idCode);
+          molecule.stripStereoInformation();
+          let codes = molecule.getIDCodeAndCoordinates();
+          compoundData.coordinates = codes.coordinates;
+          compoundData.noStereoID = codes.idCode;
         }
       }
 
@@ -76,6 +83,7 @@ async function* parseBioactivities(
             idCode: compoundData.idCode,
             noStereoTautomerID: compoundData.noStereoTautomerID,
             coordinates: compoundData.coordinates,
+            noStereoID: compoundData.noStereoID,
           },
         },
       };
