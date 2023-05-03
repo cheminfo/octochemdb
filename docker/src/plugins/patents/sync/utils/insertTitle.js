@@ -7,9 +7,7 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('insertTitle');
 export default async function insertTitle(filneName, connection) {
   try {
-    const temporaryCollection = await connection.getCollection(
-      'allPatents_tmp',
-    );
+    const temporaryCollection = await connection.getCollection('patents_tmp');
     const readStream = createReadStream(filneName);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
@@ -49,7 +47,7 @@ export default async function insertTitle(filneName, connection) {
   } catch (e) {
     if (connection) {
       debug(e.message, {
-        collection: 'allPatents',
+        collection: 'patents',
         connection,
         stack: e.stack,
       });

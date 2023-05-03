@@ -15,11 +15,8 @@ export async function sync(connection) {
   const debug = debugLibrary('syncPatents');
   try {
     let options = {
-      collectionSource: process.env.CIDTOPATENT_SOURCE,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/allPatents/cidToPatents`,
-      collectionName: 'allPatents',
-      filenameNew: 'cidToPatents',
-      extensionNew: 'gz',
+      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/patents/cidToPatents`,
+      collectionName: 'patents',
     };
     let sources;
     let titlesAndPatents;
@@ -115,7 +112,7 @@ export async function sync(connection) {
   } catch (e) {
     if (connection) {
       debug(e.message, {
-        collection: 'allPatents',
+        collection: 'patents',
         connection,
         stack: e.stack,
       });

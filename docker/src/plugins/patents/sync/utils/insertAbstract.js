@@ -7,9 +7,7 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('insertAbstract');
 export default async function insertAbstract(filneName, connection) {
   try {
-    const temporaryCollection = await connection.getCollection(
-      'allPatents_tmp',
-    );
+    const temporaryCollection = await connection.getCollection('patents_tmp');
     const readStream = createReadStream(filneName);
     const stream = readStream.pipe(createGunzip());
     const lines = createInterface({ input: stream });
