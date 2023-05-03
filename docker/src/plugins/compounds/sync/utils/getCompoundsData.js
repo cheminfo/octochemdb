@@ -17,6 +17,8 @@ export async function getCompoundsData(molecule) {
     let oclMolecule;
     if (molecule.molfile) {
       oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
+    } else if (molecule.smiles) {
+      oclMolecule = OCL.Molecule.fromSmiles(molecule.smiles);
     } else {
       oclMolecule = OCL.Molecule.fromIDCode(molecule.idCode);
     }
@@ -68,7 +70,9 @@ export async function getCompoundsData(molecule) {
           ocl: {
             idCode: data.result.idCode,
             coordinates: oclID.coordinates,
-            index: data.result.ssIndex,
+            index: Array.from(
+              new Int32Array(new Uint8Array(data.result.ssIndex).buffer),
+            ),
             noStereoTautomerID: data.result.noStereoTautomerID,
 
             acceptorCount: data.result.acceptorCount,
@@ -84,7 +88,7 @@ export async function getCompoundsData(molecule) {
           charge: data.result.charge,
           mw: data.result.mw,
           nbFragments: data.result.nbFragments,
-          atom: data.result.atoms,
+          atoms: JSON.parse(data.result.atoms),
           unsaturation: data.result.unsaturation,
         },
       };

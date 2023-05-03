@@ -2,24 +2,28 @@
 
 exports[`syncSubstances > syncSubstances First Importation 1`] = `
 {
-  "_id": 56427212,
+  "_id": 56427210,
   "data": {
-    "atom": null,
+    "atoms": {
+      "C": 15,
+      "H": 23,
+      "N": 3,
+      "O": 3,
+      "S": 1,
+    },
     "charge": 0,
     "cids": [
-      25010774,
-      313,
-      650899,
+      647412,
     ],
-    "em": 355.16626939198005,
-    "mf": "C17H25N3O3.HCl",
-    "mw": 355.86023183984963,
-    "nbFragments": 2,
+    "em": 325.14601278769004,
+    "mf": "C15H23N3O3S",
+    "mw": 325.42678760773083,
+    "nbFragments": 1,
     "ocl": {
-      "idCode": "facqb@BF}CDPQBBrrojk\\\\jkS^mUUUUL@D@@@",
-      "noStereoTautomerID": "facqb@BF}CDPQBBrrojk\\\\jkS^mUUUUT@D@AjavOXRFQjX~FOa\`",
+      "idCode": "ff}qb@NJBqNPAFRJIRiIQIYSHeOAjUjjjijh@@",
+      "noStereoTautomerID": "ff}qb@NJBqNPAFRJKPiIQIYSKEOAifjjjijh@MTTpsGzPqeSGpq|L",
     },
-    "unsaturation": null,
+    "unsaturation": 6,
   },
   "naturalProduct": false,
 }
@@ -29,7 +33,13 @@ exports[`syncSubstances > syncSubstances Incremental Importation 1`] = `
 {
   "_id": 475724937,
   "data": {
-    "atom": "{\\"C\\":19,\\"H\\":29,\\"N\\":1,\\"O\\":5,\\"S\\":1}",
+    "atoms": {
+      "C": 19,
+      "H": 29,
+      "N": 1,
+      "O": 5,
+      "S": 1,
+    },
     "charge": 0,
     "cids": [
       10738749,

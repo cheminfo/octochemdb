@@ -17,3 +17,14 @@ test(
   },
   { timeout: 30000 },
 );
+test(
+  'getCompoundData test if index are correct',
+  async () => {
+    let molecule = {
+      smiles: 'CCOCC',
+    };
+    let dataCompound = await getCompoundsData(molecule);
+    expect(dataCompound).toMatchSnapshot();
+  },
+  { timeout: 30000 },
+);

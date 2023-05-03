@@ -54,7 +54,6 @@ export async function getSubstanceData(molecule) {
     }
     if (dataSubstance?.status === 200) {
       let data = await dataSubstance.json();
-      //  console.log(data);
       let result = {
         data: {
           ocl: {
@@ -67,7 +66,7 @@ export async function getSubstanceData(molecule) {
           charge: data.result.charge,
           mw: data.result.mw,
           nbFragments: data.result.nbFragments,
-          atom: data.result.atoms,
+          atoms: JSON.parse(data.result.atoms),
           unsaturation: data.result.unsaturation,
         },
       };
