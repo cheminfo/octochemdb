@@ -56,7 +56,6 @@ async function searchHandler(request) {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('mfs');
 
-    debug(JSON.stringify({ em, error }));
     let fieldsToRetrieve = getFields(fields);
 
     const results = await collection
