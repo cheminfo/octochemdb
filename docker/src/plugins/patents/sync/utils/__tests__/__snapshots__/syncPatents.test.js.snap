@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`syncPatents 1`] = `
+{
+  "_id": "EP2078065A2",
+  "data": {
+    "abstract": "This invention relates to a method of processing color photographic film that has been imagewise exposed in a camera, said film having at least three light-sensitive units which have their individual sensitivities in different wavelength regions, each of the units comprising at least one light-sensitive silver-halide emulsion, binder, and dye-providing coupler, which method in order comprises (a) thermally developing the film step without any externally applied developing agent, comprising heating said film to a temperature greater than 80 \\\\u00B0C in an essentially dry process, such that an internally located blocked developing agent in reactive association with each of said three light-sensitive units becomes unblocked to form a developing agent, whereby the unblocked developing agent forms dyes by reacting with the dye-providing couplers to form a color image; (b) scanning the color image in the film without desilvering; (c) desilvering said film in one or more desilvering solutions to remove at least silver halide, thereby forming an improved color image suitable for scanning or optical printing, and (d) either optically printing or scanning the color image in the film following desilvering. In one embodiment of the invention, the film is scanned a first time in step (b) to obtain a relatively low quality scan and then scanned a second time after step (c) to obtain a relatively high quality scan that is used for making the positive image print.",
+    "title": "Process for preparing optically active epoxy compound",
+  },
+}
+`;
