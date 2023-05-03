@@ -126,7 +126,7 @@ parentPort?.on('message', async (dataEntry) => {
       }
       // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
       if (activityInfo.length > 0) {
-        entry.data.bioActive = true;
+        entry.data.bioactive = true;
         const keywordsActivities = getActivityKeywords(activityInfo);
         if (keywordsActivities.length > 0) {
           keywordsActivities.sort();

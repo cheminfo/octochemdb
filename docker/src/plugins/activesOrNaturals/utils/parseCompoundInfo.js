@@ -53,13 +53,13 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     entry.data.charge = compoundData?.data.charge;
     entry.data.unsaturation = compoundData?.data.unsaturation;
     entry.data.mf = compoundData?.data.mf;
-    entry.data.bioActive = false;
+    entry.data.bioactive = false;
   } else {
     entry.data.em = compoundInfo.data.em;
     entry.data.charge = compoundInfo.data.charge;
     entry.data.unsaturation = compoundInfo.data.unsaturation;
     entry.data.mf = compoundInfo.data.mf;
-    entry.data.bioActive = false;
+    entry.data.bioactive = false;
     cids[compoundInfo._id] = true;
   }
   entry.data.ocl = ocl;
