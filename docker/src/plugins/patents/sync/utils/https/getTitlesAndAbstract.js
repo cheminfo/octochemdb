@@ -4,10 +4,12 @@ import { fileCollectionFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
 import getFileIfNew from '../../../../../sync/http/utils/getFileIfNew.js';
+import { debugLibrary } from '../../../../../utils/Debug.js';
 
 import getFileListPatents from './getFileListPatents.js';
 
 const { mkdirpSync, existsSync } = FSExtra;
+const debug = debugLibrary('getTitlesAndAbstracts');
 
 async function getTitlesAndAbstracts(source, destinationFolder) {
   try {
@@ -76,7 +78,7 @@ async function getTitlesAndAbstracts(source, destinationFolder) {
       }
     }
   } catch (error) {
-    console.log(error);
+    debug(error);
   }
 }
 
