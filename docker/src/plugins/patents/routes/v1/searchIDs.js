@@ -64,7 +64,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new OctoChemConnection();
-    const collection = await connection.getCollection('allPatents');
+    const collection = await connection.getCollection('patents');
 
     let matchParameters = {};
     let aggregateParameters;
@@ -106,7 +106,7 @@ async function searchHandler(request) {
   } catch (e) {
     if (connection) {
       debug(e.message, {
-        collection: 'allPatents',
+        collection: 'patents',
         connection,
         stack: e.stack,
       });

@@ -58,9 +58,9 @@ export default async function getCompoundsInfo(
 
     if (compoundsPatents?.length > 0) {
       let dbRefsPatents = [];
-      let allPatentsCollection = await connection.getCollection('patents');
+      let patentsCollection = await connection.getCollection('patents');
       for (let patent of compoundsPatents) {
-        let patentCursor = await allPatentsCollection.find({ _id: patent });
+        let patentCursor = await patentsCollection.find({ _id: patent });
         let patentInfo = await patentCursor.next();
         if (patentInfo !== null) {
           dbRefsPatents.push({ $ref: 'patents', $id: patentInfo._id });

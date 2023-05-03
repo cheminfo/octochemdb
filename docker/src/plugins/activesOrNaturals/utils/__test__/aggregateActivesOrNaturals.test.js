@@ -17,9 +17,9 @@ test(
       !colllectionList.includes('coconuts') ||
       !colllectionList.includes('bioassays') ||
       !colllectionList.includes('gnps') ||
-      !colllectionList.includes('pubmeds')
-      //||
-      //!colllectionList.includes('patents')
+      !colllectionList.includes('pubmeds') ||
+      !colllectionList.includes('patents') ||
+      !colllectionList.includes('compoundPatents')
     ) {
       await delay(1000);
       colllectionList = await connection.getCollectionNames();

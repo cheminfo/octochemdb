@@ -82,7 +82,6 @@ export async function aggregate(connection) {
 
       // Create Indexes
       await targetCollection.createIndex({ 'data.em': 1 });
-      // await targetCollection.createIndex({ 'data.smiles': 1 });
       await targetCollection.createIndex({ 'data.kwBioassays': 1 });
       await targetCollection.createIndex({ 'data.meshTerms': 1 });
       await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
@@ -91,8 +90,6 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.nbPubmeds': 1 });
       await targetCollection.createIndex({ 'data.patents': 1 });
       await targetCollection.createIndex({ 'data.nbPatents': 1 });
-      //  await targetCollection.createIndex({ 'data.uspPatents': 1 });
-      //await targetCollection.createIndex({ 'data.nbUspPatents': 1 });
       await targetCollection.createIndex({ 'data.nbTaxonomies': 1 });
 
       debug('Aggregation Done');
