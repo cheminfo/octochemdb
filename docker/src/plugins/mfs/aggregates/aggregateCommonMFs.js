@@ -32,7 +32,7 @@ export async function aggregate(connection) {
             mf: '$data.mf',
             em: '$data.em',
             unsaturation: '$data.unsaturation',
-            atom: '$data.atom',
+            atoms: '$data.atoms',
           },
         },
         {
@@ -40,7 +40,7 @@ export async function aggregate(connection) {
             _id: '$mf',
             em: { $first: '$em' },
             unsaturation: { $first: '$unsaturation' },
-            atom: { $first: '$atom' },
+            atoms: { $first: '$atoms' },
             count: { $sum: 1 },
           },
         },
