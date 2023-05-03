@@ -14,26 +14,26 @@ const { existsSync, rmSync } = pkg;
  * @returns {Promise} returns patents collection
  */
 export async function sync(connection) {
-  const debug = debugLibrary('syncPatents');
+  const debug = debugLibrary('syncCompoundPatents');
   try {
     let options = {
-      collectionSource: process.env.CIDTOPATENT_SOURCE,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/patents/cidToPatents`,
-      collectionName: 'patents',
+      collectionSource: process.env.COMPOUND_PATENTS_SOURCE,
+      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/compoundPatents/cidToPatents`,
+      collectionName: 'compoundPatents',
       filenameNew: 'cidToPatents',
       extensionNew: 'gz',
     };
     let sources;
     let lastFile;
-    const progress = await connection.getProgress('patents');
+    const progress = await connection.getProgress('compoundPatents');
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.PATENTS_SOURCE_TEST}`;
+      lastFile = `${process.env.COMPOUND_PATENTS_SOURCE_TEST}`;
       sources = [lastFile];
     }
     // get last files cidToPatens available in the PubChem database
     else if (
       Date.now() - Number(progress.dateEnd) >
-      Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
+      Number(process.env.COMPOUND_PATENTS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
@@ -45,7 +45,11 @@ export async function sync(connection) {
     if (
       progress.dateEnd !== 0 &&
       Date.now() - Number(progress.dateEnd) >
-        Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
+        Number(process.env.COMPOUND_PATENTS_UPDATE_INTERVAL) *
+          24 *
+          60 *
+          60 *
+          1000 &&
       md5(JSON.stringify(sources)) !== progress.sources
     ) {
       progress.dateStart = Date.now();
@@ -92,7 +96,11 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'patents', connection, stack: e.stack });
+      debug(e.message, {
+        collection: 'compoundPatents',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

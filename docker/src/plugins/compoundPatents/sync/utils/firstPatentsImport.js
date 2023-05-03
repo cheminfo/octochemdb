@@ -6,14 +6,16 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('parsePatents');
 export default async function firstPatentsImport(filneName, connection) {
   try {
-    const temporaryCollection = await connection.getCollection('patents_tmp');
+    const temporaryCollection = await connection.getCollection(
+      'compoundPatents_tmp',
+    );
     debug(filneName);
     const readStream = createReadStream(filneName);
     const lines = createInterface({ input: readStream });
     let entry = [];
     let currentProductID = -1;
 
-    const progress = await connection.getProgress('patents');
+    const progress = await connection.getProgress('compoundPatents');
 
     for await (const line of lines) {
       let fields = line.split('\t');
@@ -65,13 +67,17 @@ export default async function firstPatentsImport(filneName, connection) {
         { upsert: true },
       );
     }
-    await temporaryCollection.rename('patents', {
+    await temporaryCollection.rename('compoundPatents', {
       dropTarget: true,
     });
     await connection.setProgress(progress);
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'patents', connection, stack: e.stack });
+      debug(e.message, {
+        collection: 'compoundPatents',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

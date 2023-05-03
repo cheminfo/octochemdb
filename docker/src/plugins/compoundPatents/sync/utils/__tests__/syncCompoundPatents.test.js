@@ -1,14 +1,14 @@
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
-import { sync } from '../../syncPatents';
+import { sync } from '../../syncCompoundPatents';
 
 test(
   'syncPatents',
   async () => {
     const connection = new OctoChemConnection();
     await sync(connection);
-    const collection = await connection.getCollection('patents');
+    const collection = await connection.getCollection('compoundPatents');
     const collectionEntry = await collection.find({ _id: 59478 }).limit(1);
     const result = await collectionEntry.next();
     if (result?._seq) {
