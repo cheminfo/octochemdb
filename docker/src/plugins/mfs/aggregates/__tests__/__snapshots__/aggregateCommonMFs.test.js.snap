@@ -3,7 +3,11 @@
 exports[`Aggregation mfsCommon 1`] = `
 {
   "_id": "C100H110N4",
-  "atom": "{\\"C\\":100,\\"H\\":110,\\"N\\":4}",
+  "atoms": {
+    "C": 100,
+    "H": 110,
+    "N": 4,
+  },
   "count": 5,
   "em": 1366.87304956302,
   "unsaturation": 48,
