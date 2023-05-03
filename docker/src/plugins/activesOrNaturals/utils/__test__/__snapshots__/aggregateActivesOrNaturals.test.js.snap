@@ -346,7 +346,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
         ],
       },
     ],
-    "bioActive": true,
+    "bioactive": true,
     "charge": 0,
     "cids": [
       "59478",
@@ -373,21 +373,21 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "em": 632.42881889036,
     "kwActiveAgainst": [
       "archaea",
-      "candidatus",
-      "borrarchaeota",
-      "borrarchaeia",
-      "borrarchaeales",
       "borrarchaeaceae",
+      "borrarchaeales",
+      "borrarchaeia",
+      "borrarchaeota",
       "borrarchaeum",
+      "candidatus",
     ],
     "kwBioassays": [
-      "uhts",
-      "small",
-      "molecule",
-      "inhibitors",
       "eukaryotic",
-      "translation",
+      "inhibitors",
       "initiation",
+      "molecule",
+      "small",
+      "translation",
+      "uhts",
     ],
     "kwTaxonomies": [
       "viridiplantae",
@@ -404,13 +404,13 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
     "ocl": {
-      "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@",
       "noStereoID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
     },
     "patents": [
-      "US20030147822A1",
-      "EP2078065A2",
-      "JP2008031406A",
+      {
+        "$id": "EP2078065A2",
+        "$ref": "patents",
+      },
     ],
     "taxonomies": [
       {
