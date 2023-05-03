@@ -8,7 +8,7 @@ import incrementalCompoundsImport from './incrementalCompoundsImport.js';
  * @returns {Promise} returns compounds collections
  */
 export async function sync(connection) {
-  main(connection);
+  await main(connection);
   // Do the first importation
   //await firstCompoundsImport(connection);
   // Do the incremental updates
