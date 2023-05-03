@@ -25,7 +25,8 @@ const fromMF = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'data.em,data.mf,data.total,data.atom,data.unsaturation',
+        default:
+          'data.em,data.mf,data.unsaturation,data.charge,data.ocl.idCode',
       },
     },
   },
@@ -38,7 +39,7 @@ async function searchHandler(request) {
   let {
     mf = '',
     limit = 1e3,
-    fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
+    fields = 'data.em,data.mf,data.unsaturation,data.charge,data.ocl.idCode',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
