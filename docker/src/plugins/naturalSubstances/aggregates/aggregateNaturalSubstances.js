@@ -40,11 +40,13 @@ export async function aggregate(connection) {
       const result = await collectionSubstances
         .aggregate([
           {
-            $match: { naturalProduct: true },
+            $match: { 'data.naturalProduct': true },
           },
           {
             $project: {
               _id: 1,
+              'data.taxonomies': 1,
+              'data.ocl.noStereoTautomerID': 1,
             },
           },
         ])
