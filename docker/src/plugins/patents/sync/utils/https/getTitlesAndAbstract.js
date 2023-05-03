@@ -4,7 +4,7 @@ import { fileCollectionFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
 import getFileIfNew from '../../../../../sync/http/utils/getFileIfNew.js';
-import { debugLibrary } from '../../../../../utils/Debug.js';
+import debugLibrary from '../../../../../utils/Debug.js';
 
 import getFileListPatents from './getFileListPatents.js';
 
