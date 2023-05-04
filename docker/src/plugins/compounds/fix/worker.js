@@ -28,9 +28,13 @@ parentPort?.on('message', async (entryData) => {
       count++;
 
       if (entry?.data) {
-        // check if it is already a JSON object
-        let atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
-
+        // if atoms are already a JSON object, skip else if it is a string, parse it
+        let atoms;
+        if (typeof entry?.data?.atoms === 'string') {
+          atoms = JSON.parse(entry?.data?.atoms);
+        } else {
+          atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
+        }
         let index;
         if (
           entry?.data?.ocl?.index !== null &&

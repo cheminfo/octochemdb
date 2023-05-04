@@ -22,10 +22,14 @@ parentPort?.on('message', async (entryData) => {
         start = Date.now();
       }
       count++;
-      if (entry?.data) {
-        // check if it is already a JSON object
-        let atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
-
+      if (entry?.data?.atoms) {
+        let atoms;
+        if (typeof entry?.data?.atoms === 'string') {
+          // check if it is already a JSON object
+          atoms = JSON.parse(entry?.data?.atoms);
+        } else {
+          atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
+        }
         // updateOne
         await collection.updateOne(
           { _id: entry._id },
