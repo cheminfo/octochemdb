@@ -16,7 +16,7 @@ parentPort?.on('message', async (entryData) => {
       const collectionEntry = await collection.find({ _seq: Number(seq) });
       let entry = await collectionEntry.next();
       if (entry?.data) {
-        let atoms = 'bananananananananna'; // JSON.parse(entry?.data?.atoms);
+        let atoms = JSON.parse(entry?.data?.atoms);
         let index = Array.from(
           new Int32Array(new Uint8Array(entry?.data.index).buffer),
         );
