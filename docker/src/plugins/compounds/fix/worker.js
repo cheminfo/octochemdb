@@ -43,7 +43,7 @@ parentPort?.on('message', async (entryData) => {
             index = entry?.data.index;
           }
         } else {
-          let molecule = OCL.Molecule.fromMolfile(entry?.data?.molfile);
+          let molecule = OCL.Molecule.fromIDCode(entry?.data?.ocl?.idCode);
           index = molecule.getIndex();
         }
         // updateOne
