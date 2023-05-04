@@ -12,8 +12,8 @@ parentPort?.on('message', async (entryData) => {
 
     let start = Date.now();
     //let counter = 0;
-    for (let link of links) {
-      const collectionEntry = await collection.find({ _id: Number(link._id) });
+    for (let seq = links[0]; seq <= links[1]; seq++) {
+      const collectionEntry = await collection.find({ _seq: Number(seq) });
       let entry = await collectionEntry.next();
       if (entry?.data) {
         let atoms = JSON.parse(entry?.data?.atoms);

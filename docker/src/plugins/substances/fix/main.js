@@ -1,34 +1,22 @@
 import { cpus } from 'os';
 import { Worker } from 'worker_threads';
 
-import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
-
-export async function main() {
+export async function main(connection) {
   try {
-    const connection = new OctoChemConnection();
     const collection = await connection.getCollection('substances');
-    let links = await collection
-      .aggregate([
-        {
-          $project: {
-            _id: 1,
-          },
-        },
-      ])
-      .toArray();
-    console.log(links.length);
+    let links = await collection.countDocuments();
 
     const workers = [];
-    const url = new URL('worker.mjs', import.meta.url);
+    const url = new URL('worker.js', import.meta.url);
 
     const numWorkers = cpus().length / 2;
-    const chunkSize = Math.floor(links.length / numWorkers);
+    const chunkSize = Math.floor(links / numWorkers);
 
     const chunks = [];
     for (let i = 0; i < numWorkers; i++) {
       const start = i * chunkSize;
-      const end = i === numWorkers - 1 ? links.length : (i + 1) * chunkSize;
-      const chunk = links.slice(start, end);
+      const end = i === numWorkers - 1 ? links : (i + 1) * chunkSize;
+      const chunk = [start, end];
       chunks.push(chunk);
     }
     for (let i = 0; i < numWorkers; i++) {
@@ -60,4 +48,3 @@ export async function main() {
     console.log(e);
   }
 }
-await main();
