@@ -20,7 +20,9 @@ parentPort?.on('message', async (entryData) => {
       const collectionEntry = await collection.find({ _seq: Number(seq) });
       let entry = await collectionEntry.next();
       if (Date.now() - start > 60000) {
-        debug(`Worker ${workerID} fixed ${count} compounds`);
+        debug(
+          `Worker ${workerID} fixed ${count} compounds, current seq: ${seq}`,
+        );
         start = Date.now();
       }
       count++;
