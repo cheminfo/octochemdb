@@ -7,7 +7,7 @@ const debug = debugLibrary('fix');
 export async function main(connection) {
   try {
     const collection = await connection.getCollection('compounds');
-    let links = await collection.countDocuments();
+    let links = await collection.count();
     debug(links);
 
     const workers = [];

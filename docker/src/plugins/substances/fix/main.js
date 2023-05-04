@@ -4,7 +4,7 @@ import { Worker } from 'worker_threads';
 export async function main(connection) {
   try {
     const collection = await connection.getCollection('substances');
-    let links = await collection.countDocuments();
+    let links = await collection.count();
 
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
