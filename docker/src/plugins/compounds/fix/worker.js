@@ -19,6 +19,12 @@ parentPort?.on('message', async (entryData) => {
     for (let seq = links[0]; seq <= links[1]; seq++) {
       const collectionEntry = await collection.find({ _seq: Number(seq) });
       let entry = await collectionEntry.next();
+      if (Date.now() - start > 60000) {
+        debug(`Worker ${workerID} fixed ${count} compounds`);
+        start = Date.now();
+      }
+      count++;
+
       if (entry?.data) {
         // check if it is already a JSON object
         let atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
@@ -43,15 +49,11 @@ parentPort?.on('message', async (entryData) => {
           { _id: entry._id },
           { $set: { 'data.atoms': atoms, 'data.ocl.index': index } },
         );
-        count++;
       } else {
         continue;
       }
     }
-    if (Date.now() - start > 1000) {
-      debug(`Worker ${workerID} fixed ${count} compounds`);
-      start = Date.now();
-    }
+
     parentPort.postMessage(`${workerID} fixed ${count} compounds`);
   } catch (e) {
     debug(e);
