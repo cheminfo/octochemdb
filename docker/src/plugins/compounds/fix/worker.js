@@ -20,7 +20,13 @@ parentPort?.on('message', async (entryData) => {
       const collectionEntry = await collection.find({ _seq: Number(seq) });
       let entry = await collectionEntry.next();
       if (entry?.data) {
-        let atoms = JSON.parse(entry?.data?.atoms);
+        // check if it is already a JSON object
+        let atoms;
+        if (typeof entry?.data?.atoms === 'object') {
+          atoms = JSON.parse(entry?.data?.atoms);
+        } else {
+          atoms = entry?.data?.atoms;
+        }
         let index;
         if (
           entry?.data?.ocl?.index !== null &&
