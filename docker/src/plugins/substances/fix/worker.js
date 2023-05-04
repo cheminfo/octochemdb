@@ -1,8 +1,10 @@
 import { parentPort } from 'worker_threads';
 
+import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
 const connection = new OctoChemConnection();
+const debug = debugLibrary('fixed');
 parentPort?.on('message', async (entryData) => {
   try {
     let { links, workerID } = entryData;
@@ -15,6 +17,11 @@ parentPort?.on('message', async (entryData) => {
     for (let seq = links[0]; seq <= links[1]; seq++) {
       const collectionEntry = await collection.find({ _seq: Number(seq) });
       let entry = await collectionEntry.next();
+      if (Date.now() - start > 60000) {
+        debug(`Worker ${workerID} fixed ${count} compounds`);
+        start = Date.now();
+      }
+      count++;
       if (entry?.data) {
         // check if it is already a JSON object
         let atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
@@ -29,12 +36,11 @@ parentPort?.on('message', async (entryData) => {
       }
     }
     if (Date.now() - start > 1000) {
-      console.log(`Worker ${workerID} fix ${count} substances`);
+      debug(`Worker ${workerID} fix ${count} substances`);
       start = Date.now();
     }
-    count++;
     parentPort.postMessage(`${workerID} fix ${count} substances`);
   } catch (e) {
-    console.log(e);
+    debug(e);
   }
 });
