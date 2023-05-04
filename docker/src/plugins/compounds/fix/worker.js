@@ -37,10 +37,10 @@ parentPort?.on('message', async (entryData) => {
           entry?.data?.ocl?.index.length > 0
         ) {
           index = Array.from(
-            new Int32Array(new Uint8Array(entry?.data.index).buffer),
+            new Int32Array(new Uint8Array(entry?.data?.ocl.index).buffer),
           );
           if (index === null) {
-            index = entry?.data.index;
+            index = entry?.data?.ocl.index;
           }
         } else {
           let molecule = OCL.Molecule.fromIDCode(entry?.data?.ocl?.idCode);
