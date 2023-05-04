@@ -8,7 +8,6 @@ export async function main(connection) {
   try {
     const collection = await connection.getCollection('compounds');
     let links = await collection.count();
-    debug(links);
 
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
@@ -23,7 +22,6 @@ export async function main(connection) {
       const chunk = [start, end];
       chunks.push(chunk);
     }
-    debug(chunks);
     for (let i = 0; i < numWorkers; i++) {
       let worker = new Worker(url);
       let links = chunks[i];

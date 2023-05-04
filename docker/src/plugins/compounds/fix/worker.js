@@ -5,7 +5,7 @@ import OCL from 'openchemlib';
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
-const debug = debugLibrary('fix');
+const debug = debugLibrary('fixed');
 const connection = new OctoChemConnection();
 parentPort?.on('message', async (entryData) => {
   try {
@@ -43,6 +43,7 @@ parentPort?.on('message', async (entryData) => {
           { _id: entry._id },
           { $set: { 'data.atoms': atoms, 'data.ocl.index': index } },
         );
+        count++;
       } else {
         continue;
       }
@@ -51,7 +52,6 @@ parentPort?.on('message', async (entryData) => {
       debug(`Worker ${workerID} fixed ${count} compounds`);
       start = Date.now();
     }
-    count++;
     parentPort.postMessage(`${workerID} fixed ${count} compounds`);
   } catch (e) {
     debug(e);
