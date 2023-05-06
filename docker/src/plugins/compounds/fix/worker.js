@@ -17,7 +17,7 @@ parentPort?.on('message', async (entryData) => {
     let start = Date.now();
     //let counter = 0;
     for (let seq = links[0]; seq <= links[1]; seq++) {
-      let sequenceNumber = Number(seq + 108761979);
+      let sequenceNumber = Number(seq + 108791531);
       const collectionEntry = await collection.find({ _seq: sequenceNumber });
       let entry = await collectionEntry.next();
       if (Date.now() - start > 60000) {
