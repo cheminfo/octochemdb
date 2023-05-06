@@ -39,7 +39,8 @@ parentPort?.on('message', async (entryData) => {
           let index;
           if (
             entry?.data?.ocl?.index !== null &&
-            entry?.data?.ocl?.index.length > 0
+            entry?.data?.ocl?.index.length > 0 &&
+            !(entry?.data?.ocl?.index instanceof Int32Array)
           ) {
             index = Array.from(
               new Int32Array(new Uint8Array(entry?.data?.ocl.index).buffer),
@@ -60,7 +61,7 @@ parentPort?.on('message', async (entryData) => {
           continue;
         }
       } catch (e) {
-        debug(e);
+        //debug(e);
         continue;
       }
     }
