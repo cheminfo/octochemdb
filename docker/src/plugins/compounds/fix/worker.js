@@ -27,36 +27,40 @@ parentPort?.on('message', async (entryData) => {
         start = Date.now();
       }
       count++;
-
-      if (entry?.data) {
-        // if atoms are already a JSON object, skip else if it is a string, parse it
-        let atoms;
-        if (typeof entry?.data?.atoms === 'string') {
-          atoms = JSON.parse(entry?.data?.atoms);
-        } else {
-          atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
-        }
-        let index;
-        if (
-          entry?.data?.ocl?.index !== null &&
-          entry?.data?.ocl?.index.length > 0
-        ) {
-          index = Array.from(
-            new Int32Array(new Uint8Array(entry?.data?.ocl.index).buffer),
-          );
-          if (index === null) {
-            index = entry?.data?.ocl.index;
+      try {
+        if (entry?.data) {
+          // if atoms are already a JSON object, skip else if it is a string, parse it
+          let atoms;
+          if (typeof entry?.data?.atoms === 'string') {
+            atoms = JSON.parse(entry?.data?.atoms);
+          } else {
+            atoms = JSON.parse(JSON.stringify(entry?.data?.atoms));
           }
+          let index;
+          if (
+            entry?.data?.ocl?.index !== null &&
+            entry?.data?.ocl?.index.length > 0
+          ) {
+            index = Array.from(
+              new Int32Array(new Uint8Array(entry?.data?.ocl.index).buffer),
+            );
+            if (index === null) {
+              index = entry?.data?.ocl.index;
+            }
+          } else {
+            let molecule = OCL.Molecule.fromIDCode(entry?.data?.ocl?.idCode);
+            index = molecule.getIndex();
+          }
+          // updateOne
+          await collection.updateOne(
+            { _id: entry._id },
+            { $set: { 'data.atoms': atoms, 'data.ocl.index': index } },
+          );
         } else {
-          let molecule = OCL.Molecule.fromIDCode(entry?.data?.ocl?.idCode);
-          index = molecule.getIndex();
+          continue;
         }
-        // updateOne
-        await collection.updateOne(
-          { _id: entry._id },
-          { $set: { 'data.atoms': atoms, 'data.ocl.index': index } },
-        );
-      } else {
+      } catch (e) {
+        debug(e);
         continue;
       }
     }
