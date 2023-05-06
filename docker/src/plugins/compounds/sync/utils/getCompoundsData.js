@@ -22,10 +22,9 @@ export async function getCompoundsData(molecule) {
     } else {
       oclMolecule = OCL.Molecule.fromIDCode(molecule.idCode);
     }
-    let idCode = oclMolecule.getIDCode();
     const oclID = oclMolecule.getIDCodeAndCoordinates();
 
-    let urlIDCode = encodeURIComponent(idCode);
+    let urlIDCode = encodeURIComponent(oclID.idCode);
 
     let success = false;
     let count = 0;
