@@ -1,5 +1,3 @@
-import { main } from '../fix/main.js';
-
 import firstSubstancesImport from './firstSubstancesImport.js';
 import incrementalSubstancesImport from './incrementalSubstancesImport.js';
 /**
@@ -7,7 +5,6 @@ import incrementalSubstancesImport from './incrementalSubstancesImport.js';
  * @param {*} connection  - mongo connection
  */
 export async function sync(connection) {
-  // await firstSubstancesImport(connection);
-  //await incrementalSubstancesImport(connection);
-  await main(connection);
+  await firstSubstancesImport(connection);
+  await incrementalSubstancesImport(connection);
 }
