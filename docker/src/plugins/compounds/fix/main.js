@@ -6,14 +6,14 @@ import debugLibrary from '../../../utils/Debug.js';
 const debug = debugLibrary('fix');
 export async function main(connection) {
   try {
-    const collection = await connection.getCollection('compounds');
-    let links = await collection.count();
+    // const collection = await connection.getCollection('compounds');
+    let links = 110439238; //await collection.count();
 
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
 
     const numWorkers = cpus().length / 2;
-    const chunkSize = Math.floor((links - 108896827) / numWorkers);
+    const chunkSize = Math.floor((links - 108911812) / numWorkers);
 
     const chunks = [];
     for (let i = 0; i < numWorkers; i++) {
