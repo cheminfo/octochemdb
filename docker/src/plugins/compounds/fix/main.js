@@ -13,7 +13,7 @@ export async function main(connection) {
     const url = new URL('worker.js', import.meta.url);
 
     const numWorkers = cpus().length / 2;
-    const chunkSize = Math.floor(links / numWorkers);
+    const chunkSize = Math.floor((links - 108761979) / numWorkers);
 
     const chunks = [];
     for (let i = 0; i < numWorkers; i++) {
