@@ -17,6 +17,11 @@ const fromEM = {
         example: 300.123,
         default: null,
       },
+      minCount: {
+        type: 'number',
+        description: 'Minimum number of mfs in PubChem',
+        default: 5,
+      },
       precision: {
         type: 'number',
         description: 'Precision (in ppm) of the monoisotopic mass',
@@ -42,6 +47,7 @@ export default fromEM;
 async function searchHandler(request) {
   let {
     em = 0,
+    minCount = 5,
     limit = 1e3,
     precision = 100,
     fields = 'em,_id,count,atom,unsaturation',
@@ -63,6 +69,7 @@ async function searchHandler(request) {
         {
           $match: {
             em: { $lt: em + error, $gt: em - error },
+            count: { $gte: minCount },
           },
         },
         {
