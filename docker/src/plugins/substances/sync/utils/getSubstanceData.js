@@ -66,11 +66,15 @@ export async function getSubstanceData(molecule) {
           charge: data.result.charge,
           mw: data.result.mw,
           nbFragments: data.result.nbFragments,
-          atoms: JSON.parse(data.result.atoms),
           unsaturation: data.result.unsaturation,
         },
       };
-
+      // check if atoms is not empty
+      if (Object.keys(data.result.atoms).length > 0) {
+        result.data.atoms = JSON.parse(data.result.atoms);
+      } else {
+        result.data.atoms = {};
+      }
       return result;
     } else {
       debug(`Error: ${dataSubstance?.status} ${dataSubstance}`);
