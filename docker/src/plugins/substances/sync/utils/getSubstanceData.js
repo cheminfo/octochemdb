@@ -66,7 +66,7 @@ export async function getSubstanceData(molecule) {
           charge: data.result.charge,
           mw: data.result.mw,
           nbFragments: data.result.nbFragments,
-          atoms: data.result.atoms,
+          atoms: JSON.parse(data.result.atoms),
           unsaturation: data.result.unsaturation,
         },
       };
