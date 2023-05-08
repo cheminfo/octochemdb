@@ -42,7 +42,7 @@ async function searchHandler(request) {
     fields = 'data.em,data.mf,data.unsaturation,data.charge,data.ocl.idCode',
   } = request.query;
 
-  if (limit > 1e4) limit = 1e4;
+  if (limit > 5e4) limit = 5e4;
   if (limit < 1) limit = 1;
 
   let connection;
