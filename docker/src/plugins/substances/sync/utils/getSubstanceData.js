@@ -69,8 +69,12 @@ export async function getSubstanceData(molecule) {
           unsaturation: data.result.unsaturation,
         },
       };
-      // check if atoms is not empty
-      if (data.result.atoms === null || data.result.atoms === undefined) {
+
+      if (
+        Object.keys(data.result.atoms).length !== 0 ||
+        data.result.atoms === null ||
+        data.result.atoms === undefined
+      ) {
         result.data.atoms = JSON.parse(data.result.atoms);
       } else {
         result.data.atoms = {};
