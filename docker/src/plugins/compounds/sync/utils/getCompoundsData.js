@@ -69,9 +69,7 @@ export async function getCompoundsData(molecule) {
           ocl: {
             idCode: data.result.idCode,
             coordinates: oclID.coordinates,
-            index: Array.from(
-              new Int32Array(new Uint8Array(data.result.ssIndex).buffer),
-            ),
+            index: data.result.index,
             noStereoTautomerID: data.result.noStereoTautomerID,
 
             acceptorCount: data.result.acceptorCount,
@@ -87,7 +85,7 @@ export async function getCompoundsData(molecule) {
           charge: data.result.charge,
           mw: data.result.mw,
           nbFragments: data.result.nbFragments,
-          atoms: JSON.parse(data.result.atoms),
+          atoms: data.result.atoms,
           unsaturation: data.result.unsaturation,
         },
       };
