@@ -57,8 +57,6 @@ async function searchHandler(request) {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('compounds');
 
-    debug(em);
-
     const results = await collection
       .aggregate([
         { $match: { 'data.em': { $lt: em + error, $gt: em - error } } },
