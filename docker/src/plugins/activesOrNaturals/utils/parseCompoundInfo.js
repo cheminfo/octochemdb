@@ -34,7 +34,7 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
       let idCode = oneDataEntry.data.ocl.idCode;
       let molecule = OCL.Molecule.fromIDCode(idCode);
       molecule.stripStereoInformation();
-      ocl.noStereoID = molecule.getIDCodeAndCoordinates().idCode;
+      ocl.idCode = molecule.getIDCodeAndCoordinates().idCode;
       ocl.coordinates = molecule.getIDCodeAndCoordinates().coordinates;
     }
   }
@@ -62,7 +62,7 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     entry.data.bioactive = false;
     cids[compoundInfo._id] = true;
   }
-  entry.data.ocl = ocl;
+  entry.data.noStereoOcl = ocl;
   let casNumbers = Object.keys(cas);
   let compoundsIds = Object.keys(cids);
   const parsedCompoundInfo = {
