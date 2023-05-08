@@ -82,6 +82,10 @@ parentPort?.on('message', async (dataEntry) => {
       massSpectraRefsForMassBank.forEach((ref) => {
         dbRefsMs.push(ref.dbRef);
       });
+      entry.data.nbPubmeds = 0;
+      entry.data.nbMassSpectra = 0;
+      entry.data.nbTaxonomies = 0;
+      entry.data.nbActivities = 0;
       if (entry.data.cids) {
         const uniqueMeshTerms = {};
         const uniquePmIds = {};
@@ -119,12 +123,12 @@ parentPort?.on('message', async (dataEntry) => {
         if (dbRefs.length > 0) {
           entry.data.pubmeds = dbRefs;
         }
-        entry.data.nbPubmeds = nbPubmeds;
+        entry.data.nbPubmeds += nbPubmeds;
       }
 
       if (dbRefsMs.length > 0) {
         entry.data.massSpectraRefs = dbRefsMs;
-        entry.data.nbMassSpectra = dbRefsMs.length;
+        entry.data.nbMassSpectra += dbRefsMs.length;
       }
       // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
       if (activityInfo.length > 0) {
@@ -151,12 +155,12 @@ parentPort?.on('message', async (dataEntry) => {
       // if activityInfo is not empty, define entry.data.activities
       if (activityInfo.length > 0) {
         entry.data.activities = activityInfo;
-        entry.data.nbActivities = activityInfo.length;
+        entry.data.nbActivities += activityInfo.length;
       }
       // if taxons is not empty, define entry.data.taxonomies
       if (taxons.length > 0) {
         entry.data.taxonomies = taxons;
-        entry.data.nbTaxonomies = taxons.length;
+        entry.data.nbTaxonomies += taxons.length;
       }
 
       if (entry) {
