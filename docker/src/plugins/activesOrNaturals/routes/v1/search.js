@@ -48,6 +48,68 @@ const entriesSearch = {
         example: 'antibiotic',
         default: '',
       },
+      isNaturalProduct: {
+        type: 'boolean',
+        description:
+          'if true, only natural products are returned, if false, only not natural compounds are returned and if undefined, both are returned',
+        default: undefined,
+      },
+      isBioactive: {
+        type: 'boolean',
+        description:
+          'if true, only bioactive compounds are returned, if false, only not bioactive compounds are returned and if undefined, both are returned',
+        default: undefined,
+      },
+      minNbMassSpectra: {
+        type: 'number',
+        description: 'minimum number of mass spectra',
+        default: 0,
+      },
+      maxNbMassSpectra: {
+        type: 'number',
+        description: 'Maximum number of mass spectra',
+        default: 0,
+      },
+      minNbActivities: {
+        type: 'number',
+        description: 'Minimum number of activities',
+        default: 0,
+      },
+      maxNbActivities: {
+        type: 'number',
+        description: 'Maximum number of activities',
+        default: 0,
+      },
+      minNbTaxonomies: {
+        type: 'number',
+        description: 'Minimum number of taxonomies',
+        default: 0,
+      },
+      maxNbTaxonomies: {
+        type: 'number',
+        description: 'Maximum number of taxonomies',
+        default: 0,
+      },
+      minNbPatents: {
+        type: 'number',
+        description: 'Minimum number of patents',
+        default: 0,
+      },
+      maxNbPatents: {
+        type: 'number',
+        description: 'Maximum number of patents',
+        default: 0,
+      },
+      minNbPubmeds: {
+        type: 'number',
+        description: 'Minimum of PubMed publications',
+        default: 0,
+      },
+      maxNbPubmeds: {
+        type: 'number',
+        description: 'Maximum of PubMed publications',
+        default: 0,
+      },
       limit: {
         type: 'number',
         description: 'Maximum number of results to return',
@@ -76,6 +138,18 @@ async function searchHandler(request) {
     kwBioassays = '',
     kwActiveAgainst = '',
     kwMeshTerms = '',
+    isNaturalProduct = undefined,
+    isBioactive = undefined,
+    minNbMassSpectra = 0,
+    maxNbMassSpectra = 0,
+    minNbActivities = 0,
+    maxNbActivities = 0,
+    minNbTaxonomies = 0,
+    maxNbTaxonomies = 0,
+    minNbPatents = 0,
+    maxNbPatents = 0,
+    minNbPubmeds = 0,
+    maxNbPubmeds = 0,
     limit = 1e3,
     precision = 100,
     fields = 'data.em,data.mf',
@@ -145,6 +219,63 @@ async function searchHandler(request) {
         $in: wordsToBeSearchedActiveAgainst,
       };
     }
+    if (isNaturalProduct !== undefined) {
+      matchParameter['data.naturalProduct'] = isNaturalProduct;
+    }
+    if (isBioactive !== undefined) {
+      matchParameter['data.bioactive'] = isBioactive;
+    }
+    if (minNbMassSpectra !== 0 && maxNbMassSpectra !== 0) {
+      matchParameter['data.nbMassSpectra'] = {
+        $gte: minNbMassSpectra,
+        $lte: maxNbMassSpectra,
+      };
+    } else if (minNbMassSpectra !== 0 && maxNbMassSpectra === 0) {
+      matchParameter['data.nbMassSpectra'] = { $gte: minNbMassSpectra };
+    } else if (maxNbMassSpectra !== 0 && minNbMassSpectra === 0) {
+      matchParameter['data.nbMassSpectra'] = { $lte: maxNbMassSpectra };
+    }
+    if (minNbActivities !== 0 && maxNbActivities !== 0) {
+      matchParameter['data.nbActivities'] = {
+        $gte: minNbActivities,
+        $lte: maxNbActivities,
+      };
+    } else if (minNbActivities !== 0 && maxNbActivities === 0) {
+      matchParameter['data.nbActivities'] = { $gte: minNbActivities };
+    } else if (maxNbActivities !== 0 && minNbActivities === 0) {
+      matchParameter['data.nbActivities'] = { $lte: maxNbActivities };
+    }
+    if (minNbTaxonomies !== 0 && maxNbTaxonomies !== 0) {
+      matchParameter['data.nbTaxonomies'] = {
+        $gte: minNbTaxonomies,
+        $lte: maxNbTaxonomies,
+      };
+    } else if (minNbTaxonomies !== 0 && maxNbTaxonomies === 0) {
+      matchParameter['data.nbTaxonomies'] = { $gte: minNbTaxonomies };
+    } else if (maxNbTaxonomies !== 0 && minNbTaxonomies === 0) {
+      matchParameter['data.nbTaxonomies'] = { $lte: maxNbTaxonomies };
+    }
+    if (minNbPatents !== 0 && maxNbPatents !== 0) {
+      matchParameter['data.nbPatents'] = {
+        $gte: minNbPatents,
+        $lte: maxNbPatents,
+      };
+    } else if (minNbPatents !== 0 && maxNbPatents === 0) {
+      matchParameter['data.nbPatents'] = { $gte: minNbPatents };
+    } else if (maxNbPatents !== 0 && minNbPatents === 0) {
+      matchParameter['data.nbPatents'] = { $lte: maxNbPatents };
+    }
+    if (minNbPubmeds !== 0 && maxNbPubmeds !== 0) {
+      matchParameter['data.nbPubmeds'] = {
+        $gte: minNbPubmeds,
+        $lte: maxNbPubmeds,
+      };
+    } else if (minNbPubmeds !== 0 && maxNbPubmeds === 0) {
+      matchParameter['data.nbPubmeds'] = { $gte: minNbPubmeds };
+    } else if (maxNbPubmeds !== 0 && minNbPubmeds === 0) {
+      matchParameter['data.nbPubmeds'] = { $lte: maxNbPubmeds };
+    }
+
     // search for the entries
     const results = await collection
       .aggregate([
