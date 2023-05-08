@@ -63,52 +63,52 @@ const entriesSearch = {
       minNbMassSpectra: {
         type: 'number',
         description: 'minimum number of mass spectra',
-        default: 0,
+        default: undefined,
       },
       maxNbMassSpectra: {
         type: 'number',
         description: 'Maximum number of mass spectra',
-        default: 0,
+        default: undefined,
       },
       minNbActivities: {
         type: 'number',
         description: 'Minimum number of activities',
-        default: 0,
+        default: undefined,
       },
       maxNbActivities: {
         type: 'number',
         description: 'Maximum number of activities',
-        default: 0,
+        default: undefined,
       },
       minNbTaxonomies: {
         type: 'number',
         description: 'Minimum number of taxonomies',
-        default: 0,
+        default: undefined,
       },
       maxNbTaxonomies: {
         type: 'number',
         description: 'Maximum number of taxonomies',
-        default: 0,
+        default: undefined,
       },
       minNbPatents: {
         type: 'number',
         description: 'Minimum number of patents',
-        default: 0,
+        default: undefined,
       },
       maxNbPatents: {
         type: 'number',
         description: 'Maximum number of patents',
-        default: 0,
+        default: undefined,
       },
       minNbPubmeds: {
         type: 'number',
         description: 'Minimum of PubMed publications',
-        default: 0,
+        default: undefined,
       },
       maxNbPubmeds: {
         type: 'number',
         description: 'Maximum of PubMed publications',
-        default: 0,
+        default: undefined,
       },
       limit: {
         type: 'number',
@@ -140,16 +140,16 @@ async function searchHandler(request) {
     kwMeshTerms = '',
     isNaturalProduct = undefined,
     isBioactive = undefined,
-    minNbMassSpectra = 0,
-    maxNbMassSpectra = 0,
-    minNbActivities = 0,
-    maxNbActivities = 0,
-    minNbTaxonomies = 0,
-    maxNbTaxonomies = 0,
-    minNbPatents = 0,
-    maxNbPatents = 0,
-    minNbPubmeds = 0,
-    maxNbPubmeds = 0,
+    minNbMassSpectra = undefined,
+    maxNbMassSpectra = undefined,
+    minNbActivities = undefined,
+    maxNbActivities = undefined,
+    minNbTaxonomies = undefined,
+    maxNbTaxonomies = undefined,
+    minNbPatents = undefined,
+    maxNbPatents = undefined,
+    minNbPubmeds = undefined,
+    maxNbPubmeds = undefined,
     limit = 1e3,
     precision = 100,
     fields = 'data.em,data.mf',
@@ -225,54 +225,60 @@ async function searchHandler(request) {
     if (isBioactive !== undefined) {
       matchParameter['data.bioactive'] = isBioactive;
     }
-    if (minNbMassSpectra !== 0 && maxNbMassSpectra !== 0) {
+    if (minNbMassSpectra !== undefined && maxNbMassSpectra !== undefined) {
       matchParameter['data.nbMassSpectra'] = {
         $gte: minNbMassSpectra,
         $lte: maxNbMassSpectra,
       };
-    } else if (minNbMassSpectra !== 0 && maxNbMassSpectra === 0) {
+    } else if (
+      minNbMassSpectra !== undefined &&
+      maxNbMassSpectra === undefined
+    ) {
       matchParameter['data.nbMassSpectra'] = { $gte: minNbMassSpectra };
-    } else if (maxNbMassSpectra !== 0 && minNbMassSpectra === 0) {
+    } else if (
+      maxNbMassSpectra !== undefined &&
+      minNbMassSpectra === undefined
+    ) {
       matchParameter['data.nbMassSpectra'] = { $lte: maxNbMassSpectra };
     }
-    if (minNbActivities !== 0 && maxNbActivities !== 0) {
+    if (minNbActivities !== undefined && maxNbActivities !== undefined) {
       matchParameter['data.nbActivities'] = {
         $gte: minNbActivities,
         $lte: maxNbActivities,
       };
-    } else if (minNbActivities !== 0 && maxNbActivities === 0) {
+    } else if (minNbActivities !== undefined && maxNbActivities === undefined) {
       matchParameter['data.nbActivities'] = { $gte: minNbActivities };
-    } else if (maxNbActivities !== 0 && minNbActivities === 0) {
+    } else if (maxNbActivities !== undefined && minNbActivities === undefined) {
       matchParameter['data.nbActivities'] = { $lte: maxNbActivities };
     }
-    if (minNbTaxonomies !== 0 && maxNbTaxonomies !== 0) {
+    if (minNbTaxonomies !== undefined && maxNbTaxonomies !== undefined) {
       matchParameter['data.nbTaxonomies'] = {
         $gte: minNbTaxonomies,
         $lte: maxNbTaxonomies,
       };
-    } else if (minNbTaxonomies !== 0 && maxNbTaxonomies === 0) {
+    } else if (minNbTaxonomies !== undefined && maxNbTaxonomies === undefined) {
       matchParameter['data.nbTaxonomies'] = { $gte: minNbTaxonomies };
-    } else if (maxNbTaxonomies !== 0 && minNbTaxonomies === 0) {
+    } else if (maxNbTaxonomies !== undefined && minNbTaxonomies === undefined) {
       matchParameter['data.nbTaxonomies'] = { $lte: maxNbTaxonomies };
     }
-    if (minNbPatents !== 0 && maxNbPatents !== 0) {
+    if (minNbPatents !== undefined && maxNbPatents !== undefined) {
       matchParameter['data.nbPatents'] = {
         $gte: minNbPatents,
         $lte: maxNbPatents,
       };
-    } else if (minNbPatents !== 0 && maxNbPatents === 0) {
+    } else if (minNbPatents !== undefined && maxNbPatents === undefined) {
       matchParameter['data.nbPatents'] = { $gte: minNbPatents };
-    } else if (maxNbPatents !== 0 && minNbPatents === 0) {
+    } else if (maxNbPatents !== undefined && minNbPatents === undefined) {
       matchParameter['data.nbPatents'] = { $lte: maxNbPatents };
     }
-    if (minNbPubmeds !== 0 && maxNbPubmeds !== 0) {
+    if (minNbPubmeds !== undefined && maxNbPubmeds !== undefined) {
       matchParameter['data.nbPubmeds'] = {
         $gte: minNbPubmeds,
         $lte: maxNbPubmeds,
       };
-    } else if (minNbPubmeds !== 0 && maxNbPubmeds === 0) {
+    } else if (minNbPubmeds !== undefined && maxNbPubmeds === undefined) {
       matchParameter['data.nbPubmeds'] = { $gte: minNbPubmeds };
-    } else if (maxNbPubmeds !== 0 && minNbPubmeds === 0) {
+    } else if (maxNbPubmeds !== undefined && minNbPubmeds === undefined) {
       matchParameter['data.nbPubmeds'] = { $lte: maxNbPubmeds };
     }
 
