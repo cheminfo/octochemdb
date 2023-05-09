@@ -31,7 +31,7 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
       cas[oneDataEntry.data.cas] = true;
     }
     if (!ocl.coordinates) {
-      if (!data.ocl.idCode) {
+      if (oneDataEntry.data.ocl.noStereoID !== undefined) {
         ocl.coordinates = oneDataEntry.data.ocl.coordinates;
         ocl.idCode = oneDataEntry.data.ocl.noStereoID;
       } else {
@@ -53,7 +53,10 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
       }
     }
 
-    let compoundData = await getCompoundsData({ idCode: idToSearch });
+    let compoundData = await getCompoundsData(
+      { idCode: idToSearch },
+      { indexRequired: false },
+    );
     entry.data.em = compoundData?.data.em;
     entry.data.charge = compoundData?.data.charge;
     entry.data.unsaturation = compoundData?.data.unsaturation;

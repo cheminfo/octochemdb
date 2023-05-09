@@ -36,8 +36,8 @@ test(
     if (result?._seq) {
       delete result._seq;
     }
-    if (result?.data?.noStereoOcl?.coordinates) {
-      delete result.data.noStereoOcl.coordinates;
+    if (result?.data?.noStereoOCL?.coordinates) {
+      delete result.data.noStereoOCL.coordinates;
     }
     expect(result).toMatchSnapshot();
     await connection.close();

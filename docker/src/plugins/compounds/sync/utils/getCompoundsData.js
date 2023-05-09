@@ -11,8 +11,12 @@ const debug = debugLibrary('getCompoundsData');
  * @param {*} molecule molecule from pubchem file
  * @returns  compounds properties
  */
-export async function getCompoundsData(molecule) {
+export async function getCompoundsData(molecule, options = {}) {
   //console.log(OCL.Molecule.fromIDCode(molecule.idCode));
+
+  if (!('indexRequired' in options)) {
+    options.indexRequired = true;
+  }
   try {
     let oclMolecule;
     if (molecule.molfile) {
@@ -69,9 +73,6 @@ export async function getCompoundsData(molecule) {
           ocl: {
             idCode: data.result.idCode,
             coordinates: oclID.coordinates,
-            index: Array.from(
-              new Int32Array(new Uint8Array(data.result.ssIndex).buffer),
-            ),
             noStereoTautomerID: data.result.noStereoTautomerID,
 
             acceptorCount: data.result.acceptorCount,
@@ -91,6 +92,11 @@ export async function getCompoundsData(molecule) {
           unsaturation: data.result.unsaturation,
         },
       };
+      if (indexRequired) {
+        result.data.ocl.index = Array.from(
+          new Int32Array(new Uint8Array(data.result.ssIndex).buffer),
+        );
+      }
       return result;
     } else {
       debug(`Error: ${dataCompound?.status} ${dataCompound}`);
