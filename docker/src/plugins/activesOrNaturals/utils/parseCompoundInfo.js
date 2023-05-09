@@ -31,11 +31,16 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
       cas[oneDataEntry.data.cas] = true;
     }
     if (!ocl.coordinates) {
-      let idCode = oneDataEntry.data.ocl.idCode;
-      let molecule = OCL.Molecule.fromIDCode(idCode);
-      molecule.stripStereoInformation();
-      ocl.idCode = molecule.getIDCodeAndCoordinates().idCode;
-      ocl.coordinates = molecule.getIDCodeAndCoordinates().coordinates;
+      if (!data.ocl.idCode) {
+        ocl.coordinates = oneDataEntry.data.ocl.coordinates;
+        ocl.idCode = oneDataEntry.data.ocl.noStereoID;
+      } else {
+        let idCode = oneDataEntry.data.ocl.idCode;
+        let molecule = OCL.Molecule.fromIDCode(idCode);
+        molecule.stripStereoInformation();
+        ocl.idCode = molecule.getIDCodeAndCoordinates().idCode;
+        ocl.coordinates = molecule.getIDCodeAndCoordinates().coordinates;
+      }
     }
   }
 
@@ -62,7 +67,7 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     entry.data.bioactive = false;
     cids[compoundInfo._id] = true;
   }
-  entry.data.noStereoOcl = ocl;
+  entry.data.noStereoOCL = ocl;
   let casNumbers = Object.keys(cas);
   let compoundsIds = Object.keys(cids);
   const parsedCompoundInfo = {
