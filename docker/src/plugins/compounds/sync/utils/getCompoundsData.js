@@ -92,7 +92,7 @@ export async function getCompoundsData(molecule, options = {}) {
           unsaturation: data.result.unsaturation,
         },
       };
-      if (indexRequired) {
+      if (options.indexRequired) {
         result.data.ocl.index = Array.from(
           new Int32Array(new Uint8Array(data.result.ssIndex).buffer),
         );
