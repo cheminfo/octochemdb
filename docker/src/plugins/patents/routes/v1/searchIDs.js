@@ -12,8 +12,8 @@ const searchIDs = {
     querystring: {
       patentsIDs: {
         type: 'string',
-        description: 'patents IDs comma separated',
-        example: 'CN101597246A, KR20170097520A',
+        description: 'patents IDs',
+        example: 'EP-2078065-A2, EP-1293521-A2',
         default: '',
       },
       keywords: {
