@@ -6,344 +6,130 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
   "data": {
     "activities": [
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
+        "dbRef": {
+          "$id": "LTS0257199",
+          "$ref": "lotuses",
+        },
+      },
+      {
         "dbRef": {
           "$id": "59478_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "61929_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "67115_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "68553_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "76598_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "77111_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "77250_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "80565_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "81146_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "84145_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "88579_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "89216_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "90481_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "95282_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "96028_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "96679_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "5351335_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "5351409_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "5351514_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
       {
-        "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
         "dbRef": {
           "$id": "5351641_1",
           "$ref": "bioassays",
         },
-        "targetTaxonomies": [
-          {
-            "class": "Candidatus Borrarchaeia",
-            "family": "Candidatus Borrarchaeaceae",
-            "genus": "Candidatus Borrarchaeum",
-            "order": "Candidatus Borrarchaeales",
-            "phylum": "Candidatus Borrarchaeota",
-            "superkingdom": "Archaea",
-          },
-        ],
       },
     ],
     "bioactive": true,
@@ -383,7 +169,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     ],
     "mf": "C37H60O8",
     "naturalProduct": true,
-    "nbActivities": 20,
+    "nbActivities": 21,
     "nbMassSpectra": 0,
     "nbPatents": 3,
     "nbPubmeds": 0,

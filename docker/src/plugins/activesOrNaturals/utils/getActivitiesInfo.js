@@ -10,7 +10,7 @@ const debug = debugLibrary('getActivityInfo');
 export default async function getActivitiesInfo(data, connection) {
   try {
     let activityInfo = [];
-
+    let activityDBRefs = [];
     for (const entry of data) {
       if (activityInfo.length > 999) {
         break;
@@ -18,13 +18,13 @@ export default async function getActivitiesInfo(data, connection) {
       if (entry.collection === 'bioassays') {
         let activity = {
           assay: entry.data.assay,
-          dbRef: { $ref: entry.collection, $id: entry._id },
         };
         if (entry.data.targetTaxonomies) {
           activity.targetTaxonomies = entry.data.targetTaxonomies;
         }
         activityInfo.push(activity);
       }
+
       if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
         if (entry.data.activities) {
           for (let activity of entry.data.activities) {
@@ -35,10 +35,14 @@ export default async function getActivitiesInfo(data, connection) {
           }
         }
       }
+      activityDBRefs.push({
+        dbRef: { $ref: entry.collection, $id: entry._id },
+      });
     }
     let activityInfos = [...new Set(activityInfo)];
+    let activityDBRef = [...new Set(activityDBRefs)];
 
-    return activityInfos;
+    return { activityInfos, activityDBRef };
   } catch (e) {
     if (connection) {
       debug(e.message, {

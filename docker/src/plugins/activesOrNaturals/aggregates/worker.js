@@ -58,7 +58,10 @@ parentPort?.on('message', async (dataEntry) => {
       let dbRefsMs = [];
       let taxons = await getTaxonomiesInfo(data, connection);
       // get unique activities from all collections for the current noStereoTautomerIDs
-      let activityInfo = await getActivitiesInfo(data, connection);
+      let { activityInfos, activityDBRef } = await getActivitiesInfo(
+        data,
+        connection,
+      );
       // get unique compound information from all collections for the current noStereoTautomerIDs
       entry = await getCompoundsInfo(
         entry,
@@ -128,14 +131,14 @@ parentPort?.on('message', async (dataEntry) => {
         entry.data.nbMassSpectra += dbRefsMs.length;
       }
       // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
-      if (activityInfo.length > 0) {
+      if (activityInfos.length > 0) {
         entry.data.bioactive = true;
-        const keywordsActivities = getActivityKeywords(activityInfo);
+        const keywordsActivities = getActivityKeywords(activityInfos);
         if (keywordsActivities.length > 0) {
           keywordsActivities.sort();
           entry.data.kwBioassays = keywordsActivities;
         }
-        const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfo);
+        const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfos);
 
         if (keywordsActiveAgainst.length > 0) {
           keywordsActiveAgainst.sort();
@@ -150,9 +153,9 @@ parentPort?.on('message', async (dataEntry) => {
         }
       }
       // if activityInfo is not empty, define entry.data.activities
-      if (activityInfo.length > 0) {
-        entry.data.activities = activityInfo;
-        entry.data.nbActivities += activityInfo.length;
+      if (activityDBRef.length > 0) {
+        entry.data.activities = activityDBRef;
+        entry.data.nbActivities += activityDBRef.length;
       }
       // if taxons is not empty, define entry.data.taxonomies
       if (taxons.length > 0) {
