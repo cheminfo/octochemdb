@@ -19,7 +19,6 @@ export default async function insertAbstract(filneName, connection) {
       // PATENT ID
       let regex = /patent:(?<temp1>.*)/;
       let patentID = fields[0].match(regex).groups.temp1;
-      patentID = patentID.replace(/-/g, '');
       // ABSTRACT
       regex = /"(?<temp1>.*)"/;
       let abstract = fields[2].match(regex).groups.temp1;

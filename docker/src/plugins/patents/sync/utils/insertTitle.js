@@ -22,7 +22,7 @@ export default async function insertTitle(filneName, connection) {
       // PATENT ID
       let regex = /patent:(?<temp1>.*)/;
       let patentID = fields[0].match(regex).groups.temp1;
-      patentID = patentID.replace(/-/g, '');
+
       // TITLE
       regex = /"(?<temp1>.*)"/;
       let title = fields[2].match(regex).groups.temp1;

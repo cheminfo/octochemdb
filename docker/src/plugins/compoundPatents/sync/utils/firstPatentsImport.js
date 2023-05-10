@@ -22,7 +22,6 @@ export default async function firstPatentsImport(filneName, connection) {
       if (fields.length !== 2) continue;
       let [productID, patentID] = fields;
 
-      patentID = patentID.replace(/-/g, '');
       if (currentProductID === -1) {
         currentProductID = Number(productID);
       }
@@ -38,7 +37,7 @@ export default async function firstPatentsImport(filneName, connection) {
             $set: {
               _id: Number(currentProductID),
               _seq: ++progress.seq,
-              data: { patents: entry.slice(0, 1000), nbPatents: entry.length },
+              data: { patents: entry.slice(0, 10000), nbPatents: entry.length },
             },
           },
           { upsert: true },
