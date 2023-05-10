@@ -179,7 +179,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     },
     "patents": [
       {
-        "$id": "EP2078065A2",
+        "$id": "EP-2078065-A2",
         "$ref": "patents",
       },
     ],
