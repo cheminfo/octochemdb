@@ -30,21 +30,34 @@ export async function aggregate(connection) {
           $project: {
             _id: 0,
             mf: '$data.mf',
-            em: '$data.em',
-            unsaturation: '$data.unsaturation',
-            atoms: '$data.atoms',
+            data: {
+              em: '$data.em',
+              unsaturation: '$data.unsaturation',
+              atoms: '$data.atoms',
+            },
+            count: 1,
           },
         },
         {
           $group: {
             _id: '$mf',
-            em: { $first: '$em' },
-            unsaturation: { $first: '$unsaturation' },
-            atoms: { $first: '$atoms' },
+            data: { $first: '$data' },
             count: { $sum: 1 },
           },
         },
+
         { $match: { count: { $gte: 5 } } }, // only MFs with at least 5 products in pubchem
+        {
+          $project: {
+            _id: '$_id',
+            data: {
+              em: '$data.em',
+              atoms: '$data.atoms',
+              unsaturation: '$data.unsaturation',
+              count: '$count',
+            },
+          },
+        },
         { $out: 'mfsCommon_tmp' },
       ],
       {
