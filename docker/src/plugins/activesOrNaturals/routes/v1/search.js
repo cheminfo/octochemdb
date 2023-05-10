@@ -1,4 +1,5 @@
 import escapeRegExp from 'lodash.escaperegexp';
+import { MF } from 'mf-parser';
 
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
@@ -21,6 +22,11 @@ const entriesSearch = {
         type: 'number',
         description: 'Precision (in ppm) of the monoisotopic mass',
         default: 100,
+      },
+      mf: {
+        type: 'string',
+        description: 'MF of the compound',
+        example: '',
       },
       kwActiveAgainst: {
         type: 'string',
@@ -134,6 +140,7 @@ export default entriesSearch;
 async function searchHandler(request) {
   let {
     em = 0,
+    mf = '',
     kwTaxonomies = '',
     kwBioassays = '',
     kwActiveAgainst = '',
@@ -200,7 +207,10 @@ async function searchHandler(request) {
     formattedFields._id = 0;
     // define match parameters for the search, the $in operator is used to search for multiple words and is true if at least one of the words is found
     let matchParameter = {};
-    if (em) {
+    if (mf) {
+      let mfinfo = new MF(mf).getInfo();
+      matchParameter['data.mf'] = mfinfo.mf;
+    } else if (em) {
       matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
     }
     if (kwTaxonomies) {
