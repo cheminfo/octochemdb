@@ -13,11 +13,13 @@ export default async function getCIDs(connection, noStereoTautomerID) {
     ])
     .toArray();
   let cids = [];
+  let cidsDBRef = [];
   if (result.length > 0) {
     for (let cid of result) {
+      // create a DBRef for each cid
+      cidsDBRef.push({ $ref: 'compounds', $id: cid.cid });
       cids.push(cid.cid);
     }
   }
-  return cids;
+  return { cids, cidsDBRef };
 }
-//compoundsIds: [ 59478, <59477 empty items>, true ]

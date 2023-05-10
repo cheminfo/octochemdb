@@ -349,7 +349,10 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "bioactive": true,
     "charge": 0,
     "cids": [
-      59478,
+      {
+        "$id": 59478,
+        "$ref": "compounds",
+      },
     ],
     "em": 632.42881889036,
     "kwActiveAgainst": [

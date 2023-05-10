@@ -38,6 +38,7 @@ export default async function getCompoundsInfo(
     const meshTerms = parsedCompoundInfo.meshTerms;
     entry = parsedCompoundInfo.entry;
     const compoundsIDs = parsedCompoundInfo.compoundsIds;
+    const dbRefsCompounds = parsedCompoundInfo.cidsDBRef;
 
     let compoundsPatents;
     let nbPatents = 0;
@@ -68,8 +69,8 @@ export default async function getCompoundsInfo(
       }
       entry.data.patents = dbRefsPatents;
     }
-    if (compoundsIDs.length > 0) {
-      entry.data.cids = compoundsIDs;
+    if (dbRefsCompounds.length > 0) {
+      entry.data.cids = dbRefsCompounds;
     }
     if (casNumber.length > 0) {
       entry.data.cas = casNumber;
