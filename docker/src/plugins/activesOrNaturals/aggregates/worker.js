@@ -92,21 +92,18 @@ parentPort?.on('message', async (dataEntry) => {
         let nbPubmeds = 0;
         const pubmedCollection = await connection.getCollection('pubmeds');
 
-        for (let i = 0; i < entry.data.cids.length; i++) {
-          let cid = Number(entry.data.cids[i]);
-          const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
-            cid,
-            pubmedCollection,
-            connection,
-          );
-          nbPubmeds += Number(counterPmids);
-          meshTermsForCid.forEach((term) => {
-            uniqueMeshTerms[term] = true;
-          });
-          pmIds.forEach((id) => {
-            uniquePmIds[id] = true;
-          });
-        }
+        const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
+          entry.data.cids,
+          pubmedCollection,
+          connection,
+        );
+        nbPubmeds += Number(counterPmids);
+        meshTermsForCid.forEach((term) => {
+          uniqueMeshTerms[term] = true;
+        });
+        pmIds.forEach((id) => {
+          uniquePmIds[id] = true;
+        });
 
         let dbRefs = Object.keys(uniquePmIds).map((id) => ({
           $ref: 'pubmeds',

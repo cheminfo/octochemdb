@@ -2,23 +2,26 @@ import debugLibrary from '../../../utils/Debug.js';
 
 /**
  * @description Get the mesh terms and dbRef for a given cid inside the pubmeds collection
- * @param {Number} cid CID
+ * @param {Array} cids CIDs
  * @param {*} collection : PUBMEDS collection
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
  */
-export async function getMeshTerms(cid, collection, connection) {
+export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
   try {
-    const cursor = await collection
-      .find({
-        'data.cids': cid,
-      })
-      .limit(1000);
+    const result = await collection
+      .aggregate([
+        { $match: { 'data.cids': { $in: cids } } },
+        {
+          $limit: 1000,
+        },
+      ])
+      .toArray();
+
     let uniqueMeshTerms = {};
     let pmids = [];
-    while (await cursor.hasNext()) {
-      const doc = await cursor.next();
+    for (let doc of result) {
       if (doc.data.meshHeadings) {
         for (let meshHeading of doc.data.meshHeadings) {
           if (meshHeading.descriptorName) {
@@ -29,8 +32,9 @@ export async function getMeshTerms(cid, collection, connection) {
         pmids.push(doc._id);
       }
     }
+
     const counterPmids = await collection.countDocuments({
-      'data.cids': cid,
+      'data.cids': { $in: cids },
     });
     return {
       meshTermsForCid: Object.keys(uniqueMeshTerms),
