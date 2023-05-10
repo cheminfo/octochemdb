@@ -7,16 +7,17 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('entriesSearch');
 // export the handler
 const entriesSearch = {
-  method: 'GET',
+  method: ['GET', 'POST'],
   schema: {
     summary: 'Retrieve compounds from a monoisotopic mass',
     description:
       'Allows to search for compounds based on a monoisotopic mass and precision (accuracy) of the measurement. \n Optional parameters can be used to filter the results based on their taxonomy, bioactivity and topic (MeSH terms) of PubMed publications related to the the molecules.',
     querystring: {
       em: {
-        type: 'number',
+        type: 'string',
         description: 'Monoisotopic mass (in Da)',
-        example: 300.123,
+        example: '300.123, 259.0237',
+        default: '',
       },
       precision: {
         type: 'number',
@@ -138,8 +139,14 @@ export default entriesSearch;
  * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
  */
 async function searchHandler(request) {
+  let data;
+  if (request.method === 'GET') {
+    data = request.query;
+  } else {
+    data = request.body;
+  }
   let {
-    em = 0,
+    em = '',
     mf = '',
     kwTaxonomies = '',
     kwBioassays = '',
@@ -160,7 +167,7 @@ async function searchHandler(request) {
     limit = 1e3,
     precision = 100,
     fields = 'data.em,data.mf',
-  } = request.query;
+  } = data;
   // This keywords use regular expressions to search even for incomplete terms
   let wordsWithRegexBioassays = [];
   let wordsWithRegexMeshTerms = [];
@@ -197,7 +204,7 @@ async function searchHandler(request) {
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
   // define the error allowed for the search
-  let error = (em / 1e6) * precision;
+
   let connection;
   try {
     connection = new OctoChemConnection();
@@ -207,11 +214,32 @@ async function searchHandler(request) {
     formattedFields._id = 0;
     // define match parameters for the search, the $in operator is used to search for multiple words and is true if at least one of the words is found
     let matchParameter = {};
+
     if (mf !== '') {
       let mfinfo = new MF(mf).getInfo();
       matchParameter['data.mf'] = mfinfo.mf;
-    } else if (em) {
-      matchParameter['data.em'] = { $lt: em + error, $gt: em - error };
+    }
+    let error;
+    let ems = em
+      .split(/[ ,;\t\r\n]+/)
+      .filter((entry) => entry)
+      .map(Number);
+    if (ems.length > 1) {
+      let match = [];
+
+      for (let em of ems) {
+        error = (em / 1e6) * precision;
+        match.push({
+          'data.em': { $lt: em + error, $gt: em - error },
+        });
+      }
+      matchParameter = { $or: match };
+    } else if (ems.length === 1 && ems[0] !== '') {
+      error = (ems[0] / 1e6) * precision;
+
+      matchParameter = {
+        'data.em': { $lt: ems[0] + error, $gt: ems[0] - error },
+      };
     }
     if (kwTaxonomies) {
       matchParameter['data.kwTaxonomies'] = {
