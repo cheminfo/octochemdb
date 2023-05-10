@@ -4,11 +4,6 @@ exports[`Aggregation mfsCHNOSClF 1`] = `
 {
   "_id": "C100H110N4",
   "data": {
-    "atoms": {
-      "C": 100,
-      "H": 110,
-      "N": 4,
-    },
     "count": 5,
     "em": 1366.87304956302,
     "unsaturation": 48,
