@@ -207,7 +207,7 @@ async function searchHandler(request) {
     formattedFields._id = 0;
     // define match parameters for the search, the $in operator is used to search for multiple words and is true if at least one of the words is found
     let matchParameter = {};
-    if (mf) {
+    if (mf !== '') {
       let mfinfo = new MF(mf).getInfo();
       matchParameter['data.mf'] = mfinfo.mf;
     } else if (em) {
