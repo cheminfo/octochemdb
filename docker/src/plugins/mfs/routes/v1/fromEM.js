@@ -35,7 +35,7 @@ const fromEMs = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'em,_id,count,atoms,unsaturation',
+        default: 'data',
       },
     },
   },
@@ -56,7 +56,7 @@ async function searchHandler(request) {
     minCount = 5,
     limit = 1e3,
     precision = 100,
-    fields = 'em,_id,count,atoms,unsaturation',
+    fields = 'data',
   } = data;
 
   if (limit > 1e4) limit = 1e4;
@@ -78,8 +78,8 @@ async function searchHandler(request) {
       for (let em of ems) {
         error = (em / 1e6) * precision;
         match.push({
-          em: { $lt: em + error, $gt: em - error },
-          count: { $gte: minCount },
+          'data.em': { $lt: em + error, $gt: em - error },
+          'data.count': { $gte: minCount },
         });
       }
       matchParameters = { $or: match };
@@ -87,12 +87,11 @@ async function searchHandler(request) {
       error = (ems[0] / 1e6) * precision;
 
       matchParameters = {
-        em: { $lt: ems[0] + error, $gt: ems[0] - error },
-        count: { $gte: minCount },
+        'data.em': { $lt: ems[0] + error, $gt: ems[0] - error },
+        'data.count': { $gte: minCount },
       };
     }
     let fieldsToRetrieve = getFields(fields);
-    debug(JSON.stringify(matchParameters));
     const results = await collection
       .aggregate([
         {
