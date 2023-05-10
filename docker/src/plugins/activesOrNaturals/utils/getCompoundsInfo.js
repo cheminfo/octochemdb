@@ -28,6 +28,8 @@ export default async function getCompoundsInfo(
     let compoundInfo = await cursor.next();
     const parsedCompoundInfo = await parseCompoundInfo(
       compoundInfo,
+      noStereoTautomerID,
+      connection,
       entry,
       data,
     );
@@ -45,7 +47,7 @@ export default async function getCompoundsInfo(
         let currentCid = Number(compound);
         let cursor = await patentsCollection.find({ _id: currentCid });
         let patent = await cursor.next();
-        if (patent !== null) {
+        if (patent !== null || patent !== undefined) {
           compoundsPatents = patent.data.patents;
           nbPatents += patent.data.nbPatents;
         }
@@ -66,12 +68,18 @@ export default async function getCompoundsInfo(
       }
       entry.data.patents = dbRefsPatents;
     }
-    if (compoundsIDs.length > 0) entry.data.cids = compoundsIDs;
-    if (casNumber.length > 0) entry.data.cas = casNumber;
+    if (compoundsIDs.length > 0) {
+      entry.data.cids = compoundsIDs;
+    }
+    if (casNumber.length > 0) {
+      entry.data.cas = casNumber;
+    }
     if (pmids.length > 0) {
       entry.data.pmids = pmids;
     }
-    if (meshTerms.length > 0) entry.data.meshTerms = meshTerms;
+    if (meshTerms.length > 0) {
+      entry.data.meshTerms = meshTerms;
+    }
     return entry;
   } catch (e) {
     if (connection) {

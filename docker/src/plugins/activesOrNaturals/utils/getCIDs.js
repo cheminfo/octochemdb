@@ -1,0 +1,23 @@
+export default async function getCIDs(connection, noStereoTautomerID) {
+  let compoundsCollection = await connection.getCollection('compounds');
+  let result = await compoundsCollection
+    .aggregate([
+      { $match: { 'data.ocl.noStereoTautomerID': noStereoTautomerID } },
+      {
+        $project: {
+          _id: 0,
+          // get the id named as cid
+          cid: '$_id',
+        },
+      },
+    ])
+    .toArray();
+  let cids = [];
+  if (result.length > 0) {
+    for (let cid of result) {
+      cids.push(cid.cid);
+    }
+  }
+  return cids;
+}
+//compoundsIds: [ 59478, <59477 empty items>, true ]

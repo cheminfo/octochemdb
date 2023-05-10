@@ -2,12 +2,21 @@ import OCL from 'openchemlib';
 
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
-export default async function parseCompoundInfo(compoundInfo, entry, data) {
-  let cids = {};
+import getCIDs from './getCIDs.js';
+
+export default async function parseCompoundInfo(
+  compoundInfo,
+  noStereoTautomerID,
+  connection,
+  entry,
+  data,
+) {
   let cas = {};
   let pmids = [];
   let meshTerms = [];
   let ocl = {};
+  let cids = await getCIDs(connection, noStereoTautomerID);
+
   for (const oneDataEntry of data) {
     if (oneDataEntry.data.pmids) {
       oneDataEntry.data.pmids.forEach((k) => {
@@ -24,9 +33,6 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
       });
     }
 
-    if (oneDataEntry.data.cid) {
-      cids[oneDataEntry.data.cid] = true;
-    }
     if (oneDataEntry.data.cas) {
       cas[oneDataEntry.data.cas] = true;
     }
@@ -68,14 +74,12 @@ export default async function parseCompoundInfo(compoundInfo, entry, data) {
     entry.data.unsaturation = compoundInfo.data.unsaturation;
     entry.data.mf = compoundInfo.data.mf;
     entry.data.bioactive = false;
-    cids[compoundInfo._id] = true;
   }
   entry.data.noStereoOCL = ocl;
   let casNumbers = Object.keys(cas);
-  let compoundsIds = Object.keys(cids);
   const parsedCompoundInfo = {
     entry,
-    compoundsIds,
+    compoundsIds: cids,
     casNumbers,
     meshTerms,
     pmids,
