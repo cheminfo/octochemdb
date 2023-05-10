@@ -35,7 +35,7 @@ const fromEM = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'em,_id,count,atom,unsaturation',
+        default: 'em,_id,count,atoms,unsaturation',
       },
     },
   },
@@ -50,7 +50,7 @@ async function searchHandler(request) {
     minCount = 5,
     limit = 1e3,
     precision = 100,
-    fields = 'em,_id,count,atom,unsaturation',
+    fields = 'em,_id,count,atoms,unsaturation',
   } = request.query;
 
   if (limit > 1e4) limit = 1e4;
