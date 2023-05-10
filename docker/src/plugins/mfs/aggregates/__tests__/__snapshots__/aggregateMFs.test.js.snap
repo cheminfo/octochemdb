@@ -3,14 +3,16 @@
 exports[`Aggregation mfs 1`] = `
 {
   "_id": "C12H9N3S2",
-  "atoms": {
-    "C": 12,
-    "H": 9,
-    "N": 3,
-    "S": 2,
+  "data": {
+    "atoms": {
+      "C": 12,
+      "H": 9,
+      "N": 3,
+      "S": 2,
+    },
+    "count": 1,
+    "em": 259.02378965215996,
+    "unsaturation": 10,
   },
-  "count": 1,
-  "em": 259.02378965215996,
-  "unsaturation": 10,
 }
 `;

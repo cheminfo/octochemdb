@@ -34,19 +34,32 @@ export async function aggregate(connection) {
         {
           $project: {
             _id: 0,
+
             mf: '$data.mf',
-            em: '$data.em',
-            unsaturation: '$data.unsaturation',
-            atoms: '$data.atoms',
+            data: {
+              em: '$data.em',
+              unsaturation: '$data.unsaturation',
+              atoms: '$data.atoms',
+            },
+            count: 1,
           },
         },
         {
           $group: {
             _id: '$mf',
-            em: { $first: '$em' },
-            unsaturation: { $first: '$unsaturation' },
-            atoms: { $first: '$atoms' },
+            data: { $first: '$data' },
             count: { $sum: 1 },
+          },
+        },
+        {
+          $project: {
+            _id: '$_id',
+            data: {
+              em: '$data.em',
+              atoms: '$data.atoms',
+              unsaturation: '$data.unsaturation',
+              count: '$count',
+            },
           },
         },
         { $out: 'mfs_tmp' },
