@@ -74,7 +74,7 @@ async function searchHandler(request) {
       formattedFields.score = { $meta: 'textScore' };
     }
     if (patentsIDs !== '') {
-      matchParameters._id = { $in: patentsIDs.split(',') };
+      matchParameters._id = { $in: patentsIDs.split(/[ ,;\t\r\n]+/) };
     }
     if (keywords !== '' && patentsIDs !== '') {
       aggregateParameters = [

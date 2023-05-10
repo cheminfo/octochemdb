@@ -58,7 +58,7 @@ async function searchHandler(request) {
   let {
     pmids = '',
     keywords = '',
-    fields = 'data.article.title, _id, data.article.abstract,data.meshHeadings',
+    fields = 'data',
     minScore = 0,
     limit = 100,
   } = data;
@@ -78,7 +78,10 @@ async function searchHandler(request) {
     }
     if (pmids !== '') {
       matchParameters._id = {
-        $in: pmids.split(',').map((pmid) => Number(pmid)),
+        $in: pmids
+          .split(/[ ,;\t\r\n]+/)
+          .filter((entry) => entry)
+          .map(Number),
       };
     }
     if (keywords !== '' && pmids !== '') {
