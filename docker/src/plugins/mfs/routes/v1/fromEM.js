@@ -4,18 +4,18 @@ import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromEM');
 
-const fromEM = {
-  method: 'GET',
+const fromEMs = {
+  method: ['GET', 'POST'],
   schema: {
     summary: 'Find molecular formula from a monoisotopic mass',
     description:
       'Useful to retrieve all the molecular formula that have a given monoisotopic mass',
     querystring: {
       em: {
-        type: 'number',
+        type: 'string',
         description: 'Monoisotopic mass',
-        example: 300.123,
-        default: null,
+        example: '300.123, 259.0237',
+        default: '',
       },
       minCount: {
         type: 'number',
@@ -42,50 +42,66 @@ const fromEM = {
   handler: searchHandler,
 };
 
-export default fromEM;
+export default fromEMs;
 
 async function searchHandler(request) {
+  let data;
+  if (request.method === 'GET') {
+    data = request.query;
+  } else {
+    data = request.body;
+  }
   let {
-    em = 0,
+    em = '',
     minCount = 5,
     limit = 1e3,
     precision = 100,
     fields = 'em,_id,count,atoms,unsaturation',
-  } = request.query;
+  } = data;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
-  let error = (em / 1e6) * precision;
 
   let connection;
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('mfs');
+    let ems = em
+      .split(/[ ,;\t\r\n]+/)
+      .filter((entry) => entry)
+      .map(Number);
+    let matchParameters;
+    let error;
+    if (ems.length > 1) {
+      let match = [];
 
+      for (let em of ems) {
+        error = (em / 1e6) * precision;
+        match.push({
+          em: { $lt: em + error, $gt: em - error },
+          count: { $gte: minCount },
+        });
+      }
+      matchParameters = { $or: match };
+    } else if (ems.length === 1 && ems[0] !== '') {
+      error = (ems[0] / 1e6) * precision;
+
+      matchParameters = {
+        em: { $lt: ems[0] + error, $gt: ems[0] - error },
+        count: { $gte: minCount },
+      };
+    }
     let fieldsToRetrieve = getFields(fields);
-
+    debug(JSON.stringify(matchParameters));
     const results = await collection
       .aggregate([
         {
-          $match: {
-            em: { $lt: em + error, $gt: em - error },
-            count: { $gte: minCount },
-          },
+          $match: matchParameters,
         },
         {
           $project: fieldsToRetrieve,
         },
-        {
-          $addFields: {
-            ppm: {
-              $divide: [
-                { $multiply: [{ $abs: { $subtract: ['$em', em] } }, 1e6] },
-                em,
-              ],
-            },
-          },
-        },
-        { $sort: { ppm: 1 } },
+
         { $limit: Number(limit) },
       ])
       .toArray();
