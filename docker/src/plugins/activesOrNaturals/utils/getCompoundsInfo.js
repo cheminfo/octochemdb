@@ -18,8 +18,9 @@ export default async function getCompoundsInfo(
   compoundsCollection,
   noStereoTautomerID,
   connection,
-  patentsCollection,
+  compoundPatentsCollection,
 ) {
+  //getCompoundsInfo Cannot read properties of null (reading 'data')
   try {
     let cursor = await compoundsCollection
       .find({ 'data.ocl.noStereoTautomerID': noStereoTautomerID })
@@ -46,11 +47,11 @@ export default async function getCompoundsInfo(
     if (compoundsIDs.length > 0) {
       for (let compound of compoundsIDs) {
         let currentCid = Number(compound);
-        let cursor = await patentsCollection.find({ _id: currentCid });
-        let patent = await cursor.next();
-        if (patent !== null || patent !== undefined) {
-          compoundsPatents = patent.data.patents;
-          nbPatents += patent.data.nbPatents;
+        let cursor = await compoundPatentsCollection.find({ _id: currentCid });
+        if (cursor.hasNext()) {
+          let patent = await cursor.next();
+          compoundsPatents = patent?.data.patents;
+          nbPatents += patent?.data.nbPatents;
         }
       }
     }
