@@ -9,10 +9,15 @@ import debugLibrary from '../../../utils/Debug.js';
  */
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
+  // get id from dbRef
+  let compoundIds = [];
+  for (let cid of cids) {
+    compoundIds.push(cid.$id);
+  }
   try {
     const result = await collection
       .aggregate([
-        { $match: { 'data.cids': { $in: cids } } },
+        { $match: { 'data.cids': { $in: compoundIds } } },
         {
           $limit: 1000,
         },
