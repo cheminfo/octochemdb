@@ -66,7 +66,7 @@ export async function aggregate(connection) {
       ],
       {
         allowDiskUse: true, // allow aggregation to use disk if necessary
-        maxTimeMS: 60 * 60 * 3000, // 1h
+        maxTimeMS: 60 * 60 * 6000, // 6h
       },
     );
     await result.hasNext(); // trigger the creation of the output collection
