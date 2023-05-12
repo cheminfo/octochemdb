@@ -73,6 +73,9 @@ export async function aggregate(connection) {
     const temporaryCollection = await connection.getCollection(
       'mfsCHNOSClF_tmp',
     );
+    await temporaryCollection.createIndex({ 'data.em': 1 });
+    await temporaryCollection.createIndex({ 'data.unsaturation': 1 });
+    await temporaryCollection.createIndex({ 'data.count': 1 });
     // rename temporary collection to mfsCHNOSClF
     await temporaryCollection.rename('mfsCHNOSClF', { dropTarget: true });
     // set progress to aggregated

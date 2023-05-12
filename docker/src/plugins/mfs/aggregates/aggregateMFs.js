@@ -70,6 +70,11 @@ export async function aggregate(connection) {
     await result.hasNext();
     const temporaryCollection = await connection.getCollection('mfs_tmp');
     // rename temporary collection to mfs
+    await temporaryCollection.createIndex({ 'data.em': 1 });
+    await temporaryCollection.createIndex({ 'data.count': 1 });
+    await temporaryCollection.createIndex({ 'data.unsaturation': 1 });
+    await temporaryCollection.createIndex({ 'data.atoms': 1 });
+
     await temporaryCollection.rename('mfs', { dropTarget: true });
     // set progress to aggregated
     progress.dateEnd = new Date();
