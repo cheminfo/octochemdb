@@ -31,7 +31,6 @@ export default searchIDs;
 async function searchHandler(request) {
   let { patentsID: patentID = '', fields = 'data' } = request.query;
   let formattedFields = getFields(fields);
-  formattedFields._id = 0;
   let connection;
   try {
     connection = new OctoChemConnection();

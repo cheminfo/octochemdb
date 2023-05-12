@@ -211,7 +211,6 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('activesOrNaturals');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
-    formattedFields._id = 0;
     // define match parameters for the search, the $in operator is used to search for multiple words and is true if at least one of the words is found
     let matchParameter = {};
 

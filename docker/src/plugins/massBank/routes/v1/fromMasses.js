@@ -57,7 +57,6 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('massBank');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
-    formattedFields._id = 0;
 
     let massesArray = masses.split(/[, \t\n\r:;]+/);
     let matchParameters = [];

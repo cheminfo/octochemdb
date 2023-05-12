@@ -56,7 +56,6 @@ async function searchHandler(request) {
       collectionName = /(?<temp1>.*?)/;
     }
     let formatedFields = getFields(fields);
-    formatedFields._id = 0;
     const results = await collection
       .aggregate([
         {

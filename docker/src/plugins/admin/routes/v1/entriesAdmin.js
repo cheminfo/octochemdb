@@ -53,7 +53,6 @@ async function searchHandler(request) {
 
     debug(JSON.stringify({ collectionToSearch }));
     let formatedFields = getFields(fields);
-    formatedFields._id = 0;
     formatedFields.logs = { $slice: ['$logs', Number(limit)] };
     const results = await collection
       .aggregate([

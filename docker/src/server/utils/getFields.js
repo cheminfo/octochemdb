@@ -7,5 +7,6 @@ export function getFields(fields = '') {
   for (let field of fields.split(',').filter((field) => field)) {
     result[field] = 1;
   }
+  result._id = 0;
   return result;
 }
