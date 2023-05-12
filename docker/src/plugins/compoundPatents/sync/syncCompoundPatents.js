@@ -4,7 +4,7 @@ import md5 from 'md5';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
 
-import firstPatentsImport from './utils/firstPatentsImport.js';
+import importCompoundPatents from './utils/importCompoundPatents.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
 
 const { existsSync, rmSync } = pkg;
@@ -72,7 +72,7 @@ export async function sync(connection) {
       await ungzipAndSort(lastFile, sortedFile);
       debug('ungzip and sort done');
 
-      await firstPatentsImport(sortedFile, connection);
+      await importCompoundPatents(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
       await collection.createIndex({ 'data.patents': 1 });
       await collection.createIndex({ 'data.nbPatents': 1 });

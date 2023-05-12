@@ -4,19 +4,19 @@ import { createInterface } from 'readline';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('parsePatents');
-export default async function firstPatentsImport(filneName, connection) {
+export default async function importCompoundPatents(filneName, connection) {
   try {
     const temporaryCollection = await connection.getCollection(
       'compoundPatents_tmp',
     );
-    debug(filneName);
     const readStream = createReadStream(filneName);
     const lines = createInterface({ input: readStream });
     let entry = [];
     let currentProductID = -1;
 
     const progress = await connection.getProgress('compoundPatents');
-
+    let start = Date.now();
+    let count = 0;
     for await (const line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 2) continue;
@@ -31,6 +31,14 @@ export default async function firstPatentsImport(filneName, connection) {
           if (!a.startsWith('US') && b.startsWith('US')) return 1;
           return 0;
         });
+        count++;
+        if (
+          Date.now() - start > 60000 ||
+          Number(process.env.DEBUG_THROTTLING)
+        ) {
+          debug(count);
+          start = Date.now();
+        }
         await temporaryCollection.updateOne(
           { _id: Number(currentProductID) },
           {
