@@ -7,12 +7,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "activities": [
       {
         "dbRef": {
-          "$id": "LTS0257199",
-          "$ref": "lotuses",
-        },
-      },
-      {
-        "dbRef": {
           "$id": "59478_1",
           "$ref": "bioassays",
         },
@@ -169,7 +163,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     ],
     "mf": "C37H60O8",
     "naturalProduct": true,
-    "nbActivities": 21,
+    "nbActivities": 20,
     "nbMassSpectra": 0,
     "nbPatents": 3,
     "nbPubmeds": 0,

@@ -23,6 +23,9 @@ export default async function getActivitiesInfo(data, connection) {
           activity.targetTaxonomies = entry.data.targetTaxonomies;
         }
         activityInfo.push(activity);
+        activityDBRefs.push({
+          dbRef: { $ref: entry.collection, $id: entry._id },
+        });
       }
 
       if (entry.collection === 'npasses' || entry.collection === 'cmaups') {
@@ -34,10 +37,10 @@ export default async function getActivitiesInfo(data, connection) {
             activityInfo.push(activity);
           }
         }
+        activityDBRefs.push({
+          dbRef: { $ref: entry.collection, $id: entry._id },
+        });
       }
-      activityDBRefs.push({
-        dbRef: { $ref: entry.collection, $id: entry._id },
-      });
     }
     let activityInfos = [...new Set(activityInfo)];
     let activityDBRef = [...new Set(activityDBRefs)];
