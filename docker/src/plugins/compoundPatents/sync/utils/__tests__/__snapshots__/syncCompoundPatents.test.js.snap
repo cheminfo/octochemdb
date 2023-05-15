@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`syncPatents 1`] = `
+exports[`synCompoundPatents 1`] = `
 {
   "_id": 59478,
   "data": {

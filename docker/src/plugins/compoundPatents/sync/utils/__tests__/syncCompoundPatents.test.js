@@ -3,7 +3,7 @@ import { test, expect } from 'vitest';
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { sync } from '../../syncCompoundPatents';
 
-test('syncPatents', async () => {
+test('synCompoundPatents', async () => {
   const connection = new OctoChemConnection();
   await sync(connection);
   const collection = await connection.getCollection('compoundPatents');
