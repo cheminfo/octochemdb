@@ -39,7 +39,7 @@ export default async function improveSubstancePool(molecule, options = {}) {
       return info;
     })
     .catch((e) => {
-      debug(e);
+      debug.warn(e);
       return undefined;
     });
   return {
