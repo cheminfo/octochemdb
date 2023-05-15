@@ -38,7 +38,7 @@ export async function getMeshTerms(cids, collection, connection) {
         pmids.push(doc._id);
       }
     }
-    debug.info(pmids.length);
+
     const counterPmids = pmids.length;
     return {
       meshTermsForCid: Object.keys(uniqueMeshTerms),
