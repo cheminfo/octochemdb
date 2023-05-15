@@ -4,33 +4,52 @@ import delay from 'delay';
 import { sendTelegram } from './sendTelegram.js';
 
 const messages = [];
+const levels = {
+  fatal: 60,
+  error: 50,
+  warn: 40,
+  info: 30,
+  debug: 20,
+  trace: 10,
+};
+const minLevelTelegram = levels[process.env.TELEGRAM_DEBUG_LEVEL];
+const minLevel = levels[process.env.DEBUG_LEVEL];
 
 export default function Debug(context) {
   const realDebug = debugLibrary(context);
 
-  return (message, options = {}) => {
-    realDebug(message);
-    let messageDebug = {
-      epoch: Date.now(),
-      text: `${new Date()
-        .toISOString()
-        .replace(/.*T/, '')
-        .replace('Z', ' - ')}${context}:${message}`,
+  const logger = {};
+  for (const level of Object.keys(levels)) {
+    logger[level] = (message, options = {}) => {
+      if (levels[level] >= minLevel) {
+        realDebug(message);
+      }
+      let messageDebug = {
+        epoch: Date.now(),
+        text: `${new Date()
+          .toISOString()
+          .replace(/.*T/, '')
+          .replace('Z', ' - ')}${context}-${level}:${message}`,
+        level: levels[level],
+      };
+      if (options?.stack) {
+        messageDebug.stack = options.stack;
+      }
+      messages.push(messageDebug);
+      if (levels[level] >= minLevelTelegram) {
+        sendTelegrams();
+      }
+      if (options) {
+        logInDB(message, options);
+      }
     };
-    if (options?.stack) {
-      messageDebug.stack = options.stack;
-    }
-    messages.push(messageDebug);
-
-    sendTelegrams();
-    if (options) {
-      logInDB(message, options);
-    }
-  };
+  }
+  return logger;
 }
 
 async function sendTelegrams() {
   if (messages.length > 1) return;
+
   while (messages.length > 0) {
     await sendTelegram(messages[0].text);
     await delay(1000);
