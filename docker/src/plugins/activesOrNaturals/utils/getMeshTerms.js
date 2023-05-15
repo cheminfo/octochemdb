@@ -7,10 +7,7 @@ import debugLibrary from '../../../utils/Debug.js';
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
  */
-.updateMany(
-  {},
-  { $set: { "data.nbPubmeds": { $size: "data.taxonomies" } } }
-)
+
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
   // get id from dbRef
@@ -41,7 +38,7 @@ export async function getMeshTerms(cids, collection, connection) {
         pmids.push(doc._id);
       }
     }
-
+    debug.info(pmids.length);
     const counterPmids = pmids.length;
     return {
       meshTermsForCid: Object.keys(uniqueMeshTerms),
@@ -54,4 +51,3 @@ export async function getMeshTerms(cids, collection, connection) {
     }
   }
 }
-
