@@ -7,6 +7,7 @@ export async function main(links) {
   const debug = debugLibrary('improveActivesOrNaturals Main');
 
   try {
+    const total = Object.keys(links).length;
     const values = Object.values(links).sort(() => Math.random() - 0.5);
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
@@ -14,27 +15,34 @@ export async function main(links) {
     const numWorkers = cpus().length / 2;
     const chunkSize = Math.floor(values.length / numWorkers);
 
-    const chunks = [];
     for (let i = 0; i < numWorkers; i++) {
       const start = i * chunkSize;
       const end = i === numWorkers - 1 ? values.length : (i + 1) * chunkSize;
       const chunk = values.slice(start, end);
-      chunks.push(chunk);
-    }
-    for (let i = 0; i < numWorkers; i++) {
       let worker = new Worker(url);
-      let links = chunks[i];
-      let workerID = `worker ${i + 1}`;
-      worker.postMessage({ links, workerID });
+      worker.postMessage({ links: chunk, workerID: i });
       workers.push(worker);
     }
 
+    const counts = new Uint32Array(numWorkers);
+    let lastLogDate = Date.now();
     await Promise.all(
       workers.map(
         (worker) =>
           new Promise((resolve, reject) => {
             worker.on('message', (message) => {
-              debug(message);
+              counts[message.workerID] = message.currentCount;
+              if (
+                Date.now() - lastLogDate >
+                Number(process.env.DEBUG_THROTTLING)
+              ) {
+                let current = counts.reduce(
+                  (previous, current) => previous + current,
+                  0,
+                );
+                lastLogDate = Date.now();
+                debug(`Processing: ${current} / ${total} `);
+              }
               resolve(message);
             });
             worker.on('error', reject);
