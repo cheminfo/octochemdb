@@ -16,13 +16,13 @@ export async function aggregate(connection) {
   await connection.setProgress(progress);
   try {
     if (progressCompounds.seq === progress.seq) {
-      debug('Aggregation up-to-date');
+      debug.info('Aggregation up-to-date');
       return;
     }
     // set progress to aggregating
     progress.state = 'aggregating';
     await connection.setProgress(progress);
-    debug('Need to aggregate', await collection.countDocuments());
+    debug.info('Need to aggregate', await collection.countDocuments());
     // aggregate compounds with mf containing CHNOSClF
     let result = collection.aggregate(
       [
@@ -83,13 +83,13 @@ export async function aggregate(connection) {
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);
-
+    debug.info('Aggregation done');
     return result;
   } catch (e) {
     progress.state = 'error';
     await connection.setProgress(progress);
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'mfsCHNOSClF',
         connection,
         stack: e.stack,

@@ -107,8 +107,8 @@ OctoChemConnection.prototype.getDatabase = async function getDatabase() {
       await this.init();
       break;
     } catch (e) {
-      debug('Connection to mongo failed, waiting 5s');
-      debug(e.stack);
+      debug.error('Connection to mongo failed, waiting 5s');
+      debug.error(e.stack);
       await delay(5000);
     }
   }
@@ -118,8 +118,8 @@ OctoChemConnection.prototype.getDatabase = async function getDatabase() {
 OctoChemConnection.prototype.init = async function init() {
   if (this.connection) return;
 
-  debug(`Trying to connect to: ${process.env.MONGODB_URL}`);
+  debug.trace(`Trying to connect to: ${process.env.MONGODB_URL}`);
 
   this.connection = await this.client.connect();
-  debug('Got DB connection');
+  debug.info('Got DB connection');
 };

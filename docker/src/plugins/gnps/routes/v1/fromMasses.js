@@ -85,7 +85,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'gnps',
         connection,
         stack: e.stack,

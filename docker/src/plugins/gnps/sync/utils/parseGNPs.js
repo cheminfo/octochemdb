@@ -104,14 +104,22 @@ export async function* parseGNPs(jsonPath, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e.message, { collection: 'gnps', connection, stack: e.stack });
+          debug.error(e.message, {
+            collection: 'gnps',
+            connection,
+            stack: e.stack,
+          });
         }
         continue;
       }
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'gnps', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'gnps',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

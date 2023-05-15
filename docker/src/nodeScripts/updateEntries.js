@@ -5,9 +5,9 @@ const octoChemConnection = new OctoChemConnection();
 
 const debug = debugLibrary('updateEntries');
 update()
-  .catch((e) => debug(e.stack))
+  .catch((e) => debug.fatal(e.stack))
   .then(() => {
-    debug('Done');
+    debug.info('Done');
     octoChemConnection.close();
   });
 
@@ -17,11 +17,11 @@ async function update() {
   const collection = (await octoChemConnection.getDatabase()).collection(
     'data',
   );
-  debug('connected to MongoDB');
+  debug.trace('connected to MongoDB');
   const cursor = collection.find();
   while (await cursor.hasNext()) {
     if (done % 100000 === 0) {
-      debug(`Updated:  ${done}`);
+      debug.trace(`Updated:  ${done}`);
     }
     const doc = await cursor.next();
 

@@ -30,7 +30,7 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.error(e.message, {
         collection: 'naturalExtractedFrom',
         connection,
         stack: e.stack,
@@ -38,7 +38,7 @@ async function searchHandler() {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

@@ -126,7 +126,11 @@ export async function* parseNpasses(
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'npasses', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'npasses',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

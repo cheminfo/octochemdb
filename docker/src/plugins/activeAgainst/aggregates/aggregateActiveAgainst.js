@@ -42,7 +42,7 @@ export async function aggregate(connection) {
       const temporaryCollection = await connection.getCollection(
         `${options.collection}_tmp`,
       );
-      debug('start Aggregation process');
+      debug.info('start Aggregation process');
       progress.state = 'aggregating';
       await connection.setProgress(progress);
       // Aggregate the data from the activesOrNaturals collection
@@ -113,13 +113,13 @@ export async function aggregate(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
-      debug('Aggregation Done');
+      debug.info('Aggregation Done');
     } else {
-      debug(`Aggregation already up to date`);
+      debug.info(`Aggregation already up to date`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'activeAgainst',
         connection,
         stack: e.stack,

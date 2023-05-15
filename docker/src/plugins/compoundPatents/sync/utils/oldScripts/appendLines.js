@@ -17,7 +17,7 @@ export default async function appendLines(fileHandler, data) {
   for (let i = 0; i < newLines.length - 1; i++) {
     let fields = newLines[i].split('\t');
     if (fields.length !== 2) {
-      debug(`Error fields: ${fields}`);
+      debug.error(`Error fields: ${fields}`);
       continue;
     }
     const [productID, patentID] = fields;

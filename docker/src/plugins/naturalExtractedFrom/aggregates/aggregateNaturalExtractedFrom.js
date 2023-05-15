@@ -36,7 +36,7 @@ export async function aggregate(connection) {
       sources !== progress.sources ||
       progress.state !== 'aggregated'
     ) {
-      debug('start Aggregation process');
+      debug.info('start Aggregation process for naturalExtractedFrom');
       // set progress to aggregating
       progress.state = 'aggregating';
       await connection.setProgress(progress);
@@ -123,13 +123,13 @@ export async function aggregate(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
-      debug('Aggregation Done');
+      debug.info('Aggregation of naturalExtractedFrom done');
     } else {
-      debug(`Aggregation already up to date`);
+      debug.info(`Aggregation already up to date`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'naturalExtractedFrom',
         connection,
         stack: e.stack,

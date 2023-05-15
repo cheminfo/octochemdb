@@ -85,7 +85,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.error(e.message, {
         collection: 'massBank',
         connection,
         stack: e.stack,
@@ -93,6 +93,9 @@ async function searchHandler(request) {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    if (connection) await connection.close();
+    if (connection) {
+      debug.trace('Closing connection');
+      await connection.close();
+    }
   }
 }

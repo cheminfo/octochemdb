@@ -29,7 +29,7 @@ export async function getCidFromPmid(filePath, connection) {
       data[pmid].push(Number(cid));
       if (Date.now() - date > Number(process.env.DEBUG_THROTTLING)) {
         date = Date.now();
-        debug(
+        debug.trace(
           `Processed PMIDs:${
             Object.keys(data).length
           }, CIDs processed: ${counter}`,
@@ -45,7 +45,7 @@ export async function getCidFromPmid(filePath, connection) {
     return data;
   } catch (error) {
     if (connection) {
-      debug(error);
+      debug.fatal(error, { collection: 'pubmeds', connection });
     }
   }
 }

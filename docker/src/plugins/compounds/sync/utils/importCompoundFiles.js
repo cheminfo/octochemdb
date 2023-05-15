@@ -47,7 +47,11 @@ export async function importCompoundFiles(
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'compounds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

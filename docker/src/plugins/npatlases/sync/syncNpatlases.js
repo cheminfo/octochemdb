@@ -81,7 +81,7 @@ export async function sync(connection) {
       const temporaryCollection = await connection.getCollection(
         'npAtlases_tmp',
       );
-      debug(`Start parsing: ${lastFile}`);
+      debug.info(`Start importing npAtlases`);
       // set progress to updating
       progress.state = 'updating';
       await connection.setProgress(progress);
@@ -94,7 +94,9 @@ export async function sync(connection) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
         /// Normalize Taxonomies
@@ -133,13 +135,17 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
 
-      debug(`${imported} compounds processed`);
+      debug.info(`npAtlases collection imported`);
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'npAtlases', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'npAtlases',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

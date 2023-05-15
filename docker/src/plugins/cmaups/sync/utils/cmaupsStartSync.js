@@ -49,7 +49,11 @@ export default async function cmaupsStartSync(connection) {
     ];
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'cmaups',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

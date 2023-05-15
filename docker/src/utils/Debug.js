@@ -19,7 +19,11 @@ export default function Debug(context) {
   const realDebug = debugLibrary(context);
 
   const logger = {};
+
   for (const level of Object.keys(levels)) {
+    if (!Object.keys(levels).includes(level)) {
+      throw new Error(`Unknown level ${level}`);
+    }
     logger[level] = (message, options = {}) => {
       if (levels[level] >= minLevel) {
         realDebug(message);

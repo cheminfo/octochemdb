@@ -7,6 +7,10 @@ import debugLibrary from '../../../utils/Debug.js';
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
  */
+.updateMany(
+  {},
+  { $set: { "data.nbPubmeds": { $size: "data.taxonomies" } } }
+)
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
   // get id from dbRef
@@ -38,9 +42,7 @@ export async function getMeshTerms(cids, collection, connection) {
       }
     }
 
-    const counterPmids = await collection.countDocuments({
-      'data.cids': { $in: cids },
-    });
+    const counterPmids = pmids.length;
     return {
       meshTermsForCid: Object.keys(uniqueMeshTerms),
       pmIds: pmids,
@@ -48,7 +50,8 @@ export async function getMeshTerms(cids, collection, connection) {
     };
   } catch (error) {
     if (connection) {
-      debug(error, { collection: collection.collectionName, connection });
+      debug.fatal(error, { collection: collection.collectionName, connection });
     }
   }
 }
+

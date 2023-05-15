@@ -79,7 +79,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       let modificationDate = new Date(lastMofidied[1])
         .toISOString()
         .substring(0, 10);
-      debug(`Last modification date: ${modificationDate}`);
+      debug.trace(`Last modification date: ${modificationDate}`);
       // in case of test we do not want to write to disk
       if (process.env.NODE_ENV === 'test') {
         return `${filename}.${modificationDate}.${extension}`;
@@ -102,9 +102,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
         `${filename}.${modificationDate}.${extension}`,
       );
       target = targetFile;
-      debug(`targetFile: ${targetFile}`);
+      debug.trace(`targetFile: ${targetFile}`);
 
-      debug(
+      debug.trace(
         `New file size do not match local one:${newFileSize}/${lastFilesSize}`,
       );
       const body = response.body;
@@ -117,19 +117,19 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       writeStream.close();
       if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
 
-      debug(`Downloaded: ${options.filename}`);
+      debug.trace(`Downloaded: ${options.filename}`);
 
       return targetFile;
     } else {
       const targetFile = join(targetFolder, lastFileTargetLocal);
-      debug(
+      debug.trace(
         `New file size match local one (no need to fetch):${newFileSize}/${lastFilesSize}`,
       );
       return targetFile;
     }
   } catch (e) {
-    debug(`ERROR downloading: ${filename}`);
-    debug(e);
+    debug.fatal(`ERROR downloading: ${filename}`);
+    debug.fatal(e);
     if (existsSync(target)) {
       rmSync(target, { recursive: true });
     }

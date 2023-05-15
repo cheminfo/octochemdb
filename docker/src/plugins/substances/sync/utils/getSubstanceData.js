@@ -40,7 +40,7 @@ export async function getSubstanceData(molecule) {
           });
         }
       } catch (e) {
-        debug(e);
+        debug.fatal(e);
       }
       if (dataSubstance?.status === 200) {
         success = true;
@@ -81,9 +81,9 @@ export async function getSubstanceData(molecule) {
       }
       return result;
     } else {
-      debug(`Error: ${dataSubstance?.status} ${dataSubstance}`);
+      debug.fatal(`Error: ${dataSubstance?.status} ${dataSubstance}`);
     }
   } catch (e) {
-    debug(e);
+    debug.fatal(e);
   }
 }

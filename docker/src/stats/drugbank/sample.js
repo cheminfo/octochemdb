@@ -63,7 +63,7 @@ for (let j = 0; j < formulas.length; j++) {
       ratioScore: candidates[sortedIndex].ratioScore,
     };
   }
-  if (total % 100 === 0) debug(total);
+  if (total % 100 === 0) debug.trace(total);
   total++;
 }
 

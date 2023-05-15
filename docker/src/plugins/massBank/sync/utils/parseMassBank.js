@@ -56,7 +56,7 @@ export async function* parseMassBank(blob, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e.message, {
+          debug.warn(e.message, {
             collection: 'massbank',
             connection,
             stack: e.stack,
@@ -66,7 +66,7 @@ export async function* parseMassBank(blob, connection) {
       }
     }
   } catch (e) {
-    debug(e.message, {
+    debug.fatal(e.message, {
       collection: 'massbank',
       connection,
       stack: e.stack,

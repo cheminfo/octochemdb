@@ -23,7 +23,7 @@ const ratioStats = stats.results.filter((stat) => {
 let db;
 co(function* formulaMongo() {
   db = yield mongo.connect();
-  debug('connected to MongoDB');
+  debug.trace('connected to MongoDB');
 
   const aggregateMf = db.collection('aggregateMf');
   const formulaSet = new Set();
@@ -51,23 +51,22 @@ co(function* formulaMongo() {
     try {
       result[j] = analyseFormula(formulas[j], j);
     } catch (e) {
-      debug('error!');
+      debug.error('error!');
       result[j] = null;
     }
   }
-  debug(JSON.stringify(result, null, 2));
+  debug.taxonomySources(JSON.stringify(result, null, 2));
 })
   .catch((e) => {
-    debug('error');
-    debug(e.stack);
+    debug.error(e.stack);
   })
   .then(() => {
-    debug('closing DB');
+    debug.trace('closing DB');
     if (db) db.close();
   });
 
 function analyseFormula(mf, index) {
-  debug(`${mf} (${index})`);
+  debug.trace(`${mf} (${index})`);
   const result = {
     mf,
     em: 0,

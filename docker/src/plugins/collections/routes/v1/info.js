@@ -38,11 +38,11 @@ async function searchHandler() {
     const names = await connection.getCollectionNames();
 
     const results = [];
-    debug(JSON.stringify(adminInfo));
+    debug.trace(JSON.stringify(adminInfo));
     for (let name of names) {
       const collection = await connection.getCollection(name);
       const stats = await collection.stats();
-      debug(`${name}, ${JSON.stringify(adminInfo[name])}`);
+      debug.trace(`${name}, ${JSON.stringify(adminInfo[name])}`);
       results.push({
         ns: stats.ns,
         size: stats.size,
@@ -57,11 +57,15 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'admin', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'admin',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

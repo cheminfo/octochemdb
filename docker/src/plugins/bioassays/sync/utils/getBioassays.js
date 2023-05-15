@@ -28,7 +28,7 @@ export default async function getBioassays(
     const lines = createInterface({ input: stream });
     // Parse file line by line
     const bioassays = {};
-    debug('Start parsing bioassays file');
+    debug.trace('Start parsing bioassays file');
     let counter = 0;
     let start = Date.now();
     let oldIDs = Object.keys(oldToNewTaxIDs);
@@ -97,7 +97,7 @@ export default async function getBioassays(
       }
       // Debug the progress every 30000 bioassays
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-        debug(`Processed: ${counter} assays`);
+        debug.trace(`Processed: ${counter} assays`);
         start = Date.now();
       }
       counter++;
@@ -105,7 +105,11 @@ export default async function getBioassays(
     return bioassays;
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'bioassays', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'bioassays',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

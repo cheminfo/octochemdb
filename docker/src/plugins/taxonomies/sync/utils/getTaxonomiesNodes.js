@@ -29,7 +29,7 @@ export function getTaxonomiesNodes(arrayBuffer, connection) {
     return result;
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'taxonomies',
         connection,
         stack: e.stack,

@@ -45,7 +45,7 @@ export async function getCompoundsData(molecule, options = {}) {
               { signal: controller.signal },
             );
           } catch (e) {
-            debug(e);
+            debug.fatal(e);
           }
         } else {
           dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
@@ -53,7 +53,7 @@ export async function getCompoundsData(molecule, options = {}) {
           });
         }
       } catch (e) {
-        debug(e);
+        debug.fatal(e);
       }
       if (dataCompound?.status === 200) {
         success = true;
@@ -99,9 +99,9 @@ export async function getCompoundsData(molecule, options = {}) {
       }
       return result;
     } else {
-      debug(`Error: ${dataCompound?.status} ${dataCompound}`);
+      debug.fatal(`Error: ${dataCompound?.status} ${dataCompound}`);
     }
   } catch (e) {
-    debug(e);
+    debug.fatal(e);
   }
 }

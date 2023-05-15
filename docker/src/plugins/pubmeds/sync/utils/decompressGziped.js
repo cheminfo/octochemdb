@@ -22,7 +22,7 @@ const debug = debugLibrary('extractGziped');
 export async function decompressGziped(inputFilename) {
   const outputFilename = inputFilename.replace('.gz', '');
   if (!existsSync(outputFilename)) {
-    debug(`decompress ${inputFilename}`);
+    debug.trace(`decompress ${inputFilename}`);
     const gzip = createGunzip();
     const source = createReadStream(inputFilename);
     const destination = createWriteStream(join(`${outputFilename}`));
@@ -30,7 +30,7 @@ export async function decompressGziped(inputFilename) {
       process.exitCode = 1;
     });
   } else {
-    debug(`${outputFilename} already exists`);
+    debug.trace(`${outputFilename} already exists`);
   }
 
   return join(`${outputFilename}`);

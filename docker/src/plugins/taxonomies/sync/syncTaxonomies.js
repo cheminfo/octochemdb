@@ -84,14 +84,16 @@ export async function sync(connection) {
       ).filter((file) => file.name === 'nodes.dmp');
 
       const arrayBufferNodes = await fileListNodes.files[0].arrayBuffer();
-      debug('Get Nodes Taxonomies');
+      debug.trace('Get Nodes Taxonomies');
       let nodes = getTaxonomiesNodes(arrayBufferNodes);
-      debug('start parsing taxonomies');
+      debug.info('start parsing taxonomies');
       for (const entry of parseTaxonomies(arrayBuffer, nodes, connection)) {
         counter++;
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
         entry._seq = ++progress.seq;
@@ -124,13 +126,13 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.organism': 1 });
       await collection.createIndex({ _seq: 1 });
 
-      debug(`${imported} taxonomies processed`);
+      debug.info(`Taxonomies collection updated`);
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'taxonomies',
         connection,
         stack: e.stack,

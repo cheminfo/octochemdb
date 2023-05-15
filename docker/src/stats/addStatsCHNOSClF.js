@@ -20,7 +20,7 @@ let rules = {
 let db;
 co(function* () {
   db = yield mongo.connect();
-  debug('connected to MongoDB');
+  debug.trace('connected to MongoDB');
 
   const aggregateCHNOSClF = db.collection('aggregateCHNOSClF');
   const cursor = aggregateCHNOSClF
@@ -59,16 +59,15 @@ co(function* () {
   yield statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
     upsert: true,
   });
-  debug(`Statistics saved as ${id} in collection ${rules.collection}`);
+  debug.trace(`Statistics saved as ${id} in collection ${rules.collection}`);
 
   // debug(JSON.stringify(result, null, 2));
 })
   .catch((e) => {
-    debug('error');
-    debug(e.stack);
+    debug.error(e.stack);
   })
   .then(() => {
-    debug('closing DB');
+    debug.trace('closing DB');
     if (db) db.close();
   });
 

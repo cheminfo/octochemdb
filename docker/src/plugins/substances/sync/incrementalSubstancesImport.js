@@ -59,7 +59,7 @@ async function incrementalSubstanceImport(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,

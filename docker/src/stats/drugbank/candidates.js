@@ -17,7 +17,7 @@ for (let i = 2; i < data.length; i++) {
   let dir = path.join(__dirname, `data/range${i}`);
   mkdirp(dir);
   let formulas = data[i].formulas;
-  debug(`total: ${formulas.length}`);
+  debug.trace(`total: ${formulas.length}`);
   let total = 0;
   for (let j = 0; j < formulas.length; j++) {
     let formula = formulas[j];
@@ -48,7 +48,7 @@ for (let i = 2; i < data.length; i++) {
       JSON.stringify(result),
     );
     total++;
-    if (total % 100 === 0) debug(total);
+    if (total % 100 === 0) debug.trace(total);
   }
   break;
 }

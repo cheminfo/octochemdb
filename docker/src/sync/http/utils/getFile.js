@@ -19,7 +19,7 @@ async function getFile(file, targetFile) {
         setTimeout(() => controller.abort(), 1800 * 1000); // 30 minutes
         response = await fetch(file.url, { signal: controller.signal });
       } catch (e) {
-        debug(e);
+        debug.error(e);
       }
       if (response?.status === 200) {
         success = true;
@@ -42,12 +42,12 @@ async function getFile(file, targetFile) {
     utimesSync(targetFile, file.epoch, file.epoch);
 
     if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-      debug(`Downloaded from: ${lastFileName} till ${file.name}`);
+      debug.trace(`Downloaded from: ${lastFileName} till ${file.name}`);
       start = Date.now();
       lastFileName = file.name;
     }
   } catch (e) {
-    debug(`ERROR downloading: ${file.url}`);
+    debug.fatal(`ERROR downloading: ${file.url}`);
     throw e;
   }
 }

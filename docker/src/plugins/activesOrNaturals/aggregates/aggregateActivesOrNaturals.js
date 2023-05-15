@@ -55,10 +55,10 @@ export async function aggregate(connection) {
       );
 
       // debug unique numbers of noStereoTautomerIDs
-      debug(
+      debug.trace(
         `Unique numbers of noStereoTautomerIDs: ${Object.keys(links).length}`,
       );
-      debug('start Aggregation process');
+      debug.info('start Aggregation process');
       // set progress to aggregating
 
       progress.state = 'aggregating';
@@ -94,13 +94,13 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.nbTaxonomies': 1 });
       await targetCollection.createIndex({ 'data.nbMassSpectra': 1 });
 
-      debug('Aggregation Done');
+      debug.info('Aggregation Done');
     } else {
-      debug(`Aggregation already up to date`);
+      debug.info(`Aggregation already up to date`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,

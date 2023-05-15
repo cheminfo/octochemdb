@@ -254,7 +254,7 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
       result.data.journalInfo = medlineJournalInfo;
     }
   } catch (e) {
-    debug(e);
+    debug.warn(e);
   }
 
   return result;

@@ -10,12 +10,12 @@ import debugLibrary from '../../../../utils/Debug.js';
 export async function syncSubstanceFolder(connection, importType) {
   const debug = debugLibrary('syncSubstanceFolder');
   try {
-    debug('Synchronize full substance folder');
+    debug.trace('Synchronize full substance folder');
     if (importType === 'first') {
       const source = `${process.env.PUBCHEM_SOURCE}Substance/CURRENT-Full/SDF/`;
       const destination = `${process.env.ORIGINAL_DATA_PATH}/substances/full`;
 
-      debug(`Syncing: ${source} to ${destination}`);
+      debug.trace(`Syncing: ${source} to ${destination}`);
 
       const { allFiles } = await syncFolder(source, destination, {
         fileFilter: (file) => file && file.name.endsWith('.gz'),
@@ -26,7 +26,7 @@ export async function syncSubstanceFolder(connection, importType) {
         return 0;
       });
     } else if (importType === 'incremental') {
-      debug('Synchronize incremental substance folder');
+      debug.trace('Synchronize incremental substance folder');
 
       const source = `${process.env.PUBCHEM_SOURCE}Substance/Weekly/`;
       const destination = `${process.env.ORIGINAL_DATA_PATH}/substances/weekly`;
@@ -36,7 +36,7 @@ export async function syncSubstanceFolder(connection, importType) {
       });
       for (let week of weeks) {
         const baseSource = `${source}/${week.name}`;
-        debug(`Processing week: ${week.name}`);
+        debug.trace(`Processing week: ${week.name}`);
         allFiles.push(
           ...(
             await syncFolder(
@@ -64,7 +64,7 @@ export async function syncSubstanceFolder(connection, importType) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,

@@ -30,7 +30,7 @@ export async function getMassSpectraRefForMassBank(
     return massSpectra;
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'massBank',
         connection,
         stack: e.stack,

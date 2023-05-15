@@ -17,7 +17,7 @@ const debug = debugLibrary('WorkerProcess');
 parentPort?.on('message', async (dataEntry) => {
   try {
     const { links, workerID } = dataEntry;
-    debug(`Worker ${workerID} started`);
+    debug.trace(`Worker ${workerID} started`);
     // get worker number
     const temporaryCollection = await connection.getCollection(
       `activesOrNaturals_tmp`,
@@ -180,6 +180,12 @@ parentPort?.on('message', async (dataEntry) => {
     // @ts-ignore
     parentPort.postMessage({ workerID, currentCount: count });
   } catch (e) {
-    debug(e);
+    if (connection) {
+      debug.fatal(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
+    }
   }
 });

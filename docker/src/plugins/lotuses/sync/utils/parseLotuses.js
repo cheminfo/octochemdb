@@ -40,7 +40,7 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         fileToRead.relativePath,
       );
     }
-    debug('fileToRead', fileToRead);
+    debug.trace('fileToRead', fileToRead);
     const readStream = await readStreamInZipFolder(
       fileToRead.relativePath,
       filename,
@@ -170,7 +170,7 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e.message, {
+          debug.warn(e.message, {
             collection: 'lotuses',
             connection,
             stack: e.stack,
@@ -181,7 +181,11 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'lotuses', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'lotuses',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

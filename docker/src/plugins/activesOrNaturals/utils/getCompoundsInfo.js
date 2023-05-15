@@ -91,7 +91,7 @@ export default async function getCompoundsInfo(
     return entry;
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,

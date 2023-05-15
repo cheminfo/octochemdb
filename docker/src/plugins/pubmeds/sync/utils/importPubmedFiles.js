@@ -45,13 +45,13 @@ export async function importPubmedFiles(
         options.shouldImport = true;
       }
     } else if (importType === 'incremental') {
-      debug('Starting incremental update');
+      debug.info('Starting incremental update');
       options = {
         shouldImport: progress.sources !== files[0].path,
         ...options,
       };
       for (let file of files) {
-        debug(`Processing: ${file.name}`);
+        debug.trace(`Processing: ${file.name}`);
         if (file.name.endsWith('.gz')) {
           await importOnePubmedFile(
             connection,
@@ -69,7 +69,11 @@ export async function importPubmedFiles(
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'pubmeds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

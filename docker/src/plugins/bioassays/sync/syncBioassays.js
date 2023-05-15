@@ -89,7 +89,7 @@ export async function sync(connection) {
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
-      debug(`Start parsing`);
+      debug.info(`Start importing bioassays`);
       for await (let entry of parseBioactivities(
         bioactivitiesFile,
         bioassaysFile,
@@ -102,7 +102,9 @@ export async function sync(connection) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
         // Debug the processing progress every 10s or the defined time in process env
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
         // update temporary collection with the new data
@@ -130,17 +132,17 @@ export async function sync(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      debug(`${imported} compounds processed`);
+      debug.info(`${imported} compounds processed`);
 
       // Indexing of properties in collection
       await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: options.collectionName,
         connection,
         stack: e.stack,

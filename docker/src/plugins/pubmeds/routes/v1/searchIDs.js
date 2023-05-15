@@ -62,8 +62,7 @@ async function searchHandler(request) {
     minScore = 0,
     limit = 100,
   } = data;
-  debug(pmids);
-  debug(keywords);
+
   let formattedFields = getFields(fields);
   let connection;
   try {
@@ -107,14 +106,13 @@ async function searchHandler(request) {
         { $limit: Number(limit) },
       ];
     }
-    debug(aggregateParameters);
 
     const result = await collection.aggregate(aggregateParameters).toArray();
 
     return { data: result };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.error(e.message, {
         collection: 'pubmeds',
         connection,
         stack: e.stack,
@@ -122,7 +120,7 @@ async function searchHandler(request) {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

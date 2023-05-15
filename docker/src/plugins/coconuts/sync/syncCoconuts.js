@@ -67,8 +67,7 @@ export async function sync(connection) {
     ) {
       // define file to use for importation inside the zip file
       let fileName = 'uniqueNaturalProduct.bson';
-      debug(`Start parsing: ${fileName}`);
-      debug(lastFile);
+      debug.info(`Start parsing coconuts`);
       const collection = await connection.getCollection(options.collectionName);
       const logs = await connection.getImportationLog({
         collectionName: options.collectionName,
@@ -90,7 +89,9 @@ export async function sync(connection) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
         /// Normalize Taxonomies
@@ -125,13 +126,13 @@ export async function sync(connection) {
       // create indexes on the collection for faster search
       await connection.setProgress(progress);
       await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
-      debug(`${imported} compounds processed`);
+      debug.info(`${imported} compounds processed`);
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: options.collectionName,
         connection,
         stack: e.stack,

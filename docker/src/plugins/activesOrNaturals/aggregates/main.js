@@ -2,7 +2,9 @@ import { cpus } from 'os';
 import { Worker } from 'worker_threads';
 
 import debugLibrary from '../../../utils/Debug.js';
+import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
+const connection = new OctoChemConnection();
 export async function main(links) {
   const debug = debugLibrary('improveActivesOrNaturals Main');
 
@@ -41,7 +43,7 @@ export async function main(links) {
                   0,
                 );
                 lastLogDate = Date.now();
-                debug(`Processing: ${current} / ${total} `);
+                debug.trace(`Processing: ${current} / ${total} `);
               }
               resolve(message);
             });
@@ -55,6 +57,12 @@ export async function main(links) {
       ),
     );
   } catch (e) {
-    debug(e);
+    if (connection) {
+      debug.fatal(e.message, {
+        collection: 'activesOrNaturals',
+        connection,
+        stack: e.stack,
+      });
+    }
   }
 }

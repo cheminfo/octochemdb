@@ -11,14 +11,14 @@ export default async function removeEntriesFromFile(
 ) {
   const fileSource = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
 
-  debug(`Processing: ${fileSource}`);
+  debug.trace(`Processing: ${fileSource}`);
 
   const collection = await connection.getCollection(collectionName);
 
   const killedFile = fs.readFileSync(file.path, 'ascii');
   const killed = killedFile.split(/\r?\n/).map(Number);
   if (killed) {
-    debug(`removing ${killed.length} killed IDs`);
+    debug.trace(`removing ${killed.length} killed IDs`);
     let reallyRemoved = 0;
 
     const progress = await connection.getProgress(collectionName);
@@ -39,6 +39,6 @@ export default async function removeEntriesFromFile(
       await collection.replaceOne({ _id: entry._id }, entry, { upsert: true });
     }
     await connection.setProgress(progress);
-    debug(`removal of ${reallyRemoved} existing entries done`);
+    debug.trace(`removal of ${reallyRemoved} existing entries done`);
   }
 }

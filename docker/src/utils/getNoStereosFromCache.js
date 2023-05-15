@@ -16,7 +16,7 @@ export async function getNoStereosFromCache(molecule, connection) {
       try {
         dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`);
       } catch (e) {
-        debug(e);
+        debug.fatal(e);
       }
       if (dataCompound?.ok) {
         success = true;
@@ -37,11 +37,15 @@ export async function getNoStereosFromCache(molecule, connection) {
       };
       return ocl;
     } else {
-      debug(`Error: ${dataCompound?.status} ${dataCompound}`);
+      debug.fatal(`Error: ${dataCompound?.status} ${dataCompound}`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'gnps', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'gnps',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

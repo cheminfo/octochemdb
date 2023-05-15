@@ -9,7 +9,7 @@ import debugLibrary from '../../../../utils/Debug.js';
 export async function syncPubmedFolder(connection, importType) {
   const debug = debugLibrary('syncFullPubmedFolder');
   try {
-    debug(`Synchronize ${importType} pubmed folder`);
+    debug.trace(`Synchronize ${importType} pubmed folder`);
     let source;
     let destination;
     if (importType === 'first') {
@@ -19,7 +19,7 @@ export async function syncPubmedFolder(connection, importType) {
       source = `${process.env.PUBMED_SOURCE}updatefiles/`;
       destination = `${process.env.ORIGINAL_DATA_PATH}/pubmeds/update`;
     }
-    debug(`Syncing: ${source} to ${destination}`);
+    debug.trace(`Syncing: ${source} to ${destination}`);
 
     const { allFiles } = await syncFolder(source, destination, {
       fileFilter: (file) => file && file.name.endsWith('.gz'),
@@ -31,7 +31,11 @@ export async function syncPubmedFolder(connection, importType) {
     });
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'pubmeds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

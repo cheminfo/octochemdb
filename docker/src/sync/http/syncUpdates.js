@@ -15,7 +15,7 @@ async function syncUpdates() {
   });
   for (let week of weeks) {
     const baseSource = `${SOURCE}/Substance/Weekly/${week.name}`;
-    debug(`Processing week: ${week.name}`);
+    debug.trace(`Processing week: ${week.name}`);
     await syncFolder(
       `${baseSource}SDF/`,
       `./originalData/substances/weekly/${week.name}SDF/`,

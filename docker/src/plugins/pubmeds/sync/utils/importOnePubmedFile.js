@@ -28,7 +28,7 @@ export default async function importOnePubmedFile(
   try {
     // get pubmeds collection
     const collection = await connection.getCollection('pubmeds');
-    debug(`Importing: ${file.name}`);
+    debug.trace(`Importing: ${file.name}`);
     // get logs
     const logs = await connection.getImportationLog({
       collectionName: 'pubmeds',
@@ -48,7 +48,7 @@ export default async function importOnePubmedFile(
           continue;
         }
         shouldImport = true;
-        debug(`Skipping pubmeds till: ${lastDocument._id}`);
+        debug.trace(`Skipping pubmeds till: ${lastDocument._id}`);
         continue;
       }
       if (shouldImport) {
@@ -69,12 +69,12 @@ export default async function importOnePubmedFile(
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
     await connection.updateImportationLog(logs);
-    debug(`${imported} articles processed`);
+    debug.trace(`${imported} articles processed`);
     // Remove the decompressed gzip file after it has been imported
     await fileStream.close();
     rmSync(filePath, { recursive: true });
     return imported;
   } catch (err) {
-    debug(err, { collection: 'pubmeds', connection });
+    debug.fatal(err, { collection: 'pubmeds', connection });
   }
 }

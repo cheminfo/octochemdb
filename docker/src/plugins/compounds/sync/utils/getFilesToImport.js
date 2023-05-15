@@ -35,7 +35,7 @@ export async function getFilesToImport(
       throw new Error('This should never happen');
     }
 
-    debug(`last file processed: ${progress.sources}`);
+    debug.trace(`last file processed: ${progress.sources}`);
 
     const firstIndex = allFiles.findIndex((n) =>
       n.path.endsWith(progress.sources),
@@ -47,19 +47,23 @@ export async function getFilesToImport(
       };
     }
     if (firstIndex === -1 && importType === 'incremental') {
-      debug('Should import all the incremental updates');
+      debug.info('Should import all the incremental updates');
       return { files: allFiles, lastDocument: {} };
     }
     if (firstIndex === -1 && importType === 'first') {
       throw new Error(`file not found: ${progress.sources}`);
     }
 
-    debug(`starting with file ${progress.sources}`);
+    debug.trace(`starting with file ${progress.sources}`);
 
     return { files: allFiles.slice(firstIndex), lastDocument };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'compounds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

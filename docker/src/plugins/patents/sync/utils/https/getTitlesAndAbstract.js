@@ -78,7 +78,7 @@ async function getTitlesAndAbstracts(source, destinationFolder) {
       }
     }
   } catch (error) {
-    debug(error);
+    debug.fatal(error);
   }
 }
 

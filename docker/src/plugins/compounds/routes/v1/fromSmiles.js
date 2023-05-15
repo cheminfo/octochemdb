@@ -72,8 +72,6 @@ async function searchHandler(request) {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('compounds');
 
-    debug(smiles);
-
     const results = await collection
       .aggregate([
         { $match: mongoQuery },
@@ -86,11 +84,15 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'compounds',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

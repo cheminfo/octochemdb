@@ -38,17 +38,21 @@ export default async function parsePatents(filename, collection, connection) {
           1000 ===
         0
       ) {
-        debug(
+        debug.trace(
           `Processing: Add: ${status.add}, Change: ${status.change}, Delete: ${status.delete}, Not found: ${status.notFound}`,
         );
       }
     }
-    debug(
+    debug.trace(
       `Finished: Add: ${status.add}, Change: ${status.change}, Delete: ${status.delete}, Not found: ${status.notFound}`,
     );
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'patents', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'patents',
+        connection,
+        stack: e.stack,
+      });
     }
   }
   return true;

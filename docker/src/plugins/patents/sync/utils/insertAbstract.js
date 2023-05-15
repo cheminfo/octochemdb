@@ -28,7 +28,7 @@ export default async function insertAbstract(filneName, connection) {
         entry.data = {};
         entry.data.abstract = abstract;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Abstracts parsed ${count}`);
+          debug.trace(`Abstracts parsed ${count}`);
           start = Date.now();
           count = 0;
         }
@@ -45,7 +45,11 @@ export default async function insertAbstract(filneName, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'patents', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'patents',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

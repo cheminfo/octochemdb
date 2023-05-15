@@ -11,7 +11,7 @@ const debug = debugLibrary('gunzipStream');
 
 async function gunzipStream(inputFilename, outputFilename) {
   if (!existsSync(outputFilename)) {
-    debug(`decompress ${inputFilename}`);
+    debug.trace(`decompress ${inputFilename}`);
     const gzip = createGunzip();
     const source = createReadStream(inputFilename);
     const destination = createWriteStream(join(`${outputFilename}`));
@@ -19,7 +19,7 @@ async function gunzipStream(inputFilename, outputFilename) {
       process.exitCode = 1;
     });
   } else {
-    debug('file already decompressed');
+    debug.trace('file already decompressed');
   }
 
   return join(`${outputFilename}`);

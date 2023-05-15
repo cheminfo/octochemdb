@@ -55,7 +55,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
         if (existsSync(targetFile)) {
           const fileInfo = statSync(targetFile);
           let trueFileSize = await fileSize(file);
-          debug(
+          debug.trace(
             `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
           );
           if (fileInfo.size !== trueFileSize) {
@@ -73,12 +73,12 @@ async function syncFolder(source, destinationFolder, options = {}) {
     try {
       await getFile(file, targetFile);
     } catch (e) {
-      debug(`Error downloading ${file.name}: ${e.message}`);
+      debug.warn(`Error downloading ${file.name}: ${e.message}`);
       try {
-        debug(`trying again`);
+        debug.trace(`trying again`);
         await getFile(file, targetFile);
       } catch (e2) {
-        debug(`Error downloading ${file.name}: ${e2.message}`);
+        debug.error(`Error downloading ${file.name}: ${e2.message}`);
         continue;
       }
     }

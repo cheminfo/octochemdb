@@ -33,7 +33,6 @@ export async function sync(connection) {
       // get sources, progress and lotuses collection
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     }
-    debug(lastFile);
     // get sources, progress and lotuses collection
     const progress = await connection.getProgress('lotuses');
     let isTimeToUpdate = false;
@@ -81,7 +80,7 @@ export async function sync(connection) {
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
-      debug(`Start parsing: ${fileName}`);
+      debug.info(`Start importing Lotus`);
       // set progress state to updating
       progress.state = 'updating';
       await connection.setProgress(progress);
@@ -91,7 +90,9 @@ export async function sync(connection) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
         /// Normalize Taxonomies
@@ -131,13 +132,17 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
 
-      debug(`${imported} compounds processed`);
+      debug.info(`Lotus importation done`);
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'lotuses', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'lotuses',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

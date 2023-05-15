@@ -36,7 +36,6 @@ async function searchHandler(request) {
     // get the collection
     const collection = await connection.getCollection('massBank');
 
-    debug(id);
     const results = await collection
       .aggregate([
         { $match: { _id: id } },
@@ -49,11 +48,15 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'massBank', connection, stack: e.stack });
+      debug.error(e.message, {
+        collection: 'massBank',
+        connection,
+        stack: e.stack,
+      });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

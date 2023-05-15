@@ -6,9 +6,9 @@ const limit = 10;
 const octochemConnection = new (require('../utils/OctoChemConnection'))();
 
 search()
-  .catch((e) => debug(e.stack))
+  .catch((e) => debug.error(e.stack))
   .then(() => {
-    debug('Done');
+    debug.info('Done');
     octochemConnection.close();
   });
 
@@ -16,7 +16,7 @@ async function search() {
   const collection = (await octochemConnection.getDatabase()).collection(
     'data',
   );
-  debug('connected to MongoDB');
+  debug.trace('connected to MongoDB');
   const cursor = collection
     .find({
       charge: 0,
@@ -29,11 +29,11 @@ async function search() {
     const doc = await cursor.next();
 
     if (done % 1000 === 0) {
-      debug(`${new Date()}, ${done}, - Current _id: ${doc._id}`);
+      debug.trace(`${new Date()}, ${done}, - Current _id: ${doc._id}`);
     }
 
     done++;
 
-    debug(doc);
+    debug.trace(doc);
   }
 }

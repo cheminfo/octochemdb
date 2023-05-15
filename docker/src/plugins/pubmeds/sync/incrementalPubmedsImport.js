@@ -29,7 +29,6 @@ async function incrementalPubmedImport(connection) {
       // get all files to import
       allFiles = await syncPubmedFolder(connection, 'incremental');
     }
-    debug('here');
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
@@ -79,7 +78,11 @@ async function incrementalPubmedImport(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'pubmeds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

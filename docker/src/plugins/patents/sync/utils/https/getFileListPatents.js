@@ -20,7 +20,7 @@ async function getFileListPatents(url, options = {}) {
         }
       } catch (e) {
         if (counter++ > 10) {
-          debug(e);
+          debug.warn(e);
         }
         await delay(10000);
       }
@@ -65,7 +65,7 @@ async function getFileListPatents(url, options = {}) {
     }
     return { abstracts2Download, titles2Download };
   } catch (e) {
-    debug(e);
+    debug.fatal(e);
   }
 }
 

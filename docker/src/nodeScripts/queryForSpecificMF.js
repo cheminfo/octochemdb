@@ -8,9 +8,9 @@ const limit = 10000000;
 const octoChemConnection = new (require('../utils/OctoChemConnection'))();
 
 search()
-  .catch((e) => debug(e.stack))
+  .catch((e) => debug.error(e.stack))
   .then(() => {
-    debug('Done');
+    debug.info('Done');
     octoChemConnection.close();
   });
 
@@ -18,7 +18,7 @@ async function search() {
   const collection = (await octoChemConnection.getDatabase()).collection(
     'data',
   );
-  debug('connected to MongoDB');
+  debug.trace('connected to MongoDB');
 
   let done = 0;
   const cursor = collection
@@ -40,8 +40,8 @@ async function search() {
       (doc.atom.S || 0);
 
     if (done % 1000 === 0) {
-      debug(`${new Date()},${done}, '- Current _id:', ${doc._id}`);
-      debug(`${mf}, ${total}`);
+      debug.trace(`${new Date()},${done}, '- Current _id:', ${doc._id}`);
+      debug.trace(`${mf}, ${total}`);
     }
 
     done++;
@@ -49,6 +49,6 @@ async function search() {
     if (total > 8) continue;
     const mol = OCLE.Molecule.fromIDCode(doc.ocl.id, doc.ocl.coord);
     const smiles = mol.toSmiles();
-    debug(`${mf}\t${total}\t${smiles}`);
+    debug.trace(`${mf}\t${total}\t${smiles}`);
   }
 }

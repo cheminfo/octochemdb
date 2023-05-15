@@ -11,12 +11,12 @@ import debugLibrary from '../../../../utils/Debug.js';
 export async function syncCompoundFolder(connection, importType) {
   const debug = debugLibrary('syncCompoundFolder');
   try {
-    debug(`Synchronize compound folder (${importType} importation)`);
+    debug.trace(`Synchronize compound folder (${importType} importation)`);
     // if importType is 'first', then we need to sync the whole folder
     if (importType === 'first') {
       const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;
       const destination = `${process.env.ORIGINAL_DATA_PATH}/compounds/full`;
-      debug(`Syncing: ${source} to ${destination}`);
+      debug.trace(`Syncing: ${source} to ${destination}`);
       const { allFiles } = await syncFolder(source, destination, {
         fileFilter: (file) => file && file.name.endsWith('.gz'),
       });
@@ -39,7 +39,7 @@ export async function syncCompoundFolder(connection, importType) {
       for (let week of weeks) {
         if (week) {
           const baseSource = `${source}/${week.name}`;
-          debug(`Processing week: ${week.name}`);
+          debug.trace(`Processing week: ${week.name}`);
           allFiles.push(
             ...(
               await syncFolder(
@@ -75,7 +75,11 @@ export async function syncCompoundFolder(connection, importType) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+      debug.trace(e.message, {
+        collection: 'compounds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

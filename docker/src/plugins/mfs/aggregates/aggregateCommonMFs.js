@@ -14,13 +14,13 @@ export async function aggregate(connection) {
   await connection.setProgress(progress);
   try {
     if (progressCompounds.seq === progress.seq) {
-      debug('Aggregation up-to-date');
+      debug.info('Aggregation up-to-date');
       return;
     }
     // set progress to aggregating
     progress.state = 'aggregating';
     await connection.setProgress(progress);
-    debug(`mfsCommon: Need to aggregate: ${await collection.count()}`);
+    debug.info(`mfsCommon: Need to aggregate: ${await collection.count()}`);
     // aggregate compounds with with mfs who have at least 5 entries
 
     let result = await collection.aggregate(
@@ -78,13 +78,13 @@ export async function aggregate(connection) {
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);
-
+    debug.info('Aggregation done');
     return result;
   } catch (e) {
     progress.state = 'error';
     await connection.setProgress(progress);
     if (connection) {
-      debug(e.message, { collection: 'mfs', connection, stack: e.stack });
+      debug.error(e.message, { collection: 'mfs', connection, stack: e.stack });
     }
   }
 }

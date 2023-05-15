@@ -54,15 +54,15 @@ async function cron() {
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
     if (typeof sync.sync !== 'function') continue;
-    debug(`sync: ${syncURL.pathname}`);
+    debug.trace(`sync: ${syncURL.pathname}`);
     let connection;
     try {
       connection = new OctoChemConnection();
       await sync.sync(connection);
     } catch (e) {
-      debug(e.stack);
+      debug.fatal(e.stack);
     } finally {
-      debug('Closing connection');
+      debug.trace('Closing connection');
       if (connection) await connection.close();
     }
   }
@@ -96,21 +96,21 @@ async function cron() {
     const aggregate = await import(aggregateURL);
 
     if (typeof aggregate.aggregate !== 'function') continue;
-    debug(`aggregate: ${aggregateURL.pathname}`);
+    debug.trace(`aggregate: ${aggregateURL.pathname}`);
     let connection;
     try {
       connection = new OctoChemConnection();
       await aggregate.aggregate(connection);
     } catch (e) {
-      debug(e.stack);
+      debug.fatal(e.stack);
     } finally {
-      debug('Closing connection');
+      debug.trace('Closing connection');
       if (connection) await connection.close();
     }
   }
 
   for (let i = sleepTime; i > 0; i--) {
-    debug(`${new Date().toISOString()} - Still waiting ${i}h`);
+    debug.info(`${new Date().toISOString()} - Still waiting ${i}h`);
     await delay(3600 * 1000);
   }
 }

@@ -57,7 +57,7 @@ export async function* parseCmaups(
             ocl = await getNoStereosFromCache(oclMolecule, connection);
           } catch (e) {
             if (connection) {
-              debug(e.message, {
+              debug.fatal(e.message, {
                 collection: 'cmaups',
                 connection,
                 stack: e.stack,
@@ -125,7 +125,7 @@ export async function* parseCmaups(
         }
       } catch (e) {
         if (connection) {
-          debug(e.message, {
+          debug.fatal(e.message, {
             collection: 'cmaups',
             connection,
             stack: e.stack,
@@ -135,7 +135,11 @@ export async function* parseCmaups(
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'cmaups',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

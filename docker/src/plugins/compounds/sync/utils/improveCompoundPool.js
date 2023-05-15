@@ -40,7 +40,7 @@ export default async function improveCompoundPool(molecule, options = {}) {
       return info;
     })
     .catch((e) => {
-      debug(e);
+      debug.fatal(e);
       return undefined;
     });
 

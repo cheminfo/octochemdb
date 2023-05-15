@@ -24,7 +24,7 @@ export default async function importOneCompoundFile(
 ) {
   // get compounds collection
   const collection = await connection.getCollection('compounds');
-  debug(`Importing: ${file.name}`);
+  debug.trace(`Importing: ${file.name}`);
   // Get logs collection
   const logs = await connection.getImportationLog({
     collectionName: 'compounds',
@@ -55,7 +55,7 @@ export default async function importOneCompoundFile(
   logs.endSequenceID = progress.seq;
   logs.status = 'updated';
   await connection.updateImportationLog(logs);
-  debug(`${newCompounds} compounds imported from ${file.name}`);
+  debug.trace(`${newCompounds} compounds imported from ${file.name}`);
   // return the new compounds count
   return newCompounds;
 
@@ -63,7 +63,7 @@ export default async function importOneCompoundFile(
   async function parseSDF(sdf) {
     // parse the SDF file
     let compounds = parse(sdf).molecules;
-    debug(`Need to process ${compounds.length} compounds`);
+    debug.trace(`Need to process ${compounds.length} compounds`);
     // the array action will contain the promises to be resolved
     let start = Date.now();
     for (const compound of compounds) {
@@ -74,7 +74,7 @@ export default async function importOneCompoundFile(
         }
         shouldImport = true;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Skipping compounds till: ${lastDocument._id}`);
+          debug.trace(`Skipping compounds till: ${lastDocument._id}`);
           start = Date.now();
           continue;
         }
@@ -130,7 +130,7 @@ export default async function importOneCompoundFile(
         }
       } catch (e) {
         if (connection) {
-          debug(e.message, {
+          debug.fatal(e.message, {
             collection: 'compounds',
             connection,
             stack: e.stack,
@@ -141,7 +141,7 @@ export default async function importOneCompoundFile(
       newCompounds++;
     }
 
-    debug(`${newCompounds} compounds processed`);
+    debug.trace(`${newCompounds} compounds processed`);
     return compounds.length;
   }
 }

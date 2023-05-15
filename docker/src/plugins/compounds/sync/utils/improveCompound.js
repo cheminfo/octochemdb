@@ -1,4 +1,4 @@
-import debug from 'debug';
+import debugLibrary from '../../../../utils/Debug.js';
 
 import { getCompoundsData } from './getCompoundsData.js';
 /**
@@ -6,6 +6,7 @@ import { getCompoundsData } from './getCompoundsData.js';
  * @param {*} molecule molecule from pubchem file
  * @returns {Promise<object>} result to be imported
  */
+const debug = debugLibrary('improveCompound');
 export default async function improveCompound(molecule) {
   try {
     //console.log(molecule);
@@ -27,6 +28,6 @@ export default async function improveCompound(molecule) {
       return result;
     }
   } catch (e) {
-    debug(e);
+    debug.fatal(e);
   }
 }

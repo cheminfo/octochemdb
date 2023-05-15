@@ -56,7 +56,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // Create a temporaty collection to avoid to drop the data already imported before the new ones are ready
       const temporaryCollection = await connection.getCollection('cmaups_tmp');
-      debug(`Start parsing cmaup`);
+      debug.info(`Start parsing cmaup`);
       for await (const entry of parseCmaups(
         general,
         activities,
@@ -70,7 +70,9 @@ export async function sync(connection) {
 
         // Debug the processing progress every 10s or the defined time in process env
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
         /// Normalize Taxonomies
@@ -120,14 +122,18 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
       await collection.createIndex({ _seq: 1 });
 
-      debug(`${imported} compounds processed`);
+      debug.info(`${imported} compounds processed`);
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     // If error is catch, debug it on telegram
     if (connection) {
-      debug(e.message, { collection: 'cmaups', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'cmaups',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

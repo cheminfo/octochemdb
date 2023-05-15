@@ -72,7 +72,7 @@ async function searchHandler(request) {
     return { data: result };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'bioassays',
         connection,
         stack: e.stack,
@@ -80,7 +80,7 @@ async function searchHandler(request) {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

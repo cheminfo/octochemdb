@@ -75,7 +75,7 @@ export async function sync(connection) {
       // set progress to updating
       progress.state = 'updating';
       await connection.setProgress(progress);
-      debug(`Start parsing: ${lastFile}`);
+      debug.info(`Start importing MassBank`);
       const blob = readFileSync(lastFile);
       for await (const entry of parseMassBank(blob, connection)) {
         counter++;
@@ -83,7 +83,9 @@ export async function sync(connection) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug(`Processing: counter: ${counter} - imported: ${imported}`);
+          debug.trace(
+            `Processing: counter: ${counter} - imported: ${imported}`,
+          );
           start = Date.now();
         }
 
@@ -113,13 +115,17 @@ export async function sync(connection) {
 
       await collection.createIndex({ _seq: 1 });
 
-      debug(`${imported} compounds processed`);
+      debug.info(`MassBank collection imported`);
     } else {
-      debug(`file already processed`);
+      debug.info(`file already processed`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'massBank', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'massBank',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

@@ -107,11 +107,11 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'mfs', connection, stack: e.stack });
+      debug.error(e.message, { collection: 'mfs', connection, stack: e.stack });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

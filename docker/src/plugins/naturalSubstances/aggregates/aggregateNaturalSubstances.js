@@ -33,7 +33,7 @@ export async function aggregate(connection) {
       const temporaryCollection = await connection.getCollection(
         `${options.collection}_tmp`,
       );
-      debug('start Aggregation process');
+      debug.info('start Aggregation process of naturalSubstances');
       progress.state = 'aggregating';
       await connection.setProgress(progress);
       ////
@@ -111,7 +111,7 @@ export async function aggregate(connection) {
           // @ts-ignore
           Number(process.env.DEBUG_THROTTLING)
         ) {
-          debug(`Processing: counter: ${counter} `);
+          debug.trace(`Processing: counter: ${counter} `);
           start = Date.now();
         }
 
@@ -132,13 +132,13 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ _seq: 1 });
       await targetCollection.createIndex({ 'data.ocl.noStereoID': 1 });
 
-      debug('Aggregation Done');
+      debug.info('Aggregation Done');
     } else {
-      debug(`Aggregation already up to date`);
+      debug.info(`Aggregation already up to date`);
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'naturalSubstances',
         connection,
         stack: e.stack,

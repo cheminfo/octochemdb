@@ -19,10 +19,10 @@ async function firstPubmedImport(connection) {
     // get progress
     const progress = await connection.getProgress('pubmeds');
     if (progress.state === 'updated') {
-      debug('First importation has been completed. Should only update.');
+      debug.info('First importation has been completed. Should only update.');
       return;
     } else {
-      debug(`Continuing first importation from ${progress.seq}.`);
+      debug.info(`Continuing first importation from ${progress.seq}.`);
     }
     let allFiles;
     if (process.env.NODE_ENV === 'test') {
@@ -95,7 +95,11 @@ async function firstPubmedImport(connection) {
     await collection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'pubmeds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'pubmeds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

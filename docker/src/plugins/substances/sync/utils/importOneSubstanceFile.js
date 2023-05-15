@@ -32,7 +32,7 @@ export default async function importOneSubstanceFile(
     });
     const collectionTaxonomies = await connection.getCollection('taxonomies');
 
-    debug(`Importing: ${file.name}`);
+    debug.info(`Importing taxonomies collection`);
     // should we directly import the data how wait that we reach the previously imported information
     let { shouldImport = true, lastDocument } = options;
     let bufferValue = '';
@@ -55,12 +55,12 @@ export default async function importOneSubstanceFile(
     logs.endSequenceID = progress.seq;
     logs.status = 'updated';
     await connection.updateImportationLog(logs);
-    debug(`${newSubstances} substances imported from ${file.name}`);
+    debug.trace(`${newSubstances} substances imported from ${file.name}`);
     return newSubstances;
 
     async function parseSDF(sdf) {
       let substances = parse(sdf).molecules;
-      debug(`Need to process ${substances.length} substances`);
+      debug.trace(`Need to process ${substances.length} substances`);
 
       if (process.env.NODE_ENV === 'test') substances = substances.slice(0, 10);
 
@@ -70,7 +70,7 @@ export default async function importOneSubstanceFile(
             continue;
           }
           shouldImport = true;
-          debug(`Skipping substances till: ${lastDocument._id}`);
+          debug.trace(`Skipping substances till: ${lastDocument._id}`);
           continue;
         }
         try {
@@ -135,7 +135,7 @@ export default async function importOneSubstanceFile(
           }
         } catch (e) {
           if (connection) {
-            debug(e.message, {
+            debug.warn(e.message, {
               collection: 'substances',
               connection,
               stack: e.stack,
@@ -146,12 +146,12 @@ export default async function importOneSubstanceFile(
         newSubstances++;
       }
 
-      debug(`${newSubstances} substances processed`);
+      debug.trace(`${newSubstances} substances processed`);
       return substances.length;
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,

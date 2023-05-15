@@ -36,7 +36,7 @@ export default async function importCompoundPatents(filneName, connection) {
           Date.now() - start > 60000 ||
           Number(process.env.DEBUG_THROTTLING)
         ) {
-          debug(count);
+          debug.trace(`Imported ${count} patents`);
           start = Date.now();
         }
         await temporaryCollection.updateOne(
@@ -80,7 +80,7 @@ export default async function importCompoundPatents(filneName, connection) {
     await connection.setProgress(progress);
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'compoundPatents',
         connection,
         stack: e.stack,

@@ -29,7 +29,7 @@ export default async function getCollectionsLinks(connection, collectionNames) {
         ])
         .toArray();
 
-      debug(
+      debug.trace(
         `Loaded ${results.length} noStereoTautomerIDs from ${collectionName}`,
       );
       for (const entry of results) {
@@ -47,7 +47,7 @@ export default async function getCollectionsLinks(connection, collectionNames) {
     return { links, collectionSources };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,

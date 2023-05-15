@@ -31,7 +31,7 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.warn(e.message, {
         collection: 'importationLogs',
         connection,
         stack: e.stack,
@@ -39,7 +39,7 @@ async function searchHandler() {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    debug('Closing connection');
+    debug.trace('Closing connection');
     if (connection) await connection.close();
   }
 }

@@ -8,9 +8,9 @@ const OctoChemConnection = new (require('../utils/OctoChemConnection'))();
 
 const debug = debugLibrary('index');
 generateStats()
-  .catch((e) => debug(e.stack))
+  .catch((e) => debug.error(e.stack))
   .then(() => {
-    debug('Done');
+    debug.trace('Done');
     OctoChemConnection.close();
   });
 
@@ -74,7 +74,7 @@ async function generateStats() {
   await statsCollection.replaceOne({ _id: statsEntry._id }, statsEntry, {
     upsert: true,
   });
-  debug(`Statistics saved as ${id} in collection mfStats`);
+  debug.trace(`Statistics saved as ${id} in collection mfStats`);
 
   // debug(JSON.stringify(result, null, 2));
 }

@@ -60,7 +60,7 @@ export async function* parseNpatlases(json, connection) {
         yield result;
       } catch (e) {
         if (connection) {
-          debug(e.message, {
+          debug.warn(e.message, {
             collection: 'npAtlases',
             connection,
             stack: e.stack,
@@ -71,7 +71,11 @@ export async function* parseNpatlases(json, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'npAtlases', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'npAtlases',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

@@ -33,7 +33,7 @@ export default async function insertTitle(filneName, connection) {
         entry.data.title = title;
       }
       if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-        debug(`Tiles parsed ${count}`);
+        debug.trace(`Tiles parsed ${count}`);
         start = Date.now();
       }
       count++;
@@ -46,7 +46,7 @@ export default async function insertTitle(filneName, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'patents',
         connection,
         stack: e.stack,

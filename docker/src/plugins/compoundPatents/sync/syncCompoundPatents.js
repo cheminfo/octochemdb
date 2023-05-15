@@ -67,10 +67,11 @@ export async function sync(connection) {
     ) {
       progress.state = 'updating';
       await connection.setProgress(progress);
+      debug.info('start sync compoundPatents');
       //sort file by cid
       const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
       await ungzipAndSort(lastFile, sortedFile);
-      debug('ungzip and sort done');
+      debug.trace('ungzip and sort done');
 
       await importCompoundPatents(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
@@ -89,6 +90,7 @@ export async function sync(connection) {
       logs.status = 'updated';
 
       await connection.updateImportationLog(logs);
+      debug.info('Sync compoundPatents completed');
       // remove recursively the sorted file
       if (existsSync(sortedFile)) {
         rmSync(sortedFile, { recursive: true });
@@ -96,7 +98,7 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'compoundPatents',
         connection,
         stack: e.stack,

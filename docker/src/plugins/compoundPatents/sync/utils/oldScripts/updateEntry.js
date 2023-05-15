@@ -14,7 +14,7 @@ export async function updateEntry(collection, id, patents) {
 
     return result.modifiedCount === 1;
   } else {
-    debug(`Entry not found: ${id}`);
+    debug.error(`Entry not found: ${id}`);
     return false;
   }
 }

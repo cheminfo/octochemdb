@@ -15,10 +15,10 @@ async function firstCompoundImport(connection) {
   try {
     const progress = await connection.getProgress('compounds');
     if (progress.state === 'updated') {
-      debug('First importation has been completed. Should only update.');
+      debug.info('First importation has been completed. Should only update.');
       return;
     } else {
-      debug(`Continuing first importation from ${progress.seq}.`);
+      debug.info(`Continuing first importation from ${progress.seq}.`);
     }
     // Synchronize the full compounds folder (just once)
     let allFiles;
@@ -67,7 +67,11 @@ async function firstCompoundImport(connection) {
     await compoundsCollection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
-      debug(e.message, { collection: 'compounds', connection, stack: e.stack });
+      debug.fatal(e.message, {
+        collection: 'compounds',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }

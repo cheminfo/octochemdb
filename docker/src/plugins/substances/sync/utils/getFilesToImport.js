@@ -37,38 +37,38 @@ export async function getFilesToImport(
       if (!progress.sources || !lastDocument) {
         return { files: allFiles, lastDocument: {} };
       }
-      debug(`last file processed: ${progress.sources}`);
+      debug.trace(`last file processed: ${progress.sources}`);
       const firstIndex = allFiles.findIndex((n) =>
         n.path.endsWith(progress.sources),
       );
       if (firstIndex === -1) {
         throw new Error(`file not found: ${progress.sources}`);
       }
-      debug(`starting with file ${progress.sources}`);
+      debug.trace(`starting with file ${progress.sources}`);
       return { lastDocument, files: allFiles.slice(firstIndex) };
     } else if (importType === 'incremental') {
       if (!lastDocument) {
         throw new Error('This should never happen');
       }
 
-      debug(`last file processed: ${progress.sources}`);
+      debug.trace(`last file processed: ${progress.sources}`);
 
       const firstIndex = allFiles.findIndex((n) =>
         n.path.endsWith(progress.sources),
       );
 
       if (firstIndex === -1) {
-        debug('Should import all the incremental updates');
+        debug.trace('Should import all the incremental updates');
         return { files: allFiles, lastDocument: {} };
       }
 
-      debug(`starting with file ${progress.sources}`);
+      debug.trace(`starting with file ${progress.sources}`);
 
       return { lastDocument, files: allFiles.slice(firstIndex) };
     }
   } catch (e) {
     if (connection) {
-      debug(e.message, {
+      debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,
