@@ -26,13 +26,13 @@ export default async function improveSubstance(molecule) {
         let arrayCIDs = molecule.PUBCHEM_CID_ASSOCIATIONS.toString()
           .replace(/(?<temp1>\r\n|\n|\r)/gm, '  ')
           .split('  ');
-        let cids = [];
+        let dbRefs = [];
         for (let i = 0; i < arrayCIDs.length; i++) {
           if ((i + 1) % 2 !== 0) {
-            cids.push(Number(arrayCIDs[i]));
+            dbRefs.push({ $ref: 'compounds', $id: Number(arrayCIDs[i]) });
           }
         }
-        result.data.cids = cids;
+        result.data.cids = dbRefs;
       }
 
       if (molecule.PUBCHEM_NCBI_TAXONOMY_ID !== undefined) {
