@@ -142,7 +142,7 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      debug.fatal(e.stack, {
         collection: options.collectionName,
         connection,
         stack: e.stack,
