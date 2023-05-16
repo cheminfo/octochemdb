@@ -48,7 +48,10 @@ async function searchHandler(request) {
 
     if (ids !== '') {
       matchParameters._id = {
-        $in: ids.split(/[ ,;\t\r\n]+/).filter((entry) => entry),
+        $in: ids
+          .split(/[ ,;\t\r\n]+/)
+          .filter((entry) => entry)
+          .map(Number),
       };
     }
 
