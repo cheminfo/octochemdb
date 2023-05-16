@@ -74,7 +74,7 @@ async function firstPubmedImport(connection) {
     // create indexes
     const collection = await connection.getCollection('pubmeds');
     await collection.createIndex({ 'data.meshHeadings': 1 });
-    await collection.createIndex({ 'data.cids': 1 });
+    await collection.createIndex({ 'data.compounds': 1 });
     // create text index where title and meshHeading have more weight than abstract
     await collection.createIndex(
       {

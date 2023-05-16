@@ -18,7 +18,11 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
     data: {},
   };
   if (cids) {
-    result.data.cids = cids;
+    let dbRefs = [];
+    for (let cid of cids) {
+      dbRefs.push({ $ref: 'compounds', $id: cid });
+    }
+    result.data.compounds = dbRefs;
   }
 
   try {
