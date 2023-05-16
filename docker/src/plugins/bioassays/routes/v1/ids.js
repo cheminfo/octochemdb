@@ -22,13 +22,6 @@ const searchIDs = {
         description: 'Fields to retrieve',
         default: 'data',
       },
-
-      limit: {
-        type: 'number',
-        description: 'Maximum number of results to return',
-        example: 200,
-        default: 100,
-      },
     },
   },
   handler: searchHandler,
@@ -43,7 +36,7 @@ async function searchHandler(request) {
   } else {
     data = request.body;
   }
-  let { bioassayIDs = '', fields = 'data', limit = 100 } = data;
+  let { bioassayIDs = '', fields = 'data' } = data;
 
   let formattedFields = getFields(fields);
   let connection;
@@ -64,7 +57,6 @@ async function searchHandler(request) {
         $match: matchParameters,
       },
       { $project: formattedFields },
-      { $limit: Number(limit) },
     ];
 
     const result = await collection.aggregate(aggregateParameters).toArray();
