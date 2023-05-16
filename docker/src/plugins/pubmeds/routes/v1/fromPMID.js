@@ -47,7 +47,7 @@ async function searchHandler(request) {
     return { data: results[0] };
   } catch (e) {
     if (connection) {
-      debug.error(e.message, {
+      await debug.error(e.message, {
         collection: 'pubmeds',
         connection,
         stack: e.stack,

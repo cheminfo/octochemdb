@@ -46,7 +46,7 @@ export default async function insertTitle(filneName, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'patents',
         connection,
         stack: e.stack,

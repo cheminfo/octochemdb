@@ -32,7 +32,7 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'activeAgainst',
         connection,
         stack: e.stack,

@@ -67,7 +67,7 @@ async function firstCompoundImport(connection) {
     await compoundsCollection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'compounds',
         connection,
         stack: e.stack,

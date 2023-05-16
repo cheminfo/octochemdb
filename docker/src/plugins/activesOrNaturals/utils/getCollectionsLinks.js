@@ -47,7 +47,7 @@ export default async function getCollectionsLinks(connection, collectionNames) {
     return { links, collectionSources };
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,

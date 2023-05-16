@@ -80,7 +80,7 @@ export default async function importCompoundPatents(filneName, connection) {
     await connection.setProgress(progress);
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'compoundPatents',
         connection,
         stack: e.stack,

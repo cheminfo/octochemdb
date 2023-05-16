@@ -35,7 +35,7 @@ async function searchHandler(request) {
     return { data: result };
   } catch (e) {
     if (connection) {
-      debug.error(e.message, {
+      await debug.error(e.message, {
         collection: 'taxonomies',
         connection,
         stack: e.stack,

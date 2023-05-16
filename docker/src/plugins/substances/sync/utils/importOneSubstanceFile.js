@@ -151,7 +151,7 @@ export default async function importOneSubstanceFile(
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,

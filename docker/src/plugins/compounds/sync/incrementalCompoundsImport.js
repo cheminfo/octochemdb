@@ -62,7 +62,7 @@ async function incrementalCompoundImport(connection) {
     debug.info('Compounds collection updated.');
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'compounds',
         connection,
         stack: e.stack,

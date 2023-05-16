@@ -89,7 +89,7 @@ export async function aggregate(connection) {
     progress.state = 'error';
     await connection.setProgress(progress);
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'mfsCHNOSClF',
         connection,
         stack: e.stack,

@@ -48,7 +48,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug.error(e.message, {
+      await debug.error(e.message, {
         collection: 'massBank',
         connection,
         stack: e.stack,

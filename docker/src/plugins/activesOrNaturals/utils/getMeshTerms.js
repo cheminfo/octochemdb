@@ -47,7 +47,10 @@ export async function getMeshTerms(cids, collection, connection) {
     };
   } catch (error) {
     if (connection) {
-      debug.fatal(error, { collection: collection.collectionName, connection });
+      await debug.fatal(error, {
+        collection: collection.collectionName,
+        connection,
+      });
     }
   }
 }

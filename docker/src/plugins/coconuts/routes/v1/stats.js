@@ -31,7 +31,7 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'coconuts',
         connection,
         stack: e.stack,

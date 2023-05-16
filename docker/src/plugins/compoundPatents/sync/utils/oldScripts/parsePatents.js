@@ -48,7 +48,7 @@ export default async function parsePatents(filename, collection, connection) {
     );
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'patents',
         connection,
         stack: e.stack,

@@ -99,7 +99,7 @@ async function* parseBioactivities(
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'bioassays',
         connection,
         stack: e.stack,

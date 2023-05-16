@@ -41,7 +41,7 @@ export async function getNoStereosFromCache(molecule, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'gnps',
         connection,
         stack: e.stack,

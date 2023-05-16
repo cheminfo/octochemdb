@@ -75,7 +75,7 @@ export async function syncCompoundFolder(connection, importType) {
     }
   } catch (e) {
     if (connection) {
-      debug.trace(e.message, {
+      await debug.trace(e.message, {
         collection: 'compounds',
         connection,
         stack: e.stack,

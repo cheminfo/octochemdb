@@ -48,7 +48,7 @@ export default async function getActivitiesInfo(data, connection) {
     return { activityInfos, activityDBRef };
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,

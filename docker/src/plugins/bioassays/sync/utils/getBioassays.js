@@ -105,7 +105,7 @@ export default async function getBioassays(
     return bioassays;
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'bioassays',
         connection,
         stack: e.stack,

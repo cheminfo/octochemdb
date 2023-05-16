@@ -95,7 +95,7 @@ async function firstPubmedImport(connection) {
     await collection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'pubmeds',
         connection,
         stack: e.stack,

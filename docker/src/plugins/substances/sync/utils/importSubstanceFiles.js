@@ -41,7 +41,7 @@ export async function importSubstanceFiles(
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,

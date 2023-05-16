@@ -138,7 +138,7 @@ export async function aggregate(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'naturalSubstances',
         connection,
         stack: e.stack,

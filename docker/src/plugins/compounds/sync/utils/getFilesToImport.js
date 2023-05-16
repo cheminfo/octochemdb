@@ -59,7 +59,7 @@ export async function getFilesToImport(
     return { files: allFiles.slice(firstIndex), lastDocument };
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'compounds',
         connection,
         stack: e.stack,

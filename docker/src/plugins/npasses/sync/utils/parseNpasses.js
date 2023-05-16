@@ -126,7 +126,7 @@ export async function* parseNpasses(
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'npasses',
         connection,
         stack: e.stack,

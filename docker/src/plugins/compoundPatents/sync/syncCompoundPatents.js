@@ -98,7 +98,7 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'compoundPatents',
         connection,
         stack: e.stack,

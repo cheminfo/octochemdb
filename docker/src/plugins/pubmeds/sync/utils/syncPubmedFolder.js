@@ -31,7 +31,7 @@ export async function syncPubmedFolder(connection, importType) {
     });
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'pubmeds',
         connection,
         stack: e.stack,

@@ -185,7 +185,7 @@ parentPort?.on('message', async (dataEntry) => {
     parentPort.postMessage({ workerID, currentCount: count, status: 'done' });
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,

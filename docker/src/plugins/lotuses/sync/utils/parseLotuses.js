@@ -181,7 +181,7 @@ export async function* parseLotuses(lotusFilePath, filename, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'lotuses',
         connection,
         stack: e.stack,

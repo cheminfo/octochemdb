@@ -45,7 +45,7 @@ export async function getCidFromPmid(filePath, connection) {
     return data;
   } catch (error) {
     if (connection) {
-      debug.fatal(error, { collection: 'pubmeds', connection });
+      await debug.fatal(error, { collection: 'pubmeds', connection });
     }
   }
 }

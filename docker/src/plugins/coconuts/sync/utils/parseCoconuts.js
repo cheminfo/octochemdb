@@ -99,7 +99,7 @@ export async function* parseCoconuts(bsonPath, filename, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'coconuts',
         connection,
         stack: e.stack,

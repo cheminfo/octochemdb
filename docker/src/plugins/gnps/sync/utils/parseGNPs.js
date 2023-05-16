@@ -115,7 +115,7 @@ export async function* parseGNPs(jsonPath, connection) {
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'gnps',
         connection,
         stack: e.stack,

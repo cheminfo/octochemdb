@@ -54,7 +54,7 @@ async function firstSubstanceImport(connection) {
     await substanceCollection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'substances',
         connection,
         stack: e.stack,

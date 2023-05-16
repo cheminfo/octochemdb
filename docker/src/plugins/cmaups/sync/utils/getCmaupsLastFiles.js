@@ -97,7 +97,7 @@ export default async function getCmaupsLastFiles(connection) {
   } catch (e) {
     // If error is chatched, debug it on telegram
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'cmaups',
         connection,
         stack: e.stack,

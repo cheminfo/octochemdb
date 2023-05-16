@@ -31,7 +31,7 @@ async function searchHandler() {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug.warn(e.message, {
+      await debug.warn(e.message, {
         collection: 'importationLogs',
         connection,
         stack: e.stack,

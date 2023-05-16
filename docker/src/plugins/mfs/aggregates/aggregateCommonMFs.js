@@ -84,7 +84,11 @@ export async function aggregate(connection) {
     progress.state = 'error';
     await connection.setProgress(progress);
     if (connection) {
-      debug.error(e.message, { collection: 'mfs', connection, stack: e.stack });
+      await debug.error(e.message, {
+        collection: 'mfs',
+        connection,
+        stack: e.stack,
+      });
     }
   }
 }
