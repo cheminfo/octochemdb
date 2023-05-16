@@ -53,7 +53,7 @@ async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      debug.fa(e.message, {
+      debug.fatal(e.message, {
         collection: 'activesOrNaturals',
         connection,
         stack: e.stack,
