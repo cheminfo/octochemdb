@@ -36,7 +36,8 @@ export async function main(links) {
               counts[message.workerID] = message.currentCount;
               if (
                 Date.now() - lastLogDate >
-                Number(process.env.DEBUG_THROTTLING)
+                  Number(process.env.DEBUG_THROTTLING) &&
+                message.status === 'running'
               ) {
                 let current = counts.reduce(
                   (previous, current) => previous + current,
@@ -45,7 +46,9 @@ export async function main(links) {
                 lastLogDate = Date.now();
                 debug.trace(`Processing: ${current} / ${total} `);
               }
-              resolve(message);
+              if (message.status === 'done') {
+                resolve(message);
+              }
             });
             worker.on('error', reject);
             worker.on('exit', (code) => {

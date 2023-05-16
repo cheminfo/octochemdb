@@ -172,13 +172,17 @@ parentPort?.on('message', async (dataEntry) => {
 
         count++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          parentPort.postMessage({ workerID, currentCount: count });
+          parentPort.postMessage({
+            workerID,
+            currentCount: count,
+            status: 'running',
+          });
           start = Date.now();
         }
       }
     }
     // @ts-ignore
-    parentPort.postMessage({ workerID, currentCount: count });
+    parentPort.postMessage({ workerID, currentCount: count, status: 'done' });
   } catch (e) {
     if (connection) {
       debug.fatal(e.message, {
