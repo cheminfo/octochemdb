@@ -19,7 +19,7 @@ const fromPMID = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'data.article.title,data.cids',
+        default: 'data',
       },
     },
   },
@@ -29,7 +29,7 @@ const fromPMID = {
 export default fromPMID;
 
 async function searchHandler(request) {
-  let { pmid = 1, fields = 'data.article.title,data.cids' } = request.query;
+  let { pmid = 1, fields = 'data' } = request.query;
 
   let connection;
   try {
