@@ -13,7 +13,10 @@ exports[`syncSubstances > syncSubstances First Importation 1`] = `
     },
     "charge": 0,
     "cids": [
-      647412,
+      {
+        "$id": 647412,
+        "$ref": "compounds",
+      },
     ],
     "em": 325.14601278769004,
     "mf": "C15H23N3O3S",
@@ -42,7 +45,10 @@ exports[`syncSubstances > syncSubstances Incremental Importation 1`] = `
     },
     "charge": 0,
     "cids": [
-      10738749,
+      {
+        "$id": 10738749,
+        "$ref": "compounds",
+      },
     ],
     "em": 383.17664421135004,
     "mf": "C19H29NO5S",

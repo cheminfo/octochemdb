@@ -6,129 +6,89 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
   "data": {
     "activities": [
       {
-        "dbRef": {
-          "$id": "59478_1",
-          "$ref": "bioassays",
-        },
+        "$id": "59478_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "61929_1",
-          "$ref": "bioassays",
-        },
+        "$id": "61929_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "67115_1",
-          "$ref": "bioassays",
-        },
+        "$id": "67115_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "68553_1",
-          "$ref": "bioassays",
-        },
+        "$id": "68553_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "76598_1",
-          "$ref": "bioassays",
-        },
+        "$id": "76598_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "77111_1",
-          "$ref": "bioassays",
-        },
+        "$id": "77111_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "77250_1",
-          "$ref": "bioassays",
-        },
+        "$id": "77250_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "80565_1",
-          "$ref": "bioassays",
-        },
+        "$id": "80565_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "81146_1",
-          "$ref": "bioassays",
-        },
+        "$id": "81146_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "84145_1",
-          "$ref": "bioassays",
-        },
+        "$id": "84145_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "88579_1",
-          "$ref": "bioassays",
-        },
+        "$id": "88579_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "89216_1",
-          "$ref": "bioassays",
-        },
+        "$id": "89216_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "90481_1",
-          "$ref": "bioassays",
-        },
+        "$id": "90481_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "95282_1",
-          "$ref": "bioassays",
-        },
+        "$id": "95282_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "96028_1",
-          "$ref": "bioassays",
-        },
+        "$id": "96028_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "96679_1",
-          "$ref": "bioassays",
-        },
+        "$id": "96679_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "5351335_1",
-          "$ref": "bioassays",
-        },
+        "$id": "5351335_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "5351409_1",
-          "$ref": "bioassays",
-        },
+        "$id": "5351409_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "5351514_1",
-          "$ref": "bioassays",
-        },
+        "$id": "5351514_1",
+        "$ref": "bioassays",
       },
       {
-        "dbRef": {
-          "$id": "5351641_1",
-          "$ref": "bioassays",
-        },
+        "$id": "5351641_1",
+        "$ref": "bioassays",
       },
     ],
     "bioactive": true,
     "charge": 0,
-    "cids": [
+    "compounds": [
       {
         "$id": 59478,
         "$ref": "compounds",
