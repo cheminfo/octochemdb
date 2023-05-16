@@ -2,16 +2,16 @@
 import { OctoChemConnection, getFields } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = debugLibrary('searchIDs');
+const debug = debugLibrary('search');
 
-const searchIDs = {
+const search = {
   method: ['GET', 'POST'],
   schema: {
     summary:
       'Retrieve articles which title, MeSH terms or abstract contains the given text',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      pmids: {
+      ids: {
         type: 'string',
         description: 'PubMed IDs comma separated',
         example: '19342308,17200418',
@@ -46,7 +46,7 @@ const searchIDs = {
   handler: searchHandler,
 };
 
-export default searchIDs;
+export default search;
 
 async function searchHandler(request) {
   let data;
@@ -56,7 +56,7 @@ async function searchHandler(request) {
     data = request.body;
   }
   let {
-    pmids = '',
+    ids = '',
     keywords = '',
     fields = 'data',
     minScore = 0,
@@ -75,15 +75,15 @@ async function searchHandler(request) {
       matchParameters.$text = { $search: keywords };
       formattedFields.score = { $meta: 'textScore' };
     }
-    if (pmids !== '') {
+    if (ids !== '') {
       matchParameters._id = {
-        $in: pmids
+        $in: ids
           .split(/[ ,;\t\r\n]+/)
           .filter((entry) => entry)
           .map(Number),
       };
     }
-    if (keywords !== '' && pmids !== '') {
+    if (keywords !== '' && ids !== '') {
       aggregateParameters = [
         {
           $match: matchParameters,
