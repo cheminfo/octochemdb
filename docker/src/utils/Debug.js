@@ -52,12 +52,15 @@ export default function Debug(context) {
 }
 
 async function sendTelegrams() {
-  if (messages.length > 1) return;
-
+  // messages can grow while we are sending telegrams so we need to copy the array
   while (messages.length > 0) {
-    await sendTelegram(messages[0].text);
-    await delay(1000);
-    messages.shift();
+    let messagesToSend = [...messages];
+    messages.length = 0;
+    for (const message of messagesToSend) {
+      await sendTelegram(message.text);
+      await delay(1000);
+    }
+    messagesToSend.length = 0;
   }
 }
 
