@@ -24,7 +24,7 @@ export default function Debug(context) {
     if (!Object.keys(levels).includes(level)) {
       throw new Error(`Unknown level ${level}`);
     }
-    logger[level] = (message, options = {}) => {
+    logger[level] = async (message, options = {}) => {
       if (levels[level] >= minLevel) {
         realDebug(message);
       }
@@ -44,7 +44,7 @@ export default function Debug(context) {
         sendTelegrams();
       }
       if (options) {
-        logInDB(message, options);
+        await logInDB(message, options);
       }
     };
   }
