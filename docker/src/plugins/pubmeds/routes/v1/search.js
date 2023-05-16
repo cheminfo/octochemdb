@@ -49,20 +49,13 @@ const search = {
 export default search;
 
 async function searchHandler(request) {
-  let data;
-  if (request.method === 'GET') {
-    data = request.query;
-  } else {
-    data = request.body;
-  }
   let {
     ids = '',
     keywords = '',
     fields = 'data',
     minScore = 0,
     limit = 100,
-  } = data;
-
+  } = request.query;
   let formattedFields = getFields(fields);
   let connection;
   try {

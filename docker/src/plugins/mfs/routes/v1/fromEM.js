@@ -45,19 +45,13 @@ const fromEMs = {
 export default fromEMs;
 
 async function searchHandler(request) {
-  let data;
-  if (request.method === 'GET') {
-    data = request.query;
-  } else {
-    data = request.body;
-  }
   let {
     em = '',
     minCount = 5,
     limit = 1e3,
     precision = 100,
     fields = 'data',
-  } = data;
+  } = request.query;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;

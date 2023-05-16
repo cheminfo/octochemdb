@@ -139,12 +139,6 @@ export default entriesSearch;
  * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
  */
 async function searchHandler(request) {
-  let data;
-  if (request.method === 'GET') {
-    data = request.query;
-  } else {
-    data = request.body;
-  }
   let {
     em = '',
     mf = '',
@@ -167,7 +161,7 @@ async function searchHandler(request) {
     limit = 1e3,
     precision = 100,
     fields = 'data.em,data.mf',
-  } = data;
+  } = request.query;
   // This keywords use regular expressions to search even for incomplete terms
   let wordsWithRegexBioassays = [];
   let wordsWithRegexMeshTerms = [];
