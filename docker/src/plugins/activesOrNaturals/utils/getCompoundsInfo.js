@@ -77,7 +77,7 @@ export default async function getCompoundsInfo(
       entry.data.patents = dbRefsPatents;
     }
     if (dbRefsCompounds.length > 0) {
-      entry.data.cids = dbRefsCompounds;
+      entry.data.compounds = dbRefsCompounds;
     }
     if (casNumber.length > 0) {
       entry.data.cas = casNumber;

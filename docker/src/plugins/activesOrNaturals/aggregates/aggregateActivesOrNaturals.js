@@ -93,6 +93,7 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.nbPatents': 1 });
       await targetCollection.createIndex({ 'data.nbTaxonomies': 1 });
       await targetCollection.createIndex({ 'data.nbMassSpectra': 1 });
+      await targetCollection.createIndex({ 'data.compounds': 1 });
 
       debug.info('Aggregation Done');
     } else {

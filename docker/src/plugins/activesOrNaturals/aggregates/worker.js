@@ -89,14 +89,14 @@ parentPort?.on('message', async (dataEntry) => {
       entry.data.nbMassSpectra = 0;
       entry.data.nbTaxonomies = 0;
       entry.data.nbActivities = 0;
-      if (entry.data.cids) {
+      if (entry.data.compounds) {
         const uniqueMeshTerms = {};
         const uniquePmIds = {};
         let nbPubmeds = 0;
         const pubmedCollection = await connection.getCollection('pubmeds');
 
         const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
-          entry.data.cids,
+          entry.data.compounds,
           pubmedCollection,
           connection,
         );

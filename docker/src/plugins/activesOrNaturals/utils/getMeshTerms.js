@@ -18,7 +18,28 @@ export async function getMeshTerms(cids, collection, connection) {
   try {
     const result = await collection
       .aggregate([
-        { $match: { 'data.cids': { $in: compoundIds } } },
+        {
+          $project: {
+            _id: 1,
+            compoundCIDs: {
+              $setIntersection: [
+                {
+                  $map: {
+                    input: '$data.compounds',
+                    as: 'compound',
+                    in: '$$compound.$id',
+                  },
+                },
+                compoundIds,
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            compoundCIDs: { $ne: null },
+          },
+        },
         {
           $limit: 1000,
         },
