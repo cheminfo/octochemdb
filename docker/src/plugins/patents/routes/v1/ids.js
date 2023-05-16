@@ -10,7 +10,7 @@ const searchIDs = {
       'Retrieve articles which title or abstract contains the given text',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      patentsIDs: {
+      ids: {
         type: 'string',
         description: 'patents IDs',
         example: 'EP-2078065-A2, EP-1293521-A2',
@@ -35,7 +35,7 @@ async function searchHandler(request) {
   } else {
     data = request.body;
   }
-  let { patentsIDs = '', fields = 'data' } = data;
+  let { ids = '', fields = 'data' } = data;
   let formattedFields = getFields(fields);
   let connection;
   try {
@@ -45,8 +45,8 @@ async function searchHandler(request) {
     let matchParameters = {};
     let aggregateParameters;
 
-    if (patentsIDs !== '') {
-      matchParameters._id = { $in: patentsIDs.split(/[ ,;\t\r\n]+/) };
+    if (ids !== '') {
+      matchParameters._id = { $in: ids.split(/[ ,;\t\r\n]+/) };
       aggregateParameters = [
         {
           $match: matchParameters,

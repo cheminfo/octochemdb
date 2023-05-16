@@ -10,7 +10,7 @@ const searchIDs = {
     summary: 'Retrieve bioassays for given bioassay IDs',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      bioassayIDs: {
+      ids: {
         type: 'string',
         description: 'Bioassays IDs ',
         example: '59478_1,5351641_1',
@@ -36,7 +36,7 @@ async function searchHandler(request) {
   } else {
     data = request.body;
   }
-  let { bioassayIDs = '', fields = 'data' } = data;
+  let { ids = '', fields = 'data' } = data;
 
   let formattedFields = getFields(fields);
   let connection;
@@ -46,9 +46,9 @@ async function searchHandler(request) {
     let matchParameters = {};
     let aggregateParameters;
 
-    if (bioassayIDs !== '') {
+    if (ids !== '') {
       matchParameters._id = {
-        $in: bioassayIDs.split(/[ ,;\t\r\n]+/).filter((entry) => entry),
+        $in: ids.split(/[ ,;\t\r\n]+/).filter((entry) => entry),
       };
     }
 
