@@ -1,10 +1,6 @@
 import { parentPort } from 'worker_threads';
 
-import Debug from 'debug';
-
 import { OctoChemConnection } from '../../utils/OctoChemConnection.js';
-
-const debug = Debug('pubmedsFix');
 
 const connection = new OctoChemConnection();
 parentPort?.on('message', async (entryData) => {
@@ -53,6 +49,6 @@ parentPort?.on('message', async (entryData) => {
     // @ts-ignore
     parentPort.postMessage({ workerID, currentCount: count, status: 'done' });
   } catch (e) {
-    debug(e);
+    console.log(e);
   }
 });

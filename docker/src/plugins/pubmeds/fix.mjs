@@ -1,8 +1,6 @@
 import { cpus } from 'os';
 import { Worker } from 'worker_threads';
 
-import debug from 'debug';
-
 import { OctoChemConnection } from '../../utils/OctoChemConnection.js';
 
 export async function main() {
@@ -38,7 +36,7 @@ export async function main() {
                 0,
               );
               lastLogDate = Date.now();
-              debug(`Processing: ${current} / ${total} `);
+              console.log(`Processing: ${current} / ${total} `);
             }
             if (message.status === 'done') {
               resolve(message);
