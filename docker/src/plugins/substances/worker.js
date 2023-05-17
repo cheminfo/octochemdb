@@ -28,13 +28,15 @@ parentPort?.on('message', async (entryData) => {
       count++;
 
       if (entry?.data?.compounds) {
-        let compounds = entry.data.compounds;
-        let dbRefs = [];
-        for (let compound of compounds) {
-          dbRefs.push({ $ref: 'compounds', $id: compound });
+        if (typeof entry.data.compounds[0] === 'number') {
+          let compounds = entry.data.compounds;
+          let dbRefs = [];
+          for (let compound of compounds) {
+            dbRefs.push({ $ref: 'compounds', $id: compound });
+          }
+          delete entry.data.compounds;
+          entry.data.compounds = dbRefs;
         }
-        delete entry.data.compounds;
-        entry.data.compounds = dbRefs;
         await collection.updateOne(
           { _id: entry._id },
           { $set: { data: entry.data } },
