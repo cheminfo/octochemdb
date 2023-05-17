@@ -2,6 +2,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import fastifyCors from '@fastify/cors';
+import { fastifyMultipart } from '@fastify/multipart';
 import fastifySensible from '@fastify/sensible';
 import fastifyStatic from '@fastify/static';
 import fastifySwagger from '@fastify/swagger';
@@ -30,7 +31,7 @@ const fastifyServer = fastify({
     },
   },
 });
-
+fastifyServer.register(fastifyMultipart);
 fastifyServer.register(fastifyCors, {
   maxAge: 86400,
 });
@@ -39,7 +40,6 @@ fastifyServer.register(fastifySensible);
 fastifyServer.get('/', (_, reply) => {
   reply.redirect('/public/index.html');
 });
-
 fastifyServer.register(fastifySwagger, {
   swagger: {
     info: {
