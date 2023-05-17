@@ -31,7 +31,7 @@ const fastifyServer = fastify({
     },
   },
 });
-fastifyServer.register(fastifyMultipart);
+fastifyServer.register(fastifyMultipart, { attachFieldsToBody: true });
 fastifyServer.register(fastifyCors, {
   maxAge: 86400,
 });
