@@ -30,11 +30,16 @@ const searchIDs = {
 export default searchIDs;
 
 async function searchHandler(request) {
-  let {
-    ids = '',
-
-    fields = 'data',
-  } = request.query;
+  let data = {};
+  for (let key in request.query) {
+    data[key] = request.query[key];
+  }
+  if (request.body !== undefined) {
+    for (let key in request.body) {
+      data[key] = request.body[key].value;
+    }
+  }
+  let { ids = '', fields = 'data' } = data;
 
   let formattedFields = getFields(fields);
   let connection;

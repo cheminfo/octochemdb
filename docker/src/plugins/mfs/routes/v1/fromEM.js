@@ -45,13 +45,22 @@ const fromEMs = {
 export default fromEMs;
 
 async function searchHandler(request) {
+  let data = {};
+  for (let key in request.query) {
+    data[key] = request.query[key];
+  }
+  if (request.body !== undefined) {
+    for (let key in request.body) {
+      data[key] = request.body[key].value;
+    }
+  }
   let {
     em = '',
     minCount = 5,
     limit = 1e3,
     precision = 100,
     fields = 'data',
-  } = request.query;
+  } = data;
 
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
