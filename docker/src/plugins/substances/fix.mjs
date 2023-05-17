@@ -1,9 +1,7 @@
 import { cpus } from 'os';
 import { Worker } from 'worker_threads';
 
-import debug from 'debug';
-
-import { OctoChemConnection } from '../../utils/OctoChemConnection';
+import { OctoChemConnection } from '../../utils/OctoChemConnection.js';
 
 export async function main() {
   const connection = new OctoChemConnection();
@@ -11,6 +9,7 @@ export async function main() {
   const total = await colletion.countDocuments();
   const url = new URL('worker.js', import.meta.url);
   const numWorkers = cpus().length / 4;
+  console.log(total);
   const chunkSize = Math.floor(total / numWorkers);
   let workers = [];
   for (let i = 0; i < numWorkers; i++) {
@@ -30,7 +29,7 @@ export async function main() {
           worker.on('message', (message) => {
             counts[message.workerID] = message.currentCount;
             if (
-              Date.now() - lastLogDate > Number(process.env.DEBUG_THROTTLING) &&
+              Date.now() - lastLogDate > 60000 &&
               message.status === 'running'
             ) {
               let current = counts.reduce(
@@ -38,7 +37,7 @@ export async function main() {
                 0,
               );
               lastLogDate = Date.now();
-              debug(`Processing: ${current} / ${total} `);
+              console.log(`Processing: ${current} / ${total} `);
             }
             if (message.status === 'done') {
               resolve(message);
@@ -54,3 +53,4 @@ export async function main() {
     ),
   );
 }
+await main();

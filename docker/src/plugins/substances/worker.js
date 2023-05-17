@@ -1,8 +1,6 @@
 import { parentPort } from 'worker_threads';
 
-import debug from 'debug';
-
-import { OctoChemConnection } from '../../utils/OctoChemConnection';
+import { OctoChemConnection } from '../../utils/OctoChemConnection.js';
 
 const connection = new OctoChemConnection();
 parentPort?.on('message', async (entryData) => {
@@ -36,11 +34,12 @@ parentPort?.on('message', async (entryData) => {
           }
           delete entry.data.compounds;
           entry.data.compounds = dbRefs;
+
+          await collection.updateOne(
+            { _id: entry._id },
+            { $set: { data: entry.data } },
+          );
         }
-        await collection.updateOne(
-          { _id: entry._id },
-          { $set: { data: entry.data } },
-        );
       } else {
         continue;
       }
@@ -49,6 +48,6 @@ parentPort?.on('message', async (entryData) => {
     // @ts-ignore
     parentPort.postMessage({ workerID, currentCount: count, status: 'done' });
   } catch (e) {
-    debug(e);
+    console.log(e);
   }
 });

@@ -3,7 +3,7 @@ import { Worker } from 'worker_threads';
 
 import debug from 'debug';
 
-import { OctoChemConnection } from '../../utils/OctoChemConnection';
+import { OctoChemConnection } from '../../utils/OctoChemConnection.js';
 
 export async function main() {
   const connection = new OctoChemConnection();
@@ -30,7 +30,7 @@ export async function main() {
           worker.on('message', (message) => {
             counts[message.workerID] = message.currentCount;
             if (
-              Date.now() - lastLogDate > Number(process.env.DEBUG_THROTTLING) &&
+              Date.now() - lastLogDate > 60000 &&
               message.status === 'running'
             ) {
               let current = counts.reduce(
