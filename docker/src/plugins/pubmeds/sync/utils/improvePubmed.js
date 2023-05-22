@@ -63,7 +63,7 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
         }
         parsedArticle.abstract = abstracts.join(' ');
       } else {
-        parsedArticle.abstract = medlineArticle.Abstract.abstractText;
+        parsedArticle.abstract = medlineArticle.Abstract.AbstractText;
       }
     }
     // get Journal information
