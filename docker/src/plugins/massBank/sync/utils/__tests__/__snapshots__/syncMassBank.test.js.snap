@@ -4,6 +4,8 @@ exports[`syncMassBank 1`] = `
 {
   "_id": "MSBNK-AAFC-AC000854",
   "data": {
+    "em": 287.11575803062,
+    "mf": "C16H17NO4",
     "ocl": {
       "idCode": "fjm\`P@I@PIvQQIQZIKQPiTYdkTmUTp@QCd@@",
       "noStereoTautomerID": "fjm\`P@A@pivRJJYSIIQRiLydmUUUUUUT@FjTXq\`fJXYcfAXUcVKX]cv@xcaNLxKbnOtafGFKGpq|L",

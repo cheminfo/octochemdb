@@ -1,5 +1,5 @@
 import pkg from 'fs-extra';
-import { Spectrum } from 'mass-tools';
+import { Spectrum, MF } from 'mass-tools';
 import { xNormed, xy2ToXY, xyObjectToXY } from 'ml-spectra-processing';
 import OCL from 'openchemlib';
 import pkg2 from 'stream-json/streamers/StreamArray.js';
@@ -36,6 +36,12 @@ export async function* parseGNPs(jsonPath, connection) {
         // should get noStereoID, noStereoTautomer,  coordinates getNoStereosFromCache
 
         const oclMolecule = OCL.Molecule.fromSmiles(entry.value.Smiles);
+        const mfInfo = new MF(
+          oclMolecule.getMolecularFormula().formula,
+        ).getInfo();
+
+        const mf = mfInfo.mf;
+        const em = mfInfo.monoisotopicMass;
         const ocl = await getNoStereosFromCache(oclMolecule, connection);
         // Get spectrum metadata
         let spectrum = {};
@@ -97,7 +103,12 @@ export async function* parseGNPs(jsonPath, connection) {
             spectrum,
           },
         };
-
+        if (mf) {
+          result.data.mf = mf;
+        }
+        if (em) {
+          result.data.em = em;
+        }
         if (entry.value.Pubmed_ID !== 'N/A') {
           result.data.pmid = Number(entry.value.Pubmed_ID);
         }

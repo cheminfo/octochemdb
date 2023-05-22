@@ -1,4 +1,4 @@
-import { Spectrum } from 'mass-tools';
+import { Spectrum, MF } from 'mass-tools';
 import { xNormed, xyObjectToXY } from 'ml-spectra-processing';
 import { parseMSP } from 'msp-parser';
 import OCL from 'openchemlib';
@@ -17,6 +17,10 @@ export async function* parseMassBank(blob, connection) {
           result._id = data.meta['DB#'];
 
           let oclMolecule = OCL.Molecule.fromSmiles(data.meta.SMILES);
+          const mfInfo = new MF(
+            oclMolecule.getMolecularFormula().formula,
+          ).getInfo();
+
           let ocl = await getNoStereosFromCache(oclMolecule, connection);
           result.data = {
             ocl,
@@ -52,6 +56,8 @@ export async function* parseMassBank(blob, connection) {
             /MS/,
             '',
           );
+          result.data.em = mfInfo.monoisotopicMass;
+          result.data.mf = mfInfo.mf;
         }
         yield result;
       } catch (e) {

@@ -5,6 +5,8 @@ exports[`parseMassBank 1`] = `
   {
     "_id": "MSBNK-AAFC-AC000854",
     "data": {
+      "em": 287.11575803062,
+      "mf": "C16H17NO4",
       "ocl": {
         "coordinates": "!Bb@K~@Ha}b@JH@ha}?\`BH?[\\\\Bb@K~_{]}bGw~_{\\\\BbOs~_xa}bGw~_p",
         "idCode": "fjm\`P@I@PIvQQIQZIKQPiTYdkTmUTp@QCd@@",
@@ -46,6 +48,8 @@ exports[`parseMassBank 1`] = `
   {
     "_id": "MSBNK-AAFC-AC000292",
     "data": {
+      "em": 318.14672380691,
+      "mf": "C18H22O5",
       "ocl": {
         "coordinates": "!B?g~w_Xa}mpK~_xc|?\`Bw?[_}bOw~@Ha}bOrH?Hc|?\`BH?_x@bOrw@ox@bGt",
         "idCode": "fncAP@@HeFnQQJJJJHkIKJF\\\\UkTEQDMULTBJCh",

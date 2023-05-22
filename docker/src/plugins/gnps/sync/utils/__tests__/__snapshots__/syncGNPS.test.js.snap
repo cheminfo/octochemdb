@@ -4,6 +4,8 @@ exports[`syncGNPs 1`] = `
 {
   "_id": "CCMSLIB00000001547",
   "data": {
+    "em": 980.5331177997001,
+    "mf": "C48H72N10O12",
     "ocl": {
       "idCode": "gfOEPX@@DE@qTzJmPy}~@ZKARx|aXbTjL^rJIQQSSPyQJISJIQPpqSPsPiIIZIYQJZXqIVgQFbuSULuUMUUMSMUMULtuUUM@A@A@zlt@",
       "noStereoTautomerID": "gfOEPX@@DE@qTzJmPy}~@ZKARx|aTfTjL^rJIQQSSPyQJISJIQPpqSQRpiIIZIYQJZXqIVgQFcUSUUUUUUUUUUUUUUUUUUU@A@@AjV@X\`XpXXXxXTXtXLXlX\\\\X|XBXbXRXrXJXjXZXzXFXfXVXvXNXnX^X~XAXaXQXqXIXiXYXEXeXUXuXMXmX]X}XCXcXSXsXkX[XWXoX_XhxQA\`Aidq|L_CCjfOacxX",
