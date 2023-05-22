@@ -17,7 +17,7 @@ async function firstPubmedImport(connection) {
   const debug = debugLibrary('firstPubmedImport');
   try {
     // get progress
-    const progress = await connection.getProgress('pubmeds');
+    const progress = await connection.getProgress('pubmeds_tmp');
     if (progress.state === 'updated') {
       debug.info('First importation has been completed. Should only update.');
       return;
