@@ -4,6 +4,8 @@ import { createGunzip } from 'zlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
+import { parseHtmlEntities } from './parseHtmlEntities.js';
+
 const debug = debugLibrary('insertTitle');
 export default async function insertTitle(filneName, connection) {
   try {
@@ -13,7 +15,7 @@ export default async function insertTitle(filneName, connection) {
     const lines = createInterface({ input: stream });
     let start = Date.now();
     let count = 0;
-
+    let promise = [];
     for await (const line of lines) {
       let entry = {};
       let fields = line.split('\t');
@@ -26,7 +28,7 @@ export default async function insertTitle(filneName, connection) {
       // TITLE
       regex = /"(?<temp1>.*)"/;
       let title = fields[2].match(regex).groups.temp1;
-
+      title = parseHtmlEntities(title);
       if (patentID && title) {
         entry._id = patentID;
         entry.data = {};
@@ -38,12 +40,19 @@ export default async function insertTitle(filneName, connection) {
       }
       count++;
       if (!entry._id) continue;
-      await temporaryCollection.updateOne(
-        { _id: entry._id },
-        { $set: entry },
-        { upsert: true },
+      promise.push(
+        temporaryCollection.updateOne(
+          { _id: entry._id },
+          { $set: entry },
+          { upsert: true },
+        ),
       );
+      if (promise.length > 1000) {
+        await Promise.all(promise);
+        promise = [];
+      }
     }
+    await Promise.all(promise);
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {

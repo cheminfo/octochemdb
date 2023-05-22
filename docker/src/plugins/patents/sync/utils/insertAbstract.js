@@ -4,6 +4,8 @@ import { createGunzip } from 'zlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
+import { parseHtmlEntities } from './parseHtmlEntities.js';
+
 const debug = debugLibrary('insertAbstract');
 export default async function insertAbstract(filneName, connection) {
   try {
@@ -13,6 +15,7 @@ export default async function insertAbstract(filneName, connection) {
     const lines = createInterface({ input: stream });
     let start = Date.now();
     let count = 0;
+    let promise = [];
     for await (const line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 3) continue;
@@ -22,6 +25,7 @@ export default async function insertAbstract(filneName, connection) {
       // ABSTRACT
       regex = /"(?<temp1>.*)"/;
       let abstract = fields[2].match(regex).groups.temp1;
+      abstract = parseHtmlEntities(abstract);
       if (patentID && abstract) {
         let entry = {};
         entry._id = patentID;
@@ -34,15 +38,22 @@ export default async function insertAbstract(filneName, connection) {
         }
         count++;
         // insert abstract without deleting the previous data
-        await temporaryCollection.updateOne(
-          { _id: entry._id },
-          { $set: { 'data.abstract': entry.data.abstract } },
-          { upsert: true },
+        promise.push(
+          temporaryCollection.updateOne(
+            { _id: entry._id },
+            { $set: { 'data.abstract': entry.data.abstract } },
+            { upsert: true },
+          ),
         );
+        if (promise.length > 1000) {
+          await Promise.all(promise);
+          promise = [];
+        }
       } else {
         continue;
       }
     }
+    await Promise.all(promise);
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {

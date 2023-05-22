@@ -10,7 +10,7 @@ test(
     await sync(connection);
     const collection = await connection.getCollection('patents');
     const collectionEntry = await collection
-      .find({ _id: 'EP-2078065-A2' })
+      .find({ _id: 'US-10334499-B2' })
       .limit(1);
     const result = await collectionEntry.next();
 
