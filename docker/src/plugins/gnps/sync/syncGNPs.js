@@ -121,6 +121,8 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.spectrum.data.x': 1 });
       await collection.createIndex({ 'data.spectrum.data.y': 1 });
       await collection.createIndex({ 'data.spectrum.numberOfPeaks': 1 });
+      await collection.createIndex({ 'data.em': 1 });
+      await collection.createIndex({ 'data.mf': 1 });
       await collection.createIndex({ _seq: 1 });
 
       debug.trace(`${imported} compounds processed`);

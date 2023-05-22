@@ -113,6 +113,18 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       // create indexes on the collection
 
+      await collection.createIndex({ 'data.ocl.idCode': 1 });
+      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
+      await collection.createIndex({ 'data.spectrum.msLevel': 1 });
+      await collection.createIndex({ 'data.spectrum.ionSource': 1 });
+      await collection.createIndex({ 'data.spectrum.precursorMz': 1 });
+      await collection.createIndex({ 'data.spectrum.adduct': 1 });
+      await collection.createIndex({ 'data.spectrum.ionMode': 1 });
+      await collection.createIndex({ 'data.spectrum.data.x': 1 });
+      await collection.createIndex({ 'data.spectrum.data.y': 1 });
+      await collection.createIndex({ 'data.spectrum.numberOfPeaks': 1 });
+      await collection.createIndex({ 'data.em': 1 });
+      await collection.createIndex({ 'data.mf': 1 });
       await collection.createIndex({ _seq: 1 });
 
       debug.info(`MassBank collection imported`);

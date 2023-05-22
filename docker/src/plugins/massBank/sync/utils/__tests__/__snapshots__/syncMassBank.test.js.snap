@@ -10,8 +10,9 @@ exports[`syncMassBank 1`] = `
       "idCode": "fjm\`P@I@PIvQQIQZIKQPiTYdkTmUTp@QCd@@",
       "noStereoTautomerID": "fjm\`P@A@pivRJJYSIIQRiLydmUUUUUUT@FjTXq\`fJXYcfAXUcVKX]cv@xcaNLxKbnOtafGFKGpq|L",
     },
+    "precursorMz": "288.1225",
     "spectrum": {
-      "adduct": "MS2",
+      "adduct": "[M+H]+",
       "collisionEnergy": "30(NCE)",
       "data": {
         "x": [
@@ -36,8 +37,8 @@ exports[`syncMassBank 1`] = `
         ],
       },
       "instrument": "Q-Exactive Orbitrap Thermo Scientific",
-      "instrumentType": "LC-ESI-ITFT",
       "ionMode": "POSITIVE",
+      "ionSource": "LC-ESI-ITFT",
       "msLevel": "2",
       "numberOfPeaks": 8,
     },

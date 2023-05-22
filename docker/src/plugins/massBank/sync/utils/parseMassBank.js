@@ -48,9 +48,10 @@ export async function* parseMassBank(blob, connection) {
           result.data.spectrum.data.y = bestPeaksXY.y;
           result.data.spectrum.numberOfPeaks = bestPeaks.length;
           result.data.spectrum.instrument = data.meta.Instrument;
-          result.data.spectrum.instrumentType = data.meta.Instrument_type;
+          result.data.spectrum.ionSource = data.meta.Instrument_type;
+          result.data.precursorMz = data.meta.PrecursorMZ;
           result.data.spectrum.ionMode = data.meta.Ion_mode;
-          result.data.spectrum.adduct = data.meta.Spectrum_type;
+          result.data.spectrum.adduct = data.meta.Precursor_type;
           result.data.spectrum.collisionEnergy = data.meta.Collision_energy;
           result.data.spectrum.msLevel = data.meta.Spectrum_type.replace(
             /MS/,
