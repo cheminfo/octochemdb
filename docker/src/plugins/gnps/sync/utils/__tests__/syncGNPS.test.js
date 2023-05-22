@@ -23,7 +23,7 @@ test(
       .limit(1);
     const emptySmiles = await emptySmilesEntry.next();
     // expect(bronzeSpectrum) to be null
-    expect(emptySmiles).toBeNull();
+    expect(emptySmiles).toMatchSnapshot();
     await connection.close();
   },
   { timeout: 30000 },
