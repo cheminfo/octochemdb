@@ -47,7 +47,7 @@ export default async function insertTitle(filneName, connection) {
           { upsert: true },
         ),
       );
-      if (promise.length > 1000) {
+      if (promise.length > 10000) {
         await Promise.all(promise);
         promise = [];
       }
