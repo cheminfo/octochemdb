@@ -76,7 +76,7 @@ exports[`syncPubmed Incremental Importation 1`] = `
   "_id": 17200418,
   "data": {
     "article": {
-      "abstract": null,
+      "abstract": "The regulation of glycogen synthase activity by bile acids in primary hepatocytes and in the intact liver was investigated. Bile acids (deoxycholic acid, DCA; taurocholic acid, TCA) activated AKT and glycogen synthase (GS) in primary rat hepatocytes. Incubation with a phosphatidyl inositol-3 kinase inhibitor or expression of dominant-negative AKT in primary rat hepatocytes abolished activation of AKT and GS by DCA and TCA. TCA, but not DCA, activated Galpha(i) proteins in primary rat hepatocytes. Treatment of cells with pertussis toxin or expression of dominant-negative Galpha(i) blocked TCA-induced activation of AKT and of GS but did not alter AKT or GS activation caused by DCA. TCA caused activation of AKT and GS in intact rat liver. Expression of dominant-negative Galpha(i) reduced TCA-induced activation of AKT and of GS in intact rat liver. Together, our findings demonstrate that bile acids are physiological regulators of glycogen synthase in rat liver and that conjugated bile acids use a Galpha(i)-coupled G protein-coupled receptor to regulate GS activity in vitro and in vivo.",
       "authors": [
         {
           "firstName": "Youwen",
