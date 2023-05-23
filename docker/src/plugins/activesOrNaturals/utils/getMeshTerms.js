@@ -21,6 +21,7 @@ export async function getMeshTerms(cids, collection, connection) {
         {
           $project: {
             _id: 1,
+            data: 1,
             compoundCIDs: {
               $setIntersection: [
                 {
@@ -40,16 +41,16 @@ export async function getMeshTerms(cids, collection, connection) {
             compoundCIDs: { $ne: null },
           },
         },
+
         {
           $limit: 1000,
         },
       ])
       .toArray();
-
     let uniqueMeshTerms = {};
     let pmids = [];
     for (let doc of result) {
-      if (doc.data.meshHeadings) {
+      if (doc.data?.meshHeadings) {
         for (let meshHeading of doc.data.meshHeadings) {
           if (meshHeading.descriptorName) {
             const descriptorName = meshHeading.descriptorName.toLowerCase();
