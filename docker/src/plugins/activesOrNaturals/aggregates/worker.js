@@ -127,7 +127,7 @@ parentPort?.on('message', async (dataEntry) => {
       }
 
       if (dbRefsMs.length > 0) {
-        entry.data.massSpectraRefs = dbRefsMs;
+        entry.data.massSpectra = dbRefsMs;
         entry.data.nbMassSpectra += dbRefsMs.length;
       }
       // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
