@@ -56,12 +56,18 @@ export default async function getCompoundsInfo(
         let cursor = await compoundPatentsCollection.find({ _id: currentCid });
         if (await cursor.hasNext()) {
           let patent = await cursor.next();
-          compoundsPatents.concat(patent?.data.patents);
+          if (patent?.data?.patents) {
+            for (let patentID of patent.data.patents) {
+              if (!compoundsPatents.includes(patentID)) {
+                compoundsPatents.push(patentID);
+              }
+            }
+          }
           nbPatents += patent?.data.nbPatents;
         }
       }
     }
-    compoundsPatents = [...new Set(compoundsPatents)];
+
     entry.data.nbPatents = nbPatents;
 
     if (compoundsPatents?.length > 0) {
