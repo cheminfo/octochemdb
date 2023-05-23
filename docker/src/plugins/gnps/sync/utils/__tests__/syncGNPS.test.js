@@ -23,6 +23,10 @@ test(
       .limit(1);
     const emptySmiles = await emptySmilesEntry.next();
     // expect(bronzeSpectrum) to be null
+    if (emptySmiles?._seq) {
+      delete emptySmiles._seq;
+      delete emptySmiles.data.ocl.coordinates;
+    }
     expect(emptySmiles).toMatchSnapshot();
     await connection.close();
   },

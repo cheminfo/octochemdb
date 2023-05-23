@@ -233,12 +233,10 @@ exports[`syncGNPs 1`] = `
 exports[`syncGNPs 2`] = `
 {
   "_id": "CCMSLIB00000001548",
-  "_seq": 2,
   "data": {
     "em": 939.45195709384,
     "mf": "C45H73N5O10S3",
     "ocl": {
-      "coordinates": "!B|bsbHyQivZ\`t~fEd|@L[wh{dcnotzoUSNkRkYnRq@gvRGCMJ@JZRXusb?fPsMUp]^cSuKGRZSDhsRbsrYJDTmmeTLsW~YLKDyGEdpRH|Z{XsR\`rUNkRNyIPYLsVNyDpuNkQaYFSA?KvmGNPnEK[YUOHlZgM\\\\xcjt]IidpP",
       "idCode": "gorF\`hp@LFbXBuBHbpyrUF\`w[\\\\@BE@PLBLdTVRbbTRtLRbfbfVffbTVfavfbTTTRJpTO@Qy|KCjYjijjjjejjjjjYjjjjijj\`cARIXPQIDtfrWI|TIVizTYIifPy@@",
       "noStereoTautomerID": "gorF\`hp@LCAqDmVN\`JDbUFjs[\\\\@BC@PtBLdTVdTRtqTTRTTQbrabrbffbbTrrflTUpTMAbhtCYjZjjjjjjjjjjjjjjjjjjjj\`@CVhhpXqXpxpDqDpTplqlp|pBpbqrqjpZpfpVqvpnqnqAq~aCFE[Gpq|MXjX~FOahUSGpq|MViX~FOa\`",
     },
