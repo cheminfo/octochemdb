@@ -33,12 +33,21 @@ export async function getMeshTerms(cids, collection, connection) {
         },
         { $match: { compounds: { $in: compoundIds } } },
       ])
-      .toArray();*/
+      .toArray();
 
+    // find cid in data.compounds.$id
+    let cursor = await collection
+      .find({ 'data.compounds.$id': Number(cid.$id) })
+      .limit(1000);
+    let cursor = await collection
+      .find({
+        'data.cids': Number(cid.$id),
+      })
+      .limit(1000);
+      */
     // get all the documents that have the compoundIds
     const result = await collection
       .aggregate([
-        { $unwind: '$data.compounds' },
         {
           $match: {
             'data.compounds.$id': { $in: compoundIds },
@@ -52,6 +61,7 @@ export async function getMeshTerms(cids, collection, connection) {
         },
       ])
       .toArray();
+
     let uniqueMeshTerms = {};
     let pmids = [];
     for (let doc of result) {

@@ -1,6 +1,5 @@
 import md5 from 'md5';
 
-import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import debugLibrary from '../../../utils/Debug.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 
