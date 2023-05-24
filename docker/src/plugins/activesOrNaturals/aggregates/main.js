@@ -16,7 +16,9 @@ export async function main(links) {
 
     const numWorkers = cpus().length / 2;
     const chunkSize = Math.floor(values.length / numWorkers);
-
+    debug.info(`Starting ${numWorkers} workers`);
+    debug.info(`Chunk size: ${chunkSize}`);
+    debug.info(`Total: ${total}`);
     for (let i = 0; i < numWorkers; i++) {
       const start = i * chunkSize;
       const end = i === numWorkers - 1 ? values.length : (i + 1) * chunkSize;
