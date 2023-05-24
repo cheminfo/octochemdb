@@ -43,14 +43,20 @@ export async function* parseMassBank(blob, connection) {
             threshold: 0.01,
           });
           let bestPeaksXY = xyObjectToXY(bestPeaks);
+          // need to convert ion mode which is in all uppercase to lowercase with the first letter in uppercase
+          let normalizedIonMode = data.meta.Ion_mode.toLowerCase();
+          normalizedIonMode =
+            normalizedIonMode.charAt(0).toUpperCase() +
+            normalizedIonMode.slice(1);
+
           result.data.spectrum = { data: {} };
           result.data.spectrum.data.x = bestPeaksXY.x;
           result.data.spectrum.data.y = bestPeaksXY.y;
           result.data.spectrum.numberOfPeaks = bestPeaks.length;
           result.data.spectrum.instrument = data.meta.Instrument;
           result.data.spectrum.ionSource = data.meta.Instrument_type;
-          result.data.precursorMz = data.meta.PrecursorMZ;
-          result.data.spectrum.ionMode = data.meta.Ion_mode;
+          result.data.spectrum.precursorMz = data.meta.PrecursorMZ;
+          result.data.spectrum.ionMode = normalizedIonMode;
           result.data.spectrum.adduct = data.meta.Precursor_type;
           result.data.spectrum.collisionEnergy = data.meta.Collision_energy;
           result.data.spectrum.msLevel = data.meta.Spectrum_type.replace(
