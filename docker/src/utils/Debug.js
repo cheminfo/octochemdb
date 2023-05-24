@@ -58,7 +58,7 @@ async function sendTelegrams() {
     messages.length = 0;
     for (const message of messagesToSend) {
       await sendTelegram(message.text);
-      await delay(1000);
+      await delay(5000);
     }
     messagesToSend.length = 0;
   }
