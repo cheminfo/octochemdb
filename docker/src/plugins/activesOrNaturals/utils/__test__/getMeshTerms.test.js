@@ -5,7 +5,7 @@ import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 import { getMeshTerms } from '../getMeshTerms.js';
 
 test(
-  'Aggregation ActivesOrNaturals',
+  'getMeshTerms',
   async () => {
     const connection = new OctoChemConnection();
     let colllectionList = await connection.getCollectionNames();

@@ -13,7 +13,7 @@ export async function getMeshTerms(cids, collection, connection) {
   // get id from dbRef
   let compoundIds = [];
   for (let cid of cids) {
-    compoundIds.push(cid.$id);
+    compoundIds.push(Number(cid.$id));
   }
   try {
     const result = await collection
@@ -22,29 +22,17 @@ export async function getMeshTerms(cids, collection, connection) {
           $project: {
             _id: 1,
             data: 1,
-            compoundCIDs: {
-              $setIntersection: [
-                {
-                  $map: {
-                    input: '$data.compounds',
-                    as: 'compound',
-                    in: '$$compound.$id',
-                  },
-                },
-                compoundIds,
-              ],
+            compounds: {
+              $map: {
+                input: '$data.compounds',
+                as: 'compound',
+                in: '$$compound.$id',
+              },
             },
           },
         },
-        {
-          $match: {
-            compoundCIDs: { $ne: null },
-          },
-        },
-
-        {
-          $limit: 1000,
-        },
+        { $match: { compounds: { $in: compoundIds } } },
+        { $limit: 2 },
       ])
       .toArray();
     let uniqueMeshTerms = {};
