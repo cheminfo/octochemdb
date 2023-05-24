@@ -13,15 +13,12 @@ export async function getMeshTerms(cids, collection, connection) {
   // get id from dbRef
 
   try {
-    // get all the documents that have the compoundIds
     const result = await collection
-      .aggregate([
-        {
-          $match: {
-            'data.compounds': cids,
-          },
+      .find({
+        'data.compounds': {
+          $in: [cids],
         },
-      ])
+      })
       .toArray();
 
     let uniqueMeshTerms = {};
