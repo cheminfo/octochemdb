@@ -13,8 +13,8 @@ exports[`syncPubmed First Importation 1`] = `
         },
       ],
       "journal": {
-        "iSsn": "0030-6002",
         "isoAbbreviation": "Orv Hetil",
+        "issn": "0030-6002",
         "pubDate": {
           "Day": 3,
           "Month": "Jan",
@@ -116,8 +116,8 @@ exports[`syncPubmed Incremental Importation 1`] = `
         },
       ],
       "journal": {
-        "iSsn": "0026-895X",
         "isoAbbreviation": "Mol Pharmacol",
+        "issn": "0026-895X",
         "issue": 4,
         "pubDate": {
           "Month": "Apr",

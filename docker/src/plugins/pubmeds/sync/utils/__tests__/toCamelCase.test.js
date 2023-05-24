@@ -17,7 +17,7 @@ test('toCamelCase', () => {
     journal: {
       title: 'Orvosi hetilap',
       isoAbbreviation: 'Orv Hetil',
-      iSSN: '0030-6002',
+      ISSN: '0030-6002',
       pubDate: {
         Year: 1965,
         Month: 'Jan',
@@ -45,7 +45,7 @@ test('toCamelCase', () => {
         "year": 2018,
       },
       "journal": {
-        "iSsn": "0030-6002",
+        "issn": "0030-6002",
       },
       "journalInfo": {
         "country": "Hungary",

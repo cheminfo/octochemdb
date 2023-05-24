@@ -79,7 +79,7 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
         cleanedJournal.isoAbbreviation = medlineArticle.Journal.ISOAbbreviation;
       }
       if (medlineArticle.Journal.ISSN !== undefined) {
-        cleanedJournal.iSsn = medlineArticle.Journal.ISSN['#text'];
+        cleanedJournal.issn = medlineArticle.Journal.ISSN['#text'];
       }
       if (medlineArticle.Journal.JournalIssue.volume !== undefined) {
         cleanedJournal.volume = medlineArticle.Journal.JournalIssue.Volume;
