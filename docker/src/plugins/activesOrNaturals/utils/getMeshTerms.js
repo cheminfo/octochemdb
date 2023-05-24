@@ -16,7 +16,7 @@ export async function getMeshTerms(cids, collection, connection) {
     const result = await collection
       .find({
         'data.compounds': {
-          $in: [cids],
+          $in: cids,
         },
       })
       .toArray();
