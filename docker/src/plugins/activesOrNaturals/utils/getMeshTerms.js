@@ -11,37 +11,16 @@ import debugLibrary from '../../../utils/Debug.js';
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
   // get id from dbRef
-  let compoundIds = [];
-  for (let cid of cids) {
-    compoundIds.push(Number(cid.$id));
-  }
+
   try {
-    /*
-    // find cid in data.compounds.$id
-    let cursor = await collection
-      .find({ 'data.compounds.$id': Number(cid.$id) })
-      .limit(1000);
-    let cursor = await collection
-      .find({
-        'data.cids': Number(cid.$id),
-      })
-      .limit(1000);
-      */
     // get all the documents that have the compoundIds
     const result = await collection
       .aggregate([
         {
           $match: {
-            'data.compounds.$id': { $in: compoundIds },
+            'data.compounds': cids,
           },
         },
-        {
-          $project: {
-            _id: 1,
-            data: 1,
-          },
-        },
-        { $limit: 1000 },
       ])
       .toArray();
 
