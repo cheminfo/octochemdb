@@ -41,7 +41,7 @@ export async function getMeshTerms(cids, collection, connection) {
             data: 1,
           },
         },
-        { limit: 1000 },
+        { $limit: 1000 },
       ])
       .toArray();
 
