@@ -38,17 +38,8 @@ export async function aggregate(connection) {
       sources,
       startSequenceID: progress.seq,
     });
-    const lastDocumentImported = await getLastDocumentImported(
-      options.connection,
-      progress,
-      options.collection,
-    );
 
-    if (
-      lastDocumentImported === null ||
-      sources !== progress.sources ||
-      progress.state !== 'aggregated'
-    ) {
+    if (sources !== progress.sources || progress.state !== 'aggregated') {
       // if lastDocumentImported is null or sources are different from the progress, start aggregation process
       const temporaryCollection = await connection.getCollection(
         `${options.collection}_tmp`,
