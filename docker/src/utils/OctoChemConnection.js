@@ -121,5 +121,5 @@ OctoChemConnection.prototype.init = async function init() {
   debug.trace(`Trying to connect to: ${process.env.MONGODB_URL}`);
 
   this.connection = await this.client.connect();
-  debug.info('Got DB connection');
+  debug.trace('Got DB connection');
 };

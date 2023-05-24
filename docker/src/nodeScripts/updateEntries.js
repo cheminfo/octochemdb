@@ -7,7 +7,7 @@ const debug = debugLibrary('updateEntries');
 update()
   .catch((e) => debug.fatal(e.stack))
   .then(() => {
-    debug.info('Done');
+    debug.trace('Done');
     octoChemConnection.close();
   });
 

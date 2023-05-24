@@ -8,7 +8,7 @@ const octochemConnection = new (require('../utils/OctoChemConnection'))();
 search()
   .catch((e) => debug.error(e.stack))
   .then(() => {
-    debug.info('Done');
+    debug.trace('Done');
     octochemConnection.close();
   });
 
