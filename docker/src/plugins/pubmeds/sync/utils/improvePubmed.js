@@ -1,4 +1,6 @@
 import debugLibrary from '../../../../utils/Debug.js';
+
+import { toCamelCase } from './toCamelCase.js';
 /**
  * @description parse and make pubmed entry human readable
  * @param {object} entry - pubmed entry
@@ -27,10 +29,11 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
 
   try {
     // article information
-    let dateCreated = medlineCitation.DateCreated;
-    let dateCompleted = medlineCitation.DateCompleted;
-    let dateRevised = medlineCitation.DateRevised;
-    let medlineJournalInfo = medlineCitation.MedlineJournalInfo;
+    let dateCreated = toCamelCase(medlineCitation.DateCreated);
+
+    let dateCompleted = toCamelCase(medlineCitation.DateCompleted);
+    let dateRevised = toCamelCase(medlineCitation.DateRevised);
+    let medlineJournalInfo = toCamelCase(medlineCitation.MedlineJournalInfo);
     /// parse article
     let medlineArticle = medlineCitation.Article;
     let parsedArticle = {};
@@ -76,7 +79,7 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
         cleanedJournal.isoAbbreviation = medlineArticle.Journal.ISOAbbreviation;
       }
       if (medlineArticle.Journal.ISSN !== undefined) {
-        cleanedJournal.iSSN = medlineArticle.Journal.ISSN['#text'];
+        cleanedJournal.iSsn = medlineArticle.Journal.ISSN['#text'];
       }
       if (medlineArticle.Journal.JournalIssue.volume !== undefined) {
         cleanedJournal.volume = medlineArticle.Journal.JournalIssue.Volume;
