@@ -84,6 +84,7 @@ export default async function getCompoundsInfo(
     }
     if (dbRefsCompounds.length > 0) {
       entry.data.compounds = dbRefsCompounds;
+      entry.data.nbCompounds = dbRefsCompounds.length;
     }
     if (casNumber.length > 0) {
       entry.data.cas = casNumber;
