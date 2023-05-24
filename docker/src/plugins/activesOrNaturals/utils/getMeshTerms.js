@@ -14,11 +14,9 @@ export async function getMeshTerms(cids, collection, connection) {
 
   try {
     const result = await collection
-      .aggregate({
-        $match: {
-          'data.compounds': {
-            $in: cids,
-          },
+      .find({
+        'data.compounds': {
+          $in: cids,
         },
       })
       .toArray();
