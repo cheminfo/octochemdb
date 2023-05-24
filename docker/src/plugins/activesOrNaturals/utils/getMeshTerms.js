@@ -16,7 +16,7 @@ export async function getMeshTerms(cids, collection, connection) {
     compoundIds.push(Number(cid.$id));
   }
   try {
-    const result = await collection
+    /*   const result = await collection
       .aggregate([
         {
           $project: {
@@ -32,6 +32,24 @@ export async function getMeshTerms(cids, collection, connection) {
           },
         },
         { $match: { compounds: { $in: compoundIds } } },
+      ])
+      .toArray();*/
+
+    // get all the documents that have the compoundIds
+    const result = await collection
+      .aggregate([
+        { $unwind: '$data.compounds' },
+        {
+          $match: {
+            'data.compounds.$id': { $in: compoundIds },
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            data: 1,
+          },
+        },
       ])
       .toArray();
     let uniqueMeshTerms = {};
