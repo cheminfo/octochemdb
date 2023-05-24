@@ -83,6 +83,7 @@ export default async function getCompoundsInfo(
       }
       entry.data.patents = dbRefsPatents;
     }
+    entry.data.nbMolecules = 0;
     if (dbRefsMolecules.length > 0) {
       entry.data.molecules = dbRefsMolecules;
       entry.data.nbMolecules = dbRefsMolecules.length;
