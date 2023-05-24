@@ -16,25 +16,7 @@ export async function getMeshTerms(cids, collection, connection) {
     compoundIds.push(Number(cid.$id));
   }
   try {
-    /*   const result = await collection
-      .aggregate([
-        {
-          $project: {
-            _id: 1,
-            data: 1,
-            compounds: {
-              $map: {
-                input: '$data.compounds',
-                as: 'compound',
-                in: '$$compound.$id',
-              },
-            },
-          },
-        },
-        { $match: { compounds: { $in: compoundIds } } },
-      ])
-      .toArray();
-
+    /*
     // find cid in data.compounds.$id
     let cursor = await collection
       .find({ 'data.compounds.$id': Number(cid.$id) })
@@ -59,6 +41,7 @@ export async function getMeshTerms(cids, collection, connection) {
             data: 1,
           },
         },
+        { limit: 1000 },
       ])
       .toArray();
 
