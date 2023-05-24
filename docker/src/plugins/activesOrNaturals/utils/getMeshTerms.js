@@ -32,7 +32,6 @@ export async function getMeshTerms(cids, collection, connection) {
           },
         },
         { $match: { compounds: { $in: compoundIds } } },
-        { $limit: 2 },
       ])
       .toArray();
     let uniqueMeshTerms = {};
