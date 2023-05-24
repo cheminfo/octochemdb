@@ -10,17 +10,19 @@ import debugLibrary from '../../../utils/Debug.js';
 
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
-  // get id from dbRef
 
   try {
     const result = await collection
-      .find({
-        'data.compounds': {
-          $in: cids,
+      .aggregate([
+        {
+          $match: {
+            'data.compounds': {
+              $in: cids,
+            },
+          },
         },
-      })
+      ])
       .toArray();
-
     let uniqueMeshTerms = {};
     let pmids = [];
     for (let doc of result) {
