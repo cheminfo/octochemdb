@@ -21,6 +21,9 @@ export async function getMeshTerms(cids, collection, connection) {
             },
           },
         },
+        {
+          $limit: 50000,
+        },
       ])
       .toArray();
     let uniqueMeshTerms = {};
