@@ -91,7 +91,6 @@ export async function sync(connection) {
             entry,
             collectionTaxonomies,
             oldToNewTaxIDs,
-            'cmaups',
           );
           entry.data.activities = activities;
         }

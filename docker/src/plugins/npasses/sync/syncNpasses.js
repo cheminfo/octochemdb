@@ -89,7 +89,6 @@ export async function sync(connection) {
             entry,
             collectionTaxonomies,
             oldToNewTaxIDs,
-            'npasses',
           );
           entry.data.activities = activities;
         }

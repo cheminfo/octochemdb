@@ -12,7 +12,6 @@ export async function getNormalizedActivities(
   entry,
   taxonomiesCollection,
   oldToNewTaxIDs,
-  collectionName,
 ) {
   let results = [];
   if (entry.data.activities) {
@@ -29,7 +28,6 @@ export async function getNormalizedActivities(
       );
       let activities = {
         assay: assayString,
-        dbRef: { $ref: collectionName, $id: entry._id },
         externalRef: externalReference,
       };
       // search for the taxonomies
