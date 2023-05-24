@@ -88,12 +88,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     ],
     "bioactive": true,
     "charge": 0,
-    "compounds": [
-      {
-        "$id": 59478,
-        "$ref": "compounds",
-      },
-    ],
     "em": 632.42881889036,
     "kwActiveAgainst": [
       "archaea",
@@ -122,9 +116,20 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       "charantia",
     ],
     "mf": "C37H60O8",
+    "molecules": [
+      {
+        "$id": 59478,
+        "$ref": "compounds",
+      },
+      {
+        "$id": "LTS0257199",
+        "$ref": "lotuses",
+      },
+    ],
     "naturalProduct": true,
     "nbActivities": 20,
     "nbMassSpectra": 0,
+    "nbMolecules": 2,
     "nbPatents": 3,
     "nbPubmeds": 0,
     "nbTaxonomies": 1,

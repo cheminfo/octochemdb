@@ -100,6 +100,7 @@ parentPort?.on('message', async (dataEntry) => {
           pubmedCollection,
           connection,
         );
+        delete entry.data.compounds;
         nbPubmeds += Number(counterPmids);
         meshTermsForCid.forEach((term) => {
           uniqueMeshTerms[term] = true;

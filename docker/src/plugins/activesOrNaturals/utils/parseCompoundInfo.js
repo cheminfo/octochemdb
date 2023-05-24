@@ -15,7 +15,11 @@ export default async function parseCompoundInfo(
   let pmids = [];
   let meshTerms = [];
   let ocl = {};
-  let { cids, cidsDBRef } = await getCIDs(connection, noStereoTautomerID);
+  let { cids, cidsDBRef, dbRefsMolecules } = await getCIDs(
+    connection,
+    noStereoTautomerID,
+    data,
+  );
 
   for (const oneDataEntry of data) {
     if (oneDataEntry.data.pmids) {
@@ -84,6 +88,7 @@ export default async function parseCompoundInfo(
     meshTerms,
     pmids,
     cidsDBRef,
+    dbRefsMolecules,
   };
   return parsedCompoundInfo;
 }
