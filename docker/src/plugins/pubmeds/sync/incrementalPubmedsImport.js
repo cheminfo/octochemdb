@@ -15,7 +15,7 @@ async function incrementalPubmedImport(connection) {
   const debug = debugLibrary('incrementalPubmedImport');
   try {
     // get progress
-    const progress = await connection.getProgress('pubmeds_tmp');
+    const progress = await connection.getProgress('pubmeds');
     // get all files to import
     let allFiles;
     if (process.env.NODE_ENV === 'test') {
