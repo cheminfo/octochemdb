@@ -40,6 +40,7 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
           });
         }
       }
+      dbRefsMolecules = [...new Set(dbRefsMolecules)];
     }
   }
   return { cids, cidsDBRef, dbRefsMolecules };

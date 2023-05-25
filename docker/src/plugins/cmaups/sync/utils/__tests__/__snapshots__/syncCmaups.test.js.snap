@@ -7,10 +7,6 @@ exports[`syncCmaups 1`] = `
     "activities": [
       {
         "assay": "IC50 : 5900 nM",
-        "dbRef": {
-          "$id": "NPC146355",
-          "$ref": "cmaups",
-        },
         "externalRef": "PMID : 16413779",
       },
     ],

@@ -7,18 +7,10 @@ exports[`syncNpasses 1`] = `
     "activities": [
       {
         "assay": "MIC : 100 ug/ml",
-        "dbRef": {
-          "$id": "NPC10005",
-          "$ref": "npasses",
-        },
         "externalRef": "PMID : 10650093",
       },
       {
         "assay": "MIC : 100 ug/ml",
-        "dbRef": {
-          "$id": "NPC10005",
-          "$ref": "npasses",
-        },
         "externalRef": "PMID : 10650093",
       },
     ],
