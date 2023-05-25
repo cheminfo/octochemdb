@@ -97,7 +97,7 @@ export default async function getNpassesLastFiles(connection) {
       logs,
     };
   } catch (e) {
-     if (connection) {
+    if (connection) {
       await debug.fatal(e.message, {
         collection: 'npasses',
         connection,
