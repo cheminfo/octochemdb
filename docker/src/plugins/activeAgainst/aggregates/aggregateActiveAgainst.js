@@ -46,59 +46,86 @@ export async function aggregate(connection) {
       progress.state = 'aggregating';
       await connection.setProgress(progress);
       // Aggregate the data from the activesOrNaturals collection
-      const result = collectionActivesOrNaturals.aggregate(
-        [
-          { $project: { activities: '$data.activities' } },
-          { $unwind: '$activities' },
-          { $unwind: '$activities.targetTaxonomies' },
-          { $project: { taxonomy: '$activities.targetTaxonomies' } },
-          {
-            $project: {
-              superkingdom: '$taxonomy.superkingdom',
-              kingdom: '$taxonomy.kingdom',
-              phylum: '$taxonomy.phylum',
-              class: '$taxonomy.class',
-            },
-          },
-          {
-            $group: {
-              _id: {
-                $concat: [
-                  '$_id',
-                  '$superkingdom',
-                  'kingdom',
-                  '$phylum',
-                  '$class',
-                ],
+      let dbRefs = await collectionActivesOrNaturals
+        .aggregate(
+          [
+            { $project: { activities: '$data.activities' } },
+            { $match: { activities: { $ne: [] } } },
+            {
+              $project: {
+                _id: 0,
+                activities: '$activities',
               },
-              superkingdom: { $first: '$superkingdom' },
-              kingdom: { $first: '$kingdom' },
-              phylum: { $first: '$phylum' },
-              class: { $first: '$class' },
             },
-          },
+          ],
           {
-            $group: {
-              _id: {
-                $concat: ['$superkingdom', 'kingdom', '$phylum', '$class'],
-              },
-              count: { $sum: 1 },
-              superkingdom: { $first: '$superkingdom' },
-              kingdom: { $first: '$kingdom' },
-              phylum: { $first: '$phylum' },
-              class: { $first: '$class' },
-            },
+            allowDiskUse: true, // allow aggregation to use disk if necessary
+            maxTimeMS: 60 * 60 * 1000, // 1h
           },
-          { $out: `activeAgainst_tmp` },
-        ],
-        {
-          allowDiskUse: true, // allow aggregation to use disk if necessary
-          maxTimeMS: 60 * 60 * 1000, // 1h
-        },
-      );
-      await result.hasNext();
-      // remove null _id
-      await temporaryCollection.deleteOne({ _id: null });
+        )
+        .toArray();
+      let start = Date.now();
+      let count = 0;
+      let total = dbRefs.length;
+
+      dbRefs = dbRefs.filter((dbRef) => dbRef.activities !== undefined);
+
+      for (let dbRef of dbRefs) {
+        for (let activity of dbRef.activities) {
+          let collectionActivity = await connection.getCollection(
+            activity.collection,
+          );
+          let cursor = await collectionActivity.find({
+            _id: activity.oid,
+          });
+          if (await cursor.hasNext()) {
+            let entryActivity = await cursor.next();
+            if (entryActivity.data?.targetTaxonomies) {
+              for (let taxonomy of entryActivity.data.targetTaxonomies) {
+                let entry = {
+                  data: {},
+                };
+                if (taxonomy.superkingdom) {
+                  entry.data.superkingdom = taxonomy.superkingdom;
+                }
+                if (taxonomy.kingdom) entry.data.kingdom = taxonomy.kingdom;
+                if (taxonomy.phylum) entry.data.phylum = taxonomy.phylum;
+                if (taxonomy.class) entry.data.class = taxonomy.class;
+                if (taxonomy.order) entry.data.order = taxonomy.order;
+                if (taxonomy.family) entry.data.family = taxonomy.family;
+                if (taxonomy.genus) entry.data.genus = taxonomy.genus;
+                let levels = Object.keys(entry.data);
+                let id = '';
+                for (let level of levels) {
+                  id += `${entry.data[level]}`;
+                }
+                entry._id = id.replace(/\s/g, '');
+                let cursor = await temporaryCollection.find({ _id: entry._id });
+                if (!(await cursor.hasNext())) {
+                  entry.count = 1;
+                  await temporaryCollection.updateOne(
+                    { _id: entry._id },
+                    { $set: entry },
+                    { upsert: true },
+                  );
+                } else {
+                  await temporaryCollection.updateOne(
+                    { _id: entry._id },
+                    { $inc: { count: 1 } },
+                    { upsert: true },
+                  );
+                }
+                count++;
+              }
+            }
+          }
+        }
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+          await debug.info(`Aggregation progress: ${count}/${total}`);
+          start = Date.now();
+        }
+      }
+
       // rename temporary collection
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,
@@ -113,13 +140,13 @@ export async function aggregate(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'aggregated';
       await connection.setProgress(progress);
-      debug.info('Aggregation Done');
+      await debug.info('Aggregation Done');
     } else {
-      debug.info(`Aggregation already up to date`);
+      await debug.info(`Aggregation already up to date`);
     }
   } catch (e) {
     if (connection) {
-      debug.fatal(e.message, {
+      await debug.fatal(e.message, {
         collection: 'activeAgainst',
         connection,
         stack: e.stack,

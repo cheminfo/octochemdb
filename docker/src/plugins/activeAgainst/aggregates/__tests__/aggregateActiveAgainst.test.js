@@ -18,7 +18,7 @@ test(
     const collection = await connection.getCollection('activeAgainst');
     const collectionEntry = await collection
       .find({
-        _id: 'ArchaeakingdomCandidatus BorrarchaeotaCandidatus Borrarchaeia',
+        _id: 'ArchaeaCandidatusBorrarchaeotaCandidatusBorrarchaeiaCandidatusBorrarchaealesCandidatusBorrarchaeaceaeCandidatusBorrarchaeum',
       })
       .limit(1);
     const result = await collectionEntry.next();
