@@ -37,8 +37,8 @@ export default async function getActivitiesInfo(data, connection) {
             }
             activityInfo.push(activity);
           }
+          activityDBRefs.push({ $ref: entry.collection, $id: entry._id });
         }
-        activityDBRefs.push({ $ref: entry.collection, $id: entry._id });
       }
     }
     let activityInfos = [...new Set(activityInfo)];
