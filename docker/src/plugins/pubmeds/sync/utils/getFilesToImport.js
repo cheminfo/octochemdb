@@ -16,7 +16,7 @@ export async function getFilesToImport(
 ) {
   const debug = debugLibrary('getFilesToImport');
   try {
-    const collection = await connection.getCollection('pubmeds');
+    const collection = await connection.getCollection('pubmeds_tmp');
     const lastDocument = await collection
       .find({ _seq: { $lte: progress.seq } })
       .sort('_seq', -1)

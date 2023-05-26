@@ -17,7 +17,7 @@ async function firstPubmedImport(connection) {
   const debug = debugLibrary('firstPubmedImport');
   try {
     // get progress
-    const progress = await connection.getProgress('pubmeds');
+    const progress = await connection.getProgress('pubmeds_tmp');
     if (progress.state === 'updated') {
       debug.info('First importation has been completed. Should only update.');
       return;
@@ -72,7 +72,7 @@ async function firstPubmedImport(connection) {
     progress.state = 'updated';
     await connection.setProgress(progress);
     // create indexes
-    const collection = await connection.getCollection('pubmeds');
+    const collection = await connection.getCollection('pubmeds_tmp');
     await collection.createIndex({ 'data.meshHeadings': 1 });
     await collection.createIndex({ 'data.compounds': 1 });
     // create text index where title and meshHeading have more weight than abstract
