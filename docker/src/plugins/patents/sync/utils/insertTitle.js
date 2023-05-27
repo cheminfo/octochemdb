@@ -9,6 +9,7 @@ import { parseHtmlEntities } from './parseHtmlEntities.js';
 const debug = debugLibrary('insertTitle');
 export default async function insertTitle(filneName, connection) {
   try {
+    const compoundPatents = await connection.getCollection('compoundPatents');
     const temporaryCollection = await connection.getCollection('patents_tmp');
     const readStream = createReadStream(filneName);
     const stream = readStream.pipe(createGunzip());
@@ -40,6 +41,10 @@ export default async function insertTitle(filneName, connection) {
       }
       count++;
       if (!entry._id) continue;
+      let nbCompounds = await compoundPatents.countDocuments({
+        'data.patents': { $in: [entry._id] },
+      });
+      entry.data.nbCompounds = nbCompounds;
       promise.push(
         temporaryCollection.updateOne(
           { _id: entry._id },
