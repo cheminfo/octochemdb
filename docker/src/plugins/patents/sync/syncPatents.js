@@ -96,6 +96,7 @@ export async function sync(connection) {
         { 'data.title': 'text', 'data.abstract': 'text' },
         { weights: { 'data.title': 10, 'data.abstract': 1 } },
       );
+      await collection.createIndex({ 'data.nbCompounds': 1 });
 
       // update Logs in importationLogs collection
       progress.sources = md5(JSON.stringify(sources));
