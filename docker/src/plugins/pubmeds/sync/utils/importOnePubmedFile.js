@@ -75,6 +75,6 @@ export default async function importOnePubmedFile(
     rmSync(filePath, { recursive: true });
     return imported;
   } catch (err) {
-    debug.fatal(err, { collection: 'pubmeds', connection });
+    await debug.fatal(err, { collection: 'pubmeds', connection });
   }
 }

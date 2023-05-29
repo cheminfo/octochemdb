@@ -79,7 +79,7 @@ export async function* parseMassBank(blob, connection) {
       }
     }
   } catch (e) {
-    debug.fatal(e.message, {
+    await debug.fatal(e.message, {
       collection: 'massbank',
       connection,
       stack: e.stack,
