@@ -65,6 +65,8 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
           }
         }
         parsedArticle.abstract = abstracts.join(' ');
+      } else if (typeof medlineArticle.Abstract.AbstractText === 'string') {
+        parsedArticle.abstract = medlineArticle.Abstract.AbstractText;
       } else {
         parsedArticle.abstract = medlineArticle.Abstract.AbstractText['#text'];
       }
