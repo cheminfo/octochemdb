@@ -2,8 +2,13 @@
 
 exports[`getMeshTerms 1`] = `
 {
-  "counterPmids": 5,
+  "counterPmids": 6,
   "meshTermsForCid": [
+    "alternaria",
+    "lactones",
+    "molecular structure",
+    "mycotoxins",
+    "tobacco",
     "abdominal injuries",
     "alcoholic intoxication",
     "cardiac surgical procedures",
@@ -59,6 +64,7 @@ exports[`getMeshTerms 1`] = `
     "weight loss",
   ],
   "pmIds": [
+    27776211,
     14248046,
     14248047,
     12918000,
