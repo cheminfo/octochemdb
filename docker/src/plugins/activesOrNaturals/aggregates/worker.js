@@ -156,7 +156,7 @@ parentPort?.on('message', async (dataEntry) => {
       // if activityInfo is not empty, define entry.data.activities
       if (activityDBRef.length > 0) {
         entry.data.activities = activityDBRef;
-        entry.data.nbActivities += activityDBRef.length;
+        entry.data.nbActivities += activityInfos.length;
       }
       // if taxons is not empty, define entry.data.taxonomies
       if (taxons.length > 0) {
