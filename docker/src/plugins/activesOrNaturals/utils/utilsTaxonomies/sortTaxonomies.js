@@ -17,11 +17,20 @@ export function sortTaxonomies(taxonomies) {
   if (taxonomies?.length === 1) return taxonomies;
   const sortedTaxonomies = taxonomies.sort((a, b) => {
     for (const field of fields) {
+      // if field is undefined write it as empty string to avoid errors
+      if (a[field] === undefined) a[field] = '';
+      if (b[field] === undefined) b[field] = '';
       if (a[field] !== b[field]) {
         return a[field].localeCompare(b[field]);
       }
     }
     return 0;
+  });
+  // remove all fields which are empty strings
+  sortedTaxonomies.forEach((taxonomy) => {
+    for (const field of fields) {
+      if (taxonomy[field] === '') delete taxonomy[field];
+    }
   });
   return sortedTaxonomies;
 }

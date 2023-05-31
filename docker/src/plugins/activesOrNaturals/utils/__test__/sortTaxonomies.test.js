@@ -40,7 +40,7 @@ describe('sortTaxonomies', () => {
       }
     `);
   });
-  it('empty fields', () => {
+  it('empty and missing fields', () => {
     const taxonomies = [
       {
         superKingdom: 'Bacteria',
@@ -48,7 +48,6 @@ describe('sortTaxonomies', () => {
         phylum: 'Pseudomonadota',
         class: 'Gammaproteobacteria',
         order: 'enterobacteria',
-        family: '',
         genus: 'enterobacteria',
         species: 'Escherichia coli',
       },
@@ -70,7 +69,6 @@ describe('sortTaxonomies', () => {
         "class": "Gammaproteobacteria",
         "family": "enterobacteria",
         "genus": "enterobacteria",
-        "kingdom": "",
         "order": "enterobacteria",
         "phylum": "Pseudomonadota",
         "species": "Escherichia coli",
