@@ -68,8 +68,10 @@ export default async function getCompoundsInfo(
         }
       }
     }
-
     entry.data.nbPatents = nbPatents;
+    if (compoundsPatents.length < 5e4) {
+      entry.data.nbPatents = compoundsPatents.length;
+    }
 
     if (compoundsPatents?.length > 0) {
       let dbRefsPatents = [];
