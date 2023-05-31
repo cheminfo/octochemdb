@@ -132,7 +132,7 @@ parentPort?.on('message', async (dataEntry) => {
         entry.data.nbMassSpectra += dbRefsMs.length;
       }
       // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
-      if (activityInfos.length > 0) {
+      if (activityInfos?.length > 0) {
         entry.data.bioactive = true;
         const keywordsActivities = getActivityKeywords(activityInfos);
         if (keywordsActivities.length > 0) {
