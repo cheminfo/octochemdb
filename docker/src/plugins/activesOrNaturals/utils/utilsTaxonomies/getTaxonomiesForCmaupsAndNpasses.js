@@ -5,7 +5,7 @@ import { searchTaxonomies } from './searchTaxonomies.js';
  * @param {*} taxonomiesCollection The taxonomies collection
  * @param {*} oldToNewTaxIDs The newId to oldId map
  * @param {*} collectionName The name of the collection
- * @returns {Promise<Array>} The standardized taxonomies
+ * @returns {Promise} The standardized taxonomies
  */
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,

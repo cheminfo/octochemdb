@@ -1,12 +1,14 @@
 import debugLibrary from '../../../../utils/Debug.js';
 
+import { sortTaxonomies } from './sortTaxonomies.js';
+
 const debug = debugLibrary('getTaxonomiesInfo');
 
 /**
  * @description Get unique taxonomies from the aggregation process data
  * @param {*} data The data from aggregation process
  * @param {*} connection The connection to the database
- * @returns {Promise<Array>} An array containing unique taxonomies
+ * @returns {Promise} An array containing unique taxonomies
  */
 export default async function getTaxonomiesInfo(data, connection) {
   try {
@@ -36,8 +38,8 @@ export default async function getTaxonomiesInfo(data, connection) {
         }
       }
     }
-
-    return taxons;
+    const sortedTaxonomies = sortTaxonomies(taxons);
+    return sortedTaxonomies;
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {

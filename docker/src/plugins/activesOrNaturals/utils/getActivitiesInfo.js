@@ -1,5 +1,7 @@
 import debugLibrary from '../../../utils/Debug.js';
 
+import { sortTaxonomies } from './utilsTaxonomies/sortTaxonomies.js';
+
 const debug = debugLibrary('getActivityInfo');
 /**
  * @description Get unique activities from bioassays, npasses and cmaups collections
@@ -20,7 +22,13 @@ export default async function getActivitiesInfo(data, connection) {
           assay: entry.data.assay,
         };
         if (entry.data.targetTaxonomies) {
-          activity.targetTaxonomies = entry.data.targetTaxonomies;
+          let sortedTaxonomies;
+          if (entry.data.targetTaxonomies.length > 1) {
+            sortedTaxonomies = sortTaxonomies(entry.data.targetTaxonomies);
+          } else {
+            sortedTaxonomies = entry.data.targetTaxonomies;
+          }
+          activity.targetTaxonomies = sortedTaxonomies;
         }
         activityInfo.push(activity);
         activityDBRefs.push({

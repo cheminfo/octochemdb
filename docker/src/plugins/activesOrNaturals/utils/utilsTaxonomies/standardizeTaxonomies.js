@@ -45,6 +45,8 @@ export async function standardizeTaxonomies(
         let resultsCmaups = await getTaxonomiesForCmaupsAndNpasses(
           entry,
           taxonomiesCollection,
+          oldToNewTaxIDs,
+          'cmaups',
         );
         entry = resultsCmaups;
         if (entry?.data?.taxonomies) {
@@ -56,6 +58,8 @@ export async function standardizeTaxonomies(
         entry = await getTaxonomiesForCmaupsAndNpasses(
           entry,
           taxonomiesCollection,
+          oldToNewTaxIDs,
+          'npasses',
         );
 
         if (entry?.data?.taxonomies) {
@@ -64,7 +68,11 @@ export async function standardizeTaxonomies(
         break;
       }
       case 'npAtlases': {
-        entry = await getTaxonomiesForNpAtlases(entry, taxonomiesCollection);
+        entry = await getTaxonomiesForNpAtlases(
+          entry,
+          taxonomiesCollection,
+          oldToNewTaxIDs,
+        );
 
         if (entry?.data?.taxonomies) {
           counter += entry?.data?.taxonomies.length;
