@@ -14,6 +14,7 @@ export function sortTaxonomies(taxonomies) {
     'genus',
     'species',
   ];
+  if (taxonomies?.length === 1) return taxonomies;
   const sortedTaxonomies = taxonomies.sort((a, b) => {
     for (const field of fields) {
       if (a[field] !== b[field]) {

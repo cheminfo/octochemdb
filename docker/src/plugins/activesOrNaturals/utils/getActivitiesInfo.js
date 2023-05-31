@@ -21,9 +21,9 @@ export default async function getActivitiesInfo(data, connection) {
         let activity = {
           assay: entry.data.assay,
         };
-        if (entry.data.targetTaxonomies) {
+        if (entry.data?.targetTaxonomies !== undefined) {
           let sortedTaxonomies;
-          if (entry.data.targetTaxonomies.length > 1) {
+          if (entry.data.targetTaxonomies?.length > 1) {
             sortedTaxonomies = sortTaxonomies(entry.data.targetTaxonomies);
           } else {
             sortedTaxonomies = entry.data.targetTaxonomies;
