@@ -10,13 +10,25 @@ export default defineConfig({
         }
 
         async sort(files) {
+          // syncCompoundPatents should be after syncPatents
+          const regexCompoundPatents = /compoundPatents/i;
+          const regexPatents = /patents/i;
+          let sortedFiles = files.sort((a, b) => {
+            if (regexCompoundPatents.test(a) && !regexCompoundPatents.test(b)) {
+              return 1;
+            }
+            if (regexPatents.test(a) && !regexPatents.test(b)) {
+              return -1;
+            }
+            return 0;
+          });
           // sort by putting files with regex /aggregage/ at the end
           const regex = /aggregate/i;
           const regexCompounds = /syncCompounds/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
           const regexActiveAgainst = /aggregateActiveAgainst/i;
-          const sortedFiles = files.sort((a, b) => {
+          sortedFiles = sortedFiles.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
             }
@@ -37,6 +49,7 @@ export default defineConfig({
 
             return 0;
           });
+
           sortedFiles.sort((a, b) => {
             // regexActiveAgainst should be the last (github actions executes one by one)
             if (regexActiveAgainst.test(a) && !regexActiveAgainst.test(b)) {
