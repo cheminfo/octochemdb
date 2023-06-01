@@ -246,7 +246,7 @@ async function searchHandler(request) {
     }
     if (kwTaxonomies) {
       matchParameter['data.kwTaxonomies'] = {
-        $in: wordsToBeSearchedTaxonomies,
+        $all: wordsToBeSearchedTaxonomies,
       };
     }
     if (kwBioassays) {
