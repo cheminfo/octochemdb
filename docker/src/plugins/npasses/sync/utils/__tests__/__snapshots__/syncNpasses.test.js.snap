@@ -2,35 +2,23 @@
 
 exports[`syncNpasses 1`] = `
 {
-  "_id": "NPC10005",
+  "_id": "NPC100380",
   "data": {
     "activities": [
       {
-        "assay": "MIC : 100 ug/ml",
-        "externalRef": "PMID : 10650093",
-      },
-      {
-        "assay": "MIC : 100 ug/ml",
-        "externalRef": "PMID : 10650093",
+        "assay": "Activity = 1.92 ",
+        "assayOrganism": "Rattus norvegicus",
+        "externalRef": "PMID : 447209",
+        "targetName": "Ca9-22",
+        "targetOrganism": "Homo sapiens",
+        "targetType": "Cell Line",
       },
     ],
-    "cid": "13915595",
+    "cid": "1549018",
     "ocl": {
-      "idCode": "e\`rpD@@@DLbbRbTbReTRTJbRdJVTrbRtUQcfURqtNHjkUUUUUUUUUUUUUUUTtHPiHxheUAhBlX@@",
-      "noStereoTautomerID": "e\`rpD@@@JLdTTTbreTRTJbRdJVTrbRtURRadVPrwtKHmUUUUUUUUUUUUUUUTt@Aj\`QbcGzPYQTq|L_C@",
+      "idCode": "fj}@\`@@VrJJJJKQJMJQ\`eNbehF\`iJjh\`@@",
+      "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\\\UpwGzPpCcIcxX~F@",
     },
-    "taxonomies": [
-      {
-        "dbRef": {
-          "$id": "NPC10005",
-          "$ref": "npasses",
-        },
-        "family": "Chenopodiaceae",
-        "genus": "Haloxylon",
-        "kingdom": "Viridiplantae",
-        "species": "Haloxylon salicornicum",
-      },
-    ],
   },
 }
 `;

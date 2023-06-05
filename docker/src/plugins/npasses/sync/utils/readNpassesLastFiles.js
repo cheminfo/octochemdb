@@ -12,6 +12,7 @@ const { parse } = pkg;
  * @param {string} lastFileSpeciesProperties - last species properties file available in the NPASS database
  * @param {string} lastFileSpeciesInfo - last species info file available in the NPASS database
  * @param {string} lastFileSpeciesPair - last species pair file available in the NPASS database
+ * @param {string} lastTargetInfo - last target info file available in the NPASS database
  * @param {*} connection - mongo connection
  * @returns {object} returns the data { general, activities, properties, speciesPair, speciesInfo }
  */
@@ -21,6 +22,7 @@ export default function readNpassesLastFiles(
   lastFileSpeciesProperties,
   lastFileSpeciesInfo,
   lastFileSpeciesPair,
+  lastTargetInfo,
   connection,
 ) {
   const debug = debugLibrary('readNpassesLastFiles');
@@ -43,10 +45,12 @@ export default function readNpassesLastFiles(
     const properties = {};
     parse(readFileSync(lastFileSpeciesProperties, 'utf8'), {
       header: true,
+      delimiter: '\t',
     }).data.forEach((entry) => (properties[entry.np_id] = entry));
+
     // get species pair data
     const speciesPair = {};
-    parse(readFileSync(lastFileSpeciesPair, 'utf8'), {
+    parse(readFileSync(lastFileSpeciesPair, 'utf-8'), {
       header: true,
     }).data.forEach((entry) => {
       if (!speciesPair[entry.np_id] && entry.np_id !== undefined) {
@@ -56,13 +60,27 @@ export default function readNpassesLastFiles(
         speciesPair[entry.np_id].push(entry.org_id);
       }
     });
+
     // get species info data
     const speciesInfo = {};
     parse(readFileSync(lastFileSpeciesInfo, 'utf8'), {
       header: true,
     }).data.forEach((entry) => (speciesInfo[entry.org_id] = entry));
+
+    // get target info data
+    const targetInfo = {};
+    parse(readFileSync(lastTargetInfo, 'utf8'), {
+      header: true,
+    }).data.forEach((entry) => (targetInfo[entry.target_id] = entry));
     // return data
-    return { general, activities, properties, speciesPair, speciesInfo };
+    return {
+      general,
+      activities,
+      properties,
+      speciesPair,
+      speciesInfo,
+      targetInfo,
+    };
   } catch (e) {
     if (connection) {
       debug.fatal(e.message, {

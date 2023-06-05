@@ -23,6 +23,7 @@ export async function sync(connection) {
       properties,
       speciesPair,
       speciesInfo,
+      targetInfo,
       logs,
     } = await npassesStartSync(connection);
     let isTimeToUpdate = false;
@@ -61,6 +62,7 @@ export async function sync(connection) {
         properties,
         speciesPair,
         speciesInfo,
+        targetInfo,
         connection,
       )) {
         counter++;

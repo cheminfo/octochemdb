@@ -1,0 +1,100 @@
+target_id	target_type	target_name	target_organism_tax_id	target_organism	uniprot_id
+NPT899	Cell Line	Ca9-22	9606	Homo sapiens	
+NPT312	Cell Line	Lu1	9606	Homo sapiens	
+NPC100333	Cell Line	U2OS	9606	Homo sapiens	
+NPC100313	Cell Line	HMEC	9606	Homo sapiens	
+NPC100333	Cell Line	B-cells			
+NPC100313	Cell Line	BXPC-3	9606	Homo sapiens	
+NPC100002	Cell Line	NCI-H2126	9606	Homo sapiens	
+NPT1083	Cell Line	A-375	9606	Homo sapiens	
+NPT1085	Cell Line	KETR3	9606	Homo sapiens	
+NPT1086	Cell Line	SK-HEP1	9606	Homo sapiens	
+NPT1091	Cell Line	RPMI-7951	9606	Homo sapiens	
+NPT1094	Cell Line	697	9606	Homo sapiens	
+NPT1097	Cell Line	MKN-45	9606	Homo sapiens	
+NPT111	Cell Line	K562	9606	Homo sapiens	
+NPT112	Cell Line	MOLT-4	9606	Homo sapiens	
+NPT1125	Cell Line	T98G	9606	Homo sapiens	
+NPT113	Cell Line	RAW264.7	10090	Mus musculus	
+NPT1135	Cell Line	Hepatocyte	10116	Rattus norvegicus	
+NPT1136	Cell Line	mast cells	10090	Mus musculus	
+NPT114	Cell Line	LoVo	9606	Homo sapiens	
+NPT116	Cell Line	HL-60	9606	Homo sapiens	
+NPT1160	Cell Line	BJ	9606	Homo sapiens	
+NPT1161	Cell Line	CHO	10029	Cricetulus griseus	
+NPT1171	Cell Line	HEp-2	9606	Homo sapiens	
+NPT1174	Cell Line	A375	9606	Homo sapiens	
+NPT1178	Cell Line	KB 3-1	9606	Homo sapiens	
+NPT1179	Cell Line	MKN-28	9606	Homo sapiens	
+NPT1182	Cell Line	J774.A1	10090	Mus musculus	
+NPT1183	Cell Line	WiDr	9606	Homo sapiens	
+NPT1184	Cell Line	Daoy	9606	Homo sapiens	
+NPT1189	Cell Line	DG-75	9606	Homo sapiens	
+NPT1195	Cell Line	PMNL			
+NPT1212	Cell Line	N1E-115	10090	Mus musculus	
+NPT1215	Cell Line	8505C	9606	Homo sapiens	
+NPT1216	Cell Line	FaDu	9606	Homo sapiens	
+NPT1229	Cell Line	Huh-7	9606	Homo sapiens	
+NPT1294	Cell Line	NRK	10116	Rattus norvegicus	
+NPT1298	Cell Line	A9	10090	Mus musculus	
+NPT1306	Cell Line	WISH	9606	Homo sapiens	
+NPT1307	Cell Line	Calu-1	9606	Homo sapiens	
+NPT1309	Cell Line	Osteoblasts			
+NPT1312	Cell Line	SW1990	9606	Homo sapiens	
+NPT1313	Cell Line	Capan-2	9606	Homo sapiens	
+NPT1317	Cell Line	CCRF S-180	10090	Mus musculus	
+NPT1329	Cell Line	Detroit 551	9606	Homo sapiens	
+NPT133	Cell Line	ZR-75-1	9606	Homo sapiens	
+NPT134	Cell Line	SK-BR-3	9606	Homo sapiens	
+NPT1353	Cell Line	CCRF-HSB-2	9606	Homo sapiens	
+NPT1354	Cell Line	TGBC11TKB	9606	Homo sapiens	
+NPT1357	Cell Line	H22	10090	Mus musculus	
+NPT1358	Cell Line	LAMA-84	9606	Homo sapiens	
+NPT136	Cell Line	SK-N-SH	9606	Homo sapiens	
+NPT1366	Cell Line	MH60	10090	Mus musculus	
+NPT137	Cell Line	L1210	10090	Mus musculus	
+NPT1374	Cell Line	WI-38	9606	Homo sapiens	
+NPT1383	Cell Line	A2058	9606	Homo sapiens	
+NPT139	Cell Line	HT-29	9606	Homo sapiens	
+NPT1396	Cell Line	NCI-H69	9606	Homo sapiens	
+NPT1397	Cell Line	INS1	10116	Rattus norvegicus	
+NPT1400	Cell Line	Cerebellar granule neurones			
+NPT1452	Cell Line	C8166	9606	Homo sapiens	
+NPT146	Cell Line	SK-OV-3	9606	Homo sapiens	
+NPT1460	Cell Line	L929	10090	Mus musculus	
+NPT147	Cell Line	SK-MEL-2	9606	Homo sapiens	
+NPT1475	Cell Line	WI-38 VA13	9606	Homo sapiens	
+NPT148	Cell Line	HCT-15	9606	Homo sapiens	
+NPT1490	Cell Line	Ehrlich	10090	Mus musculus	
+NPT15	Cell Line	Jurkat	9606	Homo sapiens	
+NPT1505	Cell Line	J82	9606	Homo sapiens	
+NPT1506	Cell Line	SK-MES-1	9606	Homo sapiens	
+NPT1511	Cell Line	Medulloblastoma tumour cell line			
+NPT1523	Cell Line	NFF	9606	Homo sapiens	
+NPT1524	Cell Line	MM96L	9606	Homo sapiens	
+NPT1527	Cell Line	WRL68	9606	Homo sapiens	
+NPT1535	Cell Line	U-87 MG	9606	Homo sapiens	
+NPT1555	Cell Line	ANN-1	10090	Mus musculus	
+NPT1577	Cell Line	SW1573	9606	Homo sapiens	
+NPT1597	Cell Line	J774.2			
+NPT1625	Cell Line	HS27	9606	Homo sapiens	
+NPT1629	Cell Line	CWR22R	9606	Homo sapiens	
+NPT1635	Cell Line	H9c2	10116	Rattus norvegicus	
+NPT1649	Cell Line	MV4-11	9606	Homo sapiens	
+NPT165	Cell Line	HeLa	9606	Homo sapiens	
+NPT1653	Cell Line	WM-115	9606	Homo sapiens	
+NPT1668	Cell Line	NCI-H157	9606	Homo sapiens	
+NPT1669	Cell Line	NCI-H1792	9606	Homo sapiens	
+NPT168	Cell Line	P388	10090	Mus musculus	
+NPT169	Cell Line	B16-F10	10090	Mus musculus	
+NPT170	Cell Line	SK-MEL-28	9606	Homo sapiens	
+NPT171	Cell Line	MRC5	9606	Homo sapiens	
+NPT1718	Cell Line	A431	9606	Homo sapiens	
+NPT1719	Cell Line	2008	9606	Homo sapiens	
+NPT1723	Cell Line	HBL-100	9606	Homo sapiens	
+NPT1756	Cell Line	PRK			
+NPT1759	Cell Line	FM3A	10090	Mus musculus	
+NPT1761	Cell Line	Erythroleukemia cell line			
+NPT1773	Cell Line	ME-180	9606	Homo sapiens	
+NPT179	Cell Line	A2780	9606	Homo sapiens	
+NPT180	Cell Line	HCT-8	9606	Homo sapiens	

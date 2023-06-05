@@ -1,11 +1,100 @@
-np_id	pref_name	iupac_name	chembl_id	pubchem_cid	zinc_id
-NPC100002	Dibromomethane	dibromomethane	CHEMBL1229889	3024	n.a.
-NPC100017	Yuanhuadine		CHEMBL1911631	6440572	n.a.
-NPC100039	4-Methylbenzaldehyde	4-methylbenzaldehyde	CHEMBL190927	7725	n.a.
-NPC100048	n.a.		CHEMBL506315	10629555	n.a.
-NPC100049	7,7''-Di-O-Methylamentoflavone	5-hydroxy-8-[2-hydroxy-5-(5-hydroxy-7-methoxy-4-oxochromen-2-yl)phenyl]-2-(4-hydroxyphenyl)-7-methoxychromen-4-one	CHEMBL1208793	13871759	n.a.
-NPC10005	Olean-12(13)En-3Beta-Hexadecanoate	[(3S,4aR,6aR,6bS,8aR,12aS,14aR,14bR)-4,4,6a,6b,8a,11,11,14b-octamethyl-1,2,3,4a,5,6,7,8,9,10,12,12a,14,14a-tetradecahydropicen-3-yl] hexadecanoate	CHEMBL1170486	13915595	n.a.
-NPC100067	Kanzonol C	(E)-1-[2,4-dihydroxy-3-(3-methylbut-2-enyl)phenyl]-3-[4-hydroxy-3-(3-methylbut-2-enyl)phenyl]prop-2-en-1-one	CHEMBL1644933	5316802	n.a.
-NPC100078	n.a.		CHEMBL450533	11397709	n.a.
-NPC100079	Chelerythrine	1,2-dimethoxy-12-methyl-[1,3]benzodioxolo[5,6-c]phenanthridin-12-ium	CHEMBL13045	2703	n.a.
-NPC100096	(S)-17,18-Dihydroxy-9,11,13,15-Octadecatetraynoic Acid	(17R)-17,18-dihydroxyoctadeca-9,11,13,15-tetraynoic acid	CHEMBL459615	10447521	n.a.
+np_id	pref_name	iupac_name	chembl_id	pubchem_cid	num_of_organism	num_of_target	num_of_activity	if_has_Quantity
+NPC100002	Dibromomethane	dibromomethane	CHEMBL1229889	3024	4	1	3	No
+NPC100005	MXFUWJQZQGWIOY-FETLVNPKSA-N	n.a.	n.a.	101412375	7	0	0	No
+NPC100008	WPYIYVXSMXASQL-PEBLQZBPSA-N	n.a.	n.a.	14583329	16	0	0	No
+NPC100312	LTNUWWZNTOSEML-SNLNFDIBSA-N	n.a.	n.a.	n.a.	1	4	4	No
+NPC100016	KKFCJNGKHYRAPZ-MPCIYCNASA-N	n.a.	n.a.	n.a.	13	0	0	No
+NPC100313	Yuanhuadine	n.a.	CHEMBL1911631	6440572	1	26	57	No
+NPC100020	LDNLPQJLCPARJX-SANMLTNESA-N	n.a.	n.a.	n.a.	9	0	0	No
+NPC100031	YPRVNVFJGQUFKN-QFQUXZBZSA-O	n.a.	n.a.	10897548	1	0	0	No
+NPC100032	IAXYZHODIUFGKB-CQWPOWKPSA-N	n.a.	n.a.	101967018	1	0	0	No
+NPC100037	ZFUYDSOHVJVQNB-FZERPYLPSA-N	n.a.	n.a.	n.a.	50	0	0	No
+NPC100039	4-Methylbenzaldehyde	4-methylbenzaldehyde	CHEMBL190927	7725	23	6	6	No
+NPC100040	LKPOXZGIKOMCEB-LLVKDONJSA-N	n.a.	n.a.	n.a.	5	0	0	No
+NPC100048	RANQPHKSRUUPKK-GPUGMLHBSA-N	n.a.	CHEMBL506315	10629555	24	3	3	No
+NPC488668	Olean-12(13)En-3Beta-Hexadecanoate	[(3S,4aR,6aR,6bS,8aR,12aS,14aR,14bR)-4,4,6a,6b,8a,11,11,14b-octamethyl-1,2,3,4a,5,6,7,8,9,10,12,12a,14,14a-tetradecahydropicen-3-yl] hexadecanoate	CHEMBL1170486	13915595	1	1	1	No
+NPC100052	NGMZHPQMBVXJMC-HAPNVBLMSA-N	n.a.	n.a.	5320647	2	0	0	No
+NPC100333	FOUJWBXBKVVHCJ-YIJYGBTNSA-N	n.a.	n.a.	22212495	3	0	0	No
+NPC100067	Kanzonol C	(E)-1-[2,4-dihydroxy-3-(3-methylbut-2-enyl)phenyl]-3-[4-hydroxy-3-(3-methylbut-2-enyl)phenyl]prop-2-en-1-one	CHEMBL1644933	5316802	6	13	27	No
+NPC100070	QKBZTZVPMNKKGN-QFQJZDFCSA-N	n.a.	n.a.	11844767	1	0	0	No
+NPC100076	FJYTXXBFGIOJGK-IBGZPJMESA-N	n.a.	n.a.	n.a.	5	0	0	No
+NPC100078	XRLDSQWGEQUZHL-JPTLKCMGSA-N	n.a.	CHEMBL450533	11397709	1	4	4	No
+NPC100079	Chelerythrine	1,2-dimethoxy-12-methyl-[1,3]benzodioxolo[5,6-c]phenanthridin-12-ium	CHEMBL13045	2703	121	299	647	No
+NPC100082	KONGRWVLXLWGDV-BYGOPZEFSA-N	n.a.	n.a.	11276107	44	0	0	No
+NPC100095	PTQURJSSVZYXNH-QICRIBIQSA-N	n.a.	n.a.	n.a.	1	0	0	No
+NPC100096	(S)-17,18-Dihydroxy-9,11,13,15-Octadecatetraynoic Acid	(17R)-17,18-dihydroxyoctadeca-9,11,13,15-tetraynoic acid	CHEMBL459615	10447521	1	8	10	No
+NPC100099	(S)-4-(7-Methoxychroman-2-Yl)Phenol	4-[(2S)-7-methoxy-3,4-dihydro-2H-chromen-2-yl]phenol	CHEMBL1080979	185609	18	5	6	No
+NPC10010	Pennicitrinone C	n.a.	CHEMBL458391	24850196	1	5	5	No
+NPC100102	NGYQGPQSBNFVQF-AHJNKEMKSA-N	n.a.	n.a.	n.a.	5	0	0	No
+NPC100104	Damirone B	n.a.	CHEMBL462951	2947	1	1	1	No
+NPC100108	5,8-Dimethoxy-3-Methylnaphthalen-1-Ol	5,8-dimethoxy-3-methylnaphthalen-1-ol	CHEMBL2071229	12233495	1	3	3	No
+NPC100112	JEYLKNVLTAPJAF-RXMQYKEDSA-N	n.a.	n.a.	10678185	38	0	0	No
+NPC100123	Cratoxyarborenone B	1,3,5,7-tetrahydroxy-2,8-bis(3-methylbut-2-enyl)xanthen-9-one	CHEMBL465407	10475842	15	1	1	No
+NPC100127	FPTKMDRCLRQTLK-YEYMAEABSA-N	n.a.	n.a.	101843546	48	0	0	No
+NPC100128	XFXPMWWXUTWYJX-UHFFFAOYSA-N	n.a.	n.a.	5975	13	0	0	No
+NPC100129	Pycnanthulignene C	5-(4-methoxyphenyl)-6,7-dimethylbenzo[f][1,3]benzodioxole	CHEMBL1087928	46186377	1	9	18	No
+NPC100134	Sophonorol E	(3S)-3-[2,4-dimethoxy-3-(3-methylbut-2-enyl)phenyl]-3,5,7-trihydroxy-8-(3-methylbut-2-enyl)-2H-chromen-4-one	CHEMBL557704	44233935	1	3	3	No
+NPC100135	LHULZANLATXLRF-UWVGGRQHSA-N	n.a.	n.a.	n.a.	11	0	0	No
+NPC100141	BXLOAAYMPNPFFB-XDCYGMHWSA-N	n.a.	n.a.	n.a.	2	0	0	No
+NPC100146	KAPPVCFMUONHIO-NLBIRPCGSA-N	n.a.	n.a.	11418678	1	0	0	No
+NPC100148	YHWNASRGLKJRJJ-QGZVFWFLSA-N	n.a.	n.a.	28125528	1	0	0	No
+NPC100151	QCGMIFBWAQSUQY-IRBNCGOCSA-N	n.a.	n.a.	n.a.	8	0	0	No
+NPC100159	AANKDJLVHZQCFG-WLIQWNBFSA-N	n.a.	n.a.	n.a.	3	0	0	No
+NPC100163	CHOLQJRIMZGPNC-UHFFFAOYSA-N	n.a.	n.a.	n.a.	28	0	0	No
+NPC100164	HBRKVQBUDYDXJN-UHFFFAOYSA-N	n.a.	n.a.	604908	1	0	0	No
+NPC100165	HXQHFNIKBKZGRP-URPRIDOGSA-M	n.a.	n.a.	35027726	1	0	0	No
+NPC100166	KWQBVPDAXNTKKY-RQRDWLNHSA-N	n.a.	n.a.	53359112	1	0	0	No
+NPC10017	Guai-2-En-10Alpha-Methanol	[(1S,3aS,4R,8S,8aR)-8-ethyl-1,4-dimethyl-3a,5,6,7,8,8a-hexahydro-1H-azulen-4-yl]methanol	CHEMBL1164833	46703006	1	3	12	No
+NPC100171	ILSFEHDRJCUFAT-UHFFFAOYSA-N	n.a.	n.a.	101238141	1	0	0	No
+NPC100172	GKCAPZDBPLRKGW-NTZNESFSSA-N	n.a.	n.a.	n.a.	6	0	0	No
+NPC100178	FYTVLSLHXKPOEQ-SJLPKXTDSA-N	n.a.	n.a.	n.a.	47	0	0	No
+NPC100179	ZZDVZVBAZHPHLY-ZQNQSHIBSA-N	n.a.	n.a.	n.a.	1	0	0	No
+NPC100183	ISIHCFKJFHDLCQ-JPKHOPEVSA-N	n.a.	n.a.	23655341	1	0	0	No
+NPC100199	BVEXVMARIREFTJ-TXMWGMRISA-N	n.a.	n.a.	6440580	2	0	0	No
+NPC100204	1,4-Dideoxy-1,4-Imino-(5-O-Beta-D-Glucopyranosyl)-D-Arabinitol	(2R,3R,4S,5S,6R)-2-[[(2R,3R,4R)-3,4-dihydroxypyrrolidin-2-yl]methoxy]-6-(hydroxymethyl)oxane-3,4,5-triol	CHEMBL470467	11822547	1	7	11	No
+NPC100207	XEYLIOGNXRRLQE-JXRVGIDESA-N	n.a.	n.a.	n.a.	1	0	0	No
+NPC100223	5-[3-(1,3-Benzodioxol-5-Yl)-1,3,3A,4,6,6A-Hexahydrofuro[3,4-C]Furan-6-Yl]-1,3-Benzodioxole	5-[3-(1,3-benzodioxol-5-yl)-1,3,3a,4,6,6a-hexahydrofuro[3,4-c]furan-6-yl]-1,3-benzodioxole	CHEMBL1904496	5204	11	63	66	Yes
+NPC100242	AVCUMQCXLPRLSN-CBPXPLCBSA-N	n.a.	CHEMBL1651023	50900596	1	5	5	No
+NPC100251	Prodelphinidin B-2 3,3'-Di-O-Gallate	[(2R,3R)-8-[(2R,3R,4R)-5,7-dihydroxy-3-(3,4,5-trihydroxybenzoyl)oxy-2-(3,4,5-trihydroxyphenyl)-3,4-dihydro-2H-chromen-4-yl]-5,7-dihydroxy-2-(3,4,5-trihydroxyphenyl)-3,4-dihydro-2H-chromen-3-yl] 3,4,5-trihydroxybenzoate	CHEMBL422711	467306	1	2	2	No
+NPC100257	UCXBBKCPRLOQQA-HQHFYQKISA-N	n.a.	CHEMBL465475	10315488	1	12	32	No
+NPC100263	6,4'-Dimethoxy-7,2'-Dihydroxyisoflavone	7-hydroxy-3-(2-hydroxy-4-methoxyphenyl)-6-methoxychromen-4-one	CHEMBL517700	44257255	1	7	7	No
+NPC100266	KJHFPNBMMGJHEB-ONERCXAPSA-N	n.a.	n.a.	25104962	4	0	0	No
+NPC100267	[(E,6R)-6-[(2S,8S,9R,10R,13R,14S,16R,17R)-2,16-Dihydroxy-4,4,9,13,14-Pentamethyl-3,11-Dioxo-2,7,8,10,12,15,16,17-Octahydro-1H-Cyclopenta[A]Phenanthren-17-Yl]-6-Hydroxy-2-Methyl-5-Oxohept-3-En-2-Yl] Acetate	[(E,6R)-6-[(2S,8S,9R,10R,13R,14S,16R,17R)-2,16-dihydroxy-4,4,9,13,14-pentamethyl-3,11-dioxo-2,7,8,10,12,15,16,17-octahydro-1H-cyclopenta[a]phenanthren-17-yl]-6-hydroxy-2-methyl-5-oxohept-3-en-2-yl] acetate	CHEMBL508185	5281316	5	65	68	No
+NPC10027	Cudraphenone A	(7-hydroxy-2,2-dimethylchromen-6-yl)-[3-hydroxy-2-(3-methylbut-2-enyl)phenyl]methanone	CHEMBL517213	11793144	2	2	3	No
+NPC100276	KNMXZGDUJVOTOC-UHFFFAOYSA-N	n.a.	n.a.	520454	3	0	0	No
+NPC100284	ZSSKGAAIGRYCEP-SDDNWOMQSA-N	n.a.	n.a.	10551785	40	6	10	No
+NPC100285	ALEQYOXVXJKFOM-UHFFFAOYSA-N	n.a.	n.a.	5245822	2	0	0	No
+NPC10029	XHCAXPZUMUUNKN-HZUJZGFBSA-N	n.a.	n.a.	101674018	4	0	0	No
+NPC100297	Methyl Spongoate	methyl (2R)-2-[(5S,8S,9S,10R,13S,14S,17R)-10,13-dimethyl-3-oxo-4,5,6,7,8,9,11,12,14,15,16,17-dodecahydrocyclopenta[a]phenanthren-17-yl]-6-methylheptanoate	CHEMBL1689089	46179749	1	4	4	No
+NPC1003	ZXENWDWQTWYUGY-GVGHCBMRSA-N	n.a.	n.a.	10434964	2	0	0	No
+NPC100300	SNFRINMTRPQQLE-JQWAAABSSA-N	n.a.	n.a.	442060	3	0	0	No
+NPC100302	QTSNHJFHQLIOGA-YBTZDMJXSA-N	n.a.	n.a.	21596186	1	0	0	No
+NPC100305	PKLGFROCMKMKKL-SGQGNNBUSA-N	n.a.	n.a.	11376977	2	0	0	No
+NPC10031	ZLENBWJAVXIUQZ-GSNUFDMHSA-N	n.a.	n.a.	44482325	1	0	0	No
+NPC100312	2-Methylpyrazine	2-methylpyrazine	CHEMBL479791	7976	7	6	7	Yes
+NPC100313	Tenuifolin E	n.a.	CHEMBL2334478	71579052	1	6	6	No
+NPC100321	Chrysaibol	(2S)-2-[[(2S)-1-[2-[[(2S)-2-[[(2S)-2-[[2-[[2-[[2-[[(2S)-2-[[(2S)-2-[[(2S)-2-[[2-[[2-[[(2S)-2-acetamido-3-(1H-indol-3-yl)propanoyl]amino]-2-methylpropanoyl]amino]-2-methylpropanoyl]amino]-4-methylpentanoyl]amino]-3-methylbutanoyl]amino]-5-amino-5-oxopentanoyl]amino]-2-methylpropanoyl]amino]-2-methylpropanoyl]amino]-2-methylpropanoyl]amino]-5-amino-5-oxopentanoyl]amino]-4-methylpentanoyl]amino]-2-methylpropanoyl]pyrrolidine-2-carbonyl]amino]-N-[(2S)-1-hydroxypropan-2-yl]pentanediamide	CHEMBL504009	25058082	1	2	2	No
+NPC100329	AEGWYWSJGKOLGB-LNVBUOCNSA-N	n.a.	CHEMBL1586581	12004631	3	23	47	No
+NPC100333	Borapetoside D	n.a.	CHEMBL1097582	46886851	1	2	2	No
+NPC100334	Lemmaphylla-7,21-Dien-3Beta-Ol	(2S,4aR,4bR,6aS,8R,10aS,12aR)-1,1,4a,6a,8,10a-hexamethyl-8-(4-methylpent-3-enyl)-3,4,4b,5,6,7,9,10,12,12a-decahydro-2H-chrysen-2-ol	CHEMBL464990	10550385	1	2	5	No
+NPC100336	ZPTSRWNMMWXEHX-KCQAQPDRSA-N	n.a.	n.a.	171360	15	0	0	No
+NPC100340	Dihydropinosylvin	5-(2-phenylethyl)benzene-1,3-diol	CHEMBL228120	442700	39	10	15	No
+NPC100347	WHZVDRCEHYLPGD-RERXTAQQSA-N	n.a.	n.a.	n.a.	31	1	1	No
+NPC100353	(3S)-3-(3-Chloroprop-1-Ynyl)-3,4-Dihydroisochromen-1-One	(3S)-3-(3-chloroprop-1-ynyl)-3,4-dihydroisochromen-1-one	CHEMBL3086898	72945293	1	3	3	No
+NPC100356	XENHETWDODOOQC-OTJDAXFFSA-N	n.a.	n.a.	11821759	1	0	0	No
+NPC100360	MBGKPRSARHEFAG-CAFRZEFWSA-N	n.a.	n.a.	5480966	1	0	0	No
+NPC100362	IAIHUHQCLTYTSF-MRTMQBJTSA-N	n.a.	n.a.	439711	27	0	0	No
+NPC100364	PRUZGIISEPDMEU-VJFJHBQGSA-N	n.a.	n.a.	n.a.	20	0	0	No
+NPC100366	Ethyl(4R,20S,24R)-Epoxy-4,25,28-Trihydroxy-3,4-Secodammar-3-Oate	ethyl 3-[(3S,3aR,5aR,6R,7R,9aR,9bR)-7-[(2R)-1,2-dihydroxypropan-2-yl]-3-[(2S,5R)-5-(2-hydroxypropan-2-yl)-2-methyloxolan-2-yl]-6,9a,9b-trimethyl-1,2,3,3a,4,5,5a,7,8,9-decahydrocyclopenta[a]naphthalen-6-yl]propanoate	CHEMBL3109472	76321230	1	4	4	No
+NPC100370	DJGNNZVFOBIPMK-NTUHNPAUSA-N	n.a.	n.a.	9837937	1	17	24	No
+NPC100372	AONLJCCUYGGOSW-PJERILTQSA-N	n.a.	n.a.	159529	12	0	0	No
+NPC100380	Cis-Jasmone	3-methyl-2-[(Z)-pent-2-enyl]cyclopent-2-en-1-one	CHEMBL2251602	1549018	10	4	7	Yes
+NPC100383	3Beta-[(Alpha-Larabinopyranosyl)Oxy]-23-Oxo-Olean-12-En-28-Oic Acid	(4aS,6aR,6aS,6bR,8aR,9S,10S,12aR,14bS)-9-formyl-2,2,6a,6b,9,12a-hexamethyl-10-[(2S,3R,4S,5S)-3,4,5-trihydroxyoxan-2-yl]oxy-1,3,4,5,6,6a,7,8,8a,10,11,12,13,14b-tetradecahydropicene-4a-carboxylic acid	CHEMBL540458	44179589	1	1	1	No
+NPC100386	ZVWPMYHMXUXIMC-CBAPKCEASA-N	n.a.	n.a.	n.a.	1	10	12	No
+NPC100388	LJMMDVNGTDPQPA-FOYSLLOYSA-N	n.a.	n.a.	n.a.	2	0	0	No
+NPC100389	Methyl 4-O-Beta-D-Glucopyranosylcaffeate	methyl (E)-3-[3-hydroxy-4-[(2S,3R,4S,5S,6R)-3,4,5-trihydroxy-6-(hydroxymethyl)oxan-2-yl]oxyphenyl]prop-2-enoate	CHEMBL482045	12311282	1	1	2	No
+NPC10039	CKBVDWQFFMQIGU-BTQDERTESA-N	n.a.	n.a.	n.a.	13	0	0	No
+NPC100390	Physalin D	n.a.	CHEMBL502427	44575286	3	12	13	No
+NPC100391	Methyl (23R,25R)-3,4-Seco-9Beta-H-Lanosta-4(28),7-Dien-26,23-Olid-3-Oate	methyl 3-[(3R,3aR,5aS,6S,7S,9bR)-3a,6,9b-trimethyl-3-[(2R)-1-[(2R,4R)-4-methyl-5-oxooxolan-2-yl]propan-2-yl]-7-prop-1-en-2-yl-1,2,3,4,5,5a,7,8-octahydrocyclopenta[a]naphthalen-6-yl]propanoate	CHEMBL518106	637031	2	6	7	No
+NPC100395	3,5-Dibromo-4-Hydroxybenzaldehyde	3,5-dibromo-4-hydroxybenzaldehyde	CHEMBL254956	18100	51	1	1	No
+NPC100400	HIFPGFAGQUHMAU-XYECQVTLSA-N	n.a.	n.a.	101473436	2	0	0	No

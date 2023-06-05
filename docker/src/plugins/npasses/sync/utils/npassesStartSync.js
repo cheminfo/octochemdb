@@ -18,6 +18,7 @@ export default async function npassStartSync(connection) {
       lastFileSpeciesProperties,
       lastFileSpeciesInfo,
       lastFileSpeciesPair,
+      lastTargetInfo,
       sources,
       progress,
       logs,
@@ -31,15 +32,22 @@ export default async function npassStartSync(connection) {
       options.collectionName,
     );
     // read npasses synchronized files
-    const { general, activities, properties, speciesPair, speciesInfo } =
-      readNpassesLastFiles(
-        lastFile,
-        lastFileActivity,
-        lastFileSpeciesProperties,
-        lastFileSpeciesInfo,
-        lastFileSpeciesPair,
-        connection,
-      );
+    const {
+      general,
+      activities,
+      properties,
+      speciesPair,
+      speciesInfo,
+      targetInfo,
+    } = readNpassesLastFiles(
+      lastFile,
+      lastFileActivity,
+      lastFileSpeciesProperties,
+      lastFileSpeciesInfo,
+      lastFileSpeciesPair,
+      lastTargetInfo,
+      connection,
+    );
 
     return {
       lastDocumentImported,
@@ -51,6 +59,7 @@ export default async function npassStartSync(connection) {
       properties,
       speciesPair,
       speciesInfo,
+      targetInfo,
       logs,
     };
   } catch (e) {

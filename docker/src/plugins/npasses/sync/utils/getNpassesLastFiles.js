@@ -17,6 +17,7 @@ export default async function getNpassesLastFiles(connection) {
     let lastFileSpeciesProperties;
     let lastFileSpeciesInfo;
     let lastFileSpeciesPair;
+    let lastTargetInfo;
     let sources;
     if (process.env.NODE_ENV === 'test') {
       lastFile = `${process.env.NPASS_FILE_GENERAL_TEST}`;
@@ -24,12 +25,14 @@ export default async function getNpassesLastFiles(connection) {
       lastFileSpeciesProperties = `${process.env.NPASS_FILE_PROPERTIES_TEST}`;
       lastFileSpeciesInfo = `${process.env.NPASS_FILE_SPECIESINFO_TEST}`;
       lastFileSpeciesPair = `${process.env.NPASS_FILE_SPECIESPAIR_TEST}`;
+      lastTargetInfo = `${process.env.NPASS_SOURCE_TARGETINFO_TEST}`;
       source = [
         lastFile,
         lastFileActivity,
         lastFileSpeciesProperties,
         lastFileSpeciesInfo,
         lastFileSpeciesPair,
+        lastTargetInfo,
       ];
       sources = md5(JSON.stringify([source]));
     } else {
@@ -54,6 +57,9 @@ export default async function getNpassesLastFiles(connection) {
       options.collectionSource = process.env.NPASS_SOURCE_SPECIESINFO;
       options.filenameNew = 'speciesInfo';
       lastFileSpeciesInfo = await getLastFileSync(options);
+      options.collectionSource = process.env.NPASS_SOURCE_TARGETINFO;
+      options.filenameNew = 'targetInfo';
+      lastTargetInfo = await getLastFileSync(options);
       // define sources
       source = [
         lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
@@ -64,6 +70,7 @@ export default async function getNpassesLastFiles(connection) {
         ),
         lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ];
       sources = md5(
         JSON.stringify([
@@ -75,6 +82,7 @@ export default async function getNpassesLastFiles(connection) {
           ),
           lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
           lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+          lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         ]),
       );
     }
@@ -92,6 +100,7 @@ export default async function getNpassesLastFiles(connection) {
       lastFileSpeciesProperties,
       lastFileSpeciesInfo,
       lastFileSpeciesPair,
+      lastTargetInfo,
       sources,
       progress,
       logs,
