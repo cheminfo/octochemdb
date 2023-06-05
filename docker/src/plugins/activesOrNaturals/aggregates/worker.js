@@ -2,9 +2,9 @@ import { parentPort } from 'worker_threads';
 
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
-import getActivityKeywords from '../utils/getAcitivityKeywords.js';
 import getActiveAgainstKeywords from '../utils/getActiveAgainstKeywords.js';
 import getActivitiesInfo from '../utils/getActivitiesInfo.js';
+import getActivityKeywords from '../utils/getActivityKeywords.js';
 import getCompoundsInfo from '../utils/getCompoundsInfo.js';
 import { getMassSpectraRefForGNPs } from '../utils/getMassSpectraRefForGNPs.js';
 import { getMassSpectraRefForMassBank } from '../utils/getMassSpectraRefForMassBank.js';
