@@ -3,8 +3,8 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
-import { getTaxonomiesForCoconuts } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCoconuts.js';
 
+import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
 
 /**

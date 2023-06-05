@@ -1,4 +1,4 @@
-import { searchTaxonomies } from './searchTaxonomies.js';
+import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 /**
  * @description get standardized taxonomies for NpAtlases
  * @param {*} entry The data from aggregation process

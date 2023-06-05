@@ -5,9 +5,9 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
-import { getTaxonomiesForNpAtlases } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForNpAtlases.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
+import { getTaxonomiesForNpAtlases } from './utils/getTaxonomiesForNpAtlases.js';
 import { parseNpatlases } from './utils/parseNpatlases.js';
 /**
  * @description sync npatlases from NPATLAS database

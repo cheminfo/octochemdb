@@ -3,9 +3,9 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
-import { getTaxonomiesForLotuses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForLotuses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
+import { getTaxonomiesForLotuses } from './utils/getTaxonomiesForLotuses.js';
 import { parseLotuses } from './utils/parseLotuses.js';
 /**
  * @description syncLotuses - synchronize lotuses collection from lotus database
