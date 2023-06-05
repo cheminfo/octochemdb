@@ -13,7 +13,7 @@ test('synCompoundPatents', async () => {
   }
   await sync(connection);
   const collection = await connection.getCollection('compoundPatents');
-  const collectionEntry = await collection.find({ _id: 59478 }).limit(1);
+  const collectionEntry = await collection.find({ _id: 68114 }).limit(1);
   const result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;

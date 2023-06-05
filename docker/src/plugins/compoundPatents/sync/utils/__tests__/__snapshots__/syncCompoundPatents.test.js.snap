@@ -2,13 +2,12 @@
 
 exports[`synCompoundPatents 1`] = `
 {
-  "_id": 59478,
+  "_id": 68114,
   "data": {
-    "nbPatents": 3,
+    "nbPatents": 2,
     "patents": [
-      "US20030147822A1",
-      "EP-2078065-A2",
-      "JP-2008031406-A",
+      "US8778235",
+      "JP-WO2011136014-A1",
     ],
   },
 }
