@@ -6,8 +6,13 @@ exports[`syncCmaups 1`] = `
   "data": {
     "activities": [
       {
-        "assay": "IC50 : 5900 nM",
+        "assay": "IC50 = 5900 nM",
+        "chemblId": "CHEMBL215",
         "externalRef": "PMID : 16413779",
+        "geneSymbol": "ALOX5",
+        "proteinName": "Arachidonate 5-lipoxygenase",
+        "ttdId": "T93566",
+        "uniprotId": "P09917",
       },
     ],
     "cid": "24992964",
