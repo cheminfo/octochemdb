@@ -26,7 +26,7 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     const progress = await connection.getProgress('titleCompounds');
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV === 'test') {
       lastFile = `${process.env.TITLECOMPOUNDS_SOURCE_TEST}`;
       sources = [lastFile];
     } else if (
