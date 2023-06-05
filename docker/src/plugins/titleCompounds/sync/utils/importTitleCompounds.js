@@ -21,7 +21,7 @@ export default async function importTitleCompounds(filneName, connection) {
       let [productID, titleProduct] = fields;
 
       count++;
-      if (Date.now() - start > 60000 || Number(process.env.DEBUG_THROTTLING)) {
+      if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
         debug.trace(`Imported ${count} compounds title`);
         start = Date.now();
       }
