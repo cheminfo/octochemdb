@@ -17,6 +17,7 @@ export default async function cmaupsStartSync(connection) {
       lastFileActivity,
       lastFileSpeciesAssociation,
       lastFileSpeciesInfo,
+      lastTargetInfo,
       sources,
       progress,
       logs,
@@ -28,13 +29,16 @@ export default async function cmaupsStartSync(connection) {
       'cmaups',
     );
 
-    const { general, activities, speciesPair, speciesInfo } = readCmaupFiles(
-      lastFile,
-      lastFileActivity,
-      lastFileSpeciesAssociation,
-      lastFileSpeciesInfo,
-      connection,
-    );
+    const { general, activities, speciesPair, speciesInfo, targetInfo } =
+      readCmaupFiles(
+        lastFile,
+        lastFileActivity,
+        lastFileSpeciesAssociation,
+        lastFileSpeciesInfo,
+        lastTargetInfo,
+
+        connection,
+      );
 
     return [
       lastDocumentImported,
@@ -45,6 +49,7 @@ export default async function cmaupsStartSync(connection) {
       activities,
       speciesPair,
       speciesInfo,
+      targetInfo,
       logs,
     ];
   } catch (e) {

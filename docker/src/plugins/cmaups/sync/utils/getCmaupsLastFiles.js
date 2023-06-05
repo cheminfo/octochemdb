@@ -16,6 +16,7 @@ export default async function getCmaupsLastFiles(connection) {
     let lastFileActivity;
     let lastFileSpeciesAssociation;
     let lastFileSpeciesInfo;
+    let lastTargetInfo;
     let sources;
 
     if (process.env.NODE_ENV === 'test') {
@@ -23,6 +24,7 @@ export default async function getCmaupsLastFiles(connection) {
       lastFileActivity = `${process.env.CMAUPS_FILE_ACTIVITY_TEST}`;
       lastFileSpeciesAssociation = `${process.env.CMAUPS_FILE_SPECIESASSOCIATION_TEST}`;
       lastFileSpeciesInfo = `${process.env.CMAUPS_FILE_SPECIESINFO_TEST}`;
+      lastTargetInfo = `${process.env.CMAUP_SOURCE_TARGET_TEST}`;
       source = [
         lastFileGeneral,
         lastFileActivity,
@@ -52,6 +54,10 @@ export default async function getCmaupsLastFiles(connection) {
       options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
       options.filenameNew = 'speciesInfo';
       lastFileSpeciesInfo = await getLastFileSync(options);
+      // Get target info
+      options.collectionSource = process.env.CMAUP_SOURCE_TARGET;
+      options.filenameNew = 'targetInfo';
+      lastTargetInfo = await getLastFileSync(options);
 
       // Get collection importationLogs
       source = [
@@ -62,6 +68,7 @@ export default async function getCmaupsLastFiles(connection) {
           '',
         ),
         lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ];
       // Get sources with new downloaded files (will be used to check if necessary to update collection)
       sources = md5(
@@ -73,6 +80,7 @@ export default async function getCmaupsLastFiles(connection) {
             '',
           ),
           lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+          lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         ]),
       );
     }
@@ -90,6 +98,7 @@ export default async function getCmaupsLastFiles(connection) {
       lastFileActivity,
       lastFileSpeciesAssociation,
       lastFileSpeciesInfo,
+      lastTargetInfo,
       sources,
       progress,
       logs,

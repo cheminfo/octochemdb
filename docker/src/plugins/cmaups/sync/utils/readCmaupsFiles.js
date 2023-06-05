@@ -21,6 +21,7 @@ export default function readCmaupsFiles(
   lastFileActivity,
   lastFileSpeciesAssociation,
   lastFileSpeciesInfo,
+  lastTargetInfo,
   connection,
 ) {
   try {
@@ -50,8 +51,14 @@ export default function readCmaupsFiles(
     parse(readFileSync(lastFileSpeciesInfo, 'utf8'), {
       header: true,
     }).data.forEach((entry) => (speciesInfo[entry.Plant_ID] = entry));
+    // Read target info file
 
-    return { general, activities, speciesPair, speciesInfo };
+    const targetInfo = {};
+    parse(readFileSync(lastTargetInfo, 'utf8'), {
+      header: true,
+    }).data.forEach((entry) => (targetInfo[entry.Target_ID] = entry));
+
+    return { general, activities, speciesPair, speciesInfo, targetInfo };
   } catch (e) {
     // If error is catch, debug it on telegram
     if (connection) {

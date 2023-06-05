@@ -10,6 +10,7 @@ const debug = debugLibrary('parseCmaups');
  * @param {*} activities the activities data readed from the file
  * @param {*} speciesPair the species association data readed from the file
  * @param {*} speciesInfo the species info data readed from the file
+ * @param {*} targetInfo the target info data readed from the file
  * @param {*} connection the connection to the database
  * @returns {Object} results to be imported in the database
  */
@@ -18,6 +19,7 @@ export async function* parseCmaups(
   activities,
   speciesPair,
   speciesInfo,
+  targetInfo,
   connection,
 ) {
   try {
@@ -40,13 +42,43 @@ export async function* parseCmaups(
           const finalActivities = [];
           if (activity !== undefined) {
             for (const info of activity) {
-              finalActivities.push({
+              const targetActivity = targetInfo[info.Target_ID];
+              let parsedActivity = {
                 activityType: info?.Activity_Type,
+                activityRelationship: info?.Activity_Relationship,
                 activityValue: info?.Activity_Value,
                 activityUnit: info?.Activity_Unit,
                 refIdType: info?.Reference_ID_Type,
                 refId: info?.Reference_ID,
-              });
+              };
+              if (targetActivity?.Gene_Symbol !== '') {
+                parsedActivity.geneSymbol = targetActivity.Gene_Symbol;
+              }
+              if (targetActivity?.Protein_Name !== '') {
+                parsedActivity.proteinName = targetActivity.Protein_Name;
+              }
+              if (targetActivity?.Uniprot_ID !== '') {
+                parsedActivity.uniprotId = targetActivity.Uniprot_ID;
+              }
+              if (targetActivity?.ChEMBL_ID !== '') {
+                parsedActivity.chemblId = targetActivity.ChEMBL_ID;
+              }
+              if (targetActivity?.TTD_ID !== '') {
+                parsedActivity.ttdId = targetActivity.TTD_ID;
+              }
+              if (targetActivity?.Target_Class_Level1 !== '') {
+                parsedActivity.targetClassLevel1 =
+                  targetActivity.Target_Class_Level1;
+              }
+              if (targetActivity?.Target_Class_Level2 !== '') {
+                parsedActivity.targetClassLevel2 =
+                  targetActivity.Target_Class_Level2;
+              }
+              if (targetActivity?.Target_Class_Level3 !== '') {
+                parsedActivity.targetClassLevel3 =
+                  targetActivity.Target_Class_Level3;
+              }
+              finalActivities.push(parsedActivity);
             }
           }
           // Get molecule structure data

@@ -24,6 +24,7 @@ export async function sync(connection) {
       activities,
       speciesPair,
       speciesInfo,
+      targetInfo,
       logs,
     ] = await cmaupsStartSync(connection);
     // Define counters
@@ -62,6 +63,7 @@ export async function sync(connection) {
         activities,
         speciesPair,
         speciesInfo,
+        targetInfo,
         connection,
       )) {
         counter++;
