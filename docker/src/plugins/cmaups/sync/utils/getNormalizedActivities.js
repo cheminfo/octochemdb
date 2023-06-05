@@ -5,7 +5,6 @@ import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomi
  * @param {*} entry the entry to be normalized
  * @param {*} taxonomiesCollection the taxonomies collection
  * @param {*} oldToNewTaxIDs the old to new taxonomies ids mapping
- * @param {*} collectionName the name of the collection
  * @returns {Promise<Array>} the normalized activities
  */
 export async function getNormalizedActivities(
@@ -19,7 +18,7 @@ export async function getNormalizedActivities(
     for (const activity of entry.data.activities) {
       let assayString = [
         activity.activityType,
-        ':',
+        activity.activityRelation,
         activity.activityValue,
         activity.activityUnit,
       ].join(' ');
@@ -29,7 +28,22 @@ export async function getNormalizedActivities(
       let activities = {
         assay: assayString,
         externalRef: externalReference,
+        assayOrganism: activity?.assayOrganism ? activity.assayOrganism : null,
+        targetType: activity?.targetType ? activity.targetType : null,
+        targetOrganism: activity?.targetOrganism
+          ? activity.targetOrganism
+          : null,
+        targetName: activity?.targetName ? activity.targetName : null,
+        geneSymbol: activity?.geneSymbol ? activity.geneSymbol : null,
+        proteinName: activity?.proteinName ? activity.proteinName : null,
+        uniprotId: activity?.uniprotId ? activity.uniprotId : null,
+        chemblId: activity?.chemblId ? activity.chemblId : null,
+        ttdId: activity?.ttdId ? activity.ttdId : null,
+        targetClass1: activity?.targetClass1 ? activity.targetClass1 : null,
+        targetClass2: activity?.targetClass2 ? activity.targetClass2 : null,
+        targetClass3: activity?.targetClass3 ? activity.targetClass3 : null,
       };
+
       // search for the taxonomies
       if (activity.targetId) {
         let idToUse = Number(activity.targetId);
@@ -44,8 +58,15 @@ export async function getNormalizedActivities(
           taxonomiesCollection,
           searchParameter,
         );
+
         if (result.length > 0) {
           activities.targetTaxonomies = result[0].data;
+        }
+      }
+      // remove fields with null values
+      for (let keys in activities) {
+        if (activities[keys] === null) {
+          delete activities[keys];
         }
       }
       results.push(activities);

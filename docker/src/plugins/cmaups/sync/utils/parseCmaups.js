@@ -43,40 +43,47 @@ export async function* parseCmaups(
           if (activity !== undefined) {
             for (const info of activity) {
               const targetActivity = targetInfo[info.Target_ID];
+
               let parsedActivity = {
-                activityType: info?.Activity_Type,
-                activityRelationship: info?.Activity_Relationship,
-                activityValue: info?.Activity_Value,
-                activityUnit: info?.Activity_Unit,
-                refIdType: info?.Reference_ID_Type,
-                refId: info?.Reference_ID,
+                activityType: info?.Activity_Type ? info.Activity_Type : null,
+                activityRelation: info?.Activity_Relationship
+                  ? info.Activity_Relationship
+                  : null,
+                activityValue: info?.Activity_Value
+                  ? info.Activity_Value
+                  : null,
+                activityUnit: info?.Activity_Unit ? info.Activity_Unit : null,
+                refIdType: info?.Reference_ID_Type
+                  ? info.Reference_ID_Type
+                  : null,
+                refId: info?.Reference_ID ? info.Reference_ID : null,
+                geneSymbol: targetActivity?.Gene_Symbol
+                  ? targetActivity.Gene_Symbol
+                  : null,
+                proteinName: targetActivity?.Protein_Name
+                  ? targetActivity.Protein_Name
+                  : null,
+                uniprotId: targetActivity?.Uniprot_ID
+                  ? targetActivity.Uniprot_ID
+                  : null,
+                chemblId: targetActivity?.ChEMBL_ID
+                  ? targetActivity.ChEMBL_ID
+                  : null,
+                ttdId: targetActivity?.TTD_ID ? targetActivity.TTD_ID : null,
+                targetClassLevel1: targetActivity?.Target_Class_Level1
+                  ? targetActivity.Target_Class_Level1
+                  : null,
+                targetClassLevel2: targetActivity?.Target_Class_Level2
+                  ? targetActivity.Target_Class_Level2
+                  : null,
+                targetClassLevel3: targetActivity?.Target_Class_Level3
+                  ? targetActivity.Target_Class_Level3
+                  : null,
               };
-              if (targetActivity?.Gene_Symbol !== '') {
-                parsedActivity.geneSymbol = targetActivity.Gene_Symbol;
-              }
-              if (targetActivity?.Protein_Name !== '') {
-                parsedActivity.proteinName = targetActivity.Protein_Name;
-              }
-              if (targetActivity?.Uniprot_ID !== '') {
-                parsedActivity.uniprotId = targetActivity.Uniprot_ID;
-              }
-              if (targetActivity?.ChEMBL_ID !== '') {
-                parsedActivity.chemblId = targetActivity.ChEMBL_ID;
-              }
-              if (targetActivity?.TTD_ID !== '') {
-                parsedActivity.ttdId = targetActivity.TTD_ID;
-              }
-              if (targetActivity?.Target_Class_Level1 !== '') {
-                parsedActivity.targetClassLevel1 =
-                  targetActivity.Target_Class_Level1;
-              }
-              if (targetActivity?.Target_Class_Level2 !== '') {
-                parsedActivity.targetClassLevel2 =
-                  targetActivity.Target_Class_Level2;
-              }
-              if (targetActivity?.Target_Class_Level3 !== '') {
-                parsedActivity.targetClassLevel3 =
-                  targetActivity.Target_Class_Level3;
+              for (const key in parsedActivity) {
+                if (parsedActivity[key] === null) {
+                  delete parsedActivity[key];
+                }
               }
               finalActivities.push(parsedActivity);
             }

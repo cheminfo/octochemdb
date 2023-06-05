@@ -170,6 +170,9 @@ export async function getTaxonomiesForCmaupsAndNpasses(
         // If we didn't find any taxonomy, we keep the original taxonomy in a standardized format
         if (shouldSearch) {
           let finalTaxonomy = {};
+          if (taxons.superkingdom) {
+            finalTaxonomy.superkingdom = taxons.superkingdom;
+          }
           if (taxons.kingdom) {
             finalTaxonomy.kingdom = taxons.kingdom;
           }
