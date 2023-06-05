@@ -2,7 +2,7 @@ import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
-import { sync } from '../../syncCompoundPatents';
+import { sync } from '../../syncCompoundPatents.js';
 
 test('synCompoundPatents', async () => {
   const connection = new OctoChemConnection();
