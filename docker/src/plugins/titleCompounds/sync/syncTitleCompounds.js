@@ -14,7 +14,7 @@ const { existsSync, rmSync } = pkg;
  * @returns {Promise} returns patents collection
  */
 export async function sync(connection) {
-  const debug = debugLibrary('syncCompoundPatents');
+  const debug = debugLibrary('syncTitleCompounds');
   try {
     let options = {
       collectionSource: process.env.TITLECOMPOUNDS_SOURCE,
