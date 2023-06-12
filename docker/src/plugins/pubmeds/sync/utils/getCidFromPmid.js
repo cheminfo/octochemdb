@@ -14,12 +14,11 @@ export async function getCidFromPmid(filePath, connection) {
   try {
     const readStream = createReadStream(filePath);
     const stream = readStream.pipe(createGunzip());
-    const lines = createInterface({ input: stream });
     const data = {};
 
     let date = Date.now();
     let counter = 0;
-
+    const lines = createInterface({ input: stream });
     for await (let line of lines) {
       counter++;
       const [cid, pmid] = line.split('\t');

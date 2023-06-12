@@ -10,11 +10,11 @@ export default async function importTitleCompounds(filneName, connection) {
       'titleCompounds_tmp',
     );
     const readStream = createReadStream(filneName);
-    const lines = createInterface({ input: readStream });
 
     const progress = await connection.getProgress('titleCompounds');
     let start = Date.now();
     let count = 0;
+    const lines = createInterface({ input: readStream });
     for await (const line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 2) continue;

@@ -35,9 +35,8 @@ export async function taxonomySynonyms() {
     'merged.dmp',
   );
 
-  const lines = createInterface({ input: readStream });
-
   const newIDs = {};
+  const lines = createInterface({ input: readStream });
 
   for await (let line of lines) {
     const [idOld, nothing, idNew] = line.split('\t');

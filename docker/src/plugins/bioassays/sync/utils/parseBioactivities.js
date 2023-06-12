@@ -39,7 +39,6 @@ async function* parseBioactivities(
     // Read stream of target file without unzip it
     const readStream = createReadStream(bioActivitiesFilePath);
     const stream = readStream.pipe(createGunzip());
-    const lines = createInterface({ input: stream });
     // Define variables
     let counter = 0;
     let compoundData = {
@@ -48,6 +47,7 @@ async function* parseBioactivities(
       cid: 0,
     };
     // Start parsing line by line the bioActivities file
+    const lines = createInterface({ input: stream });
     for await (let line of lines) {
       const parts = line.split('\t');
       const aid = Number(parts[0]);

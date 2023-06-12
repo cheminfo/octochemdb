@@ -25,13 +25,14 @@ export default async function getBioassays(
     // Read stream of bioassay file
     const readStream = createReadStream(bioassaysFilePath);
     const stream = readStream.pipe(createGunzip());
-    const lines = createInterface({ input: stream });
     // Parse file line by line
     const bioassays = {};
     debug.trace('Start parsing bioassays file');
     let counter = 0;
     let start = Date.now();
     let oldIDs = Object.keys(oldToNewTaxIDs);
+    const lines = createInterface({ input: stream });
+
     for await (let line of lines) {
       const [
         aid,

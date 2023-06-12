@@ -12,10 +12,10 @@ export default async function insertAbstract(filneName, connection) {
     const temporaryCollection = await connection.getCollection('patents_tmp');
     const readStream = createReadStream(filneName);
     const stream = readStream.pipe(createGunzip());
-    const lines = createInterface({ input: stream });
     let start = Date.now();
     let count = 0;
     let promise = [];
+    const lines = createInterface({ input: stream });
     for await (const line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 3) continue;

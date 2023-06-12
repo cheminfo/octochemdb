@@ -10,14 +10,16 @@ export default async function importCompoundPatents(filneName, connection) {
       'compoundPatents_tmp',
     );
     const readStream = createReadStream(filneName);
-    const lines = createInterface({ input: readStream });
     let entry = [];
     let currentProductID = -1;
 
     const progress = await connection.getProgress('compoundPatents');
     let start = Date.now();
     let count = 0;
-    for await (const line of lines) {
+    // ATTENTION:readline.createInterface() will start to consume the input stream once invoked.
+    // Having asynchronous operations between interface creation and asynchronous iteration may result in missed lines.
+    const lines = createInterface({ input: readStream, crlfDelay: Infinity });
+    for await (let line of lines) {
       let fields = line.split('\t');
       if (fields.length !== 2) continue;
       let [productID, patentID] = fields;
@@ -32,6 +34,7 @@ export default async function importCompoundPatents(filneName, connection) {
           return 0;
         });
         count++;
+
         if (
           Date.now() - start > 60000 ||
           Number(process.env.DEBUG_THROTTLING)
@@ -54,7 +57,11 @@ export default async function importCompoundPatents(filneName, connection) {
         currentProductID = Number(productID);
       }
       entry.push(patentID);
+      if (process.env.NODE_ENV === 'test' && count > 4500) {
+        break;
+      }
     }
+
     if (entry.length) {
       entry.sort((a, b) => {
         if (a.startsWith('US') && !b.startsWith('US')) return -1;
