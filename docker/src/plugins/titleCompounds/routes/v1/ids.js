@@ -13,7 +13,7 @@ const searchIDs = {
       ids: {
         type: 'string',
         description: 'compound IDs ',
-        example: '31401, 31405',
+        example: '4702, 4714',
         default: '',
       },
 
@@ -51,7 +51,10 @@ async function searchHandler(request) {
 
     if (ids !== '') {
       matchParameters._id = {
-        $in: ids.split(/[ ,;\t\r\n]+/).filter((entry) => entry),
+        $in: ids
+          .split(/[ ,;\t\r\n]+/)
+          .filter((entry) => entry)
+          .map(Number),
       };
     }
 
