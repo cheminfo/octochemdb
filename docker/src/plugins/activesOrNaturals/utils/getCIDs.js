@@ -24,7 +24,7 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
     // create a DBRef for each cid
     cidsDBRef.push({ $ref: 'compounds', $id: cid.cid });
     cids.push(cid.cid);
-    if (molecules[cid.idCode]) {
+    if (!molecules[cid.idCode]) {
       molecules[cid.idCode] = {
         ocl: {
           idCode: cid.idCode,
@@ -39,11 +39,9 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
     });
   }
   for (let oneDataEntry of data) {
-    if (oneDataEntry.collection === 'bioassays') continue
+    if (oneDataEntry.collection === 'bioassays') continue;
     const idCode = oneDataEntry.data.ocl.idCode;
-    if (
-      !molecules[idCode]
-    ) {
+    if (!molecules[idCode]) {
       molecules[oneDataEntry.data.ocl.idCode] = {
         ocl: {
           idCode,
