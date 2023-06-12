@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
@@ -6,14 +5,15 @@ import { sync } from '../../syncCompoundPatents.js';
 
 test('synCompoundPatents', async () => {
   const connection = new OctoChemConnection();
-  let colllectionList = await connection.getCollectionNames();
-  while (!colllectionList.includes('patents')) {
-    await delay(1000);
-    colllectionList = await connection.getCollectionNames();
+  const patentsCollection = await connection.getCollection('patents');
+  while (true) {
+    if ((await patentsCollection.countDocuments()) === 255) {
+      break;
+    }
   }
   await sync(connection);
   const collection = await connection.getCollection('compoundPatents');
-  const collectionEntry = await collection.find({ _id: 68114 }).limit(1);
+  const collectionEntry = await collection.find({ _id: 1 }).limit(1);
   const result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;

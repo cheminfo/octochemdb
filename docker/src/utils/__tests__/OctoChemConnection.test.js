@@ -1,4 +1,3 @@
-import delay from 'delay';
 import dotenv from 'dotenv';
 import { test, expect } from 'vitest';
 
@@ -10,10 +9,11 @@ test(
   'connection to DB',
   async () => {
     const connection = new OctoChemConnection();
-    let colllectionList = await connection.getCollectionNames();
-    while (!colllectionList.includes('compounds')) {
-      await delay(1000);
-      colllectionList = await connection.getCollectionNames();
+    const compoundsCollection = await connection.getCollection('compounds');
+    while (true) {
+      if ((await compoundsCollection.countDocuments()) === 12) {
+        break;
+      }
     }
     const result = await connection.getCollection('compounds');
     expect(result.namespace).toBe('octochemdb.compounds');

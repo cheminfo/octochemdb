@@ -119,7 +119,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "molecules": [
       {
         "ocl": {
-          "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\\\KL?Fr\\\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
           "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
         },
         "sources": [
@@ -131,7 +130,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       },
       {
         "ocl": {
-          "coordinates": "!BM\`?d[NlSJNThyTepU~hvC~QlyFsd[NlSRW@hyU_j[NoeU||FIrupZDepb?SYT@}v_qzGFdUHQTcwyfHxlMGQlC\\\\zLuQGXd\\\\]?kAGXozpQquGXd]bQqw~l@",
           "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@",
         },
         "sources": [

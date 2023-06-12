@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
@@ -8,22 +7,35 @@ test(
   'Aggregation ActivesOrNaturals',
   async () => {
     const connection = new OctoChemConnection();
-    let colllectionList = await connection.getCollectionNames();
-    while (
-      !colllectionList.includes('lotuses') ||
-      !colllectionList.includes('npasses') ||
-      !colllectionList.includes('npAtlases') ||
-      !colllectionList.includes('cmaups') ||
-      !colllectionList.includes('coconuts') ||
-      !colllectionList.includes('bioassays') ||
-      !colllectionList.includes('gnps') ||
-      !colllectionList.includes('pubmeds') ||
-      !colllectionList.includes('patents') ||
-      !colllectionList.includes('compoundPatents')
-    ) {
-      await delay(1000);
-      colllectionList = await connection.getCollectionNames();
+    const lotusesCollection = await connection.getCollection('lotuses');
+    const npassesCollection = await connection.getCollection('npasses');
+    const npAtlasesCollection = await connection.getCollection('npAtlases');
+    const cmaupsCollection = await connection.getCollection('cmaups');
+    const coconutsCollection = await connection.getCollection('coconuts');
+    const bioassaysCollection = await connection.getCollection('bioassays');
+    const gnpsCollection = await connection.getCollection('gnps');
+    const pubmedsCollection = await connection.getCollection('pubmeds');
+    const patentsCollection = await connection.getCollection('patents');
+    const compoundPatentsCollection = await connection.getCollection(
+      'compoundPatents',
+    );
+    while (true) {
+      if (
+        (await lotusesCollection.countDocuments()) === 20 &&
+        (await npassesCollection.countDocuments()) === 12 &&
+        (await npAtlasesCollection.countDocuments()) === 3 &&
+        (await cmaupsCollection.countDocuments()) === 19 &&
+        (await coconutsCollection.countDocuments()) === 9 &&
+        (await bioassaysCollection.countDocuments()) === 20 &&
+        (await gnpsCollection.countDocuments()) === 2 &&
+        (await pubmedsCollection.countDocuments()) === 7 &&
+        (await patentsCollection.countDocuments()) === 255 &&
+        (await compoundPatentsCollection.countDocuments()) === 4502
+      ) {
+        break;
+      }
     }
+
     await aggregate(connection);
     const collection = await connection.getCollection('activesOrNaturals');
     const collectionEntry = await collection
@@ -36,7 +48,10 @@ test(
     if (result?._seq) {
       delete result._seq;
     }
-    if (result?.data?.noStereoOCL?.coordinates) {
+    if (result) {
+      for (const molecule of result.data.molecules) {
+        delete molecule.ocl.coordinates;
+      }
       delete result.data.noStereoOCL.coordinates;
     }
     expect(result).toMatchSnapshot();

@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
@@ -8,13 +7,17 @@ test(
   'Aggregation mfs',
   async () => {
     const connection = new OctoChemConnection();
-    let colllectionList = await connection.getCollectionNames();
-    while (
-      !colllectionList.includes('activesOrNaturals') ||
-      !colllectionList.includes('compounds')
-    ) {
-      await delay(1000);
-      colllectionList = await connection.getCollectionNames();
+    const compoundsCollection = await connection.getCollection('compounds');
+    const activesOrNaturalsCollection = await connection.getCollection(
+      'activesOrNaturals',
+    );
+    while (true) {
+      if (
+        (await compoundsCollection.countDocuments()) === 12 &&
+        (await activesOrNaturalsCollection.countDocuments()) === 63
+      ) {
+        break;
+      }
     }
     await aggregate(connection);
     const collection = await connection.getCollection('mfs');

@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
@@ -8,11 +7,14 @@ test(
   'Aggregation activeAgainst',
   async () => {
     const connection = new OctoChemConnection();
-    let colllectionList = await connection.getCollectionNames();
 
-    while (!colllectionList.includes('activesOrNaturals')) {
-      await delay(1000);
-      colllectionList = await connection.getCollectionNames();
+    while (true) {
+      const activeOrNaturalsCollection = await connection.getCollection(
+        'activesOrNaturals',
+      );
+      if ((await activeOrNaturalsCollection.countDocuments()) === 63) {
+        break;
+      }
     }
     await aggregate(connection);
     const collection = await connection.getCollection('activeAgainst');
@@ -25,6 +27,7 @@ test(
     if (result?._seq) {
       delete result._seq;
     }
+
     expect(result).toMatchSnapshot();
     await connection.close();
   },

@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
@@ -8,13 +7,17 @@ test(
   'getMeshTerms',
   async () => {
     const connection = new OctoChemConnection();
-    let colllectionList = await connection.getCollectionNames();
-    while (
-      !colllectionList.includes('pubmeds') &&
-      !colllectionList.includes('activesOrNaturals')
-    ) {
-      await delay(1000);
-      colllectionList = await connection.getCollectionNames();
+    const pubmedsCollection = await connection.getCollection('pubmeds');
+    const activesOrNaturalsCollection = await connection.getCollection(
+      'activesOrNaturals',
+    );
+    while (true) {
+      if (
+        (await activesOrNaturalsCollection.countDocuments()) === 63 &&
+        (await pubmedsCollection.countDocuments()) === 7
+      ) {
+        break;
+      }
     }
     const collection = await connection.getCollection('pubmeds');
     await collection.updateMany(

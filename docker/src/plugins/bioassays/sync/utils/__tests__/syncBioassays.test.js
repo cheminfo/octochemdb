@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
@@ -8,13 +7,16 @@ test(
   'syncBioassays',
   async () => {
     const connection = new OctoChemConnection();
-    let colllectionList = await connection.getCollectionNames();
-    while (
-      !colllectionList.includes('compounds') ||
-      !colllectionList.includes('taxonomies')
-    ) {
-      await delay(1000);
-      colllectionList = await connection.getCollectionNames();
+
+    const compoundsCollection = await connection.getCollection('compounds');
+    const taxonomiesCollection = await connection.getCollection('taxonomies');
+    while (true) {
+      if (
+        (await compoundsCollection.countDocuments()) === 12 &&
+        (await taxonomiesCollection.countDocuments()) === 20
+      ) {
+        break;
+      }
     }
     await sync(connection);
     const collection = await connection.getCollection('bioassays');
