@@ -24,7 +24,7 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
     // create a DBRef for each cid
     cidsDBRef.push({ $ref: 'compounds', $id: cid.cid });
     cids.push(cid.cid);
-    if (molecules[cid.idCode] === undefined) {
+    if (molecules[cid.idCode]) {
       molecules[cid.idCode] = {
         ocl: {
           idCode: cid.idCode,
@@ -39,24 +39,23 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
     });
   }
   for (let oneDataEntry of data) {
+    if (oneDataEntry.collection === 'bioassays') continue
+    const idCode = oneDataEntry.data.ocl.idCode;
     if (
-      oneDataEntry.collection !== 'bioassays' &&
-      !molecules[oneDataEntry.data.ocl.idCode === undefined]
+      !molecules[idCode]
     ) {
       molecules[oneDataEntry.data.ocl.idCode] = {
         ocl: {
-          idCode: oneDataEntry.data.ocl.idCode,
+          idCode,
           coordinates: oneDataEntry.data.ocl.coordinates,
         },
         sources: [],
       };
     }
-    if (oneDataEntry.collection !== 'bioassays') {
-      molecules[oneDataEntry.data.ocl.idCode].sources.push({
-        $ref: oneDataEntry.collection,
-        $id: oneDataEntry._id,
-      });
-    }
+    molecules[idCode].sources.push({
+      $ref: oneDataEntry.collection,
+      $id: oneDataEntry._id,
+    });
   }
   let dbRefsMolecules = Object.values(molecules);
   return { cids, cidsDBRef, dbRefsMolecules };
