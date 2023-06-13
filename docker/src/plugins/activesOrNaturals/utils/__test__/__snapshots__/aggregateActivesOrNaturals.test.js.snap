@@ -147,6 +147,9 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbPatents": 3,
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
+    "noStereoOCL": {
+      "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+    },
     "patents": [
       {
         "$id": "EP-2078065-A2",

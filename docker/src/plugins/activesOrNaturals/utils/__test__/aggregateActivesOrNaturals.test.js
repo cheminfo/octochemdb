@@ -52,6 +52,7 @@ test(
       for (const molecule of result.data.molecules) {
         delete molecule.ocl.coordinates;
       }
+      delete result.data.noStereoOCL.coordinates;
     }
     expect(result).toMatchSnapshot();
     await connection.close();
