@@ -17,7 +17,7 @@ test(
     expect(result).toMatchSnapshot();
     await connection.close();
   },
-  { timeout: 10000 },
+  { timeout: 30000 },
 );
 test(
   'syncCompounds Incremental Importation',
@@ -34,5 +34,5 @@ test(
     expect(resultIncremental).toMatchSnapshot();
     await connection.close();
   },
-  { timeout: 10000 },
+  { timeout: 30000 },
 );

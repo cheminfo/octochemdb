@@ -15,5 +15,5 @@ test(
     let result = await getFile(file, targetFile);
     expect(await result).toBe(200);
   },
-  { timeout: 10000 },
+  { timeout: 30000 },
 );

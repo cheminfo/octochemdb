@@ -17,7 +17,7 @@ test(
 
     expect(await promise).toMatchInlineSnapshot('undefined');
   },
-  { timeout: 10000 },
+  { timeout: 30000 },
 );
 test(
   'improveCompoundPool working',
@@ -77,5 +77,5 @@ test(
       }
     `);
   },
-  { timeout: 10000 },
+  { timeout: 30000 },
 );

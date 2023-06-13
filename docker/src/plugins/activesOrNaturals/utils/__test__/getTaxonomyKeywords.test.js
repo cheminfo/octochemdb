@@ -44,5 +44,5 @@ test(
       'sapiens',
     ]);
   },
-  { timeout: 10000 },
+  { timeout: 30000 },
 );
