@@ -16,6 +16,9 @@ test(
     const gnpsCollection = await connection.getCollection('gnps');
     const pubmedsCollection = await connection.getCollection('pubmeds');
     const patentsCollection = await connection.getCollection('patents');
+    const titleCompoundsCollection = await connection.getCollection(
+      'titleCompounds',
+    );
     const compoundPatentsCollection = await connection.getCollection(
       'compoundPatents',
     );
@@ -30,6 +33,7 @@ test(
         (await gnpsCollection.countDocuments()) === 2 &&
         (await pubmedsCollection.countDocuments()) === 7 &&
         (await patentsCollection.countDocuments()) === 255 &&
+        (await titleCompoundsCollection.countDocuments()) === 10000 &&
         (await compoundPatentsCollection.countDocuments()) === 4502
       ) {
         break;

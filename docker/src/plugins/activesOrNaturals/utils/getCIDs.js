@@ -1,5 +1,6 @@
 export default async function getCIDs(connection, noStereoTautomerID, data) {
   let compoundsCollection = await connection.getCollection('compounds');
+  let titleCollection = await connection.getCollection('titleCompounds');
   let result = await compoundsCollection
     .aggregate([
       { $match: { 'data.ocl.noStereoTautomerID': noStereoTautomerID } },
@@ -31,7 +32,12 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
           coordinates: cid.coordinates,
         },
         sources: [],
+        titles: [],
       };
+    }
+    let titleEntry = await titleCollection.findOne({ _id: Number(cid.cid) });
+    if (titleEntry && titleEntry.data.title.length < 30) {
+      molecules[cid.idCode].titles.push(titleEntry.data.title);
     }
     molecules[cid.idCode].sources.push({
       $ref: 'compounds',
