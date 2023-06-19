@@ -26,5 +26,5 @@ test(
     expect(result).toMatchSnapshot();
     await connection.close();
   },
-  { timeout: 35000 },
+  { timeout: 30000 },
 );
