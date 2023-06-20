@@ -47,7 +47,7 @@ export default async function getCompoundsInfo(
     const compoundsIDs = parsedCompoundInfo.compoundsIds;
     const dbRefsCompounds = parsedCompoundInfo.cidsDBRef;
     const dbRefsMolecules = parsedCompoundInfo.dbRefsMolecules;
-
+    let titles = parsedCompoundInfo.titles;
     let compoundsPatents = [];
     let nbPatents = 0;
 
@@ -84,6 +84,49 @@ export default async function getCompoundsInfo(
         }
       }
       entry.data.patents = dbRefsPatents;
+    }
+    if (titles.length > 0) {
+      titles.sort((a, b) => {
+        // Check if a and b have parentheses or numbers
+        const aHasParenthesesOrNumbers = /[()\d]/.test(a);
+        const bHasParenthesesOrNumbers = /[()\d]/.test(b);
+
+        if (!aHasParenthesesOrNumbers && !bHasParenthesesOrNumbers) {
+          // If both a and b have no parentheses or numbers, sort by length
+          return a.length - b.length;
+        } else if (!aHasParenthesesOrNumbers) {
+          // If only a has no parentheses or numbers, sort it first
+          return -1;
+        } else if (!bHasParenthesesOrNumbers) {
+          // If only b has no parentheses or numbers, sort it first
+          return 1;
+        } else {
+          // If both a and b have parentheses or numbers, sort the one with parentheses first
+          if (aHasParenthesesOrNumbers && bHasParenthesesOrNumbers) {
+            const aHasParentheses = /[()]/.test(a);
+            const bHasParentheses = /[()]/.test(b);
+
+            if (aHasParentheses && !bHasParentheses) {
+              // If only a has parentheses, sort it first
+              return -1;
+            } else if (!aHasParentheses && bHasParentheses) {
+              // If only b has parentheses, sort it first
+              return 1;
+            } else if (aHasParentheses && bHasParentheses) {
+              // If both a and b have parentheses, sort by length
+              return a.length - b.length;
+            }
+          }
+          // If both a and b have no parentheses, sort by length
+          if (a.length !== b.length) {
+            return a.length - b.length;
+          } else {
+            // If both a and b have the same length, sort alphabetically
+            return 0;
+          }
+        }
+      });
+      entry.data.titles = titles;
     }
     entry.data.nbMolecules = 0;
     if (dbRefsMolecules.length > 0) {

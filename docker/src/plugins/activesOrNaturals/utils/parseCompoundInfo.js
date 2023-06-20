@@ -15,7 +15,7 @@ export default async function parseCompoundInfo(
   let pmids = [];
   let meshTerms = [];
   let ocl = {};
-  let { cids, cidsDBRef, dbRefsMolecules } = await getCIDs(
+  let { cids, cidsDBRef, dbRefsMolecules, titles } = await getCIDs(
     connection,
     noStereoTautomerID,
     data,
@@ -89,6 +89,7 @@ export default async function parseCompoundInfo(
     pmids,
     cidsDBRef,
     dbRefsMolecules,
+    titles,
   };
   return parsedCompoundInfo;
 }
