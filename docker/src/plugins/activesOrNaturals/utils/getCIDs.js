@@ -36,7 +36,11 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
       };
     }
     let titleEntry = await titleCollection.findOne({ _id: Number(cid.cid) });
-    if (titleEntry && titleEntry.data.title.length < 30) {
+    if (
+      titleEntry &&
+      titleEntry.data.title.length < 30 &&
+      !titleEntry.data.title.match(/CID /)
+    ) {
       molecules[cid.idCode].titles.push(titleEntry.data.title);
       titles[titleEntry.data.title] = true;
     }
