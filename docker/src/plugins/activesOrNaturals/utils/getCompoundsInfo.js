@@ -49,7 +49,6 @@ export default async function getCompoundsInfo(
     const dbRefsMolecules = parsedCompoundInfo.dbRefsMolecules;
     let titles = parsedCompoundInfo.titles;
     let compoundsPatents = [];
-    let nbPatents = 0;
 
     if (compoundsIDs.length > 0) {
       for (let compound of compoundsIDs) {
@@ -64,14 +63,11 @@ export default async function getCompoundsInfo(
               }
             }
           }
-          nbPatents += patent?.data.nbPatents;
         }
       }
     }
-    entry.data.nbPatents = nbPatents;
-    if (compoundsPatents.length < 5e4) {
-      entry.data.nbPatents = compoundsPatents.length;
-    }
+    entry.data.nbPatents = 0;
+    entry.data.nbPatents = compoundsPatents.length;
 
     if (compoundsPatents?.length > 0) {
       let dbRefsPatents = [];
