@@ -173,7 +173,7 @@ parentPort?.on('message', async (dataEntry) => {
 
         count++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          parentPort.postMessage({
+          parentPort?.postMessage({
             workerID,
             currentCount: count,
             status: 'running',

@@ -1,11 +1,10 @@
-import { reactionFragmentation } from 'mass-tools';
 import md5 from 'md5';
-import OCL from 'openchemlib';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import debugLibrary from '../../../utils/Debug.js';
+import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 
-const { Molecule } = OCL;
+import { main } from './main.js';
 
 export async function aggregate(connection) {
   const debug = debugLibrary('inSilicoFragments');
@@ -16,9 +15,7 @@ export async function aggregate(connection) {
     const progressOfSourceCollection = await connection.getProgress(
       'activesOrNaturals',
     );
-    const collectionActivesOrNaturals = await connection.getCollection(
-      'activesOrNaturals',
-    );
+
     const sources = md5(progressOfSourceCollection);
     // Add logs to the collection importLogs
     const logs = await connection.getImportationLog({
@@ -44,52 +41,10 @@ export async function aggregate(connection) {
       debug.info('start fragmentation process');
       progress.state = 'aggregating';
       await connection.setProgress(progress);
-      let entries = await collectionActivesOrNaturals
-        .aggregate([
-          {
-            $project: {
-              _id: 0,
-              idCode: '$data.noStereoOCL.idCode',
-              noStereoTautomerID: '$_id',
-            },
-          },
-        ])
-        .toArray();
 
-      debug.trace(
-        `Loaded ${entries.length} noStereoTautomerIDs from activesOrNaturals`,
-      );
-      let fragmentationOptions = {
-        database: 'cid',
-        mode: 'positive',
-        maxDepth: 10,
-      };
-      for (const entry of entries) {
-        let result = {
-          _id: entry.noStereoTautomerID,
-          data: {
-            ocl: { idCode: entry.idCode },
-          },
-        };
-        let molecule = Molecule.fromIDCode(entry.idCode);
-        const fragments = reactionFragmentation(molecule, fragmentationOptions);
-        result.data.tree = { positive: fragments.tree };
-        result.data.masses = { positive: fragments.masses };
-        fragmentationOptions.mode = 'negative';
-        const fragmentsNegative = reactionFragmentation(
-          molecule,
-          fragmentationOptions,
-        );
-        result.data.tree.negative = fragmentsNegative.tree;
-        result.data.masses.negative = fragmentsNegative.masses;
-        await temporaryCollection.updateOne(
-          { _id: entry.noStereoTautomerID },
-          { $set: result },
-          { upsert: true },
-        );
-      }
+      let links = await getCollectionsLinks(connection);
+      await main(links);
       await temporaryCollection.createIndex({ 'data.masses.positive': 1 });
-      await temporaryCollection.createIndex({ 'data.masses.negative': 1 });
       await temporaryCollection.createIndex({ 'data.ocl.idCode': 1 });
       // rename temporary collection
       await temporaryCollection.rename(options.collection, {
