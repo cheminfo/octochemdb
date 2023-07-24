@@ -71,6 +71,16 @@ export async function getSubstanceData(molecule) {
           atoms: data.result.atoms,
         },
       };
+
+      if (
+        data.result.atoms !== null &&
+        data.result.atoms !== undefined &&
+        Object.keys(data.result.atoms).length !== 0
+      ) {
+        result.data.atoms = data.result.atoms;
+      } else {
+        result.data.atoms = {};
+      }
       return result;
     } else {
       debug.fatal(`Error: ${dataSubstance?.status} ${dataSubstance}`);
