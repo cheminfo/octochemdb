@@ -16,6 +16,11 @@ const entriesFromID = {
         example:
           'fhiAP@@Xe[vRJJFYIJJDYxMUUUUUP@ZzQcFBXiafNXecVCXm`NOtQfJvOacxZuSGpq|L',
       },
+      fields: {
+        type: 'string',
+        description: 'Fields to retrieve',
+        default: 'data',
+      },
     },
   },
   handler: searchHandler,
@@ -28,10 +33,7 @@ export default entriesFromID;
  * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
  */
 async function searchHandler(request) {
-  let {
-    id = '',
-    fields = 'data.molecules,data.titles,data.em,data.mf,data.charge,data.unsaturation,data.bioactive,data.naturalProduct,data.kwMeshTerms,data.kwBioassays,data.kwTaxonomies,data.kwActiveAgainst,data.activities,data.taxonomies,data.pubmeds,data.nbActivities,data.nbTaxonomies,data.nbPubmeds,data.nbPatents,data.patents,data.nbMassSpectra,data.massSpectra',
-  } = request.query;
+  let { id = '', fields = 'data' } = request.query;
 
   let connection;
   try {
