@@ -20,7 +20,7 @@ parentPort?.on('message', async (dataEntry) => {
     debug.trace(`Worker ${workerID} started`);
     // get worker number
     const temporaryCollection = await connection.getCollection(
-      `activesOrNaturals_test_tmp`,
+      `activesOrNaturals_tmp`,
     );
     let count = 0;
     let start = Date.now();
@@ -32,9 +32,14 @@ parentPort?.on('message', async (dataEntry) => {
       let data = [];
       for (const source of sources) {
         if (
-          ['npasses', 'cmaups', 'coconuts', 'lotuses', 'npAtlases'].includes(
-            source.collection,
-          )
+          [
+            'npasses',
+            'cmaups',
+            'coconuts',
+            'lotuses',
+            'npAtlases',
+            'gnps',
+          ].includes(source.collection)
         ) {
           entry.data.naturalProduct = true;
         }
@@ -182,7 +187,7 @@ parentPort?.on('message', async (dataEntry) => {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'activesOrNaturals_test',
+        collection: 'activesOrNaturals',
         connection,
         stack: e.stack,
       });
