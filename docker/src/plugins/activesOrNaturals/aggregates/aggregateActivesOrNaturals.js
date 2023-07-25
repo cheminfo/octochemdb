@@ -20,7 +20,7 @@ export async function aggregate(connection) {
   ];
   const debug = debugLibrary('aggregateActivesOrNaturals');
   try {
-    const options = { collection: 'activesOrNaturals', connection };
+    const options = { collection: 'activesOrNaturals_test', connection };
     // Get progress,logs, target, lastDocument and links of the collection
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
@@ -93,7 +93,7 @@ export async function aggregate(connection) {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'activesOrNaturals',
+        collection: 'activesOrNaturals_test',
         connection,
         stack: e.stack,
       });

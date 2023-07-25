@@ -64,7 +64,7 @@ export async function main(links) {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'activesOrNaturals',
+        collection: 'activesOrNaturals_test',
         connection,
         stack: e.stack,
       });
