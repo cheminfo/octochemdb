@@ -1,3 +1,5 @@
+import { main } from '../scripts/main.js';
+
 import firstCompoundsImport from './firstCompoundsImport.js';
 import incrementalCompoundsImport from './incrementalCompoundsImport.js';
 /**
@@ -6,8 +8,9 @@ import incrementalCompoundsImport from './incrementalCompoundsImport.js';
  * @returns {Promise} returns compounds collections
  */
 export async function sync(connection) {
+  await main(connection);
   // Do the first importation
-  await firstCompoundsImport(connection);
+  // await firstCompoundsImport(connection);
   // Do the incremental updates
-  await incrementalCompoundsImport(connection);
+  // await incrementalCompoundsImport(connection);
 }
