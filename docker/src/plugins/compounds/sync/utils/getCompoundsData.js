@@ -41,7 +41,7 @@ export async function getCompoundsData(molecule, options = {}) {
         if (process.env.NODE_ENV === 'test') {
           try {
             dataCompound = await fetch(
-              `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+              `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
               { signal: controller.signal },
             );
           } catch (e) {
@@ -93,9 +93,7 @@ export async function getCompoundsData(molecule, options = {}) {
         },
       };
       if (options.indexRequired) {
-        result.data.ocl.index = Array.from(
-          new Int32Array(new Uint8Array(data.result.ssIndex).buffer),
-        );
+        result.data.ocl.index = data.result.ssIndex;
       }
       return result;
     } else {
