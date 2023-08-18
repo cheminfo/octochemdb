@@ -16,7 +16,7 @@ async function getFile(file, targetFile) {
     while (success === false && count < 3) {
       try {
         const controller = new AbortController();
-        setTimeout(() => controller.abort(), 1800 * 1000); // 30 minutes
+        setTimeout(() => controller.abort(), 1800 * 100); // 3 minutes
         response = await fetch(file.url, { signal: controller.signal });
       } catch (e) {
         debug.error(e);
@@ -27,19 +27,19 @@ async function getFile(file, targetFile) {
         await delay(1000);
       }
       count++;
-    }
-    if (response?.status !== 200) {
-      throw new Error(`Could not fetch file: ${file.url}`);
-    }
+      if (response?.status !== 200) {
+        throw new Error(`Could not fetch file: ${file.url}`);
+      }
 
-    if (process.env.NODE_ENV === 'test') {
-      return await response?.status;
+      if (process.env.NODE_ENV === 'test') {
+        return await response?.status;
+      }
+      const arrayBuffer = await response.arrayBuffer();
+
+      writeFileSync(targetFile, new Uint8Array(arrayBuffer));
+
+      utimesSync(targetFile, file.epoch, file.epoch);
     }
-    const arrayBuffer = await response.arrayBuffer();
-
-    writeFileSync(targetFile, new Uint8Array(arrayBuffer));
-
-    utimesSync(targetFile, file.epoch, file.epoch);
 
     if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
       debug.trace(`Downloaded from: ${lastFileName} till ${file.name}`);
