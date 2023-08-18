@@ -7,8 +7,7 @@ import debugLibrary from '../../../utils/Debug.js';
 
 async function getFile(file, targetFile) {
   const debug = debugLibrary('getFile');
-  let start = Date.now();
-  let lastFileName = 'Start Import';
+
   try {
     let count = 0;
     let success = false;
@@ -39,12 +38,6 @@ async function getFile(file, targetFile) {
       writeFileSync(targetFile, new Uint8Array(arrayBuffer));
 
       utimesSync(targetFile, file.epoch, file.epoch);
-    }
-
-    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-      debug.trace(`Downloaded from: ${lastFileName} till ${file.name}`);
-      start = Date.now();
-      lastFileName = file.name;
     }
   } catch (e) {
     debug.fatal(`ERROR downloading: ${file.url}`);

@@ -41,8 +41,14 @@ async function syncFolder(source, destinationFolder, options = {}) {
   if (lastFileImported) {
     skipping = true;
   }
-
+  let lastFileName = 'Start Import';
+  let start = Date.now();
   for (const file of allFiles) {
+    if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+      debug.trace(`Downloaded from: ${lastFileName} till ${file.name}`);
+      start = Date.now();
+      lastFileName = file.name;
+    }
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
     if (skipping) {
