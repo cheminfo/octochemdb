@@ -31,7 +31,7 @@ export async function getSubstanceData(molecule) {
         setTimeout(() => controller.abort(), 1000 * 1800);
         if (process.env.NODE_ENV === 'test') {
           dataSubstance = await fetch(
-            `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
+            `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
             { signal: controller.signal },
           );
         } else {
@@ -67,18 +67,9 @@ export async function getSubstanceData(molecule) {
           mw: data.result.mw,
           nbFragments: data.result.nbFragments,
           unsaturation: data.result.unsaturation,
+          atoms: data.result.atoms,
         },
       };
-
-      if (
-        data.result.atoms !== null &&
-        data.result.atoms !== undefined &&
-        Object.keys(data.result.atoms).length !== 0
-      ) {
-        result.data.atoms = JSON.parse(data.result.atoms);
-      } else {
-        result.data.atoms = {};
-      }
       return result;
     } else {
       debug.fatal(`Error: ${dataSubstance?.status} ${dataSubstance}`);
