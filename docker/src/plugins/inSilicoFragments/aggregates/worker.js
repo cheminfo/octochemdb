@@ -14,7 +14,6 @@ parentPort?.on('message', async (dataEntry) => {
     const fragmentationOptions = {
       database: 'cid',
       mode: 'positive',
-      maxDepth: 3,
     };
     const { links, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
@@ -33,35 +32,30 @@ parentPort?.on('message', async (dataEntry) => {
           },
         };
         let molecule = Molecule.fromIDCode(link.idCode);
-        let fragments;
-        try {
-          fragments = reactionFragmentation(molecule, fragmentationOptions);
-        } catch (e) {
-          console.log(e);
-          console.log(reactionFragmentation(molecule, fragmentationOptions));
-        }
-
-        if (!fragments) {
+        if (molecule.getAtoms() >= 100) {
           continue;
         }
-        result.data.trees = { positive: fragments.products };
-        result.data.masses = { positive: fragments.masses };
 
-        if (link) {
-          await temporaryCollection.updateOne(
-            { _id: link.id },
-            { $set: result },
-            { upsert: true },
-          );
-          count++;
-          if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-            parentPort?.postMessage({
-              workerID,
-              currentCount: count,
-              status: 'running',
-            });
-            start = Date.now();
-          }
+        let fragments;
+        fragments = reactionFragmentation(molecule, fragmentationOptions);
+        if (fragments && fragments.masses?.lenght < 1) {
+          continue;
+        }
+
+        result.data.masses = { positive: fragments.masses };
+        await temporaryCollection.updateOne(
+          { _id: link.id },
+          { $set: result },
+          { upsert: true },
+        );
+        count++;
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+          parentPort?.postMessage({
+            workerID,
+            currentCount: count,
+            status: 'running',
+          });
+          start = Date.now();
         }
       } catch (e) {
         if (connection) {
@@ -71,7 +65,6 @@ parentPort?.on('message', async (dataEntry) => {
             stack: e.stack,
           });
         }
-        continue;
       }
     }
     parentPort?.postMessage({ workerID, currentCount: count, status: 'done' });
