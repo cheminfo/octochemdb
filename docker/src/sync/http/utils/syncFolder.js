@@ -51,28 +51,35 @@ async function syncFolder(source, destinationFolder, options = {}) {
     }
     const targetFile = join(destinationFolder, file.name);
     file.path = targetFile;
+    if (existsSync(targetFile)) {
+      const fileInfo = statSync(targetFile);
+      let trueFileSize = await fileSize(file);
+      if (fileInfo.size !== trueFileSize) {
+        if (process.env.NODE_ENV === 'test') {
+          continue;
+        }
+        rmSync(targetFile, { recursive: true });
+        await getFile(file, targetFile);
+        newFiles.push(file);
+      }
+    }
+
     if (skipping) {
+      if (!existsSync(targetFile)) {
+        await getFile(file, targetFile);
+        newFiles.push(file);
+      }
       if (file.name !== lastFileImported.name && fileList.length !== 0) {
         if (!file.name.includes('killed')) {
           continue;
         }
       } else {
         skipping = false;
-        if (existsSync(targetFile)) {
-          const fileInfo = statSync(targetFile);
-          let trueFileSize = await fileSize(file);
-          debug.trace(
-            `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
-          );
-          if (fileInfo.size !== trueFileSize) {
-            if (process.env.NODE_ENV === 'test') {
-              continue;
-            }
-            rmSync(targetFile, { recursive: true });
-            await getFile(file, targetFile);
-            newFiles.push(file);
-          }
-        }
+        const fileInfo = statSync(targetFile);
+        let trueFileSize = await fileSize(file);
+        debug.trace(
+          `Skipped till: ${file.name} Size: ${trueFileSize}/${fileInfo.size}`,
+        );
         continue;
       }
     }
