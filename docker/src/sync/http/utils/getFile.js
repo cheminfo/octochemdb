@@ -53,6 +53,10 @@ async function getFile(file, targetFile) {
     debug.fatal(`ERROR downloading: ${file.url}`);
     throw new Error(`ERROR downloading: ${file.url}`);
   }
+  if (count >= MAX_COUNT) {
+    debug.fatal(`ERROR downloading: ${file.url}`);
+    throw new Error(`ERROR downloading: ${file.url}`);
+  }
 }
 
 export default getFile;
