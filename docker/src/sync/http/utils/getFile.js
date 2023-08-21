@@ -44,6 +44,8 @@ async function getFile(file, targetFile) {
       utimesSync(targetFile, file.epoch, file.epoch);
     } catch (e) {
       debug.fatal(`ERROR while writing: ${file.url}`);
+      debug.fatal(e);
+      continue;
     }
   }
 
