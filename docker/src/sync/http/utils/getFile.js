@@ -5,14 +5,16 @@ import fetch from 'node-fetch'; //ATTENTION: node-fetch is not the same as fetch
 
 import debugLibrary from '../../../utils/Debug.js';
 
+const MAX_COUNT = 10;
+
 async function getFile(file, targetFile) {
   const debug = debugLibrary('getFile');
 
+  let count = 0;
   try {
-    let count = 0;
     let success = false;
     let response;
-    while (success === false && count < 3) {
+    while (success === false && count++ < MAX_COUNT) {
       try {
         const controller = new AbortController();
         const oneMinuteTimeout = setTimeout(() => controller.abort(), 60 * 1000); // 30 minutes
@@ -25,9 +27,8 @@ async function getFile(file, targetFile) {
       if (response?.status === 200) {
         success = true;
       } else {
-        await delay(1000);
+        await delay(5000 * count ** 3);
       }
-      count++;
       if (response?.status !== 200) {
         throw new Error(`Could not fetch file: ${file.url}`);
       }
@@ -45,6 +46,11 @@ async function getFile(file, targetFile) {
     debug.fatal(`ERROR downloading: ${file.url}`);
     throw e;
   }
+  if (count >= MAX_COUNT) {
+    debug.fatal(`ERROR downloading: ${file.url}`);
+    throw new Error(`ERROR downloading: ${file.url}`);
+  }
+
 }
 
 export default getFile;
