@@ -12,18 +12,17 @@ test(
     );
 
     while (true) {
-      if ((await activesOrNaturalsCollection.countDocuments()) === 20) {
+      if ((await activesOrNaturalsCollection.countDocuments()) === 63) {
         break;
       }
     }
 
     await aggregate(connection);
     const collection = await connection.getCollection('inSilicoFragments');
-    const collectionEntry = await collection
-      .find({
-        _id: 'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
-      })
-      .limit(1);
+    const collectionEntry = await collection.find({
+      // @ts-ignore
+      _id: 'ficaP@K@xXO\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@',
+    });
 
     let result = await collectionEntry.next();
 

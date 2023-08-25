@@ -6,7 +6,7 @@ import OCL from 'openchemlib';
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
-import { fragmentationDB } from './fragmentationDB.js';
+//import { fragmentationDB } from './fragmentationDB.js';
 
 const { Molecule } = OCL;
 const connection = new OctoChemConnection();
@@ -16,7 +16,9 @@ parentPort?.on('message', async (dataEntry) => {
     const fragmentationOptions = {
       database: 'cid',
       mode: 'positive',
-      customDatabase: fragmentationDB,
+      maxIonizationDepth: 2,
+      maxDepth: 3,
+      //   customDatabase: fragmentationDB,
     };
     const { links, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
@@ -34,15 +36,17 @@ parentPort?.on('message', async (dataEntry) => {
             ocl: { idCode: link.idCode },
           },
         };
-        debug.trace(link.idCode);
+        debug.trace(escape(link.idCode));
         let molecule = Molecule.fromIDCode(link.idCode);
-        if (molecule.getAtoms() >= 100) {
+
+        if (molecule.getAtoms() >= 200) {
           continue;
         }
+        debug.trace('molecule created');
+        debug.trace('start fragmentation');
 
-        let fragments;
-        fragments = reactionFragmentation(molecule, fragmentationOptions);
-        if (fragments && fragments.masses?.lenght < 1) {
+        let fragments = reactionFragmentation(molecule, fragmentationOptions);
+        if (fragments && fragments.masses?.lenght === 0) {
           continue;
         }
 
