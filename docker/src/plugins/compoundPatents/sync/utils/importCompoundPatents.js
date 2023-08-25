@@ -35,10 +35,7 @@ export default async function importCompoundPatents(filneName, connection) {
         });
         count++;
 
-        if (
-          Date.now() - start > 60000 ||
-          Number(process.env.DEBUG_THROTTLING)
-        ) {
+        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug.trace(`Imported ${count} patents`);
           start = Date.now();
         }
