@@ -13,7 +13,7 @@ export async function getNoStereosFromCache(
   try {
     const oclID = molecule.getIDCodeAndCoordinates();
     let urlIDCode = encodeURIComponent(oclID.idCode);
-
+    debug.info(urlIDCode);
     let success = false;
     let count = 0;
     let dataCompound;
@@ -23,7 +23,7 @@ export async function getNoStereosFromCache(
         setTimeout(() => controller.abort(), 1000 * 1800);
         if (process.env.NODE_ENV !== 'test') {
           dataCompound = await fetch(
-            `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
+            `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
             {
               signal: controller.signal,
             },
