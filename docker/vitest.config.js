@@ -28,6 +28,7 @@ export default defineConfig({
           const regexOctoChemConnection = /OctoChemConnection/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
+          const regexNpAtlases = /syncNpatlases/i;
           const regexActiveAgainst = /aggregateActiveAgainst.test/i;
           const regexMesh = /getMeshTerms.test/i;
           sortedFiles = sortedFiles.sort((a, b) => {
@@ -50,6 +51,10 @@ export default defineConfig({
             }
             // regexTaxonomies should be after compounds and bioassays
             if (regexTaxonomies.test(a) && !regexTaxonomies.test(b)) {
+              return -1;
+            }
+            // regexNpAtlases should be after taxonomies
+            if (regexNpAtlases.test(a) && !regexNpAtlases.test(b)) {
               return -1;
             }
             if (regexBioassays.test(a) && !regexBioassays.test(b)) {
