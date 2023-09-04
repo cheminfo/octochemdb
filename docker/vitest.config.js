@@ -25,6 +25,7 @@ export default defineConfig({
           // sort by putting files with regex /aggregage/ at the end
           const regex = /aggregate/i;
           const regexCompounds = /syncCompounds/i;
+          const regexOctoChemConnection = /OctoChemConnection/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
           const regexActiveAgainst = /aggregateActiveAgainst.test/i;
@@ -39,6 +40,13 @@ export default defineConfig({
 
             if (regexCompounds.test(a) && !regexCompounds.test(b)) {
               return -1;
+            }
+            // OctoChemConnection should be after compounds
+            if (
+              regexOctoChemConnection.test(a) &&
+              !regexOctoChemConnection.test(b)
+            ) {
+              return 1;
             }
             // regexTaxonomies should be after compounds and bioassays
             if (regexTaxonomies.test(a) && !regexTaxonomies.test(b)) {

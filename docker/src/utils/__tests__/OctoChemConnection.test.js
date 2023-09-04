@@ -21,5 +21,5 @@ test(
       await connection.close();
     }
   },
-  { timeout: 30000 },
+  { timeout: 10000 },
 );
