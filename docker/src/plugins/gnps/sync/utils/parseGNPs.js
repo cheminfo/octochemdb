@@ -42,7 +42,11 @@ export async function* parseGNPs(jsonPath, connection) {
 
         const mf = mfInfo.mf;
         const em = mfInfo.monoisotopicMass;
-        const ocl = await getNoStereosFromCache(oclMolecule, connection);
+        const ocl = await getNoStereosFromCache(
+          oclMolecule,
+          connection,
+          'gnps',
+        );
         // Get spectrum metadata
         let spectrum = {};
         if (entry.value.ms_level !== 'N/A') {

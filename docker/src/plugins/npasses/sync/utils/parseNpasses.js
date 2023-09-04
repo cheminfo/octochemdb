@@ -35,7 +35,11 @@ export async function* parseNpasses(
 
       const smilesDb = property.SMILES;
       const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
-      const ocl = await getNoStereosFromCache(oclMolecule, connection);
+      const ocl = await getNoStereosFromCache(
+        oclMolecule,
+        connection,
+        'npasses',
+      );
       const activity = activities[item.np_id];
       const finalActivities = [];
       if (activity !== undefined) {
