@@ -16,11 +16,13 @@ export async function* parseNpatlases(json, connection) {
         const oclMolecule = OCL.Molecule.fromSmiles(
           entry.clean_smiles || entry.smiles,
         );
+        console.log('start fetching');
         const ocl = await getNoStereosFromCache(
           oclMolecule,
           connection,
           'npAtlases',
         );
+        debug.info(`Importing ${ocl}`);
         const taxonomies = entry.origin_organism;
         const doi = entry.origin_reference.doi;
         let taxon = {};
