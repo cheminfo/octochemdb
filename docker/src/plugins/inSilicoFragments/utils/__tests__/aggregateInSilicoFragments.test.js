@@ -4,7 +4,7 @@ import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 import { aggregate } from '../../aggregates/aggregate';
 
 test(
-  'Aggregation ActivesOrNaturals',
+  'In silico fragmentation',
   async () => {
     const connection = new OctoChemConnection();
     const activesOrNaturalsCollection = await connection.getCollection(
