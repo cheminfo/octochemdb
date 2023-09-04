@@ -21,7 +21,11 @@ export async function* parseMassBank(blob, connection) {
             oclMolecule.getMolecularFormula().formula,
           ).getInfo();
 
-          let ocl = await getNoStereosFromCache(oclMolecule, connection);
+          let ocl = await getNoStereosFromCache(
+            oclMolecule,
+            connection,
+            'massbank',
+          );
           result.data = {
             ocl,
           };

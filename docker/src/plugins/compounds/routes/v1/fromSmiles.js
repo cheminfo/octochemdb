@@ -61,11 +61,13 @@ async function searchHandler(request) {
         'data.ocl.idCode': molecule.getIDCode(),
       };
     } else {
+      let stereoCache = await getNoStereosFromCache(
+        molecule,
+        connection,
+        'compounds',
+      );
       mongoQuery = {
-        'data.ocl.noStereoTautomerID': getNoStereosFromCache(
-          molecule,
-          connection,
-        ),
+        'data.ocl.noStereoTautomerID': stereoCache?.noStereoTautomerID,
       };
     }
 

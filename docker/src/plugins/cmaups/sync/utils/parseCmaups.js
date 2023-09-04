@@ -93,7 +93,11 @@ export async function* parseCmaups(
           let ocl;
           try {
             const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
-            ocl = await getNoStereosFromCache(oclMolecule, connection);
+            ocl = await getNoStereosFromCache(
+              oclMolecule,
+              connection,
+              'cmaups',
+            );
           } catch (e) {
             if (connection) {
               debug.fatal(e.message, {
