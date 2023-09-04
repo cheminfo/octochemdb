@@ -30,13 +30,13 @@ export async function importCompoundFiles(
       };
     }
     if (importType === 'first') {
-      for (let file of files) {
+      for await (let file of files) {
         await importOneCompoundFile(connection, progress, file, options);
         options.shouldImport = true;
       }
     }
     if (importType === 'incremental') {
-      for (let file of files) {
+      for await (let file of files) {
         if (file.name.endsWith('.gz')) {
           await importOneCompoundFile(connection, progress, file, options);
           options.shouldImport = true;
