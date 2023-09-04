@@ -21,8 +21,8 @@ test(
     const result = await collectionEntry.next();
     if (result?._seq) {
       delete result._seq;
-      delete result.data.ocl.coordinates; // they change every time
     }
+    delete result?.data.ocl.coordinates; // they change every time
     expect(result).toMatchSnapshot();
     await connection.close();
   },
