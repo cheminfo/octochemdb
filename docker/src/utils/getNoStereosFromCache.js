@@ -21,10 +21,18 @@ export async function getNoStereosFromCache(
       try {
         const controller = new AbortController();
         setTimeout(() => controller.abort(), 1000 * 1800);
-
-        dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
-          signal: controller.signal,
-        });
+        if (process.env.NODE_ENV !== 'test') {
+          dataCompound = await fetch(
+            `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
+            {
+              signal: controller.signal,
+            },
+          );
+        } else {
+          dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
+            signal: controller.signal,
+          });
+        }
       } catch (e) {
         debug.fatal(e);
       }
