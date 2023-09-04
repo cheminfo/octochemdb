@@ -36,7 +36,8 @@ export async function getCompoundsData(molecule, options = {}) {
       try {
         const controller = new AbortController();
         setTimeout(() => controller.abort(), 1000 * 1800);
-        if (process.env.NODE_ENV !== 'test') {
+
+        if (process.env.NODE_ENV === 'test') {
           dataCompound = await fetch(
             `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
             {
