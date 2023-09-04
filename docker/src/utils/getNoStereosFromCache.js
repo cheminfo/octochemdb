@@ -13,7 +13,6 @@ export async function getNoStereosFromCache(
   try {
     const oclID = molecule.getIDCodeAndCoordinates();
     let urlIDCode = encodeURIComponent(oclID.idCode);
-    debug.info(urlIDCode);
     let success = false;
     let count = 0;
     let dataCompound;
