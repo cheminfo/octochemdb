@@ -1,5 +1,4 @@
 import delay from 'delay';
-import fetch from 'node-fetch';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
