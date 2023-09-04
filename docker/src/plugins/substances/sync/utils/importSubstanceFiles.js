@@ -28,7 +28,7 @@ export async function importSubstanceFiles(
         ...options,
       };
     }
-    for (let file of files) {
+    for await (let file of files) {
       if (file.name.endsWith('.gz')) {
         await importOneSubstanceFile(connection, progress, file, options);
         options.shouldImport = true;
