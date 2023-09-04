@@ -9,10 +9,7 @@ import { getCompoundsData } from './getCompoundsData.js';
 const debug = debugLibrary('improveCompound');
 export default async function improveCompound(molecule) {
   try {
-    //console.log(molecule);
-
     let dataCompound = await getCompoundsData(molecule);
-
     if (dataCompound?.data) {
       let result = {
         data: dataCompound.data,

@@ -29,7 +29,6 @@ export async function getCompoundsData(molecule, options = {}) {
     const oclID = oclMolecule.getIDCodeAndCoordinates();
 
     let urlIDCode = encodeURIComponent(oclID.idCode);
-
     let success = false;
     let count = 0;
     let dataCompound;
@@ -38,20 +37,10 @@ export async function getCompoundsData(molecule, options = {}) {
         // workerpool does not access the .env file for some reason, this is a workaround
         const controller = new AbortController();
         setTimeout(() => controller.abort(), 1000 * 1800);
-        if (process.env.NODE_ENV === 'test') {
-          try {
-            dataCompound = await fetch(
-              `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
-              { signal: controller.signal },
-            );
-          } catch (e) {
-            debug.fatal(e);
-          }
-        } else {
-          dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
-            signal: controller.signal,
-          });
-        }
+
+        dataCompound = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
+          signal: controller.signal,
+        });
       } catch (e) {
         debug.fatal(e);
       }

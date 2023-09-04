@@ -29,16 +29,10 @@ export async function getSubstanceData(molecule) {
       try {
         const controller = new AbortController();
         setTimeout(() => controller.abort(), 1000 * 1800);
-        if (process.env.NODE_ENV === 'test') {
-          dataSubstance = await fetch(
-            `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
-            { signal: controller.signal },
-          );
-        } else {
-          dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
-            signal: controller.signal,
-          });
-        }
+
+        dataSubstance = await fetch(`${process.env.OCL_CACHE}${urlIDCode}`, {
+          signal: controller.signal,
+        });
       } catch (e) {
         debug.fatal(e);
       }
