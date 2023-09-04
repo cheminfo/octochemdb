@@ -1,7 +1,6 @@
 import { writeFileSync, utimesSync } from 'fs';
 
 import delay from 'delay';
-import fetch from 'node-fetch'; //ATTENTION: node-fetch is not the same as fetch
 
 import debugLibrary from '../../../utils/Debug.js';
 

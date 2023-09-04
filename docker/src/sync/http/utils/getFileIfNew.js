@@ -9,7 +9,6 @@ import { join } from 'path';
 
 import { fileCollectionFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
-import fetch from 'node-fetch'; //ATTENTION: node-fetch is not the same as fetch
 
 import debugLibrary from '../../../utils/Debug.js';
 
