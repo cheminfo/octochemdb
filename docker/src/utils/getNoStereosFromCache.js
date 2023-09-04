@@ -1,4 +1,5 @@
 import delay from 'delay';
+import fetch from 'node-fetch';
 
 import debugLibrary from './Debug.js';
 
