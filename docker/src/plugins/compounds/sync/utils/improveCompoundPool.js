@@ -8,7 +8,10 @@ import DebugLibrary from '../../../../utils/Debug.js';
 // eslint-disable-next-line new-cap
 const debug = DebugLibrary('improveCompoundPool');
 const url = new URL('improveCompound.js', import.meta.url);
-const nbCPU = cpus().length;
+let nbCPU = cpus().length;
+if (process.env.NODE_ENV === 'test') {
+  nbCPU = 1;
+}
 const piscina = new Piscina({
   filename: url.pathname,
   minThreads: nbCPU,
@@ -31,9 +34,8 @@ export default async function improveCompoundPool(molecule, options = {}) {
   while (piscina.queueSize > nbCPU * 5) {
     await delay(1);
   }
-  let promise;
 
-  promise = piscina
+  let promise = piscina
     .run(molecule, { signal: abortController.signal })
     .then((info) => {
       clearTimeout(timeout);

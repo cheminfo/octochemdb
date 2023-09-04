@@ -9,7 +9,10 @@ import DebugLibrary from '../../../../utils/Debug.js';
 // eslint-disable-next-line new-cap
 const debug = DebugLibrary('improveSubstancePool');
 const url = new URL('improveSubstance.js', import.meta.url);
-const nbCPU = cpus().length;
+let nbCPU = cpus().length;
+if (process.env.NODE_ENV === 'test') {
+  nbCPU = 1;
+}
 const piscina = new Piscina({
   filename: url.pathname,
   minThreads: nbCPU,
