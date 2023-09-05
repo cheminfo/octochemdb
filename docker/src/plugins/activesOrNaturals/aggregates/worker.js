@@ -52,9 +52,8 @@ parentPort?.on('message', async (dataEntry) => {
         }
       }
       let compoundsCollection = await connection.getCollection('compounds');
-      let compoundPatentsCollection = await connection.getCollection(
-        'compoundPatents',
-      );
+      let compoundPatentsCollection =
+        await connection.getCollection('compoundPatents');
       let dbRefsMs = [];
       let taxons = await getTaxonomiesInfo(data, connection);
       // get unique activities from all collections for the current noStereoTautomerIDs

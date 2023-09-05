@@ -78,9 +78,8 @@ export async function sync(connection) {
         startSequenceID: progress.seq,
       });
       // create temporary collection
-      const temporaryCollection = await connection.getCollection(
-        'npAtlases_tmp',
-      );
+      const temporaryCollection =
+        await connection.getCollection('npAtlases_tmp');
       debug.info(`Start importing npAtlases`);
       // set progress to updating
       progress.state = 'updating';

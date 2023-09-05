@@ -6,9 +6,8 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('importTitleCompounds');
 export default async function importTitleCompounds(filneName, connection) {
   try {
-    const temporaryCollection = await connection.getCollection(
-      'titleCompounds_tmp',
-    );
+    const temporaryCollection =
+      await connection.getCollection('titleCompounds_tmp');
     const readStream = createReadStream(filneName);
 
     const progress = await connection.getProgress('titleCompounds');

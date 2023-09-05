@@ -23,8 +23,14 @@ export default async function getCollectionsLinks(connection) {
     debug.trace(
       `Loaded ${results.length} noStereoTautomerIDs from activesOrNaturals`,
     );
-    if(process.env.NODE_ENV === 'test') {
-     results = results.slice(0, 16);
+    if (process.env.NODE_ENV === 'test') {
+      let test = results.find(
+        (result) =>
+          result.noStereoTautomerID ===
+          'fle@P@@XUGIEEMLhdecJBMzjjjjjj`@udcFLLqsBlZp{B\\Yq~dLqQq|L_C@',
+      );
+      results = results.slice(0, 10);
+      results.push(test);
     }
     for (const entry of results) {
       if (entry?.idCode) {

@@ -70,9 +70,8 @@ export async function aggregate(connection) {
       },
     );
     await result.hasNext(); // trigger the creation of the output collection
-    const temporaryCollection = await connection.getCollection(
-      'mfsCHNOSClF_tmp',
-    );
+    const temporaryCollection =
+      await connection.getCollection('mfsCHNOSClF_tmp');
     await temporaryCollection.createIndex({ 'data.em': 1 });
     await temporaryCollection.createIndex({ 'data.unsaturation': 1 });
     await temporaryCollection.createIndex({ 'data.count': 1 });

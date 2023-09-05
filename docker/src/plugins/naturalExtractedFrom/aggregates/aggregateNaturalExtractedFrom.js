@@ -15,9 +15,8 @@ export async function aggregate(connection) {
     const options = { collection: COLLECTION_NAME, connection };
     const progress = await connection.getProgress(options.collection);
     const collectionSource = await connection.getProgress('activesOrNaturals');
-    const collectionActivesOrNaturals = await connection.getCollection(
-      'activesOrNaturals',
-    );
+    const collectionActivesOrNaturals =
+      await connection.getCollection('activesOrNaturals');
     // get logs, last document imported and sources
     const sources = md5(collectionSource);
     const logs = await connection.getImportationLog({

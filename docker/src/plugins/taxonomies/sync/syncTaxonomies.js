@@ -76,9 +76,8 @@ export async function sync(connection) {
       const arrayBuffer = await fileList.files[0].arrayBuffer();
       progress.state = 'updating';
       await connection.setProgress(progress);
-      const temporaryCollection = await connection.getCollection(
-        'taxonomies_tmp',
-      );
+      const temporaryCollection =
+        await connection.getCollection('taxonomies_tmp');
       const fileListNodes = (
         await fileCollectionFromZip(readFileSync(lastFile))
       ).filter((file) => file.name === 'nodes.dmp');

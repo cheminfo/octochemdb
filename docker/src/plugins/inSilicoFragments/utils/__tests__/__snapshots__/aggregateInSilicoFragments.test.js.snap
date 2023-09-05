@@ -2,23 +2,20 @@
 
 exports[`In silico fragmentation 1`] = `
 {
-  "_id": "efUPF@@@JHjdZ\\\\dTTTQbbbttlTVbafRtOD\`VWPtqtNMUUUUUUUUUUUUUP@FjRFBLTXxqi\`s@VHlEXjqMa[EvGlPxQpSbWGzXYQTq|L_CQTl_CGpuMSGpq|L",
+  "_id": "fle@P@@XUGIEEMLhdecJBMzjjjjjj\`@udcFLLqsBlZp{B\\\\Yq~dLqQq|L_C@",
   "data": {
     "masses": {
       "positive": [
-        529.3529149999999,
-        511.34235,
-        451.32122000000004,
-        469.331785,
-        501.358,
-        493.331785,
-        85.06534,
-        415.28483500000004,
-        43.018390000000004,
+        265.143985,
+        221.154155,
+        249.14907,
+        231.138505,
+        247.13342,
+        203.14359,
       ],
     },
     "ocl": {
-      "idCode": "efUPF@@@Nmkoj\\\\bbbTLRaRdtVrbTttltSGDbfag\`VUSUUUUUUUUTsMUUP@@",
+      "idCode": "fle@P@@HeGHheEEEdlUF\\\\tyjBhJJj@@@",
     },
   },
 }

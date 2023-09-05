@@ -7,9 +7,8 @@ test(
   'In silico fragmentation',
   async () => {
     const connection = new OctoChemConnection();
-    const activesOrNaturalsCollection = await connection.getCollection(
-      'activesOrNaturals',
-    );
+    const activesOrNaturalsCollection =
+      await connection.getCollection('activesOrNaturals');
 
     while (true) {
       if ((await activesOrNaturalsCollection.countDocuments()) === 63) {
@@ -21,7 +20,7 @@ test(
     const collection = await connection.getCollection('inSilicoFragments');
     const collectionEntry = await collection.find({
       // @ts-ignore
-      _id: 'efUPF@@@JHjdZ\\dTTTQbbbttlTVbafRtOD`VWPtqtNMUUUUUUUUUUUUUP@FjRFBLTXxqi`s@VHlEXjqMa[EvGlPxQpSbWGzXYQTq|L_CQTl_CGpuMSGpq|L',
+      _id: 'fle@P@@XUGIEEMLhdecJBMzjjjjjj`@udcFLLqsBlZp{B\\Yq~dLqQq|L_C@',
     });
 
     let result = await collectionEntry.next();

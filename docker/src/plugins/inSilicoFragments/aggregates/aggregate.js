@@ -12,9 +12,8 @@ export async function aggregate(connection) {
     // Get collections from the database
     const options = { collection: 'inSilicoFragments', connection };
     const progress = await connection.getProgress(options.collection);
-    const progressOfSourceCollection = await connection.getProgress(
-      'activesOrNaturals',
-    );
+    const progressOfSourceCollection =
+      await connection.getProgress('activesOrNaturals');
 
     const sources = md5(progressOfSourceCollection);
     // Add logs to the collection importLogs

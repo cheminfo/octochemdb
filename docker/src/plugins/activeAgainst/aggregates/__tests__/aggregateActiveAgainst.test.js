@@ -9,9 +9,8 @@ test(
     const connection = new OctoChemConnection();
 
     while (true) {
-      const activeOrNaturalsCollection = await connection.getCollection(
-        'activesOrNaturals',
-      );
+      const activeOrNaturalsCollection =
+        await connection.getCollection('activesOrNaturals');
       if ((await activeOrNaturalsCollection.countDocuments()) === 63) {
         break;
       }

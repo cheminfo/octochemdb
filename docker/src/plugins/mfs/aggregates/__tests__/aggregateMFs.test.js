@@ -8,9 +8,8 @@ test(
   async () => {
     const connection = new OctoChemConnection();
     const compoundsCollection = await connection.getCollection('compounds');
-    const activesOrNaturalsCollection = await connection.getCollection(
-      'activesOrNaturals',
-    );
+    const activesOrNaturalsCollection =
+      await connection.getCollection('activesOrNaturals');
     while (true) {
       if (
         (await compoundsCollection.countDocuments()) === 12 &&

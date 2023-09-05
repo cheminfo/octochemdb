@@ -16,12 +16,10 @@ test(
     const gnpsCollection = await connection.getCollection('gnps');
     const pubmedsCollection = await connection.getCollection('pubmeds');
     const patentsCollection = await connection.getCollection('patents');
-    const titleCompoundsCollection = await connection.getCollection(
-      'titleCompounds',
-    );
-    const compoundPatentsCollection = await connection.getCollection(
-      'compoundPatents',
-    );
+    const titleCompoundsCollection =
+      await connection.getCollection('titleCompounds');
+    const compoundPatentsCollection =
+      await connection.getCollection('compoundPatents');
     while (true) {
       if (
         (await lotusesCollection.countDocuments()) === 20 &&

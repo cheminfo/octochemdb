@@ -29,6 +29,7 @@ export default defineConfig({
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
           const regexActiveAgainst = /aggregateActiveAgainst.test/i;
+          const regexInSilicoFragments = /inSilicoFragments/i;
           const regexMesh = /getMeshTerms.test/i;
           sortedFiles = sortedFiles.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
@@ -66,6 +67,18 @@ export default defineConfig({
               return 1;
             }
             if (!regexActiveAgainst.test(a) && regexActiveAgainst.test(b)) {
+              return -1;
+            }
+            if (
+              regexInSilicoFragments.test(a) &&
+              !regexInSilicoFragments.test(b)
+            ) {
+              return 1;
+            }
+            if (
+              !regexInSilicoFragments.test(a) &&
+              regexInSilicoFragments.test(b)
+            ) {
               return -1;
             }
             if (regexMesh.test(a) && !regexMesh.test(b)) {

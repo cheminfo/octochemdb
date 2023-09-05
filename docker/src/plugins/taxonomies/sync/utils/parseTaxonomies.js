@@ -71,7 +71,6 @@ export function* parseTaxonomies(arrayBuffer, nodes, connection) {
       }
       end++;
     }
-    return;
   } catch (e) {
     if (connection) {
       debug.fatal(e.message, {
