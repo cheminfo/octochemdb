@@ -85,11 +85,11 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       // parse file
+      const fileJsonParsed =  JSON.parse(fileJson)
       for await (const entry of parseNpatlases(
-        JSON.parse(fileJson),
+        fileJsonParsed,
         connection,
       )) {
-       console.log(entry);
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
         counter++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
