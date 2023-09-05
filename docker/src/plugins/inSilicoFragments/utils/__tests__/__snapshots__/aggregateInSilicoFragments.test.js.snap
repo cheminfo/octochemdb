@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`In silico fragmentation 1`] = `
+{
+  "_id": "efUPF@@@JHjdZ\\\\dTTTQbbbttlTVbafRtOD\`VWPtqtNMUUUUUUUUUUUUUP@FjRFBLTXxqi\`s@VHlEXjqMa[EvGlPxQpSbWGzXYQTq|L_CQTl_CGpuMSGpq|L",
+  "data": {
+    "masses": {
+      "positive": [
+        529.3529149999999,
+        511.34235,
+        451.32122000000004,
+        469.331785,
+        501.358,
+        493.331785,
+        85.06534,
+        415.28483500000004,
+        43.018390000000004,
+      ],
+    },
+    "ocl": {
+      "idCode": "efUPF@@@Nmkoj\\\\bbbTLRaRdtVrbTttltSGDbfag\`VUSUUUUUUUUTsMUUP@@",
+    },
+  },
+}
+`;
