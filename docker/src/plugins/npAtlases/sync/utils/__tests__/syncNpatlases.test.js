@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
@@ -14,7 +13,6 @@ test(
         break;
       }
     }
-    await delay(1000);
     await sync(connection);
     const collection = await connection.getCollection('npAtlases');
     const result = await collection.findOne({});
