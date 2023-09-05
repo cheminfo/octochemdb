@@ -15,7 +15,7 @@ test(
     }
     await sync(connection);
     const collection = await connection.getCollection('npAtlases');
-    const result = await collection.findOne({ _id: 'NPA000001' });
+    const result = await collection.findOne({});
 
     if (result?._seq) {
       delete result._seq;

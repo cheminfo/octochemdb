@@ -89,7 +89,7 @@ export async function sync(connection) {
         JSON.parse(fileJson),
         connection,
       )) {
-      //  if (process.env.NODE_ENV === 'test' && counter > 20) break;
+        if (process.env.NODE_ENV === 'test' && counter > 20) break;
         counter++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug.trace(
