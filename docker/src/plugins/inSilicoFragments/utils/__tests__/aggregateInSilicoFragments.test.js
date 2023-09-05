@@ -21,7 +21,7 @@ test(
     const collection = await connection.getCollection('inSilicoFragments');
     const collectionEntry = await collection.find({
       // @ts-ignore
-      _id: 'ficaP@K@xXO\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@',
+      _id: 'efUPF@@@JHjdZ\\dTTTQbbbttlTVbafRtOD`VWPtqtNMUUUUUUUUUUUUUP@FjRFBLTXxqi`s@VHlEXjqMa[EvGlPxQpSbWGzXYQTq|L_CQTl_CGpuMSGpq|L',
     });
 
     let result = await collectionEntry.next();

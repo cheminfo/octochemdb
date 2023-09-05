@@ -9,7 +9,8 @@ export async function main(links) {
   const debug = debugLibrary('improveInSilicoFragments Main');
 
   try {
-    const total = Object.keys(links).length;
+    let total = Object.keys(links).length;
+
     const values = Object.values(links).sort(() => Math.random() - 0.5);
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
@@ -46,7 +47,7 @@ export async function main(links) {
                   0,
                 );
                 lastLogDate = Date.now();
-                debug.trace(`Processing: ${current} / ${total} `);
+                debug.trace(`Fragmented: ${current} / ${total} Molecules`);
               }
               if (message.status === 'done') {
                 resolve(message);

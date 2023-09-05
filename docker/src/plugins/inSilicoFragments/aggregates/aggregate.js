@@ -43,6 +43,7 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
 
       let links = await getCollectionsLinks(connection);
+
       await main(links);
       await temporaryCollection.createIndex({ 'data.masses.positive': 1 });
       await temporaryCollection.createIndex({ 'data.ocl.idCode': 1 });

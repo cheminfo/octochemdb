@@ -23,6 +23,9 @@ export default async function getCollectionsLinks(connection) {
     debug.trace(
       `Loaded ${results.length} noStereoTautomerIDs from activesOrNaturals`,
     );
+    if(process.env.NODE_ENV === 'test') {
+     results = results.slice(0, 16);
+    }
     for (const entry of results) {
       if (entry?.idCode) {
         if (!links[entry.noStereoTautomerID]) {

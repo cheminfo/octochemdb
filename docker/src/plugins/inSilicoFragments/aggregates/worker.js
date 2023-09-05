@@ -12,14 +12,10 @@ const { Molecule } = OCL;
 const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
 parentPort?.on('message', async (dataEntry) => {
+  let warnCount = 0;
+  let warnDate = Date.now();
   try {
-    const fragmentationOptions = {
-      database: 'cid',
-      mode: 'positive',
-      maxIonizationDepth: 2,
-      maxDepth: 3,
-      //   customDatabase: fragmentationDB,
-    };
+
     const { links, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
     // get worker number
@@ -28,6 +24,7 @@ parentPort?.on('message', async (dataEntry) => {
     );
     let count = 0;
     let start = Date.now();
+
     for (const link of links) {
       try {
         let result = {
@@ -36,19 +33,18 @@ parentPort?.on('message', async (dataEntry) => {
             ocl: { idCode: link.idCode },
           },
         };
-        debug.trace(escape(link.idCode));
         let molecule = Molecule.fromIDCode(link.idCode);
-
-        if (molecule.getAtoms() >= 200) {
-          continue;
-        }
-        debug.trace('molecule created');
-        debug.trace('start fragmentation');
-
+        if (molecule.getAtoms() <= 200) {
+        const fragmentationOptions = {
+          database: 'cid',
+          mode: 'positive',
+          maxIonizationDepth: 1,
+          maxDepth: 5,
+          limitReactions:200,
+          //   customDatabase: fragmentationDB,
+        };
         let fragments = reactionFragmentation(molecule, fragmentationOptions);
-        if (fragments && fragments.masses?.lenght === 0) {
-          continue;
-        }
+        if (fragments.masses?.length > 0) {
 
         result.data.masses = { positive: fragments.masses };
         await temporaryCollection.updateOne(
@@ -57,6 +53,9 @@ parentPort?.on('message', async (dataEntry) => {
           { upsert: true },
         );
         count++;
+
+      }
+    }
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           parentPort?.postMessage({
             workerID,
@@ -67,11 +66,15 @@ parentPort?.on('message', async (dataEntry) => {
         }
       } catch (e) {
         if (connection) {
-          await debug.warn(`Warning(fragmentation):${e.message}`, {
+          warnCount++;
+          if (Date.now() - warnDate > Number(process.env.DEBUG_THROTTLING)) {
+          await debug.warn(`Warning(fragmentation) happened ${warnCount}:${e.message} `, {
             collection: 'inSilicoFragments',
             connection,
             stack: e.stack,
           });
+        }
+        warnDate = Date.now();
         }
       }
     }
