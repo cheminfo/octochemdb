@@ -85,9 +85,8 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       // parse file
-      const fileJsonParsed =  JSON.parse(fileJson)
       for await (const entry of parseNpatlases(
-        fileJsonParsed,
+        JSON.parse(fileJson),
         connection,
       )) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
