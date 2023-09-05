@@ -22,7 +22,6 @@ export async function* parseNpatlases(json, connection) {
           connection,
           'npAtlases',
         );
-        debug.info(`Importing ${ocl}`);
         const taxonomies = entry.origin_organism;
         const doi = entry.origin_reference.doi;
         let taxon = {};
