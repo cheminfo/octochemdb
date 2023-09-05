@@ -35,7 +35,7 @@ export async function sync(connection) {
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     }
     // get taxonomies old to new IDs mapping
-    const oldToNewTaxIDs = {}//await taxonomySynonyms();
+    const oldToNewTaxIDs = await taxonomySynonyms();
     // get taxonomies collection
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get npAtlases collection and progress
@@ -89,7 +89,7 @@ export async function sync(connection) {
         JSON.parse(fileJson),
         connection,
       )) {
-
+       console.log(entry);
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
         counter++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
