@@ -15,10 +15,8 @@ test(
     }
     await sync(connection);
     const collection = await connection.getCollection('npAtlases');
-    const collectionEntry = await collection
-      .find({ _id: 'NPA000001' })
-      .limit(1);
-    const result = await collectionEntry.next();
+    const result = await collection.findOne({ _id: 'NPA000001' });
+
     if (result?._seq) {
       delete result._seq;
     }

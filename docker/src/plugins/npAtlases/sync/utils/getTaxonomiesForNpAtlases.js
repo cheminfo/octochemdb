@@ -64,11 +64,10 @@ export async function getTaxonomiesForNpAtlases(
       };
       type.phylum = searchParameter;
     }
-     // until shouldSearch is true, we keep searching for the taxonomy
+    // until shouldSearch is true, we keep searching for the taxonomy
     // using the different search parameters types
     let shouldSearch = true;
 
-    if(process.env.NODE_ENV !== 'test') {
     if (type.species && shouldSearch) {
       let result = await searchTaxonomies(taxonomiesCollection, type.species);
       if (result.length > 0) {
@@ -161,11 +160,8 @@ export async function getTaxonomiesForNpAtlases(
         shouldSearch = false;
       }
     }
-
-  }
     // if shouldSearch is true, we didn't find any taxonomy, so we keep the original taxonomy in standard format
     if (shouldSearch) {
-
       let finalTaxonomy = {};
       if (taxons.kingdom) {
         finalTaxonomy.kingdom = taxons.kingdom;
