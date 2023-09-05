@@ -16,7 +16,6 @@ export async function* parseNpatlases(json, connection) {
         const oclMolecule = OCL.Molecule.fromSmiles(
           entry.clean_smiles || entry.smiles,
         );
-        console.log('start fetching');
         const ocl = await getNoStereosFromCache(
           oclMolecule,
           connection,
