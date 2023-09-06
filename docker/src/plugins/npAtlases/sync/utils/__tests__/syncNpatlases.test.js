@@ -15,6 +15,9 @@ test(
     }
     await sync(connection);
     const collection = await connection.getCollection('npAtlases');
+    expect(
+      (await connection.getProgress('npAtlases'))._id,
+    ).toMatchInlineSnapshot('"npAtlases_progress"');
     const result = await collection.findOne({});
 
     if (result?._seq) {

@@ -13,7 +13,6 @@ export async function getTaxonomiesForNpAtlases(
 ) {
   let taxonomiesResults = [];
   if (entry.data?.taxonomies) {
-
     // Get taxonomies from the entry
     let taxons = entry.data.taxonomies[0];
     let searchParameter;
