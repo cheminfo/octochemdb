@@ -40,6 +40,7 @@ export async function sync(connection) {
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
+    console.log(progress);
     let isTimeToUpdate = false;
     if (
       progress.dateEnd !== 0 &&
@@ -60,6 +61,7 @@ export async function sync(connection) {
 
     // read file synchronized from NPATLAS database
     const fileJson = readFileSync(lastFile, 'utf8');
+    console.log(fileJson);
     // define counters
     let counter = 0;
     let imported = 0;
@@ -77,6 +79,7 @@ export async function sync(connection) {
         sources,
         startSequenceID: progress.seq,
       });
+      console.log(isTimeToUpdate);
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,

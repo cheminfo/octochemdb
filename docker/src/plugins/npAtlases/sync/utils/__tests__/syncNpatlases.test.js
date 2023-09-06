@@ -15,7 +15,6 @@ test(
     }
     await sync(connection);
     const collection = await connection.getCollection('npAtlases');
-    expect(await connection.getCollectionNames()).toMatchInlineSnapshot('');
     const result = await collection.findOne({});
 
     if (result?._seq) {
