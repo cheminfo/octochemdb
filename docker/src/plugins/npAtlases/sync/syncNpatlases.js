@@ -79,8 +79,7 @@ export async function sync(connection) {
         sources,
         startSequenceID: progress.seq,
       });
-      // code works until here
-      console.log(isTimeToUpdate);
+
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
@@ -90,8 +89,6 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       // parse file
-      console.log(isTimeToUpdate);
-
       for await (const entry of parseNpatlases(
         JSON.parse(fileJson),
         connection,
