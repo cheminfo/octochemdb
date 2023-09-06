@@ -9,7 +9,7 @@ WORKDIR /git
 COPY . /git/docker
 
 WORKDIR /git/docker
-RUN npm i --production && rm -rf /root/.npm /usr/local/share/.cache /root/.cache
+RUN npm ci --omit=dev && rm -rf /root/.npm /usr/local/share/.cache /root/.cache
 
 CMD npm run start
 
