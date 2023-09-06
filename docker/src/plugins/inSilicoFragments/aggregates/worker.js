@@ -32,8 +32,10 @@ parentPort?.on('message', async (dataEntry) => {
             ocl: { idCode: link.idCode },
           },
         };
+
         let molecule = Molecule.fromIDCode(link.idCode);
         if (molecule.getAtoms() <= 200) {
+          debug.trace(`Fragmenting ${link.idCode}`);
           const fragmentationOptions = {
             database: 'cid',
             mode: 'positive',
