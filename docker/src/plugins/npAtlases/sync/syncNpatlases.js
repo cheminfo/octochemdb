@@ -41,7 +41,6 @@ export async function sync(connection) {
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;
-    console.log(process.env.NODE_ENV);
 
     if (
       progress.dateEnd !== 0 &&
@@ -53,19 +52,14 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       isTimeToUpdate = true;
     }
-    console.log(lastFile);
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-    console.log(lastDocumentImported);
 
-    console.log(progress);
-  /// code bugs stating here
     // read file synchronized from NPATLAS database
-    console.log(readFileSync(lastFile, 'utf8'));
     const fileJson = readFileSync(lastFile, 'utf8');
 
     // define counters
@@ -85,6 +79,7 @@ export async function sync(connection) {
         sources,
         startSequenceID: progress.seq,
       });
+      // code works until here
       console.log(isTimeToUpdate);
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
@@ -95,6 +90,8 @@ export async function sync(connection) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       // parse file
+      console.log(isTimeToUpdate);
+
       for await (const entry of parseNpatlases(
         JSON.parse(fileJson),
         connection,

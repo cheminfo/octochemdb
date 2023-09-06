@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`syncNpatlases 2`] = `
+exports[`syncNpatlases 1`] = `
 {
   "_id": "NPA000001",
   "data": {
