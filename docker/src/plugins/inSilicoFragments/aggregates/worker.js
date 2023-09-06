@@ -50,9 +50,9 @@ parentPort?.on('message', async (dataEntry) => {
               { $set: result },
               { upsert: true },
             );
-            count++;
           }
         }
+        count++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           parentPort?.postMessage({
             workerID,
