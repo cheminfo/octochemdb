@@ -38,7 +38,7 @@ parentPort?.on('message', async (dataEntry) => {
             database: 'cid',
             mode: 'positive',
             maxIonizationDepth: 1,
-            maxDepth: 5,
+            maxDepth: 3,
             limitReactions: 200,
             //   customDatabase: fragmentationDB,
           };
