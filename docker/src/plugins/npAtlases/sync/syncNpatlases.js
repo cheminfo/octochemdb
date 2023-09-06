@@ -40,8 +40,9 @@ export async function sync(connection) {
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
-    console.log(progress);
     let isTimeToUpdate = false;
+    console.log(isTimeToUpdate);
+
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -52,13 +53,17 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       isTimeToUpdate = true;
     }
+    console.log(isTimeToUpdate);
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
+    console.log(lastDocumentImported);
 
+    console.log(progress);
+  /// code bugs stating here
     // read file synchronized from NPATLAS database
     const fileJson = readFileSync(lastFile, 'utf8');
     console.log(fileJson);
