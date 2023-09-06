@@ -41,7 +41,7 @@ export async function sync(connection) {
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
     let isTimeToUpdate = false;
-    console.log(isTimeToUpdate);
+    console.log(process.env.NODE_ENV);
 
     if (
       progress.dateEnd !== 0 &&
@@ -53,7 +53,7 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       isTimeToUpdate = true;
     }
-    console.log(isTimeToUpdate);
+    console.log(lastFile);
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
