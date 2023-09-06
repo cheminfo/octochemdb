@@ -65,8 +65,9 @@ export async function sync(connection) {
     console.log(progress);
   /// code bugs stating here
     // read file synchronized from NPATLAS database
+    console.log(readFileSync(lastFile, 'utf8'));
     const fileJson = readFileSync(lastFile, 'utf8');
-    console.log(fileJson);
+
     // define counters
     let counter = 0;
     let imported = 0;
