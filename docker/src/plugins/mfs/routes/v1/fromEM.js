@@ -1,6 +1,7 @@
 // query for molecules from monoisotopic mass
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import {getRequestQuery} from '../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('fromEM');
 
@@ -45,15 +46,7 @@ const fromEMs = {
 export default fromEMs;
 
 async function searchHandler(request) {
-  let data = {};
-  for (let key in request.query) {
-    data[key] = request.query[key];
-  }
-  if (request.body !== undefined) {
-    for (let key in request.body) {
-      data[key] = request.body[key].value;
-    }
-  }
+  let data = getRequestQuery(request);
   let {
     em = '',
     minCount = 5,

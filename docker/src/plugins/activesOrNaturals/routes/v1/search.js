@@ -3,6 +3,7 @@ import { MF } from 'mf-parser';
 
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import {getRequestQuery} from '../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('entriesSearch');
 // export the handler
@@ -139,15 +140,7 @@ export default entriesSearch;
  * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
  */
 async function searchHandler(request) {
-  let data = {};
-  for (let key in request.query) {
-    data[key] = request.query[key];
-  }
-  if (request.body !== undefined) {
-    for (let key in request.body) {
-      data[key] = request.body[key].value;
-    }
-  }
+  let data = getRequestQuery(request)
   let {
     em = '',
     mf = '',
@@ -155,18 +148,18 @@ async function searchHandler(request) {
     kwBioassays = '',
     kwActiveAgainst = '',
     kwMeshTerms = '',
-    isNaturalProduct = undefined,
-    isBioactive = undefined,
-    minNbMassSpectra = undefined,
-    maxNbMassSpectra = undefined,
-    minNbActivities = undefined,
-    maxNbActivities = undefined,
-    minNbTaxonomies = undefined,
-    maxNbTaxonomies = undefined,
-    minNbPatents = undefined,
-    maxNbPatents = undefined,
-    minNbPubmeds = undefined,
-    maxNbPubmeds = undefined,
+    isNaturalProduct,
+    isBioactive,
+    minNbMassSpectra,
+    maxNbMassSpectra,
+    minNbActivities,
+    maxNbActivities,
+    minNbTaxonomies,
+    maxNbTaxonomies,
+    minNbPatents,
+    maxNbPatents,
+    minNbPubmeds,
+    maxNbPubmeds,
     limit = 1e3,
     precision = 100,
     fields = 'data.em,data.mf',

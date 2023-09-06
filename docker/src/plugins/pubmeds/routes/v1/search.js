@@ -1,6 +1,7 @@
 // query for molecules from monoisotopic mass
 import { OctoChemConnection, getFields } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import { getRequestQuery } from '../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('search');
 
@@ -49,15 +50,7 @@ const search = {
 export default search;
 
 async function searchHandler(request) {
-  let data = {};
-  for (let key in request.query) {
-    data[key] = request.query[key];
-  }
-  if (request.body !== undefined) {
-    for (let key in request.body) {
-      data[key] = request.body[key].value;
-    }
-  }
+  let data = getRequestQuery(request);
   let {
     ids = '',
     keywords = '',

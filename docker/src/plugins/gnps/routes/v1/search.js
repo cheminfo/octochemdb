@@ -2,6 +2,7 @@ import { MF } from 'mass-tools';
 
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import { getRequestQuery } from '../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchGNPS');
 // export the handler
@@ -57,15 +58,7 @@ export default searchGNPS;
  * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
  */
 async function searchHandler(request) {
-  let data = {};
-  for (let key in request.query) {
-    data[key] = request.query[key];
-  }
-  if (request.body !== undefined) {
-    for (let key in request.body) {
-      data[key] = request.body[key].value;
-    }
-  }
+  let data = getRequestQuery(request);
   let {
     em = '',
     mf = '',
