@@ -64,15 +64,12 @@ async function searchHandler(request) {
 
     let matchParameters = {};
     let aggregateParameters;
-
-    if (keywords !== '') {
-      matchParameters.$text = { $search: keywords };
-      formattedFields.score = { $meta: 'textScore' };
-    }
     if (patentsIDs !== '') {
       matchParameters._id = { $in: patentsIDs.split(/[ ,;\t\r\n]+/) };
     }
-    if (keywords !== '' && patentsIDs !== '') {
+    if (keywords !== '') {
+      matchParameters.$text = { $search: keywords };
+      formattedFields.score = { $meta: 'textScore' };
       aggregateParameters = [
         {
           $match: matchParameters,
@@ -80,7 +77,7 @@ async function searchHandler(request) {
 
         { $project: formattedFields },
         {
-          $match: { score: { $gt: minScore } },
+          $match: { score: { $gte: minScore } },
         },
 
         { $limit: Number(limit) },

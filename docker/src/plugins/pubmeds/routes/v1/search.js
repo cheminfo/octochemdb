@@ -65,11 +65,6 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('pubmeds');
     let matchParameters = {};
     let aggregateParameters;
-
-    if (keywords !== '') {
-      matchParameters.$text = { $search: keywords };
-      formattedFields.score = { $meta: 'textScore' };
-    }
     if (ids !== '') {
       matchParameters._id = {
         $in: ids
@@ -78,7 +73,10 @@ async function searchHandler(request) {
           .map(Number),
       };
     }
-    if (keywords !== '' && ids !== '') {
+    if (keywords !== '') {
+      matchParameters.$text = { $search: keywords };
+      formattedFields.score = { $meta: 'textScore' };
+
       aggregateParameters = [
         {
           $match: matchParameters,
