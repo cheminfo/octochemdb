@@ -8,7 +8,7 @@ export default async function v1(fastify, _, done) {
 
   for (let routeURL of routeURLs) {
     const route = (await import(routeURL)).default;
-    if (typeof route.schema !== 'object') continue;
+    if (typeof route?.schema !== 'object') continue;
     const path = routeURL.pathname
       .replace(url.pathname, '')
       .replace('/routes', '')
