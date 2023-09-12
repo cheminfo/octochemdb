@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ids search (taxonomies) 2`] = `
+[
+  {
+    "_id": 2798921,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2841639,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "family": "Candidatus Borrarchaeaceae",
+      "genus": "Candidatus Borrarchaeum",
+      "order": "Candidatus Borrarchaeales",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+]
+`;

@@ -1,0 +1,50 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (massBank) 2`] = `
+[
+  {
+    "_id": "MSBNK-AAFC-AC000854",
+    "data": {
+      "em": 287.11575803062,
+      "mf": "C16H17NO4",
+      "ocl": {
+        "coordinates": "!Bb@K~@Ha}b@JH@ha}?\`BH?[\\\\Bb@K~_{]}bGw~_{\\\\BbOs~_xa}bGw~_p",
+        "idCode": "fjm\`P@I@PIvQQIQZIKQPiTYdkTmUTp@QCd@@",
+        "noStereoTautomerID": "fjm\`P@A@pivRJJYSIIQRiLydmUUUUUUT@FjTXq\`fJXYcfAXUcVKX]cv@xcaNLxKbnOtafGFKGpq|L",
+      },
+      "spectrum": {
+        "adduct": "[M+H]+",
+        "collisionEnergy": "30(NCE)",
+        "data": {
+          "x": [
+            91.0542,
+            125.0233,
+            154.0499,
+            155.0577,
+            185.0961,
+            200.107,
+            229.0859,
+            246.1125,
+          ],
+          "y": [
+            0.24524524524524524,
+            1,
+            0.08008008008008008,
+            0.35535535535535534,
+            0.34934934934934936,
+            0.04504504504504504,
+            0.14214214214214213,
+            0.7347347347347347,
+          ],
+        },
+        "instrument": "Q-Exactive Orbitrap Thermo Scientific",
+        "ionMode": "Positive",
+        "ionSource": "LC-ESI-ITFT",
+        "msLevel": "2",
+        "numberOfPeaks": 8,
+        "precursorMz": "288.1225",
+      },
+    },
+  },
+]
+`;

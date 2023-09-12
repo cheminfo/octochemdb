@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (activesOrNaturals) 1`] = `
+{
+  "_id": "fhiAP@@Xe[vRJJFYIJJDYxMUUUUUP@ZzQcFBXiafNXecVCXm\`NOtQfJvOacxZuSGpq|L",
+  "data": {
+    "bioactive": false,
+    "charge": 0,
+    "em": 234.05282342015,
+    "kwTaxonomies": [
+      "fungi",
+      "basidiomycota",
+      "agaricomycetes",
+      "aporpiaceae",
+      "elmerina",
+      "caryae",
+    ],
+    "mf": "C12H10O5",
+    "molecules": [
+      {
+        "ocl": {
+          "coordinates": "!BTq\`ZXG?~YrqeXOx@b@Jw@h\`BmwvH@k\\\\B@OxBbOx@mwt",
+          "idCode": "fhiAP@@HU[rSJ|jlqJV\\\\uKWUSTBED",
+        },
+        "sources": [
+          {
+            "$id": "LTS0090146",
+            "$ref": "lotuses",
+          },
+        ],
+      },
+    ],
+    "naturalProduct": true,
+    "nbActivities": 0,
+    "nbMassSpectra": 0,
+    "nbMolecules": 1,
+    "nbPatents": 0,
+    "nbPubmeds": 0,
+    "nbTaxonomies": 1,
+    "noStereoOCL": {
+      "coordinates": "!BTq\`ZXG?~YrqeXOx@b@Jw@h\`BmwvH@k\\\\B@h\`@?k]}?\`@",
+      "idCode": "fhiAP@@HU[rSJ|jlqJV\\\\uKWUST@@",
+    },
+    "taxonomies": [
+      {
+        "class": "Agaricomycetes",
+        "dbRef": {
+          "$id": "LTS0090146",
+          "$ref": "lotuses",
+        },
+        "family": "Aporpiaceae",
+        "genus": "Elmerina",
+        "kingdom": "Fungi",
+        "phylum": "Basidiomycota",
+        "species": "Elmerina caryae",
+      },
+    ],
+    "unsaturation": 8,
+  },
+}
+`;

@@ -1,0 +1,162 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ids search (taxonomies) 2`] = `
+[
+  {
+    "_id": 1,
+    "data": {},
+  },
+  {
+    "_id": 131567,
+    "data": {},
+  },
+  {
+    "_id": 2157,
+    "data": {},
+  },
+  {
+    "_id": 1935183,
+    "data": {
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798909,
+    "data": {
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798916,
+    "data": {
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798922,
+    "data": {
+      "class": "Candidatus Baldrarchaeia",
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798928,
+    "data": {
+      "class": "Candidatus Baldrarchaeia",
+      "order": "Candidatus Baldrarchaeales",
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798934,
+    "data": {
+      "class": "Candidatus Baldrarchaeia",
+      "family": "Candidatus Baldrarchaeaceae",
+      "order": "Candidatus Baldrarchaeales",
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798940,
+    "data": {
+      "class": "Candidatus Baldrarchaeia",
+      "family": "Candidatus Baldrarchaeaceae",
+      "genus": "Candidatus Baldrarchaeum",
+      "order": "Candidatus Baldrarchaeales",
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2799004,
+    "data": {
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2799005,
+    "data": {
+      "phylum": "Candidatus Baldrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798908,
+    "data": {
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798915,
+    "data": {
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798921,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798927,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "order": "Candidatus Borrarchaeales",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798933,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "family": "Candidatus Borrarchaeaceae",
+      "order": "Candidatus Borrarchaeales",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2848170,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "family": "Candidatus Borrarchaeaceae",
+      "genus": "Candidatus Borrarchaeum",
+      "order": "Candidatus Borrarchaeales",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2798939,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "family": "Candidatus Borrarchaeaceae",
+      "genus": "Candidatus Borrarchaeum",
+      "order": "Candidatus Borrarchaeales",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+  {
+    "_id": 2841639,
+    "data": {
+      "class": "Candidatus Borrarchaeia",
+      "family": "Candidatus Borrarchaeaceae",
+      "genus": "Candidatus Borrarchaeum",
+      "order": "Candidatus Borrarchaeales",
+      "phylum": "Candidatus Borrarchaeota",
+      "superkingdom": "Archaea",
+    },
+  },
+]
+`;

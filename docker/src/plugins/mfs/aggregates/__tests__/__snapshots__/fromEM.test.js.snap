@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (compounds) 2`] = `
+[
+  {
+    "_id": "C100H110N4",
+    "data": {
+      "atoms": {
+        "C": 100,
+        "H": 110,
+        "N": 4,
+      },
+      "count": 5,
+      "em": 1366.87304956302,
+      "unsaturation": 48,
+    },
+  },
+  {
+    "_id": "C12H9N3S2",
+    "data": {
+      "atoms": {
+        "C": 12,
+        "H": 9,
+        "N": 3,
+        "S": 2,
+      },
+      "count": 1,
+      "em": 259.02378965215996,
+      "unsaturation": 10,
+    },
+  },
+]
+`;

@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (compoundPatents) 2`] = `
+[
+  {
+    "_id": 1,
+    "data": {
+      "nbPatents": 1,
+      "patents": [
+        "EP3207029A1",
+      ],
+    },
+  },
+  {
+    "_id": 2,
+    "data": {
+      "nbPatents": 1,
+      "patents": [
+        "EP1713492A1",
+      ],
+    },
+  },
+]
+`;

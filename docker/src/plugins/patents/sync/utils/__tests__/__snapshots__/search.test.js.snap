@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`search (patents) > em (patents) 2`] = `
+[
+  {
+    "_id": "CN-101597246-A",
+    "data": {
+      "nbCompounds": 0,
+      "title": "2-(3,3,3-trifluoropropyl alkyl) benzsulfamide (I) and intermediate preparation method thereof",
+    },
+    "score": 5.454545454545454,
+  },
+]
+`;
+
+exports[`search (patents) > keywords (patents) 2`] = `
+[
+  {
+    "_id": "CN-101597246-A",
+    "data": {
+      "nbCompounds": 0,
+      "title": "2-(3,3,3-trifluoropropyl alkyl) benzsulfamide (I) and intermediate preparation method thereof",
+    },
+    "score": 5.454545454545454,
+  },
+]
+`;

@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (cmaups) 2`] = `
+[
+  {
+    "_id": "NPC222524",
+    "data": {
+      "cid": "157076",
+      "ocl": {
+        "coordinates": "!Bm?vw@oy?m?w~@Ha}mwvw@oy?mpJH?Oy??g?~@K]}bGvH_[_}mpJw@oy?m?vw?[\\\\BmpJw_P",
+        "idCode": "fmoaP@D@uGh|bbbbbTRaTrvVRyISkIJuj\`j\`B\`HjjBAD@",
+        "noStereoTautomerID": "fmoaP@C@iEltinU]e^][_dcNBfoZBBJjjjjjJ\`@ue{@\\\\QpgF\\\\EpwA|Wq~dLcQq|L_C@",
+      },
+      "taxonomies": [
+        {
+          "dbRef": {
+            "$id": "NPC222524",
+            "$ref": "cmaups",
+          },
+          "family": "Annonaceae",
+          "genus": "Monoon",
+          "species": "Polyalthia longifolia var. pendula",
+        },
+      ],
+    },
+  },
+  {
+    "_id": "NPC26601",
+    "data": {
+      "cid": "9975115",
+      "ocl": {
+        "coordinates": "!BbGvw_X\`B?g?~@Ha}bGvH@oy??g~H_Xa}mww~_xc|?g?~_xa}bGvw?[_}bOq\`FfAeKF\\\\",
+        "idCode": "feoa\`@F\`iWIEMDdlhhddddUrQgQKehytDD@AAQUPEPr\`@",
+        "noStereoTautomerID": "feoa\`@F\`iWIEMDdlhhddddUrQgQKehyuUUUUUUUUU@AjeFLXiafAXeaVMXMbvOXCbNLxKb^Exwc}HYUqbq|L_C@",
+      },
+      "taxonomies": [
+        {
+          "dbRef": {
+            "$id": "NPC26601",
+            "$ref": "cmaups",
+          },
+          "family": "Berberidaceae",
+          "genus": "Nandina",
+          "species": "Nandina domestica",
+        },
+        {
+          "dbRef": {
+            "$id": "NPC26601",
+            "$ref": "cmaups",
+          },
+          "family": "Apocynaceae",
+          "genus": "Tylophora",
+          "species": "Tylophora tanakae",
+        },
+      ],
+    },
+  },
+]
+`;

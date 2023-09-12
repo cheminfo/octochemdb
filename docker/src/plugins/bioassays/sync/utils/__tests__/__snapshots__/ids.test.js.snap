@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (bioassays) 2`] = `
+[
+  {
+    "_id": "5351641_1",
+    "data": {
+      "aid": 1,
+      "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
+      "cid": 5351641,
+      "ocl": {
+        "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\\\KL?Fr\\\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
+        "noStereoID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+        "noStereoTautomerID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      },
+      "targetTaxonomies": [
+        {
+          "class": "Candidatus Borrarchaeia",
+          "family": "Candidatus Borrarchaeaceae",
+          "genus": "Candidatus Borrarchaeum",
+          "order": "Candidatus Borrarchaeales",
+          "phylum": "Candidatus Borrarchaeota",
+          "superkingdom": "Archaea",
+        },
+      ],
+    },
+  },
+  {
+    "_id": "59478_1",
+    "data": {
+      "aid": 1,
+      "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
+      "cid": 59478,
+      "ocl": {
+        "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\\\KL?Fr\\\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
+        "noStereoID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+        "noStereoTautomerID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      },
+      "targetTaxonomies": [
+        {
+          "class": "Candidatus Borrarchaeia",
+          "family": "Candidatus Borrarchaeaceae",
+          "genus": "Candidatus Borrarchaeum",
+          "order": "Candidatus Borrarchaeales",
+          "phylum": "Candidatus Borrarchaeota",
+          "superkingdom": "Archaea",
+        },
+      ],
+    },
+  },
+]
+`;

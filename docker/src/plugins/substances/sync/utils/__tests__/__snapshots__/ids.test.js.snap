@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ids search (substances) 2`] = `
+[
+  {
+    "_id": 475724934,
+    "data": {
+      "atoms": {
+        "C": 10,
+        "H": 21,
+        "N": 3,
+        "O": 4,
+      },
+      "charge": 0,
+      "cids": [
+        {
+          "$id": 86026904,
+          "$ref": "compounds",
+        },
+      ],
+      "em": 247.1532061684,
+      "mf": "C10H21N3O4",
+      "mw": 247.2918441341343,
+      "nbFragments": 1,
+      "ocl": {
+        "coordinates": "!B?\`Bw@h\`Bm?vH?[\\\\Bb@Jw?Xc}?\`Bw@k_}mpJw?[\\\\Bm?t",
+        "idCode": "fhapP@DJB@TkYEDddhbdduUSUU@@@",
+        "noStereoTautomerID": "fhapP@FFBBboIRjjs{UUUUUP@Z|ybVEXMbvGX}c}HXjecxX~F@",
+      },
+      "unsaturation": 2,
+    },
+  },
+  {
+    "_id": 475724938,
+    "data": {
+      "atoms": {
+        "C": 12,
+        "H": 22,
+        "N": 4,
+        "O": 2,
+      },
+      "charge": 0,
+      "cids": [
+        {
+          "$id": 25132898,
+          "$ref": "compounds",
+        },
+      ],
+      "em": 254.17427596591997,
+      "mf": "C12H22N4O2",
+      "mw": 254.32915004446983,
+      "nbFragments": 1,
+      "ocl": {
+        "coordinates": "!B?\`Bw@h\`BmwvH_WvHmwtBmxc|?g~H_Xa}?g~H_X\`BbGvH_P",
+        "idCode": "fdiH\`BL^CDB@sGlbbRdTjVRQkMUUUUK@@@",
+        "noStereoTautomerID": "fdiH\`BN^CDC@sGldTbcTRVRQkUUUUUK@AjbfFXRFLjX~FOa\`",
+      },
+      "unsaturation": 4,
+    },
+  },
+]
+`;

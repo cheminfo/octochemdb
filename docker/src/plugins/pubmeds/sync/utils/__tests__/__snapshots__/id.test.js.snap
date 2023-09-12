@@ -1,0 +1,133 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (pubmeds) 2`] = `
+{
+  "_id": 19342308,
+  "data": {
+    "article": {
+      "abstract": "Obesity is a risk factor for impaired physical function and disability, with the degree of impairment most compromised in extreme obesity. Mild-to-moderate weight loss has been shown to improve function in older adults. The impact of laparoscopic Roux-en-Y gastric bypass surgery on weight loss and physical function in morbidly obese individuals was assessed. This longitudinal, observational study followed up 28 morbidly obese men and women (body mass index &gt; or = 40.0 kg/m(2)) for 12 months after laparoscopic Roux-en-Y gastric bypass. Physical function (self-report using the Fitness Arthritis and Seniors Trial disability questionnaire; performance tasks using the Short Physical Performance Battery and a lateral mobility task); strength (maximal isometric knee torque); and body composition measured using bioelectrical impedance were determined before surgery (baseline) and at 3 weeks, 3 months, 6 months, and 12 months after surgery. The 12-month weight loss was 34.2% (excess weight loss 59.8%), with a mean fat mass loss of 46 kg and a loss of fat free mass of 6.6 kg. The performance tasks and self-reported questionnaire scores had improved by 3 months after surgery compared with baseline, with selected measures showing less impairment and disability in as few as 3 weeks after surgery. Muscle quality, as measured using the maximal torque per kilogram body weight, was greater at 6 months than at baseline. The results of our study have shown that in morbidly obese individuals with a high risk of mobility impairments, surgical procedures to reduce body weight increase mobility and improve performance of daily activities in as few as 3 weeks after gastric bypass surgery.",
+      "authors": [
+        {
+          "firstName": "Gary D",
+          "initials": "GD",
+          "lastName": "Miller",
+        },
+        {
+          "firstName": "Barbara J",
+          "initials": "BJ",
+          "lastName": "Nicklas",
+        },
+        {
+          "firstName": "Tongjian",
+          "initials": "T",
+          "lastName": "You",
+        },
+        {
+          "firstName": "Adolfo",
+          "initials": "A",
+          "lastName": "Fernandez",
+        },
+      ],
+      "doi": "10.1016/j.soard.2008.11.003",
+      "journal": {
+        "isoAbbreviation": "Surg Obes Relat Dis",
+        "issn": "1878-7533",
+        "issue": 5,
+        "pubDate": {
+          "MedlineDate": "2009 Sep-Oct",
+        },
+        "title": "Surgery for obesity and related diseases : official journal of the American Society for Bariatric Surgery",
+      },
+      "language": "eng",
+      "languageTextSearch": "english",
+      "publicationTypeList": [
+        "Journal Article",
+        "Research Support, N.I.H., Extramural",
+        "Research Support, Non-U.S. Gov't",
+      ],
+      "title": "Physical function improvements after laparoscopic Roux-en-Y gastric bypass surgery.",
+    },
+    "compounds": [
+      {
+        "$id": 19342306,
+        "$ref": "compounds",
+      },
+      {
+        "$id": 19342308,
+        "$ref": "compounds",
+      },
+    ],
+    "dateCompleted": {
+      "day": 11,
+      "month": 12,
+      "year": 2009,
+    },
+    "dateCreated": {},
+    "dateRevised": {
+      "day": 1,
+      "month": 1,
+      "year": 2023,
+    },
+    "journalInfo": {
+      "country": "United States",
+      "issnLinking": "1550-7289",
+      "medlineTa": "Surg Obes Relat Dis",
+      "nlmUniqueId": 101233161,
+    },
+    "meshHeadings": [
+      {
+        "descriptorName": "Activities of Daily Living",
+      },
+      {
+        "descriptorName": "Adult",
+      },
+      {
+        "descriptorName": "Body Composition",
+      },
+      {
+        "descriptorName": "Disability Evaluation",
+      },
+      {
+        "descriptorName": "Female",
+      },
+      {
+        "descriptorName": "Gastric Bypass",
+      },
+      {
+        "descriptorName": "Humans",
+      },
+      {
+        "descriptorName": "Laparoscopy",
+      },
+      {
+        "descriptorName": "Longitudinal Studies",
+      },
+      {
+        "descriptorName": "Male",
+      },
+      {
+        "descriptorName": "Middle Aged",
+      },
+      {
+        "descriptorName": "Motor Activity",
+      },
+      {
+        "descriptorName": "Muscle Strength",
+      },
+      {
+        "descriptorName": "Obesity, Morbid",
+        "qualifierName": "surgery",
+      },
+      {
+        "descriptorName": "Surveys and Questionnaires",
+      },
+      {
+        "descriptorName": "Task Performance and Analysis",
+      },
+      {
+        "descriptorName": "Weight Loss",
+      },
+    ],
+  },
+}
+`;
