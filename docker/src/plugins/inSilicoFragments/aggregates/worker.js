@@ -35,12 +35,11 @@ parentPort?.on('message', async (dataEntry) => {
 
         let molecule = Molecule.fromIDCode(link.idCode);
         if (molecule.getAtoms() <= 200) {
-          debug.trace(`Fragmenting ${link.idCode}`);
           const fragmentationOptions = {
             database: 'cid',
             mode: 'positive',
             maxIonizationDepth: 1,
-            maxDepth: 3,
+            maxDepth: 4,
             limitReactions: 200,
             //   customDatabase: fragmentationDB,
           };
