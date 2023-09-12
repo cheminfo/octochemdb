@@ -31,7 +31,7 @@ const searchIDs = {
 export default searchIDs;
 
 async function searchHandler(request) {
-  let data =getRequestQuery(request);
+  let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;
 
   let formattedFields = getFields(fields);

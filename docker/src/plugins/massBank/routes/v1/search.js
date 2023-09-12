@@ -1,9 +1,8 @@
 import { MF } from 'mass-tools';
 
-
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
-import {getRequestQuery} from '../../../../utils/getRequestQuery.js';
+import { getRequestQuery } from '../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('fromMasses');
 // export the handler

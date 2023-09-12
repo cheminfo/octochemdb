@@ -1,9 +1,10 @@
 import escapeRegExp from 'lodash.escaperegexp';
-import { MF } from 'mf-parser';
 
 import { getFields, OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
-import {getRequestQuery} from '../../../../utils/getRequestQuery.js';
+import { getRequestQuery } from '../../../../utils/getRequestQuery.js';
+
+import { getMatchParameters } from './utils/getMatchParameters.js';
 
 const debug = debugLibrary('entriesSearch');
 // export the handler
@@ -140,7 +141,7 @@ export default entriesSearch;
  * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
  */
 async function searchHandler(request) {
-  let data = getRequestQuery(request)
+  let data = getRequestQuery(request);
   let {
     em = '',
     mf = '',
@@ -208,114 +209,40 @@ async function searchHandler(request) {
     const collection = await connection.getCollection('activesOrNaturals');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
-    // define match parameters for the search, the $in operator is used to search for multiple words and is true if at least one of the words is found
-    let matchParameter = {};
 
-    if (mf !== '') {
-      let mfinfo = new MF(mf).getInfo();
-      matchParameter['data.mf'] = mfinfo.mf;
-    }
-    let error;
-    let ems = em
-      .split(/[ ,;\t\r\n]+/)
-      .filter((entry) => entry)
-      .map(Number);
-    if (ems.length > 1) {
-      let match = [];
-
-      for (let em of ems) {
-        error = (em / 1e6) * precision;
-        match.push({
-          'data.em': { $lt: em + error, $gt: em - error },
-        });
-      }
-      matchParameter = { $or: match };
-    } else if (ems.length === 1 && ems[0] !== '') {
-      error = (ems[0] / 1e6) * precision;
-
-      matchParameter = {
-        'data.em': { $lt: ems[0] + error, $gt: ems[0] - error },
-      };
-    }
-    if (kwTaxonomies) {
-      matchParameter['data.kwTaxonomies'] = {
-        $all: wordsToBeSearchedTaxonomies,
-      };
-    }
-    if (kwBioassays) {
-      matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
-    }
-    if (kwMeshTerms) {
-      matchParameter['data.kwMeshTerms'] = { $in: wordsWithRegexMeshTerms };
-    }
-    if (kwActiveAgainst) {
-      matchParameter['data.kwActiveAgainst'] = {
-        $in: wordsToBeSearchedActiveAgainst,
-      };
-    }
-    if (isNaturalProduct !== undefined) {
-      matchParameter['data.naturalProduct'] = isNaturalProduct;
-    }
-    if (isBioactive !== undefined) {
-      matchParameter['data.bioactive'] = isBioactive;
-    }
-    if (minNbMassSpectra !== undefined && maxNbMassSpectra !== undefined) {
-      matchParameter['data.nbMassSpectra'] = {
-        $gte: minNbMassSpectra,
-        $lte: maxNbMassSpectra,
-      };
-    } else if (
-      minNbMassSpectra !== undefined &&
-      maxNbMassSpectra === undefined
-    ) {
-      matchParameter['data.nbMassSpectra'] = { $gte: minNbMassSpectra };
-    } else if (
-      maxNbMassSpectra !== undefined &&
-      minNbMassSpectra === undefined
-    ) {
-      matchParameter['data.nbMassSpectra'] = { $lte: maxNbMassSpectra };
-    }
-    if (minNbActivities !== undefined && maxNbActivities !== undefined) {
-      matchParameter['data.nbActivities'] = {
-        $gte: minNbActivities,
-        $lte: maxNbActivities,
-      };
-    } else if (minNbActivities !== undefined && maxNbActivities === undefined) {
-      matchParameter['data.nbActivities'] = { $gte: minNbActivities };
-    } else if (maxNbActivities !== undefined && minNbActivities === undefined) {
-      matchParameter['data.nbActivities'] = { $lte: maxNbActivities };
-    }
-    if (minNbTaxonomies !== undefined && maxNbTaxonomies !== undefined) {
-      matchParameter['data.nbTaxonomies'] = {
-        $gte: minNbTaxonomies,
-        $lte: maxNbTaxonomies,
-      };
-    } else if (minNbTaxonomies !== undefined && maxNbTaxonomies === undefined) {
-      matchParameter['data.nbTaxonomies'] = { $gte: minNbTaxonomies };
-    } else if (maxNbTaxonomies !== undefined && minNbTaxonomies === undefined) {
-      matchParameter['data.nbTaxonomies'] = { $lte: maxNbTaxonomies };
-    }
-    if (minNbPatents !== undefined && maxNbPatents !== undefined) {
-      matchParameter['data.nbPatents'] = {
-        $gte: minNbPatents,
-        $lte: maxNbPatents,
-      };
-    } else if (minNbPatents !== undefined && maxNbPatents === undefined) {
-      matchParameter['data.nbPatents'] = { $gte: minNbPatents };
-    } else if (maxNbPatents !== undefined && minNbPatents === undefined) {
-      matchParameter['data.nbPatents'] = { $lte: maxNbPatents };
-    }
-    if (minNbPubmeds !== undefined && maxNbPubmeds !== undefined) {
-      matchParameter['data.nbPubmeds'] = {
-        $gte: minNbPubmeds,
-        $lte: maxNbPubmeds,
-      };
-    } else if (minNbPubmeds !== undefined && maxNbPubmeds === undefined) {
-      matchParameter['data.nbPubmeds'] = { $gte: minNbPubmeds };
-    } else if (maxNbPubmeds !== undefined && minNbPubmeds === undefined) {
-      matchParameter['data.nbPubmeds'] = { $lte: maxNbPubmeds };
-    }
-
+    const molecularInfo = {
+      em,
+      mf,
+      precision,
+    };
+    const keywords = {
+      wordsWithRegexBioassays,
+      wordsWithRegexMeshTerms,
+      wordsToBeSearchedActiveAgainst,
+      wordsToBeSearchedTaxonomies,
+    };
+    const flags = {
+      isNaturalProduct,
+      isBioactive,
+    };
+    const minMaxProperties = {
+      minNbMassSpectra,
+      maxNbMassSpectra,
+      minNbActivities,
+      maxNbActivities,
+      minNbTaxonomies,
+      maxNbTaxonomies,
+      minNbPatents,
+      maxNbPatents,
+      minNbPubmeds,
+      maxNbPubmeds,
+    };
+    const matchParameter = getMatchParameters(
+      molecularInfo,
+      keywords,
+      flags,
+      minMaxProperties,
+    );
     // search for the entries
     const results = await collection
       .aggregate([
