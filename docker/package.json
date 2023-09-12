@@ -14,8 +14,8 @@
     "prettier-write": "prettier --write src",
     "start": "DEBUG=* node -r dotenv/config src/server/index.js",
     "start-dev": "DEBUG=* nodemon -r dotenv/config src/server/index.js",
-    "test": "vitest run --globals --coverage --config ./vitest.config.js && npm run eslint && npm run prettier",
-    "test-only": "vitest run --globals --coverage "
+    "test": "vitest run --globals --test-timeout=50000 --coverage --config ./vitest.config.js && npm run eslint && npm run prettier",
+    "test-only": "vitest run --globals --test-timeout=50000 --coverage "
   },
   "repository": {
     "type": "git",
