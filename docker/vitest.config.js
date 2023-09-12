@@ -28,9 +28,16 @@ export default defineConfig({
           const regexOctoChemConnection = /OctoChemConnection/i;
           const regexTaxonomies = /syncTaxonomies/i;
           const regexBioassays = /syncBioassays/i;
-          const regexActiveAgainst = /aggregateActiveAgainst.test/i;
+          const regexActiveAgainst = /activeAgainst/i;
           const regexInSilicoFragments = /inSilicoFragments/i;
           const regexMesh = /getMeshTerms.test/i;
+          const regexID = /id/i;
+          const regexSearch = /search/i;
+          const regexFrom = /from/i;
+          const regexAdmin = /admin/i;
+          const regexImportationLogs = /importationLogs/i;
+          const regexInfo = /collections/i;
+
           sortedFiles = sortedFiles.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
@@ -63,6 +70,42 @@ export default defineConfig({
 
           // sort by putting files with regex /aggregateActiveAgainst/ at the end
           sortedFiles = sortedFiles.sort((a, b) => {
+            if (regexID.test(a) && !regexID.test(b)) {
+              return 1;
+            }
+            if (!regexID.test(a) && regexID.test(b)) {
+              return -1;
+            }
+            if (regexSearch.test(a) && !regexSearch.test(b)) {
+              return 1;
+            }
+            if (!regexSearch.test(a) && regexSearch.test(b)) {
+              return -1;
+            }
+            if (regexFrom.test(a) && !regexFrom.test(b)) {
+              return 1;
+            }
+            if (!regexFrom.test(a) && regexFrom.test(b)) {
+              return -1;
+            }
+            if (regexAdmin.test(a) && !regexAdmin.test(b)) {
+              return 1;
+            }
+            if (!regexAdmin.test(a) && regexAdmin.test(b)) {
+              return -1;
+            }
+            if (regexImportationLogs.test(a) && !regexImportationLogs.test(b)) {
+              return 1;
+            }
+            if (!regexImportationLogs.test(a) && regexImportationLogs.test(b)) {
+              return -1;
+            }
+            if (regexInfo.test(a) && !regexInfo.test(b)) {
+              return 1;
+            }
+            if (!regexInfo.test(a) && regexInfo.test(b)) {
+              return -1;
+            }
             if (regexActiveAgainst.test(a) && !regexActiveAgainst.test(b)) {
               return 1;
             }

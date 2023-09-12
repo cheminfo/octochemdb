@@ -24,7 +24,13 @@ describe('search activesOrNaturals', async () => {
     request.query.limit = 2;
     const resultsTwo = await entriesSearch.handler(request);
     expect(results.data.length).toBeGreaterThan(resultsTwo.data.length);
-    expect(results.data[0]).toMatchInlineSnapshot(`
+    const resultToMatch = results.data.filter(
+      (entry) =>
+        entry._id ===
+        'fi{AP@@QrtZTjjsJk]jxHyHRuUUUUUUUU@AjxVIXUcVCXmavOXccNJx{b^ExQFMkX~FOaaul_CGpp',
+    )[0];
+
+    expect(resultToMatch).toMatchInlineSnapshot(`
       {
         "_id": "fi{AP@@QrtZTjjsJk]jxHyHRuUUUUUUUU@AjxVIXUcVCXmavOXccNJx{b^ExQFMkX~FOaaul_CGpp",
         "data": {
@@ -57,7 +63,12 @@ describe('search activesOrNaturals', async () => {
       query: { isBioactive: false },
     });
     expect(resultsTwo.data.length).toBeGreaterThan(results.data.length);
-    expect(results.data[0]).toMatchSnapshot();
+    const resultToMatch = results.data.filter(
+      (entry) =>
+        entry._id ===
+        'ehZPL@@@KglbbdRebTLRdJttTTRxDLlbRZzv~jjjjjjjjjjjjP@MTClWXRCKjfOacxX',
+    )[0];
+    expect(resultToMatch).toMatchSnapshot();
   });
   it('search: keywords ', async () => {
     const request = {

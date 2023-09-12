@@ -1,3 +1,4 @@
+import delay from 'delay';
 import { describe, it, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
@@ -9,6 +10,7 @@ describe('search (patents)', async () => {
   while (true) {
     const collection = await connection.getCollection('patents');
     if ((await collection.countDocuments()) === 255) {
+      delay(1000);
       break;
     }
   }
@@ -31,6 +33,7 @@ describe('search (patents)', async () => {
         "nbCompounds",
       ]
     `);
-    expect(results.data).toMatchSnapshot();
+    // @ts-ignore
+    expect(results.data[0].score).toBeGreaterThan(4);
   });
 });

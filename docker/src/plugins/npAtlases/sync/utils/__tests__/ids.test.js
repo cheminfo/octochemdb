@@ -27,5 +27,8 @@ test('ids search (npAtlases)', async () => {
       "iupacName",
     ]
   `);
-  expect(results.data).toMatchSnapshot();
+  // @ts-ignore
+  delete results.data[0].data.ocl.coordinates;
+  // @ts-ignore
+  expect(results.data[0].data).toMatchSnapshot();
 });

@@ -3,7 +3,7 @@ import { test, expect } from 'vitest';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 import search from '../routes/v1/entriesImportationLogs.js';
 
-test('ids search (gnps)', async () => {
+test('search (importationLogs)', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {

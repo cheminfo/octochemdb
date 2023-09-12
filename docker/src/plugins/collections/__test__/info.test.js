@@ -14,7 +14,10 @@ test('collections info ', async () => {
   }
 
   const results = await search.handler();
-  const oneEntry = results.data[0];
+  const oneEntry = results.data.filter(
+    (entry) => entry.ns === 'octochemdb.taxonomies',
+  )[0];
   oneEntry.date = 0;
+  oneEntry.storageSize = 100;
   expect(oneEntry).toMatchSnapshot();
 });

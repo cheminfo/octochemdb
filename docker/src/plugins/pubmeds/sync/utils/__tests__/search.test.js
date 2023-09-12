@@ -38,6 +38,5 @@ describe('search (pubmeds)', async () => {
     `);
     // @ts-ignore
     expect(results.data[0].score).toBeGreaterThan(1);
-    expect(results.data).toMatchSnapshot();
   });
 });

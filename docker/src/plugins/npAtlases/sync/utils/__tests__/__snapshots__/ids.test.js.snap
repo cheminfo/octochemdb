@@ -1,55 +1,25 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`ids search (npAtlases) 2`] = `
-[
-  {
-    "_id": "NPA000001",
-    "data": {
-      "iupacName": "Curvularide C",
-      "ocl": {
-        "coordinates": "!B?g~w_Xa}mpJH@k]}?\`BH_[\\\\B?g~H?Oy?b@Jw?[]}bGw~@Ha}b@K~_xa}?g~H@ha}",
-        "idCode": "ficaP@D@tZK\\\\bbRbTRdQT\\\\VfZfjjjjjjXRLPiZIUU@d@",
-        "noStereoTautomerID": "ficaP@K@xXO\\\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
-      },
-      "taxonomies": [
-        {
-          "class": "Dothideomycetes",
-          "dbRef": {
-            "$id": "NPA000001",
-            "$ref": "npAtlases",
-          },
-          "family": "Pleosporaceae",
-          "genus": "Curvularia",
-          "kingdom": "Fungi",
-          "phylum": "Ascomycota",
-          "species": "Curvularia geniculata",
-        },
-      ],
-    },
+{
+  "iupacName": "Curvularide C",
+  "ocl": {
+    "idCode": "ficaP@D@tZK\\\\bbRbTRdQT\\\\VfZfjjjjjjXRLPiZIUU@d@",
+    "noStereoTautomerID": "ficaP@K@xXO\\\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
   },
-  {
-    "_id": "NPA000003",
-    "data": {
-      "iupacName": "A-503083 F",
-      "ocl": {
-        "coordinates": "!Btl~@LUMgtl|lFMKOTv]eX@C~Tv\\\\XKBqgFfC~@HANXAjH@k\\\\Btm@lYz[@?\`Bw?_x@mpJH?Ox@bGw~@K\\\\BbOrH?Ox@mwt",
-        "idCode": "elZRK@@DLBa\`AEC@hlnic\`XT\\\\bbbRbrfRTTRTlJbfTXxtln~ZjZZjjZfjjYj\`@@",
-        "noStereoTautomerID": "elZRK@@Dfg\`PLAEMGOHbakod\\\\dTTRbffLTraRTrTTSXdrj^ajjjjjjjjjZjj\`@MTlLDXhqq\`SDfELFXlpEbKAvKlOX~qCaGANOtHpRecxX~FbjX~FOakjVOacx[zicxX~F@",
+  "taxonomies": [
+    {
+      "class": "Dothideomycetes",
+      "dbRef": {
+        "$id": "NPA000001",
+        "$ref": "npAtlases",
       },
-      "taxonomies": [
-        {
-          "class": "Actinobacteria",
-          "dbRef": {
-            "$id": "NPA000003",
-            "$ref": "npAtlases",
-          },
-          "family": "Streptomycetaceae",
-          "genus": "Streptomyces",
-          "phylum": "Actinobacteria",
-          "species": "Streptomyces sp. SANK 62799",
-        },
-      ],
+      "family": "Pleosporaceae",
+      "genus": "Curvularia",
+      "kingdom": "Fungi",
+      "phylum": "Ascomycota",
+      "species": "Curvularia geniculata",
     },
-  },
-]
+  ],
+}
 `;

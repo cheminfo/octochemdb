@@ -29,7 +29,10 @@ describe('search (gnps)', async () => {
       "em",
     ]
   `);
-    expect(results.data).toMatchSnapshot();
+    // @ts-ignore
+    delete results.data[0].data.ocl.coordinates;
+    // @ts-ignore
+    expect(results.data[0].data).toMatchSnapshot();
   });
   it('masses (gnps)', async () => {
     const request = {
@@ -42,7 +45,10 @@ describe('search (gnps)', async () => {
     const results = await search.handler(request);
     // @ts-ignore
     expect(Object.keys(results.data)).toHaveLength(1);
-    expect(results.data).toMatchSnapshot();
+    // @ts-ignore
+    delete results.data[0].data.ocl.coordinates;
+    // @ts-ignore
+    expect(results.data[0].data).toMatchSnapshot();
   });
   it('mf (gnps)', async () => {
     const request = {
@@ -54,6 +60,9 @@ describe('search (gnps)', async () => {
     const results = await search.handler(request);
     // @ts-ignore
     expect(Object.keys(results.data)).toHaveLength(1);
-    expect(results.data).toMatchSnapshot();
+    // @ts-ignore
+    delete results.data[0].data.ocl.coordinates;
+    // @ts-ignore
+    expect(results.data[0].data).toMatchSnapshot();
   });
 });

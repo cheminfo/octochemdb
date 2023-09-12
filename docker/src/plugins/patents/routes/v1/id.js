@@ -29,7 +29,7 @@ const searchIDs = {
 export default searchIDs;
 
 async function searchHandler(request) {
-  let { patentsID: patentID = '', fields = 'data' } = request.query;
+  let { id = '', fields = 'data' } = request.query;
   let formattedFields = getFields(fields);
   let connection;
   try {
@@ -38,7 +38,7 @@ async function searchHandler(request) {
     let matchParameters = {};
     let aggregateParameters;
 
-    matchParameters._id = patentID;
+    matchParameters._id = id;
     aggregateParameters = [
       {
         $match: matchParameters,

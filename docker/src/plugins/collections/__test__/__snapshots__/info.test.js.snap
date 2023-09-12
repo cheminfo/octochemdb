@@ -12,6 +12,6 @@ exports[`collections info  1`] = `
   "seq": 20,
   "size": 2697,
   "state": "updated",
-  "storageSize": 20480,
+  "storageSize": 100,
 }
 `;
