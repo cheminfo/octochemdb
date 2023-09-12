@@ -44,7 +44,7 @@ export default entriesImportationLogs;
 async function searchHandler(request) {
   let {
     collectionName = '',
-    limit = 0,
+    limit = 1,
     fields = 'collectionName,sources,dateStart,dateEnd,startSequenceID,endSequenceID,status',
   } = request.query;
 
