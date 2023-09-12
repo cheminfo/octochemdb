@@ -17,7 +17,7 @@ describe('syncSubstances', () => {
     }
     expect(result).toMatchSnapshot();
     await connection.close();
-  }, 30000);
+  });
   it('syncSubstances Incremental Importation', async () => {
     const connection = new OctoChemConnection();
     const collection = await connection.getCollection('substances');
@@ -32,4 +32,4 @@ describe('syncSubstances', () => {
     expect(resultIncremental).toMatchSnapshot();
     await connection.close();
   });
-}, 30000);
+});

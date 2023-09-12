@@ -20,4 +20,4 @@ test('synCompoundPatents', async () => {
   }
   expect(result).toMatchSnapshot();
   await connection.close();
-}, 100000);
+});

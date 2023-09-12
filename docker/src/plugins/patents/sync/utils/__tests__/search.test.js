@@ -1,4 +1,3 @@
-import delay from 'delay';
 import { describe, it, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
@@ -8,9 +7,8 @@ describe('search (patents)', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {
-    const collection = await connection.getCollection('patents');
-    if ((await collection.countDocuments()) === 255) {
-      delay(5000);
+    const collection = await connection.getCollection('activesOrNaturals');
+    if ((await collection.countDocuments()) === 63) {
       break;
     }
   }

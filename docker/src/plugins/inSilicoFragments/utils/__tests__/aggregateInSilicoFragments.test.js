@@ -3,30 +3,26 @@ import { test, expect } from 'vitest';
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 import { aggregate } from '../../aggregates/aggregate';
 
-test(
-  'In silico fragmentation',
-  async () => {
-    const connection = new OctoChemConnection();
-    const activesOrNaturalsCollection =
-      await connection.getCollection('activesOrNaturals');
+test('In silico fragmentation', async () => {
+  const connection = new OctoChemConnection();
+  const activesOrNaturalsCollection =
+    await connection.getCollection('activesOrNaturals');
 
-    while (true) {
-      if ((await activesOrNaturalsCollection.countDocuments()) === 63) {
-        break;
-      }
+  while (true) {
+    if ((await activesOrNaturalsCollection.countDocuments()) === 63) {
+      break;
     }
+  }
 
-    await aggregate(connection);
-    const collection = await connection.getCollection('inSilicoFragments');
-    const collectionEntry = await collection.find({
-      // @ts-ignore
-      _id: 'fle@P@@XUGIEEMLhdecJBMzjjjjjj`@udcFLLqsBlZp{B\\Yq~dLqQq|L_C@',
-    });
+  await aggregate(connection);
+  const collection = await connection.getCollection('inSilicoFragments');
+  const collectionEntry = await collection.find({
+    // @ts-ignore
+    _id: 'fle@P@@XUGIEEMLhdecJBMzjjjjjj`@udcFLLqsBlZp{B\\Yq~dLqQq|L_C@',
+  });
 
-    let result = await collectionEntry.next();
+  let result = await collectionEntry.next();
 
-    expect(result).toMatchSnapshot();
-    await connection.close();
-  },
-  { timeout: 50000 },
-);
+  expect(result).toMatchSnapshot();
+  await connection.close();
+});

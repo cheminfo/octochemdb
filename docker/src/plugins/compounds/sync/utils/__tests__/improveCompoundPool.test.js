@@ -5,31 +5,25 @@ import improveCompoundPool from '../improveCompoundPool';
 
 dotenv.config();
 
-test(
-  'improveCompoundPool error',
-  async () => {
-    let molecule = {
-      idCode:
-        'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
-    };
+test('improveCompoundPool error', async () => {
+  let molecule = {
+    idCode:
+      'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
+  };
 
-    let { promise } = await improveCompoundPool(molecule, { timeout: 1 });
+  let { promise } = await improveCompoundPool(molecule, { timeout: 1 });
 
-    expect(await promise).toMatchInlineSnapshot('undefined');
-  },
-  { timeout: 30000 },
-);
-test(
-  'improveCompoundPool working',
-  async () => {
-    let molecule = {
-      idCode:
-        'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
-    };
+  expect(await promise).toMatchInlineSnapshot('undefined');
+});
+test('improveCompoundPool working', async () => {
+  let molecule = {
+    idCode:
+      'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
+  };
 
-    let { promise } = await improveCompoundPool(molecule, { timeout: 60000 });
+  let { promise } = await improveCompoundPool(molecule, { timeout: 60000 });
 
-    expect(await promise).toMatchInlineSnapshot(`
+  expect(await promise).toMatchInlineSnapshot(`
       {
         "data": {
           "atoms": {
@@ -76,6 +70,4 @@ test(
         },
       }
     `);
-  },
-  { timeout: 30000 },
-);
+});

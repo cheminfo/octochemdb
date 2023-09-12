@@ -11,4 +11,4 @@ test('syncTitleCompounds', async () => {
   const result = await collectionEntry.next();
   expect(result?.data.title).toMatchInlineSnapshot('"Etryptamine acetate"');
   await connection.close();
-}, 100000);
+});
