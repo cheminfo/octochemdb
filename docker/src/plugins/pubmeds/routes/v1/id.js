@@ -10,7 +10,7 @@ const fromPMID = {
     summary: 'Retrieve article from a PubMed ID',
     description: 'Allows to search for an article from PubMed using PMID',
     querystring: {
-      pmid: {
+      id: {
         type: 'number',
         description: 'PubMed ID',
         example: 1,
@@ -29,7 +29,7 @@ const fromPMID = {
 export default fromPMID;
 
 async function searchHandler(request) {
-  let { pmid = 1, fields = 'data' } = request.query;
+  let { id = 1, fields = 'data' } = request.query;
 
   let connection;
   try {
@@ -38,7 +38,7 @@ async function searchHandler(request) {
 
     const results = await collection
       .aggregate([
-        { $match: { _id: pmid } },
+        { $match: { _id: id } },
         {
           $project: getFields(fields),
         },
