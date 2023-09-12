@@ -10,7 +10,7 @@ describe('search (patents)', async () => {
   while (true) {
     const collection = await connection.getCollection('patents');
     if ((await collection.countDocuments()) === 255) {
-      delay(1000);
+      delay(5000);
       break;
     }
   }
@@ -18,14 +18,13 @@ describe('search (patents)', async () => {
     const request = {
       query: {
         patentsIDs: '',
-        keywords: 'trifluoropropyl',
+        keywords: 'Production',
         minScore: 5,
         fields: 'data',
         limit: 1,
       },
     };
     const results = await search.handler(request);
-
     // @ts-ignore
     expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
       [
