@@ -74,6 +74,7 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.em': 1 });
       await targetCollection.createIndex({ 'data.mf': 1 });
       await targetCollection.createIndex({ 'data.kwBioassays': 1 });
+      await targetCollection.createIndex({ 'data.kwTitles': 1 });
       await targetCollection.createIndex({ 'data.meshTerms': 1 });
       await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
       await targetCollection.createIndex({ 'data.nbActivities': 1 });

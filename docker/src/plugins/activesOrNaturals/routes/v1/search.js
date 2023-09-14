@@ -51,6 +51,12 @@ const entriesSearch = {
         example: 'MIC',
         default: '',
       },
+      kwTitles: {
+        type: 'string',
+        description: 'keywords compound titles',
+        example: 'Cephalosporin',
+        default: '',
+      },
       kwMeshTerms: {
         type: 'string',
         description: 'keywords mesh terms (separate terms to search with ";" )',
@@ -147,6 +153,7 @@ async function searchHandler(request) {
     mf = '',
     kwTaxonomies = '',
     kwBioassays = '',
+    kwTitles = '',
     kwActiveAgainst = '',
     kwMeshTerms = '',
     isNaturalProduct,
@@ -169,7 +176,12 @@ async function searchHandler(request) {
   // This keywords use regular expressions to search even for incomplete terms
   let wordsWithRegexBioassays = [];
   let wordsWithRegexMeshTerms = [];
+  let wordsWithRegexTitles = [];
   // convert to lower case and remove spaces and split by ";" or ","
+  let wordsToBeSearchedTitles = kwTitles
+    .toLowerCase()
+    .split(/ *[,;\t\n\r\s]+ */)
+    .filter((entry) => entry);
   let wordsToBeSearchedBioassays = kwBioassays
     .toLowerCase()
     .split(/ *[,;\t\n\r\s]+ */)
@@ -189,6 +201,10 @@ async function searchHandler(request) {
     .toLowerCase()
     .split(/ *[,;\t\n\r\s]+ */)
     .filter((entry) => entry);
+  // convert words to be searched in titles to regex
+  wordsToBeSearchedTitles.forEach((word) => {
+    wordsWithRegexTitles.push(new RegExp(escapeRegExp(word), 'i'));
+  });
   // convert words to be searched in bioassays to regex
   wordsToBeSearchedBioassays.forEach((word) => {
     wordsWithRegexBioassays.push(new RegExp(escapeRegExp(word), 'i'));
@@ -216,6 +232,7 @@ async function searchHandler(request) {
       precision,
     };
     const keywords = {
+      wordsToBeSearchedTitles,
       wordsWithRegexBioassays,
       wordsWithRegexMeshTerms,
       wordsToBeSearchedActiveAgainst,

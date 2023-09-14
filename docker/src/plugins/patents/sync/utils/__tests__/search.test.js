@@ -7,8 +7,8 @@ describe('search (patents)', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {
-    const collection = await connection.getCollection('activesOrNaturals');
-    if ((await collection.countDocuments()) === 63) {
+    const collection = await connection.getCollection('patents');
+    if ((await collection.countDocuments()) === 255) {
       break;
     }
   }
@@ -16,8 +16,8 @@ describe('search (patents)', async () => {
     const request = {
       query: {
         patentsIDs: '',
-        keywords: 'Production',
-        minScore: 5,
+        keywords: 'Production,technology',
+        minScore: 0,
         fields: 'data',
         limit: 1,
       },

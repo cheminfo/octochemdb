@@ -1,5 +1,6 @@
 export function getKeywordsMatchParameter(matchParameter, keywords) {
   const {
+    wordsWithRegexTitles = '',
     wordsToBeSearchedTaxonomies = '',
     wordsWithRegexBioassays = '',
     wordsWithRegexMeshTerms = '',
@@ -9,6 +10,9 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
     matchParameter['data.kwTaxonomies'] = {
       $all: wordsToBeSearchedTaxonomies,
     };
+  }
+  if (wordsWithRegexTitles.length > 0) {
+    matchParameter['data.kwTitles'] = { $in: wordsWithRegexTitles };
   }
   if (wordsWithRegexBioassays.length > 0) {
     matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };

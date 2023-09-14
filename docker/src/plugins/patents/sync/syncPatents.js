@@ -90,7 +90,9 @@ export async function sync(connection) {
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
-      temporaryCollection.rename(options.collectionName, { dropTarget: true });
+      await temporaryCollection.rename(options.collectionName, {
+        dropTarget: true,
+      });
       const collection = await connection.getCollection(options.collectionName);
       await collection.createIndex(
         { 'data.title': 'text', 'data.abstract': 'text' },

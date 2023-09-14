@@ -10,6 +10,7 @@ import { getMassSpectraRefForGNPs } from '../utils/getMassSpectraRefForGNPs.js';
 import { getMassSpectraRefForMassBank } from '../utils/getMassSpectraRefForMassBank.js';
 import { getMeshTerms } from '../utils/getMeshTerms.js';
 import getTaxonomyKeywords from '../utils/getTaxonomyKeywords.js';
+import { getTitlesKeywords } from '../utils/getTitlesKeywords.js';
 import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
 const connection = new OctoChemConnection();
@@ -150,6 +151,14 @@ parentPort?.on('message', async (dataEntry) => {
         const keywordsTaxonomies = getTaxonomyKeywords(taxons);
         if (keywordsTaxonomies.length > 0) {
           entry.data.kwTaxonomies = keywordsTaxonomies;
+        }
+      }
+      // get kwTitles
+      let kwTitles;
+      if (entry.data?.molecules.length > 0) {
+        kwTitles = getTitlesKeywords(entry.data.molecules);
+        if (kwTitles?.length > 0) {
+          entry.data.kwTitles = kwTitles;
         }
       }
       // if activityInfo is not empty, define entry.data.activities
