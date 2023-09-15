@@ -14,5 +14,20 @@ test('getAll (activeAgainst)', async () => {
   }
 
   const results = await activeAgainst.handler();
-  expect(results.data).toMatchSnapshot();
+  expect(results.data).toMatchInlineSnapshot(`
+    [
+      {
+        "_id": "ArchaeaCandidatusBorrarchaeotaCandidatusBorrarchaeiaCandidatusBorrarchaealesCandidatusBorrarchaeaceaeCandidatusBorrarchaeum",
+        "count": 20,
+        "data": {
+          "class": "Candidatus Borrarchaeia",
+          "family": "Candidatus Borrarchaeaceae",
+          "genus": "Candidatus Borrarchaeum",
+          "order": "Candidatus Borrarchaeales",
+          "phylum": "Candidatus Borrarchaeota",
+          "superkingdom": "Archaea",
+        },
+      },
+    ]
+  `);
 });
