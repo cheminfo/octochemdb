@@ -1,7 +1,10 @@
+import { readFileSync } from 'fs';
 import { parentPort } from 'worker_threads';
 
 import debugLibrary from '../../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
+
+import { parseBioassaysPubChem } from './parseBioassaysPubChem.js';
 
 const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
@@ -12,24 +15,24 @@ parentPort?.on('message', async (dataEntry) => {
     const { fileList, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
     // get worker number
-    const temporaryCollection =
-      await connection.getCollection(`bioassaysPubChem_tmp`);
+
     let count = 0;
     let start = Date.now();
-
     for (const file of fileList) {
       try {
-        let result = {
-          _id: link.id,
-          data: {},
-        };
+        const data = readFileSync(file, 'utf8');
+        const json = JSON.parse(data);
+
+        const entry = await parseBioassaysPubChem(json, connection);
+        const temporaryCollection =
+          await connection.getCollection(`bioassaysPubChem_tmp`);
 
         await temporaryCollection.updateOne(
-          { _id: link.id },
-          { $set: result },
+          { _id: entry._id },
+          { $set: entry.data },
           { upsert: true },
         );
-
+        count++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           parentPort?.postMessage({
             workerID,

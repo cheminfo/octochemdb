@@ -3,6 +3,7 @@ import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomi
 export async function parseBioassaysPubChem(jsonEntry, connection) {
   const assayDescription = jsonEntry.PC_AssaySubmit.assay.descr;
   const dataTable = jsonEntry.PC_AssaySubmit.data;
+
   let entry = {
     _id: assayDescription.aid.id,
     data: {},
@@ -63,12 +64,16 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
       };
     }
   }
+  console.log(assayDescription);
+
   if (assayDescription.target) {
     const taxonomiesCollection = await connection.getCollection('taxonomies');
 
     let targets = [];
+
     for (let target of assayDescription.target) {
       let taxIDs = { _id: target.organism.org.db };
+
       const taxonomies = await searchTaxonomies(taxonomiesCollection, taxIDs);
       let targetEntry = {
         name: target.name,
@@ -89,6 +94,7 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
   let { assayResults, sids } = getAssay(dataTable, valueDescription);
   entry.data.results = assayResults;
   entry.data.sids = sids;
+
   return entry;
 }
 
