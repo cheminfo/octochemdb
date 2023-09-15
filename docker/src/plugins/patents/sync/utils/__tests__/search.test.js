@@ -19,18 +19,21 @@ describe('search (patents)', async () => {
         keywords: 'Production,technology',
         minScore: 0,
         fields: 'data',
-        limit: 1,
+        limit: 1000,
       },
     };
     const results = await search.handler(request);
+    const oneEntryResult = results.data?.filter(
+      (entry) => entry._id === 'JP-2005008850-A',
+    );
     // @ts-ignore
-    expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
+    expect(Object.keys(oneEntryResult[0].data)).toMatchInlineSnapshot(`
       [
         "title",
         "nbCompounds",
       ]
     `);
     // @ts-ignore
-    expect(results.data[0].score).toBeGreaterThan(4);
+    expect(oneEntryResult[0].score).toBeGreaterThan(4);
   });
 });

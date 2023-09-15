@@ -10,6 +10,24 @@ export default defineConfig({
         }
 
         async sort(files) {
+          // syncCompoundPatents should be after syncPatents
+          const regexCompoundPatents = /compoundPatents/i;
+          const regexPatents = /patents/i;
+          let sortedFiles = files.sort((a, b) => {
+            if (regexCompoundPatents.test(a) && !regexCompoundPatents.test(b)) {
+              return 1;
+            }
+            if (!regexCompoundPatents.test(a) && regexCompoundPatents.test(b)) {
+              return -1;
+            }
+            if (regexPatents.test(a) && !regexPatents.test(b)) {
+              return 1;
+            }
+            if (!regexPatents.test(a) && regexPatents.test(b)) {
+              return -1;
+            }
+            return 0;
+          });
           // sort by putting files with regex /aggregage/ at the end
           const regex = /aggregate/i;
           const regexCompounds = /syncCompounds/i;
@@ -26,7 +44,7 @@ export default defineConfig({
           const regexImportationLogs = /importationLogs/i;
           const regexInfo = /collections/i;
 
-          let sortedFiles = files.sort((a, b) => {
+          sortedFiles = files.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
             }
@@ -55,24 +73,7 @@ export default defineConfig({
 
             return 0;
           });
-          // syncCompoundPatents should be after syncPatents
-          const regexCompoundPatents = /compoundPatents/i;
-          const regexPatents = /patents/i;
-          sortedFiles = files.sort((a, b) => {
-            if (regexCompoundPatents.test(a) && !regexCompoundPatents.test(b)) {
-              return 1;
-            }
-            if (!regexCompoundPatents.test(a) && regexCompoundPatents.test(b)) {
-              return -1;
-            }
-            if (regexPatents.test(a) && !regexPatents.test(b)) {
-              return 1;
-            }
-            if (!regexPatents.test(a) && regexPatents.test(b)) {
-              return -1;
-            }
-            return 0;
-          });
+
           // sort by putting files with regex /aggregateActiveAgainst/ at the end
           sortedFiles = sortedFiles.sort((a, b) => {
             if (regexID.test(a) && !regexID.test(b)) {
