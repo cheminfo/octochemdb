@@ -1,0 +1,700 @@
+{
+  "PC_AssaySubmit": {
+    "assay": {
+      "descr": {
+        "aid": {
+          "id": 1001,
+          "version": 2
+        },
+        "aid_source": {
+          "db": {
+            "name": "Burnham Center for Chemical Genomics",
+            "source_id": {
+              "str": "SDCCG-A033-TNAP-No DEA-activator"
+            }
+          }
+        },
+        "name": "uHTS identification of compounds activating TNAP in the absence of phosphate acceptor performed in luminescent assay",
+        "description": [
+          "Data Source: Sanford-Burnham Center for Chemical Genomics (SBCCG)",
+          "Source Affiliation: Sanford-Burnham Medical Research Institute (SBMRI, San Diego, CA)",
+          "Network: NIH Molecular Libraries Screening Centers Network (MLSCN)",
+          "Grant Proposal Number: 1R03 MH082385-01",
+          "",
+          "Alkaline phosphatases (EC 3.1.3.1) (APs) catalyze the hydrolysis of phosphomonoesters, releasing phosphate and alcohol. APs are dimeric enzymes found in the most organisms. In human, four isozymes of APs have been identified. Three isozymes are tissue-specific and the fourth one is tissue-non specific, named TNAP. TNAP deficiency is associated with defective bone mineralization in the form of rickets and osteomalacia. Therefore, there is therapeutic potential of modulating TNAP activity. ",
+          "",
+          "The goal of this HTS is to identify novel and specific activators of TNAP. The only known to date class of alkaline phosphatases activators are amino-containing alcohols, such as diethanolamine (DEA), that act as phosphoacceptor substrate and exhibit its effect in high-mM concentration range. Compounds with a similar mode of action are expected to demonstrate diminished stimulating potential if tested in the presence of DEA. Therefore, for detection of compounds with diverse mode of action, the HTS assay was optimized and HTS campaigns were performed in the presence and in the absence of DEA. The current AID reports a set of the data from screening in the absence of DEA or any other phosphate acceptor. ",
+          "",
+          "TNAP luminescent assay was developed and performed at the Sanford-Burnham Center for Chemical Genomics (SBCCG), part of the Molecular Library Screening Center Network (MLSCN). RO3 submission, MH082385-01: Activators of the Pyrophosphatase Activity of Alkaline Phosphatase. Assay Providers: Drs. Jose Luis Millan and Eduard Sergienko, Sanford-Burnham Medical Research Institute, San Diego, CA."
+        ],
+        "protocol": [
+          "Assay materials:",
+          "1) TNAP protein was provided by Dr. Jose Luis Millan (Sanford-Burnham Medical Research Institute, San Diego, CA). The CDP-star was obtained from New England Biolabs.",
+          "2) Assay Buffer: 100 mM CAPS, pH 9.8, 2 mM MgCl2, and 0.04 mM ZnCl2.",
+          "3) TNAP working solution contained a 1/400 dilution in assay buffer. ",
+          "4) CDP-star working solution contained 200 uM CDP-star in MQ water. ",
+          "5) Negative Control (NC) solution - 500 mM EDTA.",
+          "6) Positive Control (PC) solution - 10% DMSO.",
+          "",
+          "HTS protocol:",
+          "1) 2 uL of CDP-star working solution was added to all the well of Costar 1536-well white plate (cat #3725) using the Thermo WellMate dispenser",
+          "2) 40 nL of NC solution was added to columns 1-2 using V&P pin tool ",
+          "3) 40 nL of PC solution was added to columns 3-4 using V&P pin tool",
+          "3) 40 nL of 2 mM compounds in 100% DMSO were dispensed in columns 5-48 ",
+          "4) 2 uL of TNAP working solution was added to the whole plate using the Thermo WellMate dispenser. ",
+          "5) Final concentrations of the components in the assay were as follows: ",
+          "a. 50 mM CAPS, pH 9.8, 1.0 mM MgCl2, 0.02 mM ZnCl2",
+          "b. 1/800 dilution TNAP",
+          "c. 100 uM CDP-star",
+          "d. 20 uM compounds",
+          "6) Plates were incubated for 30 mins at room temperature. ",
+          "7) Luminescence was measured on the ViewLux plate reader (Perkin Elmer).",
+          "8) The screening was performed using High Resolution Engineering (HRE) fully integrated uHTS POD-based system",
+          "9) Data analysis was performed using CBIS software (ChemInnovations, Inc).",
+          "       ",
+          "Dose-response confirmation screening protocol:",
+          "1) Dose-response curves contained 10 concentrations of compounds obtained using 2-fold serial dilution. Compounds were serially diluted in 100% DMSO, and then diluted with water to 10% final DMSO concentration. 4 uL compounds in 10% DMSO were transferred into columns 3-22 of Greiner 384-well white small-volume plates (784075). Each curve was performed in duplicate. ",
+          "2) Columns 1-2 and 23-24 contained 4 uL of 5 mM levamisole solution (NC) and 10% DMSO (PC), respectively. ",
+          "3) 8 uL of TNAP working solution was added to the whole plate using WellMate bulk dispenser (Matrix). ",
+          "4) 8 uL of CDP-star working solution was added to the whole plate using WellMate bulk dispenser (Matrix). ",
+          "5) Plates were incubated for 30 mins at room temperature. ",
+          "6) Luminescence was measured on the Envision plate reader (Perkin Elmer).",
+          "7) Data analysis was performed using CBIS software (ChemInnovations, Inc) using sigmoidal dose-response equation through non-linear regression"
+        ],
+        "comment": [
+          "TNAP activation was calculated using the following formula: ",
+          "Activation Factor (AF) = (Signal_Well - Mean_NC)/(Mean_PC - Mean_NC), ",
+          "where Signal_Well corresponds to luminescence signal in the well with a compound, Mean_NC and Mean_PC correspond to mean values of corresponding controls in the plate. ",
+          "",
+          "Compounds with greater than or equal to 3-fold activation (AF >= 3) of TNAP at 20-uM concentration are defined as actives of the primary screening. Compounds that are tested in dose-response and determined to have an EC50 < 100 uM and >100 uM are upgraded to actives and inactives of the secondary screening.",
+          "",
+          "The EC50 and Max_value were calculated from fitting the AF vs [compound] curve according to the following equation: ",
+          "",
+          "AF= ((Max_Value * [compound]^nH)/EC50 + [compound]^nH) + 1",
+          "",
+          "To simplify the distinction between the inactives of the primary screen and of the confirmatory screening stage, the Tiered Activity Scoring System was developed and implemented. Its utilization for the TNAP assay is described below. ",
+          "",
+          "Activity Scoring",
+          "Activity scoring rules were devised to take into consideration compound efficacy, its potential interference with the assay and the screening stage that the data was obtained. Details of the Scoring System will be published elsewhere. Briefly, the outline of the scoring system utilized for the TNAP assay is as follows: ",
+          "",
+          "1) First tier (0-40 range) is reserved for primary screening data and the score is correlated with TNAP activation factor demonstrated by a compound at 20 uM concentration:",
+          "a. If A<1.5, then the assigned score is 0",
+          "b. For all other AF values, ",
+          "Score = 40 - 60/AF",
+          "",
+          "This formula results in a score that is equal 20 for AF=3 and asymptotically approaches 40 with increasing AF values.",
+          "",
+          "2) Second tier (41-80 range) is reserved for dose-response confirmation data ",
+          "a. Inactive compounds of the confirmatory stage are assigned a score value equal 41. ",
+          "b. The score is linearly correlated with a compound#s activatory potency and, in addition, provides a measure of the likelihood that the compound is not an artifact based on the available information.",
+          "c. The Hill coefficient is taken as a measure of compound behavior in the assay via an additional scaling factor QC: ",
+          "QC = 2.6*[exp(-0.5*nH^2) - exp(-1.5*nH^2)]",
+          "This empirical factor prorates the likelihood of target-specific compound effect vs. its non-specific behavior in the assay. This factor is based on expectation that a compound with a single mode of action that achieved equilibrium in the TNAP activation assay demonstrates the Hill coefficient value of 1. Compounds deviating from that behavior are penalized proportionally to the degree of their deviation.",
+          "d. Summary equation that takes into account the items discussed above is ",
+          "Score = 44 + 6*(pEC50 - 3)*QC, ",
+          "where pEC50 is a negative log(10) of the EC50 value expressed in mole/L concentration units. This equation results in the Score values above 50 for compounds that demonstrate high potency and predictable behavior. Compounds that are inactive in the assay or whose concentration-dependent behavior are likely to be an artifact of that assay will generally have lower Score values. ",
+          "",
+          "A score of 44 is given to active compounds selected from plates:",
+          "",
+          "a) That do not have a Hill coefficient associated with them and have a qualifier of < or >.",
+          "or",
+          "b)  The value of + 6*(pEC50/IC50-3)*QC, is < 0.500",
+          "",
+          "Active compounds will have a score >= 44.",
+          "",
+          "3) Third tier (81-100 range) is reserved for resynthesized true positives and their analogues "
+        ],
+        "xref": [
+          {
+            "xref": {
+              "pmid": 15039209
+            }
+          },
+          {
+            "xref": {
+              "pmid": 15920156
+            }
+          },
+          {
+            "xref": {
+              "pmid": 12817751
+            }
+          },
+          {
+            "xref": {
+              "pmid": 11004006
+            }
+          },
+          {
+            "xref": {
+              "pmid": 15974530
+            }
+          },
+          {
+            "xref": {
+              "gene": 249
+            },
+            "comment": "ALPL, alkaline phosphatase, liver/bone/kidney"
+          },
+          {
+            "xref": {
+              "dburl": "http://cpccg.burnham.org"
+            }
+          },
+          {
+            "xref": {
+              "aid": 518
+            }
+          },
+          {
+            "xref": {
+              "aid": 813
+            }
+          },
+          {
+            "xref": {
+              "aid": 1450
+            }
+          },
+          {
+            "xref": {
+              "aid": 1548
+            }
+          }
+        ],
+        "results": [
+          {
+            "tid": 1,
+            "name": "EC50_Qualifier",
+            "description": [
+              "This qualifier is to be used with the next TID, EC50. If the qualifier is \"=\", the EC50 result equals to the value in that column.  If the qualifier is \">\", the EC50 result is greater than that value. If the qualifier is \"<\", the EC50 result is smaller than that value."
+            ],
+            "type": 4
+          },
+          {
+            "tid": 2,
+            "name": "EC50",
+            "description": [
+              "EC50value determined using sigmoidal dose response equation"
+            ],
+            "type": 1,
+            "unit": 5,
+            "ac": true
+          },
+          {
+            "tid": 3,
+            "name": "Std.Err(EC50)",
+            "description": [
+              "Standard Error of EC50 value"
+            ],
+            "type": 1,
+            "unit": 5
+          },
+          {
+            "tid": 4,
+            "name": "nH",
+            "description": [
+              "Hill coefficient determined using sigmoidal dose response equation"
+            ],
+            "type": 1,
+            "unit": 254
+          },
+          {
+            "tid": 5,
+            "name": "Max_Value",
+            "description": [
+              "The AF value asymptotically approached by the dose response curve at saturating compound concentrations"
+            ],
+            "type": 1,
+            "unit": 254
+          },
+          {
+            "tid": 6,
+            "name": "AF_20uM",
+            "description": [
+              "% inhibition of TNAP in primary screening"
+            ],
+            "type": 1,
+            "unit": 254,
+            "tc": {
+              "concentration": 20,
+              "unit": 5
+            }
+          },
+          {
+            "tid": 7,
+            "name": "Mean_NC",
+            "description": [
+              "Mean luminescence signal of negative controls in the corresponding plate"
+            ],
+            "type": 1,
+            "sunit": "CPS"
+          },
+          {
+            "tid": 8,
+            "name": "StdDev_NC",
+            "description": [
+              "Standard deviation (n=16) of negative controls in the corresponding plate"
+            ],
+            "type": 1,
+            "sunit": "CPS"
+          },
+          {
+            "tid": 9,
+            "name": "Mean_PC",
+            "description": [
+              "Mean luminescence signal of positive controls in the corresponding plate"
+            ],
+            "type": 1,
+            "sunit": "CPS"
+          },
+          {
+            "tid": 10,
+            "name": "StdDev_PC",
+            "description": [
+              "Standard deviation (n=16) of positive controls in the corresponding plate"
+            ],
+            "type": 1,
+            "sunit": "CPS"
+          }
+        ],
+        "revision": 2,
+        "target": [
+          {
+            "name": "tissue non-specific alkaline phosphatase precursor [Homo sapiens]",
+            "mol_id": {
+              "protein_accession": "NP_000469.3"
+            },
+            "organism": {
+              "genome": 0,
+              "origin": 0,
+              "org": {
+                "taxname": "Homo sapiens",
+                "common": "human",
+                "db": [
+                  {
+                    "db": "taxon",
+                    "tag": {
+                      "id": 9606
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "activity_outcome_method": 2,
+        "grant_number": [
+          "1R03 MH082385-01"
+        ],
+        "project_category": 1
+      }
+    },
+    "data": [
+      {
+        "sid": 7978331,
+        "version": 0,
+        "outcome": 1,
+        "rank": 41,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": ">"
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 100
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 9.8
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 9.0922
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 1.1818
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 293.55
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 18.068
+            }
+          }
+        ]
+      },
+      {
+        "sid": 14729515,
+        "version": 0,
+        "outcome": 1,
+        "rank": 41,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": ">"
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 100
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 3.5
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 9.2602
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 0.91976
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 350.27
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 24.225
+            }
+          }
+        ]
+      },
+      {
+        "sid": 24803103,
+        "version": 0,
+        "outcome": 1,
+        "rank": 41,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": ">"
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 100
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 16.7
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 9.6639
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 1.2163
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 309.08
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 14.972
+            }
+          }
+        ]
+      },
+      {
+        "sid": 17406996,
+        "version": 0,
+        "outcome": 2,
+        "rank": 46,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": "="
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 35.584
+            }
+          },
+          {
+            "tid": 3,
+            "value": {
+              "fval": 2.97
+            }
+          },
+          {
+            "tid": 4,
+            "value": {
+              "fval": -1.7231
+            }
+          },
+          {
+            "tid": 5,
+            "value": {
+              "fval": 4.5
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 3.1
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 10.376
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 3.8062
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 296.85
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 19.452
+            }
+          }
+        ]
+      },
+      {
+        "sid": 17511822,
+        "version": 0,
+        "outcome": 1,
+        "rank": 41,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": ">"
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 100
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 6.3
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 8.4894
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 0.90999
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 307.33
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 18.124
+            }
+          }
+        ]
+      },
+      {
+        "sid": 22402073,
+        "version": 0,
+        "outcome": 2,
+        "rank": 46,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": "="
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 40.66
+            }
+          },
+          {
+            "tid": 3,
+            "value": {
+              "fval": 2.49
+            }
+          },
+          {
+            "tid": 4,
+            "value": {
+              "fval": -1.5176
+            }
+          },
+          {
+            "tid": 5,
+            "value": {
+              "fval": 4.5
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 3.1
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 9.9692
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 0.75529
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 319.09
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 16.924
+            }
+          }
+        ]
+      },
+      {
+        "sid": 4243880,
+        "version": 0,
+        "outcome": 1,
+        "rank": 44,
+        "data": [
+          {
+            "tid": 1,
+            "value": {
+              "sval": "="
+            }
+          },
+          {
+            "tid": 2,
+            "value": {
+              "fval": 52.87
+            }
+          },
+          {
+            "tid": 3,
+            "value": {
+              "fval": 2.44
+            }
+          },
+          {
+            "tid": 4,
+            "value": {
+              "fval": -2.5242
+            }
+          },
+          {
+            "tid": 5,
+            "value": {
+              "fval": 26
+            }
+          },
+          {
+            "tid": 6,
+            "value": {
+              "fval": 7.1
+            }
+          },
+          {
+            "tid": 7,
+            "value": {
+              "fval": 10.652
+            }
+          },
+          {
+            "tid": 8,
+            "value": {
+              "fval": 0.90925
+            }
+          },
+          {
+            "tid": 9,
+            "value": {
+              "fval": 321.2
+            }
+          },
+          {
+            "tid": 10,
+            "value": {
+              "fval": 14.73
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
