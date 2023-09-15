@@ -16,20 +16,3 @@ exports[`getAll (activeAgainst) 1`] = `
   },
 ]
 `;
-
-exports[`id search (activesOrNaturals) 1`] = `
-[
-  {
-    "_id": "ArchaeaCandidatusBorrarchaeotaCandidatusBorrarchaeiaCandidatusBorrarchaealesCandidatusBorrarchaeaceaeCandidatusBorrarchaeum",
-    "count": 20,
-    "data": {
-      "class": "Candidatus Borrarchaeia",
-      "family": "Candidatus Borrarchaeaceae",
-      "genus": "Candidatus Borrarchaeum",
-      "order": "Candidatus Borrarchaeales",
-      "phylum": "Candidatus Borrarchaeota",
-      "superkingdom": "Archaea",
-    },
-  },
-]
-`;
