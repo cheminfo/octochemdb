@@ -44,7 +44,7 @@ export default defineConfig({
           const regexImportationLogs = /importationLogs/i;
           const regexInfo = /collections/i;
 
-          sortedFiles = files.sort((a, b) => {
+          sortedFiles = sortedFiles.sort((a, b) => {
             if (regex.test(a) && !regex.test(b)) {
               return 1;
             }
