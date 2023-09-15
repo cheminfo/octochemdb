@@ -18,6 +18,7 @@ test('synCompoundPatents', async () => {
   if (result?._seq) {
     delete result._seq;
   }
+  console.log(result);
   expect(result).toMatchSnapshot();
   await connection.close();
 });
