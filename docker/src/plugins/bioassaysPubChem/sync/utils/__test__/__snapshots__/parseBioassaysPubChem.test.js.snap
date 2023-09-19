@@ -4,6 +4,17 @@ exports[`ParseBioassaysPubChem 1`] = `
 {
   "_id": 1001,
   "data": {
+    "associatedCIDs": [
+      1205217,
+      2839888,
+      4263740,
+      1012590,
+      6869847,
+      842682,
+      5718631,
+      6101,
+      419909,
+    ],
     "comment": [
       "TNAP activation was calculated using the following formula: ",
       "Activation Factor (AF) = (Signal_Well - Mean_NC)/(Mean_PC - Mean_NC), ",
