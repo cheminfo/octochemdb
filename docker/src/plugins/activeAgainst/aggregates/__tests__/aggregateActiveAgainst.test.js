@@ -17,6 +17,7 @@ test('Aggregation activeAgainst', async () => {
   const collection = await connection.getCollection('activeAgainst');
   const collectionEntry = await collection
     .find({
+      // @ts-ignore
       _id: 'ArchaeaCandidatusBorrarchaeotaCandidatusBorrarchaeiaCandidatusBorrarchaealesCandidatusBorrarchaeaceaeCandidatusBorrarchaeum',
     })
     .limit(1);

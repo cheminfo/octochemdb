@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`search (inSilicoFragments) > masses (inSilicoFragments) 2`] = `
+[
+  {
+    "_id": "eoZpE@@@DGIh\\\\RY][\\\\bbTTRTbbtTrtTTVblrtQRTTTB|rjZzVfn^QeUZ\`hJjFjjjjjjZijbjh@CTaWFnC\\\\VxQCMZfOacxZvicxX~F@",
+    "data": {
+      "masses": {
+        "positive": [
+          649.301275,
+          527.264495,
+          497.25393,
+          499.26958,
+          467.243365,
+          489.248845,
+          521.311445,
+          503.264495,
+          525.2488450000001,
+          619.29071,
+          591.295795,
+          559.26958,
+          581.27506,
+          477.28523,
+          595.29071,
+          621.30636,
+          589.2801450000001,
+          647.285625,
+          105.03404,
+          631.29071,
+          603.295795,
+          509.25393,
+          571.26958,
+          601.2801450000001,
+          43.018390000000004,
+        ],
+      },
+      "ocl": {
+        "idCode": "eoZpE@@@DGIh\\\\RY][\\\\bbTTRTbbtTrtTTVblrtQRTTTB|rjZzVfn^QeUZ\`hJjFjjjjjjZiYbjh@@",
+      },
+    },
+  },
+]
+`;
