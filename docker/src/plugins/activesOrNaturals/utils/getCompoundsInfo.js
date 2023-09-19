@@ -49,10 +49,22 @@ export default async function getCompoundsInfo(
     const dbRefsMolecules = parsedCompoundInfo.dbRefsMolecules;
     let titles = parsedCompoundInfo.titles;
     let compoundsPatents = [];
-
+    let bioassaysPubChemDBRefs = [];
+    const bioassaysPubChemCollection =
+      await connection.getCollection('bioassaysPubChem');
     if (compoundsIDs.length > 0) {
       for (let compound of compoundsIDs) {
         let currentCid = Number(compound);
+        // get bioassaysPubChem dbRefs
+        let bioassaysPubChemRef = await getBioassaysPubChemRefs(
+          currentCid,
+          bioassaysPubChemCollection,
+        );
+        // merge bioassaysPubChem dbRefs
+        bioassaysPubChemDBRefs = [
+          ...bioassaysPubChemDBRefs,
+          ...bioassaysPubChemRef,
+        ];
         let cursor = await compoundPatentsCollection.find({ _id: currentCid });
         if (await cursor.hasNext()) {
           let patent = await cursor.next();
@@ -79,7 +91,11 @@ export default async function getCompoundsInfo(
           dbRefsPatents.push({ $ref: 'patents', $id: patentInfo._id });
         }
       }
+
       entry.data.patents = dbRefsPatents;
+    }
+    if (bioassaysPubChemDBRefs.length > 0) {
+      entry.data.bioassaysPubChem = bioassaysPubChemDBRefs;
     }
     if (titles.length > 0) {
       titles.sort((a, b) => {
@@ -151,4 +167,19 @@ export default async function getCompoundsInfo(
       });
     }
   }
+}
+
+async function getBioassaysPubChemRefs(cid, collection) {
+  // find in collection cid inside array named associatedCids need to unwind the array for the match to work
+  let cursor = await collection.find({
+    $and: [{ 'data.associatedCIDs': { $elemMatch: { $eq: cid } } }],
+  });
+  let bioassaysPubChemRef = [];
+  while (await cursor.hasNext()) {
+    let doc = await cursor.next();
+    if (doc !== undefined) {
+      bioassaysPubChemRef.push({ $ref: 'bioassaysPubChem', $id: doc._id });
+    }
+  }
+  return bioassaysPubChemRef;
 }

@@ -86,6 +86,7 @@ export async function aggregate(connection) {
       await targetCollection.createIndex({ 'data.nbMassSpectra': 1 });
       await targetCollection.createIndex({ 'data.molecules': 1 });
       await targetCollection.createIndex({ 'data.nbMolecules': 1 });
+      await targetCollection.createIndex({ 'data.bioassaysPubChem': 1 });
 
       debug.info('Aggregation Done');
     } else {
