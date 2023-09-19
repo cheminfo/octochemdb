@@ -26,6 +26,9 @@ export async function sync(connection) {
       const { allFiles } = await syncFolder(
         options.collectionSource,
         options.destinationLocal,
+        {
+          fileFilter: (file) => file && file.name.endsWith('.zip'),
+        },
       );
       if (allFiles.length > 0) {
         allFiles.forEach((file) => {
