@@ -8,7 +8,7 @@ test('search (importationLogs)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('importationLogs');
-    if ((await collection.countDocuments()) === 20) {
+    if ((await collection.countDocuments()) === 21) {
       break;
     }
   }
@@ -18,6 +18,7 @@ test('search (importationLogs)', async () => {
       fields: 'collectionName,sources,status',
     },
   };
+
   const results = await search.handler(request);
   // @ts-ignore
   expect(Object.keys(results.data[0])).toMatchInlineSnapshot(`
