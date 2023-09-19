@@ -58,7 +58,7 @@ export async function sync(connection) {
         isTimeToUpdate)
     ) {
       let sourceFiles = options.destinationLocal;
-      if (process.env.NODE_ENV !== 'test') {
+      if (process.env.NODE_ENV === 'test') {
         sourceFiles = process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST || '';
       }
       let fileList = await fileCollectionFromPath(sourceFiles, {

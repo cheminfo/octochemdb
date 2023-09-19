@@ -25,9 +25,7 @@ export async function decompressAll(zipPath) {
       const json = JSON.parse(await file.text());
       writeFileSync(outputFilePath, JSON.stringify(json, null, 2));
     }
-    if (process.env.NODE_ENV === 'test') {
-      rmSync(zipPath.replace('.zip', ''), { recursive: true });
-    } else if (existsSync(zipPath)) {
+    if (process.env.NODE_ENV !== 'test' && existsSync(zipPath)) {
       rmSync(zipPath);
     }
     return extractedFiles;
