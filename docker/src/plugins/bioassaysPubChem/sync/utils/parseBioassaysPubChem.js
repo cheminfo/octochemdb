@@ -10,7 +10,7 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
     data: {},
   };
 
-  if (assayDescription.name !== undefined) {
+  if (assayDescription?.name !== undefined) {
     entry.data.name = assayDescription?.name;
   }
   if (assayDescription?.description !== undefined) {
