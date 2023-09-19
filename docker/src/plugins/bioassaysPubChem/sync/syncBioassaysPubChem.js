@@ -59,7 +59,7 @@ export async function sync(connection) {
     ) {
       let sourceFiles = options.destinationLocal;
       if (process.env.NODE_ENV !== 'test') {
-        sourceFiles = process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST;
+        sourceFiles = process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST || '';
       }
       let fileList = await fileCollectionFromPath(sourceFiles, {
         unzip: { zipExtensions: [] },
@@ -104,9 +104,12 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // Indexing of properties in collection
-      const collection = await connection.getCollection();
-      // await collection.createIndex({ '': 1 });
-      // await collection.createIndex({ '': 1 });
+      const collection = await connection.getCollection(options.collectionName);
+      await collection.createIndex({ 'data.comment': 1 });
+      await collection.createIndex({ 'data.description': 1 });
+      await collection.createIndex({ 'data.name': 1 });
+      await collection.createIndex({ 'data.results': 1 });
+      await collection.createIndex({ 'data.sids': 1 });
     } else {
       debug.info(`collection already updated`);
     }

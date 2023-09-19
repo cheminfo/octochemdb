@@ -3,28 +3,36 @@ import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomi
 export async function parseBioassaysPubChem(jsonEntry, connection) {
   const assayDescription = jsonEntry.PC_AssaySubmit.assay.descr;
   const dataTable = jsonEntry.PC_AssaySubmit.data;
-
   let entry = {
     _id: assayDescription.aid.id,
     data: {},
   };
-  entry.data.name = assayDescription.name;
+  if (assayDescription.name !== undefined) {
+    entry.data.name = assayDescription?.name;
+  }
+  if (assayDescription?.description !== undefined) {
+    entry.data.description = assayDescription?.description.filter(
+      (item) => item !== '' && !item.match(/^\s+$/),
+    );
+  }
+  if (assayDescription?.protocol !== undefined) {
+    entry.data.protocol = assayDescription?.protocol.filter(
+      (item) => item !== '' && !item.match(/^\s+$/),
+    );
+  }
+  if (assayDescription?.comment !== undefined) {
+    entry.data.comment = assayDescription?.comment.filter(
+      (item) => item !== '' && !item.match(/^\s+$/),
+    );
+  }
 
-  entry.data.description = assayDescription.description.filter(
-    (item) => item !== '' && !item.match(/^\s+$/),
-  );
-  entry.data.protocol = assayDescription.protocol.filter(
-    (item) => item !== '' && !item.match(/^\s+$/),
-  );
-  entry.data.comment = assayDescription.comment.filter(
-    (item) => item !== '' && !item.match(/^\s+$/),
-  );
   const valueDescription = {};
   for (let result of assayDescription.results) {
     valueDescription[result.tid] = {
       name: result.name,
       description: result.description,
     };
+
     const type = result.type;
     if (result.constraint) {
       switch (type) {
@@ -55,6 +63,7 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
           };
       }
     }
+
     valueDescription[result.tid].unit = getUnit(result.unit);
 
     if (result?.tc) {
@@ -64,7 +73,6 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
       };
     }
   }
-  console.log(assayDescription);
 
   if (assayDescription.target) {
     const taxonomiesCollection = await connection.getCollection('taxonomies');
@@ -105,9 +113,12 @@ function getAssay(dataTable, valueDescription) {
     const assayResultEntry = {
       sid: data.sid,
       outcome: getOutcome(data.outcome),
-      rank: data.rank,
+
       description: [],
     };
+    if (data.rank !== undefined) {
+      assayResultEntry.rank = data.rank;
+    }
     sids.push(data.sid);
     for (let entry of data.data) {
       let description = valueDescription[entry.tid];

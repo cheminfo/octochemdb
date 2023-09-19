@@ -15,21 +15,19 @@ parentPort?.on('message', async (dataEntry) => {
     const { fileList, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
     // get worker number
-
+    const temporaryCollection =
+      await connection.getCollection(`bioassaysPubChem_tmp`);
     let count = 0;
     let start = Date.now();
     for (const file of fileList) {
       try {
         const data = readFileSync(file, 'utf8');
         const json = JSON.parse(data);
-
         const entry = await parseBioassaysPubChem(json, connection);
-        const temporaryCollection =
-          await connection.getCollection(`bioassaysPubChem_tmp`);
 
         await temporaryCollection.updateOne(
           { _id: entry._id },
-          { $set: entry.data },
+          { $set: entry },
           { upsert: true },
         );
         count++;

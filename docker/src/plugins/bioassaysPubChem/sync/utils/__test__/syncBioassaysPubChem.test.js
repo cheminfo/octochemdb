@@ -9,7 +9,6 @@ test('syncBioassaysPubChem', async () => {
   await sync(connection);
   const collection = await connection.getCollection('bioassaysPubChem');
   const result = await collection.findOne({});
-  console.log(result);
-  // expect(result).toMatchSnapshot();
+  expect(result).toMatchSnapshot();
   await connection.close();
 });
