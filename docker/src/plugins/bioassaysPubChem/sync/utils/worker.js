@@ -6,9 +6,10 @@ import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 
 import { parseBioassaysPubChem } from './parseBioassaysPubChem.js';
 
-const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
 parentPort?.on('message', async (dataEntry) => {
+  const connection = new OctoChemConnection();
+
   let warnCount = 0;
   let warnDate = Date.now();
   try {
@@ -23,6 +24,7 @@ parentPort?.on('message', async (dataEntry) => {
       try {
         const data = readFileSync(file, 'utf8');
         const json = JSON.parse(data);
+
         const entry = await parseBioassaysPubChem(json, connection);
 
         await temporaryCollection.updateOne(

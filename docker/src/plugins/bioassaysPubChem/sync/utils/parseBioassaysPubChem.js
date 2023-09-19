@@ -1,5 +1,7 @@
 import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 
+import { getCIDfromSID } from './getCIDfromSID.js';
+
 export async function parseBioassaysPubChem(jsonEntry, connection) {
   const assayDescription = jsonEntry.PC_AssaySubmit.assay.descr;
   const dataTable = jsonEntry.PC_AssaySubmit.data;
@@ -7,6 +9,7 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
     _id: assayDescription.aid.id,
     data: {},
   };
+
   if (assayDescription.name !== undefined) {
     entry.data.name = assayDescription?.name;
   }
@@ -25,14 +28,12 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
       (item) => item !== '' && !item.match(/^\s+$/),
     );
   }
-
   const valueDescription = {};
   for (let result of assayDescription.results) {
     valueDescription[result.tid] = {
       name: result.name,
       description: result.description,
     };
-
     const type = result.type;
     if (result.constraint) {
       switch (type) {
@@ -100,6 +101,12 @@ export async function parseBioassaysPubChem(jsonEntry, connection) {
     }
   }
   let { assayResults, sids } = getAssay(dataTable, valueDescription);
+  if (sids.length > 0) {
+    const cids = await getCIDfromSID(sids);
+    if (cids) {
+      entry.data.associatedCIDs = cids;
+    }
+  }
   entry.data.results = assayResults;
   entry.data.sids = sids;
 

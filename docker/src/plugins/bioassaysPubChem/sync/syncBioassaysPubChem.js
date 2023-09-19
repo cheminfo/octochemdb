@@ -20,7 +20,7 @@ export async function sync(connection) {
   try {
     const progress = await connection.getProgress(options.collectionName);
     let sources = [];
-    if (process.env.NODE_ENV !== 'test') {
+    if (process.env.NODE_ENV === 'test') {
       sources = [`${process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST}`];
     } else {
       const { allFiles } = await syncFolder(
@@ -110,6 +110,7 @@ export async function sync(connection) {
       await collection.createIndex({ 'data.name': 1 });
       await collection.createIndex({ 'data.results': 1 });
       await collection.createIndex({ 'data.sids': 1 });
+      await collection.createIndex({ 'data.associatedCIDs': 1 });
     } else {
       debug.info(`collection already updated`);
     }

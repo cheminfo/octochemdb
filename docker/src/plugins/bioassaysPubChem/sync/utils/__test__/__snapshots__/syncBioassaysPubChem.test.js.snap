@@ -3,54 +3,59 @@
 exports[`syncBioassaysPubChem 1`] = `
 {
   "_id": 22001,
-  "comment": [
-    "Journal: Bioorg. Med. Chem. Lett.",
-    "Year: 2002",
-    "Volume: 12",
-    "Issue: 12",
-    "First Page: 1603",
-    "Last Page: 1606",
-    "DOI: 10.1016/s0960-894x(02)00226-3",
-  ],
-  "description": [
-    "Title: Exploration of peptidyl hydrazones as water-soluble calpain inhibitors.",
-    "Abstract: A series of peptidyl hydrazones was synthesized, and their inhibitory activity against mu-calpain and water-solubility were measured. Among these compounds, N,N-dimethyl glycyl hydrazone 6, which inhibited mu-calpain with IC(50) of 0.37 microM, possessed the appropriate water-solubility. Furthermore, hydrazone 6 was found to possess the excellent in vitro metabolic stability.",
-  ],
-  "name": "Water solubility was determined at pH 6; ND=Not determined",
-  "results": [
-    {
-      "description": [
-        {
-          "description": [
-            "Standardized activity type (e.g. IC50 rather than Ic-50/Ic50/ic50/ic-50)",
-          ],
-          "name": "Standard Type",
-          "unit": "unspecified",
-          "value": "Solubility",
-        },
-        {
-          "description": [
-            "Selected units for 'Standard Type': e.g. concentrations are in nM",
-          ],
-          "name": "Standard Units",
-          "unit": "unspecified",
-          "value": "ug.mL-1",
-        },
-        {
-          "description": [
-            "Additional comments",
-          ],
-          "name": "Activity Comment",
-          "unit": "unspecified",
-          "value": "Not Determined",
-        },
-      ],
-      "outcome": "inconclusive",
-      "sid": 103219760,
-    },
-  ],
-  "sids": [
-    103219760,
-  ],
+  "data": {
+    "associatedCIDs": [
+      44287812,
+    ],
+    "comment": [
+      "Journal: Bioorg. Med. Chem. Lett.",
+      "Year: 2002",
+      "Volume: 12",
+      "Issue: 12",
+      "First Page: 1603",
+      "Last Page: 1606",
+      "DOI: 10.1016/s0960-894x(02)00226-3",
+    ],
+    "description": [
+      "Title: Exploration of peptidyl hydrazones as water-soluble calpain inhibitors.",
+      "Abstract: A series of peptidyl hydrazones was synthesized, and their inhibitory activity against mu-calpain and water-solubility were measured. Among these compounds, N,N-dimethyl glycyl hydrazone 6, which inhibited mu-calpain with IC(50) of 0.37 microM, possessed the appropriate water-solubility. Furthermore, hydrazone 6 was found to possess the excellent in vitro metabolic stability.",
+    ],
+    "name": "Water solubility was determined at pH 6; ND=Not determined",
+    "results": [
+      {
+        "description": [
+          {
+            "description": [
+              "Standardized activity type (e.g. IC50 rather than Ic-50/Ic50/ic50/ic-50)",
+            ],
+            "name": "Standard Type",
+            "unit": "unspecified",
+            "value": "Solubility",
+          },
+          {
+            "description": [
+              "Selected units for 'Standard Type': e.g. concentrations are in nM",
+            ],
+            "name": "Standard Units",
+            "unit": "unspecified",
+            "value": "ug.mL-1",
+          },
+          {
+            "description": [
+              "Additional comments",
+            ],
+            "name": "Activity Comment",
+            "unit": "unspecified",
+            "value": "Not Determined",
+          },
+        ],
+        "outcome": "inconclusive",
+        "sid": 103219760,
+      },
+    ],
+    "sids": [
+      103219760,
+    ],
+  },
 }
 `;
