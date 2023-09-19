@@ -184,9 +184,7 @@
           {
             "tid": 3,
             "name": "Std.Err(EC50)",
-            "description": [
-              "Standard Error of EC50 value"
-            ],
+            "description": ["Standard Error of EC50 value"],
             "type": 1,
             "unit": 5
           },
@@ -211,9 +209,7 @@
           {
             "tid": 6,
             "name": "AF_20uM",
-            "description": [
-              "% inhibition of TNAP in primary screening"
-            ],
+            "description": ["% inhibition of TNAP in primary screening"],
             "type": 1,
             "unit": 254,
             "tc": {
@@ -284,9 +280,7 @@
           }
         ],
         "activity_outcome_method": 2,
-        "grant_number": [
-          "1R03 MH082385-01"
-        ],
+        "grant_number": ["1R03 MH082385-01"],
         "project_category": 1
       }
     },
