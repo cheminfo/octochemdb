@@ -70,10 +70,12 @@ export async function sync(connection) {
       });
       let jsonFilesPaths = [];
       for (let file of fileList.files) {
-        const newJsonFilesPaths = await decompressAll(
-          join(sourceFiles, file.name),
-        );
-        jsonFilesPaths = [...newJsonFilesPaths, ...jsonFilesPaths];
+        if (file.name.endsWith('.zip')) {
+          const newJsonFilesPaths = await decompressAll(
+            join(sourceFiles, file.name),
+          );
+          jsonFilesPaths = [...newJsonFilesPaths, ...jsonFilesPaths];
+        }
       }
       // Generate Logs for the sync
       const logs = await connection.getImportationLog({
