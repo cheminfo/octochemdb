@@ -120,9 +120,12 @@ function getAssay(dataTable, valueDescription) {
     const assayResultEntry = {
       sid: data.sid,
       outcome: getOutcome(data.outcome),
-
-      description: [],
     };
+    // if more than 1000 assays results, we store only the outcome for each sid after 1000
+    if (assayResults.length > 1000) {
+      continue;
+    }
+    assayResultEntry.description = [];
     if (data.rank !== undefined) {
       assayResultEntry.rank = data.rank;
     }
