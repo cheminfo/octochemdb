@@ -53,10 +53,11 @@ export async function getCIDfromSID(sids) {
     }
     if (dataSubstance?.status === 200) {
       let substances = await dataSubstance.json();
+
       const cidsAssociatedSids = [];
       for (let substance of substances.data) {
-        if (substance.data.cids === undefined) continue;
-        const cids = substance.data.cids.map((compound) =>
+        if (substance.data.compounds === undefined) continue;
+        const cids = substance.data.compounds.map((compound) =>
           Number(compound.$id),
         );
         cidsAssociatedSids.push(...cids);

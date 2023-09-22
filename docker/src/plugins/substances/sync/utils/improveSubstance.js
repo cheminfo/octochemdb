@@ -32,7 +32,7 @@ export default async function improveSubstance(molecule) {
             dbRefs.push({ $ref: 'compounds', $id: Number(arrayCIDs[i]) });
           }
         }
-        result.data.cids = dbRefs;
+        result.data.compounds = dbRefs;
       }
 
       if (molecule.PUBCHEM_NCBI_TAXONOMY_ID !== undefined) {
