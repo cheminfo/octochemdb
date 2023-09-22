@@ -49,7 +49,7 @@ export async function getCIDfromSID(sids) {
       count++;
     }
     if (!success) {
-      return [];
+      throw new Error(`Failed to fetch data, SIDs: ${sids}`);
     }
     if (dataSubstance?.status === 200) {
       let substances = await dataSubstance.json();
