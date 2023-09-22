@@ -7,8 +7,8 @@ test('search (admin)', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {
-    const collection = await connection.getCollection('activeAgainst');
-    if ((await collection.countDocuments()) === 1) {
+    const collection = await connection.getCollection('compounds');
+    if ((await collection.countDocuments()) === 12) {
       break;
     }
   }
@@ -16,7 +16,7 @@ test('search (admin)', async () => {
     query: {
       collectionToSearch: 'compounds',
       limit: 10,
-      fields: 'state,seq,dateStart,dateEnd,sources,logs',
+      fields: 'state,seq,dateStart,dateEnd,sources',
     },
   };
 
@@ -30,7 +30,6 @@ test('search (admin)', async () => {
         "_id": "compounds_progress",
         "dateEnd": 1,
         "dateStart": 0,
-        "logs": null,
         "seq": 12,
         "sources": "../docker/src/plugins/compounds/sync/utils/__tests__/data/compoundsIncrementalTest.sdf.gz",
         "state": "updated",

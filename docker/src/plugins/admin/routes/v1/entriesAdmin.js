@@ -45,7 +45,6 @@ async function searchHandler(request) {
     limit = 0,
     fields = 'state,seq,date,sources,logs',
   } = request.query;
-
   let connection;
   try {
     connection = new OctoChemConnection();
@@ -53,7 +52,10 @@ async function searchHandler(request) {
 
     debug.trace(JSON.stringify({ collectionToSearch }));
     let formatedFields = getFields(fields);
-    formatedFields.logs = { $slice: ['$logs', Number(limit)] };
+    if (formatedFields.logs) {
+      formatedFields.logs = { $slice: ['$logs', Number(limit)] };
+    }
+
     const results = await collection
       .aggregate([
         {

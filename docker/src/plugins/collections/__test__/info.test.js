@@ -7,8 +7,8 @@ test('collections info ', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {
-    const collection = await connection.getCollection('activeAgainst');
-    if ((await collection.countDocuments()) === 1) {
+    const collection = await connection.getCollection('taxonomies');
+    if ((await collection.countDocuments()) === 20) {
       break;
     }
   }
