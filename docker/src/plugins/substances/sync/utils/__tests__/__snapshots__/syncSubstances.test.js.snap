@@ -12,7 +12,7 @@ exports[`syncSubstances > syncSubstances First Importation 1`] = `
       "S": 1,
     },
     "charge": 0,
-    "cids": [
+    "compounds": [
       {
         "$id": 647412,
         "$ref": "compounds",
@@ -44,7 +44,7 @@ exports[`syncSubstances > syncSubstances Incremental Importation 1`] = `
       "S": 1,
     },
     "charge": 0,
-    "cids": [
+    "compounds": [
       {
         "$id": 10738749,
         "$ref": "compounds",

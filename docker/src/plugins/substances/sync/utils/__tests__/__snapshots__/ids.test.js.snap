@@ -12,7 +12,7 @@ exports[`ids search (substances) 2`] = `
         "O": 4,
       },
       "charge": 0,
-      "cids": [
+      "compounds": [
         {
           "$id": 86026904,
           "$ref": "compounds",
@@ -40,7 +40,7 @@ exports[`ids search (substances) 2`] = `
         "O": 2,
       },
       "charge": 0,
-      "cids": [
+      "compounds": [
         {
           "$id": 25132898,
           "$ref": "compounds",

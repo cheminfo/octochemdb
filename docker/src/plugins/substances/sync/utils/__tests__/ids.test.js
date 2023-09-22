@@ -30,7 +30,7 @@ test('ids search (substances)', async () => {
       "nbFragments",
       "unsaturation",
       "atoms",
-      "cids",
+      "compounds",
     ]
   `);
   expect(results.data).toMatchSnapshot();
