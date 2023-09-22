@@ -16,7 +16,7 @@ describe('search (inSilicoFragments)', async () => {
   it('masses (inSilicoFragments)', async () => {
     const request = {
       query: {
-        masses: '489.24,619.29',
+        masses: '419.20,223.13',
         precision: 100,
         fields: 'data',
       },
