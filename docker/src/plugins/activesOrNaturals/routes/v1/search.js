@@ -232,7 +232,7 @@ async function searchHandler(request) {
       precision,
     };
     const keywords = {
-      wordsToBeSearchedTitles,
+      wordsWithRegexTitles,
       wordsWithRegexBioassays,
       wordsWithRegexMeshTerms,
       wordsToBeSearchedActiveAgainst,
