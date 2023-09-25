@@ -53,7 +53,8 @@ const entriesSearch = {
       },
       kwTitles: {
         type: 'string',
-        description: 'keywords compound titles',
+        description:
+          'keywords compound titles (separate terms to search with ";" or "," ), please avoid using numbers (e.g:3,4-Methylenedioxymethamphetamine)',
         example: 'Cephalosporin',
         default: '',
       },
@@ -203,7 +204,7 @@ async function searchHandler(request) {
     .filter((entry) => entry);
   // convert words to be searched in titles to regex
   wordsToBeSearchedTitles.forEach((word) => {
-    wordsWithRegexTitles.push(new RegExp(escapeRegExp(word), 'i'));
+    wordsWithRegexTitles.push(new RegExp(`.*${escapeRegExp(word)}`, 'i'));
   });
   // convert words to be searched in bioassays to regex
   wordsToBeSearchedBioassays.forEach((word) => {
