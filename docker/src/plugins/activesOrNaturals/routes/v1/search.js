@@ -179,10 +179,7 @@ async function searchHandler(request) {
   let wordsWithRegexMeshTerms = [];
   let wordsWithRegexTitles = [];
   // convert to lower case and remove spaces and split by ";" or ","
-  let wordsToBeSearchedTitles = kwTitles
-    .toLowerCase()
-    .split(/ *[,;\t\n\r\s]+ */)
-    .filter((entry) => entry);
+  let wordsToBeSearchedTitles = prepareKeywords(kwTitles)
   let wordsToBeSearchedBioassays = kwBioassays
     .toLowerCase()
     .split(/ *[,;\t\n\r\s]+ */)
@@ -204,15 +201,15 @@ async function searchHandler(request) {
     .filter((entry) => entry);
   // convert words to be searched in titles to regex
   wordsToBeSearchedTitles.forEach((word) => {
-    wordsWithRegexTitles.push(new RegExp(`.*${escapeRegExp(word)}`, 'i'));
+    wordsWithRegexTitles.push(new RegExp(escapeRegExp(word)));
   });
   // convert words to be searched in bioassays to regex
   wordsToBeSearchedBioassays.forEach((word) => {
-    wordsWithRegexBioassays.push(new RegExp(escapeRegExp(word), 'i'));
+    wordsWithRegexBioassays.push(new RegExp('^' + escapeRegExp(word)));
   });
   // convert phrases to regular expressions
   wordsToBeSearchedMeshTerms.forEach((word) => {
-    wordsWithRegexMeshTerms.push(new RegExp(escapeRegExp(word), 'i'));
+    wordsWithRegexMeshTerms.push(new RegExp('^' + escapeRegExp(word)));
   });
 
   // define lower and upper bounds of the returned results limit
@@ -285,4 +282,8 @@ async function searchHandler(request) {
     debug.trace('Closing connection');
     if (connection) await connection.close();
   }
+}
+
+function prepareKeywords(string) {
+  return string.toLowerCase().split(/ *(?:, |[;\t\n\r\s]+) */).filter((entry) => entry);
 }
