@@ -15,10 +15,10 @@ test('In silico fragmentation', async () => {
   }
 
   await aggregate(connection);
-  const collection = await connection.getCollection('inSilicoFragments');
+  const collection = await connection.getCollection('inSilicoFragments_V2');
   const result = await collection.findOne({
     // @ts-ignore
-    _id: 'fle@P@@XUGIEEMLhdecJBMzjjjjjj`@udcFLLqsBlZp{B\\Yq~dLqQq|L_C@',
+    _id: 'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
   });
 
   expect(result).toMatchSnapshot();

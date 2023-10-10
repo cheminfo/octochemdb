@@ -62,7 +62,7 @@ async function searchHandler(request) {
   let connection;
   try {
     connection = new OctoChemConnection();
-    const collection = await connection.getCollection('inSilicoFragments');
+    const collection = await connection.getCollection('inSilicoFragments_V2');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
 
@@ -105,7 +105,7 @@ async function searchHandler(request) {
   } catch (e) {
     if (connection) {
       await debug.error(e.message, {
-        collection: 'inSilicoFragments',
+        collection: 'inSilicoFragments_V2',
         connection,
         stack: e.stack,
       });

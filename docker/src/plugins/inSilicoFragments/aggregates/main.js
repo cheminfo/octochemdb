@@ -11,7 +11,8 @@ export async function main(links) {
   try {
     let total = Object.keys(links).length;
 
-    const values = Object.values(links).sort(() => Math.random() - 0.5);
+    let values = Object.values(links).sort(() => Math.random() - 0.5);
+
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
 
@@ -65,7 +66,7 @@ export async function main(links) {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments',
+        collection: 'inSilicoFragments_V2',
         connection,
         stack: e.stack,
       });

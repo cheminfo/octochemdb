@@ -27,11 +27,12 @@ export default async function getCollectionsLinks(connection) {
       let test = results.find(
         (result) =>
           result.noStereoTautomerID ===
-          'fle@P@@XUGIEEMLhdecJBMzjjjjjj`@udcFLLqsBlZp{B\\Yq~dLqQq|L_C@',
+          'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
       );
-      results = results.slice(0, 10);
+      results = results.slice(0, 5);
       results.push(test);
     }
+
     for (const entry of results) {
       if (entry?.idCode) {
         if (!links[entry.noStereoTautomerID]) {

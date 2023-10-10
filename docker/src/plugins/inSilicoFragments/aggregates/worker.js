@@ -11,6 +11,7 @@ import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 const { Molecule } = OCL;
 const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
+
 parentPort?.on('message', async (dataEntry) => {
   let warnCount = 0;
   let warnDate = Date.now();
@@ -19,7 +20,7 @@ parentPort?.on('message', async (dataEntry) => {
     debug.trace(`Worker ${workerID} started`);
     // get worker number
     const temporaryCollection = await connection.getCollection(
-      `inSilicoFragments_tmp`,
+      `inSilicoFragments_V2_tmp`,
     );
     let count = 0;
     let start = Date.now();
@@ -36,13 +37,17 @@ parentPort?.on('message', async (dataEntry) => {
         let molecule = Molecule.fromIDCode(link.idCode);
         if (molecule.getAtoms() <= 200) {
           const fragmentationOptions = {
-            database: 'cid',
+            ionizationKind: 'esi',
             mode: 'positive',
-            maxIonizationDepth: 1,
-            maxDepth: 4,
-            limitReactions: 200,
-            //   customDatabase: fragmentationDB,
+            maxDepth: 5,
+            limitReactions: 500,
+            minIonizations: 1,
+            maxIonizations: 1,
+            minReactions: 0,
+            maxReactions: 4,
           };
+
+          // @ts-ignore
           let fragments = reactionFragmentation(molecule, fragmentationOptions);
           if (fragments.masses?.length > 0) {
             result.data.masses = { positive: fragments.masses };
@@ -69,7 +74,7 @@ parentPort?.on('message', async (dataEntry) => {
             await debug.warn(
               `Warning(fragmentation) happened ${warnCount}:${e.message} `,
               {
-                collection: 'inSilicoFragments',
+                collection: 'inSilicoFragments_V2',
                 connection,
                 stack: e.stack,
               },
@@ -83,7 +88,7 @@ parentPort?.on('message', async (dataEntry) => {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments',
+        collection: 'inSilicoFragments_V2',
         connection,
         stack: e.stack,
       });

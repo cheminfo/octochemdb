@@ -7,10 +7,10 @@ import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 import { main } from './main.js';
 
 export async function aggregate(connection) {
-  const debug = debugLibrary('inSilicoFragments');
+  const debug = debugLibrary('inSilicoFragments_V2');
   try {
     // Get collections from the database
-    const options = { collection: 'inSilicoFragments', connection };
+    const options = { collection: 'inSilicoFragments_V2', connection };
     const progress = await connection.getProgress(options.collection);
     const progressOfSourceCollection =
       await connection.getProgress('activesOrNaturals');
@@ -67,7 +67,7 @@ export async function aggregate(connection) {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments',
+        collection: 'inSilicoFragments_V2',
         connection,
         stack: e.stack,
       });
