@@ -1,80 +1,111 @@
-import { rmSync } from 'fs';
 import { open } from 'fs/promises';
 
 import { parseStream } from 'arraybuffer-xml-parser';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
-import { decompressGziped } from './decompressGziped.js';
-import { improvePubmed } from './improvePubmed.js';
-/**
- * @description  import one PubMed file
- * @param {*} connection  - mongo connection
- * @param {*} progress - pubmeds progress
- * @param {Array} file - file to import
- * @param {object} options - options { shouldImport ,lastDocument }
- * @param {object} pmidToCid - pmid to cid map
- * @returns {Promise} pubmeds collection
- */
-export default async function importOnePubmedFile(
-  connection,
-  progress,
-  file,
-  options,
-  pmidToCid,
-  langPubmeds,
-) {
-  const debug = debugLibrary('importOnePubmedFile');
-  try {
-    // get pubmeds collection
-    const collection = await connection.getCollection('pubmeds');
-    debug.trace(`Importing: ${file.name}`);
-    // get logs
-    const logs = await connection.getImportationLog({
-      collectionName: 'pubmeds',
-      sources: file.name,
-      startSequenceID: progress.seq,
-    });
-    // create stream from file
-    const filePath = await decompressGziped(file.path);
-    const fileStream = await open(filePath, 'r');
-    const readableStream = fileStream.readableWebStream();
-    let { shouldImport, lastDocument } = options;
-    let imported = 0;
-    // parse the pubmed file stream
-    for await (const entry of parseStream(readableStream, 'PubmedArticle')) {
-      if (!shouldImport) {
-        if (entry.MedlineCitation.PMID['#text'] !== lastDocument._id) {
-          continue;
+export default async function* parseLccs(filePath) {
+  const debug = debugLibrary('parseLccs');
+  const fileStream = await open(filePath, 'r');
+  const readableStream = fileStream.readableWebStream();
+  //Reference
+  // parse the pubmed file stream
+  for await (const entry of parseStream(readableStream, 'Record')) {
+    let result = {};
+    recursiveLowerCase(entry);
+    if (entry.recordType === 'CID') {
+      result = {
+        _id: entry.recordnumber,
+        data: {},
+      };
+    }
+
+    //console.log(entry.section);
+    for (let info of entry.section) {
+      if (info.tocheading === 'GHS Classification') {
+        //console.log(info.information[1].value);
+        result.data = {
+          description: info.description,
+        };
+        let signals = {};
+        let ghsStatements = [];
+        let hCodes = [];
+        let pCodes = [];
+        for (let classification of info.information) {
+          if (classification.name === 'Pictogram(s)') {
+            let pictograms = [];
+            const markup = classification.value.stringwithmarkup.markup;
+            if (Array.isArray(markup)) {
+              for (let pictogram of markup) {
+                pictograms.push({
+                  type: pictogram.extra,
+                  svgUrl: pictogram.url,
+                });
+              }
+            } else {
+              pictograms.push({
+                type: markup.extra,
+                svgUrl: markup.url,
+              });
+            }
+            result.data.pictograms = pictograms;
+          }
+          if (classification.name === 'Precautionary Statement Codes') {
+            // console.log(classification.value);
+            const statements = classification.value.stringwithmarkup;
+            for (let precautionaryStatement of statements) {
+              //  console.log(precautionaryStatement);
+              if (precautionaryStatement.markup !== undefined) {
+                continue;
+              }
+
+              let codes = precautionaryStatement.string.split(
+                /\s*,\s*(?:and)?\s*|\s*\+\s*/,
+              );
+              pCodes = pCodes.concat(codes);
+            }
+          }
+          if (classification.name === 'Signal') {
+            const currentSignal = classification.value.stringwithmarkup.string;
+            signals[currentSignal] = true;
+          }
+
+          if (classification.name === 'GHS Hazard Statements') {
+            const stringMarkup = classification.value.stringwithmarkup;
+            if (Array.isArray(stringMarkup)) {
+              for (let markup of stringMarkup) {
+                ghsStatements.push(markup.string);
+              }
+            } else {
+              ghsStatements.push(stringMarkup.string);
+              console.log(stringMarkup.string.split(/\s*,\s*(?=H\d+:)/));
+            }
+            // need regex to split when there is HXXX: like:H227:
+            // split('H\d{3}:')
+          }
+          //   console.log(classification.name);
         }
-        shouldImport = true;
-        debug.trace(`Skipping pubmeds till: ${lastDocument._id}`);
-        continue;
-      }
-      if (shouldImport) {
-        let result = await improvePubmed(entry, pmidToCid, langPubmeds);
-        imported++;
-        result._seq = ++progress.seq;
-        await collection.updateOne(
-          { _id: result._id },
-          { $set: result },
-          { upsert: true },
-        );
+        result.ghsStatements = ghsStatements;
+        result.data.signals = Object.keys(signals);
       }
     }
-    // set logs and progress
-    progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
-    await connection.setProgress(progress);
-    logs.dateEnd = Date.now();
-    logs.endSequenceID = progress.seq;
-    logs.status = 'updated';
-    await connection.updateImportationLog(logs);
-    debug.trace(`${imported} articles processed`);
-    // Remove the decompressed gzip file after it has been imported
-    await fileStream.close();
-    rmSync(filePath, { recursive: true });
-    return imported;
-  } catch (err) {
-    await debug.fatal(err, { collection: 'pubmeds', connection });
+    const count = 1;
+    if (count > 0) {
+      continue;
+    }
+    yield entry;
+  }
+}
+
+function recursiveLowerCase(obj) {
+  if (typeof obj === 'object' && obj !== null) {
+    for (let key in obj) {
+      const lowerKey = key.toLowerCase();
+      if (key !== lowerKey) {
+        obj[lowerKey] = obj[key];
+        delete obj[key];
+      }
+      recursiveLowerCase(obj[lowerKey]);
+    }
   }
 }
