@@ -7,7 +7,7 @@ describe('search (inSilicoFragments)', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {
-    const collection = await connection.getCollection('inSilicoFragments_V2');
+    const collection = await connection.getCollection('inSilicoFragments');
     if ((await collection.countDocuments()) > 1) {
       break;
     }
