@@ -1,10 +1,9 @@
 import { getFields, OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
-import { prepareMolecularInfoQuery } from '../utils/prepareMolecularInfoQuery.js';
-import { prepareSpectraQuery } from '../utils/prepareSpectraQuery.js';
+import { prepareSpectraQuery } from '../../../../gnps/routes/v1/utils/prepareSpectraQuery.js';
 
-const debug = debugLibrary('searchGNPS');
+const debug = debugLibrary('fromMasses');
 
 /**
  * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
@@ -14,31 +13,28 @@ const debug = debugLibrary('searchGNPS');
 export async function searchHandler(request) {
   let data = getRequestQuery(request);
   let {
-    em = '',
-    mf = '',
     masses = '',
+    mode = 'positive',
     precision = 10,
     limit = 10,
-    fields = 'data.spectrum,data.ocl',
+    fields = 'data.masses,data.ocl',
   } = data;
 
   // define the error allowed for the search
   let connection;
   try {
     connection = new OctoChemConnection();
-    const collection = await connection.getCollection('gnps');
+    const collection = await connection.getCollection('inSilicoFragments_V2');
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
     let matchParameter = {};
-    // prepare speactra query
-    prepareSpectraQuery(
-      matchParameter,
-      'data.spectrum.data.x',
-      masses,
-      precision,
-    );
-    // prepare molecular formula and/or exact mass query
-    prepareMolecularInfoQuery(matchParameter, em, mf, precision);
+    let modeParameter;
+    if (mode === 'positive') {
+      modeParameter = 'data.masses.positive';
+    } else {
+      modeParameter = 'data.masses.negative';
+    }
+    prepareSpectraQuery(matchParameter, modeParameter, masses, precision);
     // search for the entries
     const results = await collection
       .aggregate([
@@ -52,14 +48,17 @@ export async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
-        collection: 'gnps',
+      await debug.error(e.message, {
+        collection: 'inSilicoFragments_V2',
         connection,
         stack: e.stack,
       });
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    if (connection) await connection.close();
+    if (connection) {
+      debug.trace('Closing connection');
+      await connection.close();
+    }
   }
 }
