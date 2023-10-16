@@ -1,28 +1,37 @@
+import { prepareKeywords } from './prepareKeywords';
+
 export function getKeywordsMatchParameter(matchParameter, keywords) {
-  const {
-    wordsWithRegexTitles = '',
-    wordsToBeSearchedTaxonomies = '',
-    wordsWithRegexBioassays = '',
-    wordsWithRegexMeshTerms = '',
-    wordsToBeSearchedActiveAgainst = '',
-  } = keywords;
-  if (wordsToBeSearchedTaxonomies.length > 0) {
+  let regexKwTitles = prepareKeywords(keywords.kwTitles, {
+    escapeRegExp: true,
+  });
+  let regexKwBioassays = prepareKeywords(keywords.kwBioassays, {
+    escapeRegExp: true,
+    startsWith: true,
+  });
+  let regexKwActiveAgainst = prepareKeywords(keywords.kwActiveAgainst);
+  let regexKwTaxonomies = prepareKeywords(keywords.kwTaxonomies);
+  let regexKwMeshTerms = prepareKeywords(keywords.kwMeshTerms, {
+    escapeRegExp: true,
+    startsWith: true,
+  });
+
+  if (regexKwTaxonomies.length > 0) {
     matchParameter['data.kwTaxonomies'] = {
-      $all: wordsToBeSearchedTaxonomies,
+      $all: regexKwTaxonomies,
     };
   }
-  if (wordsWithRegexTitles.length > 0) {
-    matchParameter['data.kwTitles'] = { $in: wordsWithRegexTitles };
+  if (regexKwTitles.length > 0) {
+    matchParameter['data.kwTitles'] = { $in: regexKwTitles };
   }
-  if (wordsWithRegexBioassays.length > 0) {
-    matchParameter['data.kwBioassays'] = { $in: wordsWithRegexBioassays };
+  if (regexKwBioassays.length > 0) {
+    matchParameter['data.kwBioassays'] = { $in: regexKwBioassays };
   }
-  if (wordsWithRegexMeshTerms.length > 0) {
-    matchParameter['data.kwMeshTerms'] = { $in: wordsWithRegexMeshTerms };
+  if (regexKwMeshTerms.length > 0) {
+    matchParameter['data.kwMeshTerms'] = { $in: regexKwMeshTerms };
   }
-  if (wordsToBeSearchedActiveAgainst.length > 0) {
+  if (regexKwActiveAgainst.length > 0) {
     matchParameter['data.kwActiveAgainst'] = {
-      $in: wordsToBeSearchedActiveAgainst,
+      $in: regexKwActiveAgainst,
     };
   }
 }
