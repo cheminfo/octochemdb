@@ -10,8 +10,8 @@ dotenv.config();
 const debug = debugLibrary('OctoChemConnection');
 
 export function OctoChemConnection() {
+  // @ts-ignore
   this.client = new MongoClient(process.env.MONGODB_URL, {
-    keepAlive: true,
     connectTimeoutMS: 6 * 60 * 60 * 1000,
     socketTimeoutMS: 6 * 60 * 60 * 1000,
   });

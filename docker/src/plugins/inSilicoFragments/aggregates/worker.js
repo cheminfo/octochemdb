@@ -20,7 +20,7 @@ parentPort?.on('message', async (dataEntry) => {
     debug.trace(`Worker ${workerID} started`);
     // get worker number
     const temporaryCollection = await connection.getCollection(
-      `inSilicoFragments_V2_tmp`,
+      `inSilicoFragments_tmp`,
     );
     let count = 0;
     let start = Date.now();
@@ -37,8 +37,7 @@ parentPort?.on('message', async (dataEntry) => {
         let molecule = Molecule.fromIDCode(link.idCode);
         if (molecule.getAtoms() <= 200) {
           const fragmentationOptions = {
-            ionizationKind: 'esi',
-            mode: 'positive',
+            ionizationKind: ['esiPositive'],
             maxDepth: 5,
             limitReactions: 500,
             minIonizations: 1,
@@ -74,7 +73,7 @@ parentPort?.on('message', async (dataEntry) => {
             await debug.warn(
               `Warning(fragmentation) happened ${warnCount}:${e.message} `,
               {
-                collection: 'inSilicoFragments_V2',
+                collection: 'inSilicoFragments',
                 connection,
                 stack: e.stack,
               },
@@ -88,7 +87,7 @@ parentPort?.on('message', async (dataEntry) => {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments_V2',
+        collection: 'inSilicoFragments',
         connection,
         stack: e.stack,
       });

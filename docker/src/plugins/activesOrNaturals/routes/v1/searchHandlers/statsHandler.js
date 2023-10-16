@@ -13,7 +13,9 @@ export async function statsHandler() {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('activesOrNaturals');
 
-    const results = await collection.stats();
+    const results = await collection.aggregate([
+      { $collStats: { latencyStats: { histograms: true } } },
+    ]);
 
     return { data: results };
   } catch (e) {

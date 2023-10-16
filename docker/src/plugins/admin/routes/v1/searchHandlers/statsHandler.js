@@ -1,6 +1,7 @@
 // query for molecules from monoisotopic mass
 import { OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
+import { getStats } from '../../../../../utils/getStats.js';
 
 const debug = debugLibrary('stats');
 // export default searchHandler;
@@ -13,9 +14,8 @@ export async function statsHandler() {
   let connection;
   try {
     connection = new OctoChemConnection();
-    const collection = await connection.getCollection('admin');
 
-    const results = await collection.stats();
+    const results = await getStats(connection, 'admin');
 
     return { data: results };
   } catch (e) {

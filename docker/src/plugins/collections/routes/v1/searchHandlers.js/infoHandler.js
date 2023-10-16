@@ -24,21 +24,24 @@ export async function infoHandler() {
         };
       });
     const names = await connection.getCollectionNames();
-
     const results = [];
     debug.trace(JSON.stringify(adminInfo));
     for (let name of names) {
       const collection = await connection.getCollection(name);
-      const stats = await collection.stats();
+      const query = await collection.aggregate([
+        { $collStats: { storageStats: {} } },
+      ]);
+      const stats = await query.next();
       debug.trace(`${name}, ${JSON.stringify(adminInfo[name])}`);
+      //  console.log(stats?.storageStats.ns);
       results.push({
-        ns: stats.ns,
-        size: stats.size,
-        count: stats.count,
-        avgObjSize: stats.avgObjSize,
-        storageSize: stats.storageSize,
-        freeStorageSize: stats.freeStorageSize,
-        capped: stats.capped,
+        ns: stats?.ns,
+        size: stats?.storageStats.size,
+        count: stats?.storageStats.count,
+        avgObjSize: stats?.storageStats.avgObjSize,
+        storageSize: stats?.storageStats.storageSize,
+        freeStorageSize: stats?.storageStats.freeStorageSize,
+        capped: stats?.storageStats.capped,
         ...adminInfo[name],
       });
     }
