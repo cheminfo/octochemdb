@@ -48,8 +48,9 @@ parentPort?.on('message', async (dataEntry) => {
 
           // @ts-ignore
           let fragments = reactionFragmentation(molecule, fragmentationOptions);
-          if (fragments.masses?.length > 0) {
-            result.data.masses = { positive: fragments.masses };
+          const massesArray = getMasses(fragments.masses);
+          if (massesArray?.length > 0) {
+            result.data.masses = { positive: massesArray };
             await temporaryCollection.updateOne(
               { _id: link.id },
               { $set: result },
@@ -94,3 +95,13 @@ parentPort?.on('message', async (dataEntry) => {
     }
   }
 });
+
+function getMasses(masses) {
+  let result = {};
+  for (let i = 0; i < masses.length; i++) {
+    if (masses[i]?.mz) {
+      result[masses[i].mz] = true;
+    }
+  }
+  return Object.keys(result).map(Number);
+}
