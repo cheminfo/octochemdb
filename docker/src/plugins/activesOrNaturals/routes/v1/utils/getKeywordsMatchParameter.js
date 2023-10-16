@@ -2,17 +2,15 @@ import { prepareKeywords } from './prepareKeywords';
 
 export function getKeywordsMatchParameter(matchParameter, keywords) {
   let regexKwTitles = prepareKeywords(keywords.kwTitles, {
-    escapeRegExp: true,
+    escapeRegExpression: true,
   });
   let regexKwBioassays = prepareKeywords(keywords.kwBioassays, {
-    escapeRegExp: true,
-    startsWith: true,
+    escapeRegExpression: true,
   });
   let regexKwActiveAgainst = prepareKeywords(keywords.kwActiveAgainst);
   let regexKwTaxonomies = prepareKeywords(keywords.kwTaxonomies);
   let regexKwMeshTerms = prepareKeywords(keywords.kwMeshTerms, {
-    escapeRegExp: true,
-    startsWith: true,
+    escapeRegExpression: true,
   });
 
   if (regexKwTaxonomies.length > 0) {

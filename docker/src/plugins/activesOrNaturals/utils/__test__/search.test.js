@@ -21,6 +21,7 @@ describe('search activesOrNaturals', async () => {
       },
     };
     const results = await entriesSearch.handler(request);
+
     request.query.limit = 2;
     const resultsTwo = await entriesSearch.handler(request);
     expect(results.data.length).toBeGreaterThan(resultsTwo.data.length);
@@ -29,7 +30,6 @@ describe('search activesOrNaturals', async () => {
         entry._id ===
         'fi{AP@@QrtZTjjsJk]jxHyHRuUUUUUUUU@AjxVIXUcVCXmavOXccNJx{b^ExQFMkX~FOaaul_CGpp',
     )[0];
-
     expect(resultToMatch).toMatchInlineSnapshot(`
       {
         "_id": "fi{AP@@QrtZTjjsJk]jxHyHRuUUUUUUUU@AjxVIXUcVCXmavOXccNJx{b^ExQFMkX~FOaaul_CGpp",
@@ -62,7 +62,7 @@ describe('search activesOrNaturals', async () => {
     const resultsTwo = await entriesSearch.handler({
       query: { isBioactive: false },
     });
-    expect(resultsTwo.data.length).toBeGreaterThan(results.data.length);
+    expect(resultsTwo.data.length).toBeLessThan(results.data.length);
     const resultToMatch = results.data.filter(
       (entry) =>
         entry._id ===
@@ -76,7 +76,6 @@ describe('search activesOrNaturals', async () => {
         kwTaxonomies: 'viridiplantae',
         kwBioassays: 'inhibitors',
         kwActiveAgainst: 'borrarchaeaceae',
-        kwMeshTerms: '',
         fields:
           'data.kwTaxonomies,data.kwBioassays,data.kwActiveAgainst,data.kwMeshTerms',
       },

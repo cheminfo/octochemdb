@@ -1,15 +1,15 @@
+import { escapeRegExp } from 'lodash';
+
 export function prepareKeywords(string, options = {}) {
-  const { escapeRegExp = false, startsWith = false } = options;
+  const { escapeRegExpression = false } = options;
+  if (!string) return [];
   return string
     .toLowerCase()
     .split(/ *(?:, |[;\t\n\r\s]+) */)
     .filter((entry) => entry)
     .map((entry) => {
-      if (escapeRegExp) {
+      if (escapeRegExpression) {
         entry = escapeRegExp(entry);
-      }
-      if (startsWith) {
-        entry = `^${entry}`;
       }
       return entry;
     });
