@@ -1,5 +1,4 @@
 import { createReadStream, createWriteStream, existsSync } from 'fs';
-import { join } from 'path';
 import { pipeline } from 'stream';
 import { promisify } from 'util';
 import { createGunzip } from 'zlib';
@@ -14,7 +13,7 @@ async function gunzipStream(inputFilename, outputFilename) {
     debug.trace(`decompress ${inputFilename}`);
     const gzip = createGunzip();
     const source = createReadStream(inputFilename);
-    const destination = createWriteStream(join(`${outputFilename}`));
+    const destination = createWriteStream(`${outputFilename}`);
     await pipe(source, gzip, destination).catch(() => {
       process.exitCode = 1;
     });
@@ -22,7 +21,7 @@ async function gunzipStream(inputFilename, outputFilename) {
     debug.trace('file already decompressed');
   }
 
-  return join(`${outputFilename}`);
+  return outputFilename;
 }
 
 export default gunzipStream;
