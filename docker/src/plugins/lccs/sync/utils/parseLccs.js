@@ -2,110 +2,197 @@ import { open } from 'fs/promises';
 
 import { parseStream } from 'arraybuffer-xml-parser';
 
-import debugLibrary from '../../../../utils/Debug.js';
+import { getHStatements } from './getHStatements.js';
+import { getPStatements } from './getPStatements.js';
+import { getPictograms } from './getPictograms.js';
+import { getRecords } from './getRecords.js';
+import { getReferences } from './getReferences.js';
+import { recursiveLowerCase } from './recursiveLowerCase.js';
 
-export default async function* parseLccs(filePath) {
-  const debug = debugLibrary('parseLccs');
+export async function* parseLccs(filePath, { hCodes, pCodes }) {
   const fileStream = await open(filePath, 'r');
   const readableStream = fileStream.readableWebStream();
-  //Reference
-  // parse the pubmed file stream
+
+  // @ts-ignore
   for await (const entry of parseStream(readableStream, 'Record')) {
     let result = {};
     recursiveLowerCase(entry);
-    if (entry.recordType === 'CID') {
+    // @ts-ignore
+    if (entry.recordtype === 'CID') {
       result = {
+        // @ts-ignore
         _id: entry.recordnumber,
         data: {},
       };
-    }
 
-    //console.log(entry.section);
-    for (let info of entry.section) {
-      if (info.tocheading === 'GHS Classification') {
-        //console.log(info.information[1].value);
-        result.data = {
-          description: info.description,
-        };
-        let signals = {};
-        let ghsStatements = [];
-        let hCodes = [];
-        let pCodes = [];
-        for (let classification of info.information) {
-          if (classification.name === 'Pictogram(s)') {
-            let pictograms = [];
-            const markup = classification.value.stringwithmarkup.markup;
-            if (Array.isArray(markup)) {
-              for (let pictogram of markup) {
-                pictograms.push({
-                  type: pictogram.extra,
-                  svgUrl: pictogram.url,
-                });
-              }
-            } else {
-              pictograms.push({
-                type: markup.extra,
-                svgUrl: markup.url,
-              });
-            }
-            result.data.pictograms = pictograms;
+      let signals = {};
+      let hCodesDescription = {};
+      let pCodesDescription = {};
+      let physicalProperties = [];
+      let toxicalInformation = [];
+      let exposureLimits = [];
+      let healthAndSymptoms = [];
+      let firstAid = [];
+      let flammabilityAndExplosivity = [];
+      let stabilityAndReactivity = [];
+      let storageAndHandling = [];
+      let cleanUpAndDisposal = [];
+      // @ts-ignore
+      let reference = getReferences(entry.reference);
+      // @ts-ignore
+      for (let info of entry.section) {
+        if (info.tocheading === 'Cleanup and Disposal') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
           }
-          if (classification.name === 'Precautionary Statement Codes') {
-            // console.log(classification.value);
-            const statements = classification.value.stringwithmarkup;
-            for (let precautionaryStatement of statements) {
-              //  console.log(precautionaryStatement);
-              if (precautionaryStatement.markup !== undefined) {
-                continue;
-              }
-
-              let codes = precautionaryStatement.string.split(
-                /\s*,\s*(?:and)?\s*|\s*\+\s*/,
-              );
-              pCodes = pCodes.concat(codes);
-            }
+          for (let property of info.section) {
+            let records = getRecords(property, reference);
+            cleanUpAndDisposal.push(records);
           }
-          if (classification.name === 'Signal') {
-            const currentSignal = classification.value.stringwithmarkup.string;
-            signals[currentSignal] = true;
-          }
-
-          if (classification.name === 'GHS Hazard Statements') {
-            const stringMarkup = classification.value.stringwithmarkup;
-            if (Array.isArray(stringMarkup)) {
-              for (let markup of stringMarkup) {
-                ghsStatements.push(markup.string);
-              }
-            } else {
-              ghsStatements.push(stringMarkup.string);
-              console.log(stringMarkup.string.split(/\s*,\s*(?=H\d+:)/));
-            }
-            // need regex to split when there is HXXX: like:H227:
-            // split('H\d{3}:')
-          }
-          //   console.log(classification.name);
         }
-        result.ghsStatements = ghsStatements;
+        if (info.tocheading === 'Storage and Handling') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            let records = getRecords(property, reference);
+            storageAndHandling.push(records);
+          }
+        }
+        if (info.tocheading === 'Stability and Reactivity') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            let records = getRecords(property, reference);
+            stabilityAndReactivity.push(records);
+          }
+        }
+        if (info.tocheading === 'Flammability and Explosivity') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            let records = getRecords(property, reference);
+            flammabilityAndExplosivity.push(records);
+          }
+        }
+        if (info.tocheading === 'First Aid') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            let firstAidInfo = getRecords(property, reference);
+            firstAid.push(firstAidInfo);
+          }
+        }
+        if (info.tocheading === 'Health and Symptoms') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            let healthSymptoms = getRecords(property, reference);
+            healthAndSymptoms.push(healthSymptoms);
+          }
+        }
+        if (info.tocheading === 'Exposure Limits') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            let limitsExposure = getRecords(property, reference);
+            exposureLimits.push(limitsExposure);
+          }
+        }
+        if (info.tocheading === 'Toxicity Information') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let toxicityInfo of info.section) {
+            const Toxicity = getRecords(toxicityInfo, reference);
+            toxicalInformation.push(Toxicity);
+          }
+        }
+        if (info.tocheading === 'Physical Properties') {
+          if (!Array.isArray(info.section)) {
+            info.section = [info.section];
+          }
+          for (let property of info.section) {
+            const properties = getRecords(property, reference);
+            physicalProperties.push(properties);
+          }
+        }
+        if (info.tocheading === 'GHS Classification') {
+          result.data = {
+            description: info.description,
+          };
+
+          for (let classification of info.information) {
+            if (classification.name === 'Pictogram(s)') {
+              result.data.pictograms = getPictograms(classification);
+            }
+            if (classification.name === 'Precautionary Statement Codes') {
+              const codes = getPStatements(classification);
+
+              for (let code of codes) {
+                pCodesDescription[code] = pCodes[code];
+              }
+            }
+            if (classification.name === 'Signal') {
+              const currentSignal =
+                classification.value.stringwithmarkup.string;
+              signals[currentSignal] = true;
+            }
+
+            if (classification.name === 'GHS Hazard Statements') {
+              hCodesDescription = getHStatements(
+                classification,
+                hCodes,
+                hCodesDescription,
+              );
+            }
+          }
+        }
+      }
+
+      if (Object.keys(hCodesDescription).length > 0) {
+        result.data.hCodesDescription = hCodesDescription;
+      }
+      if (Object.keys(pCodesDescription).length > 0) {
+        result.data.pCodesDescription = pCodesDescription;
+      }
+      if (Object.keys(signals).length > 0) {
         result.data.signals = Object.keys(signals);
       }
-    }
-    const count = 1;
-    if (count > 0) {
-      continue;
-    }
-    yield entry;
-  }
-}
-
-function recursiveLowerCase(obj) {
-  if (typeof obj === 'object' && obj !== null) {
-    for (let key in obj) {
-      const lowerKey = key.toLowerCase();
-      if (key !== lowerKey) {
-        obj[lowerKey] = obj[key];
-        delete obj[key];
+      if (physicalProperties.length > 0) {
+        result.data.physicalProperties = physicalProperties;
       }
-      recursiveLowerCase(obj[lowerKey]);
+      if (toxicalInformation.length > 0) {
+        result.data.toxicalInformation = toxicalInformation;
+      }
+      if (exposureLimits.length > 0) {
+        result.data.exposureLimits = exposureLimits;
+      }
+      if (healthAndSymptoms.length > 0) {
+        result.data.healthAndSymptoms = healthAndSymptoms;
+      }
+      if (firstAid.length > 0) {
+        result.data.firstAid = firstAid;
+      }
+      if (flammabilityAndExplosivity.length > 0) {
+        result.data.flammabilityAndExplosivity = flammabilityAndExplosivity;
+      }
+      if (stabilityAndReactivity.length > 0) {
+        result.data.stabilityAndReactivity = stabilityAndReactivity;
+      }
+      if (storageAndHandling.length > 0) {
+        result.data.storageAndHandling = storageAndHandling;
+      }
+      if (cleanUpAndDisposal.length > 0) {
+        result.data.cleanUpAndDisposal = cleanUpAndDisposal;
+      }
+
+      yield result;
     }
   }
 }
