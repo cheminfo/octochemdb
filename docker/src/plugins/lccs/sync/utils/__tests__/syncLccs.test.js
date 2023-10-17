@@ -1,31 +1,14 @@
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
+import { sync } from '../../sync.js';
 
-test('syncPubmed First Importation', async () => {
+test('syncLccs', async () => {
   const connection = new OctoChemConnection();
-
   await sync(connection);
-  const collection = await connection.getCollection('pubmeds');
-  const collectionEntry = await collection.find({ _id: 14248047 }).limit(1);
-  const result = await collectionEntry.next();
-  if (result?._seq) {
-    delete result._seq;
-  }
-  expect(result).toMatchSnapshot();
-  await connection.close();
-});
-test('syncPubmed Incremental Importation', async () => {
-  const connection = new OctoChemConnection();
-
-  const collection = await connection.getCollection('pubmeds');
-  const collectionEntryIncremental = await collection
-    .find({ _id: 17200418 })
-    .limit(1);
-  const resultIncremental = await collectionEntryIncremental.next();
-  if (resultIncremental?._seq) {
-    delete resultIncremental._seq;
-  }
-  expect(resultIncremental).toMatchSnapshot();
-  await connection.close();
-});
+  const lccs = await connection.getCollection('lccs');
+  const count = await lccs.countDocuments();
+  const entry = await lccs.findOne();
+  expect(count).toBe(4);
+  expect(entry).toMatchSnapshot();
+}, 1000000);

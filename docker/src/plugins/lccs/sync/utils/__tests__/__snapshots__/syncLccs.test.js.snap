@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`syncLccs 1`] = `
+{
+  "_id": 2,
+  "_seq": 1,
+  "data": {
+    "description": "GHS (Globally Harmonized System of Classification and Labelling of Chemicals) is a United Nations system to identify hazardous chemicals and to inform users about these hazards. GHS has been adopted by many countries around the world and is now also used as the basis for international and national transport regulations for dangerous goods. The GHS hazard statements, class categories, pictograms, signal words, and the precautionary statements can be found on the PubChem GHS page.",
+    "hCodesDescription": {
+      "H315 (100%)": " Causes skin irritation [Warning Skin corrosion/irritation]",
+      "H315 (98.18%)": " Causes skin irritation [Warning Skin corrosion/irritation]",
+      "H319 (100%)": " Causes serious eye irritation [Warning Serious eye damage/eye irritation]",
+      "H335 (100%)": " May cause respiratory irritation [Warning Specific target organ toxicity, single exposure; Respiratory tract irritation]",
+    },
+    "pCodesDescription": {
+      "P261": "Avoid breathing dust/fume/gas/mist/vapors/spray.",
+      "P264": "Wash hands [and ...] thoroughly after handling.",
+      "P264+P265": "Wash hands [and ...] thoroughly after handling. Do not touch eyes.",
+      "P271": "Use only outdoors or in a well-ventilated area.",
+      "P280": "Wear protective gloves/protective clothing/eye protection/face protection/hearing protection/...",
+      "P302+P352": "IF ON SKIN: wash with plenty of water/...",
+      "P304+P340": "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+      "P305+P351+P338": "IF IN EYES: Rinse cautiously with water for several minutes. Remove contact lenses if present and easy to do - continue rinsing.",
+      "P319": "Get medical help if you feel unwell.",
+      "P321": "Specific treatment (see ... on this label).",
+      "P332+P317": "If skin irritation occurs: Get medical help.",
+      "P337+P317": "If eye irritation persists: Get medical help.",
+      "P362+P364": "Take off contaminated clothing and wash it before reuse.",
+      "P403+P233": "Store in a well-ventilated place. Keep container tightly closed.",
+      "P405": "Store locked up.",
+      "P501": "Dispose of contents/container to ...",
+    },
+    "pictograms": [
+      {
+        "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS07.svg",
+        "type": "Irritant",
+      },
+    ],
+    "signals": [
+      "Warning",
+    ],
+  },
+}
+`;
