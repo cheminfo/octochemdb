@@ -1,4 +1,4 @@
-import { prepareKeywords } from './prepareKeywords';
+import { prepareKeywords } from './prepareKeywords.js';
 
 export function getKeywordsMatchParameter(matchParameter, keywords) {
   let regexKwTitles = prepareKeywords(keywords.kwTitles, {
