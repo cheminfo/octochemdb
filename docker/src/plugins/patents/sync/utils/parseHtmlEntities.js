@@ -3,10 +3,10 @@ export function parseHtmlEntities(str) {
     str = JSON.stringify(str);
   }
 
-  // First, handle numeric entities
+  // Handle numeric entities and Unicode escape sequences
   str = str.replace(
     /\\u(?<unicode>[\d\w]{4})|&#(?<htmlEntity>[0-9]{1,3});/gi,
-    (match, _, __, unicode, htmlEntity) => {
+    (match, unicode, htmlEntity) => {
       if (unicode) {
         return String.fromCharCode(parseInt(unicode, 16));
       } else if (htmlEntity) {
@@ -46,6 +46,7 @@ export function parseHtmlEntities(str) {
     '&Oslash;': 'Ø',
     '&plusmn;': '±',
     '&micro;': 'µ',
+    '&deg;': '°',
   };
 
   for (const [entity, replacement] of Object.entries(namedEntities)) {

@@ -16,4 +16,10 @@ test('parseHtmlEntities', async () => {
   expect(result1).toMatchInlineSnapshot(
     '"CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration\'s Office of Response and Restoration in partnership with the Environmental Protection Agency\'s Office of Emergency Management."',
   );
+  const text3 =
+    'temperature greater than 80 \u00B0C in an essentially dry process';
+  const result3 = parseHtmlEntities(text3);
+  expect(result3).toMatchInlineSnapshot(
+    '"temperature greater than 80 °C in an essentially dry process"',
+  );
 });
