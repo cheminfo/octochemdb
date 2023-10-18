@@ -1,11 +1,18 @@
-import pkg from 'fs-extra';
+import { createReadStream } from 'fs';
+import { createInterface } from 'readline';
 
-const { readFileSync } = pkg;
-export function getGHS(path) {
-  const file = readFileSync(path, 'utf8');
+export async function getGHS(path) {
   let hCodes = {};
   let pCodes = {};
-  for (let line of file.split('\n').slice(1)) {
+  const readStream = createReadStream(path);
+  const lines = createInterface({ input: readStream });
+
+  let skipFirst = true;
+  for await (let line of lines) {
+    if (skipFirst) {
+      skipFirst = false;
+      continue;
+    }
     if (line.startsWith('H')) {
       const [
         hCode,

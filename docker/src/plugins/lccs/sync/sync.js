@@ -97,8 +97,8 @@ export async function sync(connection) {
         lastFile.replace('.gz', '.xml'),
       );
 
-      const { hCodes, pCodes } = getGHS(fileGHS);
-      for await (const entry of parseLccs(outputFilename, { hCodes, pCodes })) {
+      const { hCodes, pCodes } = await getGHS(fileGHS);
+      for await (let entry of parseLccs(outputFilename, { hCodes, pCodes })) {
         counter++;
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
@@ -110,6 +110,7 @@ export async function sync(connection) {
         }
 
         entry._seq = ++progress.seq;
+
         await temporaryCollection.updateOne(
           { _id: entry._id },
           { $set: entry },
@@ -127,7 +128,6 @@ export async function sync(connection) {
       logs.endSequenceID = progress.seq;
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
-
       //Update progress in admin collection
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();

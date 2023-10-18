@@ -15,7 +15,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Personal protection: chemical protection suit including self-contained breathing apparatus. Do NOT let this chemical enter the environment. Vacuum with specialist equipment  or carefully sweep into sealable containers. If appropriate, moisten first to prevent dusting. Carefully collect remainder. Then store and dispose of according to local regulations.",
@@ -37,7 +37,7 @@ exports[`parseLccs 2`] = `
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
             "values": [
-              "SRP: The most favorable course of action is to use an alternative chemical product with less inherent propensity for occupational harm/injury/toxicity or environmental contamination. Recycle any unused portion of the material for its approved use or return it to the manufacturer or supplier. Ultimate disposal of the chemical must consider: the material&apos;s impact on air quality; potential migration in soil or water; effects on animal and plant life; and conformance with environmental and public health regulations.",
+              "SRP: The most favorable course of action is to use an alternative chemical product with less inherent propensity for occupational harm/injury/toxicity or environmental contamination. Recycle any unused portion of the material for its approved use or return it to the manufacturer or supplier. Ultimate disposal of the chemical must consider: the material's impact on air quality; potential migration in soil or water; effects on animal and plant life; and conformance with environmental and public health regulations.",
             ],
           },
           {
@@ -68,7 +68,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "The substance is severely irritating to the skin and eyes. The substance may cause effects on the blood. This may result in the formation of methaemoglobin. Exposure to high concentrations could cause death.",
@@ -86,7 +86,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Repeated or prolonged contact may cause skin sensitization. The substance may have effects on the blood. This may result in a decrease in haemoglobin and a decrease of blood cells.",
@@ -107,7 +107,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Lewis, R.J. Sr. (ed) Sax&apos;s Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley &amp; Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            ],
             "values": [
               "A moderate explosion hazard when exposed to flame, sparks, heated to 150 °C, or when shocked in a sealed container. Explosive reaction with ammonia at 170 °C/40 bar.",
             ],
@@ -121,7 +123,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Bretherick, L. Handbook of Reactive Chemical Hazards. 4th ed. Boston, MA: Butterworth-Heinemann Ltd., 1990, p. 568",
+            "supplementaryRef": [
+              "Bretherick, L. Handbook of Reactive Chemical Hazards. 4th ed. Boston, MA: Butterworth-Heinemann Ltd., 1990, p. 568",
+            ],
             "values": [
               "It has been used as an explosive.",
             ],
@@ -132,7 +136,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Explosive limits , vol% in air: 2.0-22",
@@ -152,7 +156,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Fresh air, rest. Artificial respiration may be needed. Refer for medical attention.",
@@ -170,7 +174,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Wear protective gloves when administering first aid. Remove contaminated clothes. Rinse and then wash skin with water and soap. Refer immediately for medical attention .",
@@ -188,7 +192,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "First rinse with plenty of water for several minutes (remove contact lenses if easily possible), then refer for medical attention.",
@@ -206,7 +210,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Rinse mouth. Give one or two glasses of water to drink. Do NOT induce vomiting. Refer for medical attention .",
@@ -229,7 +233,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "\\"National Fire Protection Association;  Fire Protection Guide to Hazardous Materials. 14TH Edition, Quincy, MA 2010, p. 325-52\\"",
+            "supplementaryRef": [
+              "National Fire Protection Association;  Fire Protection Guide to Hazardous Materials. 14TH Edition, Quincy, MA 2010, p. 325-52",
+            ],
             "values": [
               "Lower flammable limit: 2% by volume; Upper flammable limit: 22% by volume",
             ],
@@ -442,7 +448,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "May decompose explosively on shock, friction or concussion. May explode on heating even in the absence of air. Reacts with strong oxidants and strong bases. Reacts violently with ammonia and strong reducing agents. This generates fire and explosion hazard. On combustion, forms toxic and corrosive gases and fumes including hydrogen chloride and nitrogen oxides.",
@@ -460,7 +466,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Blue lips, fingernails and skin. Dizziness. Headache. Laboured breathing. Nausea. Vomiting. Blurred vision.",
@@ -478,7 +484,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "MAY BE ABSORBED! Redness. Pain. Further see Inhalation.",
@@ -496,7 +502,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Redness. Pain.",
@@ -514,7 +520,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Abdominal pain. Further see Inhalation.",
@@ -532,7 +538,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "The substance can be absorbed into the body through the skin and by ingestion.",
@@ -546,7 +552,7 @@ exports[`parseLccs 2`] = `
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
@@ -560,7 +566,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Combustible. Gives off irritating or toxic fumes (or gases) in a fire. Finely dispersed particles form explosive mixtures in air.",
@@ -580,7 +586,10 @@ exports[`parseLccs 2`] = `
               "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
               "url": "https://haz-map.com/Agents/2860",
             },
-            "supplementaryRef": "[\\"Merck Index - O&apos;Neil MJ, Heckelman PE, Dobbelaar PH, Roman KJ (eds). The Merck Index, An Encyclopedia of Chemicals, Drugs, and Biologicals, 15th Ed. Cambridge, UK: The Royal Society of Chemistry, 2013.\\",\\"Kanerva - Rustemeyer L, Elsner P, John SM, Maibach HI (eds). Kanerva&apos;s Occupational Dermatology, 2nd Ed. Berlin: Springer-Verlag, 2012., p. 1787\\"]",
+            "supplementaryRef": [
+              "Merck Index - O'Neil MJ, Heckelman PE, Dobbelaar PH, Roman KJ (eds). The Merck Index, An Encyclopedia of Chemicals, Drugs, and Biologicals, 15th Ed. Cambridge, UK: The Royal Society of Chemistry, 2013.",
+              "Kanerva - Rustemeyer L, Elsner P, John SM, Maibach HI (eds). Kanerva's Occupational Dermatology, 2nd Ed. Berlin: Springer-Verlag, 2012., p. 1787",
+            ],
             "values": [
               "Emergency treatment: Methemoglobinemia; May cause retrobulbar neuritis and loss of vision after chronic exposure; [HSDB] May cause allergic dermatitis; [Merck Index] A skin, eye, and respiratory tract irritant; May cause skin sensitization; Can induce methemoglobinemia; May cause nervous system injury resulting in impaired vision; [ICSC] Toxic by inhalation, ingestion, and skin absorption; [CAMEO] Dinitrochlorobenzene (DNCB) is a potent contact allergen that has been used in the treatment of alopecia areata and cutaneous metastasis of malignant melanoma; [Kanerva, p. 1787] An irritant; May cause skin sensitization; Effects in high-dose animal studies include methemoglobinemia, carboxyhemoglobin, convulsions or effect on seizure threshold, and other degenerative changes to brain; [MSDSonline]",
             ],
@@ -600,7 +609,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "\\"Lewis, R.J. Sr. (ed) Sax&apos;s Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley &amp; Sons, Inc. Hoboken, NJ. 2004., p. 809\\"",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            ],
             "values": [
               "Combustible when exposed to heat or flame.",
             ],
@@ -620,7 +631,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Sax, N.I. and R.J. Lewis, Sr. (eds.). Hawley&apos;s Condensed Chemical Dictionary. 11th ed. New York: Van Nostrand Reinhold Co., 1987., p. 265",
+            "supplementaryRef": [
+              "Sax, N.I. and R.J. Lewis, Sr. (eds.). Hawley's Condensed Chemical Dictionary. 11th ed. New York: Van Nostrand Reinhold Co., 1987., p. 265",
+            ],
             "values": [
               "SKIN IRRITANT.",
             ],
@@ -634,7 +647,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "NIOSH. NIOSH Pocket Guide to Chemical Hazards. DHHS(NIOSH) Publication No. 90-117. Washington, DC: U.S. Government Printing Office, June 1990, p. 98",
+            "supplementaryRef": [
+              "NIOSH. NIOSH Pocket Guide to Chemical Hazards. DHHS(NIOSH) Publication No. 90-117. Washington, DC: U.S. Government Printing Office, June 1990, p. 98",
+            ],
             "values": [
               "Eye irritant /2,4-Dinitrobenzene/",
             ],
@@ -648,9 +663,11 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Hayes, W.J., Jr., E.R. Laws, Jr., (eds.). Handbook of Pesticide Toxicology. Volume 3. Classes of Pesticides. New York, NY: Academic Press, Inc., 1991., p. 1422",
+            "supplementaryRef": [
+              "Hayes, W.J., Jr., E.R. Laws, Jr., (eds.). Handbook of Pesticide Toxicology. Volume 3. Classes of Pesticides. New York, NY: Academic Press, Inc., 1991., p. 1422",
+            ],
             "values": [
-              "The cmpd is irritating to the skin of rabbits &amp; highly irritating to their eyes.",
+              "The cmpd is irritating to the skin of rabbits & highly irritating to their eyes.",
             ],
           },
           {
@@ -662,9 +679,11 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Lewis, R.J. Sr. (ed) Sax&apos;s Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley &amp; Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            ],
             "values": [
-              "A severe human skin &amp; eye irritant.",
+              "A severe human skin & eye irritant.",
             ],
           },
         ],
@@ -711,7 +730,7 @@ exports[`parseLccs 2`] = `
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
@@ -739,7 +758,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "PALE YELLOW CRYSTALS WITH CHARACTERISTIC ODOUR.",
@@ -760,7 +779,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "\\"Lewis, R.J. Sr.; Hawley&apos;s Condensed Chemical Dictionary 15th  Edition. John Wiley &amp; Sons, Inc. New York, NY 2007., p. 280\\"",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr.; Hawley's Condensed Chemical Dictionary 15th  Edition. John Wiley & Sons, Inc. New York, NY 2007., p. 280",
+            ],
             "values": [
               "Almond odor",
             ],
@@ -780,7 +801,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "O&apos;Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            "supplementaryRef": [
+              "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            ],
             "values": [
               "315 °C",
             ],
@@ -791,7 +814,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "315 °C",
@@ -812,7 +835,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "O&apos;Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            "supplementaryRef": [
+              "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            ],
             "values": [
               "52-54 °C",
             ],
@@ -826,7 +851,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-110",
+            "supplementaryRef": [
+              "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-110",
+            ],
             "values": [
               "MELTING POINT: 43 °C /BETA FORM, UNSTABLE/",
             ],
@@ -840,7 +867,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-110",
+            "supplementaryRef": [
+              "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-110",
+            ],
             "values": [
               "MP: 27 °C /GAMMA FORM, UNSTABLE/",
             ],
@@ -851,7 +880,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "54 °C",
@@ -865,13 +894,15 @@ exports[`parseLccs 2`] = `
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
               "url": "https://cameochemicals.noaa.gov/chemical/594",
             },
-            "supplementaryRef": "National Fire Protection Association. 2010. Fire Protection Guide to Hazardous Materials, 14th edition, edited by Guy R. Colonna. Quincy, MA: National Fire Protection Association. Note that this information is subject to the copyright restrictions of the organization that provided the data.",
+            "supplementaryRef": [
+              "National Fire Protection Association. 2010. Fire Protection Guide to Hazardous Materials, 14th edition, edited by Guy R. Colonna. Quincy, MA: National Fire Protection Association. Note that this information is subject to the copyright restrictions of the organization that provided the data.",
+            ],
             "values": [
               "382 °F (NFPA, 2010)",
             ],
@@ -897,7 +928,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "National Fire Protection Association;  Fire Protection Guide to Hazardous Materials. 14TH Edition, Quincy, MA 2010, p. 325-52",
+            "supplementaryRef": [
+              "National Fire Protection Association;  Fire Protection Guide to Hazardous Materials. 14TH Edition, Quincy, MA 2010, p. 325-52",
+            ],
             "values": [
               "382 °F (194 °C)",
             ],
@@ -908,7 +941,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "179 °C",
@@ -941,7 +974,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "O&apos;Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            "supplementaryRef": [
+              "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            ],
             "values": [
               "Soluble in ether, benzene, and carbon disulfide; sparingly soluble in cold, freely soluble in hot alcohol",
             ],
@@ -955,7 +990,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Yalkowsky, S.H., He, Yan, Jain, P. Handbook of Aqueous Solubility Data Second Edition. CRC Press, Boca Raton, FL 2010, p. 195",
+            "supplementaryRef": [
+              "Yalkowsky, S.H., He, Yan, Jain, P. Handbook of Aqueous Solubility Data Second Edition. CRC Press, Boca Raton, FL 2010, p. 195",
+            ],
             "values": [
               "In water, 9.24 mg/L at 25 °C",
             ],
@@ -966,7 +1003,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Solubility in water at 15 °C: very poor",
@@ -987,7 +1024,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "O&apos;Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            "supplementaryRef": [
+              "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+            ],
             "values": [
               "1.7",
             ],
@@ -998,7 +1037,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Density  (at 20 °C): 1.7 g/cm³",
@@ -1019,7 +1058,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Dugal M; Kirk-Othmer Encyclopedia of Chemical Technology. (1999-2012). New York, NY: John Wiley &amp; Sons; Nitrobenzenes and Nitrotoluenes. Online Posting Date: Oct 14, 2005",
+            "supplementaryRef": [
+              "Dugal M; Kirk-Othmer Encyclopedia of Chemical Technology. (1999-2012). New York, NY: John Wiley & Sons; Nitrobenzenes and Nitrotoluenes. Online Posting Date: Oct 14, 2005",
+            ],
             "values": [
               "6.98 (Air = 1)",
             ],
@@ -1030,7 +1071,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Relative vapor density  (air = 1): 7.0",
@@ -1063,7 +1104,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Daubert, T.E., R.P. Danner. Physical and Thermodynamic Properties of Pure Chemicals Data Compilation. Washington, D.C.: Taylor and Francis, 1989.",
+            "supplementaryRef": [
+              "Daubert, T.E., R.P. Danner. Physical and Thermodynamic Properties of Pure Chemicals Data Compilation. Washington, D.C.: Taylor and Francis, 1989.",
+            ],
             "values": [
               "8.5X10-5 mm Hg at 25 °C",
             ],
@@ -1074,7 +1117,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Vapor pressure at 20 °C: negligible",
@@ -1092,7 +1135,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "432 °C",
@@ -1128,12 +1171,12 @@ exports[`parseLccs 2`] = `
     ],
     "stabilityAndReactivity": [
       {
-        "description": "Description of the chemical&apos;s potential reactivity with other chemicals, air, and water. Also it includes any other intrinsic reactive hazards (such as polymerizable or peroxidizable).",
+        "description": "Description of the chemical's potential reactivity with other chemicals, air, and water. Also it includes any other intrinsic reactive hazards (such as polymerizable or peroxidizable).",
         "title": "Reactivity Profile",
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
@@ -1151,7 +1194,7 @@ exports[`parseLccs 2`] = `
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
@@ -1173,7 +1216,7 @@ exports[`parseLccs 2`] = `
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 416,
               "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
-              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&amp;p_card_id=0416",
+              "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
             },
             "values": [
               "Fireproof. Separated from strong oxidants, strong bases, strong reducing agents, food and feedstuffs and ammonia. Store in an area without drain or sewer access.",
@@ -1194,7 +1237,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "\\"National Fire Protection Association. Fire Protection Guide on Hazardous Materials. 9th ed. Boston, MA: National Fire Protection Association, 1986., p. 49-30\\"",
+            "supplementaryRef": [
+              "National Fire Protection Association. Fire Protection Guide on Hazardous Materials. 9th ed. Boston, MA: National Fire Protection Association, 1986., p. 49-30",
+            ],
             "values": [
               "PROTECT AGAINST PHYSICAL DAMAGE, KEEP AWAY FROM HEAT AND SOURCES OF IGNITION OR ACUTE FIRE HAZARD AREAS. STORAGE AREA SHOULD BE EQUIPPED WITH AN AUTOMATIC SPRINKLER SYSTEM IF WITHIN A BUILDING.",
             ],
@@ -1207,7 +1252,7 @@ exports[`parseLccs 2`] = `
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
@@ -1223,7 +1268,7 @@ exports[`parseLccs 2`] = `
         "values": [
           {
             "reference": {
-              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration&apos;s Office of Response and Restoration in partnership with the Environmental Protection Agency&apos;s Office of Emergency Management.",
+              "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
               "name": "1-CHLORO-2,4-DINITROBENZENE",
               "sourceId": 594,
               "sourceName": "CAMEO Chemicals",
@@ -1248,7 +1293,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Lewis, R.J. Sr. (ed) Sax&apos;s Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley &amp; Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            ],
             "values": [
               "LD50 Rat ip 280 mg/kg",
             ],
@@ -1262,7 +1309,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Lewis, R.J. Sr. (ed) Sax&apos;s Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley &amp; Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            ],
             "values": [
               "LD50 Rabbit skin 130 mg/kg",
             ],
@@ -1276,7 +1325,9 @@ exports[`parseLccs 2`] = `
               "sourceName": "Hazardous Substances Data Bank (HSDB)",
               "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
             },
-            "supplementaryRef": "Lewis, R.J. Sr. (ed) Sax&apos;s Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley &amp; Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            "supplementaryRef": [
+              "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+            ],
             "values": [
               "LD50 Rat oral 780 mg/kg",
             ],
