@@ -1,4 +1,4 @@
-import { searchHandler } from './searchHandler/searchHanlder.js';
+import { searchHandler } from './searchHandler/searchHandler.js';
 
 // export the handler
 const searchGNPS = {
