@@ -1,5 +1,6 @@
-import { escapeRegExp } from 'lodash';
+import pkg from 'lodash';
 
+const { escapeRegExp } = pkg;
 export function prepareKeywords(string, options = {}) {
   const { escapeRegExpression = false } = options;
   if (!string) return [];
