@@ -1,0 +1,2801 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`id search (lccs) 2`] = `
+[
+  {
+    "_id": 2,
+    "data": {
+      "description": "GHS (Globally Harmonized System of Classification and Labelling of Chemicals) is a United Nations system to identify hazardous chemicals and to inform users about these hazards. GHS has been adopted by many countries around the world and is now also used as the basis for international and national transport regulations for dangerous goods. The GHS hazard statements, class categories, pictograms, signal words, and the precautionary statements can be found on the PubChem GHS page.",
+      "hCodesDescription": {
+        "H315 (100%)": " Causes skin irritation [Warning Skin corrosion/irritation]",
+        "H315 (98.18%)": " Causes skin irritation [Warning Skin corrosion/irritation]",
+        "H319 (100%)": " Causes serious eye irritation [Warning Serious eye damage/eye irritation]",
+        "H335 (100%)": " May cause respiratory irritation [Warning Specific target organ toxicity, single exposure; Respiratory tract irritation]",
+      },
+      "pCodesDescription": {
+        "P261": "Avoid breathing dust/fume/gas/mist/vapors/spray.",
+        "P264": "Wash hands [and ...] thoroughly after handling.",
+        "P264+P265": "Wash hands [and ...] thoroughly after handling. Do not touch eyes.",
+        "P271": "Use only outdoors or in a well-ventilated area.",
+        "P280": "Wear protective gloves/protective clothing/eye protection/face protection/hearing protection/...",
+        "P302+P352": "IF ON SKIN: wash with plenty of water/...",
+        "P304+P340": "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+        "P305+P351+P338": "IF IN EYES: Rinse cautiously with water for several minutes. Remove contact lenses if present and easy to do - continue rinsing.",
+        "P319": "Get medical help if you feel unwell.",
+        "P321": "Specific treatment (see ... on this label).",
+        "P332+P317": "If skin irritation occurs: Get medical help.",
+        "P337+P317": "If eye irritation persists: Get medical help.",
+        "P362+P364": "Take off contaminated clothing and wash it before reuse.",
+        "P403+P233": "Store in a well-ventilated place. Keep container tightly closed.",
+        "P405": "Store locked up.",
+        "P501": "Dispose of contents/container to ...",
+      },
+      "pictograms": [
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS07.svg",
+          "type": "Irritant",
+        },
+      ],
+      "signals": [
+        "Warning",
+      ],
+    },
+  },
+  {
+    "_id": 4,
+    "data": {
+      "cleanUpAndDisposal": [
+        {
+          "description": "Methods for containment and safety measures to protect workers dealing with a spillage of this chemical.",
+          "title": "Spillage Disposal",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Personal protection: complete protective clothing including self-contained breathing apparatus. Do NOT let this chemical enter the environment. Collect leaking liquid in sealable containers. Absorb remaining liquid in sand or inert absorbent. Then store and dispose of according to local regulations.",
+              ],
+            },
+          ],
+        },
+      ],
+      "description": "GHS (Globally Harmonized System of Classification and Labelling of Chemicals) is a United Nations system to identify hazardous chemicals and to inform users about these hazards. GHS has been adopted by many countries around the world and is now also used as the basis for international and national transport regulations for dangerous goods. The GHS hazard statements, class categories, pictograms, signal words, and the precautionary statements can be found on the PubChem GHS page.",
+      "exposureLimits": [
+        {
+          "description": "This section provides health effects of short-term exposure to this compound.  The short-term exposure (also called acute exposure) is a short contact with a chemical. It may last a few seconds or a few hours. For example, it might take a few minutes to clean windows with ammonia, use nail polish remover or spray a can of paint. The fumes someone might inhale during these activities are examples of acute exposures.",
+          "title": "Effects of Short Term Exposure",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "The substance is corrosive to the eyes, skin and respiratory tract. Corrosive on ingestion. Inhalation may cause lung oedema, but only after initial corrosive effects on eyes and/or airways have become manifest. Medical observation is indicated. If swallowed the substance may cause vomiting and could result in aspiration pneumonitis.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides health effects of long-term exposure to this compound.  The long-term exposure (also called chronic exposure) is continuous or repeated contact with a toxic chemical over a long period of time (months or years). If a chemical is used every day on the job, the exposure would be chronic. Over time, some chemicals, such as PCBs and lead, can build up in the body. Chronic exposures can also occur at home. Some chemicals in household furniture, carpeting or cleaners can be sources of chronic exposure.",
+          "title": "Effects of Long Term Exposure",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Repeated or prolonged contact with skin may cause dermatitis.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section shows lower and upper explosive limits of this chemical and other information on its explosive potential.  Explosive limits specify the concentration range of a material in air which will burn or explode in the presence of an ignition source. There are two types of explosive limits: lower explosive limit (LEL) and upper explosive limit (UEL). The explosive limits are usually given as the percent by volume of the material in the air (e.g., 5%).",
+          "title": "Explosive Limits and Potential",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Explosive limits , vol% in air: 1.9-10.4",
+              ],
+            },
+          ],
+        },
+      ],
+      "firstAid": [
+        {
+          "description": "First aid measures for exposure to this chemical through inhalation.",
+          "title": "Inhalation First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Fresh air, rest. Half-upright position. Artificial respiration may be needed. Refer for medical attention.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "First aid measures for exposure to this chemical through skin contact.",
+          "title": "Skin First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "First rinse with plenty of water for at least 15 minutes, then remove contaminated clothes and rinse again. Refer for medical attention .",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "First aid measures for exposure to this chemical through eye contact.",
+          "title": "Eye First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Rinse with plenty of water for several minutes (remove contact lenses if easily possible). Refer immediately for medical attention.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "First aid measures for exposure to this chemical through ingestion.",
+          "title": "Ingestion First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Rinse mouth. Give nothing to drink. Do NOT induce vomiting. Refer immediately for medical attention.",
+              ],
+            },
+          ],
+        },
+      ],
+      "flammabilityAndExplosivity": [
+        {
+          "description": "Lower explosive limit (LEL) means the minimum concentration of vapor in air below which propagation of a flame does not occur in the presence of an ignition source.",
+          "title": "Lower Explosive Limit (LEL)",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "2.2 % (USCG, 1999)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "2.20%",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Upper explosive limit (UEL) means the maximum concentration of flammable vapor in air above which propagation of flame does not occur on contact with a source of ignition.",
+          "title": "Upper Explosive Limit (UEL)",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "12 % (USCG, 1999)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "12%",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The National Fire Protection Association (NFPA) Hazard Classification (also known as NFPA 704) provides a simple, readily recognized, easily understood system for identifying the specific hazards of a material and the severity of the hazard that would occur during an emergency response. The system addresses the health, flammability, instability, and special hazards presented from short-term, acute exposures that could occur as a result of a fire, spill, or similar emergency.",
+          "title": "NFPA Hazard Classification",
+          "values": [
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "values": [
+                "",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "values": [
+                "2 - Materials that, under emergency conditions, can cause temporary incapacitation or residual injury.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "values": [
+                "2 - Materials that must be moderately heated or exposed to relatively high ambient temperatures before ignition can occur. Materials would not under normal conditions form hazardous atmospheres with air, but under high ambient temperatures or under moderate heating could release vapor in sufficient quantities to produce hazardous atmospheres with air.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "values": [
+                "0 - Materials that in themselves are normally stable, even under fire conditions.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "3 - Materials that, under emergency conditions, can cause serious or permanent injury.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "2 - Materials that must be moderately heated or exposed to relatively high ambient temperatures before ignition can occur. Materials would not under normal conditions form hazardous atmospheres with air, but under high ambient temperatures or under moderate heating could release vapor in sufficient quantities to produce hazardous atmospheres with air.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "0 - Materials that in themselves are normally stable, even under fire conditions.",
+              ],
+            },
+          ],
+        },
+      ],
+      "hCodesDescription": {
+        "H227": {
+          "ghsCategory": "Category 4",
+          "ghsClass": "Flammable liquids",
+          "ghsSignal": "Warning",
+          "hStatement": "Combustible liquid",
+          "pCode": "P210,P280,P370+P378,P403,P501",
+        },
+        "H302": {
+          "ghsCategory": "Category 4",
+          "ghsClass": "Acute toxicity, oral",
+          "ghsPictograms": "GHS07",
+          "ghsSignal": "Warning",
+          "hStatement": "Harmful if swallowed",
+          "pCode": "P264,P270,P301+P317,P330,P501",
+        },
+        "H312": {
+          "ghsCategory": "Category 4",
+          "ghsClass": "Acute toxicity, dermal",
+          "ghsPictograms": "GHS07",
+          "ghsSignal": "Warning",
+          "hStatement": "Harmful in contact with skin",
+          "pCode": "P280,P302+P352,P317,P321,P362+P364,P501",
+        },
+        "H312 (82.81%)": " Harmful in contact with skin [Warning Acute toxicity, dermal]",
+        "H314": {
+          "ghsCategory": "Category 1, 1A, 1B, 1C",
+          "ghsClass": "Skin corrosion/irritation",
+          "ghsPictograms": "GHS05",
+          "ghsSignal": "Danger",
+          "hStatement": "Causes severe skin burns and eye damage",
+          "pCode": "P260,P264,P280,P301+P330+P331,P302+P361+P354,P363,P304+P340,P316,P321,P305+P354+P338,P405,P501",
+          "unModel": "Class 8",
+        },
+        "H314 (100%)": " Causes severe skin burns and eye damage [Danger Skin corrosion/irritation]",
+        "H318": {
+          "ghsCategory": "Category 1",
+          "ghsClass": "Serious eye damage/eye irritation",
+          "ghsPictograms": "GHS05",
+          "ghsSignal": "Danger",
+          "hStatement": "Causes serious eye damage",
+          "pCode": "P264+P265,P280,P305+P354+P338,P317",
+        },
+        "H318 (86.56%)": " Causes serious eye damage [Danger Serious eye damage/eye irritation]",
+      },
+      "healthAndSymptoms": [
+        {
+          "description": "Chemical Dangers",
+          "title": "Chemical Dangers",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "On combustion, forms nitrogen oxides. Reacts violently with strong oxidants, cellulose nitrate, nitric acid and aldehydes.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through inhalation.",
+          "title": "Inhalation Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Sore throat. Cough. Burning sensation. Shortness of breath. Laboured breathing.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through skin contact.",
+          "title": "Skin Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Pain. Redness. Blisters. Skin burns.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through eye contact",
+          "title": "Eye Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Pain. Redness. Severe burns. Loss of vision.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through ingestion.",
+          "title": "Ingestion Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Burning sensation. Burns in mouth and throat. Abdominal cramps. Shock or collapse.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The way people or other living organisms may come into contact with a hazardous chemical.  Examples of common exposure routes are inhalation, ingestion, skin/eye contact.",
+          "title": "Exposure Routes",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Serious local effects by all routes of exposure.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Fire hazard means any situation, process, material or condition which may cause a fire or explosion or provide a ready fuel supply to increase the spread or intensity of the fire or explosion and which poses a threat to life or property.  This section provides information on fire hazards involving this chemical.",
+          "title": "Fire Hazards",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "Special Hazards of Combustion Products: Irritating vapors generated when heated. (USCG, 1999)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Combustible. Gives off irritating or toxic fumes (or gases) in a fire. Above 77 °C explosive vapour/air mixtures may be formed.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides an overview of the key hazards information of this compound.",
+          "title": "Hazards Summary",
+          "values": [
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "hz2843",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2843",
+              },
+              "values": [
+                "A corrosive substance that can cause injury to the skin, eyes, and respiratory tract; Inhalation may cause pulmonary edema; May be absorbed through skin; [ICSC] External application to rabbit eyes scored 7-9 on a scale of 1-10 (10 being most severe) for degree of injury after 24 hours; [HSDB] Safe when used as a flavoring agent in food; [JECFA] Corrosive; Harmful by ingestion and skin absorption; May cause corrosive effects to upper respiratory tract if inhaled; [Aldrich MSDS]",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "values": [
+                "The major hazards encountered in the use and handling of 1-amino-2-propanol stem from its toxicologic properties.  Toxic primarily by inhalation and dermal contact, exposure to this liquid, with a slight ammonia odor, may occur from its production and use as a chemical intermediate, emulsifying agent, in drycleaning soaps, wax removers, metal cutting oils, cosmetics, plasticizers,and insecticides.  In activities and situations where over-exposure may occur, wear a self-contained breathing apparatus.  If contact should occur, irrigate exposed eyes with copious amounts of tepid water for at least 15 minutes, and wash exposed skin thoroughly with soap and water. 1-Amino-2-propanol must be moderately heated before ignition will occur.  Fires involving this substance may be extinguished with water spray or alcohol foam.",
+              ],
+            },
+          ],
+        },
+      ],
+      "pCodesDescription": {
+        "P210": "Keep away from heat, hot surface, sparks, open flames and other ignition sources. No smoking.",
+        "P260": "Do not breathe dust/fume/gas/mist/vapors/spray.",
+        "P264": "Wash hands [and ...] thoroughly after handling.",
+        "P264+P265": "Wash hands [and ...] thoroughly after handling. Do not touch eyes.",
+        "P270": "Do not eat, drink or smoke when using this product.",
+        "P280": "Wear protective gloves/protective clothing/eye protection/face protection/hearing protection/...",
+        "P301+P317": "IF SWALLOWED: Get medical help.",
+        "P301+P330+P331": "IF SWALLOWED: Rinse mouth. Do NOT induce vomiting.",
+        "P302+P352": "IF ON SKIN: wash with plenty of water/...",
+        "P302+P361+P354": "IF ON SKIN: Take off Immediately all contaminated clothing. Immediately rinse with water for several minutes.",
+        "P304+P340": "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+        "P305+P354+P338": "IF IN EYES: Immediately rinse with water for several minutes. Remove contact lenses if present and easy to do. Continue rinsing.",
+        "P316": "Get emergency medical help immediately.",
+        "P317": "Get emergency medical help.",
+        "P321": "Specific treatment (see ... on this label).",
+        "P330": "Rinse mouth.",
+        "P362+P364": "Take off contaminated clothing and wash it before reuse.",
+        "P363": "Wash contaminated clothing before reuse.",
+        "P370+P378": "In case of fire: Use ... to extinguish.",
+        "P403": "Store in a well-ventilated place.",
+        "P405": "Store locked up.",
+        "P501": "Dispose of contents/container to ...",
+      },
+      "physicalProperties": [
+        {
+          "description": "The appearance or features of this compound, including color, odor, state, taste and more in general.",
+          "title": "Physical Description",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "values": [
+                "Monoisopropanolamine appears as a colorless liquid with a slight ammonia-like odor. Less dense than water and soluble in water. Flash point 165 °F. Corrosive to metals and tissue. Vapors are heavier than air. Produces toxic oxides of nitrogen during combustion. Used in plastics, paints, cutting oils, and specialized cleaning compounds.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "EPA Chemicals under the Toxic Substances Control Act (TSCA) collection contains information on chemicals and their regulations under TSCA, including non-confidential content from the TSCA Chemical Substance Inventory and Chemical Data Reporting.",
+                "name": "2-Propanol, 1-amino-",
+                "sourceId": "78-96-6",
+                "sourceName": "EPA Chemicals under the TSCA",
+                "url": "https://www.epa.gov/chemicals-under-tsca",
+              },
+              "values": [
+                "Liquid",
+              ],
+            },
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "hz2843",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2843",
+              },
+              "values": [
+                "Colorless liquid; [ICSC] Mild odor of ammonia; [HSDB] Light yellow liquid with an ammonia-like odor; [MSDSonline]",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Human Metabolome Database (HMDB) is a freely available electronic database containing detailed information about small molecule metabolites found in the human body.",
+                "name": "1-Amino-propan-2-ol",
+                "sourceId": "HMDB0012136",
+                "sourceName": "Human Metabolome Database (HMDB)",
+                "url": "http://www.hmdb.ca/metabolites/HMDB0012136",
+              },
+              "values": [
+                "Solid",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "COLOURLESS LIQUID WITH CHARACTERISTIC ODOUR.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The flavoring agent databse provides the most recent specifications for flavorings evaluated by JECFA.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "f_1581",
+                "sourceName": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)",
+                "url": "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1581/",
+              },
+              "values": [
+                "Colourless to faint yellow liquid; Fishy aroma",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "A colorless liquid with a slight ammonia-like odor.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The property of certain chemicals, in very small concentrations, to stimulate chemical sense receptors that sample the air or water.",
+          "title": "Odor",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Sax, N.I. and R.J. Lewis, Sr. (eds.). Hawley's Condensed Chemical Dictionary. 11th ed. New York: Van Nostrand Reinhold Co., 1987., p. 660",
+              ],
+              "values": [
+                "SLIGHT AMMONIA ODOR",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The temperature at which this compound changes state from liquid to gas at a given atmospheric pressure.",
+          "title": "Boiling Point",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "National Toxicology Program, Institute of Environmental Health Sciences, National Institutes of Health (NTP). 1992. National Toxicology Program Chemical Repository Database. Research Triangle Park, North Carolina.",
+              ],
+              "values": [
+                "313 to 316 °F at 758 mmHg (NTP, 1992)",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-459",
+              ],
+              "values": [
+                "159.46 °C @ 760 MM HG",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Human Metabolome Database (HMDB) is a freely available electronic database containing detailed information about small molecule metabolites found in the human body.",
+                "name": "1-Amino-propan-2-ol",
+                "sourceId": "HMDB0012136",
+                "sourceName": "Human Metabolome Database (HMDB)",
+                "url": "http://www.hmdb.ca/metabolites/HMDB0012136",
+              },
+              "supplementaryRef": [
+                "The Good Scents Company Information System",
+              ],
+              "values": [
+                "160.00 to 161.00 °C. @ 760.00 mm Hg",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "159.5 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "313-316 °F",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides the melting point and/or freezing point. The melting point is the temperature at which a substance changes state from solid to liquid at atmospheric pressure. When considered as the temperature of the reverse change (from liquid to solid), it is referred to as the freezing point.",
+          "title": "Melting Point",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "National Toxicology Program, Institute of Environmental Health Sciences, National Institutes of Health (NTP). 1992. National Toxicology Program Chemical Repository Database. Research Triangle Park, North Carolina.",
+              ],
+              "values": [
+                "34.5 °F (NTP, 1992)",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-459",
+              ],
+              "values": [
+                "1.74 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Human Metabolome Database (HMDB) is a freely available electronic database containing detailed information about small molecule metabolites found in the human body.",
+                "name": "1-Amino-propan-2-ol",
+                "sourceId": "HMDB0012136",
+                "sourceName": "Human Metabolome Database (HMDB)",
+                "url": "http://www.hmdb.ca/metabolites/HMDB0012136",
+              },
+              "supplementaryRef": [
+                "The Good Scents Company Information System",
+              ],
+              "values": [
+                "24.00 to 26.00 °C. @ 760.00 mm Hg",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "1 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "34.5 °F",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The lowest temperature at which a liquid can gives off vapor to form an ignitable mixture in air near the surface of the liquid.",
+          "title": "Flash Point",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "National Toxicology Program, Institute of Environmental Health Sciences, National Institutes of Health (NTP). 1992. National Toxicology Program Chemical Repository Database. Research Triangle Park, North Carolina.",
+              ],
+              "values": [
+                "171 °F (NTP, 1992)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "hz2843",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2843",
+              },
+              "values": [
+                "76.6 °C",
+              ],
+            },
+            {
+              "description": "QC REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Fire Protection Guide to Hazardous Materials. 12 ed. Quincy,  MA: National Fire Protection Association, 1997., p. 325-13",
+              ],
+              "values": [
+                "171 °F (77 °C) (closed cup)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "77 °C c.c.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "171 °F",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The solubility of a substance is the amount of that substance that will dissolve in a given amount of solvent. The default solvent is water, if not indicated.",
+          "title": "Solubility",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "National Toxicology Program, Institute of Environmental Health Sciences, National Institutes of Health (NTP). 1992. National Toxicology Program Chemical Repository Database. Research Triangle Park, North Carolina.",
+              ],
+              "values": [
+                "greater than or equal to 100 mg/mL at 67.6 °F (NTP, 1992)",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-459",
+              ],
+              "values": [
+                "SOL IN ALL PROPORTIONS IN WATER, ALC, ETHER, ACETONE, BENZENE, CARBON TETRACHLORIDE.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Human Metabolome Database (HMDB) is a freely available electronic database containing detailed information about small molecule metabolites found in the human body.",
+                "name": "1-Amino-propan-2-ol",
+                "sourceId": "HMDB0012136",
+                "sourceName": "Human Metabolome Database (HMDB)",
+                "url": "http://www.hmdb.ca/metabolites/HMDB0012136",
+              },
+              "supplementaryRef": [
+                "The Good Scents Company Information System",
+              ],
+              "values": [
+                "1.00E+06 mg/L @ 25 °C (exp)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Solubility in water: soluble",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The flavoring agent databse provides the most recent specifications for flavorings evaluated by JECFA.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "f_1581",
+                "sourceName": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)",
+                "url": "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1581/",
+              },
+              "values": [
+                "Soluble in water",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The flavoring agent databse provides the most recent specifications for flavorings evaluated by JECFA.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "f_1581",
+                "sourceName": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)",
+                "url": "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1581/",
+              },
+              "values": [
+                "Soluble (in ethanol)",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides information on the density (with unit) and specific gravity (without unit) of a compound. Density is mass of a unit volume of a compound and commonly expressed in units of kg/m3 or g/cm3. Specific gravity, also known as relative density, is a unit-less quantity, defined as the ratio of the density of a compound to that of a standard reference material (typically, water at 4 °C for liquids and air at room temperature [20 °C or 68 °F] for gases).",
+          "title": "Density",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "0.961 at 68 °F (USCG, 1999)",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-459",
+              ],
+              "values": [
+                "0.9611 @ 20 °C/4 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "0.96 g/cm³",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Relative density of the vapour/air-mixture at 20 °C (air = 1): 1.00",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The flavoring agent databse provides the most recent specifications for flavorings evaluated by JECFA.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "f_1581",
+                "sourceName": "Joint FAO/WHO Expert Committee on Food Additives (JECFA)",
+                "url": "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1581/",
+              },
+              "values": [
+                "0.970-0.976",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "0.961",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The density of a gas or vapor relative to that of the reference gas.  While some resources use the hydrogen gas as the reference gas for the vapor density calculation, many resources (particularly in relation to safety considerations at commercial and industrial facilities in the U.S.) defines the vapor density with respect to the density of air, which has an arbitrary value of one.  If a gas has a vapor density of less than one it will generally rise in air. If the vapor density is greater than one the gas will generally sink in air.",
+          "title": "Vapor Density",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "National Toxicology Program, Institute of Environmental Health Sciences, National Institutes of Health (NTP). 1992. National Toxicology Program Chemical Repository Database. Research Triangle Park, North Carolina.",
+              ],
+              "values": [
+                "2.6 (NTP, 1992) (Relative to Air)",
+              ],
+            },
+            {
+              "description": "QC REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Fire Protection Guide to Hazardous Materials. 12 ed. Quincy,  MA: National Fire Protection Association, 1997., p. 325-13",
+              ],
+              "values": [
+                "2.6 (AIR= 1)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Relative vapor density  (air = 1): 2.6",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "2.6",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Vapor pressure (or equilibrium vapor pressure) is the pressure of a vapor in thermodynamic equilibrium with its condensed phases in a closed system.",
+          "title": "Vapor Pressure",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "2.59 mmHg (USCG, 1999)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Amino-2-propanol",
+                "sourceId": "hz2843",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2843",
+              },
+              "values": [
+                "0.47 [mmHg]",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Daubert TE; Danner RP; Physical and Thermodynamic Properties of Pure Chemicals: Data Compilation, NY: Hemisphere Pub Corp (1989)",
+              ],
+              "values": [
+                "0.47 mm Hg at 25 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Vapor pressure, kPa at 20 °C: 0.2",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The OSHA Occupational Chemical Database contains over 800 entries with information such as physical properties, exposure guidelines, etc.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 819,
+                "sourceName": "Occupational Safety and Health Administration (OSHA)",
+                "url": "https://www.osha.gov/chemicaldata/819",
+              },
+              "values": [
+                "2.59 mmHg",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The lowest temperature at which the substance will spontaneously ignite in a normal atmosphere without an external source of ignition (e.g., spark or flame).",
+          "title": "Autoignition Temperature",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "706 °F (USCG, 1999)",
+              ],
+            },
+            {
+              "description": "QC REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Fire Protection Guide to Hazardous Materials. 12 ed. Quincy,  MA: National Fire Protection Association, 1997., p. 325-13",
+              ],
+              "values": [
+                "705 °F (374 °C)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "374 °C",
+              ],
+            },
+          ],
+        },
+      ],
+      "pictograms": [
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS05.svg",
+          "type": "Corrosive",
+        },
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS07.svg",
+          "type": "Irritant",
+        },
+      ],
+      "signals": [
+        "Danger",
+      ],
+      "stabilityAndReactivity": [
+        {
+          "description": "Description of the chemical's potential reactivity with other chemicals, air, and water. Also it includes any other intrinsic reactive hazards (such as polymerizable or peroxidizable).",
+          "title": "Reactivity Profile",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "values": [
+                "MONOISOPROPANOLAMINE is an aminoalcohol. Amines are chemical bases. They neutralize acids to form salts plus water. These acid-base reactions are exothermic. The amount of heat that is evolved per mole of amine in a neutralization is largely independent of the strength of the amine as a base. Amines may be incompatible with isocyanates, halogenated organics, peroxides, phenols (acidic), epoxides, anhydrides, and acid halides. Flammable gaseous hydrogen is generated by amines in combination with strong reducing agents, such as hydrides.",
+              ],
+            },
+          ],
+        },
+      ],
+      "storageAndHandling": [
+        {
+          "description": "Measures to take for safe storage of this chemical.",
+          "title": "Safe Storage",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "ISOPROPANOLAMINE",
+                "sourceId": 905,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0905",
+              },
+              "values": [
+                "Separated from strong oxidants and food and feedstuffs. See Chemical Dangers. Well closed. Keep in a well-ventilated room. Store in an area without drain or sewer access.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Personal protective equipment (PPE) to use when handling this chemical.",
+          "title": "Personal Protective Equipment (PPE)",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "supplementaryRef": [
+                "U.S. Coast Guard. 1999. Chemical Hazard Response Information System (CHRIS) - Hazardous Chemical Data. Commandant Instruction 16465.12C. Washington, D.C.: U.S. Government Printing Office.",
+              ],
+              "values": [
+                "Full face shield; goggles; eye wash facility. (USCG, 1999)",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Emergency response measures to take in the event of a chemical spill (without a fire).",
+          "title": "Nonfire Spill Response",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "MONOISOPROPANOLAMINE",
+                "sourceId": 8864,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/8864",
+              },
+              "values": [],
+            },
+          ],
+        },
+      ],
+      "toxicalInformation": [
+        {
+          "description": "Quantitative non-human toxicity values (e.g., lethal dose) for this compound.  The data shown here are mostly for lab animals (e.g., rat, mouse, guinea pig, and rabbit).",
+          "title": "Non-Human Toxicity Values",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-AMINO-2-PROPANOL",
+                "sourceId": 5224,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5224",
+              },
+              "supplementaryRef": [
+                "Verschueren, K. Handbook of Environmental Data of Organic Chemicals. 2nd ed. New York, NY: Van Nostrand Reinhold Co., 1983., p. 777",
+              ],
+              "values": [
+                "LD50 Rat oral 4.26 g/kg",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    "_id": 6,
+    "data": {
+      "cleanUpAndDisposal": [
+        {
+          "description": "Methods for containment and safety measures to protect workers dealing with a spillage of this chemical.",
+          "title": "Spillage Disposal",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Personal protection: chemical protection suit including self-contained breathing apparatus. Do NOT let this chemical enter the environment. Vacuum with specialist equipment  or carefully sweep into sealable containers. If appropriate, moisten first to prevent dusting. Carefully collect remainder. Then store and dispose of according to local regulations.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Disposal methods or procedures for this chemical or hazardous waste containing it.",
+          "title": "Disposal Methods",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "values": [
+                "SRP: The most favorable course of action is to use an alternative chemical product with less inherent propensity for occupational harm/injury/toxicity or environmental contamination. Recycle any unused portion of the material for its approved use or return it to the manufacturer or supplier. Ultimate disposal of the chemical must consider: the material's impact on air quality; potential migration in soil or water; effects on animal and plant life; and conformance with environmental and public health regulations.",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "values": [
+                "SRP: At the time of review, criteria for land treatment or burial (sanitary landfill) disposal practices are subject to significant revision. Prior to implementing land disposal of waste residue (including waste sludge), consult with environmental regulatory agencies for guidance on acceptable disposal practices.",
+              ],
+            },
+          ],
+        },
+      ],
+      "description": "GHS (Globally Harmonized System of Classification and Labelling of Chemicals) is a United Nations system to identify hazardous chemicals and to inform users about these hazards. GHS has been adopted by many countries around the world and is now also used as the basis for international and national transport regulations for dangerous goods. The GHS hazard statements, class categories, pictograms, signal words, and the precautionary statements can be found on the PubChem GHS page.",
+      "exposureLimits": [
+        {
+          "description": "This section provides health effects of short-term exposure to this compound.  The short-term exposure (also called acute exposure) is a short contact with a chemical. It may last a few seconds or a few hours. For example, it might take a few minutes to clean windows with ammonia, use nail polish remover or spray a can of paint. The fumes someone might inhale during these activities are examples of acute exposures.",
+          "title": "Effects of Short Term Exposure",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "The substance is severely irritating to the skin and eyes. The substance may cause effects on the blood. This may result in the formation of methaemoglobin. Exposure to high concentrations could cause death.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides health effects of long-term exposure to this compound.  The long-term exposure (also called chronic exposure) is continuous or repeated contact with a toxic chemical over a long period of time (months or years). If a chemical is used every day on the job, the exposure would be chronic. Over time, some chemicals, such as PCBs and lead, can build up in the body. Chronic exposures can also occur at home. Some chemicals in household furniture, carpeting or cleaners can be sources of chronic exposure.",
+          "title": "Effects of Long Term Exposure",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Repeated or prolonged contact may cause skin sensitization. The substance may have effects on the blood. This may result in a decrease in haemoglobin and a decrease of blood cells.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section shows lower and upper explosive limits of this chemical and other information on its explosive potential.  Explosive limits specify the concentration range of a material in air which will burn or explode in the presence of an ignition source. There are two types of explosive limits: lower explosive limit (LEL) and upper explosive limit (UEL). The explosive limits are usually given as the percent by volume of the material in the air (e.g., 5%).",
+          "title": "Explosive Limits and Potential",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+              ],
+              "values": [
+                "A moderate explosion hazard when exposed to flame, sparks, heated to 150 °C, or when shocked in a sealed container. Explosive reaction with ammonia at 170 °C/40 bar.",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Bretherick, L. Handbook of Reactive Chemical Hazards. 4th ed. Boston, MA: Butterworth-Heinemann Ltd., 1990, p. 568",
+              ],
+              "values": [
+                "It has been used as an explosive.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Explosive limits , vol% in air: 2.0-22",
+              ],
+            },
+          ],
+        },
+      ],
+      "firstAid": [
+        {
+          "description": "First aid measures for exposure to this chemical through inhalation.",
+          "title": "Inhalation First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Fresh air, rest. Artificial respiration may be needed. Refer for medical attention.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "First aid measures for exposure to this chemical through skin contact.",
+          "title": "Skin First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Wear protective gloves when administering first aid. Remove contaminated clothes. Rinse and then wash skin with water and soap. Refer immediately for medical attention .",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "First aid measures for exposure to this chemical through eye contact.",
+          "title": "Eye First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "First rinse with plenty of water for several minutes (remove contact lenses if easily possible), then refer for medical attention.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "First aid measures for exposure to this chemical through ingestion.",
+          "title": "Ingestion First Aid",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Rinse mouth. Give one or two glasses of water to drink. Do NOT induce vomiting. Refer for medical attention .",
+              ],
+            },
+          ],
+        },
+      ],
+      "flammabilityAndExplosivity": [
+        {
+          "description": "The flammable limits (or the flammability limits) are the minimum and maximum concentrations of fuel vapor or gas in a fuel vapor or gas/gaseous oxidant mixture (usually expressed in percent by volume) defining the concentration range (flammable or explosive range) over which propagation of flame will occur on contact with an ignition source.  Also called explosive (or explosivity) limits.",
+          "title": "Flammable Limits",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "National Fire Protection Association;  Fire Protection Guide to Hazardous Materials. 14TH Edition, Quincy, MA 2010, p. 325-52",
+              ],
+              "values": [
+                "Lower flammable limit: 2% by volume; Upper flammable limit: 22% by volume",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The National Fire Protection Association (NFPA) Hazard Classification (also known as NFPA 704) provides a simple, readily recognized, easily understood system for identifying the specific hazards of a material and the severity of the hazard that would occur during an emergency response. The system addresses the health, flammability, instability, and special hazards presented from short-term, acute exposures that could occur as a result of a fire, spill, or similar emergency.",
+          "title": "NFPA Hazard Classification",
+          "values": [
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "values": [
+                "",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "values": [
+                "3 - Materials that, under emergency conditions, can cause serious or permanent injury.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "values": [
+                "4 - Materials that rapidly or completely vaporize at atmospheric pressure and normal ambient temperature or that are readily dispersed in air and burn readily.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "values": [
+                "0 - Materials that in themselves are normally stable, even under fire conditions.",
+              ],
+            },
+          ],
+        },
+      ],
+      "hCodesDescription": {
+        "H301": {
+          "ghsCategory": "Category 3",
+          "ghsClass": "Acute toxicity, oral",
+          "ghsPictograms": "GHS06",
+          "ghsSignal": "Danger",
+          "hStatement": "Toxic if swallowed",
+          "pCode": "P264,P270,P301+P316,P321,P330,P405,P501",
+          "unModel": "Div 2.3 or 6.1",
+        },
+        "H301 (71.64%)": " Toxic if swallowed [Danger Acute toxicity, oral]",
+        "H301+H331 (62.69%)": " Toxic if swallowed or if inhaled [Danger Acute toxicity, oral; acute toxicity, inhalation]",
+        "H302": {
+          "ghsCategory": "Category 4",
+          "ghsClass": "Acute toxicity, oral",
+          "ghsPictograms": "GHS07",
+          "ghsSignal": "Warning",
+          "hStatement": "Harmful if swallowed",
+          "pCode": "P264,P270,P301+P317,P330,P501",
+        },
+        "H302 (27.36%)": " Harmful if swallowed [Warning Acute toxicity, oral]",
+        "H310": {
+          "ghsCategory": "Category 1, 2",
+          "ghsClass": "Acute toxicity, dermal",
+          "ghsPictograms": "GHS06",
+          "ghsSignal": "Danger",
+          "hStatement": "Fatal in contact with skin",
+          "pCode": "P262,P264,P270,P280,P302+P352,P316,P321,P361+P364,P405,P501",
+          "unModel": "Div 2.3 or 6.1",
+        },
+        "H310 (91.54%)": " Fatal in contact with skin [Danger Acute toxicity, dermal]",
+        "H311": {
+          "ghsCategory": "Category 3",
+          "ghsClass": "Acute toxicity, dermal",
+          "ghsPictograms": "GHS06",
+          "ghsSignal": "Danger",
+          "hStatement": "Toxic in contact with skin",
+          "pCode": "P262,P264,,P270,P280,P302+P352,P316,P321,P361+P364,P405,P501",
+          "unModel": "Div 2.3 or 6.1",
+        },
+        "H315": {
+          "ghsCategory": "Category 2",
+          "ghsClass": "Skin corrosion/irritation",
+          "ghsPictograms": "GHS07",
+          "ghsSignal": "Warning",
+          "hStatement": "Causes skin irritation",
+          "pCode": "P264,P280,P302+P352,P321,P332+P317,P362+P364",
+        },
+        "H315 (93.53%)": " Causes skin irritation [Warning Skin corrosion/irritation]",
+        "H317": {
+          "ghsCategory": "Category 1, 1A, 1B",
+          "ghsClass": "Sensitization, Skin",
+          "ghsPictograms": "GHS07",
+          "ghsSignal": "Warning",
+          "hStatement": "May cause an allergic skin reaction",
+          "pCode": "P261,P272,P280,P302+P352,P333+P317,P321,P362+P364,P501",
+        },
+        "H317 (91.04%)": " May cause an allergic skin reaction [Warning Sensitization, Skin]",
+        "H318": {
+          "ghsCategory": "Category 1",
+          "ghsClass": "Serious eye damage/eye irritation",
+          "ghsPictograms": "GHS05",
+          "ghsSignal": "Danger",
+          "hStatement": "Causes serious eye damage",
+          "pCode": "P264+P265,P280,P305+P354+P338,P317",
+        },
+        "H318 (93.03%)": " Causes serious eye damage [Danger Serious eye damage/eye irritation]",
+        "H331": {
+          "ghsCategory": "Category 3",
+          "ghsClass": "Acute toxicity, inhalation",
+          "ghsPictograms": "GHS06",
+          "ghsSignal": "Danger",
+          "hStatement": "Toxic if inhaled",
+          "pCode": "P261,P271,P304+P340,P316,P321,P403+P233,P405,P501",
+          "unModel": "Div 2.3 or 6.1",
+        },
+        "H331 (71.64%)": " Toxic if inhaled [Danger Acute toxicity, inhalation]",
+        "H335": {
+          "ghsCategory": "Category 3",
+          "ghsClass": "Specific target organ toxicity, single exposure; Respiratory tract irritation",
+          "ghsPictograms": "GHS07",
+          "ghsSignal": "Warning",
+          "hStatement": "May cause respiratory irritation",
+          "pCode": "P261,P271,P304+P340,P319,P403+P233,P405,P501",
+        },
+        "H341": {
+          "ghsCategory": "Category 2",
+          "ghsClass": "Germ cell mutagenicity",
+          "ghsPictograms": "GHS08",
+          "ghsSignal": "Warning",
+          "hStatement": "Suspected of causing genetic defects",
+          "pCode": "P203,P280,P318,P405,P501",
+        },
+        "H370": {
+          "ghsCategory": "Category 1",
+          "ghsClass": "Specific target organ toxicity, single exposure",
+          "ghsPictograms": "GHS08",
+          "ghsSignal": "Danger",
+          "hStatement": "Causes damage to organs",
+          "pCode": "P260,P264,P270,P308+P316,P321,P405,P501",
+        },
+        "H372": {
+          "ghsCategory": "Category 1",
+          "ghsClass": "Specific target organ toxicity, repeated exposure",
+          "ghsPictograms": "GHS08",
+          "ghsSignal": "Danger",
+          "hStatement": "Causes damage to organs through prolonged or repeated exposure",
+          "pCode": "P260,P264,P270,P319,P501",
+        },
+        "H373": {
+          "ghsCategory": "Category 2",
+          "ghsClass": "Specific target organ toxicity, repeated exposure",
+          "ghsPictograms": "GHS08",
+          "ghsSignal": "Warning",
+          "hStatement": "May causes damage to organs through prolonged or repeated exposure",
+          "pCode": "P260,P319,P501",
+        },
+        "H373 (92.04%)": " Causes damage to organs through prolonged or repeated exposure [Warning Specific target organ toxicity, repeated exposure]",
+        "H373 **": " Causes damage to organs through prolonged or repeated exposure [Warning Specific target organ toxicity, repeated exposure]",
+        "H400": {
+          "ghsCategory": "Category 1",
+          "ghsClass": "Hazardous to the aquatic environment, acute hazard",
+          "ghsPictograms": "GHS09",
+          "ghsSignal": "Warning",
+          "hStatement": "Very toxic to aquatic life",
+          "pCode": "P273,P391,P501",
+          "unModel": "Class 9",
+        },
+        "H400 (94.03%)": " Very toxic to aquatic life [Warning Hazardous to the aquatic environment, acute hazard]",
+        "H410": {
+          "ghsCategory": "Category 1",
+          "ghsClass": "Hazardous to the aquatic environment, long-term hazard",
+          "ghsPictograms": "GHS09",
+          "ghsSignal": "Warning",
+          "hStatement": "Very toxic to aquatic life with long lasting effects",
+          "pCode": "P273,P391,P501",
+          "unModel": "Class 9",
+        },
+        "H410 (99.5%)": " Very toxic to aquatic life with long lasting effects [Warning Hazardous to the aquatic environment, long-term hazard]",
+      },
+      "healthAndSymptoms": [
+        {
+          "description": "Chemical Dangers",
+          "title": "Chemical Dangers",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "May decompose explosively on shock, friction or concussion. May explode on heating even in the absence of air. Reacts with strong oxidants and strong bases. Reacts violently with ammonia and strong reducing agents. This generates fire and explosion hazard. On combustion, forms toxic and corrosive gases and fumes including hydrogen chloride and nitrogen oxides.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through inhalation.",
+          "title": "Inhalation Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Blue lips, fingernails and skin. Dizziness. Headache. Laboured breathing. Nausea. Vomiting. Blurred vision.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through skin contact.",
+          "title": "Skin Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "MAY BE ABSORBED! Redness. Pain. Further see Inhalation.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through eye contact",
+          "title": "Eye Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Redness. Pain.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Symptoms of exposure to this chemical through ingestion.",
+          "title": "Ingestion Symptoms",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Abdominal pain. Further see Inhalation.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The way people or other living organisms may come into contact with a hazardous chemical.  Examples of common exposure routes are inhalation, ingestion, skin/eye contact.",
+          "title": "Exposure Routes",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "The substance can be absorbed into the body through the skin and by ingestion.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Fire hazard means any situation, process, material or condition which may cause a fire or explosion or provide a ready fuel supply to increase the spread or intensity of the fire or explosion and which poses a threat to life or property.  This section provides information on fire hazards involving this chemical.",
+          "title": "Fire Hazards",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "values": [],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Combustible. Gives off irritating or toxic fumes (or gases) in a fire. Finely dispersed particles form explosive mixtures in air.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides an overview of the key hazards information of this compound.",
+          "title": "Hazards Summary",
+          "values": [
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Chloro-2,4-dinitrobenzene",
+                "sourceId": "hz2860",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2860",
+              },
+              "supplementaryRef": [
+                "Merck Index - O'Neil MJ, Heckelman PE, Dobbelaar PH, Roman KJ (eds). The Merck Index, An Encyclopedia of Chemicals, Drugs, and Biologicals, 15th Ed. Cambridge, UK: The Royal Society of Chemistry, 2013.",
+                "Kanerva - Rustemeyer L, Elsner P, John SM, Maibach HI (eds). Kanerva's Occupational Dermatology, 2nd Ed. Berlin: Springer-Verlag, 2012., p. 1787",
+              ],
+              "values": [
+                "Emergency treatment: Methemoglobinemia; May cause retrobulbar neuritis and loss of vision after chronic exposure; [HSDB] May cause allergic dermatitis; [Merck Index] A skin, eye, and respiratory tract irritant; May cause skin sensitization; Can induce methemoglobinemia; May cause nervous system injury resulting in impaired vision; [ICSC] Toxic by inhalation, ingestion, and skin absorption; [CAMEO] Dinitrochlorobenzene (DNCB) is a potent contact allergen that has been used in the treatment of alopecia areata and cutaneous metastasis of malignant melanoma; [Kanerva, p. 1787] An irritant; May cause skin sensitization; Effects in high-dose animal studies include methemoglobinemia, carboxyhemoglobin, convulsions or effect on seizure threshold, and other degenerative changes to brain; [MSDSonline]",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section describes fire potential of this chemical (e.g., whether it is combustible or flammable).",
+          "title": "Fire Potential",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+              ],
+              "values": [
+                "Combustible when exposed to heat or flame.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Skin, eye and respiratory irritations caused by exposure to this chemical.",
+          "title": "Skin, Eye, and Respiratory Irritations",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Sax, N.I. and R.J. Lewis, Sr. (eds.). Hawley's Condensed Chemical Dictionary. 11th ed. New York: Van Nostrand Reinhold Co., 1987., p. 265",
+              ],
+              "values": [
+                "SKIN IRRITANT.",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "NIOSH. NIOSH Pocket Guide to Chemical Hazards. DHHS(NIOSH) Publication No. 90-117. Washington, DC: U.S. Government Printing Office, June 1990, p. 98",
+              ],
+              "values": [
+                "Eye irritant /2,4-Dinitrobenzene/",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Hayes, W.J., Jr., E.R. Laws, Jr., (eds.). Handbook of Pesticide Toxicology. Volume 3. Classes of Pesticides. New York, NY: Academic Press, Inc., 1991., p. 1422",
+              ],
+              "values": [
+                "The cmpd is irritating to the skin of rabbits & highly irritating to their eyes.",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+              ],
+              "values": [
+                "A severe human skin & eye irritant.",
+              ],
+            },
+          ],
+        },
+      ],
+      "pCodesDescription": {
+        "P203": "Obtain, read and follow all safety instructions before use.",
+        "P260": "Do not breathe dust/fume/gas/mist/vapors/spray.",
+        "P261": "Avoid breathing dust/fume/gas/mist/vapors/spray.",
+        "P262": "Do not get in eyes, on skin, or on clothing.",
+        "P264": "Wash hands [and ...] thoroughly after handling.",
+        "P264+P265": "Wash hands [and ...] thoroughly after handling. Do not touch eyes.",
+        "P270": "Do not eat, drink or smoke when using this product.",
+        "P271": "Use only outdoors or in a well-ventilated area.",
+        "P272": "Contaminated work clothing should not be allowed out of the workplace.",
+        "P273": "Avoid release to the environment.",
+        "P280": "Wear protective gloves/protective clothing/eye protection/face protection/hearing protection/...",
+        "P281": "(Deleted)Use personal protective equipment as required.",
+        "P301+P316": "IF SWALLOWED: Get emergency medical help immediately.",
+        "P301+P317": "IF SWALLOWED: Get medical help.",
+        "P302+P352": "IF ON SKIN: wash with plenty of water/...",
+        "P304+P340": "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+        "P305+P354+P338": "IF IN EYES: Immediately rinse with water for several minutes. Remove contact lenses if present and easy to do. Continue rinsing.",
+        "P308+P316": "IF exposed or concerned: Get emergency medical help immediately.",
+        "P316": "Get emergency medical help immediately.",
+        "P317": "Get emergency medical help.",
+        "P318": "if exposed or concerned, get medical advice.",
+        "P319": "Get medical help if you feel unwell.",
+        "P321": "Specific treatment (see ... on this label).",
+        "P330": "Rinse mouth.",
+        "P332+P317": "If skin irritation occurs: Get medical help.",
+        "P333+P313": "(Deleted) IF SKIN irritation or rash occurs: Get medical advice/attention.",
+        "P361+P364": "Take off immediately all contaminated clothing and wash it before reuse.",
+        "P362+P364": "Take off contaminated clothing and wash it before reuse.",
+        "P391": "Collect spillage.",
+        "P403+P233": "Store in a well-ventilated place. Keep container tightly closed.",
+        "P405": "Store locked up.",
+        "P501": "Dispose of contents/container to ...",
+      },
+      "physicalProperties": [
+        {
+          "description": "The appearance or features of this compound, including color, odor, state, taste and more in general.",
+          "title": "Physical Description",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "values": [
+                "1-chloro-2,4-dinitrobenzene appears as pale yellow needles, almond odor.",
+              ],
+            },
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Chloro-2,4-dinitrobenzene",
+                "sourceId": "hz2860",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2860",
+              },
+              "values": [
+                "Yellow solid with an almond odor; [HSDB] Crystalline powder; [MSDSonline]",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "PALE YELLOW CRYSTALS WITH CHARACTERISTIC ODOUR.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The property of certain chemicals, in very small concentrations, to stimulate chemical sense receptors that sample the air or water.",
+          "title": "Odor",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr.; Hawley's Condensed Chemical Dictionary 15th  Edition. John Wiley & Sons, Inc. New York, NY 2007., p. 280",
+              ],
+              "values": [
+                "Almond odor",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The temperature at which this compound changes state from liquid to gas at a given atmospheric pressure.",
+          "title": "Boiling Point",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+              ],
+              "values": [
+                "315 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "315 °C",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides the melting point and/or freezing point. The melting point is the temperature at which a substance changes state from solid to liquid at atmospheric pressure. When considered as the temperature of the reverse change (from liquid to solid), it is referred to as the freezing point.",
+          "title": "Melting Point",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+              ],
+              "values": [
+                "52-54 °C",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-110",
+              ],
+              "values": [
+                "MELTING POINT: 43 °C /BETA FORM, UNSTABLE/",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Weast, R.C. (ed.) Handbook of Chemistry and Physics. 69th ed. Boca Raton, FL: CRC Press Inc., 1988-1989., p. C-110",
+              ],
+              "values": [
+                "MP: 27 °C /GAMMA FORM, UNSTABLE/",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "54 °C",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The lowest temperature at which a liquid can gives off vapor to form an ignitable mixture in air near the surface of the liquid.",
+          "title": "Flash Point",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "supplementaryRef": [
+                "National Fire Protection Association. 2010. Fire Protection Guide to Hazardous Materials, 14th edition, edited by Guy R. Colonna. Quincy, MA: National Fire Protection Association. Note that this information is subject to the copyright restrictions of the organization that provided the data.",
+              ],
+              "values": [
+                "382 °F (NFPA, 2010)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Chloro-2,4-dinitrobenzene",
+                "sourceId": "hz2860",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2860",
+              },
+              "values": [
+                "179 °C",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "National Fire Protection Association;  Fire Protection Guide to Hazardous Materials. 14TH Edition, Quincy, MA 2010, p. 325-52",
+              ],
+              "values": [
+                "382 °F (194 °C)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "179 °C",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The solubility of a substance is the amount of that substance that will dissolve in a given amount of solvent. The default solvent is water, if not indicated.",
+          "title": "Solubility",
+          "values": [
+            {
+              "reference": {
+                "description": "Aqueous solubility in buffer at pH 7.4",
+                "name": "SID57264331",
+                "sourceId": "SID57264331",
+                "sourceName": "Burnham Center for Chemical Genomics",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/bioassay/1996#section=Data-Table",
+              },
+              "values": [
+                "13.8 [ug/mL] (The mean of the results at pH 7.4)",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+              ],
+              "values": [
+                "Soluble in ether, benzene, and carbon disulfide; sparingly soluble in cold, freely soluble in hot alcohol",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Yalkowsky, S.H., He, Yan, Jain, P. Handbook of Aqueous Solubility Data Second Edition. CRC Press, Boca Raton, FL 2010, p. 195",
+              ],
+              "values": [
+                "In water, 9.24 mg/L at 25 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Solubility in water at 15 °C: very poor",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "This section provides information on the density (with unit) and specific gravity (without unit) of a compound. Density is mass of a unit volume of a compound and commonly expressed in units of kg/m3 or g/cm3. Specific gravity, also known as relative density, is a unit-less quantity, defined as the ratio of the density of a compound to that of a standard reference material (typically, water at 4 °C for liquids and air at room temperature [20 °C or 68 °F] for gases).",
+          "title": "Density",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "O'Neil, M.J. (ed.). The Merck Index - An Encyclopedia of Chemicals, Drugs, and Biologicals. Whitehouse Station, NJ:  Merck and Co., Inc., 2006., p. 353",
+              ],
+              "values": [
+                "1.7",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Density  (at 20 °C): 1.7 g/cm³",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The density of a gas or vapor relative to that of the reference gas.  While some resources use the hydrogen gas as the reference gas for the vapor density calculation, many resources (particularly in relation to safety considerations at commercial and industrial facilities in the U.S.) defines the vapor density with respect to the density of air, which has an arbitrary value of one.  If a gas has a vapor density of less than one it will generally rise in air. If the vapor density is greater than one the gas will generally sink in air.",
+          "title": "Vapor Density",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Dugal M; Kirk-Othmer Encyclopedia of Chemical Technology. (1999-2012). New York, NY: John Wiley & Sons; Nitrobenzenes and Nitrotoluenes. Online Posting Date: Oct 14, 2005",
+              ],
+              "values": [
+                "6.98 (Air = 1)",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Relative vapor density  (air = 1): 7.0",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Vapor pressure (or equilibrium vapor pressure) is the pressure of a vapor in thermodynamic equilibrium with its condensed phases in a closed system.",
+          "title": "Vapor Pressure",
+          "values": [
+            {
+              "reference": {
+                "description": "Haz-Map® is an occupational health database designed for health and safety professionals and for consumers seeking information about the adverse effects of workplace exposures to chemical and biological agents.",
+                "name": "1-Chloro-2,4-dinitrobenzene",
+                "sourceId": "hz2860",
+                "sourceName": "Haz-Map, Information on Hazardous Chemicals and Occupational Diseases",
+                "url": "https://haz-map.com/Agents/2860",
+              },
+              "values": [
+                "0.000085 [mmHg]",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Daubert, T.E., R.P. Danner. Physical and Thermodynamic Properties of Pure Chemicals Data Compilation. Washington, D.C.: Taylor and Francis, 1989.",
+              ],
+              "values": [
+                "8.5X10-5 mm Hg at 25 °C",
+              ],
+            },
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Vapor pressure at 20 °C: negligible",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "The lowest temperature at which the substance will spontaneously ignite in a normal atmosphere without an external source of ignition (e.g., spark or flame).",
+          "title": "Autoignition Temperature",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "432 °C",
+              ],
+            },
+          ],
+        },
+      ],
+      "pictograms": [
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS05.svg",
+          "type": "Corrosive",
+        },
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS06.svg",
+          "type": "Acute Toxic",
+        },
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS07.svg",
+          "type": "Irritant",
+        },
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS08.svg",
+          "type": "Health Hazard",
+        },
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS09.svg",
+          "type": "Environmental Hazard",
+        },
+      ],
+      "signals": [
+        "Danger",
+      ],
+      "stabilityAndReactivity": [
+        {
+          "description": "Description of the chemical's potential reactivity with other chemicals, air, and water. Also it includes any other intrinsic reactive hazards (such as polymerizable or peroxidizable).",
+          "title": "Reactivity Profile",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "values": [
+                "Self-reactive [Halpern, Chem. and Eng. News, 29:2666(1951)]. The mixture of this ompound with hydrazine hydrate caused a violent reaction.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Special alerts if the chemical is especially reactive.",
+          "title": "Reactivity Alerts",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "values": [],
+            },
+          ],
+        },
+      ],
+      "storageAndHandling": [
+        {
+          "description": "Measures to take for safe storage of this chemical.",
+          "title": "Safe Storage",
+          "values": [
+            {
+              "reference": {
+                "description": "The International Chemical Safety Cards (ICSCs) are data sheets intended to provide essential safety and health information on chemicals in a clear and concise way. The primary aim of the Cards is to promote the safe use of chemicals in the workplace.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 416,
+                "sourceName": "ILO-WHO International Chemical Safety Cards (ICSCs)",
+                "url": "https://www.ilo.org/dyn/icsc/showcard.display?p_version=2&p_card_id=0416",
+              },
+              "values": [
+                "Fireproof. Separated from strong oxidants, strong bases, strong reducing agents, food and feedstuffs and ammonia. Store in an area without drain or sewer access.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Conditions for safe storage of this compound, including any incompatible chemicals and specific storage requirements (e.g., ventilation requirements).",
+          "title": "Storage Conditions",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "National Fire Protection Association. Fire Protection Guide on Hazardous Materials. 9th ed. Boston, MA: National Fire Protection Association, 1986., p. 49-30",
+              ],
+              "values": [
+                "PROTECT AGAINST PHYSICAL DAMAGE, KEEP AWAY FROM HEAT AND SOURCES OF IGNITION OR ACUTE FIRE HAZARD AREAS. STORAGE AREA SHOULD BE EQUIPPED WITH AN AUTOMATIC SPRINKLER SYSTEM IF WITHIN A BUILDING.",
+              ],
+            },
+          ],
+        },
+        {
+          "description": "Personal protective equipment (PPE) to use when handling this chemical.",
+          "title": "Personal Protective Equipment (PPE)",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "values": [],
+            },
+          ],
+        },
+        {
+          "description": "Emergency response measures to take in the event of a chemical spill (without a fire).",
+          "title": "Nonfire Spill Response",
+          "values": [
+            {
+              "reference": {
+                "description": "CAMEO Chemicals is a chemical database designed for people who are involved in hazardous material incident response and planning. CAMEO Chemicals contains a library with thousands of datasheets containing response-related information and recommendations for hazardous materials that are commonly transported, used, or stored in the United States. CAMEO Chemicals was developed by the National Oceanic and Atmospheric Administration's Office of Response and Restoration in partnership with the Environmental Protection Agency's Office of Emergency Management.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 594,
+                "sourceName": "CAMEO Chemicals",
+                "url": "https://cameochemicals.noaa.gov/chemical/594",
+              },
+              "values": [],
+            },
+          ],
+        },
+      ],
+      "toxicalInformation": [
+        {
+          "description": "Quantitative non-human toxicity values (e.g., lethal dose) for this compound.  The data shown here are mostly for lab animals (e.g., rat, mouse, guinea pig, and rabbit).",
+          "title": "Non-Human Toxicity Values",
+          "values": [
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+              ],
+              "values": [
+                "LD50 Rat ip 280 mg/kg",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+              ],
+              "values": [
+                "LD50 Rabbit skin 130 mg/kg",
+              ],
+            },
+            {
+              "description": "PEER REVIEWED",
+              "reference": {
+                "description": "The Hazardous Substances Data Bank (HSDB) is a toxicology database that focuses on the toxicology of potentially hazardous chemicals. It provides information on human exposure, industrial hygiene, emergency handling procedures, environmental fate, regulatory requirements, nanomaterials, and related areas. The information in HSDB has been assessed by a Scientific Review Panel.",
+                "name": "1-CHLORO-2,4-DINITROBENZENE",
+                "sourceId": 5306,
+                "sourceName": "Hazardous Substances Data Bank (HSDB)",
+                "url": "https://pubchem.ncbi.nlm.nih.gov/source/hsdb/5306",
+              },
+              "supplementaryRef": [
+                "Lewis, R.J. Sr. (ed) Sax's Dangerous Properties of Industrial Materials. 11th Edition. Wiley-Interscience, Wiley & Sons, Inc. Hoboken, NJ. 2004., p. 809",
+              ],
+              "values": [
+                "LD50 Rat oral 780 mg/kg",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    "_id": 8,
+    "data": {
+      "description": "GHS (Globally Harmonized System of Classification and Labelling of Chemicals) is a United Nations system to identify hazardous chemicals and to inform users about these hazards. GHS has been adopted by many countries around the world and is now also used as the basis for international and national transport regulations for dangerous goods. The GHS hazard statements, class categories, pictograms, signal words, and the precautionary statements can be found on the PubChem GHS page.",
+      "hCodesDescription": {
+        "H302 (100%)": " Harmful if swallowed [Warning Acute toxicity, oral]",
+        "H315 (100%)": " Causes skin irritation [Warning Skin corrosion/irritation]",
+        "H319 (100%)": " Causes serious eye irritation [Warning Serious eye damage/eye irritation]",
+        "H335 (100%)": " May cause respiratory irritation [Warning Specific target organ toxicity, single exposure; Respiratory tract irritation]",
+      },
+      "pCodesDescription": {
+        "P261": "Avoid breathing dust/fume/gas/mist/vapors/spray.",
+        "P264": "Wash hands [and ...] thoroughly after handling.",
+        "P264+P265": "Wash hands [and ...] thoroughly after handling. Do not touch eyes.",
+        "P270": "Do not eat, drink or smoke when using this product.",
+        "P271": "Use only outdoors or in a well-ventilated area.",
+        "P280": "Wear protective gloves/protective clothing/eye protection/face protection/hearing protection/...",
+        "P301+P317": "IF SWALLOWED: Get medical help.",
+        "P302+P352": "IF ON SKIN: wash with plenty of water/...",
+        "P304+P340": "IF INHALED: Remove person to fresh air and keep comfortable for breathing.",
+        "P305+P351+P338": "IF IN EYES: Rinse cautiously with water for several minutes. Remove contact lenses if present and easy to do - continue rinsing.",
+        "P319": "Get medical help if you feel unwell.",
+        "P321": "Specific treatment (see ... on this label).",
+        "P330": "Rinse mouth.",
+        "P332+P317": "If skin irritation occurs: Get medical help.",
+        "P337+P317": "If eye irritation persists: Get medical help.",
+        "P362+P364": "Take off contaminated clothing and wash it before reuse.",
+        "P403+P233": "Store in a well-ventilated place. Keep container tightly closed.",
+        "P405": "Store locked up.",
+        "P501": "Dispose of contents/container to ...",
+      },
+      "pictograms": [
+        {
+          "svgUrl": "https://pubchem.ncbi.nlm.nih.gov/images/ghs/GHS07.svg",
+          "type": "Irritant",
+        },
+      ],
+      "signals": [
+        "Warning",
+      ],
+    },
+  },
+]
+`;

@@ -11,7 +11,6 @@ test('syncPatents', async () => {
     .find({ _id: 'EP-2078065-A2' })
     .limit(1);
   const result = await collectionEntry.next();
-
   expect(result).toMatchSnapshot();
   await connection.close();
 });

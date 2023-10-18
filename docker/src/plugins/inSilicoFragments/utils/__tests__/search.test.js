@@ -7,7 +7,7 @@ describe('search (inSilicoFragments)', async () => {
   const connection = new OctoChemConnection();
 
   while (true) {
-    const collection = await connection.getCollection('inSilicoFragments_V2');
+    const collection = await connection.getCollection('inSilicoFragments');
     if ((await collection.countDocuments()) > 1) {
       break;
     }
@@ -16,7 +16,7 @@ describe('search (inSilicoFragments)', async () => {
   it('masses (inSilicoFragments)', async () => {
     const request = {
       query: {
-        masses: '87.04,221.03',
+        masses: '221.0363,213.0312',
         precision: 100,
         fields: 'data',
       },

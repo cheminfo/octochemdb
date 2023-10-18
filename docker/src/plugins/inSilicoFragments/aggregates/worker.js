@@ -20,7 +20,7 @@ parentPort?.on('message', async (dataEntry) => {
     debug.trace(`Worker ${workerID} started`);
     // get worker number
     const temporaryCollection = await connection.getCollection(
-      `inSilicoFragments_V2_tmp`,
+      `inSilicoFragments_tmp`,
     );
     let count = 0;
     let start = Date.now();
@@ -37,10 +37,9 @@ parentPort?.on('message', async (dataEntry) => {
         let molecule = Molecule.fromIDCode(link.idCode);
         if (molecule.getAtoms() <= 200) {
           const fragmentationOptions = {
-            ionizationKind: 'esi',
-            mode: 'positive',
+            ionizationKind: ['esiPositive'],
             maxDepth: 5,
-            limitReactions: 500,
+            limitReactions: 200,
             minIonizations: 1,
             maxIonizations: 1,
             minReactions: 0,
@@ -49,8 +48,9 @@ parentPort?.on('message', async (dataEntry) => {
 
           // @ts-ignore
           let fragments = reactionFragmentation(molecule, fragmentationOptions);
-          if (fragments.masses?.length > 0) {
-            result.data.masses = { positive: fragments.masses };
+          const massesArray = getMasses(fragments.masses);
+          if (massesArray?.length > 0) {
+            result.data.masses = { positive: massesArray };
             await temporaryCollection.updateOne(
               { _id: link.id },
               { $set: result },
@@ -74,7 +74,7 @@ parentPort?.on('message', async (dataEntry) => {
             await debug.warn(
               `Warning(fragmentation) happened ${warnCount}:${e.message} `,
               {
-                collection: 'inSilicoFragments_V2',
+                collection: 'inSilicoFragments',
                 connection,
                 stack: e.stack,
               },
@@ -88,10 +88,20 @@ parentPort?.on('message', async (dataEntry) => {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments_V2',
+        collection: 'inSilicoFragments',
         connection,
         stack: e.stack,
       });
     }
   }
 });
+
+function getMasses(masses) {
+  let result = {};
+  for (let i = 0; i < masses.length; i++) {
+    if (masses[i]?.mz) {
+      result[masses[i].mz] = true;
+    }
+  }
+  return Object.keys(result).map(Number);
+}
