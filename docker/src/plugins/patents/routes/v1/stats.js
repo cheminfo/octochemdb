@@ -1,4 +1,4 @@
-import { statsHandler } from './searchHandlers/statsHandler';
+import { statsHandler } from './searchHandlers/statsHandler.js';
 
 const stats = {
   method: 'GET',

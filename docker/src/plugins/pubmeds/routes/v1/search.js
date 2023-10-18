@@ -1,4 +1,4 @@
-import { searchHandler } from './searchHandlers/searchHandler';
+import { searchHandler } from './searchHandlers/searchHandler.js';
 
 const search = {
   method: ['GET', 'POST'],

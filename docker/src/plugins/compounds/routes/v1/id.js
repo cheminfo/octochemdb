@@ -1,4 +1,4 @@
-import { idHandler } from './searchHandlers/idHandler';
+import { idHandler } from './searchHandlers/idHandler.js';
 
 const searchIDs = {
   method: 'GET',

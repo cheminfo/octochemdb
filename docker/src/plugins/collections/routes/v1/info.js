@@ -1,4 +1,4 @@
-import { infoHandler } from './searchHandlers.js/infoHandler';
+import { infoHandler } from './searchHandlers.js/infoHandler.js';
 
 // export default searchHandler;
 const stats = {

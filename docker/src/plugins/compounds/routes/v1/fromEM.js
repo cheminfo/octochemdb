@@ -1,4 +1,4 @@
-import { fromEMHandler } from './searchHandlers/fromEMHandler';
+import { fromEMHandler } from './searchHandlers/fromEMHandler.js';
 
 const fromEM = {
   method: 'GET',

@@ -1,4 +1,4 @@
-import { fromSmilesHandler } from './searchHandlers/fromSmilesHandler';
+import { fromSmilesHandler } from './searchHandlers/fromSmilesHandler.js';
 
 const fromSmiles = {
   method: 'GET',

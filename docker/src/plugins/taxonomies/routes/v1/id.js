@@ -1,4 +1,4 @@
-import { idHandler } from './searchHandler/idHandler';
+import { idHandler } from './searchHandler/idHandler.js';
 
 const taxonomyFromID = {
   method: 'GET',

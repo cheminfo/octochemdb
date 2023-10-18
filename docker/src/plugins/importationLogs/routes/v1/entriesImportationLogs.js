@@ -1,4 +1,4 @@
-import { entriesImportationLogsHandler } from './searchHandlers/entriesImportationLogsHandler';
+import { entriesImportationLogsHandler } from './searchHandlers/entriesImportationLogsHandler.js';
 
 const entriesImportationLogs = {
   method: 'GET',

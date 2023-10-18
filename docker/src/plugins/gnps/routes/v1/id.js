@@ -1,4 +1,4 @@
-import { idHandler } from './searchHandler/idHanlder';
+import { idHandler } from './searchHandler/idHanlder.js';
 
 const fromID = {
   method: 'GET',

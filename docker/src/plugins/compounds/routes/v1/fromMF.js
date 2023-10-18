@@ -1,4 +1,4 @@
-import { fromMFHandler } from './searchHandlers/fromMFHandler';
+import { fromMFHandler } from './searchHandlers/fromMFHandler.js';
 
 const fromMF = {
   method: 'GET',
