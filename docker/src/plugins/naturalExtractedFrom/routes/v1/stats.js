@@ -1,7 +1,7 @@
 // query for molecules from monoisotopic mass
-import { getStats } from '../../../../../utils/getStats.js';
 import { OctoChemConnection } from '../../../../server/utils.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import { getStats } from '../../../../utils/getStats.js';
 
 const debug = debugLibrary('stats');
 
