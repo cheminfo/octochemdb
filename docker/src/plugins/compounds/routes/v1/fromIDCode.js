@@ -7,15 +7,22 @@ const fromIDCode = {
     description:
       'Retrieve entry in compounds collection from a idCodedb. This route can take into account the stereochemistry.',
     querystring: {
-      smiles: {
+      idCode: {
         type: 'string',
-        description: 'idCode or NostereoTautomerID',
+        description: 'idCode',
+        example: 'dgnBBAAJdYR[YVZZjij`@',
+        default: '',
+      },
+      noStereoTautomerID: {
+        type: 'string',
+        description: 'noStereoTautomerID',
         example: 'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@',
-        default: 'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@',
+        default: '',
       },
       stereo: {
         type: 'boolean',
-        description: 'Take into account the stereochemistry',
+        description:
+          'Take into account the stereochemistry (only when idCode is provided)',
         default: true,
       },
       limit: {

@@ -10,7 +10,8 @@ const debug = debugLibrary('fromIDCode');
 
 export async function fromIDCodeHandler(request) {
   let {
-    smiles = '',
+    idCode = '',
+    noStereoTautomerID = '',
     limit = 1e3,
     stereo = true,
     fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
@@ -21,22 +22,29 @@ export async function fromIDCodeHandler(request) {
   try {
     if (limit > 1e4) limit = 1e4;
     if (limit < 1) limit = 1;
-
-    const molecule = OCL.Molecule.fromIDCode(smiles);
     let mongoQuery = {};
-    if (stereo) {
+    if (idCode !== '') {
+      const molecule = OCL.Molecule.fromIDCode(idCode);
+      if (stereo) {
+        mongoQuery = {
+          'data.ocl.idCode': molecule.getIDCode(),
+        };
+      } else {
+        let stereoCache = await getNoStereosFromCache(
+          molecule,
+          connection,
+          'compounds',
+        );
+        mongoQuery = {
+          'data.ocl.noStereoTautomerID': stereoCache?.noStereoTautomerID,
+        };
+      }
+    } else if (noStereoTautomerID !== '') {
       mongoQuery = {
-        'data.ocl.idCode': molecule.getIDCode(),
+        'data.ocl.noStereoTautomerID': noStereoTautomerID,
       };
     } else {
-      let stereoCache = await getNoStereosFromCache(
-        molecule,
-        connection,
-        'compounds',
-      );
-      mongoQuery = {
-        'data.ocl.noStereoTautomerID': stereoCache?.noStereoTautomerID,
-      };
+      throw new Error('idCode or noStereoTautomerID must be provided');
     }
     let fieldsCollection = getFields(fields);
     fieldsCollection = getFieldsWithLookUp(
