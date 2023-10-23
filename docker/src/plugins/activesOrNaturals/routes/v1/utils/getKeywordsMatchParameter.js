@@ -18,18 +18,56 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
       $all: regexKwTaxonomies,
     };
   }
+  const orConditions = [];
   if (regexKwTitles.length > 0) {
-    matchParameter['data.kwTitles'] = { $in: regexKwTitles };
+    for (let regexKwTitle of regexKwTitles) {
+      orConditions.push({
+        'data.kwTitles': {
+          $elemMatch: {
+            $regex: regexKwTitle,
+            $options: 'i',
+          },
+        },
+      });
+    }
   }
   if (regexKwBioassays.length > 0) {
-    matchParameter['data.kwBioassays'] = { $in: regexKwBioassays };
+    for (let regexKwBioassay of regexKwBioassays) {
+      orConditions.push({
+        'data.kwBioassays': {
+          $elemMatch: {
+            $regex: regexKwBioassay,
+            $options: 'i',
+          },
+        },
+      });
+    }
   }
   if (regexKwMeshTerms.length > 0) {
-    matchParameter['data.kwMeshTerms'] = { $in: regexKwMeshTerms };
+    for (let regexKwMeshTerm of regexKwMeshTerms) {
+      orConditions.push({
+        'data.kwMeshTerms': {
+          $elemMatch: {
+            $regex: regexKwMeshTerm,
+            $options: 'i',
+          },
+        },
+      });
+    }
   }
   if (regexKwActiveAgainst.length > 0) {
-    matchParameter['data.kwActiveAgainst'] = {
-      $in: regexKwActiveAgainst,
-    };
+    for (let regexKwActive of regexKwActiveAgainst) {
+      orConditions.push({
+        'data.kwActiveAgainst': {
+          $elemMatch: {
+            $regex: regexKwActive,
+            $options: 'i',
+          },
+        },
+      });
+    }
+  }
+  if (orConditions.length > 0) {
+    matchParameter.$or = orConditions;
   }
 }
