@@ -71,7 +71,7 @@ export default async function getCompoundsInfo(
         let cursor = await compoundPatentsCollection.find({ _id: currentCid });
         if (await cursor.hasNext()) {
           let patent = await cursor.next();
-          if (patent?.data?.patents) {
+          if (patent?.data?.patents.length > 0) {
             for (let patentID of patent.data.patents) {
               if (!compoundsPatents.includes(patentID)) {
                 compoundsPatents.push(patentID);
