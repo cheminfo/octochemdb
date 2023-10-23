@@ -1,17 +1,11 @@
 import { prepareKeywords } from './prepareKeywords.js';
 
 export function getKeywordsMatchParameter(matchParameter, keywords) {
-  let regexKwTitles = prepareKeywords(keywords.kwTitles, {
-    escapeRegExpression: true,
-  });
-  let regexKwBioassays = prepareKeywords(keywords.kwBioassays, {
-    escapeRegExpression: true,
-  });
+  let regexKwTitles = prepareKeywords(keywords.kwTitles);
+  let regexKwBioassays = prepareKeywords(keywords.kwBioassays);
   let regexKwActiveAgainst = prepareKeywords(keywords.kwActiveAgainst);
   let regexKwTaxonomies = prepareKeywords(keywords.kwTaxonomies);
-  let regexKwMeshTerms = prepareKeywords(keywords.kwMeshTerms, {
-    escapeRegExpression: true,
-  });
+  let regexKwMeshTerms = prepareKeywords(keywords.kwMeshTerms);
 
   if (regexKwTaxonomies.length > 0) {
     matchParameter['data.kwTaxonomies'] = {
