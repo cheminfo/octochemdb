@@ -50,11 +50,13 @@ export default async function getCompoundsInfo(
     let titles = parsedCompoundInfo.titles;
     let compoundsPatents = [];
     let bioassaysPubChemDBRefs = [];
-    const bioassaysPubChemCollection =
-      await connection.getCollection('bioassaysPubChem');
+    // const bioassaysPubChemCollection =
+    //await connection.getCollection('bioassaysPubChem');
     if (compoundsIDs.length > 0) {
       for (let compound of compoundsIDs) {
         let currentCid = Number(compound);
+        // NOT YET IMPLEMENTED
+        /*
         // get bioassaysPubChem dbRefs
         let bioassaysPubChemRef = await getBioassaysPubChemRefs(
           currentCid,
@@ -65,6 +67,7 @@ export default async function getCompoundsInfo(
           ...bioassaysPubChemDBRefs,
           ...bioassaysPubChemRef,
         ];
+        */
         let cursor = await compoundPatentsCollection.find({ _id: currentCid });
         if (await cursor.hasNext()) {
           let patent = await cursor.next();
@@ -168,7 +171,7 @@ export default async function getCompoundsInfo(
     }
   }
 }
-
+/*
 async function getBioassaysPubChemRefs(cid, collection) {
   // find in collection cid inside array named associatedCids need to unwind the array for the match to work
   let cursor = await collection.find({
@@ -182,4 +185,4 @@ async function getBioassaysPubChemRefs(cid, collection) {
     }
   }
   return bioassaysPubChemRef;
-}
+}*/

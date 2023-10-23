@@ -20,7 +20,7 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
   let cidsDBRef = [];
 
   let molecules = {};
-  let titles = {};
+  let titles = [];
   for (let cid of result) {
     // create a DBRef for each cid
     cidsDBRef.push({ $ref: 'compounds', $id: cid.cid });
@@ -42,12 +42,15 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
       !titleEntry.data.title.match(/CID /)
     ) {
       molecules[cid.idCode].titles.push(titleEntry.data.title);
-      titles[titleEntry.data.title] = true;
+      titles.push(titleEntry.data.title);
     }
     molecules[cid.idCode].sources.push({
       $ref: 'compounds',
       $id: cid.cid,
     });
+    if (molecules[cid.idCode].titles.length === 0) {
+      delete molecules[cid.idCode].titles;
+    }
   }
   for (let oneDataEntry of data) {
     if (oneDataEntry.collection === 'bioassays') continue;
@@ -67,6 +70,6 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
     });
   }
   let dbRefsMolecules = Object.values(molecules);
-  titles = Object.keys(titles);
+  titles = [...new Set(titles)];
   return { cids, cidsDBRef, dbRefsMolecules, titles };
 }
