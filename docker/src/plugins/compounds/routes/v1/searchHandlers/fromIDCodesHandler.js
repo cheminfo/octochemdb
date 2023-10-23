@@ -6,12 +6,12 @@ import { getFields, OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../../utils/getNoStereosFromCache.js';
 
-const debug = debugLibrary('fromIDCode');
+const debug = debugLibrary('fromIDCodes');
 
-export async function fromIDCodeHandler(request) {
+export async function fromIDCodesHandler(request) {
   let {
-    idCode = '',
-    noStereoTautomerID = '',
+    idCodes = '',
+    noStereoTautomerIDs = '',
     limit = 1e3,
     stereo = true,
     fields = 'data.em,data.mf,data.total,data.atom,data.unsaturation',
@@ -22,26 +22,39 @@ export async function fromIDCodeHandler(request) {
   try {
     if (limit > 1e4) limit = 1e4;
     if (limit < 1) limit = 1;
-    let mongoQuery = {};
-    if (idCode !== '') {
-      if (stereo && noStereoTautomerID === '') {
-        mongoQuery = {
-          'data.ocl.idCode': idCode,
+
+    let matchParameters = {};
+
+    if (idCodes !== '') {
+      if (stereo && noStereoTautomerIDs === '') {
+        matchParameters['data.ocl.idCode'] = {
+          $in: idCodes.split(/[ ,;\t\r\n]+/).filter((entry) => entry),
         };
-      } else if (noStereoTautomerID === '' && !stereo) {
-        const molecule = OCL.Molecule.fromIDCode(idCode);
-        let stereoCache = await getNoStereosFromCache(
-          molecule,
-          connection,
-          'compounds',
-        );
-        mongoQuery = {
-          'data.ocl.noStereoTautomerID': stereoCache?.noStereoTautomerID,
+      } else if (noStereoTautomerIDs === '' && !stereo) {
+        let noStereoTautomerIDsToProcess = {};
+        let idCodesToProcess = idCodes
+          .split(/[ ,;\t\r\n]+/)
+          .filter((entry) => entry);
+        for (let idCode of idCodesToProcess) {
+          const molecule = OCL.Molecule.fromIDCode(idCode);
+          let stereoCache = await getNoStereosFromCache(
+            molecule,
+            connection,
+            'compounds',
+          ); //
+          if (stereoCache?.noStereoTautomerID) {
+            noStereoTautomerIDsToProcess[
+              stereoCache?.noStereoTautomerID
+            ] = true;
+          }
+        }
+        matchParameters['data.ocl.noStereoTautomerID'] = {
+          $in: Object.keys(noStereoTautomerIDsToProcess),
         };
       }
-    } else if (noStereoTautomerID !== '') {
-      mongoQuery = {
-        'data.ocl.noStereoTautomerID': noStereoTautomerID,
+    } else if (noStereoTautomerIDs !== '') {
+      matchParameters['data.ocl.noStereoTautomerID'] = {
+        $in: noStereoTautomerIDs.split(/[ ,;\t\r\n]+/).filter((entry) => entry),
       };
     } else {
       throw new Error('idCode or noStereoTautomerID must be provided');
@@ -57,7 +70,7 @@ export async function fromIDCodeHandler(request) {
 
     const results = await collection
       .aggregate([
-        { $match: mongoQuery },
+        { $match: matchParameters },
         { $limit: Number(limit) },
         {
           $lookup: {

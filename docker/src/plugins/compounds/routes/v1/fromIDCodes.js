@@ -1,16 +1,16 @@
-import { fromIDCodeHandler } from './searchHandlers/fromIDCodeHandler.js';
+import { fromIDCodesHandler } from './searchHandlers/fromIDCodesHandler.js';
 
-const fromIDCode = {
-  method: 'GET',
+const fromIDCodes = {
+  method: ['GET', 'POST'],
   schema: {
-    summary: 'Retrieve compounds from a idCode',
+    summary: 'Retrieve compounds from idCodes',
     description:
-      'Retrieve entry in compounds collection from a idCode. This route can take into account the stereochemistry.',
+      'Retrieve entry in compounds collection from a idCodes. This route can take into account the stereochemistry.',
     querystring: {
       idCode: {
         type: 'string',
         description: 'idCode',
-        example: 'dgnBBAAJdYR[YVZZjij`@',
+        example: 'dgnBBAAJdYR[YVZZjij`@, gJY@BDfZjQ@',
         default: '',
       },
       stereo: {
@@ -22,7 +22,8 @@ const fromIDCode = {
       noStereoTautomerID: {
         type: 'string',
         description: 'noStereoTautomerID',
-        example: 'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@',
+        example:
+          'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@, gJY@BDfZh@',
         default: '',
       },
 
@@ -43,7 +44,7 @@ const fromIDCode = {
       },
     },
   },
-  handler: fromIDCodeHandler,
+  handler: fromIDCodesHandler,
 };
 
-export default fromIDCode;
+export default fromIDCodes;
