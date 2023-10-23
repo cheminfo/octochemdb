@@ -7,7 +7,7 @@ const fromIDCodes = {
     description:
       'Retrieve entry in compounds collection from a idCodes. This route can take into account the stereochemistry.',
     querystring: {
-      idCode: {
+      idCodes: {
         type: 'string',
         description: 'idCode',
         example: 'dgnBBAAJdYR[YVZZjij`@, gJY@BDfZjQ@',
@@ -19,9 +19,9 @@ const fromIDCodes = {
           'Take into account the stereochemistry (only when idCode is provided)',
         default: true,
       },
-      noStereoTautomerID: {
+      noStereoTautomerIDs: {
         type: 'string',
-        description: 'noStereoTautomerID',
+        description: 'noStereoTautomerIDs',
         example:
           'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@, gJY@BDfZh@',
         default: '',
