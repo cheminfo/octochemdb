@@ -12,10 +12,14 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
       $all: regexKwTaxonomies,
     };
   }
-  const orConditions = [];
+  const orConditionsTitles = [];
+  const orConditionsBioassays = [];
+  const orConditionsMeshTerms = [];
+  const orConditionsActiveAgainst = [];
+
   if (regexKwTitles.length > 0) {
     for (let regexKwTitle of regexKwTitles) {
-      orConditions.push({
+      orConditionsTitles.push({
         'data.kwTitles': {
           $elemMatch: {
             $regex: regexKwTitle,
@@ -27,7 +31,7 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
   }
   if (regexKwBioassays.length > 0) {
     for (let regexKwBioassay of regexKwBioassays) {
-      orConditions.push({
+      orConditionsBioassays.push({
         'data.kwBioassays': {
           $elemMatch: {
             $regex: regexKwBioassay,
@@ -39,7 +43,7 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
   }
   if (regexKwMeshTerms.length > 0) {
     for (let regexKwMeshTerm of regexKwMeshTerms) {
-      orConditions.push({
+      orConditionsMeshTerms.push({
         'data.kwMeshTerms': {
           $elemMatch: {
             $regex: regexKwMeshTerm,
@@ -51,7 +55,7 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
   }
   if (regexKwActiveAgainst.length > 0) {
     for (let regexKwActive of regexKwActiveAgainst) {
-      orConditions.push({
+      orConditionsActiveAgainst.push({
         'data.kwActiveAgainst': {
           $elemMatch: {
             $regex: regexKwActive,
@@ -61,7 +65,28 @@ export function getKeywordsMatchParameter(matchParameter, keywords) {
       });
     }
   }
+  let orConditions = [];
+  if (orConditionsTitles.length > 0) {
+    orConditions.push({
+      $or: orConditionsTitles,
+    });
+  }
+  if (orConditionsBioassays.length > 0) {
+    orConditions.push({
+      $or: orConditionsBioassays,
+    });
+  }
+  if (orConditionsMeshTerms.length > 0) {
+    orConditions.push({
+      $or: orConditionsMeshTerms,
+    });
+  }
+  if (orConditionsActiveAgainst.length > 0) {
+    orConditions.push({
+      $or: orConditionsActiveAgainst,
+    });
+  }
   if (orConditions.length > 0) {
-    matchParameter.$or = orConditions;
+    matchParameter.$and = orConditions;
   }
 }
