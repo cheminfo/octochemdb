@@ -25,11 +25,11 @@ export async function fromIDCodeHandler(request) {
     let mongoQuery = {};
     if (idCode !== '') {
       const molecule = OCL.Molecule.fromIDCode(idCode);
-      if (stereo) {
+      if (stereo && noStereoTautomerID === '') {
         mongoQuery = {
           'data.ocl.idCode': molecule.getIDCode(),
         };
-      } else {
+      } else if (noStereoTautomerID === '' && !stereo) {
         let stereoCache = await getNoStereosFromCache(
           molecule,
           connection,

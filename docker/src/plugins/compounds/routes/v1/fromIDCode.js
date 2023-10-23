@@ -13,18 +13,19 @@ const fromIDCode = {
         example: 'dgnBBAAJdYR[YVZZjij`@',
         default: '',
       },
-      noStereoTautomerID: {
-        type: 'string',
-        description: 'noStereoTautomerID',
-        example: 'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@',
-        default: '',
-      },
       stereo: {
         type: 'boolean',
         description:
           'Take into account the stereochemistry (only when idCode is provided)',
         default: true,
       },
+      noStereoTautomerID: {
+        type: 'string',
+        description: 'noStereoTautomerID',
+        example: 'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@',
+        default: '',
+      },
+
       limit: {
         type: 'number',
         description: 'Maximum number of results to return',
