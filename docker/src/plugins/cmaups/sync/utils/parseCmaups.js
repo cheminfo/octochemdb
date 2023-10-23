@@ -3,6 +3,9 @@ import OCL from 'openchemlib';
 import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
+import { getActivities } from './getActivities.js';
+import { recursiveRemoveNa } from './recursiveRemoveNa.js';
+
 const debug = debugLibrary('parseCmaups');
 /**
  * @description parse the cmaups files and return the data to be imported in the database
@@ -34,62 +37,16 @@ export async function* parseCmaups(
     // Start parsing each molecule in general data
     for await (const item of general) {
       try {
-        if (Object.keys(item.Ingredient_ID).length > 0) {
+        if (item.np_id !== undefined) {
           // Get molecule ID
-          const id = item.Ingredient_ID;
+          const id = item.np_id;
           // Get activities related to molecule ID
           const activity = activities[id];
-          const finalActivities = [];
-          if (activity !== undefined) {
-            for (const info of activity) {
-              const targetActivity = targetInfo[info.Target_ID];
+          //  console.log(item);
+          const finalActivities = getActivities(activity, targetInfo);
 
-              let parsedActivity = {
-                activityType: info?.Activity_Type ? info.Activity_Type : null,
-                activityRelation: info?.Activity_Relationship
-                  ? info.Activity_Relationship
-                  : null,
-                activityValue: info?.Activity_Value
-                  ? info.Activity_Value
-                  : null,
-                activityUnit: info?.Activity_Unit ? info.Activity_Unit : null,
-                refIdType: info?.Reference_ID_Type
-                  ? info.Reference_ID_Type
-                  : null,
-                refId: info?.Reference_ID ? info.Reference_ID : null,
-                geneSymbol: targetActivity?.Gene_Symbol
-                  ? targetActivity.Gene_Symbol
-                  : null,
-                proteinName: targetActivity?.Protein_Name
-                  ? targetActivity.Protein_Name
-                  : null,
-                uniprotId: targetActivity?.Uniprot_ID
-                  ? targetActivity.Uniprot_ID
-                  : null,
-                chemblId: targetActivity?.ChEMBL_ID
-                  ? targetActivity.ChEMBL_ID
-                  : null,
-                ttdId: targetActivity?.TTD_ID ? targetActivity.TTD_ID : null,
-                targetClassLevel1: targetActivity?.Target_Class_Level1
-                  ? targetActivity.Target_Class_Level1
-                  : null,
-                targetClassLevel2: targetActivity?.Target_Class_Level2
-                  ? targetActivity.Target_Class_Level2
-                  : null,
-                targetClassLevel3: targetActivity?.Target_Class_Level3
-                  ? targetActivity.Target_Class_Level3
-                  : null,
-              };
-              for (const key in parsedActivity) {
-                if (parsedActivity[key] === null) {
-                  delete parsedActivity[key];
-                }
-              }
-              finalActivities.push(parsedActivity);
-            }
-          }
           // Get molecule structure data
-          const smilesDb = item.__parsed_extra.slice(-1)[0];
+          const smilesDb = item.SMILES;
           let ocl;
           try {
             const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
@@ -126,23 +83,23 @@ export async function* parseCmaups(
           if (taxonomies.length > 0) {
             for (const infos of taxonomies) {
               let taxons = {};
-              if (infos?.Species_Tax_ID && infos?.Species_Tax_ID !== 'NA') {
+              if (infos?.Species_Tax_ID) {
                 taxons.speciesID = infos.Species_Tax_ID;
               }
-              if (infos?.Plant_Name && infos?.Plant_Name !== 'NA') {
+              if (infos?.Plant_Name) {
                 taxons.species = infos?.Plant_Name;
               }
-              if (infos?.Genus_Tax_ID && infos?.Genus_Tax_ID !== 'NA') {
+              if (infos?.Genus_Tax_ID) {
                 taxons.genusID = infos?.Genus_Tax_ID;
               }
-              if (infos?.Genus_Name && infos?.Genus_Name !== 'NA') {
+              if (infos?.Genus_Name) {
                 taxons.genus = infos?.Genus_Name;
               }
 
-              if (infos?.Family_Tax_ID && infos?.Family_Tax_ID !== 'NA') {
+              if (infos?.Family_Tax_ID) {
                 taxons.familyID = infos?.Family_Tax_ID;
               }
-              if (infos?.Family_Name && infos?.Family_Name !== 'NA') {
+              if (infos?.Family_Name) {
                 taxons.family = infos?.Family_Name;
               }
               if (Object.keys(taxons).length > 0) {
@@ -151,8 +108,8 @@ export async function* parseCmaups(
             }
           }
           // Create object containing final result
-          const result = {
-            _id: item.Ingredient_ID,
+          let result = {
+            _id: item.np_id,
             data: {
               ocl,
             },
@@ -161,9 +118,18 @@ export async function* parseCmaups(
           if (finalTaxonomies.length > 0) {
             result.data.taxonomies = finalTaxonomies;
           }
+          if (item?.pref_name) {
+            result.data.commonName = item.pref_name;
+          }
+          if (item?.chembl_id) {
+            result.data.chemblId = item.chembl_id;
+          }
+
           if (finalActivities.length > 0) {
             result.data.activities = finalActivities;
           }
+
+          recursiveRemoveNa(result);
           yield result;
         }
       } catch (e) {

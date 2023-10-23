@@ -24,7 +24,8 @@ test('id search (cmaups)', async () => {
     [
       "ocl",
       "cid",
-      "taxonomies",
+      "commonName",
+      "chemblId",
     ]
   `);
   expect(results.data).toMatchSnapshot();

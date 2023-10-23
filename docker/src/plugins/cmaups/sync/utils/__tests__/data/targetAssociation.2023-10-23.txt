@@ -1,0 +1,119 @@
+Target_ID	Gene_Symbol	Protein_Name	Uniprot_ID	ChEMBL_ID	TTD_ID	if_DTP	if_CYP	if_therapeutic_target	Target_Class_Level1	Target_Class_Level2	Target_Class_Level3	Target_Class_level_displayed	Target_type
+NPT598	RORB	Nuclear receptor ROR-beta	Q92753	CHEMBL3091268	NA	0	0	1	Transcription factor	Nuclear receptor	Nuclear hormone receptor subfamily 1	Nuclear hormone receptor subfamily 1	Therapeutic Target
+NPT48	KDM4E	Lysine-specific demethylase 4D-like	B2RXH2	CHEMBL1293226	T17036	0	0	1	Epigenetic regulator	Eraser	Lysine demethylase	Lysine demethylase	Therapeutic Target
+NPT1448	SGK1	Serine/threonine-protein kinase Sgk1	O00141	CHEMBL2343	T64682	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT4567	GRM8	Metabotropic glutamate receptor 8	O00222	CHEMBL3228	T77548	0	0	1	Membrane receptor	Family C G protein-coupled receptor	Small molecule receptor (family C GPCR)	Small molecule receptor (family C GPCR)	Therapeutic Target
+NPT4999	MEN1	Menin	O00255	CHEMBL1615381	NA	0	0	1	Unclassified protein	n.a.	n.a.	Unclassified protein	Therapeutic Target
+NPT1446	PIK3CD	PI3-kinase p110-delta subunit	O00329	CHEMBL3130	T67849	0	0	1	Enzyme	Transferase	n.a.	Transferase	Therapeutic Target
+NPT1702	PLK4	Serine/threonine-protein kinase PLK4	O00444	CHEMBL3788	T71374	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1717	STK25	Serine/threonine-protein kinase 25	O00506	CHEMBL5552	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1418	FAAH	Anandamide amidohydrolase	O00519	CHEMBL2243	T34389	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT203	CES2	Carboxylesterase 2	O00748	CHEMBL3180	NA	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT4018	SCD	Acyl-CoA desaturase	O00767	CHEMBL5555	NA	0	0	1	Enzyme	n.a.	n.a.	Enzyme	Therapeutic Target
+NPT3334	CIT	Citron Rho-interacting kinase	O14578	CHEMBL5579	T91397	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT956	PTGES	Prostaglandin E synthase	O14684	CHEMBL5658	T02562	0	0	1	Enzyme	Isomerase	n.a.	Isomerase	Therapeutic Target
+NPT3441	MAP2K7	Dual specificity mitogen-activated protein kinase kinase 7	O14733	CHEMBL3530	T53159	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT144	TERT	Telomerase reverse transcriptase	O14746	CHEMBL2916	NA	0	0	1	Enzyme	Transferase	n.a.	Transferase	Therapeutic Target
+NPT1608	CHEK1	Serine/threonine-protein kinase Chk1	O14757	CHEMBL4630	T62449	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT869	FFAR1	Free fatty acid receptor 1	O14842	CHEMBL4422	T25608	0	0	1	Membrane receptor	Family A G protein-coupled receptor	Small molecule receptor (family A GPCR)	Small molecule receptor (family A GPCR)	Therapeutic Target
+NPT981	IKBKB	Inhibitor of nuclear factor kappa B kinase beta subunit	O14920	CHEMBL1991	T78429	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1432	AURKA	Serine/threonine-protein kinase Aurora-A	O14965	CHEMBL4722	T87675	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3221	GAK	Serine/threonine-protein kinase GAK	O14976	CHEMBL4355	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3335	DCLK1	Serine/threonine-protein kinase DCLK1	O15075	CHEMBL5683	T42447	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT982	CHUK	Inhibitor of nuclear factor kappa B kinase alpha subunit	O15111	CHEMBL3476	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT538	NPC1	Niemann-Pick C1 protein	O15118	CHEMBL1293277	NA	0	0	1	Transporter	n.a.	n.a.	Transporter	Therapeutic Target
+NPT3333	MUSK	Muscle, skeletal receptor tyrosine protein kinase	O15146	CHEMBL5684	T44387	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1540	SLC22A2	Solute carrier family 22 member 2	O15244	CHEMBL1743122	NA	1	0	0	Transporter	Electrochemical transporter	SLC superfamily of solute carriers	SLC superfamily of solute carriers	Drug Transporter
+NPT613	SLC22A1	Solute carrier family 22 member 1	O15245	CHEMBL5685	NA	1	0	0	Transporter	Electrochemical transporter	SLC superfamily of solute carriers	SLC superfamily of solute carriers	Drug Transporter
+NPT1614	MAPK13	MAP kinase p38 delta	O15264	CHEMBL2939	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT686	HDAC3	Histone deacetylase 3	O15379	CHEMBL1829	T05090	0	0	1	Epigenetic regulator	Eraser	Histone deacetylase	Histone deacetylase	Therapeutic Target
+NPT1699	PDPK1	3-phosphoinositide dependent protein kinase-1	O15530	CHEMBL2534	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT5301	MLNR	Motilin receptor	O43193	CHEMBL2203	T62306	0	0	1	Membrane receptor	Family A G protein-coupled receptor	Peptide receptor (family A GPCR)	Peptide receptor (family A GPCR)	Therapeutic Target
+NPT1687	DAPK3	Death-associated protein kinase 3	O43293	CHEMBL2468	T81623	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3442	MAP3K7	Mitogen-activated protein kinase kinase kinase 7	O43318	CHEMBL5776	T04361	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1447	RIPK2	Serine/threonine-protein kinase RIPK2	O43353	CHEMBL5014	T92463	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT497	MGAM	Maltase-glucoamylase	O43451	CHEMBL2074	T92777	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT949	CA12	Carbonic anhydrase XII	O43570	CHEMBL3242	T16987	0	0	1	Enzyme	Lyase	n.a.	Lyase	Therapeutic Target
+NPT3460	DYRK3	Dual-specificity tyrosine-phosphorylation regulated kinase 3	O43781	CHEMBL4575	T97149	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1270	AKR1B10	Aldo-keto reductase family 1 member B10	O60218	CHEMBL5983	NA	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT1660	NUAK1	NUAK family SNF1-like kinase 1	O60285	CHEMBL5784	T21653	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3246	JAK2	Tyrosine-protein kinase JAK2	O60674	CHEMBL2971	T08391	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1282	MITF	Microphthalmia-associated transcription factor	O75030	CHEMBL1741165	NA	0	0	1	Transcription factor	n.a.	n.a.	Transcription factor	Therapeutic Target
+NPT3107	ROCK2	Rho-associated protein kinase 2	O75116	CHEMBL2973	T06093	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3398	ULK1	Serine/threonine-protein kinase ULK1	O75385	CHEMBL6006	T79307	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1890	ERN1	Serine/threonine-protein kinase/endoribonuclease IRE1	O75460	CHEMBL1163101	T01003	0	0	1	Enzyme	n.a.	n.a.	Enzyme	Therapeutic Target
+NPT543	NR1I2	Pregnane X receptor	O75469	CHEMBL3401	T82702	0	0	1	Transcription factor	Nuclear receptor	Nuclear hormone receptor subfamily 1	Nuclear hormone receptor subfamily 1	Therapeutic Target
+NPT10	GMNN	Geminin	O75496	CHEMBL1293278	T57387	0	0	1	Unclassified protein	n.a.	n.a.	Unclassified protein	Therapeutic Target
+NPT1613	RPS6KA5	Ribosomal protein S6 kinase alpha 5	O75582	CHEMBL4237	T50224	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT45	USP2	Ubiquitin carboxyl-terminal hydrolase 2	O75604	CHEMBL1293227	T95183	0	0	1	Enzyme	Protease	Cysteine protease	Cysteine protease	Therapeutic Target
+NPT3374	RPS6KA4	Ribosomal protein S6 kinase alpha 4	O75676	CHEMBL3125	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1708	STK16	Serine/threonine-protein kinase 16	O75716	CHEMBL3938	T04303	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1546	SLC22A3	Solute carrier family 22 member 3	O75751	CHEMBL2073673	T55948	1	0	0	Transporter	Electrochemical transporter	SLC superfamily of solute carriers	SLC superfamily of solute carriers	Drug Transporter
+NPT346	TRPA1	Transient receptor potential cation channel subfamily A member 1	O75762	CHEMBL6007	T84040	0	0	1	Ion channel	Voltage-gated ion channel	Transient receptor potential channel	Transient receptor potential channel	Therapeutic Target
+NPT3247	PAK3	Serine/threonine-protein kinase PAK 3	O75914	CHEMBL2999	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT273	PDE5A	Phosphodiesterase 5A	O76074	CHEMBL1827	T07663	0	0	1	Enzyme	Phosphodiesterase	Phosphodiesterase 5	Phosphodiesterase 5	Therapeutic Target
+NPT4736	PDE9A	Phosphodiesterase 9A	O76083	CHEMBL3535	T17852	0	0	1	Enzyme	Phosphodiesterase	Phosphodiesterase 9	Phosphodiesterase 9	Therapeutic Target
+NPT3230	STK17B	Serine/threonine-protein kinase 17B	O94768	CHEMBL3980	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1707	STK10	Serine/threonine-protein kinase 10	O94804	CHEMBL3981	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3366	PRKD3	Protein kinase C nu	O94806	CHEMBL2595	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT622	SLCO2B1	Solute carrier organic anion transporter family member 2B1	O94956	CHEMBL1743124	T34064	1	0	0	Transporter	Electrochemical transporter	SLC superfamily of solute carriers	SLC superfamily of solute carriers	Drug Transporter
+NPT588	TNKS	Tankyrase-1	O95271	CHEMBL6164	T39231	0	0	1	Enzyme	Transferase	n.a.	Transferase	Therapeutic Target
+NPT713	ABCB11	Bile salt export pump	O95342	CHEMBL6020	T33969	1	0	0	Transporter	Primary active transporter	ATP-binding cassette	ATP-binding cassette	Drug Transporter
+NPT3407	MAP3K6	Mitogen-activated protein kinase kinase kinase 6	O95382	CHEMBL1163123	T35283	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT4907	TDP2	Tyrosyl-DNA phosphodiesterase 2	O95551	CHEMBL2169736	T04696	0	0	1	Enzyme	Phosphodiesterase	n.a.	Phosphodiesterase	Therapeutic Target
+NPT2737	ESRRB	Estrogen-related receptor beta	O95718	CHEMBL3751	T68066	0	0	1	Transcription factor	Nuclear receptor	Nuclear hormone receptor subfamily 3	Nuclear hormone receptor subfamily 3	Therapeutic Target
+NPT3316	MAP4K4	Mitogen-activated protein kinase kinase kinase kinase 4	O95819	CHEMBL6166	T71367	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3307	LATS1	Serine/threonine-protein kinase LATS1	O95835	CHEMBL6167	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT2993	ABHD16A	Protein BAT5	O95870	CHEMBL6168	NA	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT1695	PAK4	Serine/threonine-protein kinase PAK 4	O96013	CHEMBL4482	T98293	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1680	CHEK2	Serine/threonine-protein kinase Chk2	O96017	CHEMBL2527	T28713	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT94	ALDH1A1	Aldehyde dehydrogenase 1A1	P00352	CHEMBL3577	T99641	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT2818	DHFR	Dihydrofolate reductase	P00374	CHEMBL202	T17345	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT5976	COX2	Cytochrome c oxidase subunit 2	P00403	CHEMBL6174	NA	0	0	1	Transporter	Primary active transporter	Oxidoreduction-driven transporters	Oxidoreduction-driven transporters	Therapeutic Target
+NPT2729	ABL1	Tyrosine-protein kinase ABL	P00519	CHEMBL1862	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT285	EGFR	Epidermal growth factor receptor erbB1	P00533	CHEMBL203	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT670	F2	Thrombin	P00734	CHEMBL204	T94033	0	0	1	Enzyme	Protease	Serine protease	Serine protease	Therapeutic Target
+NPT2533	F10	Coagulation factor X	P00742	CHEMBL244	T84631	0	0	1	Enzyme	Protease	Serine protease	Serine protease	Therapeutic Target
+NPT6544	REN	Renin	P00797	CHEMBL286	T61622	0	0	1	Enzyme	Protease	Aspartic protease	Aspartic protease	Therapeutic Target
+NPT3838	ADA	Adenosine deaminase	P00813	CHEMBL1910	T03661	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT947	CA1	Carbonic anhydrase I	P00915	CHEMBL261	T13201	0	0	1	Enzyme	Lyase	n.a.	Lyase	Therapeutic Target
+NPT233	CA2	Carbonic anhydrase II	P00918	CHEMBL205	T20401	0	0	1	Enzyme	Lyase	n.a.	Lyase	Therapeutic Target
+NPT4054	HRAS	Transforming protein p21/H-Ras-1	P01112	CHEMBL2167	NA	0	0	1	Other cytosolic protein	n.a.	n.a.	Other cytosolic protein	Therapeutic Target
+NPT516	TNF	TNF-alpha	P01375	CHEMBL1825	NA	0	0	1	Secreted protein	n.a.	n.a.	Secreted protein	Therapeutic Target
+NPT483	LMNA	Prelamin-A/C	P02545	CHEMBL1293235	NA	0	0	1	Structural protein	n.a.	n.a.	Structural protein	Therapeutic Target
+NPT77	TTR	Transthyretin	P02766	CHEMBL3194	NA	0	0	1	Secreted protein	n.a.	n.a.	Secreted protein	Therapeutic Target
+NPT108	ESR1	Estrogen receptor alpha	P03372	CHEMBL206	T89534	0	0	1	Transcription factor	Nuclear receptor	Nuclear hormone receptor subfamily 3	Nuclear hormone receptor subfamily 3	Therapeutic Target
+NPT4266	ND4	NADH-ubiquinone oxidoreductase chain 4	P03905	CHEMBL4499	NA	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT69	MMP1	Matrix metalloproteinase-1	P03956	CHEMBL332	T52450	0	0	1	Enzyme	Protease	Metallo protease	Metallo protease	Therapeutic Target
+NPT253	HMGCR	HMG-CoA reductase	P04035	CHEMBL402	T53585	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT1424	RAF1	Serine/threonine-protein kinase RAF	P04049	CHEMBL1906	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT503	FUCA1	Alpha-L-fucosidase I	P04066	CHEMBL4176	NA	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT249	NR3C1	Glucocorticoid receptor	P04150	CHEMBL2034	NA	0	0	1	Transcription factor	Nuclear receptor	Nuclear hormone receptor subfamily 3	Nuclear hormone receptor subfamily 3	Therapeutic Target
+NPT2852	PRNP	Prion protein	P04156	CHEMBL4869	T08722	0	0	1	Surface antigen	n.a.	n.a.	Surface antigen	Therapeutic Target
+NPT1755	TK1	Thymidine kinase, cytosolic	P04183	CHEMBL2883	T30081	0	0	1	Enzyme	Transferase	n.a.	Transferase	Therapeutic Target
+NPT895	SHBG	Testis-specific androgen-binding protein	P04278	CHEMBL3305	NA	0	0	1	Secreted protein	n.a.	n.a.	Secreted protein	Therapeutic Target
+NPT286	ERBB2	Receptor protein-tyrosine kinase erbB-2	P04626	CHEMBL1824	NA	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT3239	NTRK1	Nerve growth factor receptor Trk-A	P04629	CHEMBL2815	T07173	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT539	TP53	Cellular tumor antigen p53	P04637	CHEMBL4096	NA	0	0	1	Transcription factor	n.a.	n.a.	Transcription factor	Therapeutic Target
+NPT1603	CYP1A1	Cytochrome P450 1A1	P04798	CHEMBL2231	NA	0	1	0	Enzyme	Cytochrome P450	Cytochrome P450 family 1	Cytochrome P450 family 1	Cytochrome P450
+NPT4947	ATP1A1	Sodium/potassium-transporting ATPase alpha-1 chain	P05023	CHEMBL1807	T40800	0	0	1	Transporter	Primary active transporter	P-type ATPase	P-type ATPase	Therapeutic Target
+NPT78	APP	Beta amyloid A4 protein	P05067	CHEMBL2487	NA	0	0	1	Membrane receptor	n.a.	n.a.	Membrane receptor	Therapeutic Target
+NPT2732	ALDH2	Aldehyde dehydrogenase	P05091	CHEMBL1935	T99641	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT3159	CYP17A1	Cytochrome P450 17A1	P05093	CHEMBL3522	T89041	0	1	0	Enzyme	Cytochrome P450	Cytochrome P450 family 17	Cytochrome P450 family 17	Cytochrome P450
+NPT3953	SERPINE1	Plasminogen activator inhibitor-1	P05121	CHEMBL3475	NA	0	0	1	Secreted protein	n.a.	n.a.	Secreted protein	Therapeutic Target
+NPT880	PRKCG	Protein kinase C gamma	P05129	CHEMBL2938	T47107	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1634	MPO	Myeloperoxidase	P05164	CHEMBL2439	T23471	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target
+NPT208	CYP1A2	Cytochrome P450 1A2	P05177	CHEMBL3356	NA	0	1	0	Enzyme	Cytochrome P450	Cytochrome P450 family 1	Cytochrome P450 family 1	Cytochrome P450
+NPT802	ALPL	Alkaline phosphatase, tissue-nonspecific isozyme	P05186	CHEMBL5979	T09538	0	0	1	Enzyme	n.a.	n.a.	Enzyme	Therapeutic Target
+NPT74	JUN	Proto-oncogene c-JUN	P05412	CHEMBL4977	NA	0	0	1	Transcription factor	n.a.	n.a.	Transcription factor	Therapeutic Target
+NPT760	PRKCB	Protein kinase C beta	P05771	CHEMBL3045	T40276	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT5087	HPN	Serine protease hepsin	P05981	CHEMBL2079849	T73471	0	0	1	Enzyme	Protease	Serine protease	Serine protease	Therapeutic Target
+NPT2574	INSR	Insulin receptor	P06213	CHEMBL1981	T85435	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT13	LCK	Tyrosine-protein kinase LCK	P06239	CHEMBL258	T12499	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT14	FYN	Tyrosine-protein kinase FYN	P06241	CHEMBL1841	T17980	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT439	BCHE	Butyrylcholinesterase	P06276	CHEMBL1914	T99799	0	0	1	Enzyme	Hydrolase	n.a.	Hydrolase	Therapeutic Target
+NPT542	PGR	Progesterone receptor	P06401	CHEMBL208	T22939	0	0	1	Transcription factor	Nuclear receptor	Nuclear hormone receptor subfamily 3	Nuclear hormone receptor subfamily 3	Therapeutic Target
+NPT1423	CDK1	Cyclin-dependent kinase 1	P06493	CHEMBL308	T49898	0	0	1	Enzyme	Kinase	Protein Kinase	Protein Kinase	Therapeutic Target
+NPT1667	PYGL	Liver glycogen phosphorylase	P06737	CHEMBL2568	T19184	0	0	1	Enzyme	n.a.	n.a.	Enzyme	Therapeutic Target
+NPT59	POLB	DNA polymerase beta	P06746	CHEMBL2392	T06958	0	0	1	Enzyme	n.a.	n.a.	Enzyme	Therapeutic Target
+NPT570	ALOX5	Arachidonate 5-lipoxygenase	P09917	CHEMBL215	NA	0	0	1	Enzyme	Oxidoreductase	n.a.	Oxidoreductase	Therapeutic Target

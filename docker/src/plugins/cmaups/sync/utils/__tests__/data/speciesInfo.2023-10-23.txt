@@ -1,0 +1,164 @@
+Plant_ID	Plant_Name	Species_Tax_ID	Species_Name	Genus_Tax_ID	Genus_Name	Family_Tax_ID	Family_Name
+NPO6530	Dolichos Lablab L	NA	NA	3839	Dolichos	3803	Fabaceae
+NPO12205	Eucalyptus Apodophylla	1711146	Eucalyptus apodophylla	3932	Eucalyptus	3931	Myrtaceae
+NPO21587	Hypericum Papuanum	1137007	Hypericum papuanum	55962	Hypericum	629714	Hypericaceae
+NPO11637	Psilostrophe Cooperi	128742	Psilostrophe cooperi	41625	Psilostrophe	4210	Asteraceae
+NPO9564	Annona Haematantha	NA	NA	13336	Annona	22140	Annonaceae
+NPO4253	Viguiera Annua	NA	NA	73317	Viguiera	4210	Asteraceae
+NPO25050	Mycetia Nutans	1712818	Mycetia nutans	58404	Mycetia	24966	Rubiaceae
+NPO18636	Hesperocyparis Macrocarpa	76352	Hesperocyparis macrocarpa	634378	Hesperocyparis	3367	Cupressaceae
+NPO8524	Pithecellobium Clypearia	714486	Pithecellobium clypearia	58875	Pithecellobium	3803	Fabaceae
+NPO5649.1	Coptis Chinensis Var. Brevisepala	261450	Coptis chinensis	3441	Coptis	3440	Ranunculaceae
+NPO20610	Mosla Dianthera	1874238	Mosla dianthera	516064	Mosla	4136	Lamiaceae
+NPO7317	Citrus Aurantium	43166	Citrus aurantium	2706	Citrus	23513	Rutaceae
+NPO15674	Acanthosyris Spinescens	NA	NA	136850	Acanthosyris	1003248	Cervantesiaceae
+NPO4970	Torricellia Tiliifolia	138902	Torricellia tiliifolia	138901	Torricellia	138900	Torricelliaceae
+NPO791	Laburnum Anagyroides	49828	Laburnum anagyroides	3851	Laburnum	3803	Fabaceae
+NPO19037	Senecio Praecox	NA	NA	18794	Senecio	4210	Asteraceae
+NPO12801	Aglaia Meridionalis	306524	Aglaia meridionalis	201006	Aglaia	43707	Meliaceae
+NPO8932	Panopsis Rubescens	NA	NA	83734	Panopsis	4328	Proteaceae
+NPO12972	Scutellaria Epilobifolia	NA	NA	4139	Scutellaria	4136	Lamiaceae
+NPO1019	Citrus Hybr	NA	NA	2706	Citrus	23513	Rutaceae
+NPO18252	Cajanus Cajan	3821	Cajanus cajan	3820	Cajanus	3803	Fabaceae
+NPO6835	Diospyros Mafiensis	NA	NA	13492	Diospyros	19955	Ebenaceae
+NPO6645.1	Picea Jezoensis Var. Jezoensis	67778	Picea jezoensis	3328	Picea	3318	Pinaceae
+NPO26641	Pteroxygonum Giraldii	374751	Pteroxygonum giraldii	374750	Pteroxygonum	3615	Polygonaceae
+NPO3658	Achillea Pseudopectinata	282760	Achillea pseudopectinata	13328	Achillea	4210	Asteraceae
+NPO14392	Caesalpinia Minax	857496	Caesalpinia minax	53845	Caesalpinia	3803	Fabaceae
+NPO29099	Sinocrassula Indica	91157	Sinocrassula indica	91156	Sinocrassula	3781	Crassulaceae
+NPO18524	Scenedesmus Basiliensis	119572	Scenedesmus basiliensis	3087	Scenedesmus	3086	Scenedesmaceae
+NPO33085	Nuphar Pumilum	NA	NA	4415	Nuphar	4410	Nymphaeaceae
+NPO13030	Artemisia Dentata	NA	NA	4219	Artemisia	4210	Asteraceae
+NPO134	Cassia Artemisioides	NA	NA	53851	Cassia	3803	Fabaceae
+NPO1329	Esenbeckia Hartmanii	NA	NA	372452	Esenbeckia	23513	Rutaceae
+NPO22683	Pteris Bella	1508567	Pteris bella	13820	Pteris	13819	Pteridaceae
+NPO24184	Argyrochosma Pilifera	1055479	Argyrochosma pilifera	331973	Argyrochosma	13819	Pteridaceae
+NPO12181	Albizia Julibrissin	3813	Albizia julibrissin	3812	Albizia	3803	Fabaceae
+NPO22964	Teucrium Fruticans	28514	Teucrium fruticans	21896	Teucrium	4136	Lamiaceae
+NPO23023	Swertia Pubescens	166623	Swertia pubescens	39241	Swertia	21472	Gentianaceae
+NPO3956	Maesa Ramentacea	1526298	Maesa ramentacea	59979	Maesa	4335	Primulaceae
+NPO11222	Rubus Alceifolius	124693	Rubus alceifolius	23216	Rubus	3745	Rosaceae
+NPO18986	Betula Papyrifera	3507	Betula papyrifera	3504	Betula	3514	Betulaceae
+NPO21353	Crotalaria Lachnophora	1237651	Crotalaria lachnophora	3828	Crotalaria	3803	Fabaceae
+NPO17130	Hylotelephium Telephium	91097	Hylotelephium telephium	91095	Hylotelephium	3781	Crassulaceae
+NPO12255	Jasminum Humile	126430	Jasminum humile	4147	Jasminum	4144	Oleaceae
+NPO2607	Ophiorrhiza Blumeana	NA	NA	35912	Ophiorrhiza	24966	Rubiaceae
+NPO27555	Sedum Acre	23028	Sedum acre	3784	Sedum	3781	Crassulaceae
+NPO28988	Euphorbia Maculata	216479	Euphorbia maculata	3990	Euphorbia	3977	Euphorbiaceae
+NPO12933	Gymnadenia Conopsea	59324	Gymnadenia conopsea	59323	Gymnadenia	4747	Orchidaceae
+NPO21320	Artabotrys Venustus	NA	NA	225832	Artabotrys	22140	Annonaceae
+NPO1958	Eupatorium Leucolepis	102775	Eupatorium leucolepis	13516	Eupatorium	4210	Asteraceae
+NPO22234	Ficus Carica	3494	Ficus carica	3493	Ficus	3487	Moraceae
+NPO10316	Glechoma Longituba	516071	Glechoma longituba	21766	Glechoma	4136	Lamiaceae
+NPO17694	Nicotiana Tabacum	4097	Nicotiana tabacum	4085	Nicotiana	4070	Solanaceae
+NPO28396	Rudbeckia Laciniata	52310	Rudbeckia laciniata	48209	Rudbeckia	4210	Asteraceae
+NPO8006	Berlinia Tomentosa	NA	NA	162679	Berlinia	3803	Fabaceae
+NPO19995	Baccharis Neglecta	41488	Baccharis neglecta	41487	Baccharis	4210	Asteraceae
+NPO27597	Haplophyllum Ramosissimum	1006079	Haplophyllum ramosissimum	266078	Haplophyllum	23513	Rutaceae
+NPO27181	Kleinhovia Hospita	93784	Kleinhovia hospita	93783	Kleinhovia	3629	Malvaceae
+NPO9522	Pericopsis Angolensis	1899197	Pericopsis angolensis	53916	Pericopsis	3803	Fabaceae
+NPO26785	Taraxacum Mongolicum	90037	Taraxacum mongolicum	49743	Taraxacum	4210	Asteraceae
+NPO27020	Thalictrum Alpinum	395328	Thalictrum alpinum	46968	Thalictrum	3440	Ranunculaceae
+NPO4411	Plantago Ovata	185002	Plantago ovata	26867	Plantago	156152	Plantaginaceae
+NPO2090	Baccharis Thesioides	NA	NA	41487	Baccharis	4210	Asteraceae
+NPO17238	Ipomopsis Polycladon	40743	Ipomopsis polycladon	40741	Ipomopsis	24584	Polemoniaceae
+NPO22143	Genista Sessilifolia	147456	Genista sessilifolia	49818	Genista	3803	Fabaceae
+NPO13141	Strophanthus Gratus	141614	Strophanthus gratus	52858	Strophanthus	4056	Apocynaceae
+NPO19123	Polygonatum Zanlanscianense	261427	Polygonatum zanlanscianense	16195	Polygonatum	40552	Asparagaceae
+NPO4216	Dalbergia Assamica	698352	Dalbergia assamica	53862	Dalbergia	3803	Fabaceae
+NPO5253	Salvia Oxyodon	NA	NA	21880	Salvia	4136	Lamiaceae
+NPO12744	Ajuga Nipponensis	984302	Ajuga nipponensis	38595	Ajuga	4136	Lamiaceae
+NPO26495	Cymbopogon Sennaarensis	NA	NA	66013	Cymbopogon	4479	Poaceae
+NPO19768	Xylosalsola Arbuscula	151237	Xylosalsola arbuscula	1316675	Xylosalsola	1804623	Chenopodiaceae
+NPO28919	Calendula Officinalis	41496	Calendula officinalis	41495	Calendula	4210	Asteraceae
+NPO14989	Acanthothamnus Aphyllus	123397	Acanthothamnus aphyllus	123396	Acanthothamnus	4305	Celastraceae
+NPO27249	Bauhinia Championii	228514	Bauhinia championii	3805	Bauhinia	3803	Fabaceae
+NPO18818	Nauclea Orientalis	43526	Nauclea orientalis	43525	Nauclea	24966	Rubiaceae
+NPO27274	Amsinckia Tessellata	1037326	Amsinckia tessellata	255583	Amsinckia	21571	Boraginaceae
+NPO10098	Glycosmis Pseudoracemosa	159049	Glycosmis pseudoracemosa	68543	Glycosmis	23513	Rutaceae
+NPO13975	Calanthe Arisanensis	309525	Calanthe arisanensis	38206	Calanthe	4747	Orchidaceae
+NPO24816	Anaphalis Contorta	1209452	Anaphalis contorta	49044	Anaphalis	4210	Asteraceae
+NPO7715	Sophora Tonkinensis	714503	Sophora tonkinensis	3896	Sophora	3803	Fabaceae
+NPO5735	Solidago Serotina	NA	NA	59293	Solidago	4210	Asteraceae
+NPO9225	Bursera Graveolens	300214	Bursera graveolens	4015	Bursera	4014	Burseraceae
+NPO21221	Trapa Bispinosa	236976	Trapa bispinosa	22665	Trapa	3928	Lythraceae
+NPO27603	Populus Candicans	1616482	Populus candicans	3689	Populus	3688	Salicaceae
+NPO17873	Adonis Vernalis	46985	Adonis vernalis	46984	Adonis	3440	Ranunculaceae
+NPO2217	Valeriana Wolgensis	NA	NA	19952	Valeriana	4200	Caprifoliaceae
+NPO16946	Aconitum Anthora	112588	Aconitum anthora	49188	Aconitum	3440	Ranunculaceae
+NPO15395	Euphorbia Portlandica	756631	Euphorbia portlandica	3990	Euphorbia	3977	Euphorbiaceae
+NPO238	Lobelia St	NA	NA	4382	Lobelia	4381	Campanulaceae
+NPO19780	Stemona Sessilifolia	339784	Stemona sessilifolia	85281	Stemona	49662	Stemonaceae
+NPO8119	Ambrosia Polystachya	NA	NA	4211	Ambrosia	4210	Asteraceae
+NPO25825	Saussurea Costus	324593	Saussurea costus	41629	Saussurea	4210	Asteraceae
+NPO3800	Indigofera Arrecta	198859	Indigofera arrecta	20685	Indigofera	3803	Fabaceae
+NPO15875	Scolopia Chinensis	1603833	Scolopia chinensis	179716	Scolopia	3688	Salicaceae
+NPO5078	Turraeanthus Mannii	1317901	Turraeanthus mannii	403499	Turraeanthus	43707	Meliaceae
+NPO21533	Smilax Bracteata	1045134	Smilax bracteata	49656	Smilax	4703	Smilacaceae
+NPO8665	Kopsia Pauciflora	1037435	Kopsia pauciflora	21101	Kopsia	4056	Apocynaceae
+NPO28375	Pygeum Topengii	401067	Pygeum topengii	401066	Pygeum	3745	Rosaceae
+NPO26387	Linum Crispum	NA	NA	4005	Linum	4004	Linaceae
+NPO20023	Uncaria Gambier	NA	NA	43574	Uncaria	24966	Rubiaceae
+NPO28809	Cullen Corylifolium	429560	Cullen corylifolium	109218	Cullen	3803	Fabaceae
+NPO17377	Pittosporum Viridiflorum	992772	Pittosporum viridiflorum	23129	Pittosporum	23121	Pittosporaceae
+NPO15028	Lespedeza Cuneata	53893	Lespedeza cuneata	53892	Lespedeza	3803	Fabaceae
+NPO20546	Cissus Pallidiflorus	NA	NA	149357	Cissus	3602	Vitaceae
+NPO7792	Coreopsis Grandiflora	13449	Coreopsis grandiflora	13448	Coreopsis	4210	Asteraceae
+NPO26645	Beilschmiedia Volckii	1345235	Beilschmiedia volckii	88849	Beilschmiedia	3433	Lauraceae
+NPO6939	Vatica Diospyroides	340447	Vatica diospyroides	64579	Vatica	40588	Dipterocarpaceae
+NPO900	Cnidium Monieri	NA	Cnidium monieri 	48110	Cnidium	4037	Apiaceae
+NPO3112	Honorius Nutans	535968	Honorius nutans	82022	Honorius	44985	Hyacinthaceae
+NPO14582	Spinacia Oleracea	3562	Spinacia oleracea	3561	Spinacia	1804623	Chenopodiaceae
+NPO19015	Begonia Glabra	62974	Begonia glabra	3681	Begonia	3680	Begoniaceae
+NPO19649	Akebia Quinata	13331	Akebia quinata	13330	Akebia	22788	Lardizabalaceae
+NPO1315	Sinomenium Acutum	152363	Sinomenium acutum	152362	Sinomenium	3455	Menispermaceae
+NPO25530	Daphne Blagayana	653935	Daphne blagayana	66679	Daphne	39987	Thymelaeaceae
+NPO6017	Artemisia Arbuscula	86307	Artemisia arbuscula	4219	Artemisia	4210	Asteraceae
+NPO5730	Lactuca Canadensis	527214	Lactuca canadensis	4235	Lactuca	4210	Asteraceae
+NPO27680	Zanthoxylum Syncarpum	NA	NA	67937	Zanthoxylum	23513	Rutaceae
+NPO811	Rhamnella Inaequilatera	NA	NA	106703	Rhamnella	3608	Rhamnaceae
+NPO8323	Ilex Lepta	NA	NA	4295	Ilex	4294	Aquifoliaceae
+NPO15150	Phebalium Gracile	NA	NA	77003	Phebalium	23513	Rutaceae
+NPO9325	Dalbergia Volubilis	1544813	Dalbergia volubilis	53862	Dalbergia	3803	Fabaceae
+NPO8674	Goniothalamus Arvensis	NA	NA	261082	Goniothalamus	22140	Annonaceae
+NPO18714.1	Rauvolfia Verticillata Var. Hainanensis	329875	Rauvolfia verticillata	4059	Rauvolfia	4056	Apocynaceae
+NPO11003	Euphorbia Sancta	NA	NA	1334272	Euphorbia	3977	Euphorbiaceae
+NPO28361	Erythrina Salviiflora	NA	NA	3841	Erythrina	3803	Fabaceae
+NPO10452	Odontites Rubra	NA	NA	321416	Odontites	91896	Orobanchaceae
+NPO17256	Kobresia Nepalensis	58223	Kobresia nepalensis	46330	Kobresia	4609	Cyperaceae
+NPO2218	Aframomum Sulcatum	NA	NA	188478	Aframomum	4642	Zingiberaceae
+NPO16011	Galium Rivale	715712	Galium rivale	25168	Galium	24966	Rubiaceae
+NPO22015	Clausena Indica	NA	NA	76958	Clausena	23513	Rutaceae
+NPO7016	Gardenia Tubifera	1240870	Gardenia tubifera	43486	Gardenia	24966	Rubiaceae
+NPO24744	Chloranthus Tianmushanensis	NA	NA	13005	Chloranthus	16737	Chloranthaceae
+NPO29002	Dysosma Furfuracea	NA	NA	63348	Dysosma	41773	Berberidaceae
+NPO23211	Xyris Indica	NA	NA	75440	Xyris	75435	Xyridaceae
+NPO21872	Hemerocallis Longituba	NA	NA	16107	Hemerocallis	51383	Asphodelaceae
+NPO15079	Polygala Myrtifolia	292129	Polygala myrtifolia	4275	Polygala	4274	Polygalaceae
+NPO13117	Asparagus Setaceus	272863	Asparagus setaceus	4685	Asparagus	40552	Asparagaceae
+NPO14002	Petalostemon Purpureum	NA	NA	1234510	Petalostemon	3803	Fabaceae
+NPO16145	Apocynum Venetum	377125	Apocynum venetum	13338	Apocynum	4056	Apocynaceae
+NPO27440	Osteospermum Muricatum	41618	Osteospermum muricatum	41617	Osteospermum	4210	Asteraceae
+NPO17145	Aegiceras Corniculatum	59970	Aegiceras corniculatum	59969	Aegiceras	4335	Primulaceae
+NPO3608	Eleutherococcus Giraldii	265763	Eleutherococcus giraldii	50304	Eleutherococcus	4050	Araliaceae
+NPO21787	Betula Pubescens	38787	Betula pubescens	3504	Betula	3514	Betulaceae
+NPO16239	Rhodiola Rosea	203015	Rhodiola rosea	202994	Rhodiola	3781	Crassulaceae
+NPO895	Rabdosia Inflexa	NA	Rabdosia inflexa	204130	Isodon	4136	Lamiaceae
+NPO4759	Helleborus Multifidus	171891	Helleborus multifidus	46995	Helleborus	3440	Ranunculaceae
+NPO7288	Heliotropium Steudneri	NA	NA	21621	Heliotropium	1561072	Heliotropiaceae
+NPO13134	Iris Japonica	203638	Iris japonica	26378	Iris	26339	Iridaceae
+NPO8527	Holboellia Fargesi	NA	NA	41781	Holboellia	22788	Lardizabalaceae
+NPO13118	Paeonia Officinalis	69717	Paeonia officinalis	13625	Paeonia	24943	Paeoniaceae
+NPO2838	Verbena Officinalis	79772	Verbena officinalis	22002	Verbena	21910	Verbenaceae
+NPO8543	Meconopsis Horridula	248837	Meconopsis horridula	72195	Meconopsis	3465	Papaveraceae
+NPO15018	Dioscorea Collettii	357959	Dioscorea collettii	4672	Dioscorea	4671	Dioscoreaceae
+NPO20336	Arctotheca Calendula	259859	Arctotheca calendula	259858	Arctotheca	4210	Asteraceae
+NPO12118	Cleistopholis Staudtii	NA	NA	306910	Cleistopholis	22140	Annonaceae
+NPO28626	Isodon Rubescens	587669	Isodon rubescens	204130	Isodon	4136	Lamiaceae
+NPO18092	Cleyera Japonica	182333	Cleyera japonica	182332	Cleyera	125045	Pentaphylacaceae
+NPO28017	Aster Altaicus	983245	Aster altaicus	41479	Aster	4210	Asteraceae
+NPO18135	Clausena Vestita	1224762	Clausena vestita	76958	Clausena	23513	Rutaceae
+NPO29092	Machilus Japonica	325535	Machilus japonica	251260	Machilus	3433	Lauraceae
+NPO15886	Lepidium Campestre	65351	Lepidium campestre	19205	Lepidium	3700	Brassicaceae
+NPO18295	Berberis Amurensis	258140	Berberis amurensis	22774	Berberis	41773	Berberidaceae
+NPO4323	Morinda Citrifolia	43522	Morinda citrifolia	43521	Morinda	24966	Rubiaceae
