@@ -48,7 +48,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let newFileSize = Number(
       headers.filter((row) => row[0] === 'content-length')[0],
     );
-    newFileSize = newFileSize ? newFileSize[1] : 0;
+    newFileSize = newFileSize ? newFileSize[1] : -1;
     let fileList = (
       await fileCollectionFromPath(targetFolder, {
         ungzip: { gzipExtensions: [] },
