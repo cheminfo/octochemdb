@@ -46,8 +46,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       headers.filter((row) => row[0] === 'date')[0];
 
     let newFileSize = Number(
-      headers.filter((row) => row[0] === 'content-length')[0][1],
+      headers.filter((row) => row[0] === 'content-length')[0],
     );
+    newFileSize = newFileSize ? newFileSize[1] : 0;
     let fileList = (
       await fileCollectionFromPath(targetFolder, {
         ungzip: { gzipExtensions: [] },
@@ -123,7 +124,9 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     } else {
       const targetFile = join(targetFolder, lastFileTargetLocal);
       debug.trace(
-        `New file size match local one (no need to fetch):${newFileSize}/${lastFilesSize}`,
+        `New file size match local one (no need to fetch):${
+          newFileSize === 0 ? 'undefined' : newFileSize
+        }/${lastFilesSize}`,
       );
       return targetFile;
     }
