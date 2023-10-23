@@ -5,6 +5,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
@@ -125,8 +126,10 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on npAtlases collection
-      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
-      await collection.createIndex({ _seq: 1 });
+      await createIndexes(collection, [
+        { 'data.ocl.noStereoTautomerID': 1 },
+        { _seq: 1 },
+      ]);
 
       debug.info(`npAtlases collection imported`);
     } else {

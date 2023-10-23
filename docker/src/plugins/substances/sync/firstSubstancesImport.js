@@ -1,4 +1,5 @@
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 
 import { getFilesToImport } from './utils/getFilesToImport.js';
 import { importSubstanceFiles } from './utils/importSubstanceFiles.js';
@@ -49,9 +50,11 @@ async function firstSubstanceImport(connection) {
     await connection.setProgress(progress);
 
     let substanceCollection = await connection.getCollection('substances');
-    await substanceCollection.createIndex({ naturalProduct: 1 });
-    await substanceCollection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
-    await substanceCollection.createIndex({ _seq: 1 });
+    await createIndexes(substanceCollection, [
+      { naturalProduct: 1 },
+      { 'data.ocl.noStereoTautomerID': 1 },
+      { _seq: 1 },
+    ]);
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {

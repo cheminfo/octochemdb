@@ -6,6 +6,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { getTaxonomiesNodes } from './utils/getTaxonomiesNodes.js';
@@ -107,15 +108,16 @@ export async function sync(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      await collection.createIndex({ 'data.phylum': 1 });
-      await collection.createIndex({ 'data.class': 1 });
-      await collection.createIndex({ 'data.order': 1 });
-      await collection.createIndex({ 'data.family': 1 });
-      await collection.createIndex({ 'data.genus': 1 });
-      await collection.createIndex({ 'data.species': 1 });
-      await collection.createIndex({ 'data.organism': 1 });
-      await collection.createIndex({ _seq: 1 });
-
+      await createIndexes(collection, [
+        { 'data.phylum': 1 },
+        { 'data.class': 1 },
+        { 'data.order': 1 },
+        { 'data.family': 1 },
+        { 'data.genus': 1 },
+        { 'data.species': 1 },
+        { 'data.organism': 1 },
+        { _seq: 1 },
+      ]);
       debug.info(`Taxonomies collection updated`);
     } else {
       debug.info(`file already processed`);

@@ -3,6 +3,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { parseGNPs } from './utils/parseGNPs.js';
@@ -102,20 +103,21 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // create indexes on the collection
-      await collection.createIndex({ 'data.ocl.idCode': 1 });
-      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
-      await collection.createIndex({ 'data.spectrum.msLevel': 1 });
-      await collection.createIndex({ 'data.spectrum.ionSource': 1 });
-      await collection.createIndex({ 'data.spectrum.precursorMz': 1 });
-      await collection.createIndex({ 'data.spectrum.adduct': 1 });
-      await collection.createIndex({ 'data.spectrum.ionMode': 1 });
-      await collection.createIndex({ 'data.spectrum.data.x': 1 });
-      await collection.createIndex({ 'data.spectrum.data.y': 1 });
-      await collection.createIndex({ 'data.spectrum.numberOfPeaks': 1 });
-      await collection.createIndex({ 'data.em': 1 });
-      await collection.createIndex({ 'data.mf': 1 });
-      await collection.createIndex({ _seq: 1 });
-
+      await createIndexes(collection, [
+        { 'data.ocl.idCode': 1 },
+        { 'data.ocl.noStereoTautomerID': 1 },
+        { 'data.spectrum.msLevel': 1 },
+        { 'data.spectrum.ionSource': 1 },
+        { 'data.spectrum.precursorMz': 1 },
+        { 'data.spectrum.adduct': 1 },
+        { 'data.spectrum.ionMode': 1 },
+        { 'data.spectrum.data.x': 1 },
+        { 'data.spectrum.data.y': 1 },
+        { 'data.spectrum.numberOfPeaks': 1 },
+        { 'data.em': 1 },
+        { 'data.mf': 1 },
+        { _seq: 1 },
+      ]);
       debug.trace(`${imported} compounds processed`);
       debug.info(`GNPs imported`);
     } else {

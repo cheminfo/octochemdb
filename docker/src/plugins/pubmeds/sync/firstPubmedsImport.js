@@ -2,6 +2,7 @@
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 
 import { getCidFromPmid } from './utils/getCidFromPmid.js';
 import { getFilesToImport } from './utils/getFilesToImport.js';
@@ -73,8 +74,12 @@ async function firstPubmedImport(connection) {
     await connection.setProgress(progress);
     // create indexes
     const collection = await connection.getCollection('pubmeds');
-    await collection.createIndex({ 'data.meshHeadings': 1 });
-    await collection.createIndex({ 'data.compounds': 1 });
+
+    await createIndexes(collection, [
+      { 'data.meshHeadings': 1 },
+      { 'data.compounds': 1 },
+      { _seq: 1 },
+    ]);
     // create text index where title and meshHeading have more weight than abstract
     await collection.createIndex(
       {
@@ -91,8 +96,6 @@ async function firstPubmedImport(connection) {
         },
       },
     );
-
-    await collection.createIndex({ _seq: 1 });
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {

@@ -4,6 +4,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import importCompoundPatents from './utils/importCompoundPatents.js';
@@ -71,10 +72,12 @@ export async function sync(connection) {
 
       await importCompoundPatents(sortedFile, connection);
       const collection = await connection.getCollection(options.collectionName);
-      await collection.createIndex({ 'data.patents': 1 });
-      await collection.createIndex({ 'data.nbPatents': 1 });
-      await collection.createIndex({ _seq: 1 });
-
+      // create indexes
+      await createIndexes(collection, [
+        { 'data.patents': 1 },
+        { 'data.nbPatents': 1 },
+        { _seq: 1 },
+      ]);
       // update Logs in importationLogs collection
       progress.sources = md5(JSON.stringify(sources));
       progress.state = 'updated';

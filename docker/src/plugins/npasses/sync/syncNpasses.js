@@ -1,6 +1,7 @@
 import md5 from 'md5';
 
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
@@ -113,8 +114,10 @@ export async function sync(connection) {
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
       // create indexes
-      await collection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
-      await collection.createIndex({ _seq: 1 });
+      await createIndexes(collection, [
+        { 'data.ocl.noStereoTautomerID': 1 },
+        { _seq: 1 },
+      ]);
 
       debug.info(`npasses collection updated`);
     } else {

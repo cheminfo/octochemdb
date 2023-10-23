@@ -4,6 +4,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import gunzipStream from '../../../utils/gunzipStream.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
@@ -126,22 +127,23 @@ export async function sync(connection) {
       progress.state = 'updated';
       await connection.setProgress(progress);
       // Indexing of collection properties
-      await collection.createIndex({ 'data.description': 1 });
-      await collection.createIndex({ 'data.pictograms': 1 });
-      await collection.createIndex({ 'data.hCodesDescription': 1 });
-      await collection.createIndex({ 'data.pCodesDescription': 1 });
-      await collection.createIndex({ 'data.signals': 1 });
-      await collection.createIndex({ 'data.physicalProperties': 1 });
-      await collection.createIndex({ 'data.toxicalInformation': 1 });
-      await collection.createIndex({ 'data.exposureLimits': 1 });
-      await collection.createIndex({ 'data.healthAndSymptoms': 1 });
-      await collection.createIndex({ 'data.firstAid': 1 });
-      await collection.createIndex({ 'data.flammabilityAndExplosivity': 1 });
-      await collection.createIndex({ 'data.stabilityAndReactivity': 1 });
-      await collection.createIndex({ 'data.storageAndHandling': 1 });
-      await collection.createIndex({ 'data.cleanUpAndDisposal': 1 });
-
-      await collection.createIndex({ _seq: 1 });
+      await createIndexes(collection, [
+        { 'data.description': 1 },
+        { 'data.pictograms': 1 },
+        { 'data.hCodesDescription': 1 },
+        { 'data.pCodesDescription': 1 },
+        { 'data.signals': 1 },
+        { 'data.physicalProperties': 1 },
+        { 'data.toxicalInformation': 1 },
+        { 'data.exposureLimits': 1 },
+        { 'data.healthAndSymptoms': 1 },
+        { 'data.firstAid': 1 },
+        { 'data.flammabilityAndExplosivity': 1 },
+        { 'data.stabilityAndReactivity': 1 },
+        { 'data.storageAndHandling': 1 },
+        { 'data.cleanUpAndDisposal': 1 },
+        { _seq: 1 },
+      ]);
       if (existsSync(outputFilename)) {
         rmSync(outputFilename);
       }

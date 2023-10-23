@@ -2,6 +2,7 @@ import md5 from 'md5';
 
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 
 import { main } from './main.js';
@@ -44,8 +45,10 @@ export async function aggregate(connection) {
       let links = await getCollectionsLinks(connection);
 
       await main(links);
-      await temporaryCollection.createIndex({ 'data.masses.positive': 1 });
-      await temporaryCollection.createIndex({ 'data.ocl.idCode': 1 });
+      await createIndexes(temporaryCollection, [
+        { 'data.masses.positive': 1 },
+        { 'data.ocl.idCode': 1 },
+      ]);
       // rename temporary collection
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,

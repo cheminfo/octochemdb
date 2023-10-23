@@ -1,6 +1,7 @@
 import md5 from 'md5';
 
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 
 import { main } from './main.js';
@@ -71,23 +72,24 @@ export async function aggregate(connection) {
       await connection.setProgress(progress);
 
       // Create Indexes
-      await targetCollection.createIndex({ 'data.em': 1 });
-      await targetCollection.createIndex({ 'data.mf': 1 });
-      await targetCollection.createIndex({ 'data.kwBioassays': 1 });
-      await targetCollection.createIndex({ 'data.kwTitles': 1 });
-      await targetCollection.createIndex({ 'data.meshTerms': 1 });
-      await targetCollection.createIndex({ 'data.kwTaxonomies': 1 });
-      await targetCollection.createIndex({ 'data.nbActivities': 1 });
-      await targetCollection.createIndex({ 'data.pubmeds': 1 });
-      await targetCollection.createIndex({ 'data.nbPubmeds': 1 });
-      await targetCollection.createIndex({ 'data.patents': 1 });
-      await targetCollection.createIndex({ 'data.nbPatents': 1 });
-      await targetCollection.createIndex({ 'data.nbTaxonomies': 1 });
-      await targetCollection.createIndex({ 'data.nbMassSpectra': 1 });
-      await targetCollection.createIndex({ 'data.molecules': 1 });
-      await targetCollection.createIndex({ 'data.nbMolecules': 1 });
-      await targetCollection.createIndex({ 'data.bioassaysPubChem': 1 });
-
+      await createIndexes(targetCollection, [
+        { 'data.em': 1 },
+        { 'data.mf': 1 },
+        { 'data.kwBioassays': 1 },
+        { 'data.kwTitles': 1 },
+        { 'data.meshTerms': 1 },
+        { 'data.kwTaxonomies': 1 },
+        { 'data.nbActivities': 1 },
+        { 'data.pubmeds': 1 },
+        { 'data.nbPubmeds': 1 },
+        { 'data.patents': 1 },
+        { 'data.nbPatents': 1 },
+        { 'data.nbTaxonomies': 1 },
+        { 'data.nbMassSpectra': 1 },
+        { 'data.molecules': 1 },
+        { 'data.nbMolecules': 1 },
+        { 'data.bioassaysPubChem': 1 },
+      ]);
       debug.info('Aggregation Done');
     } else {
       debug.info(`Aggregation already up to date`);

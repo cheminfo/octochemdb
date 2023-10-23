@@ -1,4 +1,5 @@
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 
 import { getFilesToImport } from './utils/getFilesToImport.js';
 import { importCompoundFiles } from './utils/importCompoundFiles.js';
@@ -53,18 +54,20 @@ async function firstCompoundImport(connection) {
     await connection.setProgress(progress);
     // create indexes on the compounds collection
     let compoundsCollection = await connection.getCollection('compounds');
-    await compoundsCollection.createIndex({ 'data.em': 1 });
-    await compoundsCollection.createIndex({ 'data.mf': 1 });
-    await compoundsCollection.createIndex({ 'data.nbFragments': 1 });
-    await compoundsCollection.createIndex({ 'data.charge': 1 });
-    await compoundsCollection.createIndex({
-      'data.mf': 1,
-      'data.nbFragments': 1,
-      'data.charge': 1,
-    });
-    await compoundsCollection.createIndex({ 'data.ocl.idCode': 1 });
-    await compoundsCollection.createIndex({ 'data.ocl.noStereoTautomerID': 1 });
-    await compoundsCollection.createIndex({ _seq: 1 });
+    await createIndexes(compoundsCollection, [
+      { 'data.nbFragments': 1 },
+      { 'data.mf': 1 },
+      { 'data.em': 1 },
+      { 'data.charge': 1 },
+      { 'data.ocl.idCode': 1 },
+      { 'data.ocl.noStereoTautomerID': 1 },
+      { _seq: 1 },
+      {
+        'data.mf': 1,
+        'data.nbFragments': 1,
+        'data.charge': 1,
+      },
+    ]);
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
