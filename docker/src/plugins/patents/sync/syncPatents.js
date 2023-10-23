@@ -1,11 +1,11 @@
 import md5 from 'md5';
 
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import getTitlesAndAbstracts from './utils/https/getTitlesAndAbstract.js';
 import insertAbstract from './utils/insertAbstract.js';
 import insertTitle from './utils/insertTitle.js';
-
 /**
  * @description sync patents from PubChem database
  * @param {*} connection - mongo connection
@@ -56,26 +56,19 @@ export async function sync(connection) {
       sources = progress.sources; // this will prevent to update the collection
     }
 
-    let shouldUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - Number(progress.dateEnd) >
-        Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      shouldUpdate = true;
-      await connection.setProgress(progress);
-    }
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      {},
+      process.env.PATENT_UPDATE_INTERVAL,
+      connection,
+    );
     const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
-    if (
-      (JSON.stringify(sources) !== progress.sources && shouldUpdate) ||
-      progress.state !== 'updated'
-    ) {
+    if (isTimeToUpdate) {
       progress.state = 'updating';
       await connection.setProgress(progress);
 

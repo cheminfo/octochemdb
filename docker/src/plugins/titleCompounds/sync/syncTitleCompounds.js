@@ -3,6 +3,7 @@ import md5 from 'md5';
 
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { decompressGziped } from '../../pubmeds/sync/utils/decompressGziped.js';
 
 import importTitleCompounds from './utils/importTitleCompounds.js';
@@ -39,30 +40,19 @@ export async function sync(connection) {
       sources = progress.sources; // this will prevent to update the collection
     }
 
-    let shouldUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - Number(progress.dateEnd) >
-        Number(process.env.TITLECOMPOUNDS_UPDATE_INTERVAL) *
-          24 *
-          60 *
-          60 *
-          1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      shouldUpdate = true;
-      await connection.setProgress(progress);
-    }
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      {},
+      process.env.TITLECOMPOUNDS_UPDATE_INTERVAL,
+      connection,
+    );
     const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
-    if (
-      (JSON.stringify(sources) !== progress.sources && shouldUpdate) ||
-      progress.state !== 'updated'
-    ) {
+    if (isTimeToUpdate) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       debug.info('start sync compoundPatents');

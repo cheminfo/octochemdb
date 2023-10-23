@@ -3,6 +3,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
@@ -35,17 +36,6 @@ export async function sync(connection) {
     }
 
     const progress = await connection.getProgress(options.collectionName);
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.COCONUT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
 
     // Get last document imported
     const lastDocumentImported = await getLastDocumentImported(
@@ -53,18 +43,20 @@ export async function sync(connection) {
       progress,
       options.collectionName,
     );
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.COCONUT_UPDATE_INTERVAL,
+      connection,
+    );
     // Define counters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
 
     // check if importation is necessary
-    if (
-      lastDocumentImported === null ||
-      ((md5(JSON.stringify(sources)) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    if (isTimeToUpdate) {
       // define file to use for importation inside the zip file
       let fileName = 'uniqueNaturalProduct.bson';
       debug.info(`Start parsing coconuts`);

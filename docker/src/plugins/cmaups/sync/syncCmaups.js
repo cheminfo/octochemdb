@@ -1,4 +1,7 @@
+import md5 from 'md5';
+
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
@@ -31,24 +34,15 @@ export async function sync(connection) {
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.CMAUP_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      JSON.stringify(sources) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.CMAUP_UPDATE_INTERVAL,
+      connection,
+    );
     // Reimport collection again only if lastDocument imported changed or importation was not completed
-    if (
-      lastDocumentImported === null ||
-      ((JSON.stringify(sources) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    if (isTimeToUpdate) {
       // get old to new taxonomies ids and taxonomies collection
       const oldToNewTaxIDs = await taxonomySynonyms();
       const collectionTaxonomies = await connection.getCollection('taxonomies');
@@ -115,7 +109,7 @@ export async function sync(connection) {
       logs.status = 'updated';
       await connection.updateImportationLog(logs);
       // Define new informations and set state to updated in admin collection
-      progress.sources = sources;
+      progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);

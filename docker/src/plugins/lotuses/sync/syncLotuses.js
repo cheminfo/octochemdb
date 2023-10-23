@@ -3,6 +3,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import { getTaxonomiesForLotuses } from './utils/getTaxonomiesForLotuses.js';
@@ -35,34 +36,25 @@ export async function sync(connection) {
     }
     // get sources, progress and lotuses collection
     const progress = await connection.getProgress('lotuses');
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.LOTUS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
     // get last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.LOTUS_UPDATE_INTERVAL,
+      connection,
+    );
 
     // define counter
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-    if (
-      lastDocumentImported === null ||
-      ((md5(JSON.stringify(sources)) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    if (isTimeToUpdate) {
       const collection = await connection.getCollection('lotuses');
       // get old to new taxonomies ids mapping
       const oldToNewTaxIDs = await taxonomySynonyms();

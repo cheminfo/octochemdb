@@ -1,4 +1,7 @@
+import md5 from 'md5';
+
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { getTaxonomiesForCmaupsAndNpasses } from '../../activesOrNaturals/utils/utilsTaxonomies/getTaxonomiesForCmaupsAndNpasses.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 import { getNormalizedActivities } from '../../cmaups/sync/utils/getNormalizedActivities.js';
@@ -26,27 +29,18 @@ export async function sync(connection) {
       targetInfo,
       logs,
     } = await npassesStartSync(connection);
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.NPASS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      JSON.stringify(sources) !== JSON.stringify(progress.sources)
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.NPASS_UPDATE_INTERVAL,
+      connection,
+    );
     let counter = 0;
     let imported = 0;
     let start = Date.now();
     // Reimport collection again only if lastDocument imported changed or importation was not completed
-    if (
-      lastDocumentImported === null ||
-      ((JSON.stringify(sources) !== JSON.stringify(progress.sources) ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    if (isTimeToUpdate) {
       const oldToNewTaxIDs = await taxonomySynonyms();
       const collectionTaxonomies = await connection.getCollection('taxonomies');
       // create temporary collection
@@ -109,7 +103,7 @@ export async function sync(connection) {
         dropTarget: true,
       });
       // set progress to updated
-      progress.sources = sources;
+      progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);

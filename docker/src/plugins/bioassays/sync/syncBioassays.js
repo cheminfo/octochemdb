@@ -3,6 +3,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import parseBioactivities from './utils/parseBioactivities.js';
@@ -42,35 +43,26 @@ export async function sync(connection) {
         bioactivitiesFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ];
     }
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.BIOASSAY_UPDATE_INTERVAL) &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
+
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
-
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.BIOASSAY_UPDATE_INTERVAL,
+      connection,
+    );
     // Define different coulters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
 
-    if (
-      lastDocumentImported === null ||
-      ((md5(JSON.stringify(sources)) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    if (isTimeToUpdate) {
       // get compounds and taxonomies collections
       const oldToNewTaxIDs = await taxonomySynonyms();
       const collectionTaxonomies = await connection.getCollection('taxonomies');

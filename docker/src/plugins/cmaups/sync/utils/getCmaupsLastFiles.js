@@ -1,5 +1,3 @@
-import md5 from 'md5';
-
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
@@ -11,7 +9,6 @@ const debug = debugLibrary('getCmaupsLastFiles');
  */
 export default async function getCmaupsLastFiles(connection) {
   try {
-    let source;
     let lastFileGeneral;
     let lastFileActivity;
     let lastFileSpeciesAssociation;
@@ -25,13 +22,13 @@ export default async function getCmaupsLastFiles(connection) {
       lastFileSpeciesAssociation = `${process.env.CMAUPS_FILE_SPECIESASSOCIATION_TEST}`;
       lastFileSpeciesInfo = `${process.env.CMAUPS_FILE_SPECIESINFO_TEST}`;
       lastTargetInfo = `${process.env.CMAUP_SOURCE_TARGET_TEST}`;
-      source = [
+
+      sources = [
         lastFileGeneral,
         lastFileActivity,
         lastFileSpeciesAssociation,
         lastFileSpeciesInfo,
       ];
-      sources = md5(JSON.stringify([source]));
     } else {
       let options = {
         collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
@@ -59,8 +56,8 @@ export default async function getCmaupsLastFiles(connection) {
       options.filenameNew = 'targetInfo';
       lastTargetInfo = await getLastFileSync(options);
 
-      // Get collection importationLogs
-      source = [
+      // Get sources with new downloaded files (will be used to check if necessary to update collection)
+      sources = [
         lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         lastFileSpeciesAssociation.replace(
@@ -70,28 +67,14 @@ export default async function getCmaupsLastFiles(connection) {
         lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ];
-      // Get sources with new downloaded files (will be used to check if necessary to update collection)
-      sources = md5(
-        JSON.stringify([
-          lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastFileSpeciesAssociation.replace(
-            `${process.env.ORIGINAL_DATA_PATH}`,
-            '',
-          ),
-          lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        ]),
-      );
     }
     // Get collection admin
     const progress = await connection.getProgress('cmaups');
     const logs = await connection.getImportationLog({
       collectionName: 'cmaups',
-      sources: source,
+      sources,
       startSequenceID: progress.seq,
     });
-
     // return [lastFileGeneral, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs];
     return [
       lastFileGeneral,

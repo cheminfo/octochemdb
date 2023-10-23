@@ -5,6 +5,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { parseMassBank } from './utils/parseMassBank.js';
 
@@ -35,33 +36,24 @@ export async function sync(connection) {
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     }
     const progress = await connection.getProgress(options.collectionName);
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.MASSBANK_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
     );
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.MASSBANK_UPDATE_INTERVAL,
+      connection,
+    );
+
     // define counters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-    if (
-      lastDocumentImported === null ||
-      ((md5(JSON.stringify(sources)) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate) ||
-      process.env.NODE_ENV === 'test'
-    ) {
+    if (isTimeToUpdate) {
       const logs = await connection.getImportationLog({
         collectionName: options.collectionName,
         sources,

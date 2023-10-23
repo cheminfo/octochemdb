@@ -1,5 +1,3 @@
-import md5 from 'md5';
-
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
@@ -34,7 +32,7 @@ export default async function getNpassesLastFiles(connection) {
         lastFileSpeciesPair,
         lastTargetInfo,
       ];
-      sources = md5(JSON.stringify([source]));
+      sources = [source];
     } else {
       let options = {
         collectionSource: process.env.NPASS_SOURCE_GENERALINFO,
@@ -72,19 +70,17 @@ export default async function getNpassesLastFiles(connection) {
         lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
         lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
       ];
-      sources = md5(
-        JSON.stringify([
-          lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastFileSpeciesProperties.replace(
-            `${process.env.ORIGINAL_DATA_PATH}`,
-            '',
-          ),
-          lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-          lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        ]),
-      );
+      sources = [
+        lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileSpeciesProperties.replace(
+          `${process.env.ORIGINAL_DATA_PATH}`,
+          '',
+        ),
+        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+      ];
     }
     // set logs
     const progress = await connection.getProgress('npasses');

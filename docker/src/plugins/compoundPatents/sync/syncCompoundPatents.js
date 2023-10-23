@@ -1,8 +1,10 @@
 import pkg from 'fs-extra';
 import md5 from 'md5';
 
+import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import importCompoundPatents from './utils/importCompoundPatents.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
@@ -40,36 +42,30 @@ export async function sync(connection) {
     } else {
       sources = progress.sources; // this will prevent to update the collection
     }
+    const lastDocumentImported = await getLastDocumentImported(
+      connection,
+      progress,
+      options.collectionName,
+    );
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.COMPOUND_PATENTS_UPDATE_INTERVAL,
+      connection,
+    );
 
-    let shouldUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - Number(progress.dateEnd) >
-        Number(process.env.COMPOUND_PATENTS_UPDATE_INTERVAL) *
-          24 *
-          60 *
-          60 *
-          1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      shouldUpdate = true;
-      await connection.setProgress(progress);
-    }
     const logs = await connection.getImportationLog({
       collectionName: options.collectionName,
       sources,
       startSequenceID: progress.seq,
     });
-    if (
-      (JSON.stringify(sources) !== progress.sources && shouldUpdate) ||
-      progress.state !== 'updated'
-    ) {
+    if (isTimeToUpdate) {
       progress.state = 'updating';
       await connection.setProgress(progress);
       debug.info('start sync compoundPatents');
       //sort file by cid
-      const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
+      const sortedFile = `${lastFile?.split('.gz')[0]}.sorted`;
       await ungzipAndSort(lastFile, sortedFile);
       debug.trace('ungzip and sort done');
 

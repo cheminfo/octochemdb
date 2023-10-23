@@ -5,6 +5,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
 import { getTaxonomiesForNpAtlases } from './utils/getTaxonomiesForNpAtlases.js';
@@ -40,23 +41,18 @@ export async function sync(connection) {
     const collectionTaxonomies = await connection.getCollection('taxonomies');
     // get npAtlases collection and progress
     const progress = await connection.getProgress(options.collectionName);
-    let isTimeToUpdate = false;
-
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.NPATLAS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       progress,
       options.collectionName,
+    );
+    let isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.NPATLAS_UPDATE_INTERVAL,
+      connection,
     );
 
     // read file synchronized from NPATLAS database
@@ -66,12 +62,7 @@ export async function sync(connection) {
     let counter = 0;
     let imported = 0;
     let start = Date.now();
-    if (
-      lastDocumentImported === null ||
-      ((md5(JSON.stringify(sources)) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    if (isTimeToUpdate) {
       const collection = await connection.getCollection(options.collectionName);
       // get logs and last document imported
       const logs = await connection.getImportationLog({
