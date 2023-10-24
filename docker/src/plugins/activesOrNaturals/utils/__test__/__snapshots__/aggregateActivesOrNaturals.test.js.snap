@@ -127,7 +127,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
             "$ref": "compounds",
           },
         ],
-        "titles": [],
       },
       {
         "ocl": {
