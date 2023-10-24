@@ -49,10 +49,10 @@ export default async function getCompoundsInfo(
     const dbRefsMolecules = parsedCompoundInfo.dbRefsMolecules;
     let titles = parsedCompoundInfo.titles;
     let compoundsPatents = [];
-    let bioassaysPubChemDBRefs = [];
+    // let bioassaysPubChemDBRefs = [];
     // const bioassaysPubChemCollection =
     //await connection.getCollection('bioassaysPubChem');
-    if (compoundsIDs.length > 0) {
+    if (compoundsIDs?.length > 0) {
       for (let compound of compoundsIDs) {
         let currentCid = Number(compound);
         // NOT YET IMPLEMENTED
@@ -71,7 +71,7 @@ export default async function getCompoundsInfo(
         let cursor = await compoundPatentsCollection.find({ _id: currentCid });
         if (await cursor.hasNext()) {
           let patent = await cursor.next();
-          if (patent?.data?.patents.length > 0) {
+          if (patent?.data?.patents?.length > 0) {
             for (let patentID of patent.data.patents) {
               if (!compoundsPatents.includes(patentID)) {
                 compoundsPatents.push(patentID);
@@ -82,7 +82,7 @@ export default async function getCompoundsInfo(
       }
     }
     entry.data.nbPatents = 0;
-    entry.data.nbPatents = compoundsPatents.length;
+    entry.data.nbPatents = compoundsPatents?.length;
 
     if (compoundsPatents?.length > 0) {
       let dbRefsPatents = [];
@@ -97,10 +97,10 @@ export default async function getCompoundsInfo(
 
       entry.data.patents = dbRefsPatents;
     }
-    if (bioassaysPubChemDBRefs.length > 0) {
+    /*   if (bioassaysPubChemDBRefs.length > 0) {
       entry.data.bioassaysPubChem = bioassaysPubChemDBRefs;
-    }
-    if (titles.length > 0) {
+    }*/
+    if (titles?.length > 0) {
       titles.sort((a, b) => {
         // Check if a and b have parentheses or numbers
         const aHasParenthesesOrNumbers = /[()\d]/.test(a);
@@ -108,7 +108,7 @@ export default async function getCompoundsInfo(
 
         if (!aHasParenthesesOrNumbers && !bHasParenthesesOrNumbers) {
           // If both a and b have no parentheses or numbers, sort by length
-          return a.length - b.length;
+          return a?.length - b?.length;
         } else if (!aHasParenthesesOrNumbers) {
           // If only a has no parentheses or numbers, sort it first
           return -1;
@@ -129,12 +129,12 @@ export default async function getCompoundsInfo(
               return 1;
             } else if (aHasParentheses && bHasParentheses) {
               // If both a and b have parentheses, sort by length
-              return a.length - b.length;
+              return a?.length - b?.length;
             }
           }
           // If both a and b have no parentheses, sort by length
-          if (a.length !== b.length) {
-            return a.length - b.length;
+          if (a?.length !== b?.length) {
+            return a?.length - b?.length;
           } else {
             // If both a and b have the same length, sort alphabetically
             return 0;
@@ -144,20 +144,20 @@ export default async function getCompoundsInfo(
       entry.data.titles = titles;
     }
     entry.data.nbMolecules = 0;
-    if (dbRefsMolecules.length > 0) {
+    if (dbRefsMolecules?.length > 0) {
       entry.data.molecules = dbRefsMolecules;
-      entry.data.nbMolecules = dbRefsMolecules.length;
+      entry.data.nbMolecules = dbRefsMolecules?.length;
     }
-    if (dbRefsCompounds.length > 0) {
+    if (dbRefsCompounds?.length > 0) {
       entry.data.compounds = dbRefsCompounds;
     }
-    if (casNumber.length > 0) {
+    if (casNumber?.length > 0) {
       entry.data.cas = casNumber;
     }
-    if (pmids.length > 0) {
+    if (pmids?.length > 0) {
       entry.data.pmids = pmids;
     }
-    if (meshTerms.length > 0) {
+    if (meshTerms?.length > 0) {
       entry.data.meshTerms = meshTerms;
     }
     return entry;
