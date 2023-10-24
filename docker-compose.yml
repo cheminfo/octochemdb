@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   mongo:
-    image: mongo:5.0
+    image: mongo:6.0
     restart: always
     mem_limit: 30000m
     memswap_limit: 30000m
