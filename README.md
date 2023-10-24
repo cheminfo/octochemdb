@@ -31,7 +31,7 @@ docker-compose logs --follow import
 ## Open mongo shell
 
 ```
-docker-compose exec mongo-mongo
+docker-compose exec mongo-mongosh
 ```
 
 The database name is: `octochemdb`
