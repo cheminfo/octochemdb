@@ -21,12 +21,6 @@ export async function shouldUpdate(
     isTimeToUpdate = true;
   }
   if (
-    lastDocumentImported !== null &&
-    Object.keys(lastDocumentImported).length === 0
-  ) {
-    lastDocumentImported = null;
-  }
-  if (
     lastDocumentImported === null ||
     ((sources !== progress.sources || progress.state !== 'updated') &&
       isTimeToUpdate)

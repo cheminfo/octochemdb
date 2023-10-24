@@ -26,7 +26,6 @@ export async function aggregate(connection) {
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       options.connection,
-      progress,
       options.collection,
     );
 

@@ -48,7 +48,6 @@ export async function sync(connection) {
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
-      progress,
       options.collectionName,
     );
     let isTimeToUpdate = await shouldUpdate(

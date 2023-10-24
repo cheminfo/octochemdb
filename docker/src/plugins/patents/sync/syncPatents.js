@@ -1,5 +1,6 @@
 import md5 from 'md5';
 
+import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import debugLibrary from '../../../utils/Debug.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
@@ -55,11 +56,14 @@ export async function sync(connection) {
     } else {
       sources = progress.sources; // this will prevent to update the collection
     }
-
+    const lastDocumentImported = await getLastDocumentImported(
+      connection,
+      options.collectionName,
+    );
     let isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
-      {},
+      lastDocumentImported,
       process.env.PATENT_UPDATE_INTERVAL,
       connection,
     );

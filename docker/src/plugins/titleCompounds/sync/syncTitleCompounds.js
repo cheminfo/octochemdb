@@ -1,6 +1,7 @@
 import pkg from 'fs-extra';
 import md5 from 'md5';
 
+import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
@@ -39,11 +40,14 @@ export async function sync(connection) {
     } else {
       sources = progress.sources; // this will prevent to update the collection
     }
-
+    const lastDocumentImported = await getLastDocumentImported(
+      connection,
+      options.collectionName,
+    );
     let isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
-      {},
+      lastDocumentImported,
       process.env.TITLECOMPOUNDS_UPDATE_INTERVAL,
       connection,
     );

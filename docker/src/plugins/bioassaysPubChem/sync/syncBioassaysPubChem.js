@@ -6,6 +6,7 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import debugLibrary from '../../../utils/Debug.js';
+import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { decompressAll } from './utils/decompressAll.js';
 import { main } from './utils/main.js';
@@ -36,30 +37,19 @@ export async function sync(connection) {
         });
       }
     }
-    let isTimeToUpdate = false;
-    if (
-      progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.BIOASSAYPUBCHEM_UPDATE_INTERVAL) &&
-      md5(JSON.stringify(sources)) !== progress.sources
-    ) {
-      progress.dateStart = Date.now();
-      await connection.setProgress(progress);
-      isTimeToUpdate = true;
-    }
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
-      progress,
       options.collectionName,
     );
-
-    if (
-      lastDocumentImported === null ||
-      ((md5(JSON.stringify(sources)) !== progress.sources ||
-        progress.state !== 'updated') &&
-        isTimeToUpdate)
-    ) {
+    const isTimeToUpdate = await shouldUpdate(
+      progress,
+      sources,
+      lastDocumentImported,
+      process.env.BIOASSAYPUBCHEM_UPDATE_INTERVAL,
+      connection,
+    );
+    if (isTimeToUpdate) {
       let sourceFiles = options.destinationLocal;
       if (process.env.NODE_ENV === 'test') {
         sourceFiles = process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST || '';

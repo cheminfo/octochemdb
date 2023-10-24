@@ -25,7 +25,6 @@ export default async function cmaupsStartSync(connection) {
     const collection = await connection.getCollection('cmaups');
     const lastDocumentImported = await getLastDocumentImported(
       connection,
-      progress,
       'cmaups',
     );
 

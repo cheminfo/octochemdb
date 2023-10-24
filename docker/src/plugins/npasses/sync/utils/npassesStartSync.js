@@ -28,7 +28,6 @@ export default async function npassStartSync(connection) {
     const options = { collectionName: 'npasses' };
     const lastDocumentImported = await getLastDocumentImported(
       connection,
-      progress,
       options.collectionName,
     );
     // read npasses synchronized files
