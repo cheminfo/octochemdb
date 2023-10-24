@@ -285,17 +285,17 @@ P405	Store locked up.
 P406	Store in corrosive resistant/... container with a resistant inner liner.						
 P407	Maintain air gap between stacks or pallets.						
 P410	Protect from sunlight.						
-P411	Store at temperatures not exceeding ... �C/...�F.						
-P412	Do not expose to temperatures exceeding 50 �C/ 122 �F.						
-P413	Store bulk masses greater than ... kg/...lbs at temperatures not exceeding ... �C/...�F.						
+P411	Store at temperatures not exceeding ... °C/...°F.						
+P412	Do not expose to temperatures exceeding 50 °C/ 122 °F.						
+P413	Store bulk masses greater than ... kg/...lbs at temperatures not exceeding ... °C/...°F.						
 P420	Store separately.						
 P422	(Deleted) Store contents under ...						
 P402+P404	Store in a dry place. Store in a closed container.						
 P403+P233	Store in a well-ventilated place. Keep container tightly closed.						
 P403+P235	Store in a well-ventilated place. Keep cool.						
 P410+P403	Protect from sunlight. Store in a well-ventilated place.						
-P410+P412	Protect from sunlight. Do not expose to temperatures exceeding 50 �C/122�F.						
-P411+P235	(Deleted) Store at temperatures not exceeding ... �C/...�F. Keep cool.						
+P410+P412	Protect from sunlight. Do not expose to temperatures exceeding 50 °C/122°F.						
+P411+P235	(Deleted) Store at temperatures not exceeding ... °C/...°F. Keep cool.						
 P501	Dispose of contents/container to ...						
 P502	Refer to manufacturer or supplier for information on recovery or recycling						
 P503	Refer to manufacturer/supplier... for information on disposal/recovery/recycling.						
