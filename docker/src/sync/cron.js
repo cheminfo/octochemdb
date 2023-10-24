@@ -12,7 +12,7 @@ cron();
 
 async function cron() {
   const url = new URL('../plugins/', import.meta.url);
-
+  let connection = new OctoChemConnection();
   let syncURLs = (await recursiveDir(url)).filter(
     (file) =>
       file.href.match(/sync/) &&
@@ -51,19 +51,15 @@ async function cron() {
       syncURLs.unshift(syncURLs.splice(syncURLs.indexOf(syncURL), 1)[0]);
     }
   }
+
   for (let syncURL of syncURLs) {
     const sync = await import(syncURL);
     if (typeof sync.sync !== 'function') continue;
     debug.trace(`sync: ${syncURL.pathname}`);
-    let connection;
     try {
-      connection = new OctoChemConnection();
       await sync.sync(connection);
     } catch (e) {
       debug.fatal(e.stack);
-    } finally {
-      debug.trace('Closing connection');
-      if (connection) await connection.close();
     }
   }
 
@@ -97,16 +93,15 @@ async function cron() {
 
     if (typeof aggregate.aggregate !== 'function') continue;
     debug.trace(`aggregate: ${aggregateURL.pathname}`);
-    let connection;
     try {
-      connection = new OctoChemConnection();
       await aggregate.aggregate(connection);
     } catch (e) {
       debug.fatal(e.stack);
-    } finally {
-      debug.trace('Closing connection');
-      if (connection) await connection.close();
     }
+  }
+  if (connection) {
+    debug.trace('Closing connection');
+    await connection.close();
   }
 
   for (let i = sleepTime; i > 0; i--) {
