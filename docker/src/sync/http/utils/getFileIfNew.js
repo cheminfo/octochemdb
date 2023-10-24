@@ -45,10 +45,12 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       headers.filter((row) => row[0] === 'last-modified')[0] ||
       headers.filter((row) => row[0] === 'date')[0];
 
-    let newFileSize = Number(
-      headers.filter((row) => row[0] === 'content-length')[0],
-    );
-    newFileSize = newFileSize ? newFileSize[1] : -1;
+    let contentLength = headers.filter((row) => {
+      return row[0]?.toLocaleLowerCase() === 'content-length';
+    })[0];
+
+    debug.trace(`New file size: ${contentLength}`);
+    let newFileSize = contentLength ? Number(contentLength[1]) : -1;
     let fileList = (
       await fileCollectionFromPath(targetFolder, {
         ungzip: { gzipExtensions: [] },
