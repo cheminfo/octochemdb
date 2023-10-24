@@ -32,7 +32,6 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
           coordinates: cid.coordinates,
         },
         sources: [],
-        titles: [],
       };
     }
     let titleEntry = await titleCollection.findOne({ _id: Number(cid.cid) });
@@ -41,6 +40,9 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
       titleEntry.data.title.length < 30 &&
       !titleEntry.data.title.match(/CID /)
     ) {
+      if (!molecules[cid.idCode].titles) {
+        molecules[cid.idCode].titles = [];
+      }
       molecules[cid.idCode].titles.push(titleEntry.data.title);
       titles.push(titleEntry.data.title);
     }
@@ -48,10 +50,8 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
       $ref: 'compounds',
       $id: cid.cid,
     });
-    if (molecules[cid.idCode].titles.length === 0) {
-      delete molecules[cid.idCode].titles;
-    }
   }
+
   for (let oneDataEntry of data) {
     if (oneDataEntry.collection === 'bioassays') continue;
     const idCode = oneDataEntry.data.ocl.idCode;
