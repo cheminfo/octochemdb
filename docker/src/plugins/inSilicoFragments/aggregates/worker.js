@@ -35,7 +35,7 @@ parentPort?.on('message', async (dataEntry) => {
         };
 
         let molecule = Molecule.fromIDCode(link.idCode);
-        if (molecule.getAtoms() <= 200) {
+        if (molecule.getAtoms() <= 100) {
           const fragmentationOptions = {
             ionizationKind: ['esiPositive'],
             maxDepth: 3,
