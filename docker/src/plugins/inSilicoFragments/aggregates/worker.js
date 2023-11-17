@@ -39,11 +39,11 @@ parentPort?.on('message', async (dataEntry) => {
           const fragmentationOptions = {
             ionizationKind: ['esiPositive'],
             maxDepth: 5,
-            limitReactions: 200,
+            limitReactions: 5000,
             minIonizations: 1,
             maxIonizations: 1,
             minReactions: 0,
-            maxReactions: 4,
+            maxReactions: 2,
           };
 
           // @ts-ignore
@@ -58,6 +58,7 @@ parentPort?.on('message', async (dataEntry) => {
             );
           }
         }
+
         count++;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           parentPort?.postMessage({
