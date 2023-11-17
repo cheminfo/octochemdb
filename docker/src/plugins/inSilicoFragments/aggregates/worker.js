@@ -38,12 +38,12 @@ parentPort?.on('message', async (dataEntry) => {
         if (molecule.getAtoms() <= 200) {
           const fragmentationOptions = {
             ionizationKind: ['esiPositive'],
-            maxDepth: 5,
+            maxDepth: 3,
             limitReactions: 200,
             minIonizations: 1,
             maxIonizations: 1,
             minReactions: 0,
-            maxReactions: 2,
+            maxReactions: 1,
           };
 
           // @ts-ignore
