@@ -35,18 +35,19 @@ parentPort?.on('message', async (dataEntry) => {
         };
 
         let molecule = Molecule.fromIDCode(link.idCode);
-        if (molecule.getAtoms() <= 100) {
+        if (molecule.getAtoms() <= 200) {
           const fragmentationOptions = {
             ionizationKind: ['esiPositive'],
             maxDepth: 3,
-            limitReactions: 200,
+            limitReactions: 500,
             minIonizations: 1,
             maxIonizations: 1,
             minReactions: 0,
-            maxReactions: 1,
+            maxReactions: 2,
           };
 
           // @ts-ignore
+          debug.trace(`Fragmenting ${molecule.toSmiles()}`);
           let fragments = reactionFragmentation(molecule, fragmentationOptions);
           const massesArray = getMasses(fragments.masses);
           if (massesArray?.length > 0) {
