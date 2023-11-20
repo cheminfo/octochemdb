@@ -47,7 +47,7 @@ parentPort?.on('message', async (dataEntry) => {
           };
 
           // @ts-ignore
-          debug.trace(`Fragmenting ${molecule.toSmiles()}`);
+          debug.trace(`Fragmenting ${workerID}:${molecule.toSmiles()}`);
           let fragments = reactionFragmentation(molecule, fragmentationOptions);
           const massesArray = getMasses(fragments.masses);
           if (massesArray?.length > 0) {
