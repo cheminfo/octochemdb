@@ -63,9 +63,9 @@ export async function main(links) {
             });
             worker.on('exit', (code) => {
               debug.trace(code);
-              if (code !== 0) {
+              /* if (code !== 0) {
                 reject(new Error(`Worker stopped with exit code ${code}`));
-              }
+              }*/
             });
           }),
       ),
