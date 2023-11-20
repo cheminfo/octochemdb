@@ -11,12 +11,12 @@ export async function main(links) {
   try {
     let total = Object.keys(links).length;
 
-    let values = Object.values(links); //Object.values(links).sort(() => Math.random() - 0.5);
+    let values = Object.values(links).sort(() => Math.random() - 0.5);
 
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
 
-    const numWorkers = 1; // cpus().length / 2;
+    const numWorkers = cpus().length / 2;
     const chunkSize = Math.floor(values.length / numWorkers);
     debug.trace(`Starting ${numWorkers} workers`);
     debug.trace(`Chunk size: ${chunkSize}`);
@@ -54,8 +54,15 @@ export async function main(links) {
                 resolve(message);
               }
             });
-            worker.on('error', reject);
+            worker.on('error', (err) => {
+              debug.fatal(err.message, {
+                collection: 'inSilicoFragments',
+                connection,
+                stack: err.stack,
+              });
+            });
             worker.on('exit', (code) => {
+              debug.trace(code);
               if (code !== 0) {
                 reject(new Error(`Worker stopped with exit code ${code}`));
               }
