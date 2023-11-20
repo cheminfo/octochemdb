@@ -16,7 +16,7 @@ export async function main(links) {
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
 
-    const numWorkers = cpus().length / 2;
+    const numWorkers = 1; //cpus().length / 2;
     const chunkSize = Math.floor(values.length / numWorkers);
     debug.trace(`Starting ${numWorkers} workers`);
     debug.trace(`Chunk size: ${chunkSize}`);
