@@ -37,6 +37,9 @@ export async function main(links) {
         (worker) =>
           new Promise((resolve, reject) => {
             worker.on('message', (message) => {
+              if (counts[message.workerID] === message.currentCount) {
+                debug.trace(`Worker ${message.workerID} is stuck`);
+              }
               counts[message.workerID] = message.currentCount;
               if (
                 Date.now() - lastLogDate >
