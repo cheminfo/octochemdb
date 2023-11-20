@@ -58,6 +58,7 @@ export async function main(links) {
               }
             });
             worker.on('error', (err) => {
+              debug.trace(worker.threadId, err);
               debug.fatal(err.message, {
                 collection: 'inSilicoFragments',
                 connection,
@@ -65,7 +66,7 @@ export async function main(links) {
               });
             });
             worker.on('exit', (code) => {
-              debug.trace(code);
+              debug.trace(worker.threadId, code);
               /* if (code !== 0) {
                 reject(new Error(`Worker stopped with exit code ${code}`));
               }*/
