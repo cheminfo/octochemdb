@@ -11,12 +11,12 @@ export async function main(links) {
   try {
     let total = Object.keys(links).length;
 
-    let values = Object.values(links).sort(() => Math.random() - 0.5);
+    let values = links; //Object.values(links).sort(() => Math.random() - 0.5);
 
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
 
-    const numWorkers = cpus().length / 2;
+    const numWorkers = 1; // cpus().length / 2;
     const chunkSize = Math.floor(values.length / numWorkers);
     debug.trace(`Starting ${numWorkers} workers`);
     debug.trace(`Chunk size: ${chunkSize}`);
