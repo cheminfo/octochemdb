@@ -11,7 +11,7 @@ export async function main(links) {
   try {
     let total = Object.keys(links).length;
 
-    let values = links; //Object.values(links).sort(() => Math.random() - 0.5);
+    let values = Object.values(links); //Object.values(links).sort(() => Math.random() - 0.5);
 
     const workers = [];
     const url = new URL('worker.js', import.meta.url);
