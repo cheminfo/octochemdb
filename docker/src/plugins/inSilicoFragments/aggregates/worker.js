@@ -1,4 +1,4 @@
-import { parentPort, threadId } from 'worker_threads';
+import { parentPort } from 'worker_threads';
 
 import { reactionFragmentation } from 'mass-fragmentation';
 import OCL from 'openchemlib';
@@ -35,7 +35,7 @@ parentPort?.on('message', async (dataEntry) => {
         };
 
         let molecule = Molecule.fromIDCode(link.idCode);
-        if (molecule.getAtoms() <= 100) {
+        if (molecule.getAtoms() <= 200) {
           const fragmentationOptions = {
             ionizationKind: ['esiPositive'],
             maxDepth: 3,
@@ -47,7 +47,6 @@ parentPort?.on('message', async (dataEntry) => {
           };
 
           // @ts-ignore
-          //  debug.trace(`Fragmenting ${threadId}:${molecule.toSmiles()}`);
           let fragments = reactionFragmentation(molecule, fragmentationOptions);
           const massesArray = getMasses(fragments.masses);
           if (massesArray?.length > 0) {

@@ -37,9 +37,6 @@ export async function main(links) {
         (worker) =>
           new Promise((resolve, reject) => {
             worker.on('message', (message) => {
-              if (counts[message.workerID] === message.currentCount) {
-                debug.trace(`Worker ${message.workerID} is stuck`);
-              }
               counts[message.workerID] = message.currentCount;
               if (
                 Date.now() - lastLogDate >
@@ -57,19 +54,11 @@ export async function main(links) {
                 resolve(message);
               }
             });
-            worker.on('error', (err) => {
-              debug.trace(worker.threadId, err);
-              debug.fatal(err.message, {
-                collection: 'inSilicoFragments',
-                connection,
-                stack: err.stack,
-              });
-            });
+            worker.on('error', reject);
             worker.on('exit', (code) => {
-              debug.trace(worker.threadId, code);
-              /* if (code !== 0) {
+              if (code !== 0) {
                 reject(new Error(`Worker stopped with exit code ${code}`));
-              }*/
+              }
             });
           }),
       ),
