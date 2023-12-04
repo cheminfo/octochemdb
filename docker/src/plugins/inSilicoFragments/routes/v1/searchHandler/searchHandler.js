@@ -1,9 +1,10 @@
 import { getFields, OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
-import { prepareSpectraQuery } from '../../../../gnps/routes/v1/utils/prepareSpectraQuery.js';
 
-const debug = debugLibrary('fromMasses');
+import { prepareSpectraQuery } from './utils/prepareSpectraQuery.js';
+
+const debug = debugLibrary('inSilicoFragments');
 
 /**
  * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
@@ -14,10 +15,9 @@ export async function searchHandler(request) {
   let data = getRequestQuery(request);
   let {
     masses = '',
-    mode = 'positive',
     precision = 10,
     limit = 10,
-    fields = 'data.masses,data.ocl',
+    fields = 'data.spectrum,data.ocl',
   } = data;
 
   // define the error allowed for the search
@@ -28,14 +28,14 @@ export async function searchHandler(request) {
     // get the fields to be retrieved
     let formattedFields = getFields(fields);
     let matchParameter = {};
-    let modeParameter;
-    if (mode === 'positive') {
-      modeParameter = 'data.masses.positive';
-    } else {
-      modeParameter = 'data.masses.negative';
-    }
-    prepareSpectraQuery(matchParameter, modeParameter, masses, precision);
-    // search for the entries
+    // prepare speactra query
+    prepareSpectraQuery(
+      matchParameter,
+      'data.spectrum.data.x',
+      masses,
+      precision,
+    );
+
     const results = await collection
       .aggregate([
         { $match: matchParameter },
@@ -48,7 +48,7 @@ export async function searchHandler(request) {
     return { data: results };
   } catch (e) {
     if (connection) {
-      await debug.error(e.message, {
+      await debug.fatal(e.message, {
         collection: 'inSilicoFragments',
         connection,
         stack: e.stack,
@@ -56,9 +56,6 @@ export async function searchHandler(request) {
     }
     return { errors: [{ title: e.message, detail: e.stack }] };
   } finally {
-    if (connection) {
-      debug.trace('Closing connection');
-      await connection.close();
-    }
+    if (connection) await connection.close();
   }
 }

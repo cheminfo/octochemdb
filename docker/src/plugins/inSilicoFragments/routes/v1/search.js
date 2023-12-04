@@ -1,17 +1,17 @@
-import { searchHandler } from './searchHandlers/searchHandler.js';
+import { searchHandler } from './searchHandler/searchHandler.js';
 
 // export the handler
-const fromMasses = {
+const searchInSilicoFragments = {
   method: ['GET', 'POST'],
   schema: {
-    summary: 'Retrieve mass spectra from range of masses, from EM or from MF',
+    summary: 'Retrieve mass spectra from range of m/z values',
     description:
-      'Allows to search for mass spectra based on a range of m/z values. Also allows to search for exact mass or molecular formula.',
+      'Allows to search for mass spectra based on a range of m/z values.',
     querystring: {
       masses: {
         type: 'string',
         description: 'List experimental mass',
-        example: '125.02,185.09',
+        example: '341.078,149.0363,305.0575',
         default: '',
       },
       precision: {
@@ -19,23 +19,19 @@ const fromMasses = {
         description: 'Precision (in ppm) of the monoisotopic mass',
         default: 10,
       },
-      mode: {
-        type: 'string',
-        description: 'Mode of the mass spectra: positive or negative',
-        default: 'positive',
-      },
       limit: {
         type: 'number',
         description: 'Maximum number of results to return',
         default: 10,
       },
+
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'data.masses.positive,data.ocl',
+        default: 'data.spectrum,data.ocl',
       },
     },
   },
   handler: searchHandler,
 };
-export default fromMasses;
+export default searchInSilicoFragments;
