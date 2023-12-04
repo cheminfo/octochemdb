@@ -8,6 +8,12 @@ const searchInSilicoFragments = {
     description:
       'Allows to search for mass spectra based on a range of m/z values.',
     querystring: {
+      em: {
+        type: 'string',
+        description: 'Monoisotopic mass (in Da)',
+        example: '980.533, 939.451',
+        default: '',
+      },
       masses: {
         type: 'string',
         description: 'List experimental mass',
@@ -24,7 +30,12 @@ const searchInSilicoFragments = {
         description: 'Maximum number of results to return',
         default: 10,
       },
-
+      mf: {
+        type: 'string',
+        description: 'MF of the compound',
+        example: 'C48H72N10O12',
+        default: '',
+      },
       fields: {
         type: 'string',
         description: 'Fields to retrieve',

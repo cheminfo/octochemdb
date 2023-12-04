@@ -1,6 +1,7 @@
 import { getFields, OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
+import { prepareMolecularInfoQuery } from '../../../../gnps/routes/v1/utils/prepareMolecularInfoQuery.js';
 
 import { prepareSpectraQuery } from './utils/prepareSpectraQuery.js';
 
@@ -14,6 +15,8 @@ const debug = debugLibrary('inSilicoFragments');
 export async function searchHandler(request) {
   let data = getRequestQuery(request);
   let {
+    em = '',
+    mf = '',
     masses = '',
     precision = 10,
     limit = 10,
@@ -35,7 +38,8 @@ export async function searchHandler(request) {
       masses,
       precision,
     );
-
+    // prepare molecular formula and/or exact mass query
+    prepareMolecularInfoQuery(matchParameter, em, mf, precision);
     const results = await collection
       .aggregate([
         { $match: matchParameter },
