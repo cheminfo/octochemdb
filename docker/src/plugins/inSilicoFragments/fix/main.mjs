@@ -73,12 +73,6 @@ export async function main(links) {
 }
 
 await main(linksCol);
-const temporaryCollection = await connection.getCollection(
-  'inSilicoFragments_tmp',
-);
-// rename temporary collection
-await temporaryCollection.rename('inSilicoFragments', {
-  dropTarget: true,
-});
+
 // stop script once done
 process.exit(0);
