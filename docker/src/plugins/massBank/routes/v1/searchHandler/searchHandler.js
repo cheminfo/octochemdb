@@ -19,7 +19,7 @@ export async function searchHandler(request) {
     masses = '',
     precision = 10,
     limit = 10,
-    fields = 'data.spectrum,data.ocl',
+    fields = 'data',
   } = data;
 
   // define the error allowed for the search

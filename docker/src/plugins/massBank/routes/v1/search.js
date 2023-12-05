@@ -39,7 +39,7 @@ const fromMasses = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'data.spectrum,data.ocl',
+        default: 'data',
       },
     },
   },
