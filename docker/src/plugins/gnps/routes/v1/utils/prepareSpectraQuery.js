@@ -16,4 +16,5 @@ export function prepareSpectraQuery(matchParameter, field, masses, precision) {
     }
     matchParameter.$and = spectraParameters;
   }
+  return matchParameter;
 }

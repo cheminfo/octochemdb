@@ -27,4 +27,5 @@ export function prepareMolecularInfoQuery(matchParameter, em, mf, precision) {
       'data.em': { $lt: ems[0] + error, $gt: ems[0] - error },
     };
   }
+  return matchParameter;
 }

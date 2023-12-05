@@ -19,9 +19,8 @@ export async function searchHandler(request) {
     masses = '',
     precision = 10,
     limit = 10,
-    fields = 'data.spectrum,data.ocl',
+    fields = 'data',
   } = data;
-
   // define the error allowed for the search
   let connection;
   try {
@@ -31,14 +30,19 @@ export async function searchHandler(request) {
     let formattedFields = getFields(fields);
     let matchParameter = {};
     // prepare speactra query
-    prepareSpectraQuery(
+    matchParameter = prepareSpectraQuery(
       matchParameter,
       'data.spectrum.data.x',
       masses,
       precision,
     );
     // prepare molecular formula and/or exact mass query
-    prepareMolecularInfoQuery(matchParameter, em, mf, precision);
+    matchParameter = prepareMolecularInfoQuery(
+      matchParameter,
+      em,
+      mf,
+      precision,
+    );
     // search for the entries
     const results = await collection
       .aggregate([

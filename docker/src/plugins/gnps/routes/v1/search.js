@@ -6,7 +6,7 @@ const searchGNPS = {
   schema: {
     summary: 'Retrieve mass spectra from range of masses, from EM or from MF',
     description:
-      'Allows to search for mass spectra based on a range of m/z values. Also allows to search for exact mass or molecular formula.',
+      'Allows to search for mass spectra based on a range of m/z values. Also allows to search for exact mass or molecular formula. Either you search for masses or EM but not both at the same time.',
     querystring: {
       em: {
         type: 'string',
@@ -39,7 +39,7 @@ const searchGNPS = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: 'data.spectrum,data.ocl',
+        default: 'data',
       },
     },
   },

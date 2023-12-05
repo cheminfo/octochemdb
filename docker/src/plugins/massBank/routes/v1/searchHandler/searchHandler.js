@@ -31,13 +31,18 @@ export async function searchHandler(request) {
     let formattedFields = getFields(fields);
 
     let matchParameter = {};
-    prepareSpectraQuery(
+    matchParameter = prepareSpectraQuery(
       matchParameter,
       'data.spectrum.data.x',
       masses,
       precision,
     );
-    prepareMolecularInfoQuery(matchParameter, em, mf, precision);
+    matchParameter = prepareMolecularInfoQuery(
+      matchParameter,
+      em,
+      mf,
+      precision,
+    );
 
     // search for the entries
     const results = await collection
