@@ -5,5 +5,7 @@ export function getMasses(masses) {
       result[masses[i].mz] = true;
     }
   }
-  return Object.keys(result).map(Number);
+  return Object.keys(result)
+    .map(Number)
+    .sort((a, b) => a - b);
 }
