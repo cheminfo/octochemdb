@@ -1,17 +1,28 @@
 import { parentPort } from 'worker_threads';
 
-import { reactionFragmentation } from 'mass-fragmentation';
+import { reactionFragmentation, getDatabase } from 'mass-fragmentation';
+import md5 from 'md5';
+import { MF } from 'mf-parser';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
-
-//import { fragmentationDB } from './fragmentationDB.js';
+import { getMasses } from '../utils/getMasses.js';
 
 const { Molecule } = OCL;
 const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
+let databases = {
+  esi: {
+    positive: md5(
+      JSON.stringify(getDatabase({ ionizationKind: ['esiPositive'] })),
+    ),
 
+    negative: md5(
+      JSON.stringify(getDatabase({ ionizationKind: ['esiNegative'] })),
+    ),
+  },
+};
 parentPort?.on('message', async (dataEntry) => {
   let warnCount = 0;
   let warnDate = Date.now();
@@ -19,25 +30,33 @@ parentPort?.on('message', async (dataEntry) => {
     const { links, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
     // get worker number
-    const temporaryCollection = await connection.getCollection(
-      `inSilicoFragments_tmp`,
-    );
+
+    const currentCollection =
+      await connection.getCollection(`inSilicoFragments`);
+
     let count = 0;
     let start = Date.now();
 
     for (const link of links) {
       try {
-        let result = {
-          _id: link.id,
-          data: {
-            ocl: { idCode: link.idCode },
-          },
-        };
-
         let molecule = Molecule.fromIDCode(link.idCode);
+
         if (molecule.getAtoms() <= 100) {
+          let result = {
+            data: {
+              ocl: { idCode: link.idCode },
+              spectrum: {
+                data: {},
+              },
+            },
+          };
+          const mfInfo = new MF(
+            molecule.getMolecularFormula().formula,
+          ).getInfo();
+
+          result.data.mf = mfInfo.mf;
+          result.data.em = mfInfo.monoisotopicMass;
           const fragmentationOptions = {
-            ionizationKind: ['esiPositive'],
             maxDepth: 3,
             limitReactions: 500,
             minIonizations: 1,
@@ -45,17 +64,55 @@ parentPort?.on('message', async (dataEntry) => {
             minReactions: 0,
             maxReactions: 2,
           };
+          let ionSources = ['esi'];
+          let mode = ['positive', 'negative'];
+          for (const ionSource of ionSources) {
+            for (const ionMode of mode) {
+              let entry = await currentCollection.findOne({
+                noStereoTautomerID: link.id,
+                ionMode,
+                ionSource,
+              });
 
-          // @ts-ignore
-          let fragments = reactionFragmentation(molecule, fragmentationOptions);
-          const massesArray = getMasses(fragments.masses);
-          if (massesArray?.length > 0) {
-            result.data.masses = { positive: massesArray };
-            await temporaryCollection.updateOne(
-              { _id: link.id },
-              { $set: result },
-              { upsert: true },
-            );
+              if (
+                entry === undefined ||
+                entry?.data.fragmentationDbHash !==
+                  databases[ionSource][ionMode]
+              ) {
+                if (ionSource !== 'esi') {
+                  continue;
+                }
+                debug.trace('Fragmenting');
+                let ionizationKind =
+                  ionMode === 'positive' && ionSource === 'esi'
+                    ? 'esiPositive'
+                    : 'esiNegative';
+                fragmentationOptions.ionizationKind = [ionizationKind];
+                let fragments = reactionFragmentation(
+                  molecule,
+                  // @ts-ignore
+                  fragmentationOptions,
+                );
+                const massesArray = getMasses(fragments.masses);
+
+                if (massesArray.length > 0) {
+                  result.data.spectrum.data.x = massesArray;
+                  result.data.fragmentationDbHash =
+                    databases[ionSource][ionMode];
+
+                  result._id = {
+                    noStereoTautomerID: link.id,
+                    ionMode,
+                    ionSource,
+                  };
+                  await currentCollection.updateOne(
+                    { _id: result._id },
+                    { $set: result },
+                    { upsert: true },
+                  );
+                }
+              }
+            }
           }
         }
 
@@ -96,13 +153,3 @@ parentPort?.on('message', async (dataEntry) => {
     }
   }
 });
-
-function getMasses(masses) {
-  let result = {};
-  for (let i = 0; i < masses.length; i++) {
-    if (masses[i]?.mz) {
-      result[masses[i].mz] = true;
-    }
-  }
-  return Object.keys(result).map(Number);
-}

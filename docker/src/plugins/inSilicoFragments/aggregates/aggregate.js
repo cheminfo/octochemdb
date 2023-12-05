@@ -11,11 +11,12 @@ export async function aggregate(connection) {
   const debug = debugLibrary('inSilicoFragments');
   try {
     // Get collections from the database
+
     const options = { collection: 'inSilicoFragments', connection };
     const progress = await connection.getProgress(options.collection);
     const progressOfSourceCollection =
       await connection.getProgress('activesOrNaturals');
-
+    const collection = await connection.getCollection(`${options.collection}`);
     const sources = md5(progressOfSourceCollection);
     // Add logs to the collection importLogs
     const logs = await connection.getImportationLog({
@@ -28,30 +29,25 @@ export async function aggregate(connection) {
       options.connection,
       options.collection,
     );
-
     if (
       lastDocumentImported === null ||
       sources !== progress.sources ||
       progress.state !== 'updated'
     ) {
-      const temporaryCollection = await connection.getCollection(
-        `${options.collection}_tmp`,
-      );
       debug.info('start fragmentation process');
       progress.state = 'aggregating';
       await connection.setProgress(progress);
 
       let links = await getCollectionsLinks(connection);
-
       await main(links);
-      await createIndexes(temporaryCollection, [
-        { 'data.masses.positive': 1 },
+      await createIndexes(collection, [
+        { 'data.spectrum.data.x': 1 },
+        { 'data.mf': 1 },
+        { 'data.em': 1 },
         { 'data.ocl.idCode': 1 },
+        { 'data.fragmentationDbHash': 1 },
       ]);
-      // rename temporary collection
-      await temporaryCollection.rename(options.collection, {
-        dropTarget: true,
-      });
+
       // update logs
       logs.dateEnd = Date.now();
       logs.endSequenceID = progress.seq;

@@ -17,10 +17,14 @@ test('In silico fragmentation', async () => {
   await aggregate(connection);
   const collection = await connection.getCollection('inSilicoFragments');
   const result = await collection.findOne({
-    // @ts-ignore
-    _id: 'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
+    _id: {
+      noStereoTautomerID:
+        'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
+      ionMode: 'positive',
+      ionSource: 'esi',
+    },
   });
 
   expect(result).toMatchSnapshot();
   await connection.close();
-});
+}, 1000000);

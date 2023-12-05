@@ -43,9 +43,8 @@ export async function fromIDCodesHandler(request) {
             'compounds',
           ); //
           if (stereoCache?.noStereoTautomerID) {
-            noStereoTautomerIDsToProcess[
-              stereoCache?.noStereoTautomerID
-            ] = true;
+            noStereoTautomerIDsToProcess[stereoCache?.noStereoTautomerID] =
+              true;
           }
         }
         matchParameters['data.ocl.noStereoTautomerID'] = {

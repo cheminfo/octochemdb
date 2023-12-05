@@ -8,7 +8,7 @@ describe('search (inSilicoFragments)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('inSilicoFragments');
-    if ((await collection.countDocuments()) > 1) {
+    if ((await collection.countDocuments()) === 5) {
       break;
     }
   }
@@ -16,7 +16,7 @@ describe('search (inSilicoFragments)', async () => {
   it('masses (inSilicoFragments)', async () => {
     const request = {
       query: {
-        masses: ' 223.0964,253.1434',
+        masses: '341.0786,311.0680,147.0207',
         precision: 100,
         fields: 'data',
       },
@@ -25,7 +25,10 @@ describe('search (inSilicoFragments)', async () => {
     expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
       [
         "ocl",
-        "masses",
+        "spectrum",
+        "mf",
+        "em",
+        "fragmentationDbHash",
       ]
     `);
     expect(results.data).toMatchSnapshot();
