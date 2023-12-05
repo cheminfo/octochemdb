@@ -30,6 +30,7 @@ export default async function improveSubstancePool(molecule, options = {}) {
   const timeForTimeout = options.timeout || 60000;
   const abortController = new AbortController();
   const timeout = setTimeout(() => abortController.abort(), timeForTimeout);
+  let counter = 0;
 
   while (piscina.queueSize > nbCPU * 5) {
     await delay(1);
@@ -42,9 +43,15 @@ export default async function improveSubstancePool(molecule, options = {}) {
       return info;
     })
     .catch((e) => {
-      debug.warn(e);
-      return undefined;
+      // check if it is an abort error
+      if (e.name !== 'AbortError') {
+        debug.info(e);
+        return undefined;
+      } else {
+        counter++;
+      }
     });
+  debug.info(`AbortError because of timeout happened: ${counter} times`);
   return {
     promise,
   };

@@ -30,7 +30,7 @@ export async function getSubstanceData(molecule) {
         setTimeout(() => controller.abort(), 1000 * 1800);
         if (process.env.NODE_ENV === 'test') {
           dataSubstance = await fetch(
-            `https://ocl-cache.epfl.ch/v1/fromIDCode?idCode=${urlIDCode}`,
+            `https://ocl-cache.cheminfo.org/v1/fromIDCode?idCode=${urlIDCode}`,
             {
               signal: controller.signal,
             },
