@@ -18,8 +18,8 @@ exports[`syncCmaups 1`] = `
     "cid": "24992964",
     "commonName": "(-)-3,3'-Bisdemethylpinoresinol",
     "ocl": {
-      "idCode": "fa{@p@@F\\\\fo\\\\dTRbRRRafRtIJRMkqVuTEATAAEPDaBRbe@@",
-      "noStereoTautomerID": "fa{@p@@F\\\\fo\\\\dTRbRRRafRtIJRMkqVuUUUUUUUU@AkuFLXIbfFXy\`VIXU\`vKX]cv@xcaNLxKbnFx{b^ExRFN\\\\YL_CGpp",
+      "idCode": "fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuTEATAAEPDaBRbe@@",
+      "noStereoTautomerID": "fa{@p@@F\\fo\\dTRbRRRafRtIJRMkqVuUUUUUUUU@AkuFLXIbfFXy\`VIXU\`vKX]cv@xcaNLxKbnFx{b^ExRFN\\YL_CGpp",
     },
     "taxonomies": [
       {

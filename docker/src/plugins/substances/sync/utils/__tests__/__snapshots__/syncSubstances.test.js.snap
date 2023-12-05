@@ -56,7 +56,7 @@ exports[`syncSubstances > syncSubstances Incremental Importation 1`] = `
     "nbFragments": 1,
     "ocl": {
       "idCode": "fe{aR@DpQ\`mPAFRREQIJKIHiSJQUoQVhHJJjfjb@@",
-      "noStereoTautomerID": "fe{aR@DpQ\`mPAFRREQIJKIHiQZQUoQVhHJJjjjb@CUB\\\\Eq~dLkTq|L_C@",
+      "noStereoTautomerID": "fe{aR@DpQ\`mPAFRREQIJKIHiQZQUoQVhHJJjjjb@CUB\\Eq~dLkTq|L_C@",
     },
     "unsaturation": 6,
   },

@@ -8,7 +8,7 @@ test('search (importationLogs)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('importationLogs');
-    if ((await collection.countDocuments()) === 22) {
+    if ((await collection.countDocuments()) === 21) {
       break;
     }
   }

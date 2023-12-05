@@ -2,7 +2,7 @@
 
 exports[`Aggregation ActivesOrNaturals 1`] = `
 {
-  "_id": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+  "_id": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
   "data": {
     "activities": [
       {
@@ -119,7 +119,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "molecules": [
       {
         "ocl": {
-          "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+          "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
         },
         "sources": [
           {
@@ -130,7 +130,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       },
       {
         "ocl": {
-          "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@",
+          "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@",
         },
         "sources": [
           {
@@ -148,7 +148,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
     "noStereoOCL": {
-      "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
     },
     "patents": [
       {

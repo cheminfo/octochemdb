@@ -7,9 +7,9 @@ exports[`id search (coconuts) 2`] = `
     "data": {
       "iupacName": "1,6,6,9a,11a-pentamethyl-1-(6-methylhepta-3,5-dien-2-yl)-1H,2H,3bH,4H,5H,5aH,6H,7H,8H,9H,9aH,9bH,10H,11H,11aH-cyclopenta[a]phenanthrene-7,9b-diol",
       "ocl": {
-        "coordinates": "!B@KicCAbVAR]zVF^iY[L\\\\\\\\wiXGGMcCAbVXprh?\`TgYzfiF@p\\\\^b]ToZegXps~exSuvrwDK]mRvrw[Tmlm?j\`",
-        "idCode": "e\`\\\\PD@@@FlbdTbbTVadJblLvRdabge\`VQUUUUTuUUULuU@@@",
-        "noStereoTautomerID": "e\`\\\\PD@@@FlbdTbbTVadJblLvRdabge\`VQUUUUTuUUULuU@@@",
+        "coordinates": "!B@KicCAbVAR]zVF^iY[L\\\\wiXGGMcCAbVXprh?\`TgYzfiF@p\\^b]ToZegXps~exSuvrwDK]mRvrw[Tmlm?j\`",
+        "idCode": "e\`\\PD@@@FlbdTbbTVadJblLvRdabge\`VQUUUUTuUUULuU@@@",
+        "noStereoTautomerID": "e\`\\PD@@@FlbdTbbTVadJblLvRdabge\`VQUUUUTuUUULuU@@@",
       },
     },
   },
@@ -18,8 +18,8 @@ exports[`id search (coconuts) 2`] = `
     "data": {
       "ocl": {
         "coordinates": "!B?g~H@k_}bOt_Foy??g}SY|wPGvVH?Xa}otz?Soy?b@K~_|wPbGw~@Hc}b@Jfwx\`BbOv@LXPkb@HlYxANbGv@Sbqg",
-        "idCode": "edQRD@HNEBn\`CnIrQSQJJIKJKJUQIIII\\\\ZBJNIQYCSK[@puLpUATPDEPPTP@@@",
-        "noStereoTautomerID": "edQRD@HNABn\`CnIrQSQJJKIJIZUQIIII\\\\RBJ^YQICSK[@puUUUUUUUUUUUUP@FlJFLLDXhqq\`SDfELFXlpycs@VHlIXrpUbkCVNlCXfpm\`{EvOl@xQqc\`gENF\\\\\\\\xRCBffSGpq|L",
+        "idCode": "edQRD@HNEBn\`CnIrQSQJJIKJKJUQIIII\\ZBJNIQYCSK[@puLpUATPDEPPTP@@@",
+        "noStereoTautomerID": "edQRD@HNABn\`CnIrQSQJJKIJIZUQIIII\\RBJ^YQICSK[@puUUUUUUUUUUUUP@FlJFLLDXhqq\`SDfELFXlpycs@VHlIXrpUbkCVNlCXfpm\`{EvOl@xQqc\`gENF\\\\xRCBffSGpq|L",
       },
     },
   },

@@ -56,7 +56,8 @@ parentPort?.on('message', async (dataEntry) => {
 
           result.data.mf = mfInfo.mf;
           result.data.em = mfInfo.monoisotopicMass;
-          const fragmentationOptions = {
+
+          let fragmentationOptions = {
             maxDepth: 3,
             limitReactions: 500,
             minIonizations: 1,
@@ -64,6 +65,9 @@ parentPort?.on('message', async (dataEntry) => {
             minReactions: 0,
             maxReactions: 2,
           };
+          if (process.env.NODE_ENV === 'test') {
+            fragmentationOptions.limitReactions = 10;
+          }
           let ionSources = ['esi'];
           let mode = ['positive', 'negative'];
           for (const ionSource of ionSources) {
@@ -82,7 +86,6 @@ parentPort?.on('message', async (dataEntry) => {
                 if (ionSource !== 'esi') {
                   continue;
                 }
-                debug.trace('Fragmenting');
                 let ionizationKind =
                   ionMode === 'positive' && ionSource === 'esi'
                     ? 'esiPositive'

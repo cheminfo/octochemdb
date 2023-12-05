@@ -8,7 +8,7 @@ describe('search (inSilicoFragments)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('inSilicoFragments');
-    if ((await collection.countDocuments()) === 5) {
+    if ((await collection.countDocuments()) === 6) {
       break;
     }
   }
@@ -16,7 +16,7 @@ describe('search (inSilicoFragments)', async () => {
   it('masses (inSilicoFragments)', async () => {
     const request = {
       query: {
-        masses: '341.0786,311.0680,147.0207',
+        masses: '379.03,244.99,307.01',
         precision: 100,
         fields: 'data',
       },

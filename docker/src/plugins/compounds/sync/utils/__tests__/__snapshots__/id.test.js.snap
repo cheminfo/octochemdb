@@ -121,9 +121,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 8,
-        "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\\\KL?Fr\\\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
+        "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\KL?Fr\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
         "donorCount": 4,
-        "idCode": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+        "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
         "index": [
           -176155,
           -307601666,
@@ -144,7 +144,7 @@ M  END
         ],
         "logP": 4.544999875128269,
         "logS": -5.477999992668629,
-        "noStereoTautomerID": "ekTpA@@@LAEMGLn\\\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+        "noStereoTautomerID": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
         "polarSurfaceArea": 117.83999633789062,
         "rotatableBondCount": 8,
         "stereoCenterCount": 15,
@@ -619,7 +619,7 @@ M  END
         "acceptorCount": 4,
         "coordinates": "!BzpR@Qi}YzbBZDMS[zpSeWpBfhJZ\`ik|y_ygTvzUor|R\`ii~YgydT~~h\`r|R@Q\`BfgyfZdE\`SZ?ceW|C~VFqlIqLgose?fURx\`CeMc}}NiZ|g[@BYEOalIqLgw?xgDqMX[Eb\`fTvOLh|ka{}FLkC@L]SDff}lIqLg_zYk~qMX[Eb\`fZTPr}n\`fTvOLh~_icJpS[CTqMSDff~Z[vpgDr_KvzTPDualVJTPhIeMcsJOff~_imSDgzXrlDvpr}oKvzTPiQ@SVFqXgzZ_icJpS[@",
         "donorCount": 0,
-        "idCode": "ga]\\\\\`@@@@GAMqrQQQQII[SIJKIJZIRIIIJYIIRYIIIQIIIQQKIIIIJIKYJJIMIIKYTIFaqX|YF\`qX|~XaRkTz}WgvdkYjR\\\\NfD@@@@P@ADET@TPUUUAUTE@EU@EUPT@T@TE@@@@@@@@",
+        "idCode": "ga]\\\`@@@@GAMqrQQQQII[SIJKIJZIRIIIJYIIRYIIIQIIIQQKIIIIJIKYJJIMIIKYTIFaqX|YF\`qX|~XaRkTz}WgvdkYjR\\NfD@@@@P@ADET@TPUUUAUTE@EU@EUPT@T@TE@@@@@@@@",
         "index": [
           1806146472,
           -1362018932,
@@ -640,7 +640,7 @@ M  END
         ],
         "logP": 30.145400129258633,
         "logS": -29.127999663352966,
-        "noStereoTautomerID": "ga]\\\\\`@@@BejmErRQQQIIIIIIKSQIIQQISIIII[I]QISIYQISRIIIIIIZIJJIIIIKYTNAbHxrOJPktjCNlpz\\\\^oHRMDSYBR\\\\NgU@E@EDUAU@@T@APAQ@@@PAETTEEUT@T@TEP@@@@@@Gy\`@",
+        "noStereoTautomerID": "ga]\\\`@@@BejmErRQQQIIIIIIKSQIIQQISIIII[I]QISIYQISRIIIIIIZIJJIIIIKYTNAbHxrOJPktjCNlpz\\^oHRMDSYBR\\NgU@E@EDUAU@@T@APAQ@@@PAETTEEUT@T@TEP@@@@@@Gy\`@",
         "polarSurfaceArea": 32.260000705718994,
         "rotatableBondCount": 37,
         "stereoCenterCount": 0,
@@ -1393,7 +1393,7 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 15,
-        "coordinates": "!BmpJw?_x@?g~H@k\\\\Bm?w~@Hc}?\`C~_{\\\\Bb@K~_x\`Bm?w~@K_}?\`BH?_x@?g~w@k\\\\BmpJH@k\\\\Bb@Jw@hc}m?w~@Ox@?\`C~@Hc}?\`BH@oy?mpJH@k\\\\BmpJw@h\`BbOvw?Xc}m?w~@Ox@?\`Bw?Xc}?g~H@k\\\\B?g~w@oy?mpJw@k\\\\BbOw~@K_}bOvw?[_}m?w~_x\`BmpK~_?y??g~H?Xc}mGbw?[_}m?vH?_y?b@I@jUTP?g?~_?y?bOvH?RiomG\`?ehc}b@I@jTBibp\\\\j[{QxJf~KAtBiPJfKArioJf~t^C~VPJe@j[Qx",
+        "coordinates": "!BmpJw?_x@?g~H@k\\Bm?w~@Hc}?\`C~_{\\Bb@K~_x\`Bm?w~@K_}?\`BH?_x@?g~w@k\\BmpJH@k\\Bb@Jw@hc}m?w~@Ox@?\`C~@Hc}?\`BH@oy?mpJH@k\\BmpJw@h\`BbOvw?Xc}m?w~@Ox@?\`Bw?Xc}?g~H@k\\B?g~w@oy?mpJw@k\\BbOw~@K_}bOvw?[_}m?w~_x\`BmpK~_?y??g~H?Xc}mGbw?[_}m?vH?_y?b@I@jUTP?g?~_?y?bOvH?RiomG\`?ehc}b@I@jTBibp\\j[{QxJf~KAtBiPJfKArioJf~t^C~VPJe@j[Qx",
         "donorCount": 0,
         "idCode": "gly|Ax@@@B@QhbMIgqezW@XKf{dTRbTRbRRbRTRTRRRRRTRbVrbRTrbRbrrRRvRbQTRTttVRRbvrQRTRRRVJSibMAnvZ}~XtSLTZmAgX]lNuUUUUUUUAUTEUAEU@EU@AU@TDS@@T@EPUUAPTUD@@NLDhKaCDBIINd^SdgTCKloLZh@@",
         "index": [
@@ -1947,7 +1947,7 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 15,
-        "coordinates": "!BmpJw?[Qx?g}@jUTPm?tj[{QxOyZw@oy?PJe@jXlGm?vH?[_}Jf~t^BiompK~_?y??g~KAtBiPJfKA?x@m?vH?Xc}Jf|j[{QxOyZH@k\\\\BmpK~_x\`B?g}@jTBi?\`Bw?_x@m?vH?Xc}m?vH?[QxmpJH@k\\\\BmpJw@oy?b@K~_?y??\`C~@K_}?\`Bw?[_}bOvw@h\`BmpK~_{\\\\B?g?~@Hc}?\`Bw?[_}?\`Bw?X\`BmpJH@k\\\\B?g~w@k\\\\B?\`C~@Ox@bOw~@K_}mpJH@oy?b@K~@Hc}?\`BH@k\\\\Bb@Jw@ox@?\`BH?_x@mpJH@hc}",
+        "coordinates": "!BmpJw?[Qx?g}@jUTPm?tj[{QxOyZw@oy?PJe@jXlGm?vH?[_}Jf~t^BiompK~_?y??g~KAtBiPJfKA?x@m?vH?Xc}Jf|j[{QxOyZH@k\\BmpK~_x\`B?g}@jTBi?\`Bw?_x@m?vH?Xc}m?vH?[QxmpJH@k\\BmpJw@oy?b@K~_?y??\`C~@K_}?\`Bw?[_}bOvw@h\`BmpK~_{\\B?g?~@Hc}?\`Bw?[_}?\`Bw?X\`BmpJH@k\\B?g~w@k\\B?\`C~@Ox@bOw~@K_}mpJH@oy?b@K~@Hc}?\`BH@k\\Bb@Jw@ox@?\`BH?_x@mpJH@hc}",
         "donorCount": 0,
         "idCode": "gly|Ax@@@B@QhbMIgqezW@XKf{dTRbTRbRRbRTRTRRRRRTRbVrbRTrbRbrrRRvRbQTRTttVRRbvrQRTRRRVJSibMAnvZ}~XtSLTZmAgX]lNuUUUUUUUAUTEUAEU@EU@AU@TDS@@T@EPUUAPTUD@@NLBhSaCDBIINd^SdgTCKloJZp@@",
         "index": [
@@ -2501,9 +2501,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 15,
-        "coordinates": "!BcPmxbr~rWE^?ccj_OvfA_?Ht|dmeGwa~}SQx@_UKx~]rrsSr~?yG\\\\vp}?o\`tC_Tt}Rno]StSPfqlO_o~MOKT|dlG~?xG?g~QUOW~~HPIS\\\\|MR?Tt?oo_Ioc~a@dInwZD\\\\[|t|oo~AO{rRw^B|cSrJwmAec|t|dorzrQvaOc~^OyBD?{x?oarR?HtMOUK|o{xR?KuMOHtMOWuR?TtR?KuR?Ht~?yrMOHtApEK}_Tt}]Sx?oTtC]SrUOo~|cPG_oHt~?{uR?HtMOUK|oc~~?{~~O{{~?{rR?IK}SSuRzPE^jS~~|aI",
+        "coordinates": "!BcPmxbr~rWE^?ccj_OvfA_?Ht|dmeGwa~}SQx@_UKx~]rrsSr~?yG\\vp}?o\`tC_Tt}Rno]StSPfqlO_o~MOKT|dlG~?xG?g~QUOW~~HPIS\\|MR?Tt?oo_Ioc~a@dInwZD\\[|t|oo~AO{rRw^B|cSrJwmAec|t|dorzrQvaOc~^OyBD?{x?oarR?HtMOUK|o{xR?KuMOHtMOWuR?TtR?KuR?Ht~?yrMOHtApEK}_Tt}]Sx?oTtC]SrUOo~|cPG_oHt~?{uR?HtMOUK|oc~~?{~~O{{~?{rR?IK}SSuRzPE^jS~~|aI",
         "donorCount": 6,
-        "idCode": "gly|Ax@@@BB\`HJOHQj\\\\n_PVlvwdTRRRbTTRVRTTRdTRbSbRbVTbrdRebeTQbLVbrdrdTllRbtVbrdrdTmQTcbHBiXiRz|AHx^Ht{m~luYmvuUPQEET@UTDDUEUUUTCAPPEEUUT@PPEEUUTAETA@@@@@",
+        "idCode": "gly|Ax@@@BB\`HJOHQj\\n_PVlvwdTRRRbTTRVRTTRdTRbSbRbVTbrdRebeTQbLVbrdrdTllRbtVbrdrdTmQTcbHBiXiRz|AHx^Ht{m~luYmvuUPQEET@UTDDUEUUUTCAPPEEUUT@PPEEUUTAETA@@@@@",
         "index": [
           -34858,
           1201530389,
@@ -3056,9 +3056,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 15,
-        "coordinates": "!BP\\\\S|[Tov[_u~zsLjuGGF\\\\pqFt}TSe_{TDosFBvw}gI^R_EOJDzhSjcQq{_uK}eMgMKG~uDovDorn_vw}dgpSjfw}MGDAr?tRMKG~uLYsDoslU\\\\naDzim?Vqjglo~uMQqqgOlUYqrsBTSjgrRq\`mm?YD@[Fhi]Dpeglm@FPpy{_uK}e~zWOJ^JzMuuk}lZjNh[_uauGbKglmlU\\\\n~qgOKX^GK[_tAr~VlMOGEt}pMR?[KolYsx\\\\oYCNVlDgpt|]pM_~DR?Ln~kWsT|T~Rx\\\\oUx|wPXosK_ln~\\\\}gUx?tRr{ysv]Wc",
+        "coordinates": "!BP\\S|[Tov[_u~zsLjuGGF\\pqFt}TSe_{TDosFBvw}gI^R_EOJDzhSjcQq{_uK}eMgMKG~uDovDorn_vw}dgpSjfw}MGDAr?tRMKG~uLYsDoslU\\naDzim?Vqjglo~uMQqqgOlUYqrsBTSjgrRq\`mm?YD@[Fhi]Dpeglm@FPpy{_uK}e~zWOJ^JzMuuk}lZjNh[_uauGbKglmlU\\n~qgOKX^GK[_tAr~VlMOGEt}pMR?[KolYsx\\oYCNVlDgpt|]pM_~DR?Ln~kWsT|T~Rx\\oUx|wPXosK_ln~\\}gUx?tRr{ysv]Wc",
         "donorCount": 0,
-        "idCode": "gl}|Ax@@@DbpBaXbS[\\\\y|qTiLWdbRbbbbbbRRRRtvfRRRRRVVRTRbTTRbfRVRRtvfRRRRRVVRTRbTRTViRRVaIxZEE\`rxN@wbJDRqtT]MVseuPA@PDA@QQUUUUUTDE@TA@PDTUUUUUUAAPTEUU@@@@@@@",
+        "idCode": "gl}|Ax@@@DbpBaXbS[\\y|qTiLWdbRbbbbbbRRRRtvfRRRRRVVRTRbTTRbfRVRRtvfRRRRRVVRTRbTRTViRRVaIxZEE\`rxN@wbJDRqtT]MVseuPA@PDA@QQUUUUUTDE@TA@PDTUUUUUUAAPTEUU@@@@@@@",
         "index": [
           -2140860,
           236004897,
@@ -3079,7 +3079,7 @@ M  END
         ],
         "logP": 24.666499756276608,
         "logS": -23.81499969959259,
-        "noStereoTautomerID": "gl}|Ax@@CEaqxQ\\\\fwZ\\\\nBuR]OgddTTRbRrrRRRRbTRbbTTtVtVTJaRRRRRRRrrbTRbbTTtVtVTJaRRrrRvRSCPHdPiSJtjCNlwgjUvcWivFci\`@PQUUUUAA@TA@PDTUUUUUUPPPE@PDAEEUUUUU@@@D@@Gy\`@",
+        "noStereoTautomerID": "gl}|Ax@@CEaqxQ\\fwZ\\nBuR]OgddTTRbRrrRRRRbTRbbTTtVtVTJaRRRRRRRrrbTRbbTTtVtVTJaRRrrRvRSCPHdPiSJtjCNlwgjUvcWivFci\`@PQUUUUAA@TA@PDTUUUUUUPPPE@PDAEEUUUUU@@@D@@Gy\`@",
         "polarSurfaceArea": 138.44999313354492,
         "rotatableBondCount": 40,
         "stereoCenterCount": 0,
@@ -3551,9 +3551,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 4,
-        "coordinates": "!BfORWUBBEiRA_iZhPYJRzWsnTiV|\`~XV\`xp\\\\\`aQ~eqlCliu~EYJQdiNpG?g|{eCnTtso~_xV\`iV?FpIi_YJQTnu~eNyR[fpBEHOfEhL@fYQ~g}JUoql@_iWi_WwjZWvRdYJQTnuR{NyP{eIn[fynEhBCyaZAeGq~eql@_iU}zHOgzHOe_aZB\`ni~EUKoFpM?FpMd_iZU\`fa~[fvT_pBY_^gi_UKmTnyn[fyo@IfT_pBYzWu}z^e}eGvAeGqk@Ib[_V\\\\A_^\`U_^bAzWu|EHGh",
+        "coordinates": "!BfORWUBBEiRA_iZhPYJRzWsnTiV|\`~XV\`xp\\\`aQ~eqlCliu~EYJQdiNpG?g|{eCnTtso~_xV\`iV?FpIi_YJQTnu~eNyR[fpBEHOfEhL@fYQ~g}JUoql@_iWi_WwjZWvRdYJQTnuR{NyP{eIn[fynEhBCyaZAeGq~eql@_iU}zHOgzHOe_aZB\`ni~EUKoFpM?FpMd_iZU\`fa~[fvT_pBY_^gi_UKmTnyn[fyo@IfT_pBYzWu}z^e}eGvAeGqk@Ib[_V\\A_^\`U_^bAzWu|EHGh",
         "donorCount": 2,
-        "idCode": "gaY\\\\\`@@@@EbIJJHRDaHrLaHRDaDQDQDSLsDaDaHRDaHRDQDPdQLaDrDPhaHaLbDbDFAaDQDaDaLbDbLbDbBC@iljMAerXlIReWjLNs[jq{m~rmZlvVjiBPhJBRFfh@h@\`@@JBbjjjj\`@@JJjjjjQIP@@AAARFy@d",
+        "idCode": "gaY\\\`@@@@EbIJJHRDaHrLaHRDaDQDQDSLsDaDaHRDaHRDQDPdQLaDrDPhaHaLbDbDFAaDQDaDaLbDbLbDbBC@iljMAerXlIReWjLNs[jq{m~rmZlvVjiBPhJBRFfh@h@\`@@JBbjjjj\`@@JJjjjjQIP@@AAARFy@d",
         "index": [
           -270011446,
           1045734785,
@@ -3574,7 +3574,7 @@ M  END
         ],
         "logP": 25.113599866628647,
         "logS": -26.289000138640404,
-        "noStereoTautomerID": "gaY\\\\\`@@@NbpUjJHbDbdRDRLbDRlRDaHQDQBRDaHRDaHQDQDQDIJQDaHRDQDQDaDrDRHrHQHcH\`XEDaDbLbABaIdvGKcquV}Adw[LVsMdHdbiXfWhNj@H\`j@iZiYZhFA\`hIHj@@@@bHjjjjh@bjjBaI@@@@L@",
+        "noStereoTautomerID": "gaY\\\`@@@NbpUjJHbDbdRDRLbDRlRDaHQDQBRDaHRDaHQDQDQDIJQDaHRDQDQDaDrDRHrHQHcH\`XEDaDbLbABaIdvGKcquV}Adw[LVsMdHdbiXfWhNj@H\`j@iZiYZhFA\`hIHj@@@@bHjjjjh@bjjBaI@@@@L@",
         "polarSurfaceArea": 52.53999900817871,
         "rotatableBondCount": 16,
         "stereoCenterCount": 0,
@@ -4049,9 +4049,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 4,
-        "coordinates": "!BVplM|ABYEtJ~_q?QdcBtiG\\\\}m?wSfAOhDIdA_sKPmJRWwQBY?a?g\`kRdesvhOY^]DIg~gs]|?i?g?KRdjCtw@{]}w\`CwwQBY?a}^G{\\\\BM{qWwJc]y{wg?]\\\\]J^A~_xc|wg?wpnmTGw[tN@\`}bOtw\`u_C{rdMTGVPZDJf[}]bJ^~sQHqXI@m\`t]Ngzrl_B_QG{rdPiiIOLl?oU\`to]Z~sQKR[D~^sNxpg{rdPin}VltRtf{L{{rdPin}VltRtf{L{{rdPin}VmInsNqBf{uX",
+        "coordinates": "!BVplM|ABYEtJ~_q?QdcBtiG\\}m?wSfAOhDIdA_sKPmJRWwQBY?a?g\`kRdesvhOY^]DIg~gs]|?i?g?KRdjCtw@{]}w\`CwwQBY?a}^G{\\BM{qWwJc]y{wg?]\\]J^A~_xc|wg?wpnmTGw[tN@\`}bOtw\`u_C{rdMTGVPZDJf[}]bJ^~sQHqXI@m\`t]Ngzrl_B_QG{rdPiiIOLl?oU\`to]Z~sQKR[D~^sNxpg{rdPin}VltRtf{L{{rdPin}VltRtf{L{{rdPin}VmInsNqBf{uX",
         "donorCount": 0,
-        "idCode": "ga_\\\\\`@@@@F[BqRifUU_]eeYUge[^^{eeUUnwYYuUUw_UUUWUHLEC\`qxF[CgrErYZiUkLV{Wiwx|apdVODre|eZ\`B@HJ\`\`HB\`@\`@bH@\`@HBJHHJBBbJjjjjjj@@HB\`@@@",
+        "idCode": "ga_\\\`@@@@F[BqRifUU_]eeYUge[^^{eeUUnwYYuUUw_UUUWUHLEC\`qxF[CgrErYZiUkLV{Wiwx|apdVODre|eZ\`B@HJ\`\`HB\`@\`@bH@\`@HBJHHJBBbJjjjjjj@@HB\`@@@",
         "index": [
           -268969588,
           -1613157099,
@@ -4072,7 +4072,7 @@ M  END
         ],
         "logP": 31.030000030994415,
         "logS": -28.751999616622925,
-        "noStereoTautomerID": "ga_\\\\\`@@@GTXmvRifYf[{{fyUUV{nyYYYUUUU]w_UUUUUUUUxZAGbQXLIKeKyraRlVhtz}QdqZmvgDSsG|IPjP@@@BJH@@@@@bH\`HHHHHHHHbHjjjjjjjjjh@@Jh@@@C|p@",
+        "noStereoTautomerID": "ga_\\\`@@@GTXmvRifYf[{{fyUUV{nyYYYUUUU]w_UUUUUUUUxZAGbQXLIKeKyraRlVhtz}QdqZmvgDSsG|IPjP@@@BJH@@@@@bH\`HHHHHHHHbHjjjjjjjjjh@@Jh@@@C|p@",
         "polarSurfaceArea": 19.719999313354492,
         "rotatableBondCount": 36,
         "stereoCenterCount": 0,
@@ -4547,9 +4547,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 4,
-        "coordinates": "!BfQA\`tPm[ZDIwPgKp[N^Zs{x@@PB@}hANBunw?I_BsJ^Zs?y\`y{tKVy]BjDJWhikO?j@w@?z\`y?tKVzaBMwrw@my?}|JZs?y\`WfBw_S^CU|LKVzcByxKg?BgouvI~@Hc}w\`CwwQ|IUNokJpaBbOpwoE_\\\\Hy^EKw|niaAhORg\`uqu?{eSkxq]\`s\`ldIGP_]eSdzuREKvshfmB@|RNhaUA?TUSk\`CDKILrX_~ETyNMhAR~ZtHUPk{dKIESdAR~Zt@UPk{dKIJ~Ffm@ET@ldkxX",
+        "coordinates": "!BfQA\`tPm[ZDIwPgKp[N^Zs{x@@PB@}hANBunw?I_BsJ^Zs?y\`y{tKVy]BjDJWhikO?j@w@?z\`y?tKVzaBMwrw@my?}|JZs?y\`WfBw_S^CU|LKVzcByxKg?BgouvI~@Hc}w\`CwwQ|IUNokJpaBbOpwoE_\\Hy^EKw|niaAhORg\`uqu?{eSkxq]\`s\`ldIGP_]eSdzuREKvshfmB@|RNhaUA?TUSk\`CDKILrX_~ETyNMhAR~ZtHUPk{dKIESdAR~Zt@UPk{dKIJ~Ffm@ET@ldkxX",
         "donorCount": 0,
-        "idCode": "ga_\\\\\`@@@@Ej}~rRJJIIIIKZYQIQIJKQISIJKPsQQIIIISSIJIQ[IIIIIIKGIIIIYIDFBapXB]EfqxBYTmPiufk]gtxCApdVOFReJu^mPA@DQA@PE@A@AQP@U@ADPQUUDDQAEUUUUU@@@@@@@@",
+        "idCode": "ga_\\\`@@@@Ej}~rRJJIIIIKZYQIQIJKQISIJKPsQQIIIISSIJIQ[IIIIIIKGIIIIYIDFBapXB]EfqxBYTmPiufk]gtxCApdVOFReJu^mPA@DQA@PE@A@AQP@U@ADPQUUDDQAEUUUUU@@@@@@@@",
         "index": [
           -268969588,
           -1613157099,
@@ -4570,7 +4570,7 @@ M  END
         ],
         "logP": 31.030000030994415,
         "logS": -28.751999616622925,
-        "noStereoTautomerID": "ga_\\\\\`@@@JWJUjrRJJJJJJ[SZZJZIIIIJZZZYQJIQJIIIIIIIIIIIIDdiIIIIIIIII\\\\M@cqHlFDepe|YPaVITZm^\`r[MV[DZODRitvWH@@@AED@@@@@DQEUUUTDDDDDDDEUUUUUUUT@@@@@@@A~X@",
+        "noStereoTautomerID": "ga_\\\`@@@JWJUjrRJJJJJJ[SZZJZIIIIJZZZYQJIQJIIIIIIIIIIIIDdiIIIIIIIII\\M@cqHlFDepe|YPaVITZm^\`r[MV[DZODRitvWH@@@AED@@@@@DQEUUUTDDDDDDDEUUUUUUUT@@@@@@@A~X@",
         "polarSurfaceArea": 19.719999313354492,
         "rotatableBondCount": 36,
         "stereoCenterCount": 0,
@@ -5042,9 +5042,9 @@ M  END
       "nbFragments": 1,
       "ocl": {
         "acceptorCount": 4,
-        "coordinates": "!BeuRX}JhPWzVeHBBED~be[rrXne~?TUHp{J]_aXBqS]CcArBED~\`SzML{Its~_rrXKIclAuaL?g}RLIi_Kpwv\`B_SS]Be[?F@T@vH_QOh@HTgSB]LCk|olbrXWzUXSEaLb@K~_qOhzFsgDycLfe?v\`B_SI}LlfJ\\\\lfENe[u@MbGvH_UNgItpoleR{VDs~_{~NLl|gSCLgSE\`gtvT_pBYXSDpgLubH_UNgTz\\\\gt}MXsB]TnuR{bGtBbGvwLl?@IeNgUKmSiyaSirqTn{lkaEP",
+        "coordinates": "!BeuRX}JhPWzVeHBBED~be[rrXne~?TUHp{J]_aXBqS]CcArBED~\`SzML{Its~_rrXKIclAuaL?g}RLIi_Kpwv\`B_SS]Be[?F@T@vH_QOh@HTgSB]LCk|olbrXWzUXSEaLb@K~_qOhzFsgDycLfe?v\`B_SI}LlfJ\\lfENe[u@MbGvH_UNgItpoleR{VDs~_{~NLl|gSCLgSE\`gtvT_pBYXSDpgLubH_UNgTz\\gt}MXsB]TnuR{bGtBbGvwLl?@IeNgUKmSiyaSirqTn{lkaEP",
         "donorCount": 2,
-        "idCode": "gaY\\\\\`@@@@EbHvrQQQIIQQQQIJIIQYQKJIIIQIIQRJKIRIYMIiZJQJJQIVQJrImJQRXJARyTzSDRpxjGNfp[}v_KbLGcU^k_lsURDaPUARPPaR@T@UTAU@TTAUAUATEPUUTbPb@@BFAdJIyH",
+        "idCode": "gaY\\\`@@@@EbHvrQQQIIQQQQIJIIQYQKJIIIQIIQRJKIRIYMIiZJQJJQIVQJrImJQRXJARyTzSDRpxjGNfp[}v_KbLGcU^k_lsURDaPUARPPaR@T@UTAU@TTAUAUATEPUUTbPb@@BFAdJIyH",
         "index": [
           -270011446,
           1045734785,
@@ -5065,7 +5065,7 @@ M  END
         ],
         "logP": 25.55539981275797,
         "logS": -23.53500036895275,
-        "noStereoTautomerID": "gaY\\\\\`@@@@dpy^rRQRiYQQQQKIJKQQIQIQJQJIQIVIIIZIKKKYIRJIRJJRiRUUyJQRBIC\`HtVWOdKDfw]\`Hz|nPghOzbM^w_mT@DuRBaTLuUPMTD@P@\`RAEEUPUPUAT@UUTQHP\`@@A~X@",
+        "noStereoTautomerID": "gaY\\\`@@@@dpy^rRQRiYQQQQKIJKQQIQIQJQJIQIVIIIZIKKKYIRJIRJJRiRUUyJQRBIC\`HtVWOdKDfw]\`Hz|nPghOzbM^w_mT@DuRBaTLuUPMTD@P@\`RAEEUPUPUAT@UUTQHP\`@@A~X@",
         "polarSurfaceArea": 52.53999900817871,
         "rotatableBondCount": 16,
         "stereoCenterCount": 0,

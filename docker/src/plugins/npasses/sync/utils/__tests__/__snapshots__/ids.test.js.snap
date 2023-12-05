@@ -7,9 +7,9 @@ exports[`ids search (npasses) 2`] = `
     "data": {
       "cid": "72945293",
       "ocl": {
-        "coordinates": "!B_[]??\`Jw_[]}bLBY_[\\\\Bmw?~_?yNouR{_[]}bHa}f]}}mxa}@h\`",
+        "coordinates": "!B_[]??\`Jw_[]}bLBY_[\\Bmw?~_?yNouR{_[]}bHa}f]}}mxa}@h\`",
         "idCode": "fbmAP@@LlFNQQQQQIIYFS\`eNtYhI\`iJjbQjF\`@",
-        "noStereoTautomerID": "fbmAP@@\\\\UhNRJJJQJKqIXcKNSfjjjjjjj@CTNLDqSDlJqkAlVp{GlAqGB\\\\YpWE\\\\_iCMNLfOacxX",
+        "noStereoTautomerID": "fbmAP@@\\UhNRJJJQJKqIXcKNSfjjjjjjj@CTNLDqSDlJqkAlVp{GlAqGB\\YpWE\\_iCMNLfOacxX",
       },
     },
   },
@@ -28,9 +28,9 @@ exports[`ids search (npasses) 2`] = `
       ],
       "cid": "1549018",
       "ocl": {
-        "coordinates": "!BmpK~@K]}mpJH?K\\\\B?g~w__x@?\`Bw_Xa}mpJH?K\\\\B?\`C~@K\\\\B@h\`@?\`",
+        "coordinates": "!BmpK~@K]}mpJH?K\\B?g~w__x@?\`Bw_Xa}mpJH?K\\B?\`C~@K\\B@h\`@?\`",
         "idCode": "fj}@\`@@VrJJJJKQJMJQ\`eNbehF\`iJjh\`@@",
-        "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\\\UpwGzPpCcIcxX~F@",
+        "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\UpwGzPpCcIcxX~F@",
       },
     },
   },

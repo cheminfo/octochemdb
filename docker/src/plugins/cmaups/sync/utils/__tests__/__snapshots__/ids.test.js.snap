@@ -9,9 +9,9 @@ exports[`id search (cmaups) 2`] = `
       "cid": "157076",
       "commonName": "(-)-8-Oxotetrahydroplamatine",
       "ocl": {
-        "coordinates": "!Bm?vw@oy?m?w~@Ha}mwvw@oy?mpJH?Oy??g?~@K]}bGvH_[_}mpJw@oy?m?vw?[\\\\BmpJw_P",
+        "coordinates": "!Bm?vw@oy?m?w~@Ha}mwvw@oy?mpJH?Oy??g?~@K]}bGvH_[_}mpJw@oy?m?vw?[\\BmpJw_P",
         "idCode": "fmoaP@D@uGh|bbbbbTRaTrvVRyISkIJuj\`j\`B\`HjjBAD@",
-        "noStereoTautomerID": "fmoaP@C@iEltinU]e^][_dcNBfoZBBJjjjjjJ\`@ue{@\\\\QpgF\\\\EpwA|Wq~dLcQq|L_C@",
+        "noStereoTautomerID": "fmoaP@C@iEltinU]e^][_dcNBfoZBBJjjjjjJ\`@ue{@\\QpgF\\EpwA|Wq~dLcQq|L_C@",
       },
     },
   },
@@ -23,8 +23,8 @@ exports[`id search (cmaups) 2`] = `
       "commonName": "(-)-6-O-Desmethylantofine",
       "ocl": {
         "coordinates": "!Bb@Jw@ox@bGvw@hc|b@Jw_Xa}bGvH@h\`B?g~H__x@bGvH_X\`BbOs~_?y??\`BfpHQT\`Dx",
-        "idCode": "feoa\`DF\`iUlyHihdeeEDdddbnRLzI\\\\mGN\`\`\`@HJJj@jFT@",
-        "noStereoTautomerID": "feoa\`DF\`iUlyHihdeeEDdddbnRLzI\\\\mGNjjjjjjjjjh@MThqcELLpKDlJqkAlVq{@\\\\QqgA\\\\SpoF|_iCJnLVOacxX",
+        "idCode": "feoa\`DF\`iUlyHihdeeEDdddbnRLzI\\mGN\`\`\`@HJJj@jFT@",
+        "noStereoTautomerID": "feoa\`DF\`iUlyHihdeeEDdddbnRLzI\\mGNjjjjjjjjjh@MThqcELLpKDlJqkAlVq{@\\QqgA\\SpoF|_iCJnLVOacxX",
       },
     },
   },

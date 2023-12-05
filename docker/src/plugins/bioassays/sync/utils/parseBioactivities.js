@@ -2,8 +2,6 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { createGunzip } from 'zlib';
 
-import OCL from 'openchemlib';
-
 import debugLibrary from '../../../../utils/Debug.js';
 
 import getBioassays from './getBioassays.js';
@@ -42,7 +40,6 @@ async function* parseBioactivities(
     // Define variables
     let counter = 0;
     let compoundData = {
-      noStereoID: '',
       id: '',
       cid: 0,
     };
@@ -78,7 +75,6 @@ async function* parseBioactivities(
           ocl: {
             noStereoTautomerID: compoundData.noStereoTautomerID,
             coordinates: compoundData.coordinates,
-            noStereoID: compoundData.noStereoID,
           },
         },
       };

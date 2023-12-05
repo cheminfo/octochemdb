@@ -27,4 +27,4 @@ test('In silico fragmentation', async () => {
 
   expect(result).toMatchSnapshot();
   await connection.close();
-}, 1000000);
+}, 100000);

@@ -7,9 +7,9 @@ exports[`ids search (lotuses) 2`] = `
     "data": {
       "iupacName": "7,19-dimethyl (1S,5R,17S)-8,20-dihydroxy-2,2-dimethyl-4-oxo-3,16,28-trioxaheptacyclo[15.11.0.0¹,⁵.0⁶,¹⁵.0⁹,¹⁴.0¹⁸,²⁷.0²¹,²⁶]octacosa-6(15),7,9,11,13,18(27),19,21,23,25-decaene-7,19-dicarboxylate",
       "ocl": {
-        "coordinates": "!BtWBGXmSLy\`\`pwKWhuskiBG[pqDLHskWhItKDvnbJtP|z@MRLnFwVpLQCy{WDPsQj_\`chbgbjtP}^\\\\JbmnFJGXhypnFKDdoyp?gBGGZaMavH",
-        "idCode": "ei_PE@@@DMKJfnbZV\\\\bbTTTTLTRtRbRQTTQRTuHXLl|rbRvan~qyZjhJ\`jBX@\`HBXj@CCALHr@@",
-        "noStereoTautomerID": "ei_PE@@@MBemckohT\\\\dTTTTTTTRVdTRTR\\\\TVZvhDd|t\\\\bJr^fAyEjjjjjjjjjjjjjjjh@CTECFFJLLXxpIbSAfKLNX|pEbKBVFl]XFqMc[AvKlOX~qCaGANF\\\\\\\\xep[bwCnOtPqYqbq|L_C_NLfOacxX",
+        "coordinates": "!BtWBGXmSLy\`\`pwKWhuskiBG[pqDLHskWhItKDvnbJtP|z@MRLnFwVpLQCy{WDPsQj_\`chbgbjtP}^\\JbmnFJGXhypnFKDdoyp?gBGGZaMavH",
+        "idCode": "ei_PE@@@DMKJfnbZV\\bbTTTTLTRtRbRQTTQRTuHXLl|rbRvan~qyZjhJ\`jBX@\`HBXj@CCALHr@@",
+        "noStereoTautomerID": "ei_PE@@@MBemckohT\\dTTTTTTTRVdTRTR\\TVZvhDd|t\\bJr^fAyEjjjjjjjjjjjjjjjh@CTECFFJLLXxpIbSAfKLNX|pEbKBVFl]XFqMc[AvKlOX~qCaGANF\\\\xep[bwCnOtPqYqbq|L_C_NLfOacxX",
       },
       "taxonomies": [
         {
@@ -34,7 +34,7 @@ exports[`ids search (lotuses) 2`] = `
       "ocl": {
         "coordinates": "!Bb@JH_X\`BbGvH@oy?bGvH__y?XAi\`YRqgFf@@?lBf@hc|mpC~@O{|mpC~",
         "idCode": "ffc@P@@Z}UIUe[[VuqRt[IVX@Jj\`@bDJaeAD@",
-        "noStereoTautomerID": "ffc@P@@Z}UIUe[[VuqRt[IVX@Jjjjb\`@uy{@\\\\QpgF\\\\EqwGzPrm[Gpq|L",
+        "noStereoTautomerID": "ffc@P@@Z}UIUe[[VuqRt[IVX@Jjjjb\`@uy{@\\QpgF\\EqwGzPrm[Gpq|L",
       },
       "taxonomies": [
         {

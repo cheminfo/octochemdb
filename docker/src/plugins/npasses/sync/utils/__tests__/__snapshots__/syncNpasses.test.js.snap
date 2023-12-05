@@ -17,7 +17,7 @@ exports[`syncNpasses 1`] = `
     "cid": "1549018",
     "ocl": {
       "idCode": "fj}@\`@@VrJJJJKQJMJQ\`eNbehF\`iJjh\`@@",
-      "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\\\UpwGzPpCcIcxX~F@",
+      "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\UpwGzPpCcIcxX~F@",
     },
   },
 }

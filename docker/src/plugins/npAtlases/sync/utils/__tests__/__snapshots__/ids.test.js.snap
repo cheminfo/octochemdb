@@ -4,8 +4,8 @@ exports[`ids search (npAtlases) 2`] = `
 {
   "iupacName": "Curvularide C",
   "ocl": {
-    "idCode": "ficaP@D@tZK\\\\bbRbTRdQT\\\\VfZfjjjjjjXRLPiZIUU@d@",
-    "noStereoTautomerID": "ficaP@K@xXO\\\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
+    "idCode": "ficaP@D@tZK\\bbRbTRdQT\\VfZfjjjjjjXRLPiZIUU@d@",
+    "noStereoTautomerID": "ficaP@K@xXO\\dTfTvbbJbfTVjijjjjjj@CUFlFq~dLMTq|L_C@",
   },
   "taxonomies": [
     {

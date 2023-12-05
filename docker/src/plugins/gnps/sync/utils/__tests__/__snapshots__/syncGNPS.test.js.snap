@@ -8,7 +8,7 @@ exports[`syncGNPs 1`] = `
     "mf": "C48H72N10O12",
     "ocl": {
       "idCode": "gfOEPX@@DE@qTzJmPy}~@ZKARx|aXbTjL^rJIQQSSPyQJISJIQPpqSPsPiIIZIYQJZXqIVgQFbuSULuUMUUMSMUMULtuUUM@A@A@zlt@",
-      "noStereoTautomerID": "gfOEPX@@DE@qTzJmPy}~@ZKARx|aTfTjL^rJIQQSSPyQJISJIQPpqSQRpiIIZIYQJZXqIVgQFcUSUUUUUUUUUUUUUUUUUUU@A@@AjV@X\`XpXXXxXTXtXLXlX\\\\X|XBXbXRXrXJXjXZXzXFXfXVXvXNXnX^X~XAXaXQXqXIXiXYXEXeXUXuXMXmX]X}XCXcXSXsXkX[XWXoX_XhxQA\`Aidq|L_CCjfOacxX",
+      "noStereoTautomerID": "gfOEPX@@DE@qTzJmPy}~@ZKARx|aTfTjL^rJIQQSSPyQJISJIQPpqSQRpiIIZIYQJZXqIVgQFcUSUUUUUUUUUUUUUUUUUUU@A@@AjV@X\`XpXXXxXTXtXLXlX\\X|XBXbXRXrXJXjXZXzXFXfXVXvXNXnX^X~XAXaXQXqXIXiXYXEXeXUXuXMXmX]X}XCXcXSXsXkX[XWXoX_XhxQA\`Aidq|L_CCjfOacxX",
     },
     "spectrum": {
       "adduct": "M+H",
@@ -237,8 +237,8 @@ exports[`syncGNPs 2`] = `
     "em": 939.45195709384,
     "mf": "C45H73N5O10S3",
     "ocl": {
-      "idCode": "gorF\`hp@LFbXBuBHbpyrUF\`w[\\\\@BE@PLBLdTVRbbTRtLRbfbfVffbTVfavfbTTTRJpTO@Qy|KCjYjijjjjejjjjjYjjjjijj\`cARIXPQIDtfrWI|TIVizTYIifPy@@",
-      "noStereoTautomerID": "gorF\`hp@LCAqDmVN\`JDbUFjs[\\\\@BC@PtBLdTVdTRtqTTRTTQbrabrbffbbTrrflTUpTMAbhtCYjZjjjjjjjjjjjjjjjjjjjj\`@CVhhpXqXpxpDqDpTplqlp|pBpbqrqjpZpfpVqvpnqnqAq~aCFE[Gpq|MXjX~FOahUSGpq|MViX~FOa\`",
+      "idCode": "gorF\`hp@LFbXBuBHbpyrUF\`w[\\@BE@PLBLdTVRbbTRtLRbfbfVffbTVfavfbTTTRJpTO@Qy|KCjYjijjjjejjjjjYjjjjijj\`cARIXPQIDtfrWI|TIVizTYIifPy@@",
+      "noStereoTautomerID": "gorF\`hp@LCAqDmVN\`JDbUFjs[\\@BC@PtBLdTVdTRtqTTRTTQbrabrbffbbTrrflTUpTMAbhtCYjZjjjjjjjjjjjjjjjjjjjj\`@CVhhpXqXpxpDqDpTplqlp|pBpbqrqjpZpfpVqvpnqnqAq~aCFE[Gpq|MXjX~FOahUSGpq|MViX~FOa\`",
     },
     "spectrum": {
       "adduct": "M+H",
