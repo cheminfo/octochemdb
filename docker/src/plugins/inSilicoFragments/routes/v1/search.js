@@ -20,6 +20,18 @@ const searchInSilicoFragments = {
         example: '341.078,149.0363,305.0575',
         default: '',
       },
+      ionMode: {
+        type: 'string',
+        description: 'ionization mode',
+        example: 'negative',
+        default: 'positive',
+      },
+      ionSource: {
+        type: 'string',
+        description: 'ionization source',
+        example: 'esi, ei',
+        default: 'esi',
+      },
       precision: {
         type: 'number',
         description: 'Precision (in ppm) of the monoisotopic mass',

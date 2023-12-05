@@ -20,6 +20,8 @@ export async function searchHandler(request) {
     precision = 10,
     limit = 10,
     fields = 'data',
+    ionSource = 'esi',
+    ionMode = 'positive',
   } = data;
 
   // define the error allowed for the search
@@ -44,6 +46,10 @@ export async function searchHandler(request) {
       mf,
       precision,
     );
+    // add ion source and mode to the query, both need to be true in order to match
+    matchParameter['_id.ionSource'] = ionSource;
+    matchParameter['_id.ionMode'] = ionMode;
+
     const results = await collection
       .aggregate([
         { $match: matchParameter },
