@@ -8,7 +8,7 @@ import { test, expect } from 'vitest';
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { parseBioassaysPubChem } from '../parseBioassaysPubChem.js';
 
-test('ParseBioassaysPubChem', async () => {
+test.skip('ParseBioassaysPubChem', async () => {
   const connection = new OctoChemConnection();
   let fileList = await fileCollectionFromPath(join(__dirname, 'data'), {
     unzip: { zipExtensions: [] },

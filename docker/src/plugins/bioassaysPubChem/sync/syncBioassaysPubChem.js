@@ -11,6 +11,10 @@ import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { decompressAll } from './utils/decompressAll.js';
 import { main } from './utils/main.js';
 
+//***************
+// NOT FINISHED *
+//***************
+
 const debug = debugLibrary('syncBioassaysPubChem');
 export async function sync(connection) {
   let options = {
