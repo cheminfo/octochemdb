@@ -34,7 +34,7 @@ parentPort?.on('message', async (dataEntry) => {
     // get worker number
 
     const currentCollection =
-      await connection.getCollection(`inSilicoFragments_V2`);
+      await connection.getCollection(`inSilicoFragments`);
 
     let count = 0;
     let start = Date.now();
@@ -126,7 +126,7 @@ parentPort?.on('message', async (dataEntry) => {
             await debug.warn(
               `Warning(fragmentation) happened ${warnCount}:${e.message} `,
               {
-                collection: 'inSilicoFragments_V2',
+                collection: 'inSilicoFragments',
                 connection,
                 stack: e.stack,
               },
@@ -140,7 +140,7 @@ parentPort?.on('message', async (dataEntry) => {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments_V2',
+        collection: 'inSilicoFragments',
         connection,
         stack: e.stack,
       });

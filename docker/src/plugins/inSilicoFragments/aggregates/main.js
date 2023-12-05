@@ -6,7 +6,7 @@ import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
 const connection = new OctoChemConnection();
 export async function main(links) {
-  const debug = debugLibrary('improveInSilicoFragments_V2 Main');
+  const debug = debugLibrary('improveInSilicoFragments Main');
 
   try {
     let total = Object.keys(links).length;
@@ -65,7 +65,7 @@ export async function main(links) {
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
-        collection: 'inSilicoFragments_V2',
+        collection: 'inSilicoFragments',
         connection,
         stack: e.stack,
       });
