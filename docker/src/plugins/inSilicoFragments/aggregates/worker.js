@@ -9,6 +9,8 @@ import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 import { getMasses } from '../utils/getMasses.js';
 
+import { fragmentationOptions } from './fragmentationOptions.js';
+
 const { Molecule } = OCL;
 const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
@@ -40,8 +42,9 @@ parentPort?.on('message', async (dataEntry) => {
     for (const link of links) {
       try {
         let molecule = Molecule.fromIDCode(link.idCode);
+        const mfInfo = new MF(molecule.getMolecularFormula().formula).getInfo();
 
-        if (molecule.getAtoms() <= 100) {
+        if (mfInfo.monoisotopicMass <= 1000) {
           let result = {
             data: {
               ocl: { idCode: link.idCode },
@@ -50,21 +53,9 @@ parentPort?.on('message', async (dataEntry) => {
               },
             },
           };
-          const mfInfo = new MF(
-            molecule.getMolecularFormula().formula,
-          ).getInfo();
-
           result.data.mf = mfInfo.mf;
           result.data.em = mfInfo.monoisotopicMass;
 
-          let fragmentationOptions = {
-            maxDepth: 3,
-            limitReactions: 500,
-            minIonizations: 1,
-            maxIonizations: 1,
-            minReactions: 0,
-            maxReactions: 2,
-          };
           if (process.env.NODE_ENV === 'test') {
             fragmentationOptions.limitReactions = 10;
           }

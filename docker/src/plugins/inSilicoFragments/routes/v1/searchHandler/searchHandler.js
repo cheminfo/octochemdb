@@ -3,6 +3,7 @@ import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 import { prepareMolecularInfoQuery } from '../../../../gnps/routes/v1/utils/prepareMolecularInfoQuery.js';
 import { prepareSpectraQuery } from '../../../../gnps/routes/v1/utils/prepareSpectraQuery.js';
+import { fragmentationOptions } from '../../../aggregates/fragmentationOptions.js';
 
 const debug = debugLibrary('inSilicoFragments');
 
@@ -59,7 +60,7 @@ export async function searchHandler(request) {
         },
       ])
       .toArray();
-    return { data: results };
+    return { data: results, fragmentationOptions };
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
