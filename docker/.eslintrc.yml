@@ -2,5 +2,11 @@ extends: cheminfo
 
 parserOptions:
   sourceType: module
+rules:
+  no-await-in-loop:
+    - warn
+  no-undefined:
+    - warn
+
 env:
   node: true

@@ -43,12 +43,14 @@ export default async function importOneCompoundFile(
     if (bufferValue.length < 128 * 1024 * 1024) continue;
     let lastIndex = bufferValue.lastIndexOf('$$$$');
     if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
+      // eslint-disable-next-line require-atomic-updates
       newCompounds += await parseSDF(bufferValue.substring(0, lastIndex + 5));
       bufferValue = bufferValue.substring(lastIndex + 5);
     }
   }
 
   // parse the last chunk
+  // eslint-disable-next-line require-atomic-updates
   newCompounds += await parseSDF(bufferValue);
   // update logs
   logs.dateEnd = Date.now();

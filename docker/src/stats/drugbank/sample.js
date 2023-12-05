@@ -83,10 +83,10 @@ function addScore(candidate) {
     if (!Number.isNaN(ratio) && ratio !== -Infinity && ratio !== Infinity) {
       totalRatios++;
       let distance = Math.abs(ratio - stat.mean) / stat.standardDeviation;
-      score *= Math.pow(penality, distance);
+      score *= penality ** distance;
     }
   }
-  candidate.ratioScore = Math.pow(score, 1 / totalRatios);
+  candidate.ratioScore = score ** (1 / totalRatios);
 }
 
 function readJSON(file) {

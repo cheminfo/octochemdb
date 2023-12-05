@@ -44,12 +44,14 @@ export default async function importOneSubstanceFile(
       if (bufferValue.length < 128 * 1024 * 1024) continue;
       let lastIndex = bufferValue.lastIndexOf('$$$$');
       if (lastIndex > 0 && lastIndex < bufferValue.length - 5) {
+        // eslint-disable-next-line require-atomic-updates
         newSubstances += await parseSDF(
           bufferValue.substring(0, lastIndex + 5),
         );
         bufferValue = bufferValue.substring(lastIndex + 5);
       }
     }
+    // eslint-disable-next-line require-atomic-updates
     newSubstances += await parseSDF(bufferValue);
     logs.dateEnd = Date.now();
     logs.endSequenceID = progress.seq;

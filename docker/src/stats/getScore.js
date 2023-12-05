@@ -71,9 +71,9 @@ function calculateScores(candidates) {
       if (ratio && ratio !== 0 && ratio !== Infinity) {
         totalRatios++;
         let distance = Math.abs(ratio - stat.mean) / stat.standardDeviation;
-        score *= Math.pow(penality, distance);
+        score *= penality ** distance;
       }
     }
-    candidate.ratioScore = Math.pow(score, 1 / totalRatios);
+    candidate.ratioScore = score ** (1 / totalRatios);
   }
 }
