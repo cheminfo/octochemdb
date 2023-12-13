@@ -17,11 +17,11 @@ const debug = debugLibrary('WorkerProcess');
 let databases = {
   esi: {
     positive: md5(
-      JSON.stringify(getDatabase({ ionizationKind: ['esiPositive'] })),
+      JSON.stringify(getDatabase({ ionization: ['esi'], mode: ['positive'] })),
     ),
 
     negative: md5(
-      JSON.stringify(getDatabase({ ionizationKind: ['esiNegative'] })),
+      JSON.stringify(getDatabase({ ionization: ['esi'], mode: ['negative'] })),
     ),
   },
 };
@@ -74,17 +74,10 @@ parentPort?.on('message', async (dataEntry) => {
                 entry?.data.fragmentationDbHash !==
                   databases[ionSource][ionMode]
               ) {
-                if (ionSource !== 'esi') {
-                  continue;
-                }
-                let ionizationKind =
-                  ionMode === 'positive' && ionSource === 'esi'
-                    ? 'esiPositive'
-                    : 'esiNegative';
-                fragmentationOptions.ionizationKind = [ionizationKind];
+                fragmentationOptions.ionization = [ionSource];
+                fragmentationOptions.mode = [ionMode];
                 let fragments = reactionFragmentation(
                   molecule,
-                  // @ts-ignore
                   fragmentationOptions,
                 );
                 const massesArray = getMasses(fragments.masses);
@@ -96,8 +89,8 @@ parentPort?.on('message', async (dataEntry) => {
 
                   result._id = {
                     noStereoTautomerID: link.id,
-                    ionMode,
-                    ionSource,
+                    mode: ionMode,
+                    ionization: ionSource,
                   };
                   await currentCollection.updateOne(
                     { _id: result._id },

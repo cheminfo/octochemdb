@@ -20,16 +20,16 @@ const searchInSilicoFragments = {
         example: '341.078,149.0363,305.0575',
         default: '',
       },
-      ionMode: {
+      mode: {
         type: 'string',
         description: 'ionization mode',
-        example: 'negative',
+        example: 'negative OR positive',
         default: 'positive',
       },
-      ionSource: {
+      source: {
         type: 'string',
         description: 'ionization source',
-        example: 'esi, ei',
+        example: 'esi OR ei',
         default: 'esi',
       },
       precision: {

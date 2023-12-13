@@ -20,8 +20,8 @@ test('In silico fragmentation', async () => {
     _id: {
       noStereoTautomerID:
         'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
-      ionMode: 'positive',
-      ionSource: 'esi',
+      mode: 'positive',
+      ionization: 'esi',
     },
   });
 
