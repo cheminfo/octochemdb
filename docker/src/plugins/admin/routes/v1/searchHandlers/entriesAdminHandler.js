@@ -26,7 +26,7 @@ export async function entriesAdminHandler(request) {
         _id: `${collectionToSearch}_progress`,
       };
     }
-    const results = await collection
+    let results = await collection
       .aggregate([
         {
           $match: matchParameter,
@@ -36,6 +36,43 @@ export async function entriesAdminHandler(request) {
         },
       ])
       .toArray();
+    ///
+    const names = await connection.getCollectionNames();
+    for (let name of names) {
+      if (!results.find((result) => result._id === `${name}_progress`)) {
+        results.push({
+          _id: `${name}_progress`,
+          state: 'not started',
+          seq: 0,
+          dateStart: 0,
+          dateEnd: 0,
+        });
+      }
+      const collection = await connection.getCollection(name);
+      const query = await collection.aggregate([
+        { $collStats: { storageStats: {} } },
+      ]);
+      const stats = await query.next();
+      const progressResult = results.find(
+        (result) => result._id === `${name}_progress`,
+      );
+      if (progressResult) {
+        progressResult.ns = stats?.ns;
+        progressResult.size = stats?.storageStats?.size;
+        progressResult.count = stats?.storageStats?.count;
+        progressResult.avgObjSize = stats?.storageStats?.avgObjSize;
+        progressResult.storageSize = stats?.storageStats?.storageSize;
+        progressResult.freeStorageSize = stats?.storageStats?.freeStorageSize;
+        progressResult.capped = stats?.storageStats?.capped;
+        results = results.map((result) => {
+          if (result._id === `${name}_progress`) {
+            return progressResult;
+          } else {
+            return result;
+          }
+        });
+      }
+    }
 
     return { data: results };
   } catch (e) {
