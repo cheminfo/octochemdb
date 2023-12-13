@@ -28,7 +28,6 @@ export async function sync(connection) {
       speciesPair,
       speciesInfo,
       targetInfo,
-      logs,
     } = await npassesStartSync(connection);
     let isTimeToUpdate = await shouldUpdate(
       progress,
@@ -108,11 +107,7 @@ export async function sync(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      // set logs
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
+
       // create indexes
       await createIndexes(collection, [
         { 'data.ocl.noStereoTautomerID': 1 },

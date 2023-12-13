@@ -59,13 +59,6 @@ export async function sync(connection) {
     if (isTimeToUpdate) {
       const collection = await connection.getCollection('lccs');
 
-      // get logs
-      const logs = await connection.getImportationLog({
-        collectionName: options.collectionName,
-        sources,
-        startSequenceID: progress.seq,
-      });
-
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
@@ -115,11 +108,6 @@ export async function sync(connection) {
         dropTarget: true,
       });
 
-      // update Logs in importationLogs collection
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
       //Update progress in admin collection
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();

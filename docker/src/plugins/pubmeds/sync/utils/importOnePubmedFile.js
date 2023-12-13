@@ -29,12 +29,7 @@ export default async function importOnePubmedFile(
     // get pubmeds collection
     const collection = await connection.getCollection('pubmeds');
     debug.trace(`Importing: ${file.name}`);
-    // get logs
-    const logs = await connection.getImportationLog({
-      collectionName: 'pubmeds',
-      sources: file.name,
-      startSequenceID: progress.seq,
-    });
+
     // create stream from file
     const filePath = await decompressGziped(file.path);
     const fileStream = await open(filePath, 'r');
@@ -65,10 +60,6 @@ export default async function importOnePubmedFile(
     // set logs and progress
     progress.sources = file.path.replace(process.env.ORIGINAL_DATA_PATH, '');
     await connection.setProgress(progress);
-    logs.dateEnd = Date.now();
-    logs.endSequenceID = progress.seq;
-    logs.status = 'updated';
-    await connection.updateImportationLog(logs);
     debug.trace(`${imported} articles processed`);
     // Remove the decompressed gzip file after it has been imported
     await fileStream.close();

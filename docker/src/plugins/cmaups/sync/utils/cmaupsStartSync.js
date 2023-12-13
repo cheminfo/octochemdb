@@ -20,7 +20,6 @@ export default async function cmaupsStartSync(connection) {
       lastTargetInfo,
       sources,
       progress,
-      logs,
     ] = await getCmaupsLastFiles(connection);
     const collection = await connection.getCollection('cmaups');
     const lastDocumentImported = await getLastDocumentImported(
@@ -49,7 +48,6 @@ export default async function cmaupsStartSync(connection) {
       speciesPair,
       speciesInfo,
       targetInfo,
-      logs,
     ];
   } catch (e) {
     if (connection) {

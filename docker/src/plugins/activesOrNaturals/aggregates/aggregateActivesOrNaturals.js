@@ -33,11 +33,6 @@ export async function aggregate(connection) {
     const pubmedProgress = await connection.getProgress('pubmeds');
     collectionSources.push(pubmedProgress.sources);
     const sources = md5(collectionSources);
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
 
     if (sources !== progress.sources || progress.state !== 'aggregated') {
       const temporaryCollection = await connection.getCollection(
@@ -59,11 +54,7 @@ export async function aggregate(connection) {
       await temporaryCollection.rename(options.collection, {
         dropTarget: true,
       });
-      // set logs to aggregated
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'aggregated';
-      await connection.updateImportationLog(logs);
+
       // set progress to aggregated
       progress.sources = sources;
       progress.dateEnd = Date.now();

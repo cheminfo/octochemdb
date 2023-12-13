@@ -1,6 +1,5 @@
 import delay from 'delay';
 import dotenv from 'dotenv';
-import md5 from 'md5';
 import { MongoClient } from 'mongodb';
 
 import debugLibrary from './Debug.js';
@@ -34,41 +33,6 @@ OctoChemConnection.prototype.getCollection = async function getCollection(
 ) {
   return (await this.getDatabase()).collection(collectionName);
 };
-
-OctoChemConnection.prototype.getImportationLog =
-  async function getImportationLog(options) {
-    const { collectionName, sources, startSequenceID } = options;
-    const logsCollection = await this.getImportationLogsCollection();
-    const sourcesHash = md5(JSON.stringify(sources));
-    const _id = sourcesHash;
-    let logs = await logsCollection.find({ _id }).next();
-    if (logs === null) {
-      logs = {
-        _id,
-        collectionName,
-        sources,
-        sourcesHash,
-        dateStart: Date.now(),
-        dateEnd: Date.now(),
-        startSequenceID,
-        endSequenceID: 0,
-        status: 'updating',
-      };
-      await logsCollection.insertOne(logs);
-    }
-    return logs;
-  };
-OctoChemConnection.prototype.updateImportationLog =
-  async function updateImportationLog(logs) {
-    const collection = await this.getImportationLogsCollection();
-    logs.dateEnd = Date.now();
-    await collection.replaceOne({ _id: logs._id }, logs);
-  };
-
-OctoChemConnection.prototype.getImportationLogsCollection =
-  async function getCollection() {
-    return (await this.getDatabase()).collection('importationLogs');
-  };
 
 OctoChemConnection.prototype.getAdminCollection =
   async function getAdminCollection() {

@@ -67,11 +67,7 @@ export async function sync(connection) {
       process.env.PATENT_UPDATE_INTERVAL,
       connection,
     );
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
+
     if (isTimeToUpdate) {
       progress.state = 'updating';
       await connection.setProgress(progress);
@@ -97,17 +93,11 @@ export async function sync(connection) {
       );
       await collection.createIndex({ 'data.nbCompounds': 1 });
 
-      // update Logs in importationLogs collection
+      // update Logs
       progress.sources = md5(JSON.stringify(sources));
       progress.state = 'updated';
       progress.dateEnd = Date.now();
       await connection.setProgress(progress);
-
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-
-      await connection.updateImportationLog(logs);
     }
   } catch (e) {
     if (connection) {

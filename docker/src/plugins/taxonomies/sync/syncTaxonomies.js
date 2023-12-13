@@ -55,12 +55,6 @@ export async function sync(connection) {
     if (isTimeToUpdate) {
       const collection = await connection.getCollection(options.collectionName);
 
-      const logs = await connection.getImportationLog({
-        collectionName: options.collectionName,
-        sources,
-        startSequenceID: progress.seq,
-      });
-
       const fileList = (
         await fileCollectionFromZip(readFileSync(lastFile))
       ).filter((file) => file.name === 'rankedlineage.dmp');
@@ -98,11 +92,6 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';

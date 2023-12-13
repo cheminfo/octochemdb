@@ -21,7 +21,7 @@ export async function statsHandler() {
   } catch (e) {
     if (connection) {
       await debug.error(e.message, {
-        collection: 'importationLogs',
+        collection: 'lotuses',
         connection,
         stack: e.stack,
       });

@@ -41,7 +41,6 @@ export default defineConfig({
           const regexSearch = /search/i;
           const regexFrom = /from/i;
           const regexAdmin = /admin/i;
-          const regexImportationLogs = /importationLogs/i;
           const regexInfo = /collections/i;
 
           sortedFiles = sortedFiles.sort((a, b) => {
@@ -98,12 +97,6 @@ export default defineConfig({
               return 1;
             }
             if (!regexAdmin.test(a) && regexAdmin.test(b)) {
-              return -1;
-            }
-            if (regexImportationLogs.test(a) && !regexImportationLogs.test(b)) {
-              return 1;
-            }
-            if (!regexImportationLogs.test(a) && regexImportationLogs.test(b)) {
               return -1;
             }
             if (regexInfo.test(a) && !regexInfo.test(b)) {

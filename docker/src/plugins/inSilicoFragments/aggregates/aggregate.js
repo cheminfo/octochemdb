@@ -18,12 +18,7 @@ export async function aggregate(connection) {
       await connection.getProgress('activesOrNaturals');
     const collection = await connection.getCollection(`${options.collection}`);
     const sources = md5(progressOfSourceCollection);
-    // Add logs to the collection importLogs
-    const logs = await connection.getImportationLog({
-      collectionName: options.collectionName,
-      sources,
-      startSequenceID: progress.seq,
-    });
+
     // Get the last document imported
     const lastDocumentImported = await getLastDocumentImported(
       options.connection,
@@ -48,11 +43,6 @@ export async function aggregate(connection) {
         { 'data.fragmentationDbHash': 1 },
       ]);
 
-      // update logs
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'aggregated';
-      await connection.updateImportationLog(logs);
       // update progress
       progress.sources = sources;
       progress.dateEnd = Date.now();

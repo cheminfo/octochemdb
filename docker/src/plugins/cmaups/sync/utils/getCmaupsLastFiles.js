@@ -70,12 +70,7 @@ export default async function getCmaupsLastFiles(connection) {
     }
     // Get collection admin
     const progress = await connection.getProgress('cmaups');
-    const logs = await connection.getImportationLog({
-      collectionName: 'cmaups',
-      sources,
-      startSequenceID: progress.seq,
-    });
-    // return [lastFileGeneral, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs];
+
     return [
       lastFileGeneral,
       lastFileActivity,
@@ -84,7 +79,6 @@ export default async function getCmaupsLastFiles(connection) {
       lastTargetInfo,
       sources,
       progress,
-      logs,
     ];
   } catch (e) {
     // If error is chatched, debug it on telegram

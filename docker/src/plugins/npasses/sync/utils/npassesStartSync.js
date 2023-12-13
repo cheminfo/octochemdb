@@ -21,7 +21,6 @@ export default async function npassStartSync(connection) {
       lastTargetInfo,
       sources,
       progress,
-      logs,
     } = await getNpassesLastFiles(connection);
     //get npasses collection and last document imported
     const collection = await connection.getCollection('npasses');
@@ -59,7 +58,6 @@ export default async function npassStartSync(connection) {
       speciesPair,
       speciesInfo,
       targetInfo,
-      logs,
     };
   } catch (e) {
     if (connection) {

@@ -25,12 +25,7 @@ export default async function importOneCompoundFile(
   // get compounds collection
   const collection = await connection.getCollection('compounds');
   debug.trace(`Importing: ${file.name}`);
-  // Get logs collection
-  const logs = await connection.getImportationLog({
-    collectionName: 'compounds',
-    sources: file.name,
-    startSequenceID: progress.seq,
-  });
+
   // should we directly import the data or wait that we reach the previously imported information
   let { shouldImport = true, lastDocument } = options;
   // Create a readStream for the file
@@ -52,11 +47,7 @@ export default async function importOneCompoundFile(
   // parse the last chunk
   // eslint-disable-next-line require-atomic-updates
   newCompounds += await parseSDF(bufferValue);
-  // update logs
-  logs.dateEnd = Date.now();
-  logs.endSequenceID = progress.seq;
-  logs.status = 'updated';
-  await connection.updateImportationLog(logs);
+
   debug.trace(`${newCompounds} compounds imported from ${file.name}`);
   // return the new compounds count
   return newCompounds;

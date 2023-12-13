@@ -64,12 +64,6 @@ export async function sync(connection) {
     let start = Date.now();
     if (isTimeToUpdate) {
       const collection = await connection.getCollection(options.collectionName);
-      // get logs and last document imported
-      const logs = await connection.getImportationLog({
-        collectionName: options.collectionName,
-        sources,
-        startSequenceID: progress.seq,
-      });
 
       // create temporary collection
       const temporaryCollection = await connection.getCollection(
@@ -115,11 +109,7 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-      // set progressand logs to updated
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
+
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';

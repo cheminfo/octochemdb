@@ -60,12 +60,7 @@ export async function sync(connection) {
       const oldToNewTaxIDs = await taxonomySynonyms();
       // get taxonomies collection
       const collectionTaxonomies = await connection.getCollection('taxonomies');
-      // get logs
-      const logs = await connection.getImportationLog({
-        collectionName: options.collectionName,
-        sources,
-        startSequenceID: progress.seq,
-      });
+
       // define file inside zip folder to use for importation
       let fileName = 'lotusUniqueNaturalProduct.bson';
       // create temporary collection
@@ -108,12 +103,6 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-
-      // update Logs in importationLogs collection
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
 
       //Update progress in admin collection
       progress.sources = md5(JSON.stringify(sources));

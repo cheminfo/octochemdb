@@ -71,12 +71,7 @@ export async function sync(connection) {
           jsonFilesPaths = [...newJsonFilesPaths, ...jsonFilesPaths];
         }
       }
-      // Generate Logs for the sync
-      const logs = await connection.getImportationLog({
-        collectionName: options.collectionName,
-        sources,
-        startSequenceID: progress.seq,
-      });
+
       // set progress to updating, if fail importation, a new try will be done 24h later
       progress.state = 'updating';
       await connection.setProgress(progress);
@@ -92,11 +87,7 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-      // update logs with the new progress
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
+
       // update progress with the new progress
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();

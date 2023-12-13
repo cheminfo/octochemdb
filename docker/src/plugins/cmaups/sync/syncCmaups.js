@@ -29,7 +29,6 @@ export async function sync(connection) {
       speciesPair,
       speciesInfo,
       targetInfo,
-      logs,
     ] = await cmaupsStartSync(connection);
     // Define counters
     let counter = 0;
@@ -104,11 +103,7 @@ export async function sync(connection) {
       await temporaryCollection.rename('cmaups', {
         dropTarget: true,
       });
-      // Define logs informations in collection importationLogs
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
+
       // Define new informations and set state to updated in admin collection
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();

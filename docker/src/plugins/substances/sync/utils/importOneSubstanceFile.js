@@ -25,11 +25,7 @@ export default async function importOneSubstanceFile(
   const debug = debugLibrary('improveOneSubstanceFile');
   try {
     const collection = await connection.getCollection('substances');
-    const logs = await connection.getImportationLog({
-      collectionName: 'substances',
-      sources: file.name,
-      startSequenceID: progress.seq,
-    });
+
     const collectionTaxonomies = await connection.getCollection('taxonomies');
 
     debug.info(`Importing taxonomies collection`);
@@ -53,10 +49,7 @@ export default async function importOneSubstanceFile(
     }
     // eslint-disable-next-line require-atomic-updates
     newSubstances += await parseSDF(bufferValue);
-    logs.dateEnd = Date.now();
-    logs.endSequenceID = progress.seq;
-    logs.status = 'updated';
-    await connection.updateImportationLog(logs);
+
     debug.trace(`${newSubstances} substances imported from ${file.name}`);
     return newSubstances;
 

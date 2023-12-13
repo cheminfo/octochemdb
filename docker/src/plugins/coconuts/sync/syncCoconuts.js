@@ -61,11 +61,7 @@ export async function sync(connection) {
       let fileName = 'uniqueNaturalProduct.bson';
       debug.info(`Start parsing coconuts`);
       const collection = await connection.getCollection(options.collectionName);
-      const logs = await connection.getImportationLog({
-        collectionName: options.collectionName,
-        sources,
-        startSequenceID: progress.seq,
-      });
+
       // Get taxonomies collection
       const collectionTaxonomies = await connection.getCollection('taxonomies');
       // create temporary collection to import
@@ -107,11 +103,7 @@ export async function sync(connection) {
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
-      // set logs and progress to updated
-      logs.dateEnd = Date.now();
-      logs.endSequenceID = progress.seq;
-      logs.status = 'updated';
-      await connection.updateImportationLog(logs);
+
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
