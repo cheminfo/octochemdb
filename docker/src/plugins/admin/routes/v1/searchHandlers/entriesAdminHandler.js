@@ -12,26 +12,24 @@ export async function entriesAdminHandler(request) {
 
   let {
     collectionToSearch = '',
-    limit = 0,
-    fields = 'state,seq,date,sources,logs',
+    fields = '_id,state,seq,dateStart,dateEnd,logs,sources',
   } = request.query;
   let connection;
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('admin');
 
-    debug.trace(JSON.stringify({ collectionToSearch }));
     let formatedFields = getFields(fields);
-    if (formatedFields.logs) {
-      formatedFields.logs = { $slice: ['$logs', Number(limit)] };
+    let matchParameter = {};
+    if (collectionToSearch !== '') {
+      matchParameter = {
+        _id: `${collectionToSearch}_progress`,
+      };
     }
-
     const results = await collection
       .aggregate([
         {
-          $match: {
-            _id: `${collectionToSearch}_progress`,
-          },
+          $match: matchParameter,
         },
         {
           $project: formatedFields,

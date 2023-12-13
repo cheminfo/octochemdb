@@ -12,13 +12,7 @@ const entriesAdmin = {
         type: 'string',
         description: 'Collection progress',
         example: 'bioassays',
-        default: 'bioassays',
-      },
-      limit: {
-        type: 'number',
-        description: 'limit logs message',
-        example: 10,
-        default: 50,
+        default: '',
       },
       fields: {
         type: 'string',
