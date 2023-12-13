@@ -23,7 +23,7 @@ const entriesAdmin = {
       fields: {
         type: 'string',
         description: 'Fields to retrieve',
-        default: '',
+        default: '_id,state,seq,dateStart,dateEnd,logs,sources',
       },
     },
   },
