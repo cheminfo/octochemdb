@@ -79,7 +79,7 @@ OctoChemConnection.prototype.setProgress = async function setProgress(
   progress,
 ) {
   const collection = await this.getAdminCollection();
-  await collection.replaceOne({ _id: progress._id }, progress);
+  await collection.updateOne({ _id: progress._id }, { $set: progress });
 };
 
 OctoChemConnection.prototype.getProgress = async function getProgress(

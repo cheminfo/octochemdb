@@ -14,10 +14,8 @@ const levels = {
 };
 const minLevelTelegram = levels[process.env.TELEGRAM_DEBUG_LEVEL];
 const minLevel = levels[process.env.DEBUG_LEVEL];
-
 export default function Debug(context) {
   const realDebug = debugLibrary(context);
-
   const logger = {};
 
   for (const level of Object.keys(levels)) {
@@ -28,23 +26,34 @@ export default function Debug(context) {
       if (levels[level] >= minLevel) {
         realDebug(message);
       }
-      let messageDebug = {
-        epoch: Date.now(),
-        text: `${new Date()
-          .toISOString()
-          .replace(/.*T/, '')
-          .replace('Z', ' - ')}${context}-${level}:${message}`,
+      const epoch = Date.now();
+      const timestamp = new Date()
+        .toISOString()
+        .replace(/.*T/, '')
+        .replace('Z', '');
+      const text = `${timestamp}-${context}-${level}:${message}`;
+      const messageDebug = {
+        epoch,
+        text,
         level: levels[level],
       };
+
       if (options?.stack) {
         messageDebug.stack = options.stack;
       }
+
       messages.push(messageDebug);
       if (levels[level] >= minLevelTelegram) {
         sendTelegrams();
       }
-      if (options) {
-        await logInDB(message, options);
+      if (options && Object.keys(options).length > 0) {
+        options.level = levels[level];
+        options.levelLabel = level;
+        try {
+          await logInDB(message, options);
+        } catch (error) {
+          throw new Error(`Error logging message: ${error}`);
+        }
       }
     };
   }
@@ -65,29 +74,25 @@ async function sendTelegrams() {
 }
 
 async function logInDB(message, options) {
-  const { collection, connection, stack } = options;
-  if (!collection) return;
+  const { collection, connection, stack, level, levelLabel } = options;
+  if (!collection || !connection) return;
+
   const progress = await connection.getProgress(collection);
-  if (progress.logs === null || progress.logs === undefined) {
-    progress.logs = [];
-  }
+  const logs = progress.logs || [];
 
-  let logs = progress.logs;
-  if (logs && logs.length < 49) {
-    logs.push({
-      epoch: `${new Date().toISOString()}`,
-      message: `${collection}:${message}`,
-      stack: `${collection}:${stack}`,
-    });
-  }
-  if (logs && logs.length === 49) {
-    logs.shift();
-    logs.push({
-      epoch: `${new Date().toISOString()}`,
-      message: `${collection}:${message}`,
-      stack: `${collection}:${stack}`,
-    });
-  }
+  logs.push({
+    epoch: new Date().toISOString(),
+    level,
+    levelLabel,
+    message,
+    stack,
+  });
 
+  if (logs.length > 50) {
+    logs.splice(0, logs.length - 50);
+  }
+  if (!progress.logs && logs.length > 0) {
+    progress.logs = logs;
+  }
   await connection.setProgress(progress);
 }

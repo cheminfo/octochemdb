@@ -4,9 +4,9 @@ parserOptions:
   sourceType: module
 rules:
   no-await-in-loop:
-    - warn
+    - off
   no-undefined:
-    - warn
+    - off
 
 env:
   node: true
