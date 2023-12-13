@@ -15,7 +15,6 @@ test('search (admin)', async () => {
   const request = {
     query: {
       collectionToSearch: 'compounds',
-      limit: 10,
       fields: 'state,seq,dateStart,dateEnd,sources',
     },
   };
