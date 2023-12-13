@@ -50,6 +50,7 @@ async function firstCompoundImport(connection) {
       { lastDocument },
       'first',
     );
+    progress.dateEnd = Date.now();
     progress.state = 'updated';
     await connection.setProgress(progress);
     // create indexes on the compounds collection

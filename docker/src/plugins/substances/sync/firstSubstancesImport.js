@@ -38,6 +38,7 @@ async function firstSubstanceImport(connection) {
       'first',
     );
     progress.state = 'updating';
+    progress.dateEnd = Date.now();
     await connection.setProgress(progress);
     await importSubstanceFiles(
       connection,

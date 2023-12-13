@@ -23,7 +23,6 @@ async function incrementalSubstanceImport(connection) {
       allFiles = await syncSubstanceFolder(connection, 'incremental');
     }
     const progress = await connection.getProgress('substances');
-
     if (progress.state !== 'updated') {
       throw new Error('Should never happens.');
     }
@@ -56,6 +55,8 @@ async function incrementalSubstanceImport(connection) {
         { lastDocument },
         'incremental',
       );
+      progress.dateEnd = Date.now();
+      await connection.setProgress(progress);
     }
   } catch (e) {
     if (connection) {

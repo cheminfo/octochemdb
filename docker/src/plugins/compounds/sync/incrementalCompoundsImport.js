@@ -58,6 +58,8 @@ async function incrementalCompoundImport(connection) {
         { lastDocument },
         'incremental',
       );
+      progress.dateEnd = Date.now();
+      await connection.setProgress(progress);
     }
     debug.info('Compounds collection updated.');
   } catch (e) {

@@ -75,6 +75,7 @@ async function incrementalPubmedImport(connection) {
         pmidToCid,
         'incremental',
       );
+      progress.dateEnd = Date.now();
     }
   } catch (e) {
     if (connection) {

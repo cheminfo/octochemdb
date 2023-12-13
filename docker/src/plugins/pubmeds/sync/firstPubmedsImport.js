@@ -71,6 +71,7 @@ async function firstPubmedImport(connection) {
     );
     // set progress to updated
     progress.state = 'updated';
+    progress.dateEnd = Date.now();
     await connection.setProgress(progress);
     // create indexes
     const collection = await connection.getCollection('pubmeds');
