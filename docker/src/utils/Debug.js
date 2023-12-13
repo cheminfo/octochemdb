@@ -88,8 +88,8 @@ async function logInDB(message, options) {
     stack,
   });
 
-  if (logs.length > 50) {
-    logs.splice(0, logs.length - 50);
+  if (logs.length > 500) {
+    logs.splice(0, logs.length - 500);
   }
   if (!progress.logs && logs.length > 0) {
     progress.logs = logs;
