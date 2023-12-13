@@ -78,7 +78,7 @@ export async function aggregate(connection) {
     // rename temporary collection to mfsCHNOSClF
     await temporaryCollection.rename('mfsCHNOSClF', { dropTarget: true });
     // set progress to aggregated
-    progress.dateEnd = new Date();
+    progress.dateEnd = Date.now();
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);

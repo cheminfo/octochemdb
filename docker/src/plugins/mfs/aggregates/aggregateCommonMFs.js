@@ -74,7 +74,7 @@ export async function aggregate(connection) {
     await temporaryCollection.rename('mfsCommon', { dropTarget: true });
 
     // set progress to aggregated
-    progress.dateEnd = new Date();
+    progress.dateEnd = Date.now();
     progress.seq = progressCompounds.seq;
     progress.state = 'aggregated';
     await connection.setProgress(progress);
