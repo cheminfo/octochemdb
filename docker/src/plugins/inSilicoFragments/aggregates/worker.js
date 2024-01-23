@@ -17,11 +17,15 @@ const debug = debugLibrary('WorkerProcess');
 let databases = {
   esi: {
     positive: md5(
-      JSON.stringify(getDatabase({ ionization: ['esi'], mode: ['positive'] })),
+      JSON.stringify(
+        getDatabase({ ionizations: ['esi'], modes: ['positive'] }),
+      ),
     ),
 
     negative: md5(
-      JSON.stringify(getDatabase({ ionization: ['esi'], mode: ['negative'] })),
+      JSON.stringify(
+        getDatabase({ ionizations: ['esi'], modes: ['negative'] }),
+      ),
     ),
   },
 };
@@ -74,8 +78,8 @@ parentPort?.on('message', async (dataEntry) => {
                 entry?.data.fragmentationDbHash !==
                   databases[ionSource][ionMode]
               ) {
-                fragmentationOptions.ionization = [ionSource];
-                fragmentationOptions.mode = [ionMode];
+                fragmentationOptions.ionizations = [ionSource];
+                fragmentationOptions.modes = [ionMode];
                 let fragments = reactionFragmentation(
                   molecule,
                   fragmentationOptions,
