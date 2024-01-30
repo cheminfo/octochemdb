@@ -8,6 +8,12 @@ const entriesSearch = {
     description:
       'Allows to search for compounds based on a monoisotopic mass and precision (accuracy) of the measurement. \n Optional parameters can be used to filter the results based on their taxonomy, bioactivity and topic (MeSH terms) of PubMed publications related to the the molecules.',
     querystring: {
+      noStereoTautomerID: {
+        type: 'string',
+        description: 'noStereoTautomerID of the compound',
+        example: 'fk\x7FAp@@TXYvZyHheEdUMEhhhdcdR`eMGPTDUUADQTp@@@',
+        default: '',
+      },
       em: {
         type: 'string',
         description: 'Monoisotopic mass (in Da)',

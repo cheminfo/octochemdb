@@ -130,4 +130,22 @@ describe('search activesOrNaturals', async () => {
       }
     `);
   });
+  it('search: noStereoTautomerID ', async () => {
+    const request = {
+      query: {
+        noStereoTautomerID: 'f`~@P@@HiIImm[Ujjjjj`@upCDLHq~dLATq|L_C@',
+        fields: 'data.mf,data.em',
+      },
+    };
+    const results = await entriesSearch.handler(request);
+    expect(results.data[0]).toMatchInlineSnapshot(`
+      {
+        "_id": "f\`~@P@@HiIImm[Ujjjjj\`@upCDLHq~dLATq|L_C@",
+        "data": {
+          "em": 232.16745925179998,
+          "mf": "C12H24O4",
+        },
+      }
+    `);
+  });
 });

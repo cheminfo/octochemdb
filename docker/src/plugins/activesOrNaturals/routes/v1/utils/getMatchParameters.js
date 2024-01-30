@@ -10,6 +10,7 @@ export function getMatchParameters(data) {
   getMolecularMatchParameter(matchParameter, {
     em: data.em,
     mf: data.mf,
+    noStereoTautomerID: data.noStereoTautomerID,
     precision: data.precision || 100,
   });
 

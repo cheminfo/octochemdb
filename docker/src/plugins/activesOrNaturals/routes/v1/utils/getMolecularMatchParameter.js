@@ -1,11 +1,20 @@
 import { MF } from 'mf-parser';
 
 export function getMolecularMatchParameter(matchParameter, molecularInfo) {
-  const { mf = '', em = '', precision } = molecularInfo;
+  const {
+    mf = '',
+    em = '',
+    noStereoTautomerID = '',
+    precision,
+  } = molecularInfo;
   if (mf !== '') {
     let mfinfo = new MF(mf).getInfo();
     matchParameter['data.mf'] = mfinfo.mf;
   }
+  if (noStereoTautomerID !== '') {
+    matchParameter._id = noStereoTautomerID;
+  }
+
   let error;
   let ems = em
     .split(/[ ,;\t\r\n]+/)
