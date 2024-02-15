@@ -82,7 +82,6 @@ export default async function getCompoundsInfo(
       }
     }
     entry.data.nbPatents = 0;
-    entry.data.nbPatents = compoundsPatents?.length;
 
     if (compoundsPatents?.length > 0) {
       let dbRefsPatents = [];
@@ -90,12 +89,13 @@ export default async function getCompoundsInfo(
       for (let patent of compoundsPatents) {
         let patentCursor = await patentsCollection.find({ _id: patent });
         let patentInfo = await patentCursor.next();
-        if (patentInfo !== null) {
+        if (patentInfo) {
           dbRefsPatents.push({ $ref: 'patents', $id: patentInfo._id });
         }
       }
 
       entry.data.patents = dbRefsPatents;
+      entry.data.nbPatents = dbRefsPatents?.length;
     }
     /*   if (bioassaysPubChemDBRefs.length > 0) {
       entry.data.bioassaysPubChem = bioassaysPubChemDBRefs;

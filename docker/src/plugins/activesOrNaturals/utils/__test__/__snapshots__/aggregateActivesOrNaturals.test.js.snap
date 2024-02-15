@@ -144,7 +144,7 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbActivities": 20,
     "nbMassSpectra": 0,
     "nbMolecules": 2,
-    "nbPatents": 3,
+    "nbPatents": 1,
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
     "noStereoOCL": {
