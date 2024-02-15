@@ -144,18 +144,13 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
     "nbActivities": 20,
     "nbMassSpectra": 0,
     "nbMolecules": 2,
-    "nbPatents": 1,
+    "nbPatents": 0,
     "nbPubmeds": 0,
     "nbTaxonomies": 1,
     "noStereoOCL": {
       "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
     },
-    "patents": [
-      {
-        "$id": "EP-2078065-A2",
-        "$ref": "patents",
-      },
-    ],
+    "patents": [],
     "taxonomies": [
       {
         "class": "Magnoliopsida",

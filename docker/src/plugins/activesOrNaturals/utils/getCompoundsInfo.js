@@ -89,7 +89,11 @@ export default async function getCompoundsInfo(
       for (let patent of compoundsPatents) {
         let patentCursor = await patentsCollection.find({ _id: patent });
         let patentInfo = await patentCursor.next();
-        if (patentInfo) {
+        if (
+          patentInfo &&
+          patentInfo.data.title &&
+          patentInfo.data.nbCompounds > 0
+        ) {
           dbRefsPatents.push({ $ref: 'patents', $id: patentInfo._id });
         }
       }
