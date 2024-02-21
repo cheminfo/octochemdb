@@ -38,6 +38,7 @@ export default defineConfig({
           const regexInSilicoFragments = /inSilicoFragments/i;
           const regexMesh = /getMeshTerms.test/i;
           const regexID = /id/i;
+          const regexnEntries = /nEntries/i;
           const regexSearch = /search/i;
           const regexFrom = /from/i;
           const regexAdmin = /admin/i;
@@ -76,6 +77,9 @@ export default defineConfig({
           // sort by putting files with regex /aggregateActiveAgainst/ at the end
           sortedFiles = sortedFiles.sort((a, b) => {
             if (regexID.test(a) && !regexID.test(b)) {
+              return 1;
+            }
+            if (regexnEntries.test(a) && !regexnEntries.test(b)) {
               return 1;
             }
             if (!regexID.test(a) && regexID.test(b)) {
