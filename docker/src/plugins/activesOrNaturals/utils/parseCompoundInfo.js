@@ -41,7 +41,10 @@ export default async function parseCompoundInfo(
       cas[oneDataEntry.data.cas] = true;
     }
     if (!ocl.coordinates) {
-      if (oneDataEntry.data.ocl.noStereoID !== undefined) {
+      if (
+        oneDataEntry.data.ocl.noStereoID !== undefined &&
+        oneDataEntry.data.ocl.coordinates !== undefined
+      ) {
         ocl.coordinates = oneDataEntry.data.ocl.coordinates;
         ocl.idCode = oneDataEntry.data.ocl.noStereoID;
       } else {
