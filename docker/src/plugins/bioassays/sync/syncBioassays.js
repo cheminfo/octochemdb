@@ -120,6 +120,7 @@ export async function sync(connection) {
       // Indexing of properties in collection
       await createIndexes(collection, [
         { 'data.ocl.noStereoTautomerID': 1 },
+        { 'data.ocl.idCode': 1 },
         { _seq: 1 },
       ]);
     } else {
