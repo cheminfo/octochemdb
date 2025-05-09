@@ -8,13 +8,13 @@ test('id search (coconuts)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('coconuts');
-    if ((await collection.countDocuments()) === 9) {
+    if ((await collection.countDocuments()) === 20) {
       break;
     }
   }
   const request = {
     query: {
-      ids: 'CNP0436856,CNP0115481',
+      ids: 'CNP0214016.1,CNP0166492.1',
       fields: 'data',
     },
   };
@@ -24,6 +24,7 @@ test('id search (coconuts)', async () => {
     [
       "ocl",
       "iupacName",
+      "name",
     ]
   `);
   expect(results.data).toMatchSnapshot();

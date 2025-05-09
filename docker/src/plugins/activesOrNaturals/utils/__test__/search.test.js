@@ -9,7 +9,7 @@ describe('search activesOrNaturals', async () => {
   while (true) {
     const activeOrNaturalsCollection =
       await connection.getCollection('activesOrNaturals');
-    if ((await activeOrNaturalsCollection.countDocuments()) === 63) {
+    if ((await activeOrNaturalsCollection.countDocuments()) === 74) {
       break;
     }
   }
@@ -22,7 +22,7 @@ describe('search activesOrNaturals', async () => {
     };
     const results = await entriesSearch.handler(request);
 
-    request.query.limit = 2;
+    request.query.limit = 1;
     const resultsTwo = await entriesSearch.handler(request);
     expect(results.data.length).toBeGreaterThan(resultsTwo.data.length);
     const resultToMatch = results.data.filter(

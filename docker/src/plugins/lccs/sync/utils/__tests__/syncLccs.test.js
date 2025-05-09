@@ -1,7 +1,7 @@
 import { test, expect } from 'vitest';
 
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
-import { sync } from '../../sync.js';
+import { sync } from '../../syncLccs.js';
 
 test('syncLccs', async () => {
   const connection = new OctoChemConnection();
