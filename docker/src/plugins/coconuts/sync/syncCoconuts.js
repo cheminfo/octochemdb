@@ -1,9 +1,11 @@
 import md5 from 'md5';
+
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
+
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
 
@@ -39,13 +41,13 @@ export async function sync(connection) {
       options.collectionName,
     );
 
-    const isTimeToUpdate = true/*await shouldUpdate(
+    const isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
       lastDocumentImported,
       process.env.COCONUT_UPDATE_INTERVAL,
       connection,
-    );*/
+    );
 
     let counter = 0;
     let imported = 0;
