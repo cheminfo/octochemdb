@@ -24,7 +24,7 @@ test('Aggregation ActivesOrNaturals', async () => {
       (await npassesCollection.countDocuments()) === 12 &&
       (await npAtlasesCollection.countDocuments()) === 3 &&
       (await cmaupsCollection.countDocuments()) === 19 &&
-      (await coconutsCollection.countDocuments()) === 9 &&
+      (await coconutsCollection.countDocuments()) === 20 &&
       (await bioassaysCollection.countDocuments()) === 20 &&
       (await gnpsCollection.countDocuments()) === 2 &&
       (await pubmedsCollection.countDocuments()) === 7 &&

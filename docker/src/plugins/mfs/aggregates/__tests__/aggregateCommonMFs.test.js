@@ -11,7 +11,7 @@ test('Aggregation mfsCommon', async () => {
   while (true) {
     if (
       (await compoundsCollection.countDocuments()) === 12 &&
-      (await activesOrNaturalsCollection.countDocuments()) === 63
+      (await activesOrNaturalsCollection.countDocuments()) === 74
     ) {
       break;
     }
