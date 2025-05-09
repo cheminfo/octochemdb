@@ -1,121 +1,85 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`syncCoconuts 1`] = `
-{
-  "_id": "CNP0330764",
-  "data": {
-    "iupacName": "10-hydroxy-5,9-dimethyl-15-[(3-methylbut-2-enoyl)oxy]-14-methylidenetetracyclo[11.2.1.0¹,¹⁰.0⁴,⁹]hexadecane-5-carboxylic acid",
-    "ocl": {
-      "idCode": "eghPJ@@@D@cklbbRbbbdjdUdJtffcgbVQPrsTuSUUUUUSUP@@",
-      "noStereoTautomerID": "eghPJ@@@JGCkldTTTTfrdVadZtf\`fe\`TQPruUSUUUUUUUUP@FoAFJLZXbpec[AvOtPrbecxX~FNjX~FOa\`",
+[
+  {
+    "_id": "CNP0214016.1",
+    "_seq": 2,
+    "data": {
+      "cas": "35846-53-8",
+      "iupacName": "[(1~{S},2~{R},3~{S},5~{S},6~{S},16~{E},18~{E},20~{R},21~{S})-11-chloro-21-hydroxy-12,20-dimethoxy-2,5,9,16-tetramethyl-8,23-dioxo-4,24-dioxa-9,22-diazatetracyclo[19.3.1.1^{10,14}.0^{3,5}]hexacosa-10,12,14(26),16,18-pentaen-6-yl] (2~{S})-2-[acetyl(methyl)amino]propanoate",
+      "name": "MAYTANSINE",
+      "ocl": {
+        "coordinates": "!B]T\\wDPJ[_ZQuQpBn]T\\wDPJ[JNgnbBwOZibDgWDwgBlR^}\\iAAHZYu[W?haxsSzwMNrXEWlRAAHEEsSc?h\`D[^LWNOUUIpCQAAI{D\`iGMvxwLWv[Bd_~b@Qm_YlJQp",
+        "idCode": "e\`||EH@FOmRKLnml^US_PH\`hRDaHQD\`dcLRDaLRHQHsLaHRDcHqHRLGbShXdWUvBHbijZjjVjjjjjZRhPIEHZGRzORFDi@Jf\`",
+        "noStereoTautomerID": "e\`||EH@FOmRKLnml^US_PH\`hRDaHQD\`dcLRDaLRHQHsLaHRDcHqHRLGbShXdWUvBHbjjZjjZjjjjjjbh@CTPsEfEl[Xup[awB^OtHrricxX~FvjX~FOacZfOacx[vicxX~F@",
+      },
+      "taxonomies": [
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus buchananii",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus confertiflorus",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus guangsinensis",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus hookeri",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus ovatus",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus senata",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Maytenus serrata",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Putterlickia verrucosa",
+        },
+        {
+          "dbRef": {
+            "$id": "CNP0214016.1",
+            "$ref": "coconuts",
+          },
+          "species": "Candidatus Borrarchaeia",
+        },
+      ],
     },
-    "taxonomies": [
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Adenocarpus foliolosus",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Piper taboganum",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Microglossa pyrrhopappa",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Betula exilis",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Rubia schumanniana",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Polygala reinii",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "plants",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Ipomoea reptans",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Anthoxanthum nitens",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Sabal causiarum",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Retama duriaei",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Oreoherzogia fallax",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Ichthyothere terminalis",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Chromolaena arnottiana",
-      },
-      {
-        "dbRef": {
-          "$id": "CNP0330764",
-          "$ref": "coconuts",
-        },
-        "species": "Clethra macrophylla",
-      },
-    ],
   },
-}
+]
 `;

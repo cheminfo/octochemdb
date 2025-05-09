@@ -30,14 +30,14 @@ describe('search (admin)', async () => {
       [
         {
           "_id": "compounds_progress",
-          "avgObjSize": 18287,
+          "avgObjSize": 18284,
           "capped": false,
           "count": 12,
           "dateEnd": 1,
           "dateStart": 0,
           "ns": "octochemdb.compounds",
           "seq": 12,
-          "size": 219445,
+          "size": 219418,
           "sources": "../docker/src/plugins/compounds/sync/utils/__tests__/data/compoundsIncrementalTest.sdf.gz",
           "state": "updated",
         },
