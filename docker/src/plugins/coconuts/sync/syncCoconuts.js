@@ -70,7 +70,7 @@ export async function sync(connection) {
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          console.log(
+          debug.trace(
             `Processing: counter: ${counter} - imported: ${imported}`,
           );
           start = Date.now();
