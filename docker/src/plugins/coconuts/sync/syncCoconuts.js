@@ -1,28 +1,27 @@
 import md5 from 'md5';
-
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import getLastFileSync from '../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
-
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
 
 /**
- * @description Synchronize the coconuts collection from the coconut database
+ * @description Synchronize the coconuts collection from the coconut CSV ZIP
  * @param {*} connection MongoDB connection
  * @returns {Promise} returns coconuts collections
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncCoconuts');
-  let options = {
+  const options = {
     collectionSource: process.env.COCONUT_SOURCE,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
     collectionName: 'coconuts',
     filenameNew: 'coconuts',
     extensionNew: 'zip',
   };
+
   try {
     let sources;
     let lastFile;
@@ -30,66 +29,59 @@ export async function sync(connection) {
       lastFile = `${process.env.COCONUTS_SOURCE_TEST}`;
       sources = [lastFile];
     } else {
-      // Get lastFile available in the online database, the local database collection and the progress of the import
       lastFile = await getLastFileSync(options);
-
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     }
 
     const progress = await connection.getProgress(options.collectionName);
-
-    // Get last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       options.collectionName,
     );
-    let isTimeToUpdate = await shouldUpdate(
+
+    const isTimeToUpdate = true/*await shouldUpdate(
       progress,
       sources,
       lastDocumentImported,
       process.env.COCONUT_UPDATE_INTERVAL,
       connection,
-    );
-    // Define counters
+    );*/
+
     let counter = 0;
     let imported = 0;
     let start = Date.now();
 
-    // check if importation is necessary
     if (isTimeToUpdate) {
-      // define file to use for importation inside the zip file
-      let fileName = 'uniqueNaturalProduct.bson';
-      debug.info(`Start parsing coconuts`);
-      const collection = await connection.getCollection(options.collectionName);
+      debug.info(`Start parsing coconuts (CSV in zip)`);
 
-      // Get taxonomies collection
+      const collection = await connection.getCollection(options.collectionName);
       const collectionTaxonomies = await connection.getCollection('taxonomies');
-      // create temporary collection to import
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
-      // set progress to updating
+
       progress.state = 'updating';
       await connection.setProgress(progress);
-      // start importation
-      for await (const entry of parseCoconuts(lastFile, fileName, connection)) {
+
+      for await (const entry of parseCoconuts(lastFile, connection)) {
         counter++;
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
 
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          debug.trace(
+          console.log(
             `Processing: counter: ${counter} - imported: ${imported}`,
           );
           start = Date.now();
         }
-        /// Normalize Taxonomies
+
         if (entry.data.taxonomies) {
-          let taxonomies = await getTaxonomiesForCoconuts(
+          const taxonomies = await getTaxonomiesForCoconuts(
             entry,
             collectionTaxonomies,
           );
           entry.data.taxonomies = taxonomies;
         }
+
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
@@ -99,7 +91,7 @@ export async function sync(connection) {
 
         imported++;
       }
-      // rename temporary collection to real collection
+
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
@@ -107,7 +99,7 @@ export async function sync(connection) {
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
-      // create indexes on the collection for faster search
+
       await connection.setProgress(progress);
       await createIndexes(collection, [{ 'data.ocl.noStereoTautomerID': 1 }]);
       debug.info(`${imported} compounds processed`);

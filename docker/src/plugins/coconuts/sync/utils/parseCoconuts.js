@@ -1,106 +1,118 @@
-import { bsonIterator } from 'bson-iterator';
 import { fileCollectionFromPath } from 'filelist-utils';
 import OCL from 'openchemlib';
-
+import csvParser from 'csv-parser';
 import debugLibrary from '../../../../utils/Debug.js';
+import unzipper from 'unzipper';  // Using unzipper to extract the contents of the ZIP
+import fs from 'fs';
+import path from 'path';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
-import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
 
 const debug = debugLibrary('parseCoconuts');
+
 /**
- * @description Parse the coconuts file from the coconut database and yield result to be imported
- * @param {*} bsonPath path to the bson file
- * @param {*} filename filename of the bson file
- * @param {*=} connection MongoDB connection
- * @yields {Object} yields the result to be imported
+ * @description Parse the coconuts CSV file from the ZIP and yield results for MongoDB
+ * @param {*} zipPath path to the zip file
+ * @param {*} connection MongoDB connection (for logging)
+ * @yields {Object} yields MongoDB-ready document
  */
-export async function* parseCoconuts(bsonPath, filename, connection) {
+export async function* parseCoconuts(zipPath, connection) {
   try {
     let folderPath;
     if (process.env.NODE_ENV === 'test') {
-      folderPath = bsonPath.replace(/data\/.*/, 'data/');
+      folderPath = zipPath.replace(/data\/.*/, 'data/');
     } else {
-      folderPath = bsonPath.replace(/full\/.*/, 'full/');
+      folderPath = zipPath.replace(/full\/.*/, 'full/');
     }
-    let fileToRead = (
-      await fileCollectionFromPath(folderPath, {
-        unzip: { zipExtensions: [] },
-      })
-    ).files.sort((a, b) => b.lastModified - a.lastModified)[0];
-    // replace full/ with relative path
-    if (process.env.NODE_ENV === 'test') {
-      fileToRead.relativePath = folderPath.replace(
-        'data/',
-        fileToRead.relativePath,
-      );
-    } else {
-      fileToRead.relativePath = folderPath.replace(
-        'full/',
-        fileToRead.relativePath,
-      );
-    }
-    const readStream = await readStreamInZipFolder(
-      fileToRead.relativePath,
-      filename,
-    );
 
-    for await (const entry of bsonIterator(readStream)) {
+    // Get the file collection from the path
+    const fileCollection = await fileCollectionFromPath(folderPath, {
+      unzip: { zipExtensions: [] }, // Ensuring it's not trying to unzip directly
+    });
+
+    // Sort files by last modified and select the most recent one
+    let fileToRead = fileCollection.files.sort((a, b) => b.lastModified - a.lastModified)[0];
+
+    // Adjust relativePath based on environment
+    if (process.env.NODE_ENV === 'test') {
+      fileToRead.relativePath = folderPath.replace('data/', '') + fileToRead.relativePath;
+    } else {
+      fileToRead.relativePath = folderPath.replace('full/', '') + fileToRead.relativePath;
+    }
+
+   
+
+    // Extract the ZIP file using unzipper
+    const zipFilePath = path.resolve(fileToRead.relativePath);
+    const directory = await unzipper.Open.file(zipFilePath);
+    
+    // Find the CSV file inside the ZIP
+    const csvFile = directory.files.find(file => file.path.endsWith('.csv'));
+
+    if (!csvFile) {
+      throw new Error('CSV file not found in ZIP archive');
+    }
+
+    // Open the CSV file as a stream
+    const csvStream = csvFile.stream().pipe(csvParser());
+
+
+    // Parsing each row in the CSV stream
+    for await (const row of csvStream) {
+    //  console.log('Row:', row.canonical_smiles);
+
       try {
-        // get noStereoID for the molecule
+        // Skip if required fields are missing
+        if (!row.identifier || !row.canonical_smiles) continue;
+        // Parse the molecule using OpenChemLib
+
         const oclMolecule = OCL.Molecule.fromSmiles(
-          entry.clean_smiles || entry.smiles,
+          row.canonical_smiles,
         );
         const ocl = await getNoStereosFromCache(
           oclMolecule,
           connection,
           'coconuts',
         );
-        // parse taxonomies if available
-        const taxonomies = entry?.textTaxa;
-        const finalTaxonomies = [];
-        const comments = [];
-        if (taxonomies[0] !== 'notax') {
-          for (let entry of taxonomies) {
-            if (
-              entry.split('$').length === 1 &&
-              entry !== 'Bacteria' &&
-              entry !== 'Eukaryota' &&
-              entry !== 'Archaea'
-            ) {
-              // know only the superkingdom is useless (they are just 4) and could potentially be wrong, why should someone describe just describe the superkingdom?
-              // It's more safe to just ignore it instead of considering it as a taxonomy
-              finalTaxonomies.push({ species: entry });
-            } else {
-              comments.push(entry);
-            }
-          }
-        }
+      
 
-        // define result to be imported
+        // Process taxonomies and comments
+        const taxonomies = [];
+        if (row.organisms !== '') {
+          const organismsList = row.organisms.split('|');
+          for (const entry of organismsList) {
+           
+              taxonomies.push({ species: entry });
+            
+          }
+        } 
+
+        // Prepare the result document
         const result = {
-          _id: entry.coconut_id,
+          _id: row.identifier,
           data: {
             ocl,
           },
         };
-        if (entry.cas) result.data.cas = entry?.cas;
-        if (entry.iupac_name) result.data.iupacName = entry?.iupac_name;
-        if (finalTaxonomies.length > 0) {
-          result.data.taxonomies = finalTaxonomies;
-        }
-        if (comments.length !== 0) result.data.comments = comments;
+
+        if (row.cas!== '') result.data.cas = row.cas;
+        if (row.iupac_name) result.data.iupacName = row.iupac_name;
+        if (taxonomies.length > 0) result.data.taxonomies = taxonomies;
+        if(row.name!== '') result.data.name = row.name;
+
+      
         yield result;
       } catch (e) {
-        if (connection) {
-          debug.error(e.message, {
+        debug.error(
+          `Error processing row ${row.identifier}: ${e.message}`,
+          {
             collection: 'coconuts',
             connection,
             stack: e.stack,
-          });
-        }
-        continue;
+          },
+        );
       }
     }
+
   } catch (e) {
     if (connection) {
       await debug.fatal(e.message, {
