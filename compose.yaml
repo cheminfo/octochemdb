@@ -35,7 +35,7 @@ services:
       - ORIGINAL_DATA_PATH=/originalData
     command: npm run cron
 
-  pubchem:
+  octochemdb:
     build: ./docker
     restart: always
     mem_limit: 32gb
@@ -47,6 +47,8 @@ services:
       driver: 'json-file'
       options:
         max-size: '50m'
+    ports: # we keep it in case we are not using traffic
+      - 127.0.0.1:11015:11015
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.octochemdb.rule=Host(`octochemdb.cheminfo.org`)'
