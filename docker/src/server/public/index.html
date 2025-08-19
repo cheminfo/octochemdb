@@ -1,34 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>OctoChemDB: High-Resolution Mass Spectra Processing</title>
+    <title>OctoChemDB: Search open database by monoisotopic mass</title>
     <meta
       name="description"
-      content="This website allows you to process high-resolution mass spectra."
+      content="This website allows to analyze high resolution mass spectra and look for possible molecules based on monoisotopic mass."
     />
     <meta
       name="keyword"
-      content="OctoChemDB, natural products, high resolution mass spectra, mass defect, PubChem"
+      content="Dereplication, High precision mass spectrometry, OctoChemDB, Open database, Monoisotopic mass, Molecular formula, Chemical structure"
     />
-    <script
-      data-main="https://www.lactame.com/visualizer/v2.157.0/init"
-      src="https://www.lactame.com/visualizer/v2.157.0/components/requirejs/require.js"
-    ></script>
-    <style>
-      #ci-visualizer {
-        min-height: 100vh;
-      }
-      body {
-        margin: 0;
-      }
-    </style>
   </head>
+
   <body>
-    <div
-      id="ci-visualizer"
-      data-ci-view="https://couch.cheminfo.org/cheminfo-public/2294a250c8c1da87ca6753a6eb93c166/view.json"
-      data-ci-config="../config.json"
-    ></div>
+    <script type="module">
+      const viewURL =
+        'https://couch.cheminfo.org/cheminfo-public/2294a250c8c1da87ca6753a6eb93c166/view.json';
+      const response = await fetch(viewURL);
+      const view = await response.json();
+      const version = view.version;
+
+      const ciVisualizer = document.createElement('div');
+      ciVisualizer.id = 'ci-visualizer';
+      ciVisualizer.setAttribute('data-ci-view', viewURL);
+      ciVisualizer.setAttribute('data-ci-config', './config.json');
+      document.body.appendChild(ciVisualizer);
+
+      const visualizer = document.createElement('script');
+      const baseUrl = 'https://www.lactame.com/visualizer/v' + version;
+      visualizer.setAttribute('data-main', baseUrl + '/init');
+      visualizer.setAttribute(
+        'src',
+        baseUrl + '/components/requirejs/require.js',
+      );
+      document.body.appendChild(visualizer);
+    </script>
   </body>
 </html>
+
