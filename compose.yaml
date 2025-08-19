@@ -2,8 +2,7 @@ services:
   mongo:
     image: mongo:6.0
     restart: always
-    mem_limit: 30000m
-    memswap_limit: 30000m
+    mem_limit: 64gb
     volumes:
       - ./mongo-data:/data/db
       - ./mongo-tools:/tools
@@ -16,6 +15,7 @@ services:
     build: ./docker
     restart: always
     privileged: true
+    mem_limit: 32gb
     depends_on:
       - mongo
     volumes:
@@ -34,8 +34,7 @@ services:
   pubchem:
     build: ./docker
     restart: always
-    ports:
-      - 127.0.0.1:3001:11015
+    mem_limit: 32gb
     environment:
       - MONGODB_URL=mongodb://mongo:27017
     depends_on:
@@ -44,3 +43,19 @@ services:
       driver: 'json-file'
       options:
         max-size: '50m'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.octochemdb.rule=Host(`octochemdb.cheminfo.org`)'
+      - 'traefik.http.routers.octochemdb.entrypoints=websecure'
+      - 'traefik.http.routers.octochemdb.middlewares=octochemdb'
+      - 'traefik.http.routers.octochemdb.tls.certresolver=letsencrypt'
+      - 'traefik.http.middlewares.octochemdb.headers.accesscontrolalloworiginlist=*'
+      - 'traefik.http.middlewares.octochemdb.headers.accesscontrolallowheaders=Content-Type'
+      - 'traefik.http.middlewares.octochemdb.headers.accesscontrolmaxage=86400'
+    networks:
+      - default
+      - traefik
+
+networks:
+  traefik:
+    external: true
