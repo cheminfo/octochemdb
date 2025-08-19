@@ -15,7 +15,11 @@ services:
     build: ./docker
     restart: always
     privileged: true
-    mem_limit: 32gb
+    deploy:
+      resources:
+        limits:
+          cpus: '12'
+          memory: 32G
     depends_on:
       - mongo
     volumes:
