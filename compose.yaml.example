@@ -1,0 +1,51 @@
+services:
+  mongo:
+    image: mongo:6.0
+    restart: always
+    mem_limit: 64gb
+    volumes:
+      - ./mongo-data:/data/db
+      - ./mongo-tools:/tools
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  import:
+    build: ./docker
+    restart: always
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          cpus: '12'
+          memory: 32G
+    depends_on:
+      - mongo
+    volumes:
+      - ./originalData:/originalData
+    ulimits:
+      core: 0
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - ORIGINAL_DATA_PATH=/originalData
+    command: npm run cron
+
+  octochemdb:
+    build: ./docker
+    restart: always
+    mem_limit: 32gb
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+    ports:
+      - 127.0.0.1:11015:11015
