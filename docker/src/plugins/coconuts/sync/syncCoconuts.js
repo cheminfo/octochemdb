@@ -6,9 +6,9 @@ import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
+import { checkIfUpdate } from './utils/checkIfUpdate.js';
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
-
 /**
  * @description Synchronize the coconuts collection from the coconut CSV ZIP
  * @param {*} connection MongoDB connection
@@ -16,19 +16,30 @@ import { parseCoconuts } from './utils/parseCoconuts.js';
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncCoconuts');
+  const coconutsTestSource =
+    '../docker/src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
+  const coconutsSource =
+    'https://coconut.s3.uni-jena.de/prod/downloads/2026-01/coconut_csv-01-2026.zips';
   const options = {
-    collectionSource: process.env.COCONUT_SOURCE,
+    collectionSource: coconutsSource,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
     collectionName: 'coconuts',
     filenameNew: 'coconuts',
     extensionNew: 'zip',
   };
-
+  const checkUpdate = await checkIfUpdate(coconutsSource, connection);
+  if (!checkUpdate.updateAvailable) {
+    debug.fatal('New update available for Coconuts:', {
+      collection: options.collectionName,
+      connection,
+      newLink: checkUpdate.newLink,
+    });
+  }
   try {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.COCONUTS_SOURCE_TEST}`;
+      lastFile = coconutsTestSource;
       sources = [lastFile];
     } else {
       lastFile = await getLastFileSync(options);
