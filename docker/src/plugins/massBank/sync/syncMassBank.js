@@ -11,27 +11,49 @@ import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { parseMassBank } from './utils/parseMassBank.js';
 
 const debug = debugLibrary('syncMassBank');
+const massBankTestSource =
+  '../docker/src/plugins/massBank/sync/utils/__tests__/data/massBank.msp';
+const massBankSource =
+  'https://github.com/MassBank/MassBank-data/releases/download/2025.10/MassBank_NISTformat.msp';
+
 /**
- * @description Synchronize GNPS collection with the GNPS database
- * @param {*} connection MongoDB connection
- * @returns {Promise} returns gnps collections
+ * Synchronizes MassBank collection with the latest MassBank database
+ *
+ * This function orchestrates the complete synchronization workflow for MassBank data:
+ * 1. Checks if an update is needed based on progress tracking and update interval
+ * 2. Downloads or uses local test data if applicable
+ * 3. Parses the MassBank MSP format file
+ * 4. Upserts entries into a temporary collection
+ * 5. Renames the temporary collection to replace the main collection
+ * 6. Creates necessary database indexes for optimal query performance
+ *
+ * @async
+ * @function sync
+ * @param {Object} connection - MongoDB connection instance with methods for collection management
+ * @param {Function} connection.getCollection - Retrieves or creates a MongoDB collection
+ * @param {Function} connection.getProgress - Retrieves progress tracking document
+ * @param {Function} connection.setProgress - Updates progress tracking document
+ * @returns {Promise<void>} Resolves when synchronization is complete
+ * @throws {Error} Logs fatal error to debug system if connection fails
+ * @note
+ * - Skips synchronization if file already processed (determined by shouldUpdate)
  */
+
 export async function sync(connection) {
   try {
     let options = {
-      collectionSource: process.env.MASSBANK_SOURCE,
+      collectionSource: massBankSource,
       destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/massBank/full`,
       collectionName: 'massBank',
       filenameNew: 'massBank_full',
       extensionNew: 'msp',
     };
-    //
     const collection = await connection.getCollection(options.collectionName);
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.MASSBANK_SOURCE_TEST}`;
-      sources = [process.env.MASSBANK_SOURCE_TEST];
+      lastFile = `${massBankTestSource}`;
+      sources = [massBankTestSource];
     } else {
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
