@@ -6,7 +6,6 @@ import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
-import { checkIfUpdate } from './utils/checkIfUpdate.js';
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
 /**
@@ -27,14 +26,7 @@ export async function sync(connection) {
     filenameNew: 'coconuts',
     extensionNew: 'zip',
   };
-  const checkUpdate = await checkIfUpdate(coconutsSource, connection);
-  if (!checkUpdate.updateAvailable) {
-    debug.fatal('New update available for Coconuts:', {
-      collection: options.collectionName,
-      connection,
-      newLink: checkUpdate.newLink,
-    });
-  }
+
   try {
     let sources;
     let lastFile;
