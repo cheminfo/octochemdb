@@ -4,12 +4,12 @@ import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('checkIfUpdate');
 /**
- * Checks if the update link for MassBank data has changed, indicating that a new update is available.
- * This function fetches the MassBank download page, extracts the current download link,
+ * Checks if the update link for coconut data has changed, indicating that a new update is available.
+ * This function fetches the coconut download page, extracts the current download link,
  * and compares it with the previously link which will be defined as a constant in this function.
  * @async
  * @function checkIfUpdate
- * @param {string| undefined} previousLink - The previously used download link for MassBank data.
+ * @param {string| undefined} previousLink - The previously used download link for coconut data.
  * @param {string} connection - MongoDB connection instance for logging purposes.
  * @returns {Promise<{updateAvailable: boolean, newLink: string|null}>} An object indicating whether an update is available and the new download link if applicable.If not it return updateAvailable as false and newLink as null.
  */
@@ -29,9 +29,11 @@ export async function checkIfUpdate(previousLink, connection) {
 
     return { updateAvailable, newLink: newLink ?? null };
   } catch (e) {
+    // @ts-ignore
     await debug.fatal(e.message, {
-      collection: 'massBank',
+      collection: 'coconut',
       connection,
+      // @ts-ignore
       stack: e.stack,
     });
     return { updateAvailable: false, newLink: null };
