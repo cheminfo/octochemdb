@@ -17,10 +17,9 @@ export async function sync(connection) {
   const debug = debugLibrary('syncCoconuts');
   const coconutsTestSource =
     '../docker/src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
-  const coconutsSource =
-    'https://coconut.s3.uni-jena.de/prod/downloads/2026-01/coconut_csv-01-2026.zips';
+
   const options = {
-    collectionSource: coconutsSource,
+    collectionSource: process.env.COCONUT_SOURCE,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
     collectionName: 'coconuts',
     filenameNew: 'coconuts',
