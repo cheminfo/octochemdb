@@ -99,8 +99,10 @@ export async function sync(connection) {
         }
 
         // insert entry in temporary collection
+        // @ts-ignore
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
+          // @ts-ignore
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
@@ -138,9 +140,11 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
+      // @ts-ignore
       await debug.fatal(e.message, {
         collection: 'massBank',
         connection,
+        // @ts-ignore
         stack: e.stack,
       });
     }
