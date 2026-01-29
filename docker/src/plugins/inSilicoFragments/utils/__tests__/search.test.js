@@ -8,7 +8,7 @@ describe('search (inSilicoFragments)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('inSilicoFragments');
-    if ((await collection.countDocuments()) === 11) {
+    if ((await collection.countDocuments()) === 10) {
       break;
     }
   }

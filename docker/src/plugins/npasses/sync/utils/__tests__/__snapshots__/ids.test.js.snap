@@ -3,34 +3,41 @@
 exports[`ids search (npasses) 2`] = `
 [
   {
-    "_id": "NPC100353",
-    "data": {
-      "cid": "72945293",
-      "ocl": {
-        "coordinates": "!B_[]??\`Jw_[]}bLBY_[\\Bmw?~_?yNouR{_[]}bHa}f]}}mxa}@h\`",
-        "idCode": "fbmAP@@LlFNQQQQQIIYFS\`eNtYhI\`iJjbQjF\`@",
-        "noStereoTautomerID": "fbmAP@@\\UhNRJJJQJKqIXcKNSfjjjjjjj@CTNLDqSDlJqkAlVp{GlAqGB\\YpWE\\_iCMNLfOacxX",
-      },
-    },
-  },
-  {
-    "_id": "NPC100380",
+    "_id": "NPC491455",
     "data": {
       "activities": [
         {
-          "assay": "Activity = 1.92 ",
-          "assayOrganism": "Rattus norvegicus",
-          "externalRef": "PMID : 447209",
-          "targetName": "Ca9-22",
+          "assay": "MIC = 2500.0 nM",
+          "assayOrganism": "Saccharomyces cerevisiae",
+          "externalRef": "PMID : 447202",
+          "targetName": "Lu1",
           "targetOrganism": "Homo sapiens",
           "targetType": "Cell Line",
         },
       ],
-      "cid": "1549018",
+      "cid": "n.a.",
       "ocl": {
-        "coordinates": "!BmpK~@K]}mpJH?K\\B?g~w__x@?\`Bw_Xa}mpJH?K\\B?\`C~@K\\B@h\`@?\`",
-        "idCode": "fj}@\`@@VrJJJJKQJMJQ\`eNbehF\`iJjh\`@@",
-        "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\UpwGzPpCcIcxX~F@",
+        "coordinates": "!B?g~H_[]}mww~@Ha}?g~w?K\\B?g~H_[]}?\`Bw__y?cGw~_{\\BmwvH_X@B?g?~_xa}mwvw?Oy??g~w_PC~@k_~_p",
+        "idCode": "ehZPL@@@D@\\bfdTRTTLRteVdrtfdlTtbrzFNnZjjjjjjjjjijeLHQNDIMIyLdtai\\\`@",
+        "noStereoTautomerID": "ehZPL@@@KglbbdRebTLRdJttTTRxDLlbRZzv~jjjjjjjjjjjjP@MTClWXRCKjfOacxX",
+      },
+    },
+  },
+  {
+    "_id": "NPC491456",
+    "data": {
+      "activities": [
+        {
+          "assay": "IC50 = 51760683.2 nM",
+          "assayOrganism": "Homo sapiens",
+          "externalRef": "PMID : 447204",
+        },
+      ],
+      "cid": "n.a.",
+      "ocl": {
+        "coordinates": "!BbGw~@H\`B?g~H?K\\Bm?vH__x@bGvw_Xc|?g?~_{\\Bmwvw@oy?mwvw@k]}mpK~_{]}",
+        "idCode": "fikA\`@@FGdbbdTVtrjbrTUIJmPUDTTuSTdDQGhl@",
+        "noStereoTautomerID": "fikA\`@@VGdbdTRrrbUbrTSAZ]UUUUTuSUP@ZjiafNXeaVCXmavAxgc}HYZccxX~F@",
       },
     },
   },

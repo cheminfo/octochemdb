@@ -21,7 +21,7 @@ test('Aggregation ActivesOrNaturals', async () => {
   while (true) {
     if (
       (await lotusesCollection.countDocuments()) === 20 &&
-      (await npassesCollection.countDocuments()) === 12 &&
+      (await npassesCollection.countDocuments()) === 6 &&
       (await npAtlasesCollection.countDocuments()) === 3 &&
       (await cmaupsCollection.countDocuments()) === 19 &&
       (await coconutsCollection.countDocuments()) === 20 &&

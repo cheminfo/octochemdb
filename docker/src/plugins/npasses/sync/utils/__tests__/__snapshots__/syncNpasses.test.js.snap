@@ -2,22 +2,19 @@
 
 exports[`syncNpasses 1`] = `
 {
-  "_id": "NPC100380",
+  "_id": "NPC491451",
   "data": {
     "activities": [
       {
-        "assay": "Activity = 1.92 ",
-        "assayOrganism": "Rattus norvegicus",
-        "externalRef": "PMID : 447209",
-        "targetName": "Ca9-22",
-        "targetOrganism": "Homo sapiens",
-        "targetType": "Cell Line",
+        "assay": "IC50 = 49000.0 nM",
+        "assayOrganism": "Homo sapiens",
+        "externalRef": "PMID : 447201",
       },
     ],
-    "cid": "1549018",
+    "cid": "n.a.",
     "ocl": {
-      "idCode": "fj}@\`@@VrJJJJKQJMJQ\`eNbehF\`iJjh\`@@",
-      "noStereoTautomerID": "fj}@\`@@VrJJJJISJMJS\`eNbfjjjjjjj\`@urCDLHqcALTpsGLBqKBlZp[ElNpGA\\UpwGzPpCcIcxX~F@",
+      "idCode": "f\`~\`rBMPQ\`dc@|B]jTjmugZZjjjjaq@@",
+      "noStereoTautomerID": "f\`~\`rBMPQ\`dc@|B]jTjmugZZjjjj@@",
     },
   },
 }

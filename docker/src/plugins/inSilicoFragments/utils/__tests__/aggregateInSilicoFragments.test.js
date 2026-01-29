@@ -9,7 +9,7 @@ test('In silico fragmentation', async () => {
     await connection.getCollection('activesOrNaturals');
 
   while (true) {
-    if ((await activesOrNaturalsCollection.countDocuments()) === 74) {
+    if ((await activesOrNaturalsCollection.countDocuments()) === 68) {
       break;
     }
   }
@@ -19,7 +19,7 @@ test('In silico fragmentation', async () => {
   const result = await collection.findOne({
     _id: {
       noStereoTautomerID:
-        'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
+        'feoa`DF`iUlyHihdeeEDdddbnRLzI\\mGNjjjjjjjjjh@MThqcELLpKDlJqkAlVq{@\\QqgA\\SpoF|_iCJnLVOacxX',
       mode: 'positive',
       ionization: 'esi',
     },
