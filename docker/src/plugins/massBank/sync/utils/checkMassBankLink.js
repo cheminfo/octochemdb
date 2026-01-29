@@ -31,8 +31,8 @@ export async function checkMassBankLink(previousLink, connection) {
         `https://github.com${link.replace('href="', '').replace('"', '')}`,
     );
     if (!allLinks.includes(previousLink)) {
-      await debug.fatal('New links found, please update source', {
-        collection: 'coconuts',
+      await debug.fatal('⚠️New links found, please update source⚠️', {
+        collection: 'massBank',
         connection,
       });
       return allLinks;
@@ -41,7 +41,7 @@ export async function checkMassBankLink(previousLink, connection) {
   } catch (e) {
     // @ts-ignore
     await debug.fatal(e.message, {
-      collection: 'coconuts',
+      collection: 'massBank',
       connection,
     });
     return [];

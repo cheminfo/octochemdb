@@ -28,7 +28,7 @@ export async function checkCoconutLink(previousLink, connection) {
       ? downloadsSection.match(new RegExp(regexAllLinks, 'g')) || []
       : [];
     if (!allLinks.includes(previousLink)) {
-      await debug.fatal('New links found, please update source', {
+      await debug.fatal('⚠️New links found, please update source⚠️', {
         collection: 'coconuts',
         connection,
       });
