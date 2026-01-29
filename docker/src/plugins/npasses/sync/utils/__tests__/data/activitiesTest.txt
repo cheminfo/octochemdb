@@ -1,10 +1,10 @@
 np_id	target_id	activity_type_grouped	activity_relation	activity_type	activity_value	activity_units	assay_organism	assay_tax_id	assay_strain	assay_tissue	assay_cell_type	ref_id	ref_id_type
-NPC100002	NPT393	IC50	=	IC50	49000.0	nM	Homo sapiens	9606	n.a.	n.a.	HCT-116	447201	PMID
-NPC100313	NPT400	IC50	=	IC50	29700.0	nM	Homo sapiens	9606	n.a.	n.a.	MDA-MB-435	447201	PMID
-NPC100333	NPT400	Others	=	Ratio IC50	0.6	n.a.	Homo sapiens	9606	n.a.	n.a.	MDA-MB-435	447201	PMID
-NPC250187	NPT20	MIC	=	MIC	2500.0	nM	Candida albicans	5476	n.a.	n.a.	n.a.	447202	PMID
-NPC100334	NPT312	MIC	=	MIC	2500.0	nM	Saccharomyces cerevisiae	4932	n.a.	n.a.	n.a.	447202	PMID
-NPC250187	NPT83	IC50	=	IC50	51760683.2	nM	Homo sapiens	9606	n.a.	n.a.	MCF7	447204	PMID
+NPC491451	NPT393	IC50	=	IC50	49000.0	nM	Homo sapiens	9606	n.a.	n.a.	HCT-116	447201	PMID
+NPC491452	NPT400	IC50	=	IC50	29700.0	nM	Homo sapiens	9606	n.a.	n.a.	MDA-MB-435	447201	PMID
+NPC491453	NPT400	Others	=	Ratio IC50	0.6	n.a.	Homo sapiens	9606	n.a.	n.a.	MDA-MB-435	447201	PMID
+NPC491454	NPT20	MIC	=	MIC	2500.0	nM	Candida albicans	5476	n.a.	n.a.	n.a.	447202	PMID
+NPC491455	NPT312	MIC	=	MIC	2500.0	nM	Saccharomyces cerevisiae	4932	n.a.	n.a.	n.a.	447202	PMID
+NPC491456	NPT83	IC50	=	IC50	51760683.2	nM	Homo sapiens	9606	n.a.	n.a.	MCF7	447204	PMID
 NPC62696	NPT113	IC50	>	IC50	20000.0	nM	Mus musculus	10090	n.a.	n.a.	RAW264.7	447206	PMID
 NPC483076	NPT29	Others	=	Potentation	1023.0	n.a.	Rattus norvegicus	10116	n.a.	n.a.	n.a.	447207	PMID
 NPC156277	NPT29	Others	=	Gated current	49.0	n.a.	Rattus norvegicus	10116	n.a.	n.a.	n.a.	447207	PMID

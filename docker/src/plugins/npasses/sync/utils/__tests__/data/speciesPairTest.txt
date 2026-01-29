@@ -1,100 +1,40 @@
-src_org_pair	org_id	np_id	new_cp_found	org_isolation_part	org_collect_location	org_collect_time	ref_type	ref_id	ref_id_type	ref_url
-NPO27288-NPC251357	NPO27288	NPC100002	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO8589-NPC116013	NPO8589	NPC100312	N	n.a.	Tsukuba, Japan	1998-JUN	Publication	12381108	PMID	https://pubmed.ncbi.nlm.nih.gov/12381108
-NPO14625-NPC39	NPO14625	NPC100313	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO16590-NPC190457	NPC100321	NPC190457	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO6861-NPC13143	NPO6861	NPC100333	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO24757-NPC473714	NPO24757	NPC100334	n.a.	n.a.	n.a.	n.a.	Publication	18442289	PMID	https://pubmed.ncbi.nlm.nih.gov/18442289
-NPO9576-NPC254190	NPO9576	NPC100353	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22028-NPC242417	NPO22028	NPC483076	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO6513-NPC34786	NPO6513	NPC100370	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO19106-NPC147032	NPO19106	NPC147032	n.a.	n.a.	n.a.	n.a.	Publication	23273047	PMID	https://pubmed.ncbi.nlm.nih.gov/23273047
-NPO8928-NPC204982	NPO8928	NPC204982	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO8768-NPC20791	NPO8768	NPC20791	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO28078-NPC182321	NPO28078	NPC182321	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO14297-NPC207428	NPO14297	NPC207428	n.a.	n.a.	n.a.	n.a.	Database	HerDing	Database	n.a.
-NPO12662-NPC218918	NPO12662	NPC218918	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO16765-NPC264711	NPO16765	NPC264711	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO13310-NPC131190	NPO13310	NPC131190	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO1708-NPC199363	NPO1708	NPC199363	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO14194-NPC35344	NPO14194	NPC35344	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO16016-NPC148787	NPO16016	NPC148787	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO3689-NPC270363	NPO3689	NPC270363	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO1616-NPC158735	NPO1616	NPC158735	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO19434-NPC72183	NPO19434	NPC72183	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO7536-NPC305799	NPO7536	NPC305799	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO11677-NPC7302	NPO11677	NPC7302	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO16111-NPC133499	NPO16111	NPC133499	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO17486-NPC137900	NPO17486	NPC137900	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO8404-NPC309958	NPO8404	NPC309958	n.a.	n.a.	n.a.	n.a.	Database	HerDing	Database	n.a.
-NPO23098-NPC124004	NPO23098	NPC124004	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO12429-NPC171928	NPO12429	NPC171928	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22447-NPC285839	NPO22447	NPC285839	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO10861-NPC10134	NPO10861	NPC10134	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO2618-NPC150643	NPO2618	NPC150643	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO27881-NPC164012	NPO27881	NPC164012	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO2631-NPC142153	NPO2631	NPC142153	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO15625-NPC189224	NPO15625	NPC189224	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO18473-NPC33258	NPO18473	NPC33258	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22890-NPC269367	NPO22890	NPC269367	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO28214-NPC100634	NPO28214	NPC100634	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22936-NPC65326	NPO22936	NPC65326	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO29242-NPC1321	NPO29242	NPC1321	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO18467-NPC88261	NPO18467	NPC88261	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO7929-NPC190810	NPO7929	NPC190810	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO6609-NPC323413	NPO6609	NPC323413	n.a.	n.a.	twig	n.a.	Publication	22122667	PMID	https://pubmed.ncbi.nlm.nih.gov/22122667
-NPO578-NPC186588	NPO578	NPC186588	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO26094-NPC265383	NPO26094	NPC265383	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO11787-NPC258483	NPO11787	NPC258483	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO26224-NPC179403	NPO26224	NPC179403	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22230-NPC164588	NPO22230	NPC164588	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO23953-NPC157340	NPO23953	NPC157340	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO24560-NPC196776	NPO24560	NPC196776	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO9934-NPC306968	NPO9934	NPC306968	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO19645-NPC51709	NPO19645	NPC51709	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO29213-NPC51287	NPO29213	NPC51287	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22901-NPC4509	NPO22901	NPC4509	n.a.	aerial parts	n.a.	n.a.	Publication	20196571	PMID	https://pubmed.ncbi.nlm.nih.gov/20196571
-NPO16164-NPC310686	NPO16164	NPC310686	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22964-NPC90617	NPO22964	NPC90617	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO17888-NPC484168	NPO17888	NPC484168	n.a.	n.a.	n.a.	n.a.	Publication	31465225	PMID	https://pubmed.ncbi.nlm.nih.gov/31465225
-NPO6957-NPC101830	NPO6957	NPC101830	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO2618-NPC191498	NPO2618	NPC191498	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO15870-NPC239039	NPO15870	NPC239039	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO10177-NPC141836	NPO10177	NPC141836	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO21329-NPC1786	NPO21329	NPC1786	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO22741-NPC141777	NPO22741	NPC141777	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO23838-NPC156222	NPO23838	NPC156222	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO16466-NPC298049	NPO16466	NPC298049	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO40151-NPC482799	NPO40151	NPC482799	n.a.	n.a.	n.a.	n.a.	Publication	26577190	PMID	https://pubmed.ncbi.nlm.nih.gov/26577190
-NPO12934-NPC78337	NPO12934	NPC78337	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO10917-NPC70136	NPO10917	NPC70136	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO21134-NPC286540	NPO21134	NPC286540	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO24451-NPC257620	NPO24451	NPC257620	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO20351-NPC111502	NPO20351	NPC111502	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO3853-NPC43462	NPO3853	NPC43462	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO17539-NPC108721	NPO17539	NPC108721	n.a.	n.a.	n.a.	n.a.	Database	TCM_Taiwan	Database	n.a.
-NPO13859-NPC272824	NPO13859	NPC272824	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO25533-NPC300798	NPO25533	NPC300798	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO13740-NPC179950	NPO13740	NPC179950	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO18653-NPC278556	NPO18653	NPC278556	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO5645-NPC80106	NPO5645	NPC80106	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
-NPO11032-NPC149433	NPO11032	NPC149433	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO24687-NPC279451	NPO24687	NPC279451	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO10665-NPC13506	NPO10665	NPC13506	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO16506-NPC201406	NPO16506	NPC201406	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO5899-NPC14442	NPO5899	NPC14442	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO13477-NPC78363	NPO13477	NPC78363	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO4235-NPC7780	NPO4235	NPC7780	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO4123-NPC12013	NPO4123	NPC12013	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO16537-NPC221691	NPO16537	NPC221691	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO4541-NPC276103	NPO4541	NPC276103	n.a.	n.a.	n.a.	n.a.	Publication	12608844	PMID	https://pubmed.ncbi.nlm.nih.gov/12608844
-NPO7841-NPC6323	NPO7841	NPC6323	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO11012-NPC28862	NPO11012	NPC28862	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO10980-NPC73804	NPO10980	NPC73804	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO9024-NPC284678	NPO9024	NPC284678	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO21345-NPC179950	NPO21345	NPC179950	n.a.	n.a.	n.a.	n.a.	Database	TCM_Taiwan	Database	n.a.
-NPO28125-NPC69934	NPO28125	NPC69934	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
-NPO26621-NPC128529	NPO26621	NPC128529	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO3446-NPC274020	NPO3446	NPC274020	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
-NPO40545-NPC151770	NPO40545	NPC151770	n.a.	n.a.	n.a.	n.a.	Publication	30289713	PMID	https://pubmed.ncbi.nlm.nih.gov/30289713
-NPO7914-NPC288528	NPO7914	NPC288528	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+src_org_record_id	src_org_pair_id	src_org_pair	org_id	np_id	new_cp_found	org_isolation_part	org_collect_location	org_collect_time	ref_type	ref_id	ref_id_type	ref_url
+1417289	681673	NPO27288-NPC491451	NPO27288	NPC491451	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
+1538850	774177	NPO8589-NPC491452	NPO8589	NPC491452	N	n.a.	Tsukuba, Japan	1998-JUN	Publication	12381108	PMID	https://pubmed.ncbi.nlm.nih.gov/12381108
+1084309	352357	NPO14625-NPC491453	NPO14625	NPC491453	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+946868	215202	NPO16590-NPC491454	NPO16590	NPC491454	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1137261	405190	NPO6861-NPC13143	NPO6861	NPC13143	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1523526	761265	NPO24757-NPC473714	NPO24757	NPC473714	n.a.	n.a.	n.a.	n.a.	Publication	18442289	PMID	https://pubmed.ncbi.nlm.nih.gov/18442289
+789889	58533	NPO9576-NPC254190	NPO9576	NPC254190	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1023390	291566	NPO22028-NPC242417	NPO22028	NPC242417	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1233987	501703	NPO6513-NPC34786	NPO6513	NPC34786	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1532391	6627	NPO19106-NPC147032	NPO19106	NPC147032	n.a.	n.a.	n.a.	n.a.	Publication	23273047	PMID	https://pubmed.ncbi.nlm.nih.gov/23273047
+848706	117236	NPO8928-NPC204982	NPO8928	NPC204982	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1072742	340818	NPO8768-NPC20791	NPO8768	NPC20791	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1163519	431394	NPO28078-NPC182321	NPO28078	NPC182321	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+18004	15227	NPO14297-NPC207428	NPO14297	NPC207428	n.a.	n.a.	n.a.	n.a.	Database	HerDing	Database	n.a.
+1455026	713769	NPO12662-NPC218918	NPO12662	NPC218918	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
+1434694	696522	NPO16765-NPC264711	NPO16765	NPC264711	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
+875561	144033	NPO13310-NPC131190	NPO13310	NPC131190	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+949957	218283	NPO1708-NPC199363	NPO1708	NPC199363	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+796561	65194	NPO14194-NPC35344	NPO14194	NPC35344	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1260940	528599	NPO16016-NPC148787	NPO16016	NPC148787	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1497569	740197	NPO3689-NPC270363	NPO3689	NPC270363	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
+878952	147414	NPO1616-NPC158735	NPO1616	NPC158735	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1472340	53751	NPO19434-NPC72183	NPO19434	NPC72183	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
+949589	217915	NPO7536-NPC305799	NPO7536	NPC305799	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1120170	388138	NPO11677-NPC7302	NPO11677	NPC7302	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1467075	721895	NPO16111-NPC133499	NPO16111	NPC133499	n.a.	n.a.	n.a.	n.a.	Database	TCMID	Database	n.a.
+1026339	294510	NPO17486-NPC137900	NPO17486	NPC137900	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+35074	29768	NPO8404-NPC309958	NPO8404	NPC309958	n.a.	n.a.	n.a.	n.a.	Database	HerDing	Database	n.a.
+876613	145081	NPO23098-NPC124004	NPO23098	NPC124004	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+801070	69694	NPO12429-NPC171928	NPO12429	NPC171928	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1000649	268869	NPO22447-NPC285839	NPO22447	NPC285839	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1127059	395013	NPO10861-NPC10134	NPO10861	NPC10134	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1423155	686248	NPO2618-NPC150643	NPO2618	NPC150643	n.a.	n.a.	n.a.	n.a.	Database	TM-MC	Database	n.a.
+789954	58598	NPO27881-NPC164012	NPO27881	NPC164012	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1015188	283385	NPO2631-NPC142153	NPO2631	NPC142153	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1064202	332300	NPO15625-NPC189224	NPO15625	NPC189224	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+801442	70064	NPO18473-NPC33258	NPO18473	NPC33258	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1141225	409145	NPO22890-NPC269367	NPO22890	NPC269367	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.
+1223822	491562	NPO28214-NPC100634	NPO28214	NPC100634	n.a.	n.a.	n.a.	n.a.	Database	UNPD	Database	n.a.

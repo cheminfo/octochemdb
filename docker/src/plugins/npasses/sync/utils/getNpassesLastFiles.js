@@ -18,12 +18,12 @@ export default async function getNpassesLastFiles(connection) {
     let lastTargetInfo;
     let sources;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.NPASS_FILE_GENERAL_TEST}`;
-      lastFileActivity = `${process.env.NPASS_FILE_ACTIVITY_TEST}`;
-      lastFileSpeciesProperties = `${process.env.NPASS_FILE_PROPERTIES_TEST}`;
-      lastFileSpeciesInfo = `${process.env.NPASS_FILE_SPECIESINFO_TEST}`;
-      lastFileSpeciesPair = `${process.env.NPASS_FILE_SPECIESPAIR_TEST}`;
-      lastTargetInfo = `${process.env.NPASS_SOURCE_TARGETINFO_TEST}`;
+      lastFile = `../docker/src/plugins/npasses/sync/utils/__tests__/data/generalTest.txt`;
+      lastFileActivity = `../docker/src/plugins/npasses/sync/utils/__tests__/data/activitiesTest.txt`;
+      lastFileSpeciesProperties = `../docker/src/plugins/npasses/sync/utils/__tests__/data/propertiesTest.txt`;
+      lastFileSpeciesInfo = `../docker/src/plugins/npasses/sync/utils/__tests__/data/speciesInfoTest.txt`;
+      lastFileSpeciesPair = `../docker/src/plugins/npasses/sync/utils/__tests__/data/speciesPairTest.txt`;
+      lastTargetInfo = `../docker/src/plugins/npasses/sync/utils/__tests__/data/targetInfoTest.txt`;
       source = [
         lastFile,
         lastFileActivity,
@@ -34,8 +34,16 @@ export default async function getNpassesLastFiles(connection) {
       ];
       sources = [source];
     } else {
+      const sourceLinks = [
+        'https://bidd.group/NPASS/downloadFiles/NPASS3.0_naturalproducts_generalinfo.txt',
+        'https://bidd.group/NPASS/downloadFiles/NPASS3.0_activities.txt',
+        'https://bidd.group/NPASS/downloadFiles/NPASS3.0_naturalproducts_structure.txt',
+        'https://bidd.group/NPASS/downloadFiles/NPASS3.0_naturalproducts_species_pair.txt',
+        'https://bidd.group/NPASS/downloadFiles/NPASS3.0_species_info.txt',
+        'https://bidd.group/NPASS/downloadFiles/NPASS3.0_target.txt',
+      ];
       let options = {
-        collectionSource: process.env.NPASS_SOURCE_GENERALINFO,
+        collectionSource: sourceLinks[0],
         destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/npasses/full`,
         collectionName: 'npasses',
         filenameNew: 'general',
@@ -43,19 +51,19 @@ export default async function getNpassesLastFiles(connection) {
       };
       // get last files available in the NPASS database
       lastFile = await getLastFileSync(options);
-      options.collectionSource = process.env.NPASS_SOURCE_ACTIVITY;
+      options.collectionSource = sourceLinks[1];
       options.filenameNew = 'activities';
       lastFileActivity = await getLastFileSync(options);
-      options.collectionSource = process.env.NPASS_SOURCE_PROPERTIES;
+      options.collectionSource = sourceLinks[2];
       options.filenameNew = 'properties';
       lastFileSpeciesProperties = await getLastFileSync(options);
-      options.collectionSource = process.env.NPASS_SOURCE_SPECIESPAIR;
+      options.collectionSource = sourceLinks[3];
       options.filenameNew = 'speciesPair';
       lastFileSpeciesPair = await getLastFileSync(options);
-      options.collectionSource = process.env.NPASS_SOURCE_SPECIESINFO;
+      options.collectionSource = sourceLinks[4];
       options.filenameNew = 'speciesInfo';
       lastFileSpeciesInfo = await getLastFileSync(options);
-      options.collectionSource = process.env.NPASS_SOURCE_TARGETINFO;
+      options.collectionSource = sourceLinks[5];
       options.filenameNew = 'targetInfo';
       lastTargetInfo = await getLastFileSync(options);
       // define sources

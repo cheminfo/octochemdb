@@ -3,7 +3,7 @@ NPT899	Cell Line	Ca9-22	9606	Homo sapiens
 NPT312	Cell Line	Lu1	9606	Homo sapiens	
 NPC100333	Cell Line	U2OS	9606	Homo sapiens	
 NPC100313	Cell Line	HMEC	9606	Homo sapiens	
-NPC100333	Cell Line	B-cells			
+NPC491454	Cell Line	B-cells			
 NPC100313	Cell Line	BXPC-3	9606	Homo sapiens	
 NPC100002	Cell Line	NCI-H2126	9606	Homo sapiens	
 NPT1083	Cell Line	A-375	9606	Homo sapiens	

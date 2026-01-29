@@ -1,100 +1,23 @@
-org_id	org_name	org_tax_level	org_tax_id	subspecies_tax_id	subspecies_name	species_tax_id	species_name	genus_tax_id	genus_name	family_tax_id	family_name	kingdom_tax_id	kingdom_name	superkingdom_tax_id	superkingdom_name
-NPO27288	Falkenbergia rufolanosa	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.
-NPO8589	Hylocomium splendens	Species	53007	n.a.	n.a.	53007	Hylocomium splendens	53006	Hylocomium	28466	Hylocomiaceae	33090	Viridiplantae	2759	Eukaryota
-NPO14625	Manica rubida	Species	219785	n.a.	n.a.	219785	Manica rubida	219784	Manica	36668	Formicidae	33208	Metazoa	2759	Eukaryota
-NPC100321	Ulva lactuca	Species	63410	n.a.	n.a.	63410	Ulva lactuca	3118	Ulva	3114	Ulvaceae	33090	Viridiplantae	2759	Eukaryota
-NPO6861	Quercus acuta	Species	157796	n.a.	n.a.	157796	Quercus acuta	3511	Quercus	3503	Fagaceae	33090	Viridiplantae	2759	Eukaryota
-NPO24757	Artemisia baldshuanica	Species	1287601	n.a.	n.a.	1287601	Artemisia baldshuanica	4219	Artemisia	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPC100353	Acanthodendrilla sp.	Species	n.a.	n.a.	n.a.	n.a.	n.a.	558782	Acanthodendrilla	283990	Dictyodendrillidae	33208	Metazoa	2759	Eukaryota
-NPO24350	Hammarbya paludosa	Species	1155243	n.a.	n.a.	1155243	Hammarbya paludosa	1155242	Hammarbya	4747	Orchidaceae	33090	Viridiplantae	2759	Eukaryota
-NPO8092	Bouchea fluminensis	Species	42207	n.a.	n.a.	42207	Bouchea fluminensis	42206	Bouchea	21910	Verbenaceae	33090	Viridiplantae	2759	Eukaryota
-NPO12942	Amphimedon terpenensis	Species	n.a.	n.a.	n.a.	n.a.	n.a.	178513	Amphimedon	178475	Niphatidae	33208	Metazoa	2759	Eukaryota
-NPO21949	Cinnamomum bejolghota	Species	397101	n.a.	n.a.	397101	Cinnamomum bejolghota	13428	Cinnamomum	3433	Lauraceae	33090	Viridiplantae	2759	Eukaryota
-NPO13440	Enterolobium cyclocarpum	Species	54878	n.a.	n.a.	54878	Enterolobium cyclocarpum	54877	Enterolobium	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO29927	Grevillea	Genus	n.a.	n.a.	n.a.	n.a.	n.a.	83716	Grevillea	4328	Proteaceae	33090	Viridiplantae	2759	Eukaryota
-NPO23768	Camellia saluenensis	Species	319929	n.a.	n.a.	319929	Camellia saluenensis	4441	Camellia	27065	Theaceae	33090	Viridiplantae	2759	Eukaryota
-NPO20002	Ledebouria graminifolia	Species	n.a.	n.a.	n.a.	n.a.	n.a.	16139	Ledebouria	44985	Hyacinthaceae	33090	Viridiplantae	2759	Eukaryota
-NPO20194	Fritillaria puqiensis	Species	108545	n.a.	n.a.	108545	Fritillaria puqiensis	59070	Fritillaria	4677	Liliaceae	33090	Viridiplantae	2759	Eukaryota
-NPO16259	Syringa reticulata	Species	126367	n.a.	n.a.	126367	Syringa reticulata	24208	Syringa	4144	Oleaceae	33090	Viridiplantae	2759	Eukaryota
-NPO20412	Magnolia grandiflora	Species	3406	n.a.	n.a.	3406	Magnolia grandiflora	3402	Magnolia	3401	Magnoliaceae	33090	Viridiplantae	2759	Eukaryota
-NPO6664	Kopsia officinalis	Species	2508339	n.a.	n.a.	2508339	Kopsia officinalis	21101	Kopsia	4056	Apocynaceae	33090	Viridiplantae	2759	Eukaryota
-NPO24314	Erythrina sigmoidea	Species	n.a.	n.a.	n.a.	n.a.	n.a.	3841	Erythrina	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO6065	Brassica carinata	Species	52824	n.a.	n.a.	52824	Brassica carinata	3705	Brassica	3700	Brassicaceae	33090	Viridiplantae	2759	Eukaryota
-NPO18069	Streptomyces coelicoflavus	Species	285562	n.a.	n.a.	285562	Streptomyces coelicoflavus	1883	Streptomyces	2062	Streptomycetaceae	n.a.	n.a.	2	Bacteria
-NPO3143	Artemisia carruthii	Species	1227619	n.a.	n.a.	1227619	Artemisia carruthii	4219	Artemisia	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO15295	Polyachyrus sphaerocephalus	Species	460355	n.a.	n.a.	460355	Polyachyrus sphaerocephalus	460350	Polyachyrus	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO19391	Senecio aegyptius	Species	121537	n.a.	n.a.	121537	Senecio aegyptius	18794	Senecio	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO40561	Polyalthia laui	Species	1310099	n.a.	n.a.	1310099	Monoon laui	1310091	Monoon	22140	Annonaceae	33090	Viridiplantae	2759	Eukaryota
-NPO364	Chimonanthus praecox	Species	13419	n.a.	n.a.	13419	Chimonanthus praecox	13418	Chimonanthus	3427	Calycanthaceae	33090	Viridiplantae	2759	Eukaryota
-NPO14031	Alcyonium patagonicum	Species	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	Alcyonium	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.
-NPO8748	Dacrydium nidulum	Species	1030182	n.a.	n.a.	1030182	Dacrydium nidulum	56889	Dacrydium	3362	Podocarpaceae	33090	Viridiplantae	2759	Eukaryota
-NPO17386	Securidaca longepedunculata	Species	690845	n.a.	n.a.	690845	Securidaca longepedunculata	4277	Securidaca	4274	Polygalaceae	33090	Viridiplantae	2759	Eukaryota
-NPO5896	Crinum laurentii	Species	n.a.	n.a.	n.a.	n.a.	n.a.	16055	Crinum	4668	Amaryllidaceae	33090	Viridiplantae	2759	Eukaryota
-NPO6938	Astragalus dissectus	Species	n.a.	n.a.	n.a.	n.a.	n.a.	20400	Astragalus	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO1458	Burkholderia gladioli	Species	28095	n.a.	n.a.	28095	Burkholderia gladioli	32008	Burkholderia	119060	Burkholderiaceae	n.a.	n.a.	2	Bacteria
-NPO9947	Teucrium scorodonia	Species	53178	n.a.	n.a.	53178	Teucrium scorodonia	21896	Teucrium	4136	Lamiaceae	33090	Viridiplantae	2759	Eukaryota
-NPO7690	Nyssa sinensis	Species	561372	n.a.	n.a.	561372	Nyssa sinensis	4290	Nyssa	4289	Nyssaceae	33090	Viridiplantae	2759	Eukaryota
-NPO7033	Potamogeton nodosus	Species	99363	n.a.	n.a.	99363	Potamogeton nodosus	13228	Potamogeton	16362	Potamogetonaceae	33090	Viridiplantae	2759	Eukaryota
-NPO29268	Phyllanthus simplex	Species	n.a.	n.a.	n.a.	n.a.	n.a.	634324	Phyllanthus	1673678	Leiothrichidae	33208	Metazoa	2759	Eukaryota
-NPO19505	Swartzia polyphylla	Species	450104	n.a.	n.a.	450104	Swartzia polyphylla	53925	Swartzia	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO3516	Crepidotus fulvotomentosus	Species	n.a.	n.a.	n.a.	n.a.	n.a.	104351	Crepidotus	104350	Crepidotaceae	4751	Fungi	2759	Eukaryota
-NPO12043	Eria coronaria	Species	941465	n.a.	n.a.	941465	Eria coronaria	38200	Eria	4747	Orchidaceae	33090	Viridiplantae	2759	Eukaryota
-NPO7699	Xeranthemum cylindraceum	Species	143215	n.a.	n.a.	143215	Xeranthemum cylindraceum	143214	Xeranthemum	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO11989	Erythrostemon gilliesii	Species	191891	n.a.	n.a.	191891	Erythrostemon gilliesii	508969	Erythrostemon	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO33045	bellevalia eigii	Species	n.a.	n.a.		n.a.	n.a.	81738	Bellevalia	44985	Hyacinthaceae	33090	Viridiplantae	2759	Eukaryota
-NPO9314	Gouania ulmifolia	Species	n.a.	n.a.	n.a.	n.a.	n.a.	210581	Gouania	63826	Gobiesocidae	33208	Metazoa	2759	Eukaryota
-NPO3497	Pestalotiopsis virgatula	Species	290289	n.a.	n.a.	290289	Pestalotiopsis virgatula	37840	Pestalotiopsis	1812776	Sporocadaceae	4751	Fungi	2759	Eukaryota
-NPO12397	Solanum betaceum	Species	45843	n.a.	n.a.	45843	Solanum betaceum	4107	Solanum	4070	Solanaceae	33090	Viridiplantae	2759	Eukaryota
-NPO14751	Anisodoris nobilis	Species	589681	n.a.	n.a.	589681	Peltodoris nobilis	1772197	Peltodoris	6515	Discodorididae	33208	Metazoa	2759	Eukaryota
-NPO10827	Andira araroba	Species	n.a.	n.a.	n.a.	n.a.	n.a.	48128	Andira	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO27681	Mikania grazielae	Species	n.a.	n.a.	n.a.	n.a.	n.a.	102786	Mikania	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO33230	Phomopsis sp. BCC 9789	Species	704643	n.a.		704643	Phomopsis sp. BCC 9789	34399	Phomopsis	5117	Valsaceae	4751	Fungi	2759	Eukaryota
-NPO4994	Pachysandra procumbens	Species	83909	n.a.	n.a.	83909	Pachysandra procumbens	74824	Pachysandra	4000	Buxaceae	33090	Viridiplantae	2759	Eukaryota
-NPO3346	Piper sanctum	Species	511552	n.a.	n.a.	511552	Piper sanctum	13215	Piper	16739	Piperaceae	33090	Viridiplantae	2759	Eukaryota
-NPO11743	Phryxe caudata	Species	n.a.	n.a.	n.a.	n.a.	n.a.	569079	Phryxe	27474	Tachinidae	33208	Metazoa	2759	Eukaryota
-NPO390	Tectocoris diophthalmus	Species	159956	n.a.	n.a.	159956	Tectocoris diophthalmus	159955	Tectocoris	468258	Scutelleridae	33208	Metazoa	2759	Eukaryota
-NPO6532	Lithospermum ruderale	Species	650313	n.a.	n.a.	650313	Lithospermum ruderale	21634	Lithospermum	21571	Boraginaceae	33090	Viridiplantae	2759	Eukaryota
-NPO9772	Helvella esculenta	Species	n.a.	n.a.	n.a.	n.a.	n.a.	44624	Helvella	33159	Helvellaceae	4751	Fungi	2759	Eukaryota
-NPO7673	Astragalus quisqualis	Species	n.a.	n.a.	n.a.	n.a.	n.a.	20400	Astragalus	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO19807	Rubus parkeri	Species	616964	n.a.	n.a.	616964	Rubus parkeri	23216	Rubus	3745	Rosaceae	33090	Viridiplantae	2759	Eukaryota
-NPO10055	Stichoneuron caudatum	Species	50540	n.a.	n.a.	50540	Stichoneuron caudatum	50539	Stichoneuron	49662	Stemonaceae	33090	Viridiplantae	2759	Eukaryota
-NPO8884	Cuscuta reflexa	Species	4129	n.a.	n.a.	4129	Cuscuta reflexa	4128	Cuscuta	4118	Convolvulaceae	33090	Viridiplantae	2759	Eukaryota
-NPO2229	Phyllarthron comorense	Species	1776918	n.a.	n.a.	1776918	Phyllarthron comorense	260308	Phyllarthron	24079	Bignoniaceae	33090	Viridiplantae	2759	Eukaryota
-NPO25456	Cortinarius infractus	Species	165398	n.a.	n.a.	165398	Cortinarius infractus	34451	Cortinarius	34450	Cortinariaceae	4751	Fungi	2759	Eukaryota
-NA	Eurypon laughlini	Species	283560	n.a.	n.a.	283560	Prosuberites laughlini	269055	Prosuberites	55660	Suberitidae	33208	Metazoa	2759	Eukaryota
-NPO11607	Marrubium parviflorum	Species	n.a.	n.a.	n.a.	n.a.	n.a.	41229	Marrubium	4136	Lamiaceae	33090	Viridiplantae	2759	Eukaryota
-NPO40974	Panus rudis Fr. IFO 8994	Strain	n.a.	n.a.	n.a.	48022	Panus rudis	38807	Panus	2028207	n.a.	4751	Fungi	2759	Eukaryota
-NPO12348	Chrysosplenium grayanum	Species	61245	n.a.	n.a.	61245	Chrysosplenium grayanum	23242	Chrysosplenium	3792	Saxifragaceae	33090	Viridiplantae	2759	Eukaryota
-NPO33079	pachastrella sp.	Species	n.a.	n.a.		n.a.	n.a.	881970	Pachastrella	77187	Pachastrellidae	33208	Metazoa	2759	Eukaryota
-NPO6447	Kopsia teoi	Species	n.a.	n.a.	n.a.	n.a.	n.a.	21101	Kopsia	4056	Apocynaceae	33090	Viridiplantae	2759	Eukaryota
-NPO2961	Lomelosia caucasica	Species	183564	n.a.	n.a.	183564	Lomelosia caucasica	183562	Lomelosia	4200	Caprifoliaceae	33090	Viridiplantae	2759	Eukaryota
-NPO41597	Bacillus subtilis RF1-L3 [mCherry egfp zwf ribBA and ywlf]	Strain	n.a.	n.a.	n.a.	n.a.	Bacillus subtilis	1386	Bacillus	186817	Bacillaceae	n.a.	n.a.	2	Bacteria
-NPO41917	A new engineered strain of Yarrowia lipolytica [PsCrtW HpCrtZ]	Strain	n.a.	n.a.	n.a.	n.a.	Yarrowia lipolytica	4951	Yarrowia	34353	Dipodascaceae	4751	Fungi	2759	Eukaryota
-NPO14135	Fritillaria prezewalskii	Species	n.a.	n.a.	n.a.	n.a.	Fritillaria prezewalskii 	59070	Fritillaria	4677	Liliaceae	33090	Viridiplantae	2759	Eukaryota
-NPO5883	Nassauvia revoluta	Species	460340	n.a.	n.a.	460340	Nassauvia revoluta	41611	Nassauvia	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO29325	Lappa officinalis	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.
-NPO10487	Rosa americana	Species	n.a.	n.a.	n.a.	n.a.	n.a.	3764	Rosa	3745	Rosaceae	33090	Viridiplantae	2759	Eukaryota
-NPO26098	Essentia	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.
-NPO6450	Desmodium canum	Species	n.a.	n.a.	n.a.	n.a.	n.a.	53866	Desmodium	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO6177	Veronicastrum japonicum	Species	1619673	n.a.	n.a.	1619673	Veronicastrum japonicum	74694	Veronicastrum	156152	Plantaginaceae	33090	Viridiplantae	2759	Eukaryota
-NPO40611	Streptomyces sp. Go-GS12	Strain	n.a.	n.a.	n.a.	n.a.	n.a.	1883	Streptomyces	2062	Streptomycetaceae	n.a.		2	Bacteria
-NPO30421	Codonopsis tangshen	Species	n.a.	n.a.	n.a.	n.a.	codonopsis tangshen 	16399	Codonopsis	4381	Campanulaceae	33090	Viridiplantae	2759	Eukaryota
-NPO11065	Calocephalus brownii	Species	n.a.	n.a.	n.a.	n.a.	n.a.	125668	Calocephalus	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO12385	Ventilago viminalis	Species	106720	n.a.	n.a.	106720	Ventilago viminalis	106719	Ventilago	3608	Rhamnaceae	33090	Viridiplantae	2759	Eukaryota
-NPO40187	Leucopaxillus albissimus	Species	71893	n.a.	n.a.	71893	Leucopaxillus albissimus	71892	Leucopaxillus	5351	Tricholomataceae	4751	Fungi	2759	Eukaryota
-NPO5852	Litsea glutinosa	Species	136122	n.a.	n.a.	136122	Litsea glutinosa	22042	Litsea	3433	Lauraceae	33090	Viridiplantae	2759	Eukaryota
-NPO28080	Pedicularis palustris	Species	462877	n.a.	n.a.	462877	Pedicularis palustris	43174	Pedicularis	91896	Orobanchaceae	33090	Viridiplantae	2759	Eukaryota
-NPO30178	Zanthoxylum spp	Species	n.a.	n.a.	n.a.	n.a.	zanthoxylum spp. 	67937	Zanthoxylum	23513	Rutaceae	33090	Viridiplantae	2759	Eukaryota
-NPO14315	Conostylis setosa	Species	524059	n.a.	n.a.	524059	Conostylis setosa	95951	Conostylis	54924	Haemodoraceae	33090	Viridiplantae	2759	Eukaryota
-NPO20289	Dracocephalum tanguticum	Species	1699510	n.a.	n.a.	1699510	Dracocephalum tanguticum	39166	Dracocephalum	4136	Lamiaceae	33090	Viridiplantae	2759	Eukaryota
-NPO6875	Tabebuia chrysantha	Species	429696	n.a.	n.a.	429696	Tabebuia chrysantha	39256	Tabebuia	24079	Bignoniaceae	33090	Viridiplantae	2759	Eukaryota
-NPO33022	gymnoascus reessii	Species	n.a.	n.a.		n.a.	n.a.	69889	Gymnoascus	37243	Gymnoascaceae	4751	Fungi	2759	Eukaryota
-NPO6842	Centaurea balsamita	Species	n.a.	n.a.	n.a.	n.a.	n.a.	41503	Centaurea	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
-NPO1618	Ovidia pillo-pillo	Species	n.a.	n.a.	n.a.	n.a.	n.a.	142691	Ovidia	39987	Thymelaeaceae	33090	Viridiplantae	2759	Eukaryota
-NPO16627	Ailanthus giraldii	Species	452801	n.a.	n.a.	452801	Ailanthus giraldii	23809	Ailanthus	23808	Simaroubaceae	33090	Viridiplantae	2759	Eukaryota
-NPO18778	Paullinia pinnata	Species	290984	n.a.	n.a.	290984	Paullinia pinnata	290983	Paullinia	23672	Sapindaceae	33090	Viridiplantae	2759	Eukaryota
-NPO1131	Lathyrus spp.	Species	n.a.	n.a.	n.a.	n.a.	n.a.	3853	Lathyrus	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota
-NPO4690	Aphloia theiformis	Species	112806	n.a.	n.a.	112806	Aphloia theiformis	112805	Aphloia	112804	Aphloiaceae	33090	Viridiplantae	2759	Eukaryota
-NPO32494	cedrelopsis microfoliata	Species	n.a.	n.a.		n.a.	n.a.	864330	Cedrelopsis	23513	Rutaceae	33090	Viridiplantae	2759	Eukaryota
-NPO23814	Elsholtzia splendens	Species	475396	n.a.	n.a.	475396	Elsholtzia splendens	41225	Elsholtzia	4136	Lamiaceae	33090	Viridiplantae	2759	Eukaryota
-NPO4974	Stevia breviaristata	Species	n.a.	n.a.	n.a.	n.a.	n.a.	55669	Stevia	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota
+org_id	org_name	org_tax_level	org_tax_id	subspecies_tax_id	subspecies_name	species_tax_id	species_name	genus_tax_id	genus_name	family_tax_id	family_name	kingdom_tax_id	kingdom_name	superkingdom_tax_id	superkingdom_name	org_name_initial	num_of_np_act	num_of_np_no_act	num_of_np_quantity	if_org_coculture	if_org_engineered	if_org_symbiont
+NPO1	Astragalus flexuosus	Species	1234496	n.a.	n.a.	1234496	Astragalus flexuosus	20400	Astragalus	3803	Fabaceae	33090	Viridiplantae	2759	Eukaryota	A	2	8	1	0	0	0
+NPO10	Alexandrium ostenfeldii	Species	40986	n.a.	n.a.	40986	Alexandrium ostenfeldii	2924	Alexandrium	1573500	Pyrocystaceae	n.a.	n.a.	2759	Eukaryota	A	10	43	0	0	0	0
+NPO100	Zanthoxylum microcarpum	Species	n.a.	n.a.	n.a.	n.a.	n.a.	67937	Zanthoxylum	23513	Rutaceae	33090	Viridiplantae	2759	Eukaryota	Z	1	9	1	0	0	0
+NPO1000	Thymus transcaucasicus	Species	n.a.	n.a.	n.a.	n.a.	n.a.	49990	Thymus	4136	Lamiaceae	33090	Viridiplantae	2759	Eukaryota	T	19	29	6	0	0	0
+NPO10001	Gnidia subcordata	Species	n.a.	n.a.	n.a.	n.a.	n.a.	142743	Gnidia	39987	Thymelaeaceae	33090	Viridiplantae	2759	Eukaryota	G	6	29	8	0	0	0
+NPO10003	Veronica cymbalaria	Species	165331	n.a.	n.a.	165331	Veronica cymbalaria	4173	Veronica	156152	Plantaginaceae	33090	Viridiplantae	2759	Eukaryota	V	14	12	16	0	0	0
+NPO10004	Callitropsis nootkatensis	Species	85954	n.a.	n.a.	85954	Callitropsis nootkatensis	329095	Callitropsis	3367	Cupressaceae	33090	Viridiplantae	2759	Eukaryota	C	4	4	3	0	0	0
+NPO10006	Paraburkholderia caryophylli	Species	28094	n.a.	n.a.	28094	Paraburkholderia caryophylli	1822464	Paraburkholderia	119060	Burkholderiaceae	n.a.	n.a.	2	Bacteria	P	11	10	8	0	0	0
+NPO10007	Desmostachya bipinnata	Species	1245295	n.a.	n.a.	1245295	Desmostachya bipinnata	1245294	Desmostachya	4479	Poaceae	33090	Viridiplantae	2759	Eukaryota	D	5	15	4	0	0	0
+NPO10008	Tinospora capillipes	Species	150903	n.a.	n.a.	150903	Tinospora capillipes	41789	Tinospora	3455	Menispermaceae	33090	Viridiplantae	2759	Eukaryota	T	20	27	1	0	0	0
+NPO10009	Oxylobus arbutifolius	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	n.a.	O	6	0	4	0	0	0
+NPO1001	Diplogelasinospora grovesii	Species	303347	n.a.	n.a.	303347	Diplogelasinospora grovesii	303324	Diplogelasinospora	5148	Sordariaceae	4751	Fungi	2759	Eukaryota	D	1	5	0	0	0	0
+NPO10010	Evernia vulpina	Species	n.a.	n.a.	n.a.	n.a.	n.a.	87256	Evernia	78060	Parmeliaceae	4751	Fungi	2759	Eukaryota	E	31	62	13	0	0	0
+NPO10011	Myrsine capitellata	Species	n.a.	n.a.	n.a.	n.a.	n.a.	59981	Myrsine	4335	Primulaceae	33090	Viridiplantae	2759	Eukaryota	M	14	15	9	0	0	0
+NPO10012	Triaenophora rupestris	Species	441503	n.a.	n.a.	441503	Triaenophora rupestris	441502	Triaenophora	91896	Orobanchaceae	33090	Viridiplantae	2759	Eukaryota	T	41	123	19	0	0	0
+NPO10014	Rubia tinctorum	Species	29802	n.a.	n.a.	29802	Rubia tinctorum	25473	Rubia	24966	Rubiaceae	33090	Viridiplantae	2759	Eukaryota	R	8	14	6	0	0	0
+NPO10016	Rollinia laurifolia	Species	n.a.	n.a.	n.a.	n.a.	n.a.	301698	Rollinia	22140	Annonaceae	33090	Viridiplantae	2759	Eukaryota	R	2	5	2	0	0	0
+NPO10017	Echium pininana	Species	113444	n.a.	n.a.	113444	Echium pininana	21610	Echium	21571	Boraginaceae	33090	Viridiplantae	2759	Eukaryota	E	7	6	10	0	0	0
+NPO10019	Ilex oblonga	Species	n.a.	n.a.	n.a.	n.a.	n.a.	4295	Ilex	4294	Aquifoliaceae	33090	Viridiplantae	2759	Eukaryota	I	7	4	0	0	0	0
+NPO1002	Haplophyllum perforatum	Species	n.a.	n.a.	n.a.	n.a.	n.a.	266078	Haplophyllum	23513	Rutaceae	33090	Viridiplantae	2759	Eukaryota	H	2	20	0	0	0	0
+NPO10021	Nerium oleander	Species	63479	n.a.	n.a.	63479	Nerium oleander	63461	Nerium	4056	Apocynaceae	33090	Viridiplantae	2759	Eukaryota	N	86	189	51	0	0	0
+NPO10023	Francoeuria undulata	Species	119186	n.a.	n.a.	119186	Francoeuria undulata	1548540	Francoeuria	4210	Asteraceae	33090	Viridiplantae	2759	Eukaryota	F	10	28	1	0	0	0

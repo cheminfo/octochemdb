@@ -32,7 +32,6 @@ export async function* parseNpasses(
       if (property?.SMILES === undefined) {
         continue;
       }
-
       const smilesDb = property.SMILES;
       const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
       const ocl = await getNoStereosFromCache(
@@ -176,14 +175,13 @@ export async function* parseNpasses(
           ocl,
         },
       };
-      if (item.pubchem_cid) result.data.cid = item.pubchem_cid;
+      if (item.pubchem_id) result.data.cid = item.pubchem_id;
       if (finalTaxonomies.length !== 0) {
         result.data.taxonomies = finalTaxonomies;
       }
       if (finalActivities.length !== 0) {
         result.data.activities = finalActivities;
       }
-
       yield result;
     }
   } catch (e) {

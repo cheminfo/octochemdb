@@ -8,13 +8,14 @@ test('ids search (npasses)', async () => {
 
   while (true) {
     const collection = await connection.getCollection('npasses');
-    if ((await collection.countDocuments()) === 12) {
+    if ((await collection.countDocuments()) === 6) {
+      console.log('npasses collection is ready');
       break;
     }
   }
   const request = {
     query: {
-      ids: 'NPC100353, NPC100380',
+      ids: 'NPC491455, NPC491456',
       fields: 'data',
     },
   };
@@ -24,6 +25,7 @@ test('ids search (npasses)', async () => {
     [
       "ocl",
       "cid",
+      "activities",
     ]
   `);
   expect(results.data).toMatchSnapshot();

@@ -13,7 +13,7 @@ test('syncNpasses', async () => {
   }
   await sync(connection);
   const collection = await connection.getCollection('npasses');
-  const collectionEntry = await collection.find({ _id: 'NPC100380' }).limit(1);
+  const collectionEntry = await collection.find({ _id: 'NPC491451' }).limit(1);
   const result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;
