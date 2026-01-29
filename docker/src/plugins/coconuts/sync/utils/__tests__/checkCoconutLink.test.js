@@ -6,7 +6,8 @@ import { checkCoconutLink } from '../checkCoconutLink.js';
 
 dotenv.config();
 test('checkCoconutLink', async () => {
-  const previousLink = process.env.COCONUT_SOURCE;
+  const previousLink =
+    'https://coconut.s3.uni-jena.de/prod/downloads/2025-05/coconut_csv-05-2025.zip';
   const connection = new OctoChemConnection();
   const result = await checkCoconutLink(previousLink, connection);
   expect(result).toMatchInlineSnapshot(`
