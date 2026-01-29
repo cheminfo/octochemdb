@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
-const debug = debugLibrary('checkIfUpdate');
+const debug = debugLibrary('COCONUT');
 /**
  * @description Check if there is an update for the coconut link by comparing the previous link with the links found on the downloads page
  * @param {*} previousLink - The previous coconut link
@@ -28,13 +28,10 @@ export async function checkCoconutLink(previousLink, connection) {
       ? downloadsSection.match(new RegExp(regexAllLinks, 'g')) || []
       : [];
     if (!allLinks.includes(previousLink)) {
-      await debug.fatal(
-        'Coconut Update: new links found, please update source',
-        {
-          collection: 'coconuts',
-          connection,
-        },
-      );
+      await debug.fatal('New links found, please update source', {
+        collection: 'coconuts',
+        connection,
+      });
       return allLinks;
     }
     return allLinks;

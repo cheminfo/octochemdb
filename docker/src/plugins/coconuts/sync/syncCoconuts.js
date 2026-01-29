@@ -8,6 +8,13 @@ import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
+import { checkCoconutLink } from './utils/checkCoconutLink.js';
+
+const coconutsTestSource =
+  '../docker/src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
+const coconutsSource =
+  'https://coconut.s3.uni-jena.de/prod/downloads/2025-05/coconut_csv-05-2025.zip';
+
 /**
  * @description Synchronize the coconuts collection from the coconut CSV ZIP
  * @param {*} connection MongoDB connection
@@ -15,11 +22,9 @@ import { parseCoconuts } from './utils/parseCoconuts.js';
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncCoconuts');
-  const coconutsTestSource =
-    '../docker/src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
 
   const options = {
-    collectionSource: process.env.COCONUT_SOURCE,
+    collectionSource: coconutsSource,
     destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
     collectionName: 'coconuts',
     filenameNew: 'coconuts',
@@ -42,6 +47,8 @@ export async function sync(connection) {
       connection,
       options.collectionName,
     );
+    // This will check at each sync if the source link has changed and will log a fatal error if so
+    await checkCoconutLink(process.env.COCONUT_SOURCE, connection);
 
     const isTimeToUpdate = await shouldUpdate(
       progress,
