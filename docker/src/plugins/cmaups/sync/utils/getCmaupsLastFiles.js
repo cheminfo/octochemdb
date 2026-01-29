@@ -1,5 +1,6 @@
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../../utils/Debug.js';
+import { checkCmaupLink } from './checkCmaupLink.js';
 
 const debug = debugLibrary('getCmaupsLastFiles');
 /**
@@ -17,42 +18,51 @@ export default async function getCmaupsLastFiles(connection) {
     let sources;
 
     if (process.env.NODE_ENV === 'test') {
-      lastFileGeneral = `${process.env.CMAUPS_FILE_GENERAL_TEST}`;
-      lastFileActivity = `${process.env.CMAUPS_FILE_ACTIVITY_TEST}`;
-      lastFileSpeciesAssociation = `${process.env.CMAUPS_FILE_SPECIESASSOCIATION_TEST}`;
-      lastFileSpeciesInfo = `${process.env.CMAUPS_FILE_SPECIESINFO_TEST}`;
-      lastTargetInfo = `${process.env.CMAUP_SOURCE_TARGET_TEST}`;
-
+      lastFileGeneral = `../docker/src/plugins/cmaups/sync/utils/__tests__/data/Ingredients.2023-10-23.txt`;
+      lastFileActivity = `../docker/src/plugins/cmaups/sync/utils/__tests__/data/Activity.2023-10-23.txt`;
+      lastFileSpeciesAssociation = `../docker/src/plugins/cmaups/sync/utils/__tests__/data/speciesAssociation.2023-10-23.txt`;
+      lastFileSpeciesInfo = `../docker/src/plugins/cmaups/sync/utils/__tests__/data/speciesInfo.2023-10-23.txt`;
+      lastTargetInfo = `../docker/src/plugins/cmaups/sync/utils/__tests__/data/targetAssociation.2023-10-23.txt`;
       sources = [
         lastFileGeneral,
         lastFileActivity,
         lastFileSpeciesAssociation,
         lastFileSpeciesInfo,
+        lastTargetInfo,
       ];
     } else {
+      const sourceLinks = [
+        'https://bidd.group/CMAUP/downloadFiles/CMAUPv2.0_download_Ingredients_All.txt',
+        'https://bidd.group/CMAUP/downloadFiles/CMAUPv2.0_download_Ingredient_Target_Associations_ActivityValues_References.txt',
+        'https://bidd.group/CMAUP/downloadFiles/CMAUPv2.0_download_Plant_Ingredient_Associations_onlyActiveIngredients.txt',
+        'https://bidd.group/CMAUP/downloadFiles/CMAUPv2.0_download_Plants.txt',
+        'https://bidd.group/CMAUP/downloadFiles/CMAUPv2.0_download_Targets.txt',
+      ];
+      await checkCmaupLink(sourceLinks, connection);
       let options = {
-        collectionSource: process.env.CMAUP_SOURCE_INGREDIENTS,
+        collectionSource: sourceLinks[0],
         destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaups/full`,
         collectionName: 'cmaups',
         filenameNew: 'Ingredients',
         extensionNew: 'txt',
       };
+
       // Get file Ingredients who contain general data about the molecule
       lastFileGeneral = await getLastFileSync(options);
       // Get file containing activity data for all active ingredients (lastFileGeneral)
-      options.collectionSource = process.env.CMAUP_SOURCE_ACTIVITY;
+      options.collectionSource = sourceLinks[1];
       options.filenameNew = 'activity';
       lastFileActivity = await getLastFileSync(options);
       // Get file Species association allows to relate mocule ID with taxonomies IDs
-      options.collectionSource = process.env.CMAUP_SOURCE_SPECIESASSOCIATION;
+      options.collectionSource = sourceLinks[2];
       options.filenameNew = 'speciesAssociation';
       lastFileSpeciesAssociation = await getLastFileSync(options);
       // Get file with taxonomies informations
-      options.collectionSource = process.env.CMAUP_SOURCE_SPECIESINFO;
+      options.collectionSource = sourceLinks[3];
       options.filenameNew = 'speciesInfo';
       lastFileSpeciesInfo = await getLastFileSync(options);
       // Get target info
-      options.collectionSource = process.env.CMAUP_SOURCE_TARGET;
+      options.collectionSource = sourceLinks[4];
       options.filenameNew = 'targetInfo';
       lastTargetInfo = await getLastFileSync(options);
 
