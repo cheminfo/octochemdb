@@ -9,7 +9,7 @@ import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { parseMassBank } from './utils/parseMassBank.js';
-
+import { checkMassBankLink } from './utils/checkMassBankLink.js';
 const debug = debugLibrary('syncMassBank');
 const massBankTestSource =
   '../docker/src/plugins/massBank/sync/utils/__tests__/data/massBank.msp';
@@ -58,6 +58,7 @@ export async function sync(connection) {
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
     }
+    await checkMassBankLink(massBankSource, connection);
     const progress = await connection.getProgress(options.collectionName);
     const lastDocumentImported = await getLastDocumentImported(
       connection,
