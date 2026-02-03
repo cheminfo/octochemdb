@@ -6,14 +6,14 @@ import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
+import { checkCoconutLink } from './utils/checkCoconutLink.js';
 import { getTaxonomiesForCoconuts } from './utils/getTaxonomiesForCoconuts.js';
 import { parseCoconuts } from './utils/parseCoconuts.js';
-import { checkCoconutLink } from './utils/checkCoconutLink.js';
 
 const coconutsTestSource =
   '../docker/src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
 const coconutsSource =
-  'https://coconut.s3.uni-jena.de/prod/downloads/2025-05/coconut_csv-05-2025.zip';
+  'https://coconut.s3.uni-jena.de/prod/downloads/2026-02/coconut_csv-02-2026.zip';
 
 /**
  * @description Synchronize the coconuts collection from the coconut CSV ZIP
