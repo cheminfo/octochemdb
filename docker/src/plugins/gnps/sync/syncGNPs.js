@@ -17,7 +17,8 @@ const debug = debugLibrary('syncGNPs');
 export async function sync(connection) {
   try {
     let options = {
-      collectionSource: process.env.GNPS_SOURCE,
+      collectionSource:
+        'https://external.gnps2.org/gnpslibrary/ALL_GNPS_NO_PROPOGATED.json',
       destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/gnps/full`,
       collectionName: 'gnps',
       filenameNew: 'gnps_full',
@@ -27,8 +28,10 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.GNPS_SOURCE_TEST}`;
-      sources = [process.env.GNPS_SOURCE_TEST];
+      lastFile = `../docker/src/plugins/gnps/sync/utils/__tests__/data/gnpsTest.json`;
+      sources = [
+        '../docker/src/plugins/gnps/sync/utils/__tests__/data/gnpsTest.json',
+      ];
     } else {
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
