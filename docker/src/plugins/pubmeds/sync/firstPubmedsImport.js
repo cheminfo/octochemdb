@@ -30,7 +30,7 @@ async function firstPubmedImport(connection) {
       allFiles = [
         {
           name: 'firstImportTest.xml.gz',
-          path: `${process.env.PUBMEDFIRSTIMPORT_SOURCE_TEST}`,
+          path: `../docker/src/plugins/pubmeds/sync/utils/__tests__/data/firstImportTest.xml.gz`,
         },
       ];
     } else {
@@ -48,15 +48,16 @@ async function firstPubmedImport(connection) {
     await connection.setProgress(progress);
     // get cidToPmid map
     let options = {
-      collectionSource: process.env.CIDTOPMID_SOURCE,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/pubmeds/cidToPmid`,
+      collectionSource:
+        'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-PMID.gz',
+      destinationLocal: `../originalData//pubmeds/cidToPmid`,
       collectionName: 'pubmeds',
       filenameNew: 'cidToPmid',
       extensionNew: 'gz',
     };
     let cidToPmidPath;
     if (process.env.NODE_ENV === 'test') {
-      cidToPmidPath = `${process.env.CIDTOPMID_SOURCE_TEST}`;
+      cidToPmidPath = `../docker/src/plugins/pubmeds/sync/utils/__tests__/data/cidToPmidTest.gz`;
     } else {
       cidToPmidPath = await getLastFileSync(options);
     }

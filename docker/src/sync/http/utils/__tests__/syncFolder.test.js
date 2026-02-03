@@ -8,7 +8,7 @@ dotenv.config();
 test('syncFolder', async () => {
   const destination = '../docker/src/sync/http/utils/__tests__/data/';
 
-  const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;
+  const source = `https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/SDF/`;
   const { allFiles } = await syncFolder(source, destination, {
     fileFilter: (file) => file && file.name.endsWith('.gz'),
   });

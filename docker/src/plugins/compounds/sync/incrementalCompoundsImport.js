@@ -20,7 +20,7 @@ async function incrementalCompoundImport(connection) {
       allFiles = [
         {
           name: 'compoundsIncrementalTest.sdf.gz',
-          path: `${process.env.COMPOUNDSINCREMENTAL_SOURCE_TEST}`,
+          path: `../docker/src/plugins/compounds/sync/utils/__tests__/data/compoundsIncrementalTest.sdf.gz`,
         },
       ];
     } else {

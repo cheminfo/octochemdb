@@ -25,7 +25,7 @@ async function firstSubstanceImport(connection) {
       allFiles = [
         {
           name: 'firstImportSubstances.sdf.gz',
-          path: `${process.env.SUBSTANCESFIRSTIMPORT_SOURCE_TEST}`,
+          path: `../docker/src/plugins/substances/sync/utils/__tests__/data/firstImportSubstances.sdf.gz`,
         },
       ];
     } else {

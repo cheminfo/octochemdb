@@ -17,8 +17,8 @@ import { parseLotuses } from './utils/parseLotuses.js';
 export async function sync(connection) {
   const debug = debugLibrary('syncLotuses');
   let options = {
-    collectionSource: process.env.LOTUS_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/lotuses/full`,
+    collectionSource: 'https://lotus.naturalproducts.net/download/mongo',
+    destinationLocal: `../originalData//lotuses/full`,
     collectionName: 'lotuses',
     filenameNew: 'lotuses',
     extensionNew: 'zip',
@@ -27,13 +27,13 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.LOTUS_SOURCE_TEST}`;
+      lastFile = `../docker/src/plugins/lotuses/sync/utils/__tests__/data/`;
       sources = [lastFile];
     } else {
       // get last file from lotus database
       lastFile = await getLastFileSync(options);
       // get sources, progress and lotuses collection
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
     // get sources, progress and lotuses collection
     const progress = await connection.getProgress('lotuses');

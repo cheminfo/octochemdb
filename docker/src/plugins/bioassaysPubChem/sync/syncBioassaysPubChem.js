@@ -18,15 +18,17 @@ import { main } from './utils/main.js';
 const debug = debugLibrary('syncBioassaysPubChem');
 export async function sync(connection) {
   let options = {
-    collectionSource: process.env.BIOASSAYSPUBMECHEM_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/bioassaysPubChem/full`,
+    collectionSource: 'https://ftp.ncbi.nlm.nih.gov/pubchem/Bioassay/JSON/',
+    destinationLocal: `../originalData/bioassaysPubChem/full`,
     collectionName: 'bioassaysPubChem',
   };
   try {
     const progress = await connection.getProgress(options.collectionName);
     let sources = [];
     if (process.env.NODE_ENV === 'test') {
-      sources = [`${process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST}`];
+      sources = [
+        `../docker/src/plugins/bioassaysPubChem/sync/utils/__test__/data/syncData/`,
+      ];
     } else {
       const { allFiles } = await syncFolder(
         options.collectionSource,
@@ -56,7 +58,8 @@ export async function sync(connection) {
     if (isTimeToUpdate) {
       let sourceFiles = options.destinationLocal;
       if (process.env.NODE_ENV === 'test') {
-        sourceFiles = process.env.BIOASSAYSPUBMECHEM_SOURCE_TEST || '';
+        sourceFiles =
+          '../docker/src/plugins/bioassaysPubChem/sync/utils/__test__/data/syncData/';
       }
       let fileList = await fileCollectionFromPath(sourceFiles, {
         unzip: { zipExtensions: [] },

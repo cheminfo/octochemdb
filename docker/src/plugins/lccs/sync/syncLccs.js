@@ -20,8 +20,9 @@ const { existsSync, rmSync } = pkg;
 export async function sync(connection) {
   const debug = debugLibrary('syncLccs');
   let options = {
-    collectionSource: process.env.LCCS_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/lccs/full`,
+    collectionSource:
+      'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-LCSS.xml.gz',
+    destinationLocal: `../originalData/lccs/full`,
     collectionName: 'lccs',
     filenameNew: 'lccs',
     extensionNew: 'gz',
@@ -30,12 +31,12 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.LCCS_SOURCE_TEST}`;
+      lastFile = `../docker/src/plugins/lccs/sync/utils/__tests__/data/test2.xml.gz`;
       sources = [lastFile];
     } else {
       // get last file from lccs
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
     // get sources, progress and lccs collection
     const progress = await connection.getProgress('lccs');
@@ -69,9 +70,11 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       let fileGHS;
       if (process.env.NODE_ENV === 'test') {
-        fileGHS = process.env.LCCS_GHS_SOURCE_TEST;
+        fileGHS =
+          '../docker/src/plugins/lccs/sync/utils/__tests__/data/ghs.txt';
       } else {
-        options.collectionSource = process.env.LCCS_GHS_SOURCE;
+        options.collectionSource =
+          'https://pubchem.ncbi.nlm.nih.gov/ghs/ghscode_10.txt';
         options.extensionNew = 'txt';
         options.filenameNew = 'ghscode';
         fileGHS = await getLastFileSync(options);

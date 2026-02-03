@@ -14,7 +14,7 @@ export async function taxonomySynonyms() {
   if (process.env.NODE_ENV === 'test') {
     path = `../docker/src/plugins/taxonomies/sync/utils/__tests__/data/`;
   } else {
-    path = `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full/`;
+    path = `../originalData/taxonomies/full/`;
   }
 
   let fileToRead = (

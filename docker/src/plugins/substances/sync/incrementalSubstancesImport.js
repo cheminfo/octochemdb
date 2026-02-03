@@ -16,7 +16,7 @@ async function incrementalSubstanceImport(connection) {
       allFiles = [
         {
           name: 'incrementalImportSubstances.sdf.gz',
-          path: `${process.env.SUBSTANCESINCREMENTALIMPORT_SOURCE_TEST}`,
+          path: `../docker/src/plugins/substances/sync/utils/__tests__/data/incrementalImportSubstances.sdf.gz`,
         },
       ];
     } else {

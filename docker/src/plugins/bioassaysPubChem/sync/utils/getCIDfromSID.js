@@ -32,7 +32,7 @@ export async function getCIDfromSID(sids) {
           );
         } else {
           dataSubstance = await fetch(
-            `${process.env.SUBSTANCES_ROUTE}${urlSIDs}`,
+            `https://octo.cheminfo.org/substances/v1/ids?ids=${urlSIDs}`,
             {
               signal: controller.signal,
             },

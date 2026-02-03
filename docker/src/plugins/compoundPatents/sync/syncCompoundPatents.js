@@ -20,8 +20,9 @@ export async function sync(connection) {
   const debug = debugLibrary('syncCompoundPatents');
   try {
     let options = {
-      collectionSource: process.env.COMPOUND_PATENTS_SOURCE,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/compoundPatents/cidToPatents`,
+      collectionSource:
+        'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-Patent.gz',
+      destinationLocal: `../originalData/compoundPatents/cidToPatents`,
       collectionName: 'compoundPatents',
       filenameNew: 'cidToPatents',
       extensionNew: 'gz',
@@ -30,7 +31,7 @@ export async function sync(connection) {
     let lastFile;
     const progress = await connection.getProgress('compoundPatents');
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.COMPOUND_PATENTS_SOURCE_TEST}`;
+      lastFile = `../docker/src/plugins/compoundPatents/sync/utils/__tests__/data/patentsTest.gz`;
       sources = [lastFile];
     }
     // get last files cidToPatens available in the PubChem database
@@ -39,7 +40,7 @@ export async function sync(connection) {
       Number(process.env.COMPOUND_PATENTS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     } else {
       sources = progress.sources; // this will prevent to update the collection
     }

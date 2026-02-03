@@ -41,7 +41,7 @@ export default async function getCmaupsLastFiles(connection) {
       await checkCmaupLink(sourceLinks, connection);
       let options = {
         collectionSource: sourceLinks[0],
-        destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/cmaups/full`,
+        destinationLocal: `../originalData/cmaups/full`,
         collectionName: 'cmaups',
         filenameNew: 'Ingredients',
         extensionNew: 'txt',
@@ -68,14 +68,11 @@ export default async function getCmaupsLastFiles(connection) {
 
       // Get sources with new downloaded files (will be used to check if necessary to update collection)
       sources = [
-        lastFileGeneral.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileSpeciesAssociation.replace(
-          `${process.env.ORIGINAL_DATA_PATH}`,
-          '',
-        ),
-        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFileGeneral.replace(`../originalData/`, ''),
+        lastFileActivity.replace(`../originalData/`, ''),
+        lastFileSpeciesAssociation.replace(`../originalData/`, ''),
+        lastFileSpeciesInfo.replace(`../originalData/`, ''),
+        lastTargetInfo.replace(`../originalData/`, ''),
       ];
     }
     // Get collection admin

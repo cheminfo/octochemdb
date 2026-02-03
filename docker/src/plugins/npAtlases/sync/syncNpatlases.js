@@ -22,7 +22,7 @@ export async function sync(connection) {
     let options = {
       collectionSource:
         'https://www.npatlas.org/static/downloads/NPAtlas_download.json',
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/npAtlases/full`,
+      destinationLocal: `../originalData//npAtlases/full`,
       collectionName: 'npAtlases',
       filenameNew: 'npAtlases',
       extensionNew: 'json',
@@ -35,7 +35,7 @@ export async function sync(connection) {
     } else {
       // get last files available in the NPATLAS database
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
     // get taxonomies old to new IDs mapping
     const oldToNewTaxIDs = await taxonomySynonyms();

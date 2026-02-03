@@ -13,11 +13,11 @@ export async function syncPubmedFolder(connection, importType) {
     let source;
     let destination;
     if (importType === 'first') {
-      source = `${process.env.PUBMED_SOURCE}baseline/`;
-      destination = `${process.env.ORIGINAL_DATA_PATH}/pubmeds/full`;
+      source = `https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/`;
+      destination = `../originalData//pubmeds/full`;
     } else if (importType === 'incremental') {
-      source = `${process.env.PUBMED_SOURCE}updatefiles/`;
-      destination = `${process.env.ORIGINAL_DATA_PATH}/pubmeds/update`;
+      source = `https://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/`;
+      destination = `../originalData//pubmeds/update`;
     }
     debug.trace(`Syncing: ${source} to ${destination}`);
 

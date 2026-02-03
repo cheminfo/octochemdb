@@ -8,7 +8,7 @@ dotenv.config();
 test('getFile', async () => {
   const targetFile = '';
   const file = {
-    url: process.env.GETFILEIFNEW_SOURCE_TEST,
+    url: 'https://ftp.ncbi.nlm.nih.gov/pubchem/Other/README.txt',
   };
   let result = await getFile(file, targetFile);
   expect(await result).toBe(200);

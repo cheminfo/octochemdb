@@ -25,7 +25,7 @@ export async function sync(connection) {
 
   const options = {
     collectionSource: coconutsSource,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/coconuts/full`,
+    destinationLocal: `../originalData/coconuts/full`,
     collectionName: 'coconuts',
     filenameNew: 'coconuts',
     extensionNew: 'zip',
@@ -39,7 +39,7 @@ export async function sync(connection) {
       sources = [lastFile];
     } else {
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
 
     const progress = await connection.getProgress(options.collectionName);

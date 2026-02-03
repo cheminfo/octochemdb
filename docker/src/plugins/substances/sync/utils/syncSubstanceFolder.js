@@ -12,8 +12,8 @@ export async function syncSubstanceFolder(connection, importType) {
   try {
     debug.trace('Synchronize full substance folder');
     if (importType === 'first') {
-      const source = `${process.env.PUBCHEM_SOURCE}Substance/CURRENT-Full/SDF/`;
-      const destination = `${process.env.ORIGINAL_DATA_PATH}/substances/full`;
+      const source = `https://ftp.ncbi.nlm.nih.gov/pubchem/Substance/CURRENT-Full/SDF/`;
+      const destination = `../originalData//substances/full`;
 
       debug.trace(`Syncing: ${source} to ${destination}`);
 
@@ -28,8 +28,8 @@ export async function syncSubstanceFolder(connection, importType) {
     } else if (importType === 'incremental') {
       debug.trace('Synchronize incremental substance folder');
 
-      const source = `${process.env.PUBCHEM_SOURCE}Substance/Weekly/`;
-      const destination = `${process.env.ORIGINAL_DATA_PATH}/substances/weekly`;
+      const source = `https://ftp.ncbi.nlm.nih.gov/pubchem/Substance/Weekly/`;
+      const destination = `../originalData//substances/weekly`;
       const allFiles = [];
       const weeks = await getFilesList(source, {
         fileFilter: (file) => file && file.name.match(/\d{4}-\d{2}-\d{2}/),

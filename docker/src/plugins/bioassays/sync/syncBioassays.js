@@ -17,8 +17,9 @@ const debug = debugLibrary('syncBioassays');
  */
 export async function sync(connection) {
   let options = {
-    collectionSource: process.env.ACTIVITIES_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/bioassays/full`,
+    collectionSource:
+      'https://ftp.ncbi.nlm.nih.gov/pubchem/Bioassay/Extras/bioactivities.tsv.gz',
+    destinationLocal: `../originalData/bioassays/full`,
     collectionName: 'bioassays',
     filenameNew: 'bioactivities',
     extensionNew: 'tsv.gz',
@@ -29,19 +30,20 @@ export async function sync(connection) {
     let bioassaysFile;
     let sources;
     if (process.env.NODE_ENV === 'test') {
-      bioactivitiesFile = `${process.env.BIOACTIVITIES_SOURCE_TEST}`;
-      bioassaysFile = `${process.env.BIOASSAY_SOURCE_TEST}`;
+      bioactivitiesFile = `../docker/src/plugins/bioassays/sync/utils/__tests__/data/bioactivities.tsv.gz`;
+      bioassaysFile = `../docker/src/plugins/bioassays/sync/utils/__tests__/data/bioassays.tsv.gz`;
       sources = [bioassaysFile, bioactivitiesFile];
     } else {
       // Download the bioActivities and bioAssays files if newer than last sync
       bioactivitiesFile = await getLastFileSync(options);
-      options.collectionSource = process.env.BIOASSAY_SOURCE;
+      options.collectionSource =
+        'https://ftp.ncbi.nlm.nih.gov/pubchem/Bioassay/Extras/bioassays.tsv.gz';
       options.filenameNew = 'bioassays';
       bioassaysFile = await getLastFileSync(options);
       // Get progress of last sync and the bioassays collection
       sources = [
-        bioassaysFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        bioactivitiesFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        bioassaysFile.replace(`../originalData/`, ''),
+        bioactivitiesFile.replace(`../originalData/`, ''),
       ];
     }
 

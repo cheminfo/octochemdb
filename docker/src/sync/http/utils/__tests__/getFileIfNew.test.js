@@ -16,7 +16,7 @@ test('getFileIfNew', async () => {
 
   // transform file path to url import.meta.url
   const file = {
-    url: process.env.GETFILEIFNEW_SOURCE_TEST,
+    url: 'https://ftp.ncbi.nlm.nih.gov/pubchem/Other/README.txt',
   };
 
   const result = await getFileIfNew(file, destination, options);

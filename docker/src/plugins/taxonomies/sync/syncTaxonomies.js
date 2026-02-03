@@ -19,8 +19,9 @@ const debug = debugLibrary('syncTaxonomies');
  */
 export async function sync(connection) {
   let options = {
-    collectionSource: process.env.TAXONOMY_SOURCE,
-    destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/taxonomies/full`,
+    collectionSource:
+      'https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.zip',
+    destinationLocal: `../originalData//taxonomies/full`,
     collectionName: 'taxonomies',
     filenameNew: 'taxonomies',
     extensionNew: 'zip',
@@ -29,11 +30,13 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.TAXONOMY_SOURCE_TEST}`;
-      sources = [process.env.TAXONOMY_SOURCE_TEST];
+      lastFile = `../docker/src/plugins/taxonomies/sync/utils/__tests__/data/new_taxdump.zip`;
+      sources = [
+        `../docker/src/plugins/taxonomies/sync/utils/__tests__/data/new_taxdump.zip`,
+      ];
     } else {
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
     const progress = await connection.getProgress(options.collectionName);
     const lastDocumentImported = await getLastDocumentImported(

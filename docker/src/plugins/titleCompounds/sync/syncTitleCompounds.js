@@ -19,8 +19,9 @@ export async function sync(connection) {
   const debug = debugLibrary('syncTitleCompounds');
   try {
     let options = {
-      collectionSource: process.env.TITLECOMPOUNDS_SOURCE,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/titleCompounds/`,
+      collectionSource:
+        'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-Title.gz',
+      destinationLocal: `../originalData//titleCompounds/`,
       collectionName: 'titleCompounds',
       filenameNew: 'cidToTitle',
       extensionNew: 'gz',
@@ -29,14 +30,14 @@ export async function sync(connection) {
     let lastFile;
     const progress = await connection.getProgress('titleCompounds');
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.TITLECOMPOUNDS_SOURCE_TEST}`;
+      lastFile = `../docker/src/plugins/titleCompounds/sync/utils/__tests__/data/CID-Title.gz`;
       sources = [lastFile];
     } else if (
       Date.now() - Number(progress.dateEnd) >
       Number(process.env.TITLECOMPOUNDS_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     } else {
       sources = progress.sources; // this will prevent to update the collection
     }

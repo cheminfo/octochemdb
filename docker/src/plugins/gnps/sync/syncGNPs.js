@@ -19,7 +19,7 @@ export async function sync(connection) {
     let options = {
       collectionSource:
         'https://external.gnps2.org/gnpslibrary/ALL_GNPS_NO_PROPOGATED.json',
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/gnps/full`,
+      destinationLocal: `../originalData/gnps/full`,
       collectionName: 'gnps',
       filenameNew: 'gnps_full',
       extensionNew: 'json',
@@ -34,7 +34,7 @@ export async function sync(connection) {
       ];
     } else {
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
 
     const progress = await connection.getProgress(options.collectionName);

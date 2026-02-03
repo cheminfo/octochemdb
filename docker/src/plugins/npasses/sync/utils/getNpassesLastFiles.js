@@ -44,7 +44,7 @@ export default async function getNpassesLastFiles(connection) {
       ];
       let options = {
         collectionSource: sourceLinks[0],
-        destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/npasses/full`,
+        destinationLocal: `../originalData//npasses/full`,
         collectionName: 'npasses',
         filenameNew: 'general',
         extensionNew: 'txt',
@@ -68,26 +68,20 @@ export default async function getNpassesLastFiles(connection) {
       lastTargetInfo = await getLastFileSync(options);
       // define sources
       source = [
-        lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileSpeciesProperties.replace(
-          `${process.env.ORIGINAL_DATA_PATH}`,
-          '',
-        ),
-        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFile.replace(`../originalData/`, ''),
+        lastFileActivity.replace(`../originalData/`, ''),
+        lastFileSpeciesProperties.replace(`../originalData/`, ''),
+        lastFileSpeciesInfo.replace(`../originalData/`, ''),
+        lastFileSpeciesPair.replace(`../originalData/`, ''),
+        lastTargetInfo.replace(`../originalData/`, ''),
       ];
       sources = [
-        lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileActivity.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileSpeciesProperties.replace(
-          `${process.env.ORIGINAL_DATA_PATH}`,
-          '',
-        ),
-        lastFileSpeciesInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastFileSpeciesPair.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
-        lastTargetInfo.replace(`${process.env.ORIGINAL_DATA_PATH}`, ''),
+        lastFile.replace(`../originalData/`, ''),
+        lastFileActivity.replace(`../originalData/`, ''),
+        lastFileSpeciesProperties.replace(`../originalData/`, ''),
+        lastFileSpeciesInfo.replace(`../originalData/`, ''),
+        lastFileSpeciesPair.replace(`../originalData/`, ''),
+        lastTargetInfo.replace(`../originalData/`, ''),
       ];
     }
     // set logs

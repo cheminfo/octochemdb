@@ -43,7 +43,7 @@ export async function sync(connection) {
   try {
     let options = {
       collectionSource: massBankSource,
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/massBank/full`,
+      destinationLocal: `../originalData//massBank/full`,
       collectionName: 'massBank',
       filenameNew: 'massBank_full',
       extensionNew: 'msp',
@@ -56,7 +56,7 @@ export async function sync(connection) {
       sources = [massBankTestSource];
     } else {
       lastFile = await getLastFileSync(options);
-      sources = [lastFile.replace(`${process.env.ORIGINAL_DATA_PATH}`, '')];
+      sources = [lastFile.replace(`../originalData/`, '')];
     }
     await checkMassBankLink(massBankSource, connection);
     const progress = await connection.getProgress(options.collectionName);

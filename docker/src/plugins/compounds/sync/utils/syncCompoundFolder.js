@@ -14,8 +14,8 @@ export async function syncCompoundFolder(connection, importType) {
     debug.trace(`Synchronize compound folder (${importType} importation)`);
     // if importType is 'first', then we need to sync the whole folder
     if (importType === 'first') {
-      const source = `${process.env.PUBCHEM_SOURCE}Compound/CURRENT-Full/SDF/`;
-      const destination = `${process.env.ORIGINAL_DATA_PATH}/compounds/full`;
+      const source = `https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/SDF/`;
+      const destination = `../originalData/compounds/full`;
       debug.trace(`Syncing: ${source} to ${destination}`);
       const { allFiles } = await syncFolder(source, destination, {
         fileFilter: (file) => file && file.name.endsWith('.gz'),
@@ -30,8 +30,8 @@ export async function syncCompoundFolder(connection, importType) {
     }
     // if importType is 'incremental', then we need to sync only the new files in the weekly update
     if (importType === 'incremental') {
-      const source = `${process.env.PUBCHEM_SOURCE}Compound/Weekly/`;
-      const destination = `${process.env.ORIGINAL_DATA_PATH}/compounds/weekly`;
+      const source = `https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Weekly/`;
+      const destination = `../originalData/compounds/weekly`;
       const allFiles = [];
       const weeks = await getFilesList(source, {
         fileFilter: (file) => file && file.name.match(/\d{4}-\d{2}-\d{2}/),

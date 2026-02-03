@@ -16,7 +16,7 @@ export async function sync(connection) {
   const debug = debugLibrary('syncPatents');
   try {
     let options = {
-      destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/patents/`,
+      destinationLocal: `../originalData//patents/`,
       collectionName: 'patents',
     };
     let sources;
@@ -26,8 +26,12 @@ export async function sync(connection) {
     const progress = await connection.getProgress('patents');
 
     if (process.env.NODE_ENV === 'test') {
-      titles2parse = [process.env.PATENTS_TITLES_TEST];
-      abstracts2parse = [process.env.PATENTS_ABSTRACTS_TEST];
+      titles2parse = [
+        '../docker/src/plugins/patents/sync/utils/__tests__/data/pc_patent2title.ttl.gz',
+      ];
+      abstracts2parse = [
+        '../docker/src/plugins/patents/sync/utils/__tests__/data/pc_patetn2abstract.ttl.gz',
+      ];
       sources = [];
       titles2parse.forEach((title) => {
         sources.push(title);
@@ -40,8 +44,8 @@ export async function sync(connection) {
       Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
       titlesAndPatents = await getTitlesAndAbstracts(
-        process.env.PATENTS_TITLES_ABSTRACT_SOURCE,
-        `${process.env.ORIGINAL_DATA_PATH}/patents/`,
+        'https://ftp.ncbi.nlm.nih.gov/pubchem/RDF/patent/',
+        `../originalData//patents/`,
       );
       titles2parse = titlesAndPatents?.titlesDownloaded;
       abstracts2parse = titlesAndPatents?.abstractsDownloaded;
