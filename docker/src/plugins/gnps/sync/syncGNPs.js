@@ -6,6 +6,7 @@ import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
+import { checkGNPSLink } from './utils/checkGNPSLink.js';
 import { parseGNPs } from './utils/parseGNPs.js';
 
 const debug = debugLibrary('syncGNPs');
@@ -33,6 +34,7 @@ export async function sync(connection) {
         '../docker/src/plugins/gnps/sync/utils/__tests__/data/gnpsTest.json',
       ];
     } else {
+      await await checkGNPSLink([options.collectionSource], connection);
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`../originalData/`, '')];
     }

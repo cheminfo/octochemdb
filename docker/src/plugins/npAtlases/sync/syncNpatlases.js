@@ -9,6 +9,7 @@ import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/taxonomySynonyms.js';
 
+import { checkNpAtlasesLink } from './utils/checkNpAtlasesLink.js';
 import { getTaxonomiesForNpAtlases } from './utils/getTaxonomiesForNpAtlases.js';
 import { parseNpatlases } from './utils/parseNpatlases.js';
 /**
@@ -33,6 +34,8 @@ export async function sync(connection) {
       lastFile = `../docker/src/plugins/npAtlases/sync/utils/__tests__/data/npAtlasTest.json`;
       sources = [lastFile];
     } else {
+      // check if link has changed
+      await checkNpAtlasesLink([options.collectionSource], connection);
       // get last files available in the NPATLAS database
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`../originalData/`, '')];

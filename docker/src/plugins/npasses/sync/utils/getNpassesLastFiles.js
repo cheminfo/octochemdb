@@ -1,6 +1,7 @@
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../../utils/Debug.js';
 
+import { checkNpassesLink } from './checkNpassesLink.js';
 /**
  * @description get last npass files available in the NPASS database
  * @param {*} connection - mongo connection
@@ -42,6 +43,9 @@ export default async function getNpassesLastFiles(connection) {
         'https://bidd.group/NPASS/downloadFiles/NPASS3.0_species_info.txt',
         'https://bidd.group/NPASS/downloadFiles/NPASS3.0_target.txt',
       ];
+      // check if link has changed
+      await checkNpassesLink(sourceLinks, connection);
+
       let options = {
         collectionSource: sourceLinks[0],
         destinationLocal: `../originalData//npasses/full`,
