@@ -20,7 +20,8 @@ export async function sync(connection) {
   const debug = debugLibrary('syncNpAtlases');
   try {
     let options = {
-      collectionSource: process.env.NPATLAS_SOURCE,
+      collectionSource:
+        'https://www.npatlas.org/static/downloads/NPAtlas_download.json',
       destinationLocal: `${process.env.ORIGINAL_DATA_PATH}/npAtlases/full`,
       collectionName: 'npAtlases',
       filenameNew: 'npAtlases',
@@ -29,7 +30,7 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${process.env.NPATLAS_SOURCE_TEST}`;
+      lastFile = `../docker/src/plugins/npAtlases/sync/utils/__tests__/data/npAtlasTest.json`;
       sources = [lastFile];
     } else {
       // get last files available in the NPATLAS database
