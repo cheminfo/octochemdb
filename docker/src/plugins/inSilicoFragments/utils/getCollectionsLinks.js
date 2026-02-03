@@ -27,7 +27,7 @@ export default async function getCollectionsLinks(connection) {
       let test = results.find(
         (result) =>
           result.noStereoTautomerID ===
-          'fnc@r@JRUipPQFQQJQYKIQSPiLEUmSUUTu@A@@Zh}`NOta`ZfOacxX',
+          'fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota`zvOacxX',
       );
       results = results.slice(0, 5);
       results.push(test);

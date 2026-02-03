@@ -9,7 +9,6 @@ test('ids search (npasses)', async () => {
   while (true) {
     const collection = await connection.getCollection('npasses');
     if ((await collection.countDocuments()) === 6) {
-      console.log('npasses collection is ready');
       break;
     }
   }

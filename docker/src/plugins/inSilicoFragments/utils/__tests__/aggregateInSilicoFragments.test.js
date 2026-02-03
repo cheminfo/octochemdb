@@ -19,7 +19,7 @@ test('In silico fragmentation', async () => {
   const result = await collection.findOne({
     _id: {
       noStereoTautomerID:
-        'feoa`DF`iUlyHihdeeEDdddbnRLzI\\mGNjjjjjjjjjh@MThqcELLpKDlJqkAlVq{@\\QqgA\\SpoF|_iCJnLVOacxX',
+        'fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota`zvOacxX',
       mode: 'positive',
       ionization: 'esi',
     },
