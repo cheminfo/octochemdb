@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('MASSBANK');
+
 /**
  * @description Check if there is an update for the coconut link by comparing the previous link with the links found on the downloads page
  * @param {*} previousLink - The previous coconut link
@@ -21,9 +22,9 @@ export async function checkMassBankLink(previousLink, connection) {
       /<include-fragment\b[^>]*\bsrc="([^"]*\/releases\/expanded_assets\/[^"]+)"[^>]*>/;
 
     const downloadsSectionMatch = text.match(regexDownloadsSection);
-    const expanded_assets_url = await fetch(downloadsSectionMatch?.[1]);
-    const expanded_assets_text = await expanded_assets_url.text();
-    let allLinks = expanded_assets_text.match(
+    const expandedAssetsUrl = await fetch(downloadsSectionMatch?.[1]);
+    const expandedAssetsText = await expandedAssetsUrl.text();
+    let allLinks = expandedAssetsText.match(
       /href="([^"]*\/(?:releases\/download|archive\/refs\/tags)\/[^"]+)"/g,
     );
     allLinks = allLinks.map(

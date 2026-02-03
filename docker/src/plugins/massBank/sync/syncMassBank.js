@@ -8,8 +8,9 @@ import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
-import { parseMassBank } from './utils/parseMassBank.js';
 import { checkMassBankLink } from './utils/checkMassBankLink.js';
+import { parseMassBank } from './utils/parseMassBank.js';
+
 const debug = debugLibrary('syncMassBank');
 const massBankTestSource =
   '../docker/src/plugins/massBank/sync/utils/__tests__/data/massBank.msp';
