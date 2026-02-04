@@ -28,4 +28,5 @@ test('id search (coconuts)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

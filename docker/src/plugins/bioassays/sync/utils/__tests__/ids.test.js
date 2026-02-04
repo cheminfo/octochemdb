@@ -30,4 +30,5 @@ test('id search (bioassays)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

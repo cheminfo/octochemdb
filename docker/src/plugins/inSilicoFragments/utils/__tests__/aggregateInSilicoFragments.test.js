@@ -27,5 +27,3 @@ test('In silico fragmentation', async () => {
   expect(result).toMatchSnapshot();
   await connection.close();
 }, 100000);
-///activesOrNaturals/utils/__test__/id.test.js
-//inSilicoFragments/utils/__tests__/search.test.js

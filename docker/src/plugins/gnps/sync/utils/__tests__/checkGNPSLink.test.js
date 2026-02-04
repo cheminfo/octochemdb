@@ -12,7 +12,5 @@ test('checkGNPSLink', async () => {
   const connection = new OctoChemConnection();
   const result = await checkGNPSLink(previousLinks, connection);
   expect(result).toMatchSnapshot();
-  if (connection) {
-    await connection.close();
-  }
+  await connection.close();
 });

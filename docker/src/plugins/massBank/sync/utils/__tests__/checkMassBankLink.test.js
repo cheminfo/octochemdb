@@ -19,7 +19,6 @@ test('checkMassBankLink', async () => {
       "https://github.com/MassBank/MassBank-data/archive/refs/tags/2025.10.tar.gz",
     ]
   `);
-  if (connection) {
-    await connection.close();
-  }
+
+  await connection.close();
 });

@@ -56,4 +56,5 @@ describe('search (massBank)', async () => {
     expect(Object.keys(results.data)).toHaveLength(1);
     expect(results.data).toMatchSnapshot();
   });
+  await connection.close();
 });

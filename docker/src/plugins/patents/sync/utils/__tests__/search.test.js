@@ -36,4 +36,5 @@ describe('search (patents)', async () => {
     // @ts-ignore
     expect(oneEntryResult[0].score).toBeGreaterThan(4);
   });
+  await connection.close();
 });

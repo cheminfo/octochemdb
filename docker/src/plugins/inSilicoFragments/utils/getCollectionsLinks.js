@@ -24,13 +24,17 @@ export default async function getCollectionsLinks(connection) {
       `Loaded ${results.length} noStereoTautomerIDs from activesOrNaturals`,
     );
     if (process.env.NODE_ENV === 'test') {
-      let test = results.find(
-        (result) =>
-          result.noStereoTautomerID ===
-          'fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota`zvOacxX',
+      const noStereoTautomersForTest = [
+        'fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota`zvOacxX',
+        'fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota`zvOacxX',
+        'eodPF@@@FMHjgldTbbdTVRNTQVdrvDlBrzFNnjjjjjjjjjjj`@MUJLLXTqi`KBvClWXAqCc}LLXjX~FOamJfOacxYzecxX~F@',
+        'eodPF@@@FMHjgldTbbdTVRNTQVdrvDlBrzFNnjjjjjjjjjjj`@MUJLLXTqi`KBvClWXAqCc}LLXjX~FOamJfOacxYzecxX~F@',
+        'ebQVJDDLAKBel]GO@i`@bDHlgsldTRbRRRfbebbRbbrVIGEC@qsrHLMUUUUUAQEQUUTT@Ajea`cGFALRXTqibsGf@lYXJqMa[GvD\\XxIq~bFZNLFOacxYrecxX~F@',
+        'flu@P@@X\\eJYm]enrTdkpZjjjjjj`@uLcFLDqsAlVp{GlAqGB\\Eq~bLqRq|L_CNiX~FOa`',
+      ];
+      results = results.filter((entry) =>
+        noStereoTautomersForTest.includes(entry.noStereoTautomerID),
       );
-      results = results.slice(0, 5);
-      results.push(test);
     }
     for (const entry of results) {
       if (Array.isArray(entry.noStereoId)) {

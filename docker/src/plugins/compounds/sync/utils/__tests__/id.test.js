@@ -37,4 +37,5 @@ test('id search (compounds)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

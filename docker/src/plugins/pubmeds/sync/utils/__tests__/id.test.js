@@ -33,4 +33,5 @@ test('id search (pubmeds)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

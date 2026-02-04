@@ -41,4 +41,5 @@ test('ids search (titleCompounds)', async () => {
       },
     ]
   `);
+  await connection.close();
 });

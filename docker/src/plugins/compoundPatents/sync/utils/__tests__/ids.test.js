@@ -27,4 +27,5 @@ test('id search (compoundPatents)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

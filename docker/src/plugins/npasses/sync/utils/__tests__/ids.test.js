@@ -28,4 +28,5 @@ test('ids search (npasses)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

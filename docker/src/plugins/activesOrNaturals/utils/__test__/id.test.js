@@ -21,4 +21,5 @@ test('id search (activesOrNaturals)', async () => {
   };
   const results = await entriesFromID.handler(request);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

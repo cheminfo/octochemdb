@@ -40,7 +40,6 @@ test('checkCmaupLink', async () => {
       "https://bidd.group/CMAUP/downloadFiles_2018/Download_Readme.txt",
     ]
   `);
-  if (connection) {
-    await connection.close();
-  }
+
+  await connection.close();
 });

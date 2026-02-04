@@ -43,7 +43,6 @@ test('checkNpassesLink', async () => {
       "https://bidd.group/NPASS/downloadFiles/NPASSv1.0_download_naturalProducts_speciesInfo.txt",
     ]
   `);
-  if (connection) {
-    await connection.close();
-  }
+
+  await connection.close();
 });

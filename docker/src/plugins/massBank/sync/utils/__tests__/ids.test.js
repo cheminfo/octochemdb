@@ -29,4 +29,5 @@ test('ids search (massBank)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

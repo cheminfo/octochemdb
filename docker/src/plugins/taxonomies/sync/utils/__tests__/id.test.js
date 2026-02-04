@@ -22,4 +22,5 @@ test('ids search (taxonomies)', async () => {
   // @ts-ignore
   expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot('[]');
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

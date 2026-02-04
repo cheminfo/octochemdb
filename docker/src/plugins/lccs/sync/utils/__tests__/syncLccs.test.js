@@ -11,4 +11,5 @@ test('syncLccs', async () => {
   const entry = await lccs.findOne();
   expect(count).toBe(4);
   expect(entry).toMatchSnapshot();
+  await connection.close();
 });

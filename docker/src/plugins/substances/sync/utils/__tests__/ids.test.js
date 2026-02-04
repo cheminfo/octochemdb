@@ -34,4 +34,5 @@ test('ids search (substances)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

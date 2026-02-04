@@ -20,7 +20,6 @@ test('checkCoconutLink', async () => {
       "https://coconut.s3.uni-jena.de/prod/downloads/2026-02/coconut_csv-02-2026.zip",
     ]
   `);
-  if (connection) {
-    await connection.close();
-  }
+
+  await connection.close();
 });

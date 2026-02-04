@@ -29,4 +29,5 @@ test('id search (cmaups)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

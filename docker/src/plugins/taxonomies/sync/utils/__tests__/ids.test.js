@@ -28,4 +28,5 @@ test('ids search (taxonomies)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

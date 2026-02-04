@@ -23,7 +23,6 @@ test('checkNpAtlasesLink', async () => {
       "https://www.npatlas.org/download",
     ]
   `);
-  if (connection) {
-    await connection.close();
-  }
+
+  await connection.close();
 });

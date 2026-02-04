@@ -24,4 +24,5 @@ test('nEntires (activesOrNaturals)', async () => {
   expect(results.data.length).toBe(4);
   expect(results.data[0].data.em).toBeGreaterThan(0);
   expect(results.data[1]._id).toBeDefined();
+  await connection.close();
 });

@@ -39,4 +39,5 @@ describe('search (pubmeds)', async () => {
     // @ts-ignore
     expect(results.data[0].score).toBeGreaterThan(1);
   });
+  await connection.close();
 });

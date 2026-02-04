@@ -6,25 +6,12 @@ exports[`search activesOrNaturals > search: min max and flags 1`] = `
   "data": {
     "activities": [
       {
-        "$id": "NPC100333",
+        "$id": "NPC491455",
         "$ref": "npasses",
       },
     ],
     "em": 456.36034540574997,
     "mf": "C30H48O3",
-    "taxonomies": [
-      {
-        "dbRef": {
-          "$id": "NPC100333",
-          "$ref": "npasses",
-        },
-        "family": "Fagaceae",
-        "genus": "Quercus",
-        "kingdom": "Viridiplantae",
-        "species": "Quercus acuta",
-        "superkingdom": "Eukaryota",
-      },
-    ],
   },
 }
 `;

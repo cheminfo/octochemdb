@@ -65,4 +65,5 @@ describe('search (gnps)', async () => {
     // @ts-ignore
     expect(results.data[0].data).toMatchSnapshot();
   });
+  await connection.close();
 });

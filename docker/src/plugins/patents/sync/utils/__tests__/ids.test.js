@@ -28,4 +28,5 @@ test('ids search (patents)', async () => {
     ]
   `);
   expect(results.data).toMatchSnapshot();
+  await connection.close();
 });

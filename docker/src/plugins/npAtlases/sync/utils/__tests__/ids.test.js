@@ -31,4 +31,5 @@ test('ids search (npAtlases)', async () => {
   delete results.data[0].data.ocl.coordinates;
   // @ts-ignore
   expect(results.data[0].data).toMatchSnapshot();
+  await connection.close();
 });

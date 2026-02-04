@@ -9,7 +9,7 @@ describe('search activesOrNaturals', async () => {
   while (true) {
     const activeOrNaturalsCollection =
       await connection.getCollection('activesOrNaturals');
-    if ((await activeOrNaturalsCollection.countDocuments()) === 74) {
+    if ((await activeOrNaturalsCollection.countDocuments()) === 68) {
       break;
     }
   }
@@ -148,4 +148,5 @@ describe('search activesOrNaturals', async () => {
       }
     `);
   });
+  //await connection.close();
 });
