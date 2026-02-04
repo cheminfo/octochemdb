@@ -3,7 +3,15 @@ import OCL from 'openchemlib';
 import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
 
 import getCIDs from './getCIDs.js';
-
+/**
+ * @description parses compound information for activesOrNaturals plugin
+ * @param {Object} compoundInfo - compound information from compounds collection
+ * @param {String} noStereoTautomerID - noStereoTautomerID of the compound
+ * @param {*} connection - mongo connection
+ * @param {Object} entry - entry to be updated
+ * @param {Array<Object>} data - array of data from all collections for the current noStereoTautomerID
+ * @returns {Promise<Object>} returns parsed compound information
+ */
 export default async function parseCompoundInfo(
   compoundInfo,
   noStereoTautomerID,
@@ -14,7 +22,7 @@ export default async function parseCompoundInfo(
   let cas = {};
   let pmids = [];
   let meshTerms = [];
-  let ocl = {};
+  let ocl = [];
   let { cids, cidsDBRef, dbRefsMolecules, titles } = await getCIDs(
     connection,
     noStereoTautomerID,
@@ -40,20 +48,23 @@ export default async function parseCompoundInfo(
     if (oneDataEntry.data.cas) {
       cas[oneDataEntry.data.cas] = true;
     }
-    if (!ocl.coordinates) {
-      if (
-        oneDataEntry.data.ocl.noStereoID !== undefined &&
-        oneDataEntry.data.ocl.coordinates !== undefined
-      ) {
-        ocl.coordinates = oneDataEntry.data.ocl.coordinates;
-        ocl.idCode = oneDataEntry.data.ocl.noStereoID;
-      } else {
-        let idCode = oneDataEntry.data.ocl.idCode;
-        let molecule = OCL.Molecule.fromIDCode(idCode);
-        molecule.stripStereoInformation();
-        ocl.idCode = molecule.getIDCodeAndCoordinates().idCode;
-        ocl.coordinates = molecule.getIDCodeAndCoordinates().coordinates;
-      }
+
+    if (
+      oneDataEntry.data.ocl.noStereoID !== undefined &&
+      oneDataEntry.data.ocl.coordinates !== undefined
+    ) {
+      ocl.push({
+        coordinates: oneDataEntry.data.ocl.coordinates,
+        idCode: oneDataEntry.data.ocl.noStereoID,
+      });
+    } else {
+      let idCode = oneDataEntry.data.ocl.idCode;
+      let molecule = OCL.Molecule.fromIDCode(idCode);
+      molecule.stripStereoInformation();
+      ocl.push({
+        idCode: molecule.getIDCodeAndCoordinates().idCode,
+        coordinates: molecule.getIDCodeAndCoordinates().coordinates,
+      });
     }
   }
 
