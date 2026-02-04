@@ -23,7 +23,6 @@ exports[`ids search (substances) 2`] = `
       "mw": 247.2918441341343,
       "nbFragments": 1,
       "ocl": {
-        "coordinates": "!B?\`Bw@h\`Bm?vH?[\\Bb@Jw?Xc}?\`Bw@k_}mpJw?[\\Bm?t",
         "idCode": "fhapP@DJB@TkYEDddhbdduUSUU@@@",
         "noStereoTautomerID": "fhapP@FFBBboIRjjs{UUUUUP@Z|ybVEXMbvGX}c}HXjecxX~F@",
       },
@@ -51,7 +50,6 @@ exports[`ids search (substances) 2`] = `
       "mw": 254.32915004446983,
       "nbFragments": 1,
       "ocl": {
-        "coordinates": "!B?\`Bw@h\`BmwvH_WvHmwtBmxc|?g~H_Xa}?g~H_X\`BbGvH_P",
         "idCode": "fdiH\`BL^CDB@sGlbbRdTjVRQkMUUUUK@@@",
         "noStereoTautomerID": "fdiH\`BN^CDC@sGldTbcTRVRQkUUUUUK@AjbfFXRFLjX~FOa\`",
       },

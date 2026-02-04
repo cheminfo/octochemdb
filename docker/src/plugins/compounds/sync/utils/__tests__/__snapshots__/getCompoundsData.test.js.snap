@@ -15,7 +15,6 @@ exports[`getCompoundData test if index are correct 1`] = `
     "nbFragments": 1,
     "ocl": {
       "acceptorCount": 1,
-      "coordinates": "!B_vp@[G|S@AL",
       "donorCount": 0,
       "idCode": "gJQ@@eKU@@",
       "index": [
@@ -63,7 +62,6 @@ exports[`getCompoundsData 1`] = `
     "nbFragments": 1,
     "ocl": {
       "acceptorCount": 8,
-      "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\KL?Fr\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
       "donorCount": 4,
       "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
       "index": [

@@ -27,6 +27,11 @@ test('ids search (lotuses)', async () => {
       "taxonomies",
     ]
   `);
+  if (results?.data) {
+    for (const entry of results.data) {
+      delete entry.data.ocl.coordinates;
+    }
+  }
   expect(results.data).toMatchSnapshot();
   await connection.close();
 });

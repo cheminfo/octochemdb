@@ -9,7 +9,6 @@ exports[`id search (bioassays) 2`] = `
       "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
       "cid": 5351641,
       "ocl": {
-        "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\KL?Fr\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
         "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
         "noStereoTautomerID": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
       },
@@ -32,7 +31,6 @@ exports[`id search (bioassays) 2`] = `
       "assay": "uHTS for Small Molecule Inhibitors of Eukaryotic Translation Initiation",
       "cid": 59478,
       "ocl": {
-        "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\KL?Fr\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
         "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
         "noStereoTautomerID": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
       },

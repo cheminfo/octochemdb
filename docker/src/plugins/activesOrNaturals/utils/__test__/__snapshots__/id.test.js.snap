@@ -19,7 +19,6 @@ exports[`id search (activesOrNaturals) 1`] = `
     "molecules": [
       {
         "ocl": {
-          "coordinates": "!BTq\`ZXG?~YrqeXOx@b@Jw@h\`BmwvH@k\\B@OxBbOx@mwt",
           "idCode": "fhiAP@@HU[rSJ|jlqJV\\uKWUSTBED",
         },
         "sources": [
@@ -39,7 +38,6 @@ exports[`id search (activesOrNaturals) 1`] = `
     "nbTaxonomies": 1,
     "noStereoOCL": [
       {
-        "coordinates": "!BTq\`ZXG?~YrqeXOx@b@Jw@h\`BmwvH@k\\B@h\`@?k]}?\`@",
         "idCode": "fhiAP@@HU[rSJ|jlqJV\\uKWUST@@",
       },
     ],

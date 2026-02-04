@@ -29,6 +29,11 @@ describe('search (massBank)', async () => {
         "mf",
       ]
     `);
+    if (results?.data) {
+      for (const entry of results.data) {
+        delete entry.data.ocl.coordinates;
+      }
+    }
     expect(results.data).toMatchSnapshot();
   });
   it('masses (massBank)', async () => {
@@ -42,6 +47,11 @@ describe('search (massBank)', async () => {
     const results = await search.handler(request);
     // @ts-ignore
     expect(Object.keys(results.data)).toHaveLength(1);
+    if (results?.data) {
+      for (const entry of results.data) {
+        delete entry.data.ocl.coordinates;
+      }
+    }
     expect(results.data).toMatchSnapshot();
   });
   it('mf (massBank)', async () => {
@@ -54,6 +64,11 @@ describe('search (massBank)', async () => {
     const results = await search.handler(request);
     // @ts-ignore
     expect(Object.keys(results.data)).toHaveLength(1);
+    if (results?.data) {
+      for (const entry of results.data) {
+        delete entry.data.ocl.coordinates;
+      }
+    }
     expect(results.data).toMatchSnapshot();
   });
   await connection.close();

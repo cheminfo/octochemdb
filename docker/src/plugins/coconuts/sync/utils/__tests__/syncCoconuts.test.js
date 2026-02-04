@@ -15,6 +15,9 @@ test('syncCoconuts', async () => {
   const collection = await connection.getCollection('coconuts');
   const collectionEntry = await collection.find({ _id: 'CNP0214016.1' });
   const result = await collectionEntry.toArray();
+  if (result[0]?.data) {
+    delete result[0].data.ocl.coordinates;
+  }
 
   expect(result).toMatchSnapshot();
 

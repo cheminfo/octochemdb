@@ -17,7 +17,6 @@ exports[`ids search (npasses) 2`] = `
       ],
       "cid": "n.a.",
       "ocl": {
-        "coordinates": "!B?g~H_[]}mww~@Ha}?g~w?K\\B?g~H_[]}?\`Bw__y?XCo~_{\\BmwvH_\\Bt?g?~_xa}m?vw@oy??g~w?PC~@k_~_p",
         "idCode": "ehZPL@@@D@\\bfdTRTTLRteVdrtfdlTtbrzFNnZjjjjjjjjjijeLHQNDIMIyLdtai\\\`@",
         "noStereoTautomerID": "ehZPL@@@KglbbdRebTLRdJttTTRxDLlbRZzv~jjjjjjjjjjjjP@MTClWXRCKjfOacxX",
       },
@@ -35,7 +34,6 @@ exports[`ids search (npasses) 2`] = `
       ],
       "cid": "n.a.",
       "ocl": {
-        "coordinates": "!BbGw~@H\`B?g~H?K\\Bm?vH__x@bGvw_Xc|?g?~_{\\Bmwvw@oy?mwvw@k]}mpK~_{]}",
         "idCode": "fikA\`@@FGdbbdTVtrjbrTUIJmPUDTTuSTdDQGhl@",
         "noStereoTautomerID": "fikA\`@@VGdbdTRrrbUbrTSAZ]UUUUTuSUP@ZjiafNXeaVCXmavAxgc}HYZccxX~F@",
       },

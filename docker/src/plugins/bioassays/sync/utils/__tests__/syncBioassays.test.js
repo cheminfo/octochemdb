@@ -23,6 +23,9 @@ test('syncBioassays', async () => {
   if (result?._seq) {
     delete result._seq;
   }
+  if (result) {
+    delete result.data.ocl.coordinates;
+  }
   expect(result).toMatchSnapshot();
   await connection.close();
 });

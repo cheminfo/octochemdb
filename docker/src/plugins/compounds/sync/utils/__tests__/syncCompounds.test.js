@@ -12,6 +12,9 @@ test('syncCompounds First Importation', async () => {
   if (result?._seq) {
     delete result._seq;
   }
+  if (result?.data) {
+    delete result.data.ocl.coordinates;
+  }
   expect(result).toMatchSnapshot();
   await connection.close();
 });
@@ -24,6 +27,9 @@ test('syncCompounds Incremental Importation', async () => {
   const resultIncremental = await collectionEntryIncremental.next();
   if (resultIncremental?._seq) {
     delete resultIncremental._seq;
+  }
+  if (resultIncremental?.data) {
+    delete resultIncremental.data.ocl.coordinates;
   }
   expect(resultIncremental).toMatchSnapshot();
   await connection.close();

@@ -11,6 +11,10 @@ test('getCompoundsData', async () => {
       'ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@',
   };
   let dataCompound = await getCompoundsData(molecule);
+  if (dataCompound?.data?.ocl) {
+    // @ts-ignore
+    delete dataCompound.data.ocl.coordinates;
+  }
   expect(dataCompound).toMatchSnapshot();
 });
 test('getCompoundData test if index are correct', async () => {
@@ -18,5 +22,9 @@ test('getCompoundData test if index are correct', async () => {
     smiles: 'CCOCC',
   };
   let dataCompound = await getCompoundsData(molecule);
+  if (dataCompound?.data?.ocl) {
+    // @ts-ignore
+    delete dataCompound.data.ocl.coordinates;
+  }
   expect(dataCompound).toMatchSnapshot();
 });

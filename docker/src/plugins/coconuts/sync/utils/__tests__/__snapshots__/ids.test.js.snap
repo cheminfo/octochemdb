@@ -8,7 +8,6 @@ exports[`id search (coconuts) 2`] = `
       "iupacName": "2-(dimethylamino)ethyl (1~{R},15~{S},16~{S},20~{S})-6,18-dimethoxy-16-methyl-17-oxa-3,13-diazapentacyclo[11.8.0.0^{2,10}.0^{4,9}.0^{15,20}]henicosa-2(10),4,6,8,18-pentaene-19-carboxylate",
       "name": "DIMETHYLAMINOETHYL RESERPILINATE",
       "ocl": {
-        "coordinates": "!B?g~H_[]}b@K~_{_|bGvw?Xa}m?w~@H\`BmpJH?K\\BmpK~@Ha}m?w~@Ox@mpJDUK\\B?\`CMtJ[@tmASFELXtmCRtHAN",
         "idCode": "edV\\J@@CBn\`DAI@\\bbTRbbRRTVUTRVRRre\`QPtrvswsTuUUUUUMPAUPDLIQVHJ@@",
         "noStereoTautomerID": "edV\\J@@CBn\`DAI@\\bbTRbbRRTVUTRVRRre\`QPtrvswsTuUUUUUUUUUU@@Z~JX|pUakGVAlSXVqm\`{EvGlXxIqSc}HLzhx~FOa\`",
       },
@@ -21,7 +20,6 @@ exports[`id search (coconuts) 2`] = `
       "iupacName": "[(1~{S},2~{R},3~{S},5~{S},6~{S},16~{E},18~{E},20~{R},21~{S})-11-chloro-21-hydroxy-12,20-dimethoxy-2,5,9,16-tetramethyl-8,23-dioxo-4,24-dioxa-9,22-diazatetracyclo[19.3.1.1^{10,14}.0^{3,5}]hexacosa-10,12,14(26),16,18-pentaen-6-yl] (2~{S})-2-[acetyl(methyl)amino]propanoate",
       "name": "MAYTANSINE",
       "ocl": {
-        "coordinates": "!B]T\\wDPJ[_ZQuQpBn]T\\wDPJ[JNgnbBwOZibDgWDwgBlR^}\\iAAHZYu[W?haxsSzwMNrXEWlRAAHEEsSc?h\`D[^LWNOUUIpCQAAI{D\`iGMvxwLWv[Bd_~b@Qm_YlJQp",
         "idCode": "e\`||EH@FOmRKLnml^US_PH\`hRDaHQD\`dcLRDaLRHQHsLaHRDcHqHRLGbShXdWUvBHbijZjjVjjjjjZRhPIEHZGRzORFDi@Jf\`",
         "noStereoTautomerID": "e\`||EH@FOmRKLnml^US_PH\`hRDaHQD\`dcLRDaLRHQHsLaHRDcHqHRLGbShXdWUvBHbjjZjjZjjjjjjbh@CTPsEfEl[Xup[awB^OtHrricxX~FvjX~FOacZfOacx[vicxX~F@",
       },

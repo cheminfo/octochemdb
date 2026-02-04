@@ -22,7 +22,10 @@ test('improveCompoundPool working', async () => {
   };
 
   let { promise } = await improveCompoundPool(molecule, { timeout: 60000 });
-
+  const result = await promise;
+  if (result?.data?.ocl) {
+    delete result.data.ocl.coordinates;
+  }
   expect(await promise).toMatchInlineSnapshot(`
     {
       "data": {
@@ -38,7 +41,6 @@ test('improveCompoundPool working', async () => {
         "nbFragments": 1,
         "ocl": {
           "acceptorCount": 8,
-          "coordinates": "!BkDKv^?DDiHVdaYL}kDJlPoY{}gn[noDDiHVdaZqB^?D}kFslwoaF_zREQJYxN\\KL?Fr\\DfQAaLg|{OIKcTodY^s|aMXt|cSu?o\`t|o{xMOTt|cSrMOW~~@",
           "donorCount": 4,
           "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
           "index": [

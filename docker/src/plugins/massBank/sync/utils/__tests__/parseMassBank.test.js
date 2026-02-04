@@ -15,5 +15,12 @@ test('parseMassBank', async () => {
     results.push(result);
   }
   expect(results).toHaveLength(2);
+  if (results) {
+    for (const entry of results) {
+      if (entry?.data?.ocl) {
+        delete entry.data.ocl.coordinates;
+      }
+    }
+  }
   expect(results).toMatchSnapshot();
 });

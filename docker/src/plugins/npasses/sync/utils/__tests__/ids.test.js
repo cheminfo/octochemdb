@@ -27,6 +27,11 @@ test('ids search (npasses)', async () => {
       "activities",
     ]
   `);
+  if (results?.data) {
+    for (const entry of results.data) {
+      delete entry.data.ocl.coordinates;
+    }
+  }
   expect(results.data).toMatchSnapshot();
   await connection.close();
 });

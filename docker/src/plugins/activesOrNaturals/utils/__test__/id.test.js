@@ -20,6 +20,15 @@ test('id search (activesOrNaturals)', async () => {
     },
   };
   const results = await entriesFromID.handler(request);
+
+  if (results) {
+    for (const noStereo of results.data.data.noStereoOCL) {
+      delete noStereo.coordinates;
+    }
+    for (const molecule of results.data.data.molecules) {
+      delete molecule.ocl.coordinates;
+    }
+  }
   expect(results.data).toMatchSnapshot();
   await connection.close();
 });

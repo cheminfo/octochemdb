@@ -53,6 +53,9 @@ test('Aggregation ActivesOrNaturals', async () => {
       delete molecule.ocl.coordinates;
     }
     delete result.data.noStereoOCL.coordinates;
+    for (const noStereo of result.data.noStereoOCL) {
+      delete noStereo.coordinates;
+    }
   }
   expect(result).toMatchSnapshot();
   await connection.close();

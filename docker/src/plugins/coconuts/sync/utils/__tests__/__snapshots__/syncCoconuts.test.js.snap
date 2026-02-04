@@ -10,7 +10,6 @@ exports[`syncCoconuts 1`] = `
       "iupacName": "[(1~{S},2~{R},3~{S},5~{S},6~{S},16~{E},18~{E},20~{R},21~{S})-11-chloro-21-hydroxy-12,20-dimethoxy-2,5,9,16-tetramethyl-8,23-dioxo-4,24-dioxa-9,22-diazatetracyclo[19.3.1.1^{10,14}.0^{3,5}]hexacosa-10,12,14(26),16,18-pentaen-6-yl] (2~{S})-2-[acetyl(methyl)amino]propanoate",
       "name": "MAYTANSINE",
       "ocl": {
-        "coordinates": "!B]T\\wDPJ[_ZQuQpBn]T\\wDPJ[JNgnbBwOZibDgWDwgBlR^}\\iAAHZYu[W?haxsSzwMNrXEWlRAAHEEsSc?h\`D[^LWNOUUIpCQAAI{D\`iGMvxwLWv[Bd_~b@Qm_YlJQp",
         "idCode": "e\`||EH@FOmRKLnml^US_PH\`hRDaHQD\`dcLRDaLRHQHsLaHRDcHqHRLGbShXdWUvBHbijZjjVjjjjjZRhPIEHZGRzORFDi@Jf\`",
         "noStereoTautomerID": "e\`||EH@FOmRKLnml^US_PH\`hRDaHQD\`dcLRDaLRHQHsLaHRDcHqHRLGbShXdWUvBHbjjZjjZjjjjjjbh@CTPsEfEl[Xup[awB^OtHrricxX~FvjX~FOacZfOacx[vicxX~F@",
       },

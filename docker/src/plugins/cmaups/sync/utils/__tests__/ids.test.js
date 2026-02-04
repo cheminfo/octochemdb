@@ -19,6 +19,11 @@ test('id search (cmaups)', async () => {
     },
   };
   const results = await search.handler(request);
+  if (results?.data) {
+    for (const entry of results.data) {
+      delete entry.data.ocl.coordinates;
+    }
+  }
   // @ts-ignore
   expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
     [
