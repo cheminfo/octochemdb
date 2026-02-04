@@ -53,6 +53,17 @@ export default async function parseCompoundInfo(
       oneDataEntry.data.ocl.noStereoID !== undefined &&
       oneDataEntry.data.ocl.coordinates !== undefined
     ) {
+      // i need to check if noStereoID already exists in ocl array to avoid duplicates
+      let exists = false;
+      for (const oclEntry of ocl) {
+        if (oclEntry.idCode === oneDataEntry.data.ocl.noStereoID) {
+          exists = true;
+          break;
+        }
+      }
+      if (exists) {
+        continue;
+      }
       ocl.push({
         coordinates: oneDataEntry.data.ocl.coordinates,
         idCode: oneDataEntry.data.ocl.noStereoID,
@@ -61,8 +72,20 @@ export default async function parseCompoundInfo(
       let idCode = oneDataEntry.data.ocl.idCode;
       let molecule = OCL.Molecule.fromIDCode(idCode);
       molecule.stripStereoInformation();
+      // need to check if noStereoID already exists in ocl array to avoid duplicates
+      let noStereoID = molecule.getIDCodeAndCoordinates().idCode;
+      let exists = false;
+      for (const oclEntry of ocl) {
+        if (oclEntry.idCode === noStereoID) {
+          exists = true;
+          break;
+        }
+      }
+      if (exists) {
+        continue;
+      }
       ocl.push({
-        idCode: molecule.getIDCodeAndCoordinates().idCode,
+        idCode: noStereoID,
         coordinates: molecule.getIDCodeAndCoordinates().coordinates,
       });
     }
