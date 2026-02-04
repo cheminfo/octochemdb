@@ -18,8 +18,7 @@ test('In silico fragmentation', async () => {
   const collection = await connection.getCollection('inSilicoFragments');
   const result = await collection.findOne({
     _id: {
-      noStereoTautomerID:
-        'fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota`zvOacxX',
+      noStereoId: 'fikAP@@\\TT^RJJJISHsIISIRlfmATEPDCEP@@@',
       mode: 'positive',
       ionization: 'esi',
     },
@@ -28,3 +27,5 @@ test('In silico fragmentation', async () => {
   expect(result).toMatchSnapshot();
   await connection.close();
 }, 100000);
+///activesOrNaturals/utils/__test__/id.test.js
+//inSilicoFragments/utils/__tests__/search.test.js

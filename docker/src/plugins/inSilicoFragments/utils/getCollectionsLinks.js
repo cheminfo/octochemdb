@@ -13,7 +13,7 @@ export default async function getCollectionsLinks(connection) {
         {
           $project: {
             _id: 0,
-            idCode: '$data.noStereoOCL.idCode',
+            noStereoId: '$data.noStereoOCL',
             noStereoTautomerID: '$_id',
           },
         },
@@ -32,18 +32,19 @@ export default async function getCollectionsLinks(connection) {
       results = results.slice(0, 5);
       results.push(test);
     }
-
     for (const entry of results) {
-      if (entry?.idCode) {
-        if (!links[entry.noStereoTautomerID]) {
-          links[entry.noStereoTautomerID] = {
-            id: entry.noStereoTautomerID,
-            idCode: entry.idCode,
-          };
+      if (Array.isArray(entry.noStereoId)) {
+        for (const idCodeObj of entry.noStereoId) {
+          if (!links[entry.noStereoTautomerID]) {
+            links[entry.noStereoTautomerID] = [];
+          }
+          links[entry.noStereoTautomerID].push({
+            noStereoId: idCodeObj.idCode,
+            noStereoTautomerID: entry.noStereoTautomerID,
+          });
         }
       }
     }
-
     return links;
   } catch (e) {
     if (connection) {

@@ -6,14 +6,15 @@ exports[`search (inSilicoFragments) > masses (inSilicoFragments) 2`] = `
     "_id": {
       "ionization": "esi",
       "mode": "positive",
-      "noStereoTautomerID": "fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota\`zvOacxX",
+      "noStereoId": "fikAP@@\\TT^RJJJISHsIISIRlfmATEPDCEP@@@",
     },
     "data": {
       "em": 344.16237387137,
       "fragmentationDbHash": "bea0aa0ea6b1f942e24b2a6003192edf",
       "mf": "C20H24O5",
       "ocl": {
-        "idCode": "fikAP@@\\TT^RJJJISHsIISIRlfmATEPDCEP@@@",
+        "noStereoId": "fikAP@@\\TT^RJJJISHsIISIRlfmATEPDCEP@@@",
+        "noStereoTautomerID": "fikAP@@\\TT^RJJJISHsIISIRlfmATEQUSUQ@AkrvGXCbNBx{b^Ota\`zvOacxX",
       },
       "spectrum": {
         "data": {

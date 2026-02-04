@@ -44,63 +44,72 @@ parentPort?.on('message', async (dataEntry) => {
     let start = Date.now();
 
     for (const link of links) {
+      // now in each link has an array of idCodes
       try {
-        let molecule = Molecule.fromIDCode(link.idCode);
-        const mfInfo = new MF(molecule.getMolecularFormula().formula).getInfo();
+        for (const idCodeObj of link) {
+          let molecule = Molecule.fromIDCode(idCodeObj.noStereoId);
+          const mfInfo = new MF(
+            molecule.getMolecularFormula().formula,
+          ).getInfo();
 
-        if (mfInfo.monoisotopicMass <= 1000) {
-          let result = {
-            data: {
-              ocl: { idCode: link.idCode },
-              spectrum: {
-                data: {},
+          if (mfInfo.monoisotopicMass <= 1000) {
+            let result = {
+              data: {
+                ocl: {
+                  noStereoId: idCodeObj.noStereoId,
+                  noStereoTautomerID: idCodeObj.noStereoTautomerID,
+                },
+                spectrum: {
+                  data: {},
+                },
               },
-            },
-          };
-          result.data.mf = mfInfo.mf;
-          result.data.em = mfInfo.monoisotopicMass;
+            };
+            result.data.mf = mfInfo.mf;
+            result.data.em = mfInfo.monoisotopicMass;
 
-          if (process.env.NODE_ENV === 'test') {
-            fragmentationOptions.limitReactions = 10;
-          }
-          let ionSources = ['esi'];
-          let mode = ['positive', 'negative'];
-          for (const ionSource of ionSources) {
-            for (const ionMode of mode) {
-              let entry = await currentCollection.findOne({
-                noStereoTautomerID: link.id,
-                ionMode,
-                ionSource,
-              });
+            if (process.env.NODE_ENV === 'test') {
+              fragmentationOptions.limitReactions = 10;
+            }
+            let ionSources = ['esi'];
+            let mode = ['positive', 'negative'];
+            for (const ionSource of ionSources) {
+              for (const ionMode of mode) {
+                let entry = await currentCollection.findOne({
+                  noStereoId: idCodeObj.noStereoId,
+                  ionMode,
+                  ionSource,
+                });
 
-              if (
-                entry === undefined ||
-                entry?.data.fragmentationDbHash !==
-                  databases[ionSource][ionMode]
-              ) {
-                fragmentationOptions.ionizations = [ionSource];
-                fragmentationOptions.modes = [ionMode];
-                let fragments = reactionFragmentation(
-                  molecule,
-                  fragmentationOptions,
-                );
-                const massesArray = getMasses(fragments.masses);
+                if (
+                  entry === undefined ||
+                  entry?.data.fragmentationDbHash !==
+                    databases[ionSource][ionMode]
+                ) {
+                  fragmentationOptions.ionizations = [ionSource];
+                  fragmentationOptions.modes = [ionMode];
 
-                if (massesArray.length > 0) {
-                  result.data.spectrum.data.x = massesArray;
-                  result.data.fragmentationDbHash =
-                    databases[ionSource][ionMode];
-
-                  result._id = {
-                    noStereoTautomerID: link.id,
-                    mode: ionMode,
-                    ionization: ionSource,
-                  };
-                  await currentCollection.updateOne(
-                    { _id: result._id },
-                    { $set: result },
-                    { upsert: true },
+                  let fragments = reactionFragmentation(
+                    molecule,
+                    fragmentationOptions,
                   );
+                  const massesArray = getMasses(fragments.masses);
+
+                  if (massesArray.length > 0) {
+                    result.data.spectrum.data.x = massesArray;
+                    result.data.fragmentationDbHash =
+                      databases[ionSource][ionMode];
+
+                    result._id = {
+                      noStereoId: idCodeObj.noStereoId,
+                      mode: ionMode,
+                      ionization: ionSource,
+                    };
+                    await currentCollection.updateOne(
+                      { _id: result._id },
+                      { $set: result },
+                      { upsert: true },
+                    );
+                  }
                 }
               }
             }
