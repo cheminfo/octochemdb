@@ -7,7 +7,7 @@ const debug = debugLibrary('GNPS');
  * Checks if there are updates for the GNPS download links by comparing previous links with those found on the downloads page.
  *
  * @param {string[]} previousLinks - Array of previously known GNPS download links.
- * @param {import('../../../../utils/OctoChemConnection.js').OctoChemConnection} connection - The OctoChemConnection instance for logging.
+ * @param {OctoChemConnection} connection - The OctoChemConnection instance for logging.
  * @returns {Promise<string[]>} A promise that resolves to an array of all GNPS download links found on the downloads page.
  */
 export async function checkGNPSLink(previousLinks, connection) {
