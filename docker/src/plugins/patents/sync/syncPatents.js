@@ -8,13 +8,29 @@ import getTitlesAndAbstracts from './utils/https/getTitlesAndAbstract.js';
 import insertAbstract from './utils/insertAbstract.js';
 import insertTitle from './utils/insertTitle.js';
 /**
- * @description sync patents from PubChem database
- * @param {*} connection - mongo connection
- * @returns {Promise} returns patents collection
+ * Synchronises the `patents` collection from the PubChem RDF patent feed.
+ *
+ * The function:
+ * 1. Determines whether an update is needed by comparing the stored progress
+ *    timestamp against `PATENT_UPDATE_INTERVAL` (days).
+ * 2. Downloads (or reuses test fixtures for) the patent title and abstract
+ *    TTL/GZ files from the PubChem FTP server.
+ * 3. Parses and inserts titles then abstracts into a temporary collection.
+ * 4. Renames the temporary collection to `patents`, drops the old
+ *    one, and rebuilds the required indexes.
+ * 5. Marks any document that is missing `data.nbCompounds` with a default of 0.
+ * 6. Persists the updated progress record.
+ *
+ * @async
+ * @param {import('../../../utils/OctoChemConnection.js').OctoChemConnection} connection
+ *   An active OctoChemConnection instance.
+ * @returns {Promise<void>} Resolves when synchronisation is complete or when
+ *   no update is needed.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncPatents');
   try {
+    // Base configuration: local download directory and target collection name.
     let options = {
       destinationLocal: `../originalData//patents/`,
       collectionName: 'patents',
@@ -23,26 +39,30 @@ export async function sync(connection) {
     let titlesAndPatents;
     let titles2parse;
     let abstracts2parse;
+
+    // Retrieve (or create) the progress document for this collection so we can
+    // decide whether a fresh sync is required and track sequence numbers.
     const progress = await connection.getProgress('patents');
+    if (!progress) {
+      throw new Error('Failed to retrieve progress for patents');
+    }
 
     if (process.env.NODE_ENV === 'test') {
+      // In the test environment use local fixture files to avoid network I/O.
       titles2parse = [
         '../docker/src/plugins/patents/sync/utils/__tests__/data/pc_patent2title.ttl.gz',
       ];
       abstracts2parse = [
         '../docker/src/plugins/patents/sync/utils/__tests__/data/pc_patetn2abstract.ttl.gz',
       ];
-      sources = [];
-      titles2parse.forEach((title) => {
-        sources.push(title);
-      });
-      abstracts2parse.forEach((abstract) => {
-        sources.push(abstract);
-      });
+      // Build the combined source list used for the md5 checksum.
+      sources = [...titles2parse, ...abstracts2parse];
     } else if (
+      // Check whether enough time has elapsed since the last successful sync.
       Date.now() - Number(progress.dateEnd) >
       Number(process.env.PATENT_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000
     ) {
+      // Download the latest title and abstract dumps from PubChem FTP.
       titlesAndPatents = await getTitlesAndAbstracts(
         'https://ftp.ncbi.nlm.nih.gov/pubchem/RDF/patent/',
         `../originalData//patents/`,
@@ -50,15 +70,12 @@ export async function sync(connection) {
       titles2parse = titlesAndPatents?.titlesDownloaded;
       abstracts2parse = titlesAndPatents?.abstractsDownloaded;
 
-      sources = [];
-      titles2parse?.forEach((title) => {
-        sources.push(title);
-      });
-      abstracts2parse?.forEach((abstract) => {
-        sources.push(abstract);
-      });
+      // Combine both lists into a single source manifest for change detection.
+      sources = [...(titles2parse ?? []), ...(abstracts2parse ?? [])];
     } else {
-      sources = progress.sources; // this will prevent to update the collection
+      // The interval has not elapsed — reuse the stored sources hash so that
+      // shouldUpdate() will decide no update is needed.
+      sources = progress.sources;
     }
     const lastDocumentImported = await getLastDocumentImported(
       connection,
@@ -73,31 +90,53 @@ export async function sync(connection) {
     );
 
     if (isTimeToUpdate) {
+      // Mark the collection as currently being updated so that other processes
+      // or health checks can detect an in-progress sync.
       progress.state = 'updating';
       await connection.setProgress(progress);
 
       if (titles2parse && abstracts2parse) {
+        // Insert patent titles first; each file is processed sequentially to
+        // keep memory usage bounded.
         for (let title of titles2parse) {
           await insertTitle(title, connection);
         }
+        // Insert abstracts after all titles are present so cross-references
+        // between the two are always resolvable.
         for (let abstract of abstracts2parse) {
           await insertAbstract(abstract, connection);
         }
       }
+
+      // Atomically swap the temporary collection into place, dropping whatever
+      // previously existed under the production name.
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
+
       const collection = await connection.getCollection(options.collectionName);
+
+      // Full-text index with title weighted 10× higher than abstract, used by
+      // the search routes.
       await collection.createIndex(
         { 'data.title': 'text', 'data.abstract': 'text' },
         { weights: { 'data.title': 10, 'data.abstract': 1 } },
       );
+      // Numeric index on compound count to support range/sort queries.
       await collection.createIndex({ 'data.nbCompounds': 1 });
 
-      // update Logs
+      // Backfill any documents that were imported without a compound count so
+      // that queries filtering on nbCompounds always find a defined value.
+      await collection.updateMany(
+        { 'data.nbCompounds': { $exists: false } },
+        { $set: { 'data.nbCompounds': 0 } },
+      );
+
+      // Persist the md5 checksum of the processed source list so that
+      // shouldUpdate() can detect future changes.
       progress.sources = md5(JSON.stringify(sources));
       progress.state = 'updated';
       progress.dateEnd = Date.now();
@@ -105,10 +144,12 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      // Narrow the unknown catch binding before accessing Error properties.
+      const error = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(error.message, {
         collection: 'patents',
         connection,
-        stack: e.stack,
+        stack: error.stack,
       });
     }
   }
