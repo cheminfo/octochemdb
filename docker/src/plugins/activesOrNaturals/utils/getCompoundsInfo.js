@@ -49,25 +49,11 @@ export default async function getCompoundsInfo(
     const dbRefsMolecules = parsedCompoundInfo.dbRefsMolecules;
     let titles = parsedCompoundInfo.titles;
     let compoundsPatents = [];
-    // let bioassaysPubChemDBRefs = [];
-    // const bioassaysPubChemCollection =
-    //await connection.getCollection('bioassaysPubChem');
+
     if (compoundsIDs?.length > 0) {
       for (let compound of compoundsIDs) {
         let currentCid = Number(compound);
-        // NOT YET IMPLEMENTED
-        /*
-        // get bioassaysPubChem dbRefs
-        let bioassaysPubChemRef = await getBioassaysPubChemRefs(
-          currentCid,
-          bioassaysPubChemCollection,
-        );
-        // merge bioassaysPubChem dbRefs
-        bioassaysPubChemDBRefs = [
-          ...bioassaysPubChemDBRefs,
-          ...bioassaysPubChemRef,
-        ];
-        */
+
         let cursor = await compoundPatentsCollection.find({ _id: currentCid });
         if (await cursor.hasNext()) {
           let patent = await cursor.next();
@@ -82,6 +68,7 @@ export default async function getCompoundsInfo(
       }
     }
     entry.data.nbPatents = 0;
+    entry.data.patents = [];
 
     if (compoundsPatents?.length > 0) {
       let dbRefsPatents = [];
@@ -91,8 +78,8 @@ export default async function getCompoundsInfo(
         let patentInfo = await patentCursor.next();
         if (
           patentInfo &&
-          patentInfo.data.title &&
-          patentInfo.data.nbCompounds > 0
+          patentInfo.data?.title &&
+          patentInfo.data?.nbCompounds > 0
         ) {
           dbRefsPatents.push({ $ref: 'patents', $id: patentInfo._id });
         }
@@ -101,9 +88,7 @@ export default async function getCompoundsInfo(
       entry.data.patents = dbRefsPatents;
       entry.data.nbPatents = dbRefsPatents?.length;
     }
-    /*   if (bioassaysPubChemDBRefs.length > 0) {
-      entry.data.bioassaysPubChem = bioassaysPubChemDBRefs;
-    }*/
+
     if (titles?.length > 0) {
       titles.sort((a, b) => {
         // Check if a and b have parentheses or numbers
@@ -175,18 +160,3 @@ export default async function getCompoundsInfo(
     }
   }
 }
-/*
-async function getBioassaysPubChemRefs(cid, collection) {
-  // find in collection cid inside array named associatedCids need to unwind the array for the match to work
-  let cursor = await collection.find({
-    $and: [{ 'data.associatedCIDs': { $elemMatch: { $eq: cid } } }],
-  });
-  let bioassaysPubChemRef = [];
-  while (await cursor.hasNext()) {
-    let doc = await cursor.next();
-    if (doc !== undefined) {
-      bioassaysPubChemRef.push({ $ref: 'bioassaysPubChem', $id: doc._id });
-    }
-  }
-  return bioassaysPubChemRef;
-}*/
