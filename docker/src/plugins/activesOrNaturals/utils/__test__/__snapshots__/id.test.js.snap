@@ -41,6 +41,7 @@ exports[`id search (activesOrNaturals) 1`] = `
         "idCode": "fhiAP@@HU[rSJ|jlqJV\\uKWUST@@",
       },
     ],
+    "patents": [],
     "taxonomies": [
       {
         "class": "Agaricomycetes",
