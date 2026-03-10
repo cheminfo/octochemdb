@@ -19,7 +19,7 @@ const debug = debugLibrary('parsePatents');
  * @param {string} filneName - Absolute or relative path to the TSV input file.
  *   Each line must contain exactly two tab-separated fields:
  *   `<productID>\t<patentID>`.
- * @param {import('../../../../utils/OctoChemConnection.js').OctoChemConnection} connection -
+ * @param {OctoChemConnection} connection -
  *   An active OctoChemConnection instance used to access the MongoDB collections
  *   and read/write sync progress.
  * @returns {Promise<void>} Resolves when the import and collection rename have
@@ -37,6 +37,11 @@ export default async function importCompoundPatents(filneName, connection) {
     let currentProductID = -1;
 
     const progress = await connection.getProgress('compoundPatents');
+    // getProgress always returns a document (inserting one if absent), but the
+    // return type is nullable – guard here to satisfy the type checker.
+    if (!progress) {
+      throw new Error('Failed to retrieve progress for compoundPatents');
+    }
     let start = Date.now();
     let count = 0;
     const lines = createInterface({ input: readStream, crlfDelay: Infinity });
@@ -60,8 +65,10 @@ export default async function importCompoundPatents(filneName, connection) {
           debug.trace(`Imported ${count} patents`);
           start = Date.now();
         }
+        // Cast the filter to `any` because this collection uses numeric _id
+        // values rather than the default ObjectId expected by the MongoDB types.
         await temporaryCollection.updateOne(
-          { _id: Number(currentProductID) },
+          /** @type {any} */ ({ _id: Number(currentProductID) }),
           {
             $set: {
               _id: Number(currentProductID),
@@ -86,9 +93,11 @@ export default async function importCompoundPatents(filneName, connection) {
         if (!a.startsWith('US') && b.startsWith('US')) return 1;
         return 0;
       });
-      // use updateOne instead of insertOne to avoid duplicate key error
+      // Use updateOne instead of insertOne to avoid a duplicate key error when
+      // the last batch happens to share a productID already written earlier.
+      // Cast the filter to `any` for the same numeric _id reason as above.
       await temporaryCollection.updateOne(
-        { _id: Number(currentProductID) },
+        /** @type {any} */ ({ _id: Number(currentProductID) }),
         {
           $set: {
             _id: Number(currentProductID),
@@ -105,10 +114,12 @@ export default async function importCompoundPatents(filneName, connection) {
     await connection.setProgress(progress);
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      // Narrow the unknown catch binding to Error before accessing its fields.
+      const error = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(error.message, {
         collection: 'compoundPatents',
         connection,
-        stack: e.stack,
+        stack: error.stack,
       });
     }
   }

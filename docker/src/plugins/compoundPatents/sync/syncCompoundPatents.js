@@ -7,14 +7,33 @@ import debugLibrary from '../../../utils/Debug.js';
 import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
+import addNbCompoundsToPatents from './utils/addNbCompoundsToPatents.js';
 import importCompoundPatents from './utils/importCompoundPatents.js';
 import ungzipAndSort from './utils/ungzipAndSort.js';
 
 const { existsSync, rmSync } = pkg;
+
 /**
- * @description sync patents from PubChem database
- * @param {*} connection - mongo connection
- * @returns {Promise} returns patents collection
+ * Synchronises the `compoundPatents` collection from the PubChem
+ * CID-to-patent mapping file.
+ *
+ * The function:
+ * 1. Determines whether an update is needed by comparing the stored progress
+ *    timestamp against `COMPOUND_PATENTS_UPDATE_INTERVAL` (days).
+ * 2. Downloads the latest `CID-Patent.gz` file from PubChem FTP (or uses a
+ *    local test fixture in the test environment).
+ * 3. Decompresses and sorts the file by CID with `ungzipAndSort` so that
+ *    `importCompoundPatents` can group lines efficiently.
+ * 4. Imports the sorted file into a temporary collection which is then
+ *    atomically renamed to `compoundPatents`.
+ * 5. Creates indexes on `data.patents`, `data.nbPatents`, and `_seq`.
+ * 6. Calls `addNbCompoundsToPatents` to backfill `data.nbCompounds` on every
+ *    document in the `patents` collection based on the freshly imported data.
+ * 7. Removes the temporary sorted file from disk.
+ *
+ * @async
+ * @param {OctoChemConnection} connection - An active OctoChemConnection instance.
+ * @returns {Promise<void>}
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncCompoundPatents');
@@ -61,7 +80,10 @@ export async function sync(connection) {
       await connection.setProgress(progress);
       debug.info('start sync compoundPatents');
       //sort file by cid
-      const sortedFile = `${lastFile?.split('.gz')[0]}.sorted`;
+      if (!lastFile) {
+        throw new Error('No source file available to sync compoundPatents');
+      }
+      const sortedFile = `${lastFile.split('.gz')[0]}.sorted`;
       await ungzipAndSort(lastFile, sortedFile);
       debug.trace('ungzip and sort done');
 
@@ -73,6 +95,11 @@ export async function sync(connection) {
         { 'data.nbPatents': 1 },
         { _seq: 1 },
       ]);
+
+      // Populate data.nbCompounds on every patent document now that
+      // compoundPatents contains fresh data.
+      await addNbCompoundsToPatents(connection);
+
       // update Logs
       progress.sources = md5(JSON.stringify(sources));
       progress.state = 'updated';
@@ -87,10 +114,11 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      const error = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(error.message, {
         collection: 'compoundPatents',
         connection,
-        stack: e.stack,
+        stack: error.stack,
       });
     }
   }
