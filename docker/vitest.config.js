@@ -1,3 +1,25 @@
+/**
+ * Vitest configuration with a custom test sequencer that enforces a specific
+ * execution order across sync and aggregation plugin test suites.
+ *
+ * Sync plugin order (earliest → latest):
+ *
+ *  1. syncCompounds      – must run first; all other sync plugins rely on
+ *                          compound documents being present.
+ *  2. syncTaxonomies     – required before bioassays because activity records
+ *                          reference taxonomy documents.
+ *  3. syncBioassays      – depends on compounds and taxonomies.
+ *  4. patents            – patent data must exist before compound-patent
+ *                          relationships can be built.
+ *  5. compoundPatents    – explicitly ordered after patents.
+ *  6. (remaining sync)   – no hard ordering constraint between them.
+ *
+ * Aggregation plugin order:
+ *
+ *  7. inSilicoFragments  – depends on compounds and spectra collections.
+ *  8. aggregate          – all other aggregation jobs run last; they read
+ *                          from every populated collection.
+ */
 import { defineConfig } from 'vitest/config';
 import { BaseSequencer } from 'vitest/node';
 
