@@ -18,11 +18,12 @@ import insertTitle from './utils/insertTitle.js';
  * 3. Parses and inserts titles then abstracts into a temporary collection.
  * 4. Renames the temporary collection to `patents`, drops the old
  *    one, and rebuilds the required indexes.
- * 5. Marks any document that is missing `data.nbCompounds` with a default of 0.
- * 6. Persists the updated progress record.
+ * 5. Persists the updated progress record.
+ * 6. `data.nbCompounds` is populated separately by `addNbCompoundsToPatents`
+ *    after `syncCompoundPatents` completes.
  *
  * @async
- * @param {import('../../../utils/OctoChemConnection.js').OctoChemConnection} connection
+ * @param {OctoChemConnection} connection
  *   An active OctoChemConnection instance.
  * @returns {Promise<void>} Resolves when synchronisation is complete or when
  *   no update is needed.
@@ -127,13 +128,6 @@ export async function sync(connection) {
       );
       // Numeric index on compound count to support range/sort queries.
       await collection.createIndex({ 'data.nbCompounds': 1 });
-
-      // Backfill any documents that were imported without a compound count so
-      // that queries filtering on nbCompounds always find a defined value.
-      await collection.updateMany(
-        { 'data.nbCompounds': { $exists: false } },
-        { $set: { 'data.nbCompounds': 0 } },
-      );
 
       // Persist the md5 checksum of the processed source list so that
       // shouldUpdate() can detect future changes.

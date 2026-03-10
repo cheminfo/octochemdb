@@ -2,6 +2,24 @@ import delay from 'delay';
 
 import debugLibrary from '../../../../../utils/Debug.js';
 
+/**
+ * Fetches the PubChem patent RDF directory listing and returns two lists of
+ * file descriptors: one for abstract dumps and one for title dumps.
+ *
+ * The function retries the HTTP request indefinitely (with a 10 s delay
+ * between attempts) until it receives a 200 response or the request counter
+ * exceeds 10, at which point warnings are emitted for each failure.
+ *
+ * Only files whose names start with `pc_patent2title_` or
+ * `pc_patent2abstract_` are included. The caller can further filter entries
+ * via `options.fileFilter`.
+ *
+ * @async
+ * @param {string} url - Base URL of the PubChem patent RDF directory,
+ *   e.g. `https://ftp.ncbi.nlm.nih.gov/pubchem/RDF/patent/`.
+ * @param {GetFileListPatentsOptions} [options={}] - Optional filter settings.
+ * @returns {Promise<{ abstracts2Download: PatentFileInfo[], titles2Download: PatentFileInfo[] } | undefined>}
+ */
 async function getFileListPatents(url, options = {}) {
   const debug = debugLibrary('getFileListPatents');
   try {
@@ -9,6 +27,8 @@ async function getFileListPatents(url, options = {}) {
     let text;
     let counter = 0;
 
+    // Retry loop: keep requesting the directory listing until a 200 is
+    // received. An AbortController enforces a 30-minute per-attempt timeout.
     while (true) {
       try {
         const controller = new AbortController();
@@ -20,36 +40,43 @@ async function getFileListPatents(url, options = {}) {
         }
       } catch (e) {
         if (counter++ > 10) {
-          debug.warn(e);
+          const error = e instanceof Error ? e : new Error(String(e));
+          debug.warn(error.message);
         }
         await delay(10000);
       }
     }
+
     const { fileFilter = () => true } = options;
-    //console.log('text', text);
+
+    // Parse each HTML line for anchor tags and build PatentFileInfo objects.
+    // Lines that don't match the anchor pattern or fail the fileFilter are
+    // discarded.
     let files = text
       .split(/\r?\n/)
       .map((line) => {
         let match = line.match(/.*href="(?<href>.*)">(?<name>.*)<\/a>/);
-        // console.log('match', match);
-        if (!match) return undefined;
-        // groups object key are unprototype
-        let groups = match.groups;
-        // check if the match group has pc_patent2abstract_ or pc_patent2title_
+        if (!match || !match.groups) return undefined;
+        // Destructure into a plain object (groups is non-prototype).
+        /** @type {PatentFileInfo} */
+        let groups = { href: match.groups.href, name: match.groups.name };
+        // Only attach a URL for the file types we care about.
         if (
-          (match.groups.name &&
-            match.groups.name.startsWith('pc_patent2title_')) ||
-          (match.groups.name &&
-            match.groups.name.startsWith('pc_patent2abstract_'))
+          match.groups.name.startsWith('pc_patent2title_') ||
+          match.groups.name.startsWith('pc_patent2abstract_')
         ) {
           groups.url = `${url}${match.groups.name}`;
         }
         return groups;
       })
       .filter((file) => fileFilter(file));
+
+    // Deep-clone to strip any non-serialisable prototype references.
     files = JSON.parse(JSON.stringify(files));
 
+    /** @type {PatentFileInfo[]} */
     let abstracts2Download = [];
+    /** @type {PatentFileInfo[]} */
     let titles2Download = [];
     for (let file of files) {
       if (file?.url) {
@@ -65,7 +92,8 @@ async function getFileListPatents(url, options = {}) {
     }
     return { abstracts2Download, titles2Download };
   } catch (e) {
-    debug.fatal(e);
+    const error = e instanceof Error ? e : new Error(String(e));
+    debugLibrary('getFileListPatents').fatal(error.message, { stack: error.stack });
   }
 }
 

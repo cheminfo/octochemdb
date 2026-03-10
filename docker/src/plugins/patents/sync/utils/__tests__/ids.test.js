@@ -23,8 +23,8 @@ test('ids search (patents)', async () => {
   expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
     [
       "title",
-      "nbCompounds",
       "abstract",
+      "nbCompounds",
     ]
   `);
   expect(results.data).toMatchSnapshot();

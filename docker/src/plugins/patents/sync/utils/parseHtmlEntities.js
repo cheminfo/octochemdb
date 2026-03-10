@@ -1,11 +1,29 @@
+/**
+ * Decodes HTML entities and Unicode escape sequences in a string.
+ *
+ * Handles:
+ * - Numeric HTML entities (`&#123;`)
+ * - JavaScript-style Unicode escapes (`\u0041`)
+ * - A fixed set of named HTML entities (`&amp;`, `&nbsp;`, `&copy;`, etc.)
+ *
+ * If the input is not a string it is first serialised with `JSON.stringify`.
+ *
+ * @param {string} str - The raw string that may contain HTML entities.
+ * @returns {string} The decoded string.
+ */
 export function parseHtmlEntities(str) {
   if (typeof str !== 'string') {
     str = JSON.stringify(str);
   }
 
-  // Handle numeric entities and Unicode escape sequences
+  // Decode numeric HTML entities (&#123;) and Unicode escapes (\u0041).
   str = str.replace(
     /\\u(?<unicode>[\d\w]{4})|&#(?<htmlEntity>[0-9]{1,3});/gi,
+    /**
+     * @param {string} match
+     * @param {string | undefined} unicode
+     * @param {string | undefined} htmlEntity
+     */
     (match, unicode, htmlEntity) => {
       if (unicode) {
         return String.fromCharCode(parseInt(unicode, 16));
