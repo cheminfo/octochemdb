@@ -862,3 +862,117 @@ declare global {
     filenameNew: string;
     extensionNew: string;
   }
+
+  // ---------------------------------------------------------------------------
+  // GNPS
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single JSON object from the GNPS library dump file, as parsed by
+   * `stream-json/streamers/StreamArray`. Each entry corresponds to one
+   * spectrum record in the GNPS database.
+   *
+   * Key fields used during the sync:
+   *  - `spectrum_id`   – unique identifier; becomes the MongoDB `_id`.
+   *  - `Smiles`        – SMILES string parsed by OCL to derive structural data.
+   *  - `peaks_json`    – JSON-encoded 2-D array of [mz, intensity] pairs.
+   *  - `Library_Class` – quality tier ("1" Gold, "2" Silver, "3" Bronze, "10" Challenge).
+   *  - `Pubmed_ID`     – optional PubMed reference.
+   */
+  interface GnpsRawEntry {
+    /** GNPS spectrum identifier, e.g. `"CCMSLIB00000001547"`. */
+    spectrum_id: string;
+    /** SMILES string for the compound. `"N/A"` when unavailable. */
+    Smiles: string;
+    /** JSON-encoded array of [mz, intensity] pairs. `"N/A"` when unavailable. */
+    peaks_json: string;
+    /** MS level as a string, e.g. `"2"`. `"N/A"` when unavailable. */
+    ms_level: string;
+    /** Ion source description, e.g. `"LC-ESI"`. `"N/A"` when unavailable. */
+    Ion_Source: string;
+    /** Instrument type, e.g. `"qTof"`. `"N/A"` when unavailable. */
+    Instrument: string;
+    /** Precursor m/z value as a string. `"N/A"` when unavailable. */
+    Precursor_MZ: string;
+    /** Adduct type, e.g. `"M+H"`. `"N/A"` when unavailable. */
+    Adduct: string;
+    /** Ionisation mode, e.g. `"Positive"`. `"N/A"` when unavailable. */
+    Ion_Mode: string;
+    /** Library quality class: `"1"` Gold, `"2"` Silver, `"3"` Bronze, `"10"` Challenge. */
+    Library_Class: string;
+    /** PubMed ID as a string. `"N/A"` when unavailable. */
+    Pubmed_ID: string;
+    /** Allow additional JSON fields. */
+    [key: string]: string | unknown;
+  }
+
+  /**
+   * Spectrum metadata and peak data extracted from a GNPS entry by
+   * `parseGNPs`. Stored as `data.spectrum` on each `GnpsEntry` document.
+   */
+  interface GnpsSpectrum {
+    /** MS level (e.g. 2 for MS/MS). */
+    msLevel?: number;
+    /** Ion source description. */
+    ionSource?: string;
+    /** Instrument type. */
+    instrument?: string;
+    /** Precursor m/z value. */
+    precursorMz?: number;
+    /** Adduct type. */
+    adduct?: string;
+    /** Ionisation mode (e.g. `"Positive"`). */
+    ionMode?: string;
+    /** Human-readable quality level: Gold, Silver, Bronze, or Challenge. */
+    libraryQualityLevel?: string;
+    /** Best peaks after filtering and normalisation. */
+    data?: { x: number[] | Float64Array; y: number[] | Float64Array };
+    /** Number of peaks retained after filtering. */
+    numberOfPeaks?: number;
+  }
+
+  /**
+   * Data payload of a single GNPS entry stored in MongoDB.
+   */
+  interface GnpsEntryData {
+    /** OCL structural representation. */
+    ocl?: OclData;
+    /** Spectrum metadata and peak data. */
+    spectrum: GnpsSpectrum;
+    /** Molecular formula string, when available. */
+    mf?: string;
+    /** Exact (monoisotopic) mass, when available. */
+    em?: number;
+    /** PubMed ID, when available. */
+    pmid?: number;
+  }
+
+  /**
+   * A single document yielded by `parseGNPs` and upserted into the `gnps`
+   * MongoDB collection.
+   */
+  interface GnpsEntry {
+    /** GNPS spectrum identifier, used as the MongoDB `_id`. */
+    _id: string;
+    /** Monotonically increasing sequence counter stamped by the sync loop. */
+    _seq?: number;
+    /** Payload containing structural, spectral, and molecular data. */
+    data: GnpsEntryData;
+  }
+
+  /**
+   * Options object passed to `getLastFileSync` to download a GNPS file.
+   */
+  interface GnpsSyncOptions {
+    /** Full URL of the remote GNPS JSON dump. */
+    collectionSource: string;
+    /** Local directory where the downloaded file is stored. */
+    destinationLocal: string;
+    /** MongoDB collection name (`"gnps"`). */
+    collectionName: string;
+    /** Base filename for the locally cached file. */
+    filenameNew: string;
+    /** File extension for the locally cached file. */
+    extensionNew: string;
+  }
+}

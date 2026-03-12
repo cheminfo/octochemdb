@@ -10,32 +10,47 @@ import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.j
 const { createReadStream } = pkg;
 const StreamArray = pkg2;
 const debug = debugLibrary('parseGNPs');
+
 /**
- * @description Parse GNPs file and return data to be imported in GNPs collection
- * @param {*} jsonPath path to the GNPs file
- * @param {*} connection MongoDB connection
- * @yield {Promise} returns entries in gnps collection
+ * Parses a GNPS JSON library dump file and yields one `GnpsEntry` document
+ * per valid spectrum record, ready to be upserted into MongoDB.
+ *
+ * For each JSON object the function:
+ *  1. Skips entries with whitespace in the SMILES, `"N/A"` SMILES, or
+ *     `"N/A"` peak data.
+ *  2. Resolves the OCL structural representation (idCode, noStereoTautomerID,
+ *     coordinates) from the SMILES string via `getNoStereosFromCache`.
+ *  3. Computes the molecular formula and exact mass from the OCL molecule.
+ *  4. Extracts spectrum metadata and filters/normalises the peak list.
+ *  5. Assembles and yields the final `GnpsEntry` document.
+ *
+ * Per-row errors (e.g. an unparseable SMILES) are logged via `debug.error`
+ * and the row is skipped; they are not re-thrown so that a single bad record
+ * cannot abort the whole import.
+ *
+ * @param {string} jsonPath - Path to the GNPS JSON library dump file.
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @yields {GnpsEntry}
+ * @returns {AsyncGenerator<GnpsEntry>}
  */
 export async function* parseGNPs(jsonPath, connection) {
-  // create a stream to read the file
   const jsonStream = StreamArray.withParser();
   createReadStream(jsonPath, 'utf8').pipe(jsonStream);
   try {
     for await (const entry of jsonStream) {
+      /** @type {GnpsRawEntry} */
+      const raw = entry.value;
       const regex = /\s/g;
       try {
-        // skip if the entry has no smiles, spectrum or a library class 3 or 10
+        // skip entries with whitespace in SMILES, missing SMILES, or missing peaks
         if (
-          regex.test(entry.value.Smiles) ||
-          entry.value.Smiles === 'N/A' ||
-          entry.value.peaks_json === 'N/A'
+          regex.test(raw.Smiles) ||
+          raw.Smiles === 'N/A' ||
+          raw.peaks_json === 'N/A'
         ) {
           continue;
         }
-        // create a molecule from the entry smiles and get noStereoTautomerID
-        // should get noStereoID, noStereoTautomer,  coordinates getNoStereosFromCache
-
-        const oclMolecule = OCL.Molecule.fromSmiles(entry.value.Smiles);
+        const oclMolecule = OCL.Molecule.fromSmiles(raw.Smiles);
         const mfInfo = new MF(
           oclMolecule.getMolecularFormula().formula,
         ).getInfo();
@@ -47,42 +62,42 @@ export async function* parseGNPs(jsonPath, connection) {
           connection,
           'gnps',
         );
-        // Get spectrum metadata
-        let spectrum = {};
-        if (entry.value.ms_level !== 'N/A') {
-          spectrum.msLevel = Number(entry.value.ms_level);
+        // Build spectrum metadata
+        /** @type {GnpsSpectrum} */
+        const spectrum = {};
+        if (raw.ms_level !== 'N/A') {
+          spectrum.msLevel = Number(raw.ms_level);
         }
-        if (entry.value.Ion_Source !== 'N/A') {
-          spectrum.ionSource = entry.value.Ion_Source;
+        if (raw.Ion_Source !== 'N/A') {
+          spectrum.ionSource = raw.Ion_Source;
         }
-        if (entry.value.Instrument !== 'N/A') {
-          spectrum.instrument = entry.value.Instrument;
+        if (raw.Instrument !== 'N/A') {
+          spectrum.instrument = raw.Instrument;
         }
-        if (entry.value.Precursor_MZ !== 'N/A') {
-          spectrum.precursorMz = Number(entry.value.Precursor_MZ);
+        if (raw.Precursor_MZ !== 'N/A') {
+          spectrum.precursorMz = Number(raw.Precursor_MZ);
         }
-        if (entry.value.Adduct !== 'N/A') {
-          spectrum.adduct = entry.value.Adduct;
+        if (raw.Adduct !== 'N/A') {
+          spectrum.adduct = raw.Adduct;
         }
-        if (entry.value.Ion_Mode !== 'N/A') {
-          spectrum.ionMode = entry.value.Ion_Mode;
+        if (raw.Ion_Mode !== 'N/A') {
+          spectrum.ionMode = raw.Ion_Mode;
         }
-        if (entry.value.Library_Class === '1') {
+        if (raw.Library_Class === '1') {
           spectrum.libraryQualityLevel = 'Gold';
         }
-        if (entry.value.Library_Class === '2') {
+        if (raw.Library_Class === '2') {
           spectrum.libraryQualityLevel = 'Silver';
         }
-        if (entry.value.Library_Class === '3') {
+        if (raw.Library_Class === '3') {
           spectrum.libraryQualityLevel = 'Bronze';
         }
-        if (entry.value.Library_Class === '10') {
+        if (raw.Library_Class === '10') {
           spectrum.libraryQualityLevel = 'Challenge';
         }
-        // Get spectrum peaks
-        const entryPeaks = JSON.parse(entry.value.peaks_json);
-        // convert entryPeaks to array
-        let dataPeaks = xy2ToXY(entryPeaks);
+        // Parse and filter spectrum peaks
+        const entryPeaks = JSON.parse(raw.peaks_json);
+        const dataPeaks = xy2ToXY(entryPeaks);
         const spectrumToBeFilter = new Spectrum(dataPeaks);
         const minMaxX = spectrumToBeFilter.minMaxX();
         const slots = (minMaxX.max - minMaxX.min) / 0.1 - 1;
@@ -99,9 +114,10 @@ export async function* parseGNPs(jsonPath, connection) {
         const bestPeaksXY = xyObjectToXY(bestPeaks);
         spectrum.data = bestPeaksXY;
         spectrum.numberOfPeaks = bestPeaks.length;
-        // define final result to be imported in GNPs collection
+        // Assemble final document
+        /** @type {GnpsEntry} */
         const result = {
-          _id: entry.value.spectrum_id,
+          _id: raw.spectrum_id,
           data: {
             ocl,
             spectrum,
@@ -113,27 +129,29 @@ export async function* parseGNPs(jsonPath, connection) {
         if (em) {
           result.data.em = em;
         }
-        if (entry.value.Pubmed_ID !== 'N/A') {
-          result.data.pmid = Number(entry.value.Pubmed_ID);
+        if (raw.Pubmed_ID !== 'N/A') {
+          result.data.pmid = Number(raw.Pubmed_ID);
         }
         yield result;
       } catch (e) {
+        const err = e instanceof Error ? e : new Error(String(e));
         if (connection) {
-          debug.error(e.message, {
+          debug.error(err.message, {
             collection: 'gnps',
             connection,
-            stack: e.stack,
+            stack: err.stack,
           });
         }
         continue;
       }
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'gnps',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }
