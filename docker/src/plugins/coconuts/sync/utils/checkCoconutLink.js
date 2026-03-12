@@ -3,11 +3,17 @@ import fetch from 'node-fetch';
 import debugLibrary from '../../../../utils/Debug.js';
 
 const debug = debugLibrary('COCONUT');
+
 /**
- * @description Check if there is an update for the coconut link by comparing the previous link with the links found on the downloads page
- * @param {*} previousLink - The previous coconut link
- * @param {*} connection - The OctoChemConnection instance
- * @returns {Promise<string[]>} returns a promise that resolves to an array of all coconut links found on the downloads page
+ * Verifies that `previousLink` still appears on the COCONUT downloads page.
+ * When the link is missing a fatal alert is sent via `debug.fatal` to signal
+ * that the source URL needs to be updated.
+ *
+ * @param {string} previousLink - The expected download URL to verify.
+ * @param {OctoChemConnection} connection - Active database connection wrapper
+ *   used to report link-change alerts via `debug.fatal`.
+ * @returns {Promise<string[]>} All download URLs currently found on the COCONUT
+ *   downloads page (regardless of whether `previousLink` matched).
  */
 export async function checkCoconutLink(previousLink, connection) {
   try {
@@ -24,6 +30,7 @@ export async function checkCoconutLink(previousLink, connection) {
       : null;
     // now from the donwloadsSection extract the coconut links (all of them)
     const regexAllLinks = /https?:\/\/[^\s"'<>]+/;
+    /** @type {string[]} */
     const allLinks = downloadsSection
       ? downloadsSection.match(new RegExp(regexAllLinks, 'g')) || []
       : [];
@@ -36,10 +43,11 @@ export async function checkCoconutLink(previousLink, connection) {
     }
     return allLinks;
   } catch (e) {
-    // @ts-ignore
-    await debug.fatal(e.message, {
+    const err = e instanceof Error ? e : new Error(String(e));
+    await debug.fatal(err.message, {
       collection: 'coconuts',
       connection,
+      stack: err.stack,
     });
     return [];
   }

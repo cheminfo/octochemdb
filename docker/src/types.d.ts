@@ -777,5 +777,88 @@ declare global {
     string[],
     Progress,
   ];
-}
 
+  // ---------------------------------------------------------------------------
+  // Coconuts
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single row parsed from the COCONUT CSV file via `csv-parser`.
+   * All fields are strings; empty values appear as `""`.
+   *
+   * Key fields used during the sync:
+   *  - `identifier`       – COCONUT ID (e.g. `"CNP0214016.1"`); becomes `_id`.
+   *  - `canonical_smiles`  – SMILES string parsed by OCL.
+   *  - `organisms`         – pipe-separated species names (`"Sp1|Sp2|…"`).
+   *  - `cas`, `iupac_name`, `name` – optional metadata.
+   */
+  interface CoconutCsvRow {
+    /** COCONUT compound identifier, e.g. `"CNP0214016.1"`. */
+    identifier: string;
+    /** Canonical SMILES. */
+    canonical_smiles: string;
+    /** Pipe-separated organism/species names, or `""`. */
+    organisms?: string;
+    /** CAS registry number, or `""`. */
+    cas?: string;
+    /** IUPAC systematic name. */
+    iupac_name?: string;
+    /** Common / trivial name. */
+    name?: string;
+    /** Allow additional CSV columns. */
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A lightweight taxonomy entry produced by `parseCoconuts` before enrichment.
+   * Contains only a species name extracted from the pipe-separated `organisms`
+   * column.
+   */
+  interface CoconutRawTaxonomy {
+    species: string;
+  }
+
+  /**
+   * A taxonomy entry as handled throughout the COCONUT sync pipeline.
+   * Starts as a lightweight `{ species }` object from `parseCoconuts` and may
+   * be enriched by `getTaxonomiesForCoconuts` with genus, family, kingdom,
+   * superkingdom, and a `dbRef` back-link.
+   */
+  interface CoconutTaxonomy {
+    species?: string;
+    genus?: string;
+    family?: string;
+    kingdom?: string;
+    superkingdom?: string;
+    dbRef?: { $ref: string; $id: string };
+    [key: string]: unknown;
+  }
+
+  /**
+   * A single document yielded by `parseCoconuts`, ready for MongoDB upsert.
+   */
+  interface CoconutEntry {
+    /** COCONUT compound identifier. */
+    _id: string;
+    /** Sequence counter added by the sync loop. */
+    _seq?: number;
+    data: {
+      ocl?: OclData;
+      cid?: string;
+      cas?: string;
+      iupacName?: string;
+      name?: string;
+      taxonomies?: CoconutTaxonomy[];
+    };
+  }
+
+  /**
+   * Options object passed to `getLastFileSync` to download a COCONUT file.
+   */
+  interface CoconutSyncOptions {
+    collectionSource: string;
+    destinationLocal: string;
+    collectionName: string;
+    filenameNew: string;
+    extensionNew: string;
+  }

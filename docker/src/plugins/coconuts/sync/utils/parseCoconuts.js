@@ -11,19 +11,32 @@ import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.j
 const debug = debugLibrary('parseCoconuts');
 
 /**
- * @description Parse the coconuts CSV file from the ZIP and yield results for MongoDB
- * @param {*} zipPath path to the zip file
- * @param {*} connection MongoDB connection
- * @yields {Object} yields MongoDB-ready document
+ * Parses the COCONUT CSV file embedded in a ZIP archive and yields one
+ * `CoconutEntry` document per row, ready to be upserted into MongoDB.
+ *
+ * For each CSV row the function:
+ *  1. Resolves the OCL structural representation (idCode, noStereoTautomerID,
+ *     coordinates) from the `canonical_smiles` string via `getNoStereosFromCache`.
+ *  2. Splits the pipe-separated `organisms` column into lightweight
+ *     `CoconutRawTaxonomy` objects.
+ *  3. Assembles the result document and yields it to the caller.
+ *
+ * Per-row errors (e.g. an unparseable SMILES) are logged via `debug.error`
+ * and the row is skipped; they are not re-thrown so that a single bad row
+ * cannot abort the whole import.
+ *
+ * @param {string} zipPath - Path to the COCONUT ZIP file (or its parent folder
+ *   in test mode).
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @yields {CoconutEntry}
+ * @returns {AsyncGenerator<CoconutEntry>}
  */
 export async function* parseCoconuts(zipPath, connection) {
   try {
-    let folderPath;
-    if (process.env.NODE_ENV === 'test') {
-      folderPath = zipPath.replace(/data\/.*/, 'data/');
-    } else {
-      folderPath = zipPath.replace(/full\/.*/, 'full/');
-    }
+    const folderPath =
+      process.env.NODE_ENV === 'test'
+        ? zipPath.replace(/data\/.*/, 'data/')
+        : zipPath.replace(/full\/.*/, 'full/');
 
     // Get the file collection from the path
     const fileCollection = await fileCollectionFromPath(folderPath, {
@@ -31,8 +44,8 @@ export async function* parseCoconuts(zipPath, connection) {
     });
 
     // Sort files by last modified and select the most recent one
-    let fileToRead = fileCollection.files.sort(
-      (a, b) => b.lastModified - a.lastModified,
+    const fileToRead = fileCollection.files.sort(
+      (a, b) => (b.lastModified || 0) - (a.lastModified || 0),
     )[0];
 
     // Adjust relativePath based on environment
@@ -73,6 +86,7 @@ export async function* parseCoconuts(zipPath, connection) {
         );
 
         // Process taxonomies and comments
+        /** @type {CoconutTaxonomy[]} */
         const taxonomies = [];
         if (row.organisms !== '') {
           const organismsList = row.organisms.split('|');
@@ -82,6 +96,7 @@ export async function* parseCoconuts(zipPath, connection) {
         }
 
         // Prepare the result document
+        /** @type {CoconutEntry} */
         const result = {
           _id: row.identifier,
           data: {
@@ -96,19 +111,21 @@ export async function* parseCoconuts(zipPath, connection) {
 
         yield result;
       } catch (e) {
-        debug.error(`Error processing row ${row.identifier}: ${e.message}`, {
+        const err = e instanceof Error ? e : new Error(String(e));
+        debug.error(`Error processing row ${row.identifier}: ${err.message}`, {
           collection: 'coconuts',
           connection,
-          stack: e.stack,
+          stack: err.stack,
         });
       }
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'coconuts',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

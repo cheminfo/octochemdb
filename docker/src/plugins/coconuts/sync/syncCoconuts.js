@@ -16,13 +16,30 @@ const coconutsSource =
   'https://coconut.s3.uni-jena.de/prod/downloads/2026-02/coconut_csv-02-2026.zip';
 
 /**
- * @description Synchronize the coconuts collection from the coconut CSV ZIP
- * @param {*} connection MongoDB connection
- * @returns {Promise} returns coconuts collections
+ * Synchronises the `coconuts` MongoDB collection with the latest upstream
+ * COCONUT CSV ZIP file.
+ *
+ * The function:
+ *  1. Downloads (or locates in test mode) the COCONUT ZIP file.
+ *  2. Calls `shouldUpdate` to decide whether a re-import is needed based on
+ *     elapsed time, source-file checksums, and the last imported document.
+ *  3. When an update is needed, iterates over every entry yielded by
+ *     `parseCoconuts`, enriches taxonomies via `getTaxonomiesForCoconuts`,
+ *     and upserts each document into a temporary collection (`coconuts_tmp`).
+ *  4. Atomically replaces the live `coconuts` collection with the temporary
+ *     one via `rename`.
+ *  5. Creates the required compound indexes and marks progress as `'updated'`.
+ *
+ * Errors are persisted to the admin MongoDB collection via `debug.fatal` and
+ * are not re-thrown.
+ *
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @returns {Promise<void>}
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncCoconuts');
 
+  /** @type {CoconutSyncOptions} */
   const options = {
     collectionSource: coconutsSource,
     destinationLocal: `../originalData/coconuts/full`,
@@ -48,7 +65,7 @@ export async function sync(connection) {
       options.collectionName,
     );
     // This will check at each sync if the source link has changed and will log a fatal error if so
-    await checkCoconutLink(process.env.COCONUT_SOURCE, connection);
+    await checkCoconutLink(process.env.COCONUT_SOURCE ?? '', connection);
 
     const isTimeToUpdate = await shouldUpdate(
       progress,
@@ -118,11 +135,12 @@ export async function sync(connection) {
       debug.info(`file already processed`);
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: options.collectionName,
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

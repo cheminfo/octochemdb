@@ -1,60 +1,46 @@
 import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
+
 /**
- * @description get standardized taxonomies for Coconuts
- * @param {*} entry The data from aggregation process
- * @param {*} taxonomiesCollection The taxonomies collection
- * @returns {Promise<Array>} The standardized taxonomies
+ * Resolves enriched taxonomy data for a COCONUT entry by looking up each
+ * raw species name in the `taxonomies` MongoDB collection.
+ *
+ * For each taxonomy entry in `entry.data.taxonomies` the function:
+ *  1. Extracts the genus (first word of the species name).
+ *  2. Queries the `taxonomies` collection for a matching genus.
+ *  3. When found, merges the matched taxonomy document's `data` object with
+ *     the original species name and a `dbRef` back-link to the COCONUT entry.
+ *  4. When not found, keeps the raw taxonomy object and attaches the `dbRef`.
+ *
+ * @param {CoconutEntry} entry - A COCONUT entry with optional raw taxonomies.
+ * @param {import('mongodb').Collection} taxonomiesCollection - The `taxonomies`
+ *   MongoDB collection.
+ * @returns {Promise<CoconutTaxonomy[]>} The enriched taxonomy array.
  */
 export async function getTaxonomiesForCoconuts(entry, taxonomiesCollection) {
-  let taxonomiesCoconuts = [];
+  /** @type {CoconutTaxonomy[]} */
+  const taxonomiesCoconuts = [];
   if (entry.data?.taxonomies) {
-    if (entry.data.taxonomies.length > 1) {
-      for (let i = 0; i < entry.data.taxonomies.length; i++) {
-        // coconuts taxonomies are most of times at species level while the rest are at superkingdom level
-        // since species name is composed of the genus and species name, we need to check if the genus is in the taxonomies collection
-        let genus = entry.data.taxonomies[i].species.split(' ');
-        if (genus.length > 0) {
-          let searchParameter = {
-            'data.genus': genus[0],
-          };
-          let result = await searchTaxonomies(
-            taxonomiesCollection,
-            searchParameter,
-          );
-          let finalTaxonomy;
-          if (result.length > 0) {
-            finalTaxonomy = result[0].data;
-            finalTaxonomy.species = entry.data.taxonomies[i].species;
-            finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
-            taxonomiesCoconuts.push(finalTaxonomy);
-          } else {
-            finalTaxonomy = entry.data.taxonomies[i];
-            finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
-            taxonomiesCoconuts.push(finalTaxonomy);
-          }
-        }
-      }
-    } else {
-      let genus = entry.data.taxonomies[0].species.split(' ');
-      if (genus.length > 0) {
-        let searchParameter = {
-          'data.genus': genus[0],
-        };
-        let result = await searchTaxonomies(
-          taxonomiesCollection,
-          searchParameter,
-        );
-        if (result.length > 0) {
-          let finalTaxonomy = result[0].data;
-          finalTaxonomy.species = entry.data.taxonomies[0].species;
-          finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
-          taxonomiesCoconuts.push(finalTaxonomy);
-        }
+    for (let i = 0; i < entry.data.taxonomies.length; i++) {
+      // coconuts taxonomies are most of times at species level while the rest are at superkingdom level
+      // since species name is composed of the genus and species name, we need to check if the genus is in the taxonomies collection
+      const genus = entry.data.taxonomies[i].species?.split(' ') ?? [];
+      const searchParameter = {
+        'data.genus': genus[0],
+      };
+      const result = await searchTaxonomies(
+        taxonomiesCollection,
+        searchParameter,
+      );
+      /** @type {CoconutTaxonomy} */
+      let finalTaxonomy;
+      if (result.length > 0) {
+        finalTaxonomy = result[0].data;
+        finalTaxonomy.species = entry.data.taxonomies[i].species;
       } else {
-        let finalTaxonomy = entry.data.taxonomies[0];
-        finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
-        taxonomiesCoconuts.push(finalTaxonomy[0]);
+        finalTaxonomy = entry.data.taxonomies[i];
       }
+      finalTaxonomy.dbRef = { $ref: 'coconuts', $id: entry._id };
+      taxonomiesCoconuts.push(finalTaxonomy);
     }
   }
   return taxonomiesCoconuts;
