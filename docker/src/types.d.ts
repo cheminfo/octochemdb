@@ -975,4 +975,157 @@ declare global {
     /** File extension for the locally cached file. */
     extensionNew: string;
   }
+
+  // ---------------------------------------------------------------------------
+  // Lotuses
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single BSON record from the LOTUS MongoDB dump file, as iterated by
+   * `bson-iterator`. Each entry corresponds to one natural-product compound.
+   *
+   * Key fields used during the sync:
+   *  - `lotus_id`                   – unique identifier; becomes the MongoDB `_id`.
+   *  - `smiles`                     – SMILES string parsed by OCL.
+   *  - `iupac_name`                 – optional IUPAC name.
+   *  - `taxonomyReferenceObjects`   – nested taxonomy data keyed by source.
+   */
+  interface LotusBsonEntry {
+    /** LOTUS compound identifier, e.g. `"LTS0257199"`. */
+    lotus_id: string;
+    /** SMILES string for the compound. */
+    smiles: string;
+    /** IUPAC systematic name, when available. */
+    iupac_name?: string;
+    /**
+     * Taxonomy references keyed by an opaque top-level key, beneath which
+     * lie source-name keys (`"NCBI"`, `"GBIF Backbone Taxonomy"`, etc.)
+     * mapping to arrays of taxonomy rows.
+     */
+    taxonomyReferenceObjects?: Record<string, LotusTaxonomySources>;
+    /** Allow additional BSON fields. */
+    [key: string]: unknown;
+  }
+
+  /**
+   * Map of taxonomy source names to their respective taxonomy row arrays,
+   * parsed from a single LOTUS BSON entry's `taxonomyReferenceObjects`.
+   */
+  interface LotusTaxonomySources {
+    NCBI?: LotusTaxonomySourceRow[];
+    'GBIF Backbone Taxonomy'?: LotusTaxonomySourceRow[];
+    iNaturalist?: LotusTaxonomySourceRow[];
+    'Open Tree of Life'?: LotusTaxonomySourceRow[];
+    ITIS?: LotusTaxonomySourceRow[];
+    [source: string]: LotusTaxonomySourceRow[] | undefined;
+  }
+
+  /**
+   * A single taxonomy row from a LOTUS taxonomy source. Field names match
+   * the keys found in the BSON dump (e.g. `classx` for taxonomic class).
+   */
+  interface LotusTaxonomySourceRow {
+    /** Organism ID cleaned during LOTUS curation. */
+    cleaned_organism_id?: string;
+    kingdom?: string;
+    phylum?: string;
+    /** Taxonomic class (named `classx` to avoid the JS reserved word). */
+    classx?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A parsed taxonomy record built by `parseLotuses` from a
+   * `LotusTaxonomySourceRow`. Uses normalised field names (e.g. `class`
+   * instead of `classx`).
+   */
+  interface LotusParsedTaxonomy {
+    organismID?: string;
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * The grouped raw taxonomies object built by `parseLotuses` and stored
+   * temporarily on `LotusEntry.data.taxonomies` before enrichment by
+   * `getTaxonomiesForLotuses`. Each key is a source name and the value
+   * is an array of parsed taxonomy rows.
+   */
+  interface LotusRawTaxonomies {
+    ncbi?: LotusParsedTaxonomy[];
+    gBifBackboneTaxonomy?: LotusParsedTaxonomy[];
+    iNaturalist?: LotusParsedTaxonomy[];
+    openTreeOfLife?: LotusParsedTaxonomy[];
+    iTIS?: LotusParsedTaxonomy[];
+    [source: string]: LotusParsedTaxonomy[] | undefined;
+  }
+
+  /**
+   * A fully-resolved taxonomy record produced by `getTaxonomiesForLotuses`
+   * after searching the `taxonomies` MongoDB collection.
+   */
+  interface LotusResolvedTaxonomy {
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    /** Back-reference to the owning `lotuses` document. */
+    dbRef?: { $ref: string; $id: string };
+    [key: string]: unknown;
+  }
+
+  /**
+   * Data payload of a single LOTUS entry stored in MongoDB.
+   */
+  interface LotusEntryData {
+    /** OCL structural representation. */
+    ocl?: OclData;
+    /** IUPAC systematic name, when available. */
+    iupacName?: string;
+    /**
+     * Taxonomy information. Before enrichment this holds `LotusRawTaxonomies`;
+     * after `getTaxonomiesForLotuses` it is replaced with an array of
+     * `LotusResolvedTaxonomy`.
+     */
+    taxonomies?: LotusRawTaxonomies | LotusResolvedTaxonomy[];
+  }
+
+  /**
+   * A single document yielded by `parseLotuses` and upserted into the
+   * `lotuses` MongoDB collection.
+   */
+  interface LotusEntry {
+    /** LOTUS compound identifier, used as the MongoDB `_id`. */
+    _id: string;
+    /** Monotonically increasing sequence counter stamped by the sync loop. */
+    _seq?: number;
+    /** Payload containing structural, taxonomic, and naming data. */
+    data: LotusEntryData;
+  }
+
+  /**
+   * Options object passed to `getLastFileSync` to download a LOTUS file.
+   */
+  interface LotusSyncOptions {
+    /** Full URL of the remote LOTUS MongoDB dump. */
+    collectionSource: string;
+    /** Local directory where the downloaded file is stored. */
+    destinationLocal: string;
+    /** MongoDB collection name (`"lotuses"`). */
+    collectionName: string;
+    /** Base filename for the locally cached file. */
+    filenameNew: string;
+    /** File extension for the locally cached file. */
+    extensionNew: string;
+  }
 }

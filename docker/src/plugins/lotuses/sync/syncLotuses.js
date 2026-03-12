@@ -9,14 +9,33 @@ import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/
 
 import { getTaxonomiesForLotuses } from './utils/getTaxonomiesForLotuses.js';
 import { parseLotuses } from './utils/parseLotuses.js';
+
 /**
- * @description syncLotuses - synchronize lotuses collection from lotus database
- * @param {*} connection - mongo connection
- * @returns {Promise} returns collection lotuses
+ * Synchronises the `lotuses` MongoDB collection with the latest upstream
+ * LOTUS BSON dump (served as a ZIP archive).
+ *
+ * The function:
+ *  1. Downloads (or locates in test mode) the LOTUS ZIP file.
+ *  2. Calls `shouldUpdate` to decide whether a re-import is needed based on
+ *     elapsed time, source-file checksums, and the last imported document.
+ *  3. When an update is needed, iterates over every entry yielded by
+ *     `parseLotuses`, enriches taxonomy data via `getTaxonomiesForLotuses`,
+ *     and upserts each document into a temporary collection (`lotuses_tmp`).
+ *  4. Atomically replaces the live `lotuses` collection with the temporary
+ *     one via `rename`.
+ *  5. Creates the required compound indexes and marks progress as `'updated'`.
+ *
+ * Errors are persisted to the admin MongoDB collection via `debug.fatal` and
+ * are not re-thrown.
+ *
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @returns {Promise<void>}
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncLotuses');
-  let options = {
+
+  /** @type {LotusSyncOptions} */
+  const options = {
     collectionSource: 'https://lotus.naturalproducts.net/download/mongo',
     destinationLocal: `../originalData//lotuses/full`,
     collectionName: 'lotuses',
@@ -30,19 +49,15 @@ export async function sync(connection) {
       lastFile = `../docker/src/plugins/lotuses/sync/utils/__tests__/data/`;
       sources = [lastFile];
     } else {
-      // get last file from lotus database
       lastFile = await getLastFileSync(options);
-      // get sources, progress and lotuses collection
       sources = [lastFile.replace(`../originalData/`, '')];
     }
-    // get sources, progress and lotuses collection
     const progress = await connection.getProgress('lotuses');
-    // get last document imported
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       options.collectionName,
     );
-    let isTimeToUpdate = await shouldUpdate(
+    const isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
       lastDocumentImported,
@@ -56,22 +71,24 @@ export async function sync(connection) {
     let start = Date.now();
     if (isTimeToUpdate) {
       const collection = await connection.getCollection('lotuses');
-      // get old to new taxonomies ids mapping
-      const oldToNewTaxIDs = await taxonomySynonyms();
-      // get taxonomies collection
+      // Get old-to-new taxonomy ID mapping
+      /** @type {any} */
+      const taxonomySynonymsRaw = await taxonomySynonyms();
+      /** @type {DeprecatedTaxIdMap} */
+      const oldToNewTaxIDs = taxonomySynonymsRaw;
       const collectionTaxonomies = await connection.getCollection('taxonomies');
 
-      // define file inside zip folder to use for importation
-      let fileName = 'lotusUniqueNaturalProduct.bson';
-      // create temporary collection
+      // BSON file inside the ZIP archive to import
+      const fileName = 'lotusUniqueNaturalProduct.bson';
+      // Create temporary collection to avoid dropping live data before new data is ready
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
       debug.info(`Start importing Lotus`);
-      // set progress state to updating
+      // Set progress state to updating
       progress.state = 'updating';
       await connection.setProgress(progress);
-      // parse lotuses
+      // Parse and import LOTUS entries
       for await (const entry of parseLotuses(lastFile, fileName, connection)) {
         counter++;
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
@@ -82,9 +99,9 @@ export async function sync(connection) {
           );
           start = Date.now();
         }
-        /// Normalize Taxonomies
+        /// Normalise taxonomies
         if (entry.data.taxonomies) {
-          let taxonomies = await getTaxonomiesForLotuses(
+          const taxonomies = await getTaxonomiesForLotuses(
             entry,
             collectionTaxonomies,
             oldToNewTaxIDs,
@@ -99,17 +116,17 @@ export async function sync(connection) {
         );
         imported++;
       }
-      // Temporary collection replace old collection
+      // Atomically replace the live collection with the temporary one
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
 
-      //Update progress in admin collection
+      // Update progress in admin collection
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      // Indexing of collection properties
+      // Create indexes on collection properties
       await createIndexes(collection, [
         { 'data.ocl.noStereoTautomerID': 1 },
         { _seq: 1 },
@@ -120,11 +137,12 @@ export async function sync(connection) {
       debug.info(`file already processed`);
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'lotuses',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }
