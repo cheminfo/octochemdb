@@ -11,6 +11,8 @@ exports[`syncCmaups 1`] = `
         "externalRef": "PMID : 559635",
         "geneSymbol": "ALOX5",
         "proteinName": "Arachidonate 5-lipoxygenase",
+        "targetClass1": "Enzyme",
+        "targetClass2": "Oxidoreductase",
         "uniprotId": "P09917",
       },
     ],

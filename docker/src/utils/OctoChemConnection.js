@@ -28,12 +28,17 @@ OctoChemConnection.prototype.getCollectionNames =
     );
   };
 
+/**
+ * @param {string} collectionName
+ * @returns {Promise<import('mongodb').Collection<any>>}
+ */
 OctoChemConnection.prototype.getCollection = async function getCollection(
   collectionName,
 ) {
   return (await this.getDatabase()).collection(collectionName);
 };
 
+/** @returns {Promise<import('mongodb').Collection<any>>} */
 OctoChemConnection.prototype.getAdminCollection =
   async function getAdminCollection() {
     return this.getCollection('admin');
@@ -46,6 +51,10 @@ OctoChemConnection.prototype.setProgress = async function setProgress(
   await collection.updateOne({ _id: progress._id }, { $set: progress });
 };
 
+/**
+ * @param {string} collectionName
+ * @returns {Promise<Progress>}
+ */
 OctoChemConnection.prototype.getProgress = async function getProgress(
   collectionName,
 ) {

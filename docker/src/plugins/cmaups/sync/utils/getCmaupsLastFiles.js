@@ -1,12 +1,24 @@
 import getLastFileSync from '../../../../sync/http/utils/getLastFileSync.js';
 import debugLibrary from '../../../../utils/Debug.js';
+
 import { checkCmaupLink } from './checkCmaupLink.js';
 
 const debug = debugLibrary('getCmaupsLastFiles');
 /**
- * @description get necessary variables to start the sync
- * @param {*} connection the connection to the database
- * @returns {Promise<*>} lastFile, lastFileActivity, lastFileSpeciesAssociation, lastFileSpeciesInfo, sources, progress, logs
+ * Resolves the five CMAUP source files (Ingredients, Activity, Species Association,
+ * Plants, Targets), downloads them if not running in test mode, then fetches the
+ * current sync-progress document from the admin collection.
+ *
+ * In test mode, hard-coded local file paths are used instead of HTTP downloads.
+ * In production, each file is fetched via `getLastFileSync` and the resulting
+ * local paths are trimmed to relative form for storage in `sources`.
+ *
+ * Errors are persisted to the admin collection via `debug.fatal` and the function
+ * returns `undefined`; they are not re-thrown.
+ *
+ * @param {OctoChemConnection} connection - Active database connection wrapper used
+ *   to retrieve the progress document and to report errors.
+ * @returns {Promise<CmaupsLastFilesResult | undefined>}
  */
 export default async function getCmaupsLastFiles(connection) {
   try {
@@ -39,7 +51,7 @@ export default async function getCmaupsLastFiles(connection) {
         'https://bidd.group/CMAUP/downloadFiles/CMAUPv2.0_download_Targets.txt',
       ];
       await checkCmaupLink(sourceLinks, connection);
-      let options = {
+      const options = {
         collectionSource: sourceLinks[0],
         destinationLocal: `../originalData/cmaups/full`,
         collectionName: 'cmaups',
@@ -78,7 +90,8 @@ export default async function getCmaupsLastFiles(connection) {
     // Get collection admin
     const progress = await connection.getProgress('cmaups');
 
-    return [
+    /** @type {CmaupsLastFilesResult} */
+    const result = [
       lastFileGeneral,
       lastFileActivity,
       lastFileSpeciesAssociation,
@@ -87,13 +100,14 @@ export default async function getCmaupsLastFiles(connection) {
       sources,
       progress,
     ];
+    return result;
   } catch (e) {
-    // If error is chatched, debug it on telegram
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'cmaups',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

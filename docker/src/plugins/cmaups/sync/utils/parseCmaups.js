@@ -8,14 +8,31 @@ import { recursiveRemoveNa } from './recursiveRemoveNa.js';
 
 const debug = debugLibrary('parseCmaups');
 /**
- * @description parse the cmaups files and return the data to be imported in the database
- * @param {*} general the general data readed from the file
- * @param {*} activities the activities data readed from the file
- * @param {*} speciesPair the species association data readed from the file
- * @param {*} speciesInfo the species info data readed from the file
- * @param {*} targetInfo the target info data readed from the file
- * @param {*} connection the connection to the database
- * @returns {Object} results to be imported in the database
+ * Parses the five CMAUP source files and yields one `CmaupsEntry` document
+ * per ingredient, ready to be upserted into MongoDB.
+ *
+ * For each row in the Ingredients file the function:
+ *  1. Resolves the OCL structural representation (idCode, noStereoTautomerID,
+ *     coordinates) from the SMILES string via `getNoStereosFromCache`.
+ *  2. Builds a flat list of raw taxonomy objects by joining speciesAssociation
+ *     pairs with the Plants species-info map.
+ *  3. Collects and enriches biological activities from the Activity file,
+ *     cross-referenced with target metadata from the Targets file.
+ *  4. Assembles the final result object, calls `recursiveRemoveNa` to strip
+ *     "N/A" placeholders, and yields it to the caller.
+ *
+ * Per-entry errors (e.g. an unparseable SMILES) are persisted to the admin
+ * collection via `debug.fatal` and the entry is skipped; they are not
+ * re-thrown so that a single bad row cannot abort the whole import.
+ *
+ * @param {CmaupsGeneralRow[]} general - Parsed rows from the Ingredients file.
+ * @param {CmaupsActivityMap} activities - Map of ingredient ID → activity rows from the Activity file.
+ * @param {CmaupsSpeciesPairList} speciesPair - Species-association pairs (columns: Plant_ID, Ingredient_ID).
+ * @param {CmaupsSpeciesInfoMap} speciesInfo - Map of Plant_ID → species-info row from the Plants file.
+ * @param {CmaupsTargetInfoMap} targetInfo - Map of Target_ID → target-info row from the Targets file.
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @yields {CmaupsEntry}
+ * @returns {AsyncGenerator<CmaupsEntry>}
  */
 export async function* parseCmaups(
   general,
@@ -27,6 +44,7 @@ export async function* parseCmaups(
 ) {
   try {
     // get relation between molecule ID and taxonomies IDs
+    /** @type {SpeciesPairedMap} */
     const speciesPaired = {};
     for (const pair of speciesPair) {
       if (!speciesPaired[pair[1]]) {
@@ -47,6 +65,7 @@ export async function* parseCmaups(
 
           // Get molecule structure data
           const smilesDb = item.SMILES;
+          /** @type {MaybeOclData} */
           let ocl;
           try {
             const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
@@ -56,11 +75,12 @@ export async function* parseCmaups(
               'cmaups',
             );
           } catch (e) {
+            const err = e instanceof Error ? e : new Error(String(e));
             if (connection) {
-              debug.fatal(e.message, {
+              debug.fatal(err.message, {
                 collection: 'cmaups',
                 connection,
-                stack: e.stack,
+                stack: err.stack,
               });
             }
 
@@ -68,6 +88,7 @@ export async function* parseCmaups(
           }
           // Get raw data taxonomies
           const orgIDs = speciesPaired[id];
+          /** @type {CmaupsSpeciesInfoRow[]} */
           const taxonomies = [];
           if (orgIDs) {
             if (orgIDs.length > 0) {
@@ -79,28 +100,31 @@ export async function* parseCmaups(
             }
           }
           // Format taxonomies data
-          let finalTaxonomies = [];
+          const finalTaxonomies = [];
           if (taxonomies.length > 0) {
             for (const infos of taxonomies) {
-              let taxons = {};
-              if (infos?.Species_Tax_ID) {
+              // `infos` itself is non-null (gated by `if (speciesInfo[idOrg])` above),
+              // but each individual field (e.g. Plant_Name, Genus_Tax_ID) may still be
+              // undefined — hence the explicit truthiness guard on every property below.
+              /** @type {CmaupsTaxonomyEntry} */
+              const taxons = {};
+              if (infos.Species_Tax_ID) {
                 taxons.speciesID = infos.Species_Tax_ID;
               }
-              if (infos?.Plant_Name) {
-                taxons.species = infos?.Plant_Name;
+              if (infos.Plant_Name) {
+                taxons.species = infos.Plant_Name;
               }
-              if (infos?.Genus_Tax_ID) {
-                taxons.genusID = infos?.Genus_Tax_ID;
+              if (infos.Genus_Tax_ID) {
+                taxons.genusID = infos.Genus_Tax_ID;
               }
-              if (infos?.Genus_Name) {
-                taxons.genus = infos?.Genus_Name;
+              if (infos.Genus_Name) {
+                taxons.genus = infos.Genus_Name;
               }
-
-              if (infos?.Family_Tax_ID) {
-                taxons.familyID = infos?.Family_Tax_ID;
+              if (infos.Family_Tax_ID) {
+                taxons.familyID = infos.Family_Tax_ID;
               }
-              if (infos?.Family_Name) {
-                taxons.family = infos?.Family_Name;
+              if (infos.Family_Name) {
+                taxons.family = infos.Family_Name;
               }
               if (Object.keys(taxons).length > 0) {
                 finalTaxonomies.push(taxons);
@@ -108,7 +132,9 @@ export async function* parseCmaups(
             }
           }
           // Create object containing final result
-          let result = {
+          // item is non-null: sourced directly from the `for await` iterator over `general`
+          /** @type {CmaupsEntry} */
+          const result = {
             _id: item.np_id,
             data: {
               ocl,
@@ -118,10 +144,10 @@ export async function* parseCmaups(
           if (finalTaxonomies.length > 0) {
             result.data.taxonomies = finalTaxonomies;
           }
-          if (item?.pref_name) {
+          if (item.pref_name) {
             result.data.commonName = item.pref_name;
           }
-          if (item?.chembl_id) {
+          if (item.chembl_id) {
             result.data.chemblId = item.chembl_id;
           }
 
@@ -133,21 +159,23 @@ export async function* parseCmaups(
           yield result;
         }
       } catch (e) {
+        const err = e instanceof Error ? e : new Error(String(e));
         if (connection) {
-          debug.fatal(e.message, {
+          debug.fatal(err.message, {
             collection: 'cmaups',
             connection,
-            stack: e.stack,
+            stack: err.stack,
           });
         }
       }
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'cmaups',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

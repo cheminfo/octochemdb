@@ -12,13 +12,33 @@ import { parseCmaups } from './utils/parseCmaups.js';
 
 const debug = debugLibrary('syncCmaups');
 /**
- * @description sync the cmaups collection
- * @param {*} connection the connection to the database
- * @return {Promise} returns cmaups collection
+ * Synchronises the `cmaups` MongoDB collection with the latest upstream
+ * CMAUP database files.
+ *
+ * The function:
+ *  1. Calls `cmaupsStartSync` to download (or locate cached) source files and
+ *     retrieve the current sync-progress document.
+ *  2. Calls `shouldUpdate` to decide whether a re-import is needed based on
+ *     elapsed time, source-file checksums, and the last imported document.
+ *  3. When an update is needed, iterates over every entry yielded by
+ *     `parseCmaups`, normalises taxonomy and activity data, and upserts each
+ *     document into a temporary collection (`cmaups_tmp`).
+ *  4. Atomically replaces the live `cmaups` collection with the temporary one
+ *     via `rename`.
+ *  5. Creates the required compound indexes and marks progress as `'updated'`.
+ *
+ * Errors are persisted to the admin MongoDB collection via `debug.fatal` and
+ * are monitored externally; they are not re-thrown.
+ *
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @returns {Promise<void>}
  */
 export async function sync(connection) {
   try {
     // Read files to be parsed, get last document imported, progress, sources and logs
+    /** @type {any} */
+    const startSyncRaw = await cmaupsStartSync(connection);
+    /** @type {CmaupsStartSyncResult} */
     const [
       lastDocumentImported,
       progress,
@@ -29,7 +49,7 @@ export async function sync(connection) {
       speciesPair,
       speciesInfo,
       targetInfo,
-    ] = await cmaupsStartSync(connection);
+    ] = startSyncRaw;
     // Define counters
     let counter = 0;
     let imported = 0;
@@ -44,7 +64,10 @@ export async function sync(connection) {
     // Reimport collection again only if lastDocument imported changed or importation was not completed
     if (isTimeToUpdate) {
       // get old to new taxonomies ids and taxonomies collection
-      const oldToNewTaxIDs = await taxonomySynonyms();
+      /** @type {any} */
+      const taxonomySynonymsRaw = await taxonomySynonyms();
+      /** @type {DeprecatedTaxIdMap} */
+      const oldToNewTaxIDs = taxonomySynonymsRaw;
       const collectionTaxonomies = await connection.getCollection('taxonomies');
       // Define stat updating because in case of failure Cron will retry importation in 24h
       progress.state = 'updating';
@@ -73,7 +96,7 @@ export async function sync(connection) {
         }
         /// Normalize Taxonomies
         if (entry.data.taxonomies) {
-          let taxonomies = await getTaxonomiesForCmaupsAndNpasses(
+          const taxonomies = await getTaxonomiesForCmaupsAndNpasses(
             entry,
             collectionTaxonomies,
             oldToNewTaxIDs,
@@ -83,7 +106,7 @@ export async function sync(connection) {
         }
         // Normalize activities
         if (entry.data.activities) {
-          let activities = await getNormalizedActivities(
+          const activities = await getNormalizedActivities(
             entry,
             collectionTaxonomies,
             oldToNewTaxIDs,
@@ -120,12 +143,13 @@ export async function sync(connection) {
       debug.info(`file already processed`);
     }
   } catch (e) {
-    // If error is catch, debug it on telegram
+    const err = e instanceof Error ? e : new Error(String(e));
+    // If error is caught, persist it to the admin collection for external monitoring
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'cmaups',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }
