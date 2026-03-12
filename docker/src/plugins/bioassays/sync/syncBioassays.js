@@ -10,13 +10,25 @@ import { taxonomySynonyms } from '../../activesOrNaturals/utils/utilsTaxonomies/
 import parseBioactivities from './utils/parseBioactivities.js';
 
 const debug = debugLibrary('syncBioassays');
+
 /**
- * @description Synchronize the bioassays collection from ftp server
- * @param {*} connection the connection object
- * @returns {Promise} Returns the bioassays collection
+ * Synchronises the `bioassays` collection from the PubChem FTP server.
+ *
+ * Downloads (or reuses a cached copy of) the bioactivities and bioassays dump
+ * files, then streams every active compound–assay pair through
+ * `parseBioactivities()` into a temporary MongoDB collection. Once the import
+ * is complete the temporary collection atomically replaces the live one and
+ * the collection indexes are rebuilt.
+ *
+ * The sync is skipped when `shouldUpdate()` determines that neither the source
+ * files nor the update interval have changed since the last successful run.
+ *
+ * @param {OctoChemConnection} connection - Active OctoChemDB connection used throughout the sync.
+ * @returns {Promise<void>}
  */
 export async function sync(connection) {
-  let options = {
+  /** @type {SyncOptions} */
+  const options = {
     collectionSource:
       'https://ftp.ncbi.nlm.nih.gov/pubchem/Bioassay/Extras/bioactivities.tsv.gz',
     destinationLocal: `../originalData/bioassays/full`,
@@ -52,34 +64,40 @@ export async function sync(connection) {
       connection,
       options.collectionName,
     );
-    let isTimeToUpdate = await shouldUpdate(
+    const isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
       lastDocumentImported,
       process.env.BIOASSAY_UPDATE_INTERVAL,
       connection,
     );
-    // Define different coulters
+    // Define counters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
 
     if (isTimeToUpdate) {
-      // get compounds and taxonomies collections
-      const oldToNewTaxIDs = await taxonomySynonyms();
+      // Get compounds and taxonomies collections
+      const oldToNewTaxIDs = /** @type {DeprecatedTaxIdMap} */ (
+        await taxonomySynonyms()
+      );
+      /** @type {TaxonomyCollection} */
       const collectionTaxonomies = await connection.getCollection('taxonomies');
+      /** @type {CompoundCollection} */
       const collectionCompounds = await connection.getCollection('compounds');
       const collection = await connection.getCollection(options.collectionName);
 
-      // set progress to updating, if fail importation, a new try will be done 24h later
+      // Set progress to 'updating'; if the import fails a retry will occur after the next interval.
       progress.state = 'updating';
       await connection.setProgress(progress);
-      // Temporary collection to store the new data
+
+      // Temporary collection to accumulate the new data before swapping it in.
+      /** @type {BioactivityCollection} */
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
       debug.info(`Start importing bioassays`);
-      for await (let entry of parseBioactivities(
+      for await (const entry of parseBioactivities(
         bioactivitiesFile,
         bioassaysFile,
         connection,
@@ -87,16 +105,16 @@ export async function sync(connection) {
         collectionTaxonomies,
         oldToNewTaxIDs,
       )) {
-        // If cron launched in mode test, the importation will be stopped after 20 iteration
+        // In test mode stop early to keep test runs fast.
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
-        // Debug the processing progress every 10s or the defined time in process env
+        // Throttled progress trace.
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
           debug.trace(
             `Processing: counter: ${counter} - imported: ${imported}`,
           );
           start = Date.now();
         }
-        // update temporary collection with the new data
+        // Stamp the sequence counter and upsert into the temporary collection.
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
@@ -107,19 +125,19 @@ export async function sync(connection) {
         imported++;
         counter++;
       }
-      // Once it is finished, the temporary collection replace the old collection
+      // Atomically replace the live collection with the freshly populated one.
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
 
-      // update progress with the new progress
+      // Persist the updated progress document.
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
       debug.info(`${imported} compounds processed`);
 
-      // Indexing of properties in collection
+      // Rebuild indexes on the new collection.
       await createIndexes(collection, [
         { 'data.ocl.noStereoTautomerID': 1 },
         { 'data.ocl.idCode': 1 },
@@ -129,11 +147,12 @@ export async function sync(connection) {
       debug.info(`file already processed`);
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.stack, {
+      await debug.fatal(err.message, {
         collection: options.collectionName,
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

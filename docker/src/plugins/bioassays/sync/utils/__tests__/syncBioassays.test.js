@@ -17,6 +17,7 @@ test('syncBioassays', async () => {
     }
   }
   await sync(connection);
+  /** @type {BioactivityCollection} */
   const collection = await connection.getCollection('bioassays');
   const collectionEntry = await collection.find({ _id: '59478_1' }).limit(1);
   const result = await collectionEntry.next();

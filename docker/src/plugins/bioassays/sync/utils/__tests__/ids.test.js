@@ -24,8 +24,7 @@ test('id search (bioassays)', async () => {
       delete entry.data.ocl.coordinates;
     }
   }
-  // @ts-ignore
-  expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
+  expect(Object.keys(results.data?.[0]?.data ?? {})).toMatchInlineSnapshot(`
     [
       "cid",
       "aid",
