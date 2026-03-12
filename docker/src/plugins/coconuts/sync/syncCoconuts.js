@@ -13,7 +13,7 @@ import { parseCoconuts } from './utils/parseCoconuts.js';
 const coconutsTestSource =
   '../docker/src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
 const coconutsSource =
-  'https://coconut.s3.uni-jena.de/prod/downloads/2026-02/coconut_csv-02-2026.zip';
+  'https://coconut.s3.uni-jena.de/prod/downloads/2026-03/coconut_csv-03-2026.zip';
 
 /**
  * Synchronises the `coconuts` MongoDB collection with the latest upstream
