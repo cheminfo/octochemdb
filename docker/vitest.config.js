@@ -12,12 +12,13 @@
  *  4. patents            – patent data must exist before compound-patent
  *                          relationships can be built.
  *  5. compoundPatents    – explicitly ordered after patents.
- *  6. (remaining sync)   – no hard ordering constraint between them.
+ *  6. gnps              – must complete before aggregation plugins.
+ *  7. (remaining sync)   – no hard ordering constraint between them.
  *
  * Aggregation plugin order:
  *
- *  7. inSilicoFragments  – depends on compounds and spectra collections.
- *  8. aggregate          – all other aggregation jobs run last; they read
+ *  8. inSilicoFragments  – depends on compounds and spectra collections.
+ *  9. aggregate          – all other aggregation jobs run last; they read
  *                          from every populated collection.
  */
 import { defineConfig } from 'vitest/config';
@@ -58,6 +59,7 @@ export default defineConfig({
           const regexBioassays = /syncBioassays/i;
           const regexActiveAgainst = /activeAgainst/i;
           const regexInSilicoFragments = /inSilicoFragments/i;
+          const regexGnps = /gnps/i;
           const regexMesh = /getMeshTerms.test/i;
           const regexID = /id/i;
           const regexnEntries = /nEntries/i;
@@ -90,6 +92,11 @@ export default defineConfig({
             }
 
             if (regexBioassays.test(a) && !regexBioassays.test(b)) {
+              return -1;
+            }
+
+            // gnps should be before aggregation
+            if (regexGnps.test(a) && !regexGnps.test(b)) {
               return -1;
             }
 
