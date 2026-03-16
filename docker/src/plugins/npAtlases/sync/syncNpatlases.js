@@ -13,44 +13,60 @@ import { checkNpAtlasesLink } from './utils/checkNpAtlasesLink.js';
 import { getTaxonomiesForNpAtlases } from './utils/getTaxonomiesForNpAtlases.js';
 import { parseNpatlases } from './utils/parseNpatlases.js';
 /**
- * @description sync npatlases from NPATLAS database
- * @param {*} connection - mongo connection
- * @returns {Promise} returns npatlases collection
+ * Main entry-point for the NPAtlas synchronisation job.
+ *
+ * High-level workflow:
+ * 1. Download (or resolve local test fixture for) the NPAtlas JSON file.
+ * 2. Check whether the download URL is still valid on the NPAtlas website.
+ * 3. Load the deprecated-to-current taxonomy-ID map via `taxonomySynonyms`.
+ * 4. If an update is needed:
+ *    a. Parse every compound from the JSON via {@link parseNpatlases}.
+ *    b. Enrich taxonomy data using {@link getTaxonomiesForNpAtlases}.
+ *    c. Upsert each enriched entry into a temporary collection.
+ *    d. Atomically rename `npAtlases_tmp` → `npAtlases`.
+ *    e. Persist progress and rebuild indexes.
+ *
+ * @param {OctoChemConnection} connection - Active database connection.
+ * @returns {Promise<void>}
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncNpAtlases');
   try {
-    let options = {
+    const options = {
       collectionSource:
         'https://www.npatlas.org/static/downloads/NPAtlas_download.json',
-      destinationLocal: `../originalData//npAtlases/full`,
+      destinationLocal: `../originalData/npAtlases/full`,
       collectionName: 'npAtlases',
       filenameNew: 'npAtlases',
       extensionNew: 'json',
     };
     let sources;
     let lastFile;
+    // --- Test mode: use local fixture (no network) ---
     if (process.env.NODE_ENV === 'test') {
       lastFile = `../docker/src/plugins/npAtlases/sync/utils/__tests__/data/npAtlasTest.json`;
       sources = [lastFile];
     } else {
-      // check if link has changed
+      // --- Production mode: download from NPAtlas ---
+      // Verify the remote URL hasn't moved
       await checkNpAtlasesLink([options.collectionSource], connection);
-      // get last files available in the NPATLAS database
+      // Download (or reuse cached) latest NPAtlas file
       lastFile = await getLastFileSync(options);
       sources = [lastFile.replace(`../originalData/`, '')];
     }
-    // get taxonomies old to new IDs mapping
-    const oldToNewTaxIDs = await taxonomySynonyms();
-    // get taxonomies collection
+    // Load deprecated → current taxonomy-ID mapping for normalisation
+    /** @type {DeprecatedTaxIdMap} */
+    const oldToNewTaxIDs = /** @type {any} */ (await taxonomySynonyms());
+    // Obtain the taxonomies collection for enrichment queries
     const collectionTaxonomies = await connection.getCollection('taxonomies');
-    // get npAtlases collection and progress
+    // Retrieve sync progress and last-imported document for change detection
     const progress = await connection.getProgress(options.collectionName);
 
     const lastDocumentImported = await getLastDocumentImported(
       connection,
       options.collectionName,
     );
+    // Check whether the source fingerprint has changed since the last run
     let isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
@@ -59,25 +75,26 @@ export async function sync(connection) {
       connection,
     );
 
-    // read file synchronized from NPATLAS database
+    // Read the full JSON file into memory (file is small enough)
     const fileJson = readFileSync(lastFile, 'utf8');
 
     // define counters
     let counter = 0;
     let imported = 0;
     let start = Date.now();
+    // Reimport only when source files changed or last import was incomplete
     if (isTimeToUpdate) {
       const collection = await connection.getCollection(options.collectionName);
 
-      // create temporary collection
+      // Create a temporary collection to write into; will be renamed atomically
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
       debug.info(`Start importing npAtlases`);
-      // set progress to updating
+      // Mark progress as "updating" so partial runs can be detected
       progress.state = 'updating';
       await connection.setProgress(progress);
-      // parse file
+      // Iterate over all parsed compounds from the NPAtlas JSON
       for await (const entry of parseNpatlases(
         JSON.parse(fileJson),
         connection,
@@ -90,17 +107,17 @@ export async function sync(connection) {
           );
           start = Date.now();
         }
-        /// Normalize Taxonomies
+        /// Enrich taxonomy data with standardised IDs from the taxonomies collection
         if (entry.data.taxonomies) {
-          // get normalized taxonomies
-          let taxonomies = await getTaxonomiesForNpAtlases(
+          // Resolve taxonomy via species, genus ID, genus, family, class, phylum cascade
+          const taxonomies = await getTaxonomiesForNpAtlases(
             entry,
             collectionTaxonomies,
             oldToNewTaxIDs,
           );
           entry.data.taxonomies = taxonomies;
         }
-        // insert entry in temporary collection
+        // Upsert the enriched document into the temporary collection
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
           { _id: entry._id },
@@ -109,7 +126,7 @@ export async function sync(connection) {
         );
         imported++;
       }
-      // rename temporary collection to npAtlases
+      // Atomic swap: rename temp collection → final (drops the old npAtlases)
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
@@ -118,7 +135,7 @@ export async function sync(connection) {
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      // create indexes on npAtlases collection
+      // Rebuild indexes on the freshly-swapped collection
       await createIndexes(collection, [
         { 'data.ocl.noStereoTautomerID': 1 },
         { _seq: 1 },
@@ -130,10 +147,11 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      const err = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(err.message, {
         collection: 'npAtlases',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

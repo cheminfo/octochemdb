@@ -1,24 +1,40 @@
 import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 /**
- * @description get standardized taxonomies for NpAtlases
- * @param {*} entry The data from aggregation process
- * @param {*} taxonomiesCollection The taxonomies collection
- * @param {*} oldToNewTaxIDs The newId to oldId map
- * @returns {Promise<Array>} The standardized taxonomies
+ * Resolves standardised taxonomy data for an NPAtlas entry by querying the
+ * `taxonomies` MongoDB collection.
+ *
+ * The function attempts to match the entry's taxonomy at progressively
+ * broader ranks (species → genusID → genus → family → class → phylum).
+ * As soon as a match is found the resolved taxonomy is enriched with any
+ * finer-grained fields from the original entry and returned.  If no match
+ * is found at any rank, the original taxonomy fields are returned as-is.
+ *
+ * Deprecated taxonomy IDs are transparently mapped to their current
+ * counterparts using the `oldToNewTaxIDs` lookup.
+ *
+ * @param {NpAtlasEntry} entry - The parsed NPAtlas entry containing raw
+ *   taxonomy data in `entry.data.taxonomies[0]`.
+ * @param {any} taxonomiesCollection - MongoDB collection handle for
+ *   the `taxonomies` collection.
+ * @param {DeprecatedTaxIdMap} oldToNewTaxIDs - Deprecated → current
+ *   taxonomy-ID mapping from `taxonomySynonyms()`.
+ * @returns {Promise<any[]>} Array of standardised taxonomy objects (usually
+ *   a single element).
  */
 export async function getTaxonomiesForNpAtlases(
   entry,
   taxonomiesCollection,
   oldToNewTaxIDs,
 ) {
-  let taxonomiesResults = [];
+  const taxonomiesResults = [];
   if (entry.data?.taxonomies) {
-    // Get taxonomies from the entry
-    let taxons = entry.data.taxonomies[0];
+    // Extract the first (and usually only) taxonomy from the entry
+    const taxons = entry.data.taxonomies[0];
     let searchParameter;
-    let type = {};
-    let oldIDs = Object.keys(oldToNewTaxIDs);
-    // Get the type of the taxonomy (species level, genus level, etc.)
+    /** @type {NpAtlasTaxonomySearchParams} */
+    const type = {};
+    const oldIDs = Object.keys(oldToNewTaxIDs);
+    // Determine search parameters at each taxonomic rank
     if (taxons.species) {
       searchParameter = {
         'data.species': taxons.species,
@@ -27,8 +43,7 @@ export async function getTaxonomiesForNpAtlases(
     }
     if (taxons.genusID && taxons.genusID !== null) {
       let idToUse = Number(taxons.genusID);
-      // If the ID is not in the taxonomies collection, check if it is in the oldToNewTaxIDs object
-      // If it is, use the new ID
+      // Map deprecated taxonomy IDs to their current counterparts
       if (oldIDs.includes(taxons.genusID)) {
         idToUse = Number(oldToNewTaxIDs[taxons.genusID]);
       }
@@ -40,7 +55,7 @@ export async function getTaxonomiesForNpAtlases(
 
     if (taxons.genus) {
       searchParameter = {
-        'data.genus': taxons.genusID,
+        'data.genus': taxons.genus,
       };
       type.genus = searchParameter;
     }
@@ -63,14 +78,14 @@ export async function getTaxonomiesForNpAtlases(
       };
       type.phylum = searchParameter;
     }
-    // until shouldSearch is true, we keep searching for the taxonomy
-    // using the different search parameters types
+    // Try each rank in order of specificity until a match is found.
+    // `shouldSearch` guards against redundant DB queries.
     let shouldSearch = true;
 
     if (type.species && shouldSearch) {
-      let result = await searchTaxonomies(taxonomiesCollection, type.species);
+      const result = await searchTaxonomies(taxonomiesCollection, type.species);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].data;
+        const finalTaxonomy = result[0].data;
 
         finalTaxonomy.dbRef = { $ref: 'npAtlases', $id: entry._id };
         taxonomiesResults.push(finalTaxonomy);
@@ -78,9 +93,9 @@ export async function getTaxonomiesForNpAtlases(
       }
     }
     if (type.genusID && shouldSearch) {
-      let result = await searchTaxonomies(taxonomiesCollection, type.genusID);
+      const result = await searchTaxonomies(taxonomiesCollection, type.genusID);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].data;
+        const finalTaxonomy = result[0].data;
         if (taxons.species) {
           finalTaxonomy.species = taxons.species;
         }
@@ -91,9 +106,9 @@ export async function getTaxonomiesForNpAtlases(
     }
 
     if (type.genus && shouldSearch) {
-      let result = await searchTaxonomies(taxonomiesCollection, type.genus);
+      const result = await searchTaxonomies(taxonomiesCollection, type.genus);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].data;
+        const finalTaxonomy = result[0].data;
         if (taxons.species) {
           finalTaxonomy.species = taxons.species;
         }
@@ -104,9 +119,9 @@ export async function getTaxonomiesForNpAtlases(
     }
 
     if (type.family && shouldSearch) {
-      let result = await searchTaxonomies(taxonomiesCollection, type.family);
+      const result = await searchTaxonomies(taxonomiesCollection, type.family);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].data;
+        const finalTaxonomy = result[0].data;
         if (taxons.genus) {
           finalTaxonomy.genus = taxons.genus;
         }
@@ -120,9 +135,9 @@ export async function getTaxonomiesForNpAtlases(
     }
 
     if (type.class && shouldSearch) {
-      let result = await searchTaxonomies(taxonomiesCollection, type.class);
+      const result = await searchTaxonomies(taxonomiesCollection, type.class);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].data;
+        const finalTaxonomy = result[0].data;
         if (taxons.family) {
           finalTaxonomy.family = taxons.family;
         }
@@ -138,9 +153,9 @@ export async function getTaxonomiesForNpAtlases(
       }
     }
     if (type.phylum && shouldSearch) {
-      let result = await searchTaxonomies(taxonomiesCollection, type.phylum);
+      const result = await searchTaxonomies(taxonomiesCollection, type.phylum);
       if (result.length > 0) {
-        let finalTaxonomy = result[0].data;
+        const finalTaxonomy = result[0].data;
 
         if (taxons.class) {
           finalTaxonomy.class = taxons.class;
@@ -159,9 +174,10 @@ export async function getTaxonomiesForNpAtlases(
         shouldSearch = false;
       }
     }
-    // if shouldSearch is true, we didn't find any taxonomy, so we keep the original taxonomy in standard format
+    // No match found at any rank – keep the original taxonomy in standard format
     if (shouldSearch) {
-      let finalTaxonomy = {};
+      /** @type {NpAtlasResolvedTaxonomy} */
+      const finalTaxonomy = {};
       if (taxons.kingdom) {
         finalTaxonomy.kingdom = taxons.kingdom;
       }
