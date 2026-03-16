@@ -4,14 +4,38 @@ import debugLibrary from '../../../../utils/Debug.js';
 import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
 
 /**
- * @description parse all npasses files and returns the data to be imported
- * @param {object} general - general data
- * @param {object} activities - activities data
- * @param {object} properties - properties data
- * @param {object} speciesPair - species pair data
- * @param {object} speciesInfo - species info data
- * @param {*} connection - mongo connection
- * @returns {*} returns the data to be imported
+ * Async generator that iterates over every compound in the NPASS
+ * general-info dataset and yields a fully enriched {@link NpassesEntry}
+ * document ready for MongoDB upsert.
+ *
+ * For each compound the function:
+ * 1. Looks up its SMILES in the `properties` map and skips the entry if
+ *    no SMILES is available (we need a valid structure).
+ * 2. Converts the SMILES to an OpenChemLib (OCL) molecule and computes a
+ *    stereochemistry-independent tautomer ID via `getNoStereosFromCache`.
+ * 3. Collects all bioactivity rows associated with the compound, enriches
+ *    each one with target metadata (name, organism, UniProt ID, etc.) from
+ *    the `targetInfo` map, and strips `"n.a."` sentinel values.
+ * 4. Resolves organism IDs through the `speciesPair` → `speciesInfo` maps
+ *    to build a list of parsed taxonomy objects.
+ * 5. Assembles the final entry document and yields it.
+ *
+ * @param {NpassesGeneralRow[]} general - Array of general-info rows parsed
+ *   from the NPASS TSV; each row represents one natural product.
+ * @param {NpassesActivityMap} activities - `np_id` → activity-row array
+ *   lookup built by {@link readNpassesLastFiles}.
+ * @param {NpassesPropertyMap} properties - `np_id` → property (structure)
+ *   row lookup containing SMILES/InChI data.
+ * @param {NpassesSpeciesPairMap} speciesPair - `np_id` → `org_id[]` lookup
+ *   that maps a compound to the organisms from which it was isolated.
+ * @param {NpassesSpeciesInfoMap} speciesInfo - `org_id` → species-info
+ *   row lookup with full taxonomy information.
+ * @param {NpassesTargetInfoMap} targetInfo - `target_id` → target-info
+ *   row lookup with target name, type, organism, and UniProt ID.
+ * @param {OctoChemConnection | string} connection - Database connection
+ *   instance (or the string `'test'`) used for the noStereo cache and
+ *   error logging.
+ * @yields {NpassesEntry} One document per valid compound.
  */
 export async function* parseNpasses(
   general,
@@ -24,30 +48,34 @@ export async function* parseNpasses(
 ) {
   const debug = debugLibrary('parseNpasses');
   try {
-    // for each molecule in general data
+    // Iterate over every compound in the general-info dataset
     for await (const item of general) {
-      // get properties and activities data
+      // Look up the structural properties (SMILES, InChI, etc.) by np_id
       const property = properties[item.np_id];
-      // get ocl molecule and noStereoID
+      // Skip compounds with no SMILES – we cannot compute a molecular structure
       if (property?.SMILES === undefined) {
         continue;
       }
+      // Convert SMILES to an OpenChemLib molecule object
       const smilesDb = property.SMILES;
       const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
+      // Compute the stereo-independent tautomer ID (cached for performance)
       const ocl = await getNoStereosFromCache(
         oclMolecule,
         connection,
         'npasses',
       );
+      // --- Build the activities list for this compound ---
       const activity = activities[item.np_id];
       const finalActivities = [];
       if (activity !== undefined) {
-        // parse activities data
         for (const info of activity) {
-          // check if field is defined before adding it to the object
-          let targetInfoActivity = targetInfo[info.target_id];
+          // Enrich with target metadata (name, organism, UniProt ID…)
+          const targetInfoActivity = targetInfo[info.target_id];
 
-          let originalActivites = {
+          // Map raw TSV fields → clean camelCase keys.
+          // Fields equal to "n.a." are set to null (removed later).
+          const originalActivites = {
             assayTissue:
               info.assay_tissue !== 'n.a.' ? info.assay_tissue : null,
             assayCellType:
@@ -87,9 +115,9 @@ export async function* parseNpasses(
                 ? targetInfoActivity.target_organism
                 : null,
             targetTaxId:
-              targetInfoActivity?.target_tax_id &&
-              targetInfoActivity.target_tax_id !== ''
-                ? targetInfoActivity.target_tax_id
+              targetInfoActivity?.target_organism_tax_id &&
+              targetInfoActivity.target_organism_tax_id !== ''
+                ? targetInfoActivity.target_organism_tax_id
                 : null,
             uniProtId:
               targetInfoActivity?.uniprot_id &&
@@ -97,19 +125,23 @@ export async function* parseNpasses(
                 ? targetInfoActivity.uniprot_id
                 : null,
           };
-          // delete all fields with null values
-          for (const key in originalActivites) {
-            if (originalActivites[key] === null) {
-              delete originalActivites[key];
+          // Remove null-valued fields to keep the stored document lean
+          /** @type {NpassesParsedActivity} */
+          const activitiesRecord = originalActivites;
+          for (const key in activitiesRecord) {
+            if (activitiesRecord[key] === null) {
+              delete activitiesRecord[key];
             }
           }
-          finalActivities.push(originalActivites);
+          finalActivities.push(activitiesRecord);
         }
       }
 
-      // get taxonomies from which the molecule is derived
-
+      // --- Build taxonomy information from organism IDs ---
+      // speciesPair maps np_id → array of org_id strings
       const orgIDs = speciesPair[item.np_id];
+      // Resolve each org_id to its full species-info row
+      /** @type {NpassesSpeciesInfoRow[]} */
       const taxonomies = [];
       if (orgIDs) {
         if (orgIDs.length > 0) {
@@ -120,11 +152,16 @@ export async function* parseNpasses(
           });
         }
       }
+      // Convert raw species-info rows into clean NpassesParsedTaxonomy objects.
+      // Only non-empty, non-"n.a." taxonomy ranks are included.
+      /** @type {NpassesParsedTaxonomy[]} */
       const finalTaxonomies = [];
 
       if (taxonomies.length > 0) {
         for (const infos of taxonomies) {
-          let taxons = {};
+          // Build a taxonomy object including only ranks that carry real data
+          /** @type {NpassesParsedTaxonomy} */
+          const taxons = {};
           if (infos?.superkingdom_name && infos?.superkingdom_name !== 'n.a.') {
             taxons.superkingdom = infos?.superkingdom_name;
           }
@@ -152,6 +189,7 @@ export async function* parseNpasses(
           if (infos?.genus_tax_id && infos?.genus_tax_id !== 'n.a.') {
             taxons.genusID = infos?.genus_tax_id;
           }
+          // Fall back to org_name / org_tax_id when species-level data is absent
           if (infos?.species_name && infos?.species_name !== 'n.a.') {
             taxons.species = infos?.org_name;
           } else if (infos?.org_name && infos?.org_name !== 'n.a.') {
@@ -168,13 +206,15 @@ export async function* parseNpasses(
           }
         }
       }
-      // define final result
+      // --- Assemble the final entry document ---
+      /** @type {NpassesEntry} */
       const result = {
         _id: item.np_id,
         data: {
           ocl,
         },
       };
+      // Attach optional PubChem CID, taxonomies, and activities when available
       if (item.pubchem_id) result.data.cid = item.pubchem_id;
       if (finalTaxonomies.length !== 0) {
         result.data.taxonomies = finalTaxonomies;
@@ -186,10 +226,11 @@ export async function* parseNpasses(
     }
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      const err = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(err.message, {
         collection: 'npasses',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

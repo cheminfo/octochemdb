@@ -1256,4 +1256,243 @@ declare global {
     /** File extension for the locally cached file. */
     extensionNew: string;
   }
+
+  // ---------------------------------------------------------------------------
+  // Npasses (NPASS)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single row parsed from the NPASS general-info TSV file.
+   * All values are strings because PapaParse returns raw text content.
+   */
+  interface NpassesGeneralRow {
+    /** NPASS natural-product identifier (e.g. `"NPC491451"`). */
+    np_id: string;
+    /** InChIKey. */
+    inchikey?: string;
+    /** Preferred compound name. */
+    pref_name?: string;
+    /** IUPAC name. */
+    iupac_name?: string;
+    /** ChEMBL identifier or `"n.a."`. */
+    chembl_id?: string;
+    /** PubChem CID or `"n.a."`. */
+    pubchem_id?: string;
+    /** Allow additional fields. */
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A single row parsed from the NPASS activities TSV file.
+   */
+  interface NpassesActivityRow {
+    np_id: string;
+    target_id: string;
+    activity_type_grouped?: string;
+    activity_relation?: string;
+    activity_type?: string;
+    activity_value?: string;
+    activity_units?: string;
+    assay_organism?: string;
+    assay_tax_id?: string;
+    assay_strain?: string;
+    assay_tissue?: string;
+    assay_cell_type?: string;
+    ref_id?: string;
+    ref_id_type?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A single row parsed from the NPASS properties (structure) TSV file.
+   */
+  interface NpassesPropertyRow {
+    np_id: string;
+    InChI?: string;
+    InChIKey?: string;
+    SMILES?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A single row parsed from the NPASS species-pair TSV file.
+   */
+  interface NpassesSpeciesPairRow {
+    np_id: string;
+    org_id: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A single row parsed from the NPASS species-info TSV file.
+   */
+  interface NpassesSpeciesInfoRow {
+    org_id: string;
+    org_name?: string;
+    org_tax_id?: string;
+    species_tax_id?: string;
+    species_name?: string;
+    genus_tax_id?: string;
+    genus_name?: string;
+    family_tax_id?: string;
+    family_name?: string;
+    kingdom_tax_id?: string;
+    kingdom_name?: string;
+    superkingdom_tax_id?: string;
+    superkingdom_name?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A single row parsed from the NPASS target-info TSV file.
+   */
+  interface NpassesTargetInfoRow {
+    target_id: string;
+    target_type?: string;
+    target_name?: string;
+    target_organism_tax_id?: string;
+    target_organism?: string;
+    uniprot_id?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * Map from NPASS `np_id` to its array of activity rows.
+   */
+  type NpassesActivityMap = Record<string, NpassesActivityRow[]>;
+
+  /**
+   * Map from NPASS `np_id` to its properties (structure) row.
+   */
+  type NpassesPropertyMap = Record<string, NpassesPropertyRow>;
+
+  /**
+   * Map from NPASS `np_id` to an array of `org_id` strings.
+   */
+  type NpassesSpeciesPairMap = Record<string, string[]>;
+
+  /**
+   * Map from NPASS `org_id` to its species-info row.
+   */
+  type NpassesSpeciesInfoMap = Record<string, NpassesSpeciesInfoRow>;
+
+  /**
+   * Map from NPASS `target_id` to its target-info row.
+   */
+  type NpassesTargetInfoMap = Record<string, NpassesTargetInfoRow>;
+
+  /**
+   * Parsed activity object built by `parseNpasses` from raw activity rows.
+   * Named properties allow `null` because the parser temporarily assigns
+   * `null` for `"n.a."` sentinel values before stripping them.
+   */
+  interface NpassesParsedActivity {
+    assayTissue?: string | null;
+    assayCellType?: string | null;
+    assayStrain?: string | null;
+    activityType?: string | null;
+    activityTypeGrouped?: string | null;
+    activityRelation?: string | null;
+    activityValue?: string | null;
+    activityUnit?: string | null;
+    targetId?: string | null;
+    assayOrganism?: string | null;
+    refId?: string | null;
+    refIdType?: string | null;
+    targetType?: string | null;
+    targetName?: string | null;
+    targetOrganism?: string | null;
+    targetTaxId?: string | null;
+    uniProtId?: string | null;
+    [key: string]: string | null | undefined;
+  }
+
+  /**
+   * Parsed taxonomy object built by `parseNpasses` from species-info rows.
+   */
+  interface NpassesParsedTaxonomy {
+    superkingdom?: string;
+    superkingdomID?: string;
+    kingdom?: string;
+    kingdomID?: string;
+    family?: string;
+    familyID?: string;
+    genus?: string;
+    genusID?: string;
+    species?: string;
+    speciesID?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * Payload stored in the `data` field of an npasses entry document.
+   */
+  interface NpassesEntryData {
+    /** OCL structural representation. */
+    ocl?: OclData;
+    /** PubChem CID when available. */
+    cid?: string;
+    /** Parsed taxonomy information (before or after enrichment). */
+    taxonomies?: NpassesParsedTaxonomy[] | any[];
+    /** Parsed activity information (before or after enrichment). */
+    activities?: NpassesParsedActivity[] | any[];
+  }
+
+  /**
+   * A single document yielded by `parseNpasses` and upserted into the
+   * `npasses` MongoDB collection.
+   */
+  interface NpassesEntry {
+    /** NPASS identifier, used as the MongoDB `_id`. */
+    _id: string;
+    /** Monotonically increasing sequence counter stamped by the sync loop. */
+    _seq?: number;
+    /** Payload containing structural, taxonomic, and activity data. */
+    data: NpassesEntryData;
+  }
+
+  /**
+   * Return value from `getNpassesLastFiles`. Contains local file paths,
+   * source fingerprints, and the progress document.
+   */
+  interface NpassesLastFiles {
+    lastFile: string;
+    lastFileActivity: string;
+    lastFileSpeciesProperties: string;
+    lastFileSpeciesInfo: string;
+    lastFileSpeciesPair: string;
+    lastTargetInfo: string;
+    sources: string[];
+    progress: Progress;
+  }
+
+  /**
+   * Return value from `readNpassesLastFiles`. Contains all parsed TSV data
+   * maps needed by `parseNpasses`.
+   */
+  interface NpassesParsedFiles {
+    general: NpassesGeneralRow[];
+    activities: NpassesActivityMap;
+    properties: NpassesPropertyMap;
+    speciesPair: NpassesSpeciesPairMap;
+    speciesInfo: NpassesSpeciesInfoMap;
+    targetInfo: NpassesTargetInfoMap;
+  }
+
+  /**
+   * Return value of `npassesStartSync`. Combines last-files metadata with
+   * parsed data and the target collection reference.
+   */
+  interface NpassesStartSyncResult {
+    lastDocumentImported: any;
+    progress: Progress;
+    sources: string[];
+    collection: any;
+    general: NpassesGeneralRow[];
+    activities: NpassesActivityMap;
+    properties: NpassesPropertyMap;
+    speciesPair: NpassesSpeciesPairMap;
+    speciesInfo: NpassesSpeciesInfoMap;
+    targetInfo: NpassesTargetInfoMap;
+  }
 }
