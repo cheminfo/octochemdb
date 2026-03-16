@@ -5,8 +5,8 @@ import { test, expect } from 'vitest';
 
 import { getTaxonomiesNodes } from '../getTaxonomiesNodes.js';
 
-test('getTaxonomiesNodes', () => {
+test('getTaxonomiesNodes', async () => {
   const arrayBuffer = readFileSync(join(__dirname, 'data/nodesTest.dmp'));
-  const result = getTaxonomiesNodes(arrayBuffer);
+  const result = await getTaxonomiesNodes(arrayBuffer);
   expect(result).toMatchSnapshot();
 });
