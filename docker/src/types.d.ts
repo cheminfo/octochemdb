@@ -1495,4 +1495,157 @@ declare global {
     speciesInfo: NpassesSpeciesInfoMap;
     targetInfo: NpassesTargetInfoMap;
   }
+
+  // ---------------------------------------------------------------------------
+  // NpAtlases (NPAtlas)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single entry from the NPAtlas JSON download file.
+   * Contains compound info together with taxonomy and reference data.
+   */
+  interface NpAtlasJsonEntry {
+    /** NPAtlas identifier (e.g. `"NPA000001"`). */
+    npaid: string;
+    /** Canonical SMILES string. */
+    smiles?: string;
+    /** Cleaned (standardised) SMILES string. */
+    clean_smiles?: string;
+    /** Original / IUPAC compound name. */
+    original_name?: string;
+    /** PubChem compound identifier. */
+    pubchem_cid?: string;
+    /** Origin organism with embedded taxon metadata. */
+    origin_organism: {
+      genus: string;
+      species: string;
+      taxon: {
+        ncbi_id: string;
+        ancestors: Array<{ rank: string; name: string }>;
+      };
+    };
+    /** Publication reference. */
+    origin_reference: {
+      doi?: string;
+      [key: string]: any;
+    };
+    /** Allow additional fields. */
+    [key: string]: any;
+  }
+
+  /**
+   * Parsed taxonomy object built by `parseNpatlases` for a single compound.
+   */
+  interface NpAtlasTaxon {
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    family?: string;
+    genus?: string;
+    genusID?: string;
+    species?: string;
+    doi?: string;
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * Payload stored in the `data` field of an npAtlases entry document.
+   */
+  interface NpAtlasEntryData {
+    ocl?: OclData;
+    cid?: string;
+    taxonomies?: NpAtlasTaxon[] | any[];
+    iupacName?: string;
+  }
+
+  /**
+   * A single document yielded by `parseNpatlases` and upserted into the
+   * `npAtlases` MongoDB collection.
+   */
+  interface NpAtlasEntry {
+    _id: string;
+    _seq?: number;
+    data: NpAtlasEntryData;
+  }
+
+  /**
+   * Holds per-rank MongoDB query objects built by `getTaxonomiesForNpAtlases`
+   * to probe the `taxonomies` collection at progressively broader ranks.
+   */
+  interface NpAtlasTaxonomySearchParams {
+    species?: Record<string, any>;
+    genusID?: Record<string, any>;
+    genus?: Record<string, any>;
+    family?: Record<string, any>;
+    class?: Record<string, any>;
+    phylum?: Record<string, any>;
+  }
+
+  /**
+   * Resolved taxonomy object returned by `getTaxonomiesForNpAtlases`.
+   * Extends basic taxonomy ranks with a `dbRef` used for cross-collection
+   * referencing.
+   */
+  interface NpAtlasResolvedTaxonomy {
+    superkingdom?: string;
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    dbRef?: { $ref: string; $id: string };
+    [key: string]: any;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Taxonomies (NCBI Taxonomy)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Map from NCBI taxonomy ID (as string) to its rank string.
+   * Built by `getTaxonomiesNodes` from the `nodes.dmp` file.
+   */
+  type TaxonomyNodesMap = Record<string, string>;
+
+  /**
+   * Taxonomy data object built by `parseTaxonomies` from `rankedlineage.dmp`.
+   */
+  interface TaxonomyData {
+    superkingdom?: string;
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    /** Populated when the ranked lineage name matches a standard rank. */
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * A single document yielded by `parseTaxonomies` and upserted into the
+   * `taxonomies` MongoDB collection.
+   */
+  interface TaxonomyEntry {
+    _id: number;
+    _seq?: number;
+    data: TaxonomyData;
+  }
+
+  // ---------------------------------------------------------------------------
+  // TitleCompounds (PubChem CID-Title)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single document upserted into the `titleCompounds` MongoDB collection.
+   */
+  interface TitleCompoundEntry {
+    _id: number;
+    data: {
+      title: string;
+    };
+  }
 }
