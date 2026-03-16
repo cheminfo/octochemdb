@@ -5,10 +5,13 @@ import debugLibrary from '../../../../utils/Debug.js';
 const debug = debugLibrary('MASSBANK');
 
 /**
- * @description Check if there is an update for the coconut link by comparing the previous link with the links found on the downloads page
- * @param {*} previousLink - The previous coconut link
- * @param {*} connection - The OctoChemConnection instance
- * @returns {Promise<string[]>} returns a promise that resolves to an array of all coconut links found on the downloads page
+ * Checks whether the current MassBank download URL still appears in the
+ * latest GitHub release assets.  If the link is missing a fatal warning is
+ * logged so that the source URL can be updated.
+ *
+ * @param {string} previousLink - The MassBank download URL currently configured
+ * @param {OctoChemConnection} connection - The OctoChemConnection instance
+ * @returns {Promise<string[]>} All download links found on the latest release page
  */
 export async function checkMassBankLink(previousLink, connection) {
   try {
@@ -22,12 +25,20 @@ export async function checkMassBankLink(previousLink, connection) {
       /<include-fragment\b[^>]*\bsrc="([^"]*\/releases\/expanded_assets\/[^"]+)"[^>]*>/;
 
     const downloadsSectionMatch = text.match(regexDownloadsSection);
-    const expandedAssetsUrl = await fetch(downloadsSectionMatch?.[1]);
+    const expandedAssetsHref = downloadsSectionMatch?.[1];
+    if (!expandedAssetsHref) {
+      await debug.fatal('⚠️Could not find expanded_assets URL on release page⚠️', {
+        collection: 'massBank',
+        connection,
+      });
+      return [];
+    }
+    const expandedAssetsUrl = await fetch(expandedAssetsHref);
     const expandedAssetsText = await expandedAssetsUrl.text();
-    let allLinks = expandedAssetsText.match(
+    const rawLinks = expandedAssetsText.match(
       /href="([^"]*\/(?:releases\/download|archive\/refs\/tags)\/[^"]+)"/g,
     );
-    allLinks = allLinks.map(
+    const allLinks = (rawLinks ?? []).map(
       (link) =>
         `https://github.com${link.replace('href="', '').replace('"', '')}`,
     );
@@ -40,8 +51,8 @@ export async function checkMassBankLink(previousLink, connection) {
     }
     return allLinks;
   } catch (e) {
-    // @ts-ignore
-    await debug.fatal(e.message, {
+    const err = e instanceof Error ? e : new Error(String(e));
+    await debug.fatal(err.message, {
       collection: 'massBank',
       connection,
     });

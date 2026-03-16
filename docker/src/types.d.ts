@@ -1128,4 +1128,132 @@ declare global {
     /** File extension for the locally cached file. */
     extensionNew: string;
   }
+
+  // ---------------------------------------------------------------------------
+  // MassBank
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Metadata fields extracted from a single MSP record by `msp-parser`.
+   * All values are strings because the parser returns raw text content.
+   */
+  interface MassBankMspMeta {
+    /** MassBank accession identifier (e.g. `"MSBNK-AAFC-AC000854"`). */
+    'DB#': string;
+    /** SMILES string of the precursor compound. */
+    SMILES: string;
+    /** Ion mode string in uppercase (e.g. `"POSITIVE"`). */
+    Ion_mode: string;
+    /** Instrument name (e.g. `"Q-Exactive Orbitrap Thermo Scientific"`). */
+    Instrument: string;
+    /** Instrument type / ion source (e.g. `"LC-ESI-ITFT"`). */
+    Instrument_type: string;
+    /** Precursor m/z value as a string. */
+    PrecursorMZ: string;
+    /** Precursor type / adduct (e.g. `"[M+H]+"`). */
+    Precursor_type: string;
+    /** Collision energy setting (e.g. `"30(NCE)"`). */
+    Collision_energy: string;
+    /** Spectrum type (e.g. `"MS2"`). */
+    Spectrum_type: string;
+    /** Allow additional meta fields. */
+    [key: string]: string | undefined;
+  }
+
+  /**
+   * Variable data (x/y arrays) from a parsed MSP record.
+   */
+  interface MassBankMspVariables {
+    /** m/z axis. */
+    x: { data: number[] };
+    /** Intensity axis. */
+    y: { data: number[] };
+  }
+
+  /**
+   * A single parsed MSP record as returned by `parseMSP()` from `msp-parser`.
+   */
+  interface MassBankMspRecord {
+    /** Key/value metadata block (the `Name:`, `DB#:`, … lines). */
+    meta: MassBankMspMeta;
+    /** Spectral peak arrays. */
+    variables: MassBankMspVariables;
+  }
+
+  /**
+   * x/y peak data stored inside a MassBank spectrum document.
+   */
+  interface MassBankSpectrumData {
+    /** m/z values of best peaks. */
+    x: number[] | Float64Array;
+    /** Normalised intensity values of best peaks. */
+    y: number[] | Float64Array;
+  }
+
+  /**
+   * Spectrum information stored inside a MassBank entry document.
+   */
+  interface MassBankSpectrum {
+    /** Best-peak x/y arrays. */
+    data: MassBankSpectrumData;
+    /** Number of peaks retained after best-peak selection. */
+    numberOfPeaks: number;
+    /** Instrument name. */
+    instrument: string;
+    /** Ion source / instrument type. */
+    ionSource: string;
+    /** Precursor m/z value. */
+    precursorMz: string;
+    /** Ion mode, title-cased (e.g. `"Positive"`). */
+    ionMode: string;
+    /** Adduct / precursor type (e.g. `"[M+H]+"`). */
+    adduct: string;
+    /** Collision energy setting. */
+    collisionEnergy: string;
+    /** MS level without the "MS" prefix (e.g. `"2"`). */
+    msLevel: string;
+  }
+
+  /**
+   * Payload stored in the `data` field of a MassBank entry document.
+   */
+  interface MassBankEntryData {
+    /** OCL structural representation. */
+    ocl?: OclData;
+    /** Processed spectrum with best-peak x/y data. */
+    spectrum?: MassBankSpectrum;
+    /** Exact (monoisotopic) mass. */
+    em?: number;
+    /** Molecular formula string. */
+    mf?: string;
+  }
+
+  /**
+   * A single document yielded by `parseMassBank` and upserted into the
+   * `massBank` MongoDB collection.
+   */
+  interface MassBankEntry {
+    /** MassBank accession, used as the MongoDB `_id`. */
+    _id?: string;
+    /** Monotonically increasing sequence counter stamped by the sync loop. */
+    _seq?: number;
+    /** Payload containing structural, spectral, and molecular data. */
+    data?: MassBankEntryData;
+  }
+
+  /**
+   * Options object passed to `getLastFileSync` for MassBank synchronisation.
+   */
+  interface MassBankSyncOptions {
+    /** Full URL of the remote MassBank MSP file. */
+    collectionSource: string;
+    /** Local directory where the downloaded file is stored. */
+    destinationLocal: string;
+    /** MongoDB collection name (`"massBank"`). */
+    collectionName: string;
+    /** Base filename for the locally cached file. */
+    filenameNew: string;
+    /** File extension for the locally cached file. */
+    extensionNew: string;
+  }
 }

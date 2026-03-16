@@ -18,33 +18,20 @@ const massBankSource =
   'https://github.com/MassBank/MassBank-data/releases/download/2025.10/MassBank_NISTformat.msp';
 
 /**
- * Synchronizes MassBank collection with the latest MassBank database
+ * Synchronises the `massBank` MongoDB collection with the latest MassBank
+ * MSP release.  Downloads (or reads the local test fixture), parses every
+ * MSP record via {@link parseMassBank}, upserts into a temporary collection,
+ * then atomically renames it and rebuilds indexes.
  *
- * This function orchestrates the complete synchronization workflow for MassBank data:
- * 1. Checks if an update is needed based on progress tracking and update interval
- * 2. Downloads or uses local test data if applicable
- * 3. Parses the MassBank MSP format file
- * 4. Upserts entries into a temporary collection
- * 5. Renames the temporary collection to replace the main collection
- * 6. Creates necessary database indexes for optimal query performance
- *
- * @async
- * @function sync
- * @param {Object} connection - MongoDB connection instance with methods for collection management
- * @param {Function} connection.getCollection - Retrieves or creates a MongoDB collection
- * @param {Function} connection.getProgress - Retrieves progress tracking document
- * @param {Function} connection.setProgress - Updates progress tracking document
- * @returns {Promise<void>} Resolves when synchronization is complete
- * @throws {Error} Logs fatal error to debug system if connection fails
- * @note
- * - Skips synchronization if file already processed (determined by shouldUpdate)
+ * @param {OctoChemConnection} connection - Database connection instance
+ * @returns {Promise<void>}
  */
-
 export async function sync(connection) {
   try {
-    let options = {
+    /** @type {MassBankSyncOptions} */
+    const options = {
       collectionSource: massBankSource,
-      destinationLocal: `../originalData//massBank/full`,
+      destinationLocal: `../originalData/massBank/full`,
       collectionName: 'massBank',
       filenameNew: 'massBank_full',
       extensionNew: 'msp',
@@ -53,7 +40,7 @@ export async function sync(connection) {
     let sources;
     let lastFile;
     if (process.env.NODE_ENV === 'test') {
-      lastFile = `${massBankTestSource}`;
+      lastFile = massBankTestSource;
       sources = [massBankTestSource];
     } else {
       lastFile = await getLastFileSync(options);
@@ -65,7 +52,7 @@ export async function sync(connection) {
       connection,
       options.collectionName,
     );
-    let isTimeToUpdate = await shouldUpdate(
+    const isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
       lastDocumentImported,
@@ -101,10 +88,8 @@ export async function sync(connection) {
         }
 
         // insert entry in temporary collection
-        // @ts-ignore
         entry._seq = ++progress.seq;
         await temporaryCollection.updateOne(
-          // @ts-ignore
           { _id: entry._id },
           { $set: entry },
           { upsert: true },
@@ -142,12 +127,11 @@ export async function sync(connection) {
     }
   } catch (e) {
     if (connection) {
-      // @ts-ignore
-      await debug.fatal(e.message, {
+      const err = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(err.message, {
         collection: 'massBank',
         connection,
-        // @ts-ignore
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }
