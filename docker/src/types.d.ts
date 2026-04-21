@@ -1648,4 +1648,173 @@ declare global {
       title: string;
     };
   }
+
+  // ---------------------------------------------------------------------------
+  // ActivesOrNaturals
+  // ---------------------------------------------------------------------------
+
+  /** Reference to a source collection entry (collection name + document id). */
+  interface CollectionSource {
+    id: string;
+    collection: string;
+  }
+
+  /** A noStereoTautomerID with its originating source references. */
+  interface CollectionLink {
+    id: string;
+    sources: CollectionSource[];
+  }
+
+  /** Map of noStereoTautomerID → link descriptor, built by `getCollectionsLinks`. */
+  type CollectionLinksMap = Record<string, CollectionLink>;
+
+  /** Result returned by `getCollectionsLinks`. */
+  interface CollectionLinksResult {
+    links: CollectionLinksMap;
+    collectionSources: string[];
+  }
+
+  /** MongoDB DBRef-style cross-collection pointer. */
+  interface DbRef {
+    $ref: string;
+    $id: unknown;
+  }
+
+  /** Result of `getActivitiesInfo`. */
+  interface ActivitiesInfoResult {
+    activityInfos: ActivityInfo[];
+    activityDBRef: DbRef[];
+  }
+
+  /** A single activity record from the aggregation pipeline. */
+  interface ActivityInfo {
+    assay?: string;
+    targetTaxonomies?: Record<string, string>[] | Record<string, string>;
+    [key: string]: unknown;
+  }
+
+  /** Result of `getMeshTerms`. */
+  interface MeshTermsResult {
+    meshTermsForCid: string[];
+    pmIds: string[];
+    counterPmids: number;
+  }
+
+  /** Result of `getCIDs`. */
+  interface CIDsResult {
+    cids: number[];
+    cidsDBRef: DbRef[];
+    dbRefsMolecules: MoleculeInfo[];
+    titles: string[];
+  }
+
+  /** Molecule structure info with OCL data, titles, and source refs. */
+  interface MoleculeInfo {
+    ocl: {
+      idCode: string;
+      coordinates?: string;
+    };
+    titles?: string[];
+    sources: DbRef[];
+  }
+
+  /** Result of `parseCompoundInfo`. */
+  interface ParsedCompoundInfo {
+    entry: ActiveOrNaturalEntry;
+    compoundsIds: number[];
+    casNumbers: string[];
+    meshTerms: string[];
+    pmids: string[];
+    cidsDBRef: DbRef[];
+    dbRefsMolecules: MoleculeInfo[];
+    titles: string[];
+  }
+
+  /** An entry being built during the activesOrNaturals aggregation. */
+  interface ActiveOrNaturalEntry {
+    data: ActiveOrNaturalData;
+  }
+
+  /** Data payload of an activesOrNaturals entry. */
+  interface ActiveOrNaturalData {
+    naturalProduct?: boolean;
+    bioactive?: boolean;
+    em?: number;
+    charge?: number;
+    unsaturation?: number;
+    mf?: string;
+    noStereoOCL?: Array<{ idCode: string; coordinates?: string }>;
+    molecules?: MoleculeInfo[];
+    nbMolecules?: number;
+    compounds?: DbRef[];
+    cas?: string[];
+    pmids?: string[];
+    meshTerms?: string[];
+    kwMeshTerms?: string[];
+    kwBioassays?: string[];
+    kwActiveAgainst?: string[];
+    kwTaxonomies?: string[];
+    kwTitles?: string[];
+    titles?: string[];
+    activities?: DbRef[];
+    nbActivities?: number;
+    taxonomies?: TaxonomyResult[];
+    nbTaxonomies?: number;
+    pubmeds?: DbRef[];
+    nbPubmeds?: number;
+    massSpectra?: DbRef[];
+    nbMassSpectra?: number;
+    patents?: DbRef[];
+    nbPatents?: number;
+    bioassaysPubChem?: unknown;
+    [key: string]: unknown;
+  }
+
+  /** A standardized taxonomy result from the aggregation pipeline. */
+  interface TaxonomyResult {
+    superkingdom?: string;
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    dbRef?: DbRef;
+    [key: string]: unknown;
+  }
+
+  /** DBRef for a mass spectrum entry. */
+  interface MassSpectraDbRef {
+    dbRef: DbRef;
+  }
+
+  /** Keywords search parameters for activesOrNaturals queries. */
+  interface KeywordsSearchParams {
+    kwTitles?: string;
+    kwBioassays?: string;
+    kwActiveAgainst?: string;
+    kwTaxonomies?: string;
+    kwMeshTerms?: string;
+  }
+
+  /** Molecular search parameters for activesOrNaturals queries. */
+  interface MolecularSearchParams {
+    em?: string;
+    mf?: string;
+    noStereoTautomerID?: string;
+    precision: number;
+  }
+
+  /** Min/max range descriptor used in `prepareMinMaxQuery`. */
+  interface MinMaxRange {
+    min?: number;
+    max?: number;
+  }
+
+  /** Worker thread message sent from the main thread. */
+  interface WorkerMessage {
+    links: CollectionLink[];
+    workerID: number;
+  }
 }

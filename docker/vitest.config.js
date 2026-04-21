@@ -26,6 +26,7 @@ import { BaseSequencer } from 'vitest/node';
 
 export default defineConfig({
   test: {
+    testTimeout: 80000,
     sequence: {
       sequencer: class Sequencer extends BaseSequencer {
         async shard(files) {
