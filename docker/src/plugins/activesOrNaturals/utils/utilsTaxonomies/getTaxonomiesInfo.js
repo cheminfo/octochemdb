@@ -5,10 +5,10 @@ import { sortTaxonomies } from './sortTaxonomies.js';
 const debug = debugLibrary('getTaxonomiesInfo');
 
 /**
- * @description Get unique taxonomies from the aggregation process data
- * @param {*} data The data from aggregation process
- * @param {*} connection The connection to the database
- * @returns {Promise} An array containing unique taxonomies
+ * Collect and deduplicate taxonomies from aggregation data, then sort them.
+ * @param {Array<Record<string, any>>} data - documents from the aggregation pipeline
+ * @param {OctoChemConnection} connection
+ * @returns {Promise<TaxonomyResult[] | undefined>} sorted unique taxonomies
  */
 export default async function getTaxonomiesInfo(data, connection) {
   try {
@@ -28,7 +28,7 @@ export default async function getTaxonomiesInfo(data, connection) {
               return taxonomy?.species === elem.species;
             }) === index,
         );
-      } catch (e) {
+      } catch (/** @type {any} */ e) {
         if (connection) {
           debug.error(e.message, {
             collection: 'activesOrNaturals',
@@ -40,7 +40,7 @@ export default async function getTaxonomiesInfo(data, connection) {
     }
     const sortedTaxonomies = sortTaxonomies(taxons);
     return sortedTaxonomies;
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

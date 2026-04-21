@@ -1,7 +1,7 @@
 /**
- * @description Get the compound titles keywords
- * @param {Array<Object>} molecules Array of Objects with compounds information
- * @returns {Array} Array titles
+ * Extract lowercased keyword tokens from molecule titles.
+ * @param {MoleculeInfo[]} molecules
+ * @returns {string[]} deduplicated array of title keywords
  */
 export function getTitlesKeywords(molecules) {
   const titlesKw = new Set();

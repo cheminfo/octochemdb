@@ -5,6 +5,12 @@ import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
 const connection = new OctoChemConnection();
+
+/**
+ * Split `links` into chunks and process them in parallel using worker threads.
+ * @param {CollectionLinksMap} links - map of noStereoTautomerID to source references
+ * @returns {Promise<void>}
+ */
 export async function main(links) {
   const debug = debugLibrary('improveActivesOrNaturals Main');
 
@@ -61,7 +67,7 @@ export async function main(links) {
           }),
       ),
     );
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

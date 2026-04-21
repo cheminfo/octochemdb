@@ -10,7 +10,7 @@ test('getMeshTerms', async () => {
     await connection.getCollection('activesOrNaturals');
   while (true) {
     if (
-      (await activesOrNaturalsCollection.countDocuments()) === 68 &&
+      (await activesOrNaturalsCollection.countDocuments()) === 69 &&
       (await pubmedsCollection.countDocuments()) === 7
     ) {
       break;

@@ -1,7 +1,8 @@
 /**
- * @description sort taxonomies by superKingdom, kingdom, phylum, class, order, family, genus, species
- * @param {Array} taxonomies - array of objects
- *
+ * Sort taxonomies alphabetically by rank fields (superKingdom through species).
+ * Empty-string placeholders introduced for sorting are cleaned up afterwards.
+ * @param {TaxonomyResult[]} taxonomies
+ * @returns {TaxonomyResult[]} sorted taxonomies (same array reference)
  */
 export function sortTaxonomies(taxonomies) {
   const fields = [

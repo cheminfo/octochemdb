@@ -18,21 +18,70 @@ test('Aggregation ActivesOrNaturals', async () => {
     await connection.getCollection('titleCompounds');
   const compoundPatentsCollection =
     await connection.getCollection('compoundPatents');
+  const requiredCollections = [
+    'lotuses',
+    'npasses',
+    'npAtlases',
+    'cmaups',
+    'coconuts',
+    'bioassays',
+    'gnps',
+    'pubmeds',
+    'patents',
+    'titleCompounds',
+    'compoundPatents',
+  ];
+  const expectedCounts = {
+    lotuses: 20,
+    npasses: 6,
+    npAtlases: 3,
+    cmaups: 19,
+    coconuts: 20,
+    bioassays: 20,
+    gnps: 2,
+    pubmeds: 7,
+    patents: 255,
+    titleCompounds: 10000,
+    compoundPatents: 4502,
+  };
+  const adminCollection = await connection.getCollection('admin');
+ 
   while (true) {
-    if (
-      (await lotusesCollection.countDocuments()) === 20 &&
-      (await npassesCollection.countDocuments()) === 6 &&
-      (await npAtlasesCollection.countDocuments()) === 3 &&
-      (await cmaupsCollection.countDocuments()) === 19 &&
-      (await coconutsCollection.countDocuments()) === 20 &&
-      (await bioassaysCollection.countDocuments()) === 20 &&
-      (await gnpsCollection.countDocuments()) === 2 &&
-      (await pubmedsCollection.countDocuments()) === 7 &&
-      (await patentsCollection.countDocuments()) === 255 &&
-      (await titleCompoundsCollection.countDocuments()) === 10000 &&
-      (await compoundPatentsCollection.countDocuments()) === 4502
-    ) {
-      break;
+    let allUpdated = true;
+    const states = {};
+    for (const name of requiredCollections) {
+      const progress = await adminCollection.findOne({
+        _id: `${name}_progress`,
+      });
+      states[name] = progress?.state;
+      if (progress?.state !== 'updated') {
+        allUpdated = false;
+      }
+    }
+    if (allUpdated) {
+      // Also verify counts to be safe
+      const collections = {
+        lotuses: lotusesCollection,
+        npasses: npassesCollection,
+        npAtlases: npAtlasesCollection,
+        cmaups: cmaupsCollection,
+        coconuts: coconutsCollection,
+        bioassays: bioassaysCollection,
+        gnps: gnpsCollection,
+        pubmeds: pubmedsCollection,
+        patents: patentsCollection,
+        titleCompounds: titleCompoundsCollection,
+        compoundPatents: compoundPatentsCollection,
+      };
+      let countsMatch = true;
+      for (const [name, col] of Object.entries(collections)) {
+        const count = await col.countDocuments();
+        if (count !== expectedCounts[name]) {
+          countsMatch = false;
+          break;
+        }
+      }
+      if (countsMatch) break;
     }
   }
 

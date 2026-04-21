@@ -1,5 +1,11 @@
 import { prepareKeywords } from './prepareKeywords.js';
 
+/**
+ * Populate `matchParameter` with keyword-based MongoDB `$elemMatch` / `$all` filters.
+ * Mutates `matchParameter` in place.
+ * @param {Record<string, unknown>} matchParameter - MongoDB match object
+ * @param {KeywordsSearchParams} keywords
+ */
 export function getKeywordsMatchParameter(matchParameter, keywords) {
   let regexKwTitles = prepareKeywords(keywords.kwTitles);
   let regexKwBioassays = prepareKeywords(keywords.kwBioassays);

@@ -1,11 +1,12 @@
 import debugLibrary from '../../../utils/Debug.js';
 
 const debug = debugLibrary('getCollectionLinks');
+
 /**
- * @description Get collection links from all collections
- * @param {*} connection OctoChem connection
- * @param {*} collectionNames Array of collection names
- * @returns {Promise} Returns the array of collection links and the array the sources in progress collection
+ * Build a map of noStereoTautomerID to source references across all collections.
+ * @param {OctoChemConnection} connection
+ * @param {string[]} collectionNames - names of the source collections to scan
+ * @returns {Promise<CollectionLinksResult | undefined>}
  */
 export default async function getCollectionsLinks(connection, collectionNames) {
   try {
@@ -45,7 +46,7 @@ export default async function getCollectionsLinks(connection, collectionNames) {
       }
     }
     return { links, collectionSources };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

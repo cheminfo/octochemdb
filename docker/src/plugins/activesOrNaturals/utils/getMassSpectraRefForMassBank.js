@@ -1,9 +1,9 @@
 import debugLibrary from '../../../utils/Debug.js';
 /**
- * Get DbRefs of mass spectra in massBank collection
- * @param {*} connection - mongo connection
- * @param {*} noStereoTautomerID - noStereoTautomerID
- * @returns {Promise} - DbRefs of mass spectra in massBank collection
+ * Get DBRefs of mass spectra in the MassBank collection.
+ * @param {OctoChemConnection} connection
+ * @param {string} noStereoTautomerID
+ * @returns {Promise<MassSpectraDbRef[] | undefined>}
  */
 export async function getMassSpectraRefForMassBank(
   connection,
@@ -28,7 +28,7 @@ export async function getMassSpectraRefForMassBank(
       ])
       .toArray();
     return massSpectra;
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'massBank',

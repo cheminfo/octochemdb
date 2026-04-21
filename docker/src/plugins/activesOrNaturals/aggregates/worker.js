@@ -15,7 +15,9 @@ import getTaxonomiesInfo from '../utils/utilsTaxonomies/getTaxonomiesInfo.js';
 
 const connection = new OctoChemConnection();
 const debug = debugLibrary('WorkerProcess');
-parentPort?.on('message', async (dataEntry) => {
+
+/** Worker thread entry-point: receives chunks of links and upserts aggregated entries. */
+parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
   try {
     const { links, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
@@ -63,14 +65,14 @@ parentPort?.on('message', async (dataEntry) => {
         connection,
       );
       // get unique compound information from all collections for the current noStereoTautomerIDs
-      entry = await getCompoundsInfo(
+      entry = (await getCompoundsInfo(
         entry,
         data,
         compoundsCollection,
         noStereoTautomerID,
         connection,
         compoundPatentsCollection,
-      );
+      )) ?? entry;
       let massSpectraRefsForGNPs = await getMassSpectraRefForGNPs(
         connection,
         noStereoTautomerID,
@@ -155,7 +157,7 @@ parentPort?.on('message', async (dataEntry) => {
       }
       // get kwTitles
       let kwTitles;
-      if (entry.data?.molecules.length > 0) {
+      if (entry.data?.molecules?.length > 0) {
         kwTitles = getTitlesKeywords(entry.data.molecules);
         if (kwTitles?.length > 0) {
           entry.data.kwTitles = kwTitles;
@@ -173,7 +175,7 @@ parentPort?.on('message', async (dataEntry) => {
       }
 
       if (entry) {
-        temporaryCollection.updateOne(
+        await temporaryCollection.updateOne(
           { _id: noStereoTautomerID },
           { $set: entry },
           { upsert: true },
@@ -192,7 +194,7 @@ parentPort?.on('message', async (dataEntry) => {
     }
     // @ts-ignore
     parentPort.postMessage({ workerID, currentCount: count, status: 'done' });
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',
