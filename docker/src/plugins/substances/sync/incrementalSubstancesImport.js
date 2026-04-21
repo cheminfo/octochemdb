@@ -5,12 +5,24 @@ import { importSubstanceFiles } from './utils/importSubstanceFiles.js';
 import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
 
 /**
- * @description perform incremental import of substances files and return the collection substances
- * @param {*} connection
+ * Perform an incremental (weekly) import of PubChem Substance delta files.
+ *
+ * Workflow:
+ * 1. In test mode use a local fixture; otherwise synchronise the weekly
+ *    substance folder from the NCBI FTP server.
+ * 2. Verify the first import has completed (state === 'updated').
+ * 3. Determine which files still need importing (resume support).
+ * 4. Only proceed if enough time has elapsed since the last update
+ *    (controlled by PUBCHEM_UPDATE_INTERVAL env var) or in test mode.
+ * 5. Import substances and update the progress document.
+ *
+ * @param {OctoChemConnection} connection - MongoDB connection wrapper
+ * @returns {Promise<void>}
  */
 async function incrementalSubstanceImport(connection) {
   const debug = debugLibrary('incrementalSubstanceImport');
   try {
+    // In test mode, use a local fixture file instead of the FTP server
     let allFiles;
     if (process.env.NODE_ENV === 'test') {
       allFiles = [
@@ -32,6 +44,7 @@ async function incrementalSubstanceImport(connection) {
       allFiles,
       'incremental',
     );
+    // Reset the start date if the update interval has elapsed and sources differ
     if (
       progress.dateEnd !== 0 &&
       Date.now() - progress.dateEnd >
@@ -41,6 +54,7 @@ async function incrementalSubstanceImport(connection) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
     }
+    // Only import when the update interval has elapsed or running in test mode
     if (
       (!files.includes(progress.sources) &&
         progress.state === 'updated' &&
@@ -59,11 +73,12 @@ async function incrementalSubstanceImport(connection) {
       await connection.setProgress(progress);
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'substances',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

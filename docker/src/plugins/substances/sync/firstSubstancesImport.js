@@ -6,9 +6,18 @@ import { importSubstanceFiles } from './utils/importSubstanceFiles.js';
 import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
 
 /**
- * @description perform first import of substances files and return the collection substances
- * @param {*} connection - mongo connection
- * @returns {Promise} - collection substances
+ * Perform the initial full import of PubChem Substance SDF files.
+ *
+ * Workflow:
+ * 1. Check the progress document — if state is already 'updated', skip.
+ * 2. In test mode use a local fixture; otherwise synchronise the full
+ *    substance folder from the NCBI FTP server.
+ * 3. Determine which files still need importing (resume support).
+ * 4. Import substances from each file and upsert them into MongoDB.
+ * 5. Create indexes on the substances collection.
+ *
+ * @param {OctoChemConnection} connection - MongoDB connection wrapper
+ * @returns {Promise<void>}
  */
 async function firstSubstanceImport(connection) {
   const debug = debugLibrary('firstSubstanceImport');
@@ -20,6 +29,7 @@ async function firstSubstanceImport(connection) {
     } else {
       debug.info(`Continuing first importation from ${progress.seq}.`);
     }
+    // In test mode, use a local fixture file instead of the FTP server
     let allFiles;
     if (process.env.NODE_ENV === 'test') {
       allFiles = [
@@ -37,6 +47,7 @@ async function firstSubstanceImport(connection) {
       allFiles,
       'first',
     );
+    // Mark progress as in-flight before starting the import
     progress.state = 'updating';
     progress.dateEnd = Date.now();
     await connection.setProgress(progress);
@@ -47,21 +58,23 @@ async function firstSubstanceImport(connection) {
       { lastDocument },
       'first',
     );
+    // Mark progress as complete after all files have been imported
     progress.state = 'updated';
     await connection.setProgress(progress);
 
-    let substanceCollection = await connection.getCollection('substances');
+    const substanceCollection = await connection.getCollection('substances');
     await createIndexes(substanceCollection, [
       { naturalProduct: 1 },
       { 'data.ocl.noStereoTautomerID': 1 },
       { _seq: 1 },
     ]);
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'substances',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

@@ -3,16 +3,22 @@ import fetch from 'node-fetch';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
-/**
- * @description calculate the ocl substance data
- * @param {*} molecule data of the molecule in substance file
- * @returns {Promise} ocl molecule data
- */
 
+/**
+ * Compute OpenChemLib descriptors and molecular properties for a substance.
+ *
+ * Parses the molecule from its molfile (or IDCode fallback), then queries
+ * the external OCL-cache service (up to 3 retries with 1 s delay) to obtain
+ * canonical identifiers, molecular formula, exact mass, etc.
+ *
+ * @param {object} molecule - parsed SDF molecule record (with `.molfile` or `.idCode`)
+ * @returns {Promise<{data: object}|undefined>} substance data payload, or undefined on failure
+ */
 export async function getSubstanceData(molecule) {
   const debug = debugLibrary('getSubstanceData');
 
   try {
+    // Parse the molecule from its molfile; fall back to IDCode if absent
     let oclMolecule;
     if (molecule.molfile) {
       oclMolecule = OCL.Molecule.fromMolfile(molecule.molfile);
@@ -20,10 +26,11 @@ export async function getSubstanceData(molecule) {
       oclMolecule = OCL.Molecule.fromIDCode(molecule.idCode);
     }
     const oclID = oclMolecule.getIDCodeAndCoordinates();
-    let urlIDCode = encodeURIComponent(oclID.idCode);
+    const urlIDCode = encodeURIComponent(oclID.idCode);
     let count = 0;
     let success = false;
     let dataSubstance;
+    // Retry up to 3 times to fetch computed properties from OCL-cache
     while (success === false && count < 3) {
       try {
         const controller = new AbortController();
@@ -54,8 +61,8 @@ export async function getSubstanceData(molecule) {
       throw new Error('Failed to fetch data');
     }
     if (dataSubstance?.status === 200) {
-      let data = await dataSubstance.json();
-      let result = {
+      const data = await dataSubstance.json();
+      const result = {
         data: {
           ocl: {
             idCode: data.result.idCode,
@@ -71,6 +78,7 @@ export async function getSubstanceData(molecule) {
         },
       };
 
+      // Attach atom-count map when available
       if (
         data.result.atoms !== null &&
         data.result.atoms !== undefined &&

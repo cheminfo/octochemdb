@@ -2,14 +2,22 @@ import removeEntriesFromFile from '../../../../sync/utils/removeEntriesFromFile.
 import debugLibrary from '../../../../utils/Debug.js';
 
 import importOneSubstanceFile from './importOneSubstanceFile.js';
+
 /**
- * @description import the substance files
- * @param {*} connection  connection to mongo
- * @param {*} progress substances progress
- * @param {Array} files substance files
- * @param {object} options {lastDocument}
- * @param {string} importType first or incremental
- * @returns {Promise} substances collection
+ * Import a list of substance files, handling both new-substance SDF files
+ * and killed-SID removal files (incremental mode only).
+ *
+ * For each file ending in `.gz` the function delegates to
+ * {@link importOneSubstanceFile}.  Files whose name starts with 'killed'
+ * (only during incremental imports) are passed to `removeEntriesFromFile`
+ * to delete obsolete documents.
+ *
+ * @param {OctoChemConnection} connection - MongoDB connection wrapper
+ * @param {object} progress - progress document for the substances collection
+ * @param {Array<{name: string, path: string}>} files - list of substance files
+ * @param {object} options - import options (`lastDocument`, `shouldImport`)
+ * @param {'first'|'incremental'} importType - import mode
+ * @returns {Promise<void>}
  */
 export async function importSubstanceFiles(
   connection,
@@ -28,7 +36,7 @@ export async function importSubstanceFiles(
         ...options,
       };
     }
-    for await (let file of files) {
+    for await (const file of files) {
       if (file.name.endsWith('.gz')) {
         await importOneSubstanceFile(connection, progress, file, options);
         options.shouldImport = true;
@@ -40,11 +48,12 @@ export async function importSubstanceFiles(
       }
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'substances',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }
