@@ -9,7 +9,7 @@ test('In silico fragmentation', async () => {
     await connection.getCollection('activesOrNaturals');
 
   while (true) {
-    if ((await activesOrNaturalsCollection.countDocuments()) === 68) {
+    if ((await activesOrNaturalsCollection.countDocuments()) === 69) {
       break;
     }
   }
