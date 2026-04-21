@@ -67,6 +67,7 @@ exports[`checkGNPSLink 1`] = `
   "https://external.gnps2.org/gnpslibrary/GNPS-ALKYLAMINES-LIBRARY.json",
   "https://external.gnps2.org/gnpslibrary/GNPS-ALKYLAMINES-BILE-ACIDS-LIBRARY.json",
   "https://external.gnps2.org/gnpslibrary/GNPS-XENORHABDUS-PHOTORHABDUS-COMPOUNDS-LIBRARY.json",
+  "https://external.gnps2.org/gnpslibrary/GNPS-LIPID-MAPS-STANDARDS-SPECTRA-DB.json",
   "https://external.gnps2.org/gnpslibrary/GNPS-MASSQL-BILE-ACID-ISOMER.json",
   "https://external.gnps2.org/gnpslibrary/GNPS-IIMN-PROPOGATED.json",
   "https://external.gnps2.org/gnpslibrary/GNPS-SUSPECTLIST.json",
