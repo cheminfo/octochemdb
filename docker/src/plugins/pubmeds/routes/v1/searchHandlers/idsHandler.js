@@ -1,15 +1,25 @@
-// query for molecules from monoisotopic mass
 import { OctoChemConnection, getFields } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Handler for the multi-PMID lookup route.
+ *
+ * Splits the comma/whitespace-separated `ids` string into numeric PMIDs,
+ * queries the `pubmeds` collection with `$in`, and returns the projected
+ * fields for all matching articles.
+ *
+ * @param {import('fastify').FastifyRequest} request - Fastify request with
+ *   `query.ids` (string) and `query.fields` (string).
+ * @returns {Promise<{ data: object[] } | { errors: object[] }>}
+ */
 export async function idsHandler(request) {
-  let data = getRequestQuery(request);
-  let { ids = '', fields = 'data' } = data;
+  const data = getRequestQuery(request);
+  const { ids = '', fields = 'data' } = data;
 
-  let formattedFields = getFields(fields);
+  const formattedFields = getFields(fields);
   let connection;
   try {
     connection = new OctoChemConnection();

@@ -1,5 +1,10 @@
 import { idsHandler } from './searchHandlers/idsHandler.js';
 
+/**
+ * Fastify route definition: retrieve multiple PubMed articles by PMID list.
+ *
+ * @type {import('fastify').RouteOptions}
+ */
 const searchIDs = {
   method: ['GET', 'POST'],
   schema: {

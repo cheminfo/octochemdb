@@ -10,21 +10,40 @@ import { importPubmedFiles } from './utils/importPubmedFiles.js';
 import { syncPubmedFolder } from './utils/syncPubmedFolder.js';
 
 /**
- * @description performs the first import of pubmeds
- * @param {*} connection - mongo connection
- * @returns {Promise} pubmeds collection
+ * Performs the initial bulk import of PubMed baseline dump files.
+ *
+ * Workflow:
+ * 1. Check the progress document — if state is already `'updated'`,
+ *    the baseline has been fully imported and the function exits early.
+ * 2. In test mode, use a local fixture file; otherwise synchronise
+ *    the remote PubMed baseline folder to local storage.
+ * 3. Determine which files still need importing (resume support).
+ * 4. Download the CID→PMID mapping from PubChem so that each PubMed
+ *    article can be linked to its associated compound CIDs.
+ * 5. Import every remaining baseline XML file into the `pubmeds`
+ *    collection, upserting one document per article.
+ * 6. Mark progress as `'updated'`, persist the end timestamp, and
+ *    rebuild the collection indexes (including a weighted text index
+ *    on title, MeSH headings, and abstract).
+ *
+ * @param {OctoChemConnection} connection - Active database connection.
+ * @returns {Promise<void>}
  */
 async function firstPubmedImport(connection) {
   const debug = debugLibrary('firstPubmedImport');
   try {
-    // get progress
     const progress = await connection.getProgress('pubmeds');
+
+    // Skip entirely when the baseline import has already completed
     if (progress.state === 'updated') {
       debug.info('First importation has been completed. Should only update.');
       return;
     } else {
       debug.info(`Continuing first importation from ${progress.seq}.`);
     }
+
+    // In test mode use a local fixture; in production sync the remote folder
+    /** @type {{ name: string; path: string }[]} */
     let allFiles;
     if (process.env.NODE_ENV === 'test') {
       allFiles = [
@@ -34,20 +53,24 @@ async function firstPubmedImport(connection) {
         },
       ];
     } else {
-      // get all files to import
       allFiles = await syncPubmedFolder(connection, 'first');
     }
+
+    // Determine the subset of files still pending import
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
       allFiles,
       'first',
     );
-    //set progress to updating
+
+    // Mark progress as "updating" so partial runs can be detected
     progress.state = 'updating';
     await connection.setProgress(progress);
-    // get cidToPmid map
-    let options = {
+
+    // Download the CID→PMID mapping so articles can reference compounds
+    /** @type {SyncOptions} */
+    const options = {
       collectionSource:
         'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-PMID.gz',
       destinationLocal: `../originalData//pubmeds/cidToPmid`,
@@ -55,13 +78,17 @@ async function firstPubmedImport(connection) {
       filenameNew: 'cidToPmid',
       extensionNew: 'gz',
     };
+
     let cidToPmidPath;
     if (process.env.NODE_ENV === 'test') {
       cidToPmidPath = `../docker/src/plugins/pubmeds/sync/utils/__tests__/data/cidToPmidTest.gz`;
     } else {
       cidToPmidPath = await getLastFileSync(options);
     }
+
     const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
+
+    // Process every pending baseline file sequentially
     await importPubmedFiles(
       connection,
       progress,
@@ -70,19 +97,21 @@ async function firstPubmedImport(connection) {
       pmidToCid,
       'first',
     );
-    // set progress to updated
+
+    // Finalise progress: record end timestamp and mark as done
     progress.state = 'updated';
     progress.dateEnd = Date.now();
     await connection.setProgress(progress);
-    // create indexes
-    const collection = await connection.getCollection('pubmeds');
 
+    // Rebuild indexes on the freshly-populated collection
+    const collection = await connection.getCollection('pubmeds');
     await createIndexes(collection, [
       { 'data.meshHeadings': 1 },
       { 'data.compounds': 1 },
       { _seq: 1 },
     ]);
-    // create text index where title and meshHeading have more weight than abstract
+
+    // Weighted text index: title and MeSH headings score higher than abstract
     await collection.createIndex(
       {
         'data.article.title': 'text',
@@ -100,10 +129,11 @@ async function firstPubmedImport(connection) {
     );
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      const err = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(err.message, {
         collection: 'pubmeds',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

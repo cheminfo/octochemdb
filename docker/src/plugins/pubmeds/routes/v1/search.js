@@ -1,5 +1,10 @@
 import { searchHandler } from './searchHandlers/searchHandler.js';
 
+/**
+ * Fastify route definition: full-text search across PubMed articles.
+ *
+ * @type {import('fastify').RouteOptions}
+ */
 const search = {
   method: ['GET', 'POST'],
   schema: {

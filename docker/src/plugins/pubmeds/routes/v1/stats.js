@@ -1,5 +1,10 @@
 import { statsHandler } from './searchHandlers/statsHandler.js';
 
+/**
+ * Fastify route definition: global statistics for the pubmeds collection.
+ *
+ * @type {import('fastify').RouteOptions}
+ */
 const stats = {
   method: 'GET',
   schema: {
