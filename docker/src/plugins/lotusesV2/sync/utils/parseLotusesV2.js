@@ -38,13 +38,18 @@ WHERE {
 }
 `;
 
+/**
+ * Query to get taxon information with NCBI ID for enrichment.
+ * Returns: taxon_id, taxon_name, taxon_rank, ncbi_id
+ */
 const QUERY_TAXA = `${SPARQL_PREFIXES}
-SELECT DISTINCT ?taxon_id ?taxon_name ?taxon_rank {
+SELECT DISTINCT ?taxon_id ?taxon_name ?taxon_rank ?ncbi_id {
   ?something wdt:P703 ?taxon_id.
   OPTIONAL { ?taxon_id wdt:P225 ?taxon_name. }
   OPTIONAL { ?taxon_id wdt:P105/rdfs:label ?taxon_rank.
              FILTER (lang(?taxon_rank) = 'en')
   }
+  OPTIONAL { ?taxon_id wdt:P685 ?ncbi_id. }
 }
 `;
 
@@ -150,12 +155,20 @@ async function* streamTsv(filePath) {
     const values = line.split('\t');
     const row = {};
     for (let i = 0; i < headers.length; i++) {
-      // Strip surrounding quotes and angle brackets from Wikidata TSV values
+      // Strip Wikidata TSV formatting:
+      // - IRIs: <http://...> -> http://...
+      // - Literals: "value" -> value
+      // - Language-tagged literals: "value"@en -> value
+      // - Typed literals: "value"^^<type> -> value
       let val = values[i] || '';
-      if (val.startsWith('"') && val.endsWith('"')) {
+      if (val.startsWith('<') && val.endsWith('>')) {
         val = val.slice(1, -1);
-      } else if (val.startsWith('<') && val.endsWith('>')) {
-        val = val.slice(1, -1);
+      } else if (val.startsWith('"')) {
+        // Find the closing quote (handles "value"@lang and "value"^^<type>)
+        const closingQuote = val.lastIndexOf('"');
+        if (closingQuote > 0) {
+          val = val.slice(1, closingQuote);
+        }
       }
       row[headers[i]] = val;
     }
@@ -229,7 +242,7 @@ export async function* parseLotusesV2(connection, options = {}) {
       const id = getIdFromIRI(row.taxon_id);
       if (!id) continue;
       if (!taxaMap.has(id)) {
-        taxaMap.set(id, { names: [], rank: undefined });
+        taxaMap.set(id, { names: [], rank: undefined, ncbiId: undefined });
       }
       const entry = taxaMap.get(id);
       const name = row.taxon_name;
@@ -238,6 +251,9 @@ export async function* parseLotusesV2(connection, options = {}) {
       }
       if (!entry.rank && row.taxon_rank) {
         entry.rank = row.taxon_rank;
+      }
+      if (!entry.ncbiId && row.ncbi_id) {
+        entry.ncbiId = row.ncbi_id;
       }
       taxaCount++;
     }
@@ -375,6 +391,9 @@ export async function* parseLotusesV2(connection, options = {}) {
               if (taxonData.rank) {
                 taxonomy.rank = taxonData.rank;
               }
+              if (taxonData.ncbiId) {
+                taxonomy.ncbiId = Number(taxonData.ncbiId);
+              }
             } else if (link.taxonId) {
               taxonomy.wikidataId = link.taxonId;
             }
@@ -445,12 +464,13 @@ async function* yieldFromTestData(testData, connection) {
   for (const row of testData.taxa) {
     const id = getIdFromIRI(row.taxon_id.value);
     if (!taxaMap.has(id)) {
-      taxaMap.set(id, { names: [], rank: undefined });
+      taxaMap.set(id, { names: [], rank: undefined, ncbiId: undefined });
     }
     const entry = taxaMap.get(id);
     const name = row.taxon_name?.value;
     if (name && !entry.names.includes(name)) entry.names.push(name);
     if (!entry.rank && row.taxon_rank?.value) entry.rank = row.taxon_rank.value;
+    if (!entry.ncbiId && row.ncbi_id?.value) entry.ncbiId = row.ncbi_id.value;
   }
 
   const referencesMap = new Map();
@@ -519,6 +539,7 @@ async function* yieldFromTestData(testData, connection) {
             taxonomy.wikidataId = link.taxonId;
             if (taxonData.names.length > 0) taxonomy.species = taxonData.names[0];
             if (taxonData.rank) taxonomy.rank = taxonData.rank;
+            if (taxonData.ncbiId) taxonomy.ncbiId = Number(taxonData.ncbiId);
           } else if (link.taxonId) {
             taxonomy.wikidataId = link.taxonId;
           }

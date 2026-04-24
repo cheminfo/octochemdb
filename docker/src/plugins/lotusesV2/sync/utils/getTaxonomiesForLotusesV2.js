@@ -2,16 +2,21 @@ import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomi
 
 /**
  * Resolves enriched taxonomy data for a LOTUS V2 entry by looking up each
- * taxon in the `taxonomies` MongoDB collection.
+ * taxon in the `taxonomies` MongoDB collection (NCBI taxonomy).
  *
- * For each taxonomy entry in `entry.data.taxonomies` the function:
- *  1. Extracts the genus (first word of the species/taxon name).
- *  2. Queries the `taxonomies` collection for a matching genus.
- *  3. When found, merges the matched taxonomy document's `data` object with
- *     the original species name, reference, and a `dbRef` back-link.
- *  4. When not found, keeps the raw taxonomy object and attaches the `dbRef`.
+ * The lookup strategy mirrors the old lotuses plugin (`getTaxonomiesForLotuses`):
+ *  1. If the taxon has an NCBI ID, look up directly by `_id`.
+ *  2. If not found, try by species name (`data.species`).
+ *  3. If still not found, try by genus (`data.genus`).
+ *  4. If still not found, try by family (`data.family`).
+ *  5. When found, the full taxonomy tree (kingdom, phylum, class, family,
+ *     genus, species) is merged from the NCBI record.
+ *  6. When not found, keeps the raw Wikidata taxonomy fields.
  *
- * @param {LotusV2Entry} entry - A LOTUS V2 entry with optional raw taxonomies.
+ * Every returned taxonomy object carries a `dbRef` back-link to the owning
+ * `lotusesV2` document.
+ *
+ * @param {object} entry - A LOTUS V2 entry with optional raw taxonomies.
  * @param {import('mongodb').Collection} taxonomiesCollection - The `taxonomies`
  *   MongoDB collection.
  * @returns {Promise<Array>} The enriched taxonomy array.
@@ -27,18 +32,40 @@ export async function getTaxonomiesForLotusesV2(entry, taxonomiesCollection) {
 
     let finalTaxonomy;
 
-    if (genus) {
+    // 1. Try NCBI ID lookup (most reliable)
+    if (rawTaxon.ncbiId) {
+      const result = await searchTaxonomies(taxonomiesCollection, {
+        _id: rawTaxon.ncbiId,
+      });
+      if (result.length > 0) {
+        finalTaxonomy = { ...result[0].data };
+        if (speciesName) finalTaxonomy.species = speciesName;
+      }
+    }
+
+    // 2. Try species name lookup
+    if (!finalTaxonomy && speciesName) {
+      const result = await searchTaxonomies(taxonomiesCollection, {
+        'data.species': speciesName,
+      });
+      if (result.length > 0) {
+        finalTaxonomy = { ...result[0].data };
+      }
+    }
+
+    // 3. Try genus lookup
+    if (!finalTaxonomy && genus) {
       const result = await searchTaxonomies(taxonomiesCollection, {
         'data.genus': genus,
       });
       if (result.length > 0) {
         finalTaxonomy = { ...result[0].data };
-        if (speciesName) {
-          finalTaxonomy.species = speciesName;
-        }
+        delete finalTaxonomy.species;
+        if (speciesName) finalTaxonomy.species = speciesName;
       }
     }
 
+    // 4. Fallback: keep raw Wikidata data
     if (!finalTaxonomy) {
       finalTaxonomy = {};
       if (speciesName) finalTaxonomy.species = speciesName;
