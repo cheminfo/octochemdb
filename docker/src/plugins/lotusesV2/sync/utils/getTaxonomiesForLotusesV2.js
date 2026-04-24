@@ -65,9 +65,15 @@ export async function getTaxonomiesForLotusesV2(entry, taxonomiesCollection) {
       }
     }
 
-    // 4. Fallback: keep raw Wikidata data
+    // 4. Fallback: keep raw Wikidata data (preserve full hierarchy)
     if (!finalTaxonomy) {
       finalTaxonomy = {};
+      if (rawTaxon.kingdom) finalTaxonomy.kingdom = rawTaxon.kingdom;
+      if (rawTaxon.phylum) finalTaxonomy.phylum = rawTaxon.phylum;
+      if (rawTaxon.class) finalTaxonomy.class = rawTaxon.class;
+      if (rawTaxon.order) finalTaxonomy.order = rawTaxon.order;
+      if (rawTaxon.family) finalTaxonomy.family = rawTaxon.family;
+      if (rawTaxon.genus) finalTaxonomy.genus = rawTaxon.genus;
       if (speciesName) finalTaxonomy.species = speciesName;
       if (rawTaxon.rank) finalTaxonomy.rank = rawTaxon.rank;
     }
