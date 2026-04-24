@@ -39,19 +39,34 @@ WHERE {
 `;
 
 /**
- * Query to get taxon information with NCBI ID for enrichment.
- * Returns: taxon_id, taxon_name, taxon_rank, ncbi_id
+ * Query to get taxon information with NCBI ID, parent taxon, and rank.
+ * The parent_id (P171) allows building the full taxonomy tree locally.
+ * Returns: taxon_id, taxon_name, taxon_rank, ncbi_id, parent_id
  */
 const QUERY_TAXA = `${SPARQL_PREFIXES}
-SELECT DISTINCT ?taxon_id ?taxon_name ?taxon_rank ?ncbi_id {
+SELECT DISTINCT ?taxon_id ?taxon_name ?taxon_rank ?ncbi_id ?parent_id {
   ?something wdt:P703 ?taxon_id.
   OPTIONAL { ?taxon_id wdt:P225 ?taxon_name. }
   OPTIONAL { ?taxon_id wdt:P105/rdfs:label ?taxon_rank.
              FILTER (lang(?taxon_rank) = 'en')
   }
   OPTIONAL { ?taxon_id wdt:P685 ?ncbi_id. }
+  OPTIONAL { ?taxon_id wdt:P171 ?parent_id. }
 }
 `;
+
+/**
+ * Rank name to standard taxonomy field mapping.
+ */
+const RANK_TO_FIELD = {
+  kingdom: 'kingdom',
+  phylum: 'phylum',
+  class: 'class',
+  order: 'order',
+  family: 'family',
+  genus: 'genus',
+  species: 'species',
+};
 
 const QUERY_REFERENCES = `${SPARQL_PREFIXES}
 SELECT ?article_id ?doi ?title {
@@ -189,6 +204,123 @@ function getIdFromIRI(iri) {
 }
 
 /**
+ * Fetches missing parent taxa from Wikidata iteratively.
+ * Starts from taxa that have a parentId not yet in the map,
+ * fetches those parents in chunks, and repeats until no new parents
+ * are needed (or we hit the root).
+ *
+ * @param {Map} taxaMap - The taxa map to populate.
+ */
+async function fetchMissingParents(taxaMap) {
+  const CHUNK_SIZE = 200;
+  let round = 0;
+
+  while (true) {
+    // Find all parentIds that are not yet in the map
+    const missingIds = new Set();
+    for (const entry of taxaMap.values()) {
+      if (entry.parentId && !taxaMap.has(entry.parentId)) {
+        missingIds.add(entry.parentId);
+      }
+    }
+
+    if (missingIds.size === 0) break;
+    round++;
+    debug.info(
+      `  Fetching parent taxa round ${round}: ${missingIds.size} missing parents`,
+    );
+
+    // Fetch in chunks to avoid query timeouts
+    const missingArray = [...missingIds];
+    for (let i = 0; i < missingArray.length; i += CHUNK_SIZE) {
+      const chunk = missingArray.slice(i, i + CHUNK_SIZE);
+      const values = chunk.map((id) => `wd:${id}`).join(' ');
+      const query = `${SPARQL_PREFIXES}
+SELECT ?taxon_id ?taxon_name ?taxon_rank ?parent_id {
+  VALUES ?taxon_id { ${values} }
+  OPTIONAL { ?taxon_id wdt:P225 ?taxon_name. }
+  OPTIONAL { ?taxon_id wdt:P105/rdfs:label ?taxon_rank.
+             FILTER (lang(?taxon_rank) = 'en')
+  }
+  OPTIONAL { ?taxon_id wdt:P171 ?parent_id. }
+}
+`;
+      try {
+        const response = await fetch(
+          `${WIKIDATA_SPARQL_ENDPOINT}?query=${encodeURIComponent(query)}`,
+          {
+            headers: {
+              Accept: 'application/sparql-results+json',
+              'User-Agent':
+                'OctoChemDB/1.0 (https://github.com/cheminfo/octochemdb)',
+            },
+          },
+        );
+        if (!response.ok) {
+          debug.warn(
+            `  Parent taxa query failed: ${response.status}`,
+          );
+          continue;
+        }
+        const json = await response.json();
+        for (const row of json.results.bindings) {
+          const id = getIdFromIRI(row.taxon_id.value);
+          if (!taxaMap.has(id)) {
+            taxaMap.set(id, {
+              names: [],
+              rank: undefined,
+              ncbiId: undefined,
+              parentId: undefined,
+            });
+          }
+          const entry = taxaMap.get(id);
+          const name = row.taxon_name?.value;
+          if (name && !entry.names.includes(name)) entry.names.push(name);
+          if (!entry.rank && row.taxon_rank?.value) {
+            entry.rank = row.taxon_rank.value;
+          }
+          if (!entry.parentId && row.parent_id?.value) {
+            entry.parentId = getIdFromIRI(row.parent_id.value);
+          }
+        }
+      } catch (e) {
+        debug.warn(`  Error fetching parent taxa chunk: ${e.message}`);
+      }
+    }
+  }
+}
+
+/**
+ * Walks up the parent chain in taxaMap to build the full taxonomy hierarchy
+ * (kingdom, phylum, class, order, family, genus, species) for a given taxon.
+ *
+ * @param {string} taxonId - The starting taxon Wikidata ID.
+ * @param {Map} taxaMap - The complete taxa map with parent links.
+ * @returns {object} An object with kingdom, phylum, class, order, family, genus, species fields.
+ */
+function resolveTaxonHierarchy(taxonId, taxaMap) {
+  const hierarchy = {};
+  const visited = new Set();
+  let currentId = taxonId;
+
+  while (currentId && !visited.has(currentId)) {
+    visited.add(currentId);
+    const taxon = taxaMap.get(currentId);
+    if (!taxon) break;
+
+    const rank = taxon.rank;
+    const name = taxon.names[0];
+    if (rank && name && rank in RANK_TO_FIELD) {
+      hierarchy[RANK_TO_FIELD[rank]] = name;
+    }
+
+    currentId = taxon.parentId;
+  }
+
+  return hierarchy;
+}
+
+/**
  * Fetches all LOTUS data from Wikidata SPARQL endpoint by downloading
  * TSV files to disk (to avoid memory issues), then stream-parses them
  * and yields one document per compound.
@@ -236,13 +368,19 @@ export async function* parseLotusesV2(connection, options = {}) {
     );
 
     // Build taxa map by streaming taxa.tsv
+    // Each entry has: names, rank, ncbiId, parentId
     const taxaMap = new Map();
     let taxaCount = 0;
     for await (const row of streamTsv(taxaFile)) {
       const id = getIdFromIRI(row.taxon_id);
       if (!id) continue;
       if (!taxaMap.has(id)) {
-        taxaMap.set(id, { names: [], rank: undefined, ncbiId: undefined });
+        taxaMap.set(id, {
+          names: [],
+          rank: undefined,
+          ncbiId: undefined,
+          parentId: undefined,
+        });
       }
       const entry = taxaMap.get(id);
       const name = row.taxon_name;
@@ -255,9 +393,19 @@ export async function* parseLotusesV2(connection, options = {}) {
       if (!entry.ncbiId && row.ncbi_id) {
         entry.ncbiId = row.ncbi_id;
       }
+      if (!entry.parentId && row.parent_id) {
+        entry.parentId = getIdFromIRI(row.parent_id);
+      }
       taxaCount++;
     }
     debug.info(`  Loaded ${taxaMap.size} unique taxa from ${taxaCount} rows`);
+
+    // Now fetch missing parent taxa iteratively (parents not in initial set)
+    // Walk up the tree by fetching missing parents in chunks from Wikidata
+    await fetchMissingParents(taxaMap);
+    debug.info(
+      `  After fetching parents: ${taxaMap.size} total taxa in tree`,
+    );
 
     // Build references map by streaming references.tsv
     const referencesMap = new Map();
@@ -385,15 +533,21 @@ export async function* parseLotusesV2(connection, options = {}) {
             if (link.taxonId && taxaMap.has(link.taxonId)) {
               const taxonData = taxaMap.get(link.taxonId);
               taxonomy.wikidataId = link.taxonId;
-              if (taxonData.names.length > 0) {
-                taxonomy.species = taxonData.names[0];
-              }
-              if (taxonData.rank) {
-                taxonomy.rank = taxonData.rank;
-              }
               if (taxonData.ncbiId) {
                 taxonomy.ncbiId = Number(taxonData.ncbiId);
               }
+              // Resolve full hierarchy by walking the parent chain
+              const hierarchy = resolveTaxonHierarchy(
+                link.taxonId,
+                taxaMap,
+              );
+              if (hierarchy.kingdom) taxonomy.kingdom = hierarchy.kingdom;
+              if (hierarchy.phylum) taxonomy.phylum = hierarchy.phylum;
+              if (hierarchy.class) taxonomy.class = hierarchy.class;
+              if (hierarchy.order) taxonomy.order = hierarchy.order;
+              if (hierarchy.family) taxonomy.family = hierarchy.family;
+              if (hierarchy.genus) taxonomy.genus = hierarchy.genus;
+              if (hierarchy.species) taxonomy.species = hierarchy.species;
             } else if (link.taxonId) {
               taxonomy.wikidataId = link.taxonId;
             }
@@ -464,13 +618,14 @@ async function* yieldFromTestData(testData, connection) {
   for (const row of testData.taxa) {
     const id = getIdFromIRI(row.taxon_id.value);
     if (!taxaMap.has(id)) {
-      taxaMap.set(id, { names: [], rank: undefined, ncbiId: undefined });
+      taxaMap.set(id, { names: [], rank: undefined, ncbiId: undefined, parentId: undefined });
     }
     const entry = taxaMap.get(id);
     const name = row.taxon_name?.value;
     if (name && !entry.names.includes(name)) entry.names.push(name);
     if (!entry.rank && row.taxon_rank?.value) entry.rank = row.taxon_rank.value;
     if (!entry.ncbiId && row.ncbi_id?.value) entry.ncbiId = row.ncbi_id.value;
+    if (!entry.parentId && row.parent_id?.value) entry.parentId = getIdFromIRI(row.parent_id.value);
   }
 
   const referencesMap = new Map();
@@ -537,9 +692,15 @@ async function* yieldFromTestData(testData, connection) {
           if (link.taxonId && taxaMap.has(link.taxonId)) {
             const taxonData = taxaMap.get(link.taxonId);
             taxonomy.wikidataId = link.taxonId;
-            if (taxonData.names.length > 0) taxonomy.species = taxonData.names[0];
-            if (taxonData.rank) taxonomy.rank = taxonData.rank;
             if (taxonData.ncbiId) taxonomy.ncbiId = Number(taxonData.ncbiId);
+            const hierarchy = resolveTaxonHierarchy(link.taxonId, taxaMap);
+            if (hierarchy.kingdom) taxonomy.kingdom = hierarchy.kingdom;
+            if (hierarchy.phylum) taxonomy.phylum = hierarchy.phylum;
+            if (hierarchy.class) taxonomy.class = hierarchy.class;
+            if (hierarchy.order) taxonomy.order = hierarchy.order;
+            if (hierarchy.family) taxonomy.family = hierarchy.family;
+            if (hierarchy.genus) taxonomy.genus = hierarchy.genus;
+            if (hierarchy.species) taxonomy.species = hierarchy.species;
           } else if (link.taxonId) {
             taxonomy.wikidataId = link.taxonId;
           }
