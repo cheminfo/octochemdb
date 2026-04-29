@@ -3,7 +3,9 @@
  * format. This replaces live Wikidata queries during tests.
  *
  * The data mirrors the structure returned by the SPARQL endpoint:
- * each binding has { value, type } objects for each variable.
+ * each binding has `{ value, type }` objects for each variable.
+ *
+ * @returns {LotusV2TestData}
  */
 export function getTestData() {
   return {
@@ -12,14 +14,16 @@ export function getTestData() {
       binding('compound_id', 'http://www.wikidata.org/entity/Q60235', {
         canonicalSmiles: 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C',
         inchikey: 'RYYVLZVUVIJVGH-UHFFFAOYSA-N',
-        inchi: 'InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3',
+        inchi:
+          'InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3',
         isomericSmiles: 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C',
       }),
       // Aspirin
       binding('compound_id', 'http://www.wikidata.org/entity/Q18216', {
         canonicalSmiles: 'CC(=O)OC1=CC=CC=C1C(=O)O',
         inchikey: 'BSYNRYMUTXBXSQ-UHFFFAOYSA-N',
-        inchi: 'InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)',
+        inchi:
+          'InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)',
       }),
       // Quercetin
       binding('compound_id', 'http://www.wikidata.org/entity/Q186474', {
@@ -28,7 +32,8 @@ export function getTestData() {
       }),
       // Curcumin
       binding('compound_id', 'http://www.wikidata.org/entity/Q312266', {
-        canonicalSmiles: 'COC1=CC(=CC(=C1O)OC)C=CC(=O)CC(=O)C=CC2=CC(=C(C=C2)O)OC',
+        canonicalSmiles:
+          'COC1=CC(=CC(=C1O)OC)C=CC(=O)CC(=O)C=CC2=CC(=C(C=C2)O)OC',
         inchikey: 'VFLDPWHFBUODDF-UHFFFAOYSA-N',
       }),
       // Morphine
@@ -114,7 +119,8 @@ export function getTestData() {
       }),
       // Epigallocatechin gallate
       binding('compound_id', 'http://www.wikidata.org/entity/Q410349', {
-        canonicalSmiles: 'C1C(C(OC2=CC(=CC(=C21)O)O)C3=CC(=C(C=C3)O)O)OC(=O)C4=CC(=C(C(=C4)O)O)O',
+        canonicalSmiles:
+          'C1C(C(OC2=CC(=CC(=C21)O)O)C3=CC(=C(C=C3)O)O)OC(=O)C4=CC(=C(C(=C4)O)O)O',
         inchikey: 'WMBWREPUVVBILR-UHFFFAOYSA-N',
       }),
       // Camphor
@@ -124,54 +130,141 @@ export function getTestData() {
       }),
       // Colchicine
       binding('compound_id', 'http://www.wikidata.org/entity/Q326225', {
-        canonicalSmiles: 'CC(=O)NC1CCC2=CC(=C(C(=C2C3=CC=C(C(=O)C=C31)OC)OC)OC)OC',
+        canonicalSmiles:
+          'CC(=O)NC1CCC2=CC(=C(C(=C2C3=CC=C(C(=O)C=C31)OC)OC)OC)OC',
         inchikey: 'IAKHMKGGTNLKSZ-INIZCTEOSA-N',
       }),
       // Taxol (Paclitaxel)
       binding('compound_id', 'http://www.wikidata.org/entity/Q423762', {
-        canonicalSmiles: 'CC1=C2C(C(=O)C3(C(CC4C(C3C(C(C2(C)C)(CC1OC(=O)C(C5=CC=CC=C5)NC(=O)C6=CC=CC=C6)O)OC(=O)C7=CC=CC=C7)(CO4)OC(=O)C)O)C)OC(=O)C',
+        canonicalSmiles:
+          'CC1=C2C(C(=O)C3(C(CC4C(C3C(C(C2(C)C)(CC1OC(=O)C(C5=CC=CC=C5)NC(=O)C6=CC=CC=C6)O)OC(=O)C7=CC=CC=C7)(CO4)OC(=O)C)O)C)OC(=O)C',
         inchikey: 'RCINICONZNJXQF-MZXODVADSA-N',
       }),
       // Lycopene
       binding('compound_id', 'http://www.wikidata.org/entity/Q306138', {
-        canonicalSmiles: 'CC(=CCCC(=CC=CC(=CC=CC(=CC=CC=C(C)C=CC=C(C)C=CC=C(C)C)C)C)C)C',
+        canonicalSmiles:
+          'CC(=CCCC(=CC=CC(=CC=CC(=CC=CC=C(C)C=CC=C(C)C=CC=C(C)C)C)C)C)C',
         inchikey: 'OAIJSZIZWZSQBC-GYZMGTCESA-N',
       }),
     ],
     taxa: [
       taxonBinding('http://www.wikidata.org/entity/Q34740', 'Coffea', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q158695', 'Coffea arabica', 'species'),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q158695',
+        'Coffea arabica',
+        'species',
+      ),
       taxonBinding('http://www.wikidata.org/entity/Q25284', 'Salix', 'genus'),
       taxonBinding('http://www.wikidata.org/entity/Q21187', 'Curcuma', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q146118', 'Curcuma longa', 'species'),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q146118',
+        'Curcuma longa',
+        'species',
+      ),
       taxonBinding('http://www.wikidata.org/entity/Q26944', 'Papaver', 'genus'),
       taxonBinding('http://www.wikidata.org/entity/Q25235', 'Vitis', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q145643', 'Capsicum', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q17004', 'Nicotiana', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q26614', 'Syzygium', 'genus'),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q145643',
+        'Capsicum',
+        'genus',
+      ),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q17004',
+        'Nicotiana',
+        'genus',
+      ),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q26614',
+        'Syzygium',
+        'genus',
+      ),
       taxonBinding('http://www.wikidata.org/entity/Q81513', 'Citrus', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q183350', 'Vanilla', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q42338', 'Camellia', 'genus'),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q183350',
+        'Vanilla',
+        'genus',
+      ),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q42338',
+        'Camellia',
+        'genus',
+      ),
       taxonBinding('http://www.wikidata.org/entity/Q160495', 'Mentha', 'genus'),
       taxonBinding('http://www.wikidata.org/entity/Q133544', 'Piper', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q128006', 'Berberis', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q84150', 'Artemisia', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q146439', 'Zingiber', 'genus'),
-      taxonBinding('http://www.wikidata.org/entity/Q132629', 'Colchicum', 'genus'),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q128006',
+        'Berberis',
+        'genus',
+      ),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q84150',
+        'Artemisia',
+        'genus',
+      ),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q146439',
+        'Zingiber',
+        'genus',
+      ),
+      taxonBinding(
+        'http://www.wikidata.org/entity/Q132629',
+        'Colchicum',
+        'genus',
+      ),
       taxonBinding('http://www.wikidata.org/entity/Q127933', 'Taxus', 'genus'),
       taxonBinding('http://www.wikidata.org/entity/Q20638', 'Solanum', 'genus'),
     ],
     references: [
-      refBinding('http://www.wikidata.org/entity/Q100001', '10.1234/test001', 'Chemical compounds in Coffea arabica'),
-      refBinding('http://www.wikidata.org/entity/Q100002', '10.1234/test002', 'Bioactive molecules from Curcuma longa'),
-      refBinding('http://www.wikidata.org/entity/Q100003', '10.1234/test003', 'Alkaloids of Papaver somniferum'),
-      refBinding('http://www.wikidata.org/entity/Q100004', '10.1234/test004', 'Polyphenols in Vitis vinifera'),
-      refBinding('http://www.wikidata.org/entity/Q100005', '10.1234/test005', 'Natural products from Capsicum species'),
-      refBinding('http://www.wikidata.org/entity/Q100006', '10.1234/test006', 'Nicotiana alkaloid biosynthesis'),
-      refBinding('http://www.wikidata.org/entity/Q100007', '10.1234/test007', 'Essential oils of Syzygium aromaticum'),
-      refBinding('http://www.wikidata.org/entity/Q100008', '10.1234/test008', 'Citrus terpenes review'),
-      refBinding('http://www.wikidata.org/entity/Q100009', '10.1234/test009', 'Tea catechins and health'),
-      refBinding('http://www.wikidata.org/entity/Q100010', '10.1234/test010', 'Antimalarial natural products'),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100001',
+        '10.1234/test001',
+        'Chemical compounds in Coffea arabica',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100002',
+        '10.1234/test002',
+        'Bioactive molecules from Curcuma longa',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100003',
+        '10.1234/test003',
+        'Alkaloids of Papaver somniferum',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100004',
+        '10.1234/test004',
+        'Polyphenols in Vitis vinifera',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100005',
+        '10.1234/test005',
+        'Natural products from Capsicum species',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100006',
+        '10.1234/test006',
+        'Nicotiana alkaloid biosynthesis',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100007',
+        '10.1234/test007',
+        'Essential oils of Syzygium aromaticum',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100008',
+        '10.1234/test008',
+        'Citrus terpenes review',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100009',
+        '10.1234/test009',
+        'Tea catechins and health',
+      ),
+      refBinding(
+        'http://www.wikidata.org/entity/Q100010',
+        '10.1234/test010',
+        'Antimalarial natural products',
+      ),
     ],
     compoundReferenceTaxon: [
       crtBinding('Q60235', 'Q34740', 'Q100001'),
@@ -207,6 +300,11 @@ export function getTestData() {
 
 /**
  * Creates a SPARQL compound binding row.
+ *
+ * @param {string} idField
+ * @param {string} idValue
+ * @param {Record<string, string>} fields
+ * @returns {LotusV2SparqlBinding}
  */
 function binding(idField, idValue, fields) {
   const row = {
@@ -227,6 +325,12 @@ function binding(idField, idValue, fields) {
   return row;
 }
 
+/**
+ * @param {string} uri
+ * @param {string} name
+ * @param {string} rank
+ * @returns {LotusV2SparqlBinding}
+ */
 function taxonBinding(uri, name, rank) {
   return {
     taxon_id: { value: uri, type: 'uri' },
@@ -235,6 +339,12 @@ function taxonBinding(uri, name, rank) {
   };
 }
 
+/**
+ * @param {string} uri
+ * @param {string} doi
+ * @param {string} title
+ * @returns {LotusV2SparqlBinding}
+ */
 function refBinding(uri, doi, title) {
   return {
     article_id: { value: uri, type: 'uri' },
@@ -243,6 +353,12 @@ function refBinding(uri, doi, title) {
   };
 }
 
+/**
+ * @param {string} compound
+ * @param {string} taxon
+ * @param {string | null} reference
+ * @returns {LotusV2SparqlBinding}
+ */
 function crtBinding(compound, taxon, reference) {
   const row = {
     compound_id: {

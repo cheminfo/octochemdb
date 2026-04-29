@@ -5,7 +5,7 @@ import { aggregate } from '../../aggregates/aggregateActivesOrNaturals';
 
 test('Aggregation ActivesOrNaturals', async () => {
   const connection = new OctoChemConnection();
-  const lotusesCollection = await connection.getCollection('lotuses');
+  const lotusesV2Collection = await connection.getCollection('lotusesV2');
   const npassesCollection = await connection.getCollection('npasses');
   const npAtlasesCollection = await connection.getCollection('npAtlases');
   const cmaupsCollection = await connection.getCollection('cmaups');
@@ -19,7 +19,7 @@ test('Aggregation ActivesOrNaturals', async () => {
   const compoundPatentsCollection =
     await connection.getCollection('compoundPatents');
   const requiredCollections = [
-    'lotuses',
+    'lotusesV2',
     'npasses',
     'npAtlases',
     'cmaups',
@@ -31,24 +31,24 @@ test('Aggregation ActivesOrNaturals', async () => {
     'titleCompounds',
     'compoundPatents',
   ];
-  const expectedCounts = {
-    lotuses: 20,
-    npasses: 6,
-    npAtlases: 3,
-    cmaups: 19,
-    coconuts: 20,
-    bioassays: 20,
-    gnps: 2,
-    pubmeds: 7,
-    patents: 255,
-    titleCompounds: 10000,
-    compoundPatents: 4502,
-  };
+  const /** @type {Record<string, number>} */ expectedCounts = {
+      lotusesV2: 20,
+      npasses: 6,
+      npAtlases: 3,
+      cmaups: 19,
+      coconuts: 20,
+      bioassays: 20,
+      gnps: 2,
+      pubmeds: 7,
+      patents: 255,
+      titleCompounds: 10000,
+      compoundPatents: 4502,
+    };
   const adminCollection = await connection.getCollection('admin');
- 
+
   while (true) {
     let allUpdated = true;
-    const states = {};
+    const /** @type {Record<string, string | undefined>} */ states = {};
     for (const name of requiredCollections) {
       const progress = await adminCollection.findOne({
         _id: `${name}_progress`,
@@ -61,7 +61,7 @@ test('Aggregation ActivesOrNaturals', async () => {
     if (allUpdated) {
       // Also verify counts to be safe
       const collections = {
-        lotuses: lotusesCollection,
+        lotusesV2: lotusesV2Collection,
         npasses: npassesCollection,
         npAtlases: npAtlasesCollection,
         cmaups: cmaupsCollection,
@@ -93,7 +93,7 @@ test('Aggregation ActivesOrNaturals', async () => {
     })
     .limit(1);
 
-  let result = await collectionEntry.next();
+  let /** @type {any} */ result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;
   }

@@ -90,7 +90,7 @@ async function downloadSparqlToFile(query, filePath, retries = 3) {
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
       const controller = new AbortController();
-      setTimeout(() => controller.abort(), 1000 * 1800); // 30 min timeout
+      const timeoutId = setTimeout(() => controller.abort(), 1000 * 1800); // 30 min timeout
       const response = await fetch(
         `${WIKIDATA_SPARQL_ENDPOINT}?query=${encodeURIComponent(query)}`,
         {
@@ -102,10 +102,15 @@ async function downloadSparqlToFile(query, filePath, retries = 3) {
           signal: controller.signal,
         },
       );
+      clearTimeout(timeoutId);
       if (!response.ok) {
         throw new Error(
           `SPARQL query failed: ${response.status} ${response.statusText}`,
         );
+      }
+
+      if (!response.body) {
+        throw new Error('Response body is null');
       }
 
       // Stream response body directly to disk
@@ -128,7 +133,7 @@ async function downloadSparqlToFile(query, filePath, retries = 3) {
       }
 
       await new Promise((resolve, reject) => {
-        writer.end(() => resolve());
+        writer.end(() => resolve(undefined));
         writer.on('error', reject);
       });
 
@@ -136,14 +141,10 @@ async function downloadSparqlToFile(query, filePath, retries = 3) {
         `  Download complete: ${(bytesWritten / 1024 / 1024).toFixed(1)} MB -> ${filePath}`,
       );
       return;
-    } catch (e) {
-      debug.warn(
-        `  Attempt ${attempt + 1}/${retries} failed: ${e.message}`,
-      );
+    } catch (/** @type {any} */ e) {
+      debug.warn(`  Attempt ${attempt + 1}/${retries} failed: ${e.message}`);
       if (attempt === retries - 1) throw e;
-      await new Promise((resolve) =>
-        setTimeout(resolve, 1000 * Math.pow(2, attempt)),
-      );
+      await new Promise((resolve) => setTimeout(resolve, 1000 * 2 ** attempt));
     }
   }
 }
@@ -153,7 +154,8 @@ async function downloadSparqlToFile(query, filePath, retries = 3) {
  * The first line is used as headers.
  *
  * @param {string} filePath
- * @yields {Object} One object per line with header keys.
+ * @yields {Record<string, string>} One object per line with header keys.
+ * @returns {AsyncGenerator<Record<string, string>>}
  */
 async function* streamTsv(filePath) {
   const rl = createInterface({
@@ -161,6 +163,7 @@ async function* streamTsv(filePath) {
     crlfDelay: Infinity,
   });
 
+  /** @type {string[] | null} */
   let headers = null;
   for await (const line of rl) {
     if (!headers) {
@@ -168,6 +171,7 @@ async function* streamTsv(filePath) {
       continue;
     }
     const values = line.split('\t');
+    /** @type {Record<string, string>} */
     const row = {};
     for (let i = 0; i < headers.length; i++) {
       // Strip Wikidata TSV formatting:
@@ -193,14 +197,14 @@ async function* streamTsv(filePath) {
 
 /**
  * Extracts the Wikidata Q-ID from a full IRI or quoted IRI.
- * e.g. "<http://www.wikidata.org/entity/Q27109816>" -> "Q27109816"
- *      "http://www.wikidata.org/entity/Q27109816" -> "Q27109816"
+ * e.g. `"<http://www.wikidata.org/entity/Q27109816>"` -> `"Q27109816"`
+ *      `"http://www.wikidata.org/entity/Q27109816"` -> `"Q27109816"`
  *
  * @param {string} iri
  * @returns {string}
  */
 function getIdFromIRI(iri) {
-  return iri.replace(/^<|>$/g, '').split('/').pop();
+  return /** @type {string} */ (iri.replace(/^<|>$/g, '').split('/').pop());
 }
 
 /**
@@ -209,7 +213,8 @@ function getIdFromIRI(iri) {
  * fetches those parents in chunks, and repeats until no new parents
  * are needed (or we hit the root).
  *
- * @param {Map} taxaMap - The taxa map to populate.
+ * @param {Map<string, LotusV2TaxaMapEntry>} taxaMap - The taxa map to populate.
+ * @returns {Promise<void>}
  */
 async function fetchMissingParents(taxaMap) {
   const CHUNK_SIZE = 200;
@@ -257,9 +262,7 @@ SELECT ?taxon_id ?taxon_name ?taxon_rank ?parent_id {
           },
         );
         if (!response.ok) {
-          debug.warn(
-            `  Parent taxa query failed: ${response.status}`,
-          );
+          debug.warn(`  Parent taxa query failed: ${response.status}`);
           continue;
         }
         const json = await response.json();
@@ -283,7 +286,7 @@ SELECT ?taxon_id ?taxon_name ?taxon_rank ?parent_id {
             entry.parentId = getIdFromIRI(row.parent_id.value);
           }
         }
-      } catch (e) {
+      } catch (/** @type {any} */ e) {
         debug.warn(`  Error fetching parent taxa chunk: ${e.message}`);
       }
     }
@@ -295,10 +298,11 @@ SELECT ?taxon_id ?taxon_name ?taxon_rank ?parent_id {
  * (kingdom, phylum, class, order, family, genus, species) for a given taxon.
  *
  * @param {string} taxonId - The starting taxon Wikidata ID.
- * @param {Map} taxaMap - The complete taxa map with parent links.
- * @returns {object} An object with kingdom, phylum, class, order, family, genus, species fields.
+ * @param {Map<string, LotusV2TaxaMapEntry>} taxaMap - The complete taxa map with parent links.
+ * @returns {Record<string, string>} An object with kingdom, phylum, class, order, family, genus, species fields.
  */
 function resolveTaxonHierarchy(taxonId, taxaMap) {
+  /** @type {Record<string, string>} */
   const hierarchy = {};
   const visited = new Set();
   let currentId = taxonId;
@@ -326,10 +330,9 @@ function resolveTaxonHierarchy(taxonId, taxaMap) {
  * and yields one document per compound.
  *
  * @param {OctoChemConnection} connection - Active database connection wrapper.
- * @param {object} [options]
- * @param {object} [options.testData] - If provided, use this data instead of querying Wikidata.
- * @yields {LotusEntry}
- * @returns {AsyncGenerator<LotusEntry>}
+ * @param {LotusV2ParserOptions} [options]
+ * @yields {LotusV2Entry}
+ * @returns {AsyncGenerator<LotusV2Entry>}
  */
 export async function* parseLotusesV2(connection, options = {}) {
   try {
@@ -363,12 +366,11 @@ export async function* parseLotusesV2(connection, options = {}) {
     await downloadSparqlToFile(QUERY_REFERENCES, referencesFile);
 
     // Step 2: Stream-parse taxa and references into Maps (these are small enough)
-    debug.info(
-      'Step 5/5: Building lookup maps and yielding compounds...',
-    );
+    debug.info('Step 5/5: Building lookup maps and yielding compounds...');
 
     // Build taxa map by streaming taxa.tsv
     // Each entry has: names, rank, ncbiId, parentId
+    /** @type {Map<string, LotusV2TaxaMapEntry>} */
     const taxaMap = new Map();
     let taxaCount = 0;
     for await (const row of streamTsv(taxaFile)) {
@@ -403,11 +405,10 @@ export async function* parseLotusesV2(connection, options = {}) {
     // Now fetch missing parent taxa iteratively (parents not in initial set)
     // Walk up the tree by fetching missing parents in chunks from Wikidata
     await fetchMissingParents(taxaMap);
-    debug.info(
-      `  After fetching parents: ${taxaMap.size} total taxa in tree`,
-    );
+    debug.info(`  After fetching parents: ${taxaMap.size} total taxa in tree`);
 
     // Build references map by streaming references.tsv
+    /** @type {Map<string, LotusV2ReferenceMapEntry>} */
     const referencesMap = new Map();
     let refsCount = 0;
     for await (const row of streamTsv(referencesFile)) {
@@ -430,6 +431,7 @@ export async function* parseLotusesV2(connection, options = {}) {
     );
 
     // Build CRT map by streaming compound_reference_taxon.tsv
+    /** @type {Map<string, LotusV2CrtLink[]>} */
     const crtMap = new Map();
     let crtCount = 0;
     for await (const row of streamTsv(crtFile)) {
@@ -452,6 +454,7 @@ export async function* parseLotusesV2(connection, options = {}) {
     // Step 3: Stream compounds.tsv, group by ID on-the-fly, and yield
     // Since compounds.tsv may have multiple rows per compound (multiple SMILES etc),
     // we first group them into a Map, then yield
+    /** @type {Map<string, LotusV2CompoundVariants>} */
     const compoundsMap = new Map();
     let compoundRows = 0;
     for await (const row of streamTsv(compoundsFile)) {
@@ -508,6 +511,7 @@ export async function* parseLotusesV2(connection, options = {}) {
           'lotusesV2',
         );
 
+        /** @type {LotusV2Entry} */
         const result = {
           _id: wikidataId,
           data: { ocl },
@@ -527,20 +531,21 @@ export async function* parseLotusesV2(connection, options = {}) {
         // Build taxonomies from CRT links
         const links = crtMap.get(wikidataId);
         if (links && links.length > 0) {
+          /** @type {LotusV2RawTaxonomy[]} */
           const taxonomies = [];
           for (const link of links) {
+            /** @type {LotusV2RawTaxonomy} */
             const taxonomy = {};
             if (link.taxonId && taxaMap.has(link.taxonId)) {
-              const taxonData = taxaMap.get(link.taxonId);
+              const taxonData = /** @type {LotusV2TaxaMapEntry} */ (
+                taxaMap.get(link.taxonId)
+              );
               taxonomy.wikidataId = link.taxonId;
               if (taxonData.ncbiId) {
                 taxonomy.ncbiId = Number(taxonData.ncbiId);
               }
               // Resolve full hierarchy by walking the parent chain
-              const hierarchy = resolveTaxonHierarchy(
-                link.taxonId,
-                taxaMap,
-              );
+              const hierarchy = resolveTaxonHierarchy(link.taxonId, taxaMap);
               if (hierarchy.kingdom) taxonomy.kingdom = hierarchy.kingdom;
               if (hierarchy.phylum) taxonomy.phylum = hierarchy.phylum;
               if (hierarchy.class) taxonomy.class = hierarchy.class;
@@ -552,7 +557,9 @@ export async function* parseLotusesV2(connection, options = {}) {
               taxonomy.wikidataId = link.taxonId;
             }
             if (link.referenceId && referencesMap.has(link.referenceId)) {
-              const refData = referencesMap.get(link.referenceId);
+              const refData = /** @type {LotusV2ReferenceMapEntry} */ (
+                referencesMap.get(link.referenceId)
+              );
               taxonomy.reference = { wikidataId: link.referenceId };
               if (refData.dois.length > 0) {
                 taxonomy.reference.dois = refData.dois;
@@ -585,14 +592,11 @@ export async function* parseLotusesV2(connection, options = {}) {
         yield result;
       } catch (e) {
         const err = e instanceof Error ? e : new Error(String(e));
-        debug.error(
-          `Error processing compound ${wikidataId}: ${err.message}`,
-          {
-            collection: 'lotusesV2',
-            connection,
-            stack: err.stack,
-          },
-        );
+        debug.error(`Error processing compound ${wikidataId}: ${err.message}`, {
+          collection: 'lotusesV2',
+          connection,
+          stack: err.stack,
+        });
       }
     }
 
@@ -611,26 +615,40 @@ export async function* parseLotusesV2(connection, options = {}) {
 
 /**
  * Yields entries from in-memory test data (used in test mode).
+ *
+ * @param {LotusV2TestData} testData - Pre-built test data mimicking SPARQL bindings.
+ * @param {OctoChemConnection} connection - Active database connection wrapper.
+ * @yields {LotusV2Entry}
+ * @returns {AsyncGenerator<LotusV2Entry>}
  */
 async function* yieldFromTestData(testData, connection) {
   // Build maps from test data (same SPARQL binding format)
+  /** @type {Map<string, LotusV2TaxaMapEntry>} */
   const taxaMap = new Map();
   for (const row of testData.taxa) {
-    const id = getIdFromIRI(row.taxon_id.value);
+    const id = getIdFromIRI(/** @type {string} */ (row.taxon_id?.value));
     if (!taxaMap.has(id)) {
-      taxaMap.set(id, { names: [], rank: undefined, ncbiId: undefined, parentId: undefined });
+      taxaMap.set(id, {
+        names: [],
+        rank: undefined,
+        ncbiId: undefined,
+        parentId: undefined,
+      });
     }
     const entry = taxaMap.get(id);
     const name = row.taxon_name?.value;
     if (name && !entry.names.includes(name)) entry.names.push(name);
     if (!entry.rank && row.taxon_rank?.value) entry.rank = row.taxon_rank.value;
     if (!entry.ncbiId && row.ncbi_id?.value) entry.ncbiId = row.ncbi_id.value;
-    if (!entry.parentId && row.parent_id?.value) entry.parentId = getIdFromIRI(row.parent_id.value);
+    if (!entry.parentId && row.parent_id?.value) {
+      entry.parentId = getIdFromIRI(row.parent_id.value);
+    }
   }
 
+  /** @type {Map<string, LotusV2ReferenceMapEntry>} */
   const referencesMap = new Map();
   for (const row of testData.references) {
-    const id = getIdFromIRI(row.article_id.value);
+    const id = getIdFromIRI(/** @type {string} */ (row.article_id?.value));
     if (!referencesMap.has(id)) {
       referencesMap.set(id, { dois: [], title: undefined });
     }
@@ -641,10 +659,13 @@ async function* yieldFromTestData(testData, connection) {
     if (!entry.title && row.title?.value) entry.title = row.title.value;
   }
 
+  /** @type {Map<string, LotusV2CrtLink[]>} */
   const crtMap = new Map();
   for (const row of testData.compoundReferenceTaxon) {
-    const compoundId = getIdFromIRI(row.compound_id.value);
-    const taxonId = getIdFromIRI(row.taxon_id.value);
+    const compoundId = getIdFromIRI(
+      /** @type {string} */ (row.compound_id?.value),
+    );
+    const taxonId = getIdFromIRI(/** @type {string} */ (row.taxon_id?.value));
     const referenceId = row.reference_id?.value
       ? getIdFromIRI(row.reference_id.value)
       : undefined;
@@ -652,6 +673,7 @@ async function* yieldFromTestData(testData, connection) {
     crtMap.get(compoundId).push({ taxonId, referenceId });
   }
 
+  /** @type {Map<string, LotusV2CompoundVariants>} */
   const compoundsMap = new Map();
   for (const row of testData.compounds) {
     const id = getIdFromIRI(row.compound_id.value);
@@ -664,8 +686,12 @@ async function* yieldFromTestData(testData, connection) {
       });
     }
     const c = compoundsMap.get(id);
-    if (row.canonicalSmiles?.value) c.canonicalSmiles.push(row.canonicalSmiles.value);
-    if (row.isomericSmiles?.value) c.isomericSmiles.push(row.isomericSmiles.value);
+    if (row.canonicalSmiles?.value) {
+      c.canonicalSmiles.push(row.canonicalSmiles.value);
+    }
+    if (row.isomericSmiles?.value) {
+      c.isomericSmiles.push(row.isomericSmiles.value);
+    }
     if (row.inchi?.value) c.inchis.push(row.inchi.value);
     if (row.inchikey?.value) c.inchiKeys.push(row.inchikey.value);
   }
@@ -676,21 +702,35 @@ async function* yieldFromTestData(testData, connection) {
       if (!smiles) continue;
 
       const oclMolecule = OCL.Molecule.fromSmiles(smiles);
-      const ocl = await getNoStereosFromCache(oclMolecule, connection, 'lotusesV2');
+      const ocl = await getNoStereosFromCache(
+        oclMolecule,
+        connection,
+        'lotusesV2',
+      );
 
+      /** @type {LotusV2Entry} */
       const result = { _id: wikidataId, data: { ocl } };
-      if (compound.inchiKeys.length > 0) result.data.inchiKey = compound.inchiKeys[0];
-      if (compound.isomericSmiles.length > 0 && compound.isomericSmiles[0] !== smiles) {
+      if (compound.inchiKeys.length > 0) {
+        result.data.inchiKey = compound.inchiKeys[0];
+      }
+      if (
+        compound.isomericSmiles.length > 0 &&
+        compound.isomericSmiles[0] !== smiles
+      ) {
         result.data.isomericSmiles = compound.isomericSmiles[0];
       }
 
       const links = crtMap.get(wikidataId);
       if (links && links.length > 0) {
+        /** @type {LotusV2RawTaxonomy[]} */
         const taxonomies = [];
         for (const link of links) {
+          /** @type {LotusV2RawTaxonomy} */
           const taxonomy = {};
           if (link.taxonId && taxaMap.has(link.taxonId)) {
-            const taxonData = taxaMap.get(link.taxonId);
+            const taxonData = /** @type {LotusV2TaxaMapEntry} */ (
+              taxaMap.get(link.taxonId)
+            );
             taxonomy.wikidataId = link.taxonId;
             if (taxonData.ncbiId) taxonomy.ncbiId = Number(taxonData.ncbiId);
             const hierarchy = resolveTaxonHierarchy(link.taxonId, taxaMap);
@@ -705,7 +745,9 @@ async function* yieldFromTestData(testData, connection) {
             taxonomy.wikidataId = link.taxonId;
           }
           if (link.referenceId && referencesMap.has(link.referenceId)) {
-            const refData = referencesMap.get(link.referenceId);
+            const refData = /** @type {LotusV2ReferenceMapEntry} */ (
+              referencesMap.get(link.referenceId)
+            );
             taxonomy.reference = { wikidataId: link.referenceId };
             if (refData.dois.length > 0) taxonomy.reference.dois = refData.dois;
             if (refData.title) taxonomy.reference.title = refData.title;
@@ -720,7 +762,9 @@ async function* yieldFromTestData(testData, connection) {
       yield result;
     } catch (e) {
       const err = e instanceof Error ? e : new Error(String(e));
-      debug.error(`Error processing test compound ${wikidataId}: ${err.message}`);
+      debug.error(
+        `Error processing test compound ${wikidataId}: ${err.message}`,
+      );
     }
   }
 }

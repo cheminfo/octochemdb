@@ -4,17 +4,23 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Handles ID-based search requests for the lotusesV2 collection.
+ *
+ * @param {object} request - Fastify request object.
+ * @returns {Promise<{data: any[]} | {errors: Array<{title: string, detail: string}>}>}
+ */
 export async function idsHandler(request) {
-  let data = getRequestQuery(request);
-  let { ids = '', fields = 'data' } = data;
+  const data = getRequestQuery(request);
+  const { ids = '', fields = 'data' } = data;
 
-  let formattedFields = getFields(fields);
+  const formattedFields = getFields(fields);
   let connection;
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('lotusesV2');
-    let matchParameters = {};
-    let aggregateParameters;
+    /** @type {Record<string, any>} */
+    const matchParameters = {};
 
     if (ids !== '') {
       matchParameters._id = {
@@ -22,7 +28,7 @@ export async function idsHandler(request) {
       };
     }
 
-    aggregateParameters = [
+    const aggregateParameters = [
       {
         $match: matchParameters,
       },
@@ -32,7 +38,7 @@ export async function idsHandler(request) {
     const result = await collection.aggregate(aggregateParameters).toArray();
 
     return { data: result };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'lotusesV2',

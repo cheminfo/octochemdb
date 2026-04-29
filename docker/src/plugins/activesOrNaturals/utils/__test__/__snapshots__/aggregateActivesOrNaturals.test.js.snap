@@ -31,14 +31,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       "translation",
       "uhts",
     ],
-    "kwTaxonomies": [
-      "viridiplantae",
-      "streptophyta",
-      "magnoliopsida",
-      "cucurbitaceae",
-      "momordica",
-      "charantia",
-    ],
     "mf": "C37H60O8",
     "molecules": [
       {
@@ -52,25 +44,14 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
           },
         ],
       },
-      {
-        "ocl": {
-          "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@",
-        },
-        "sources": [
-          {
-            "$id": "LTS0257199",
-            "$ref": "lotuses",
-          },
-        ],
-      },
     ],
-    "naturalProduct": true,
+    "naturalProduct": false,
     "nbActivities": 1,
     "nbMassSpectra": 0,
-    "nbMolecules": 2,
+    "nbMolecules": 1,
     "nbPatents": 1,
     "nbPubmeds": 0,
-    "nbTaxonomies": 1,
+    "nbTaxonomies": 0,
     "noStereoOCL": [
       {
         "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
@@ -80,20 +61,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       {
         "$id": "EP-2078065-A2",
         "$ref": "patents",
-      },
-    ],
-    "taxonomies": [
-      {
-        "class": "Magnoliopsida",
-        "dbRef": {
-          "$id": "LTS0257199",
-          "$ref": "lotuses",
-        },
-        "family": "Cucurbitaceae",
-        "genus": "Momordica",
-        "kingdom": "Viridiplantae",
-        "phylum": "Streptophyta",
-        "species": "Momordica charantia",
       },
     ],
     "unsaturation": 8,

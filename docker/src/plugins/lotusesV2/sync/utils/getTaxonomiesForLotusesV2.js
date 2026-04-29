@@ -16,20 +16,25 @@ import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomi
  * Every returned taxonomy object carries a `dbRef` back-link to the owning
  * `lotusesV2` document.
  *
- * @param {object} entry - A LOTUS V2 entry with optional raw taxonomies.
+ * @param {LotusV2Entry} entry - A LOTUS V2 entry with optional raw taxonomies.
  * @param {import('mongodb').Collection} taxonomiesCollection - The `taxonomies`
  *   MongoDB collection.
- * @returns {Promise<Array>} The enriched taxonomy array.
+ * @returns {Promise<LotusV2ResolvedTaxonomy[]>} The enriched taxonomy array.
  */
 export async function getTaxonomiesForLotusesV2(entry, taxonomiesCollection) {
+  /** @type {LotusV2ResolvedTaxonomy[]} */
   const taxonomies = [];
   if (!entry.data?.taxonomies) return taxonomies;
 
-  for (let i = 0; i < entry.data.taxonomies.length; i++) {
-    const rawTaxon = entry.data.taxonomies[i];
+  const rawTaxonomies = /** @type {LotusV2RawTaxonomy[]} */ (
+    entry.data.taxonomies
+  );
+  for (let i = 0; i < rawTaxonomies.length; i++) {
+    const rawTaxon = rawTaxonomies[i];
     const speciesName = rawTaxon.species;
     const genus = speciesName ? speciesName.split(' ')[0] : undefined;
 
+    /** @type {LotusV2ResolvedTaxonomy | undefined} */
     let finalTaxonomy;
 
     // 1. Try NCBI ID lookup (most reliable)
@@ -67,7 +72,7 @@ export async function getTaxonomiesForLotusesV2(entry, taxonomiesCollection) {
 
     // 4. Fallback: keep raw Wikidata data (preserve full hierarchy)
     if (!finalTaxonomy) {
-      finalTaxonomy = {};
+      finalTaxonomy = /** @type {LotusV2ResolvedTaxonomy} */ ({});
       if (rawTaxon.kingdom) finalTaxonomy.kingdom = rawTaxon.kingdom;
       if (rawTaxon.phylum) finalTaxonomy.phylum = rawTaxon.phylum;
       if (rawTaxon.class) finalTaxonomy.class = rawTaxon.class;

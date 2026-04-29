@@ -13,7 +13,7 @@ import { main } from './main.js';
  */
 export async function aggregate(connection) {
   const collectionNames = [
-    'lotuses',
+    'lotusesV2',
     'npasses',
     'npAtlases',
     'cmaups',

@@ -13,10 +13,8 @@ test('syncLotusesV2', async () => {
   }
   await sync(connection);
   const collection = await connection.getCollection('lotusesV2');
-  const collectionEntry = await collection
-    .find({ _id: 'Q60235' })
-    .limit(1);
-  const result = await collectionEntry.next();
+  const collectionEntry = await collection.find({ _id: 'Q60235' }).limit(1);
+  const /** @type {any} */ result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;
     delete result.data.ocl.coordinates;

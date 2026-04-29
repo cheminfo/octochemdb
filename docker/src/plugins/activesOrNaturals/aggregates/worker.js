@@ -30,6 +30,7 @@ parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
     for (const link of links) {
       let noStereoTautomerID = link.id;
       let sources = link.sources;
+      /** @type {ActiveOrNaturalEntry} */
       let entry = { data: { naturalProduct: false } };
       // get all documents from all collections
       let data = [];
@@ -39,7 +40,7 @@ parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
             'npasses',
             'cmaups',
             'coconuts',
-            'lotuses',
+            'lotusesV2',
             'npAtlases',
             'gnps',
           ].includes(source.collection)
@@ -65,14 +66,15 @@ parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
         connection,
       );
       // get unique compound information from all collections for the current noStereoTautomerIDs
-      entry = (await getCompoundsInfo(
-        entry,
-        data,
-        compoundsCollection,
-        noStereoTautomerID,
-        connection,
-        compoundPatentsCollection,
-      )) ?? entry;
+      entry =
+        (await getCompoundsInfo(
+          entry,
+          data,
+          compoundsCollection,
+          noStereoTautomerID,
+          connection,
+          compoundPatentsCollection,
+        )) ?? entry;
       let massSpectraRefsForGNPs = await getMassSpectraRefForGNPs(
         connection,
         noStereoTautomerID,
@@ -192,8 +194,7 @@ parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
         }
       }
     }
-    // @ts-ignore
-    parentPort.postMessage({ workerID, currentCount: count, status: 'done' });
+    parentPort?.postMessage({ workerID, currentCount: count, status: 'done' });
   } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {

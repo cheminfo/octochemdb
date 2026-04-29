@@ -5,8 +5,9 @@ import { getStats } from '../../../../../utils/getStats.js';
 const debug = debugLibrary('stats');
 
 /**
- * Returns statistics about the lotusesV2 collection
- * @return {Promise} returns a promise with the statistics
+ * Returns statistics about the lotusesV2 collection.
+ *
+ * @returns {Promise<{data: any} | {errors: Array<{title: string, detail: string}>}>}
  */
 export async function statsHandler() {
   let connection;
@@ -16,7 +17,7 @@ export async function statsHandler() {
     const results = await getStats(connection, 'lotusesV2');
 
     return { data: results };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.error(e.message, {
         collection: 'lotusesV2',
