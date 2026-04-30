@@ -27,7 +27,9 @@ export async function getTaxonomiesForLotuses(
   const taxonomiesLotuses = [];
   if (entry.data?.taxonomies) {
     /** @type {LotusRawTaxonomies} */
-    const rawTaxonomies = /** @type {LotusRawTaxonomies} */ (entry.data.taxonomies);
+    const rawTaxonomies = /** @type {LotusRawTaxonomies} */ (
+      entry.data.taxonomies
+    );
     const taxonomiesSources = Object.keys(rawTaxonomies);
     let sourceToBeUsed;
     const oldIDs = Object.keys(oldToNewTaxIDs);
@@ -39,7 +41,9 @@ export async function getTaxonomiesForLotuses(
       sourceToBeUsed = taxonomiesSources[0].toString();
     }
     for (let i = 0; i < (rawTaxonomies[sourceToBeUsed] ?? []).length; i++) {
-      const taxons = /** @type {LotusParsedTaxonomy} */ (rawTaxonomies[sourceToBeUsed]?.[i]);
+      const taxons = /** @type {LotusParsedTaxonomy} */ (
+        rawTaxonomies[sourceToBeUsed]?.[i]
+      );
       let shouldImport = true;
       if (shouldImport && taxons?.organismID && sourceToBeUsed === 'ncbi') {
         const searchParameter = {

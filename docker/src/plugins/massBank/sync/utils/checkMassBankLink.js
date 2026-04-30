@@ -27,10 +27,13 @@ export async function checkMassBankLink(previousLink, connection) {
     const downloadsSectionMatch = text.match(regexDownloadsSection);
     const expandedAssetsHref = downloadsSectionMatch?.[1];
     if (!expandedAssetsHref) {
-      await debug.fatal('⚠️Could not find expanded_assets URL on release page⚠️', {
-        collection: 'massBank',
-        connection,
-      });
+      await debug.fatal(
+        '⚠️Could not find expanded_assets URL on release page⚠️',
+        {
+          collection: 'massBank',
+          connection,
+        },
+      );
       return [];
     }
     const expandedAssetsUrl = await fetch(expandedAssetsHref);

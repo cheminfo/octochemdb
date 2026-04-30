@@ -77,8 +77,7 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
       if (Array.isArray(medlineArticle.Abstract.AbstractText)) {
         const abstracts = [];
         for (let i = 0; i < medlineArticle.Abstract.AbstractText.length; i++) {
-          const abstractText =
-            medlineArticle.Abstract.AbstractText[i]['#text'];
+          const abstractText = medlineArticle.Abstract.AbstractText[i]['#text'];
           if (abstractText && abstractText !== null) {
             abstracts.push(abstractText);
           }

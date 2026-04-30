@@ -93,7 +93,9 @@ async function getFileListPatents(url, options = {}) {
     return { abstracts2Download, titles2Download };
   } catch (e) {
     const error = e instanceof Error ? e : new Error(String(e));
-    debugLibrary('getFileListPatents').fatal(error.message, { stack: error.stack });
+    debugLibrary('getFileListPatents').fatal(error.message, {
+      stack: error.stack,
+    });
   }
 }
 

@@ -20,8 +20,7 @@ export async function checkGNPSLink(previousLinks, connection) {
   try {
     const response = await fetch('https://external.gnps2.org/gnpslibrary');
     const text = await response.text();
-    const regexAllPaths =
-      /(?:https?:\/\/[^\s"'<>]+)?\/[^\s"'<>]+\.json(?!\.)/g;
+    const regexAllPaths = /(?:https?:\/\/[^\s"'<>]+)?\/[^\s"'<>]+\.json(?!\.)/g;
     const matches = [...text.matchAll(regexAllPaths)];
     const allPaths = matches.map((match) => match[0]);
     const baseUrl = 'https://external.gnps2.org';

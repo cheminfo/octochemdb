@@ -47,24 +47,8 @@ export default async function getBioassays(
       // BioAssayTypes | ProteinAccessions | UniProtIDs | GeneIDs |
       // TargetTaxIDs | TaxonomyIDs
       // The commas are placeholders for the unused columns; we only care about a subset of the fields.
-      const [
-        aid,
-        name, 
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        ,
-        targetTaxIDs,
-        taxonomyIDs,
-      ] = line.split('\t');
+      const [aid, name, , , , , , , , , , , , , targetTaxIDs, taxonomyIDs] =
+        line.split('\t');
 
       if (aid === 'AID') continue; // skip the header row
 
