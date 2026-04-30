@@ -144,6 +144,7 @@ async function downloadSparqlToFile(query, filePath, retries = 3) {
     } catch (/** @type {any} */ e) {
       debug.warn(`  Attempt ${attempt + 1}/${retries} failed: ${e.message}`);
       if (attempt === retries - 1) throw e;
+      // eslint-disable-next-line no-promise-executor-return
       await new Promise((resolve) => setTimeout(resolve, 1000 * 2 ** attempt));
     }
   }

@@ -332,11 +332,13 @@ function binding(idField, idValue, fields) {
  * @returns {LotusV2SparqlBinding}
  */
 function taxonBinding(uri, name, rank) {
+  /* eslint-disable camelcase */
   return {
     taxon_id: { value: uri, type: 'uri' },
     taxon_name: { value: name, type: 'literal' },
     taxon_rank: { value: rank, type: 'literal' },
   };
+  /* eslint-enable camelcase */
 }
 
 /**
@@ -346,11 +348,13 @@ function taxonBinding(uri, name, rank) {
  * @returns {LotusV2SparqlBinding}
  */
 function refBinding(uri, doi, title) {
+  /* eslint-disable camelcase */
   return {
     article_id: { value: uri, type: 'uri' },
     doi: { value: doi, type: 'literal' },
     title: { value: title, type: 'literal' },
   };
+  /* eslint-enable camelcase */
 }
 
 /**
@@ -360,6 +364,7 @@ function refBinding(uri, doi, title) {
  * @returns {LotusV2SparqlBinding}
  */
 function crtBinding(compound, taxon, reference) {
+  /* eslint-disable camelcase */
   const row = {
     compound_id: {
       value: `http://www.wikidata.org/entity/${compound}`,
@@ -376,5 +381,6 @@ function crtBinding(compound, taxon, reference) {
       type: 'uri',
     };
   }
+  /* eslint-enable camelcase */
   return row;
 }
