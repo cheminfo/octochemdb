@@ -11,8 +11,9 @@ import { getMatchParameters } from '../utils/getMatchParameters.js';
 export async function searchHandler(request) {
   const debug = debugLibrary('entriesSearch');
 
-  let data = getRequestQuery(request);
-  let { limit = 1e3, fields = 'data.em,data.mf' } = data;
+  const data = getRequestQuery(request);
+  let limit = Number(data.limit ?? 1e3);
+  const fields = /** @type {string} */ (data.fields ?? 'data.em,data.mf');
 
   // define lower and upper bounds of the returned results limit
   if (limit > 1e4) limit = 1e4;

@@ -9,7 +9,7 @@ test('nEntires (activesOrNaturals)', async () => {
   while (true) {
     const activeOrNaturalsCollection =
       await connection.getCollection('activesOrNaturals');
-    if ((await activeOrNaturalsCollection.countDocuments()) === 69) {
+    if ((await activeOrNaturalsCollection.countDocuments()) === 70) {
       break;
     }
   }
@@ -21,8 +21,10 @@ test('nEntires (activesOrNaturals)', async () => {
     },
   };
   const results = await nEntries.handler(request);
-  expect(results.data.length).toBe(4);
-  expect(results.data[0].data.em).toBeGreaterThan(0);
-  expect(results.data[1]._id).toBeDefined();
+  if (!('data' in results)) throw new Error('Expected data in results');
+  const /** @type {any} */ data = results.data;
+  expect(data.length).toBe(4);
+  expect(data[1].data.em).toBeGreaterThan(0);
+  expect(data[2]._id).toBeDefined();
   await connection.close();
 });
