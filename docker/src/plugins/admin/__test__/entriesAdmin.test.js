@@ -43,5 +43,6 @@ describe('search (admin)', async () => {
         },
       ]
     `);
+    await connection.close();
   });
 });

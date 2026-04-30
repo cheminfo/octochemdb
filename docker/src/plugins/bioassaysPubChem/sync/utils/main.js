@@ -4,7 +4,6 @@ import { Worker } from 'worker_threads';
 import debugLibrary from '../../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 
-const connection = new OctoChemConnection();
 export async function main(fileList) {
   const debug = debugLibrary('bioassaysPubChem Main');
 
@@ -61,13 +60,18 @@ export async function main(fileList) {
           }),
       ),
     );
-  } catch (e) {
-    if (connection) {
-      await debug.fatal(e.message, {
-        collection: 'bioassaysPubChem',
-        connection,
-        stack: e.stack,
-      });
+
+    // Terminate workers to close their open MongoDB connections
+    for (const worker of workers) {
+      await worker.terminate();
     }
+  } catch (/** @type {any} */ e) {
+    const connection = new OctoChemConnection();
+    await debug.fatal(e.message, {
+      collection: 'bioassaysPubChem',
+      connection,
+      stack: e.stack,
+    });
+    await connection.close();
   }
 }

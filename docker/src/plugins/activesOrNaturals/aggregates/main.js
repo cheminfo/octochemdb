@@ -4,8 +4,6 @@ import { Worker } from 'worker_threads';
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
-const connection = new OctoChemConnection();
-
 /**
  * Split `links` into chunks and process them in parallel using worker threads.
  * @param {CollectionLinksMap} links - map of noStereoTautomerID to source references
@@ -67,13 +65,18 @@ export async function main(links) {
           }),
       ),
     );
-  } catch (/** @type {any} */ e) {
-    if (connection) {
-      await debug.fatal(e.message, {
-        collection: 'activesOrNaturals',
-        connection,
-        stack: e.stack,
-      });
+
+    // Terminate workers to close their open MongoDB connections
+    for (const worker of workers) {
+      await worker.terminate();
     }
+  } catch (/** @type {any} */ e) {
+    const connection = new OctoChemConnection();
+    await debug.fatal(e.message, {
+      collection: 'activesOrNaturals',
+      connection,
+      stack: e.stack,
+    });
+    await connection.close();
   }
 }
