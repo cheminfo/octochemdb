@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`syncLotusesV2 1`] = `
+{
+  "_id": "Q60235",
+  "data": {
+    "inchiKey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+    "ocl": {
+      "idCode": "dg|d@Dq]@\\bbbbfJSSimUSTs@@",
+      "noStereoTautomerID": "dg|d@Dq]@\\bbbbfJSSimUSTs@@",
+    },
+    "taxonomies": [
+      {
+        "dbRef": {
+          "$id": "Q60235",
+          "$ref": "lotusesV2",
+        },
+        "genus": "Coffea",
+        "reference": {
+          "dois": [
+            "10.1234/test001",
+          ],
+          "title": "Chemical compounds in Coffea arabica",
+          "wikidataId": "Q100001",
+        },
+        "wikidataId": "Q34740",
+      },
+      {
+        "dbRef": {
+          "$id": "Q60235",
+          "$ref": "lotusesV2",
+        },
+        "reference": {
+          "dois": [
+            "10.1234/test001",
+          ],
+          "title": "Chemical compounds in Coffea arabica",
+          "wikidataId": "Q100001",
+        },
+        "species": "Coffea arabica",
+        "wikidataId": "Q158695",
+      },
+    ],
+  },
+}
+`;

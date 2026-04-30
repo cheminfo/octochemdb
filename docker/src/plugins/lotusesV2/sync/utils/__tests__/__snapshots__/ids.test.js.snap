@@ -1,0 +1,90 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ids search (lotusesV2) 2`] = `
+[
+  {
+    "_id": "Q312266",
+    "data": {
+      "inchiKey": "VFLDPWHFBUODDF-UHFFFAOYSA-N",
+      "ocl": {
+        "idCode": "fkoAp@@\\}FlsyEDdhiddheDdeYeXHumMLBEDEPQP@@@",
+        "noStereoTautomerID": "fkoAp@@TDzLsiS\\|ommkJv|dM]UUUUUUUUUP@ZcQcFBXiafAXecVCXmavOXCbNDxs\`nJx[cnIxw\`~KxRFTZXL_CGpp",
+      },
+      "taxonomies": [
+        {
+          "dbRef": {
+            "$id": "Q312266",
+            "$ref": "lotusesV2",
+          },
+          "reference": {
+            "dois": [
+              "10.1234/test002",
+            ],
+            "title": "Bioactive molecules from Curcuma longa",
+            "wikidataId": "Q100002",
+          },
+          "species": "Curcuma longa",
+          "wikidataId": "Q146118",
+        },
+        {
+          "dbRef": {
+            "$id": "Q312266",
+            "$ref": "lotusesV2",
+          },
+          "genus": "Curcuma",
+          "reference": {
+            "dois": [
+              "10.1234/test002",
+            ],
+            "title": "Bioactive molecules from Curcuma longa",
+            "wikidataId": "Q100002",
+          },
+          "wikidataId": "Q21187",
+        },
+      ],
+    },
+  },
+  {
+    "_id": "Q60235",
+    "data": {
+      "inchiKey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+      "ocl": {
+        "idCode": "dg|d@Dq]@\\bbbbfJSSimUSTs@@",
+        "noStereoTautomerID": "dg|d@Dq]@\\bbbbfJSSimUSTs@@",
+      },
+      "taxonomies": [
+        {
+          "dbRef": {
+            "$id": "Q60235",
+            "$ref": "lotusesV2",
+          },
+          "genus": "Coffea",
+          "reference": {
+            "dois": [
+              "10.1234/test001",
+            ],
+            "title": "Chemical compounds in Coffea arabica",
+            "wikidataId": "Q100001",
+          },
+          "wikidataId": "Q34740",
+        },
+        {
+          "dbRef": {
+            "$id": "Q60235",
+            "$ref": "lotusesV2",
+          },
+          "reference": {
+            "dois": [
+              "10.1234/test001",
+            ],
+            "title": "Chemical compounds in Coffea arabica",
+            "wikidataId": "Q100001",
+          },
+          "species": "Coffea arabica",
+          "wikidataId": "Q158695",
+        },
+      ],
+    },
+  },
+]
+`;
