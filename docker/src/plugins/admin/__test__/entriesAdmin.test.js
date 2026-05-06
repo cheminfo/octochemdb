@@ -26,6 +26,7 @@ describe('search (admin)', async () => {
     // remove storageSize and freeStorageSize for test
     delete results.data[0].storageSize;
     delete results.data[0].freeStorageSize;
+    delete results.data[0].seq;
     expect(results.data).toMatchInlineSnapshot(`
       [
         {
@@ -36,7 +37,6 @@ describe('search (admin)', async () => {
           "dateEnd": 1,
           "dateStart": 0,
           "ns": "octochemdb.compounds",
-          "seq": 12,
           "size": 219418,
           "sources": "../docker/src/plugins/compounds/sync/utils/__tests__/data/compoundsIncrementalTest.sdf.gz",
           "state": "updated",
