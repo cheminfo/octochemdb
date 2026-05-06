@@ -38,7 +38,7 @@ const { existsSync, rmSync } = pkg;
 export async function sync(connection) {
   const debug = debugLibrary('syncCompoundPatents');
   try {
-    let options = {
+    const options = {
       collectionSource:
         'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-Patent.gz',
       destinationLocal: `../originalData/compoundPatents/cidToPatents`,
@@ -46,7 +46,9 @@ export async function sync(connection) {
       filenameNew: 'cidToPatents',
       extensionNew: 'gz',
     };
+    /** @type {string[] | undefined} */
     let sources;
+    /** @type {string | undefined} */
     let lastFile;
     const progress = await connection.getProgress('compoundPatents');
     if (process.env.NODE_ENV === 'test') {
@@ -67,7 +69,7 @@ export async function sync(connection) {
       connection,
       options.collectionName,
     );
-    let isTimeToUpdate = await shouldUpdate(
+    const isTimeToUpdate = await shouldUpdate(
       progress,
       sources,
       lastDocumentImported,

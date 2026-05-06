@@ -1,7 +1,7 @@
 /**
- * @description Get the active against taxonomies keywords from the aggregated activities
- * @param {*} activities Array of activities
- * @returns {Array} Array of active against keywords
+ * Extract lowercased taxonomy keywords from the `targetTaxonomies` of each activity.
+ * @param {ActivityInfo[]} activities
+ * @returns {string[]} deduplicated array of active-against keywords
  */
 export default function getActiveAgainstKeywords(activities) {
   const activeAgainstKw = new Set();

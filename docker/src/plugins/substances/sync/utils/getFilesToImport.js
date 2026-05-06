@@ -1,11 +1,18 @@
 import debugLibrary from '../../../../utils/Debug.js';
+
 /**
- * @description get list of files to import
- * @param {*} connection  connection to mongo
- * @param {*} progress substances progress
- * @param {*} allFiles list of files
- * @param {*} importType first or incremental
- * @returns {Promise} file list of the folder
+ * Determine which substance SDF files still need to be imported.
+ *
+ * For a 'first' import the function resumes from the file stored in
+ * `progress.sources`.  For an 'incremental' import it does the same but
+ * falls back to importing every file when the recorded source is not
+ * found in the current list.
+ *
+ * @param {OctoChemConnection} connection - MongoDB connection wrapper
+ * @param {object} progress - progress document for the substances collection
+ * @param {Array<{name: string, path: string}>} allFiles - full sorted file list
+ * @param {'first'|'incremental'} importType - import mode
+ * @returns {Promise<{files: Array, lastDocument: object}>} files to process and the last imported document
  */
 export async function getFilesToImport(
   connection,
@@ -16,11 +23,14 @@ export async function getFilesToImport(
   const debug = debugLibrary('getFilesToImport');
   try {
     const collection = await connection.getCollection('substances');
+    // Fetch the last document whose _seq is at or below the current progress watermark
     const lastDocument = await collection
       .find({ _seq: { $lte: progress.seq } })
       .sort('_seq', -1)
       .limit(1)
       .next();
+
+    // In test mode, return all files with an appropriate lastDocument stub
     if (process.env.NODE_ENV === 'test' && importType === 'first') {
       return {
         files: allFiles,
@@ -33,7 +43,9 @@ export async function getFilesToImport(
         lastDocument,
       };
     }
+
     if (importType === 'first') {
+      // No prior source or document — start from the beginning
       if (!progress.sources || !lastDocument) {
         return { files: allFiles, lastDocument: {} };
       }
@@ -58,6 +70,7 @@ export async function getFilesToImport(
       );
 
       if (firstIndex === -1) {
+        // Source file no longer present — import everything from the beginning
         debug.trace('Should import all the incremental updates');
         return { files: allFiles, lastDocument: {} };
       }
@@ -67,11 +80,12 @@ export async function getFilesToImport(
       return { lastDocument, files: allFiles.slice(firstIndex) };
     }
   } catch (e) {
+    const err = e instanceof Error ? e : new Error(String(e));
     if (connection) {
-      await debug.fatal(e.message, {
+      await debug.fatal(err.message, {
         collection: 'substances',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

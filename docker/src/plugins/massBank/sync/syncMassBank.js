@@ -15,7 +15,7 @@ const debug = debugLibrary('syncMassBank');
 const massBankTestSource =
   '../docker/src/plugins/massBank/sync/utils/__tests__/data/massBank.msp';
 const massBankSource =
-  'https://github.com/MassBank/MassBank-data/releases/download/2025.10/MassBank_NISTformat.msp';
+  'https://github.com/MassBank/MassBank-data/releases/download/2026.03/MassBank_NISTformat.msp';
 
 /**
  * Synchronises the `massBank` MongoDB collection with the latest MassBank

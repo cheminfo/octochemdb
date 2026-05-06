@@ -2,29 +2,21 @@
 
 exports[`id search (activesOrNaturals) 1`] = `
 {
-  "_id": "fhiAP@@Xe[vRJJFYIJJDYxMUUUUUP@ZzQcFBXiafNXecVCXm\`NOtQfJvOacxZuSGpq|L",
+  "_id": "fmoaP@C@iEltinU]e^][_dcNBfoZBBJjjjjjJ\`@ue{@\\QpgF\\EpwA|Wq~dLcQq|L_C@",
   "data": {
     "bioactive": false,
     "charge": 0,
-    "em": 234.05282342015,
-    "kwTaxonomies": [
-      "fungi",
-      "basidiomycota",
-      "agaricomycetes",
-      "aporpiaceae",
-      "elmerina",
-      "caryae",
-    ],
-    "mf": "C12H10O5",
+    "em": 369.15762284357,
+    "mf": "C21H23NO5",
     "molecules": [
       {
         "ocl": {
-          "idCode": "fhiAP@@HU[rSJ|jlqJV\\uKWUSTBED",
+          "idCode": "fmoaP@D@uGh|bbbbbTRaTrvVRyISkIJuj\`j\`B\`HjjBAD@",
         },
         "sources": [
           {
-            "$id": "LTS0090146",
-            "$ref": "lotuses",
+            "$id": "NPC222524",
+            "$ref": "cmaups",
           },
         ],
       },
@@ -35,28 +27,14 @@ exports[`id search (activesOrNaturals) 1`] = `
     "nbMolecules": 1,
     "nbPatents": 0,
     "nbPubmeds": 0,
-    "nbTaxonomies": 1,
+    "nbTaxonomies": 0,
     "noStereoOCL": [
       {
-        "idCode": "fhiAP@@HU[rSJ|jlqJV\\uKWUST@@",
+        "idCode": "fmoaP@D@uGh|bbbbbTRaTrvVRyISkIJuj\`j\`B\`Hjj@@@",
       },
     ],
     "patents": [],
-    "taxonomies": [
-      {
-        "class": "Agaricomycetes",
-        "dbRef": {
-          "$id": "LTS0090146",
-          "$ref": "lotuses",
-        },
-        "family": "Aporpiaceae",
-        "genus": "Elmerina",
-        "kingdom": "Fungi",
-        "phylum": "Basidiomycota",
-        "species": "Elmerina caryae",
-      },
-    ],
-    "unsaturation": 8,
+    "unsaturation": 11,
   },
 }
 `;

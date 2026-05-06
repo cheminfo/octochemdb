@@ -3,14 +3,17 @@ import debugLibrary from '../../../utils/Debug.js';
 import parseCompoundInfo from './parseCompoundInfo.js';
 
 const debug = debugLibrary('getCompoundsInfo');
+
 /**
- * @description Get compounds information compounds collection and data array
- * @param {*} entry Entry from the aggregation process
- * @param {*} data Array of all data for the current noStereoID
- * @param {*} compoundsCollection Compounds collection
- * @param {*} noStereoTautomerID current noStereoTautomerID
- * @param {*} connection OctoChem connection
- * @returns {Promise} Returns the entry with the compounds information
+ * Enrich `entry` with compound information (patents, molecules, CAS, etc.)
+ * from the compounds and compoundPatents collections.
+ * @param {ActiveOrNaturalEntry} entry - aggregation entry (mutated in place)
+ * @param {Array<Record<string, any>>} data - documents from source collections
+ * @param {import('mongodb').Collection} compoundsCollection
+ * @param {string} noStereoTautomerID
+ * @param {OctoChemConnection} connection
+ * @param {import('mongodb').Collection} compoundPatentsCollection
+ * @returns {Promise<ActiveOrNaturalEntry | undefined>} the enriched entry
  */
 export default async function getCompoundsInfo(
   entry,
@@ -20,7 +23,6 @@ export default async function getCompoundsInfo(
   connection,
   compoundPatentsCollection,
 ) {
-  //getCompoundsInfo Cannot read properties of null (reading 'data')
   try {
     let cursor = await compoundsCollection.find({
       'data.ocl.noStereoTautomerID': noStereoTautomerID,
@@ -150,7 +152,7 @@ export default async function getCompoundsInfo(
       entry.data.meshTerms = meshTerms;
     }
     return entry;
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

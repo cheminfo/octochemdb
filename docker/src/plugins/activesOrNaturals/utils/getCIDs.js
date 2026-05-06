@@ -1,3 +1,10 @@
+/**
+ * Retrieve CIDs, molecule structures, and titles for a given noStereoTautomerID.
+ * @param {OctoChemConnection} connection
+ * @param {string} noStereoTautomerID
+ * @param {Array<Record<string, any>>} data - documents from source collections
+ * @returns {Promise<CIDsResult>}
+ */
 export default async function getCIDs(connection, noStereoTautomerID, data) {
   let compoundsCollection = await connection.getCollection('compounds');
   let titleCollection = await connection.getCollection('titleCompounds');

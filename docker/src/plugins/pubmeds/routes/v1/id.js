@@ -1,5 +1,10 @@
 import { idHandler } from './searchHandlers/idHandler.js';
 
+/**
+ * Fastify route definition: retrieve a single PubMed article by its PMID.
+ *
+ * @type {import('fastify').RouteOptions}
+ */
 const fromPMID = {
   method: 'GET',
   schema: {

@@ -1,14 +1,17 @@
-// query for molecules from monoisotopic mass
 import { OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getStats } from '../../../../../utils/getStats.js';
 
 const debug = debugLibrary('stats');
-/**
- * Returns statistics about the collection
- * @return {Promise}
- */
 
+/**
+ * Handler for the pubmeds collection statistics route.
+ *
+ * Returns global statistics (document count, index sizes, etc.) for the
+ * `pubmeds` collection, suitable for monitoring dashboards.
+ *
+ * @returns {Promise<{ data: object } | { errors: object[] }>}
+ */
 export async function statsHandler() {
   let connection;
   try {

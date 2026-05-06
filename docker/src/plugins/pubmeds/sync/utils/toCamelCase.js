@@ -1,11 +1,23 @@
 import camelCase from 'camelcase';
 
+/**
+ * Shallow-converts the top-level keys of `entry` to camelCase.
+ *
+ * For values that are plain objects (one level deep), their keys are
+ * also converted to camelCase **in place** (mutating the original
+ * nested object).
+ *
+ * @param {Record<string, unknown>} entry - Object whose keys should
+ *   be camelCase-normalised.
+ * @returns {Record<string, unknown>} New object with camelCased keys.
+ */
 export function toCamelCase(entry) {
-  let result = {};
-  for (let key in entry) {
+  const result = {};
+  for (const key in entry) {
+    // Convert keys of one-level-deep nested objects in place
     if (typeof entry[key] === 'object' && entry[key] !== null) {
-      let subEntry = entry[key];
-      for (let subKey in subEntry) {
+      const subEntry = entry[key];
+      for (const subKey in subEntry) {
         subEntry[camelCase(subKey)] = subEntry[subKey];
         delete subEntry[subKey];
       }

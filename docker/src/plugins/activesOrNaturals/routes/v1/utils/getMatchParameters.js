@@ -2,6 +2,11 @@ import { getKeywordsMatchParameter } from './getKeywordsMatchParameter.js';
 import { getMolecularMatchParameter } from './getMolecularMatchParameter.js';
 import { prepareMinMaxQuery } from './prepareMinMaxQuery.js';
 
+/**
+ * Build a MongoDB `$match` filter from the parsed request query data.
+ * @param {Record<string, unknown>} data - parsed query/body parameters
+ * @returns {Record<string, unknown>} MongoDB match object
+ */
 export function getMatchParameters(data) {
   // define match parameters for the search, the $in operator is used to search for multiple words and is true if at least one of the words is found
   let matchParameter = {};

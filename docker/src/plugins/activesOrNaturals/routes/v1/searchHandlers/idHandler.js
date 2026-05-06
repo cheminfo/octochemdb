@@ -2,14 +2,15 @@ import { getFields, OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 
 /**
- * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
- * @param {object} request
- * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
+ * Retrieve the entry for a given noStereoTautomerID.
+ * @param {{ query: { id?: string, fields?: string } }} request - Fastify request
+ * @returns {Promise<{data: unknown} | {errors: Array<{title: string, detail: string}>}>}
  */
 export async function idHandler(request) {
-  let { id = '', fields = 'data' } = request.query;
+  const { id = '', fields = 'data' } = request.query;
   const debug = debugLibrary('entriesFromID');
 
+  /** @type {OctoChemConnection | undefined} */
   let connection;
   try {
     connection = new OctoChemConnection();
@@ -28,7 +29,7 @@ export async function idHandler(request) {
       ])
       .next();
     return { data: results };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

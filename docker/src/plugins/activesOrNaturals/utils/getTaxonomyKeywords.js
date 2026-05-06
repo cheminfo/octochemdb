@@ -1,7 +1,7 @@
 /**
- * @description Get the taxonomy keywords for a array of taxonomies
- * @param {*} taxonomies Array of Objects with taxonomies
- * @returns {Array} Array of taxonomy keywords
+ * Extract lowercased keyword tokens from taxonomy rank fields.
+ * @param {TaxonomyResult[]} taxonomies
+ * @returns {string[]} deduplicated array of taxonomy keywords
  */
 export default function getTaxonomyKeywords(taxonomies) {
   const taxonomiesKW = new Set();

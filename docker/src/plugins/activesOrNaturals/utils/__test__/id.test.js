@@ -9,26 +9,27 @@ test('id search (activesOrNaturals)', async () => {
   while (true) {
     const activeOrNaturalsCollection =
       await connection.getCollection('activesOrNaturals');
-    if ((await activeOrNaturalsCollection.countDocuments()) === 68) {
+    if ((await activeOrNaturalsCollection.countDocuments()) === 70) {
       break;
     }
   }
   const request = {
     query: {
-      id: 'fhiAP@@Xe[vRJJFYIJJDYxMUUUUUP@ZzQcFBXiafNXecVCXm`NOtQfJvOacxZuSGpq|L',
+      id: 'fmoaP@C@iEltinU]e^][_dcNBfoZBBJjjjjjJ`@ue{@\\QpgF\\EpwA|Wq~dLcQq|L_C@',
       fields: 'data',
     },
   };
   const results = await entriesFromID.handler(request);
 
-  if (results) {
-    for (const noStereo of results.data.data.noStereoOCL) {
-      delete noStereo.coordinates;
-    }
-    for (const molecule of results.data.data.molecules) {
-      delete molecule.ocl.coordinates;
-    }
+  expect('data' in results).toBe(true);
+  if (!('data' in results)) throw new Error('Expected data in results');
+  const /** @type {any} */ data = results.data;
+  for (const noStereo of data.data.noStereoOCL) {
+    delete noStereo.coordinates;
   }
-  expect(results.data).toMatchSnapshot();
+  for (const molecule of data.data.molecules) {
+    delete molecule.ocl.coordinates;
+  }
+  expect(data).toMatchSnapshot();
   await connection.close();
 });

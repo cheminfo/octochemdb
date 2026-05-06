@@ -6,13 +6,14 @@ import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 
 import { main } from './main.js';
 /**
- * @description Aggregate all synchronized collections into one collection of Bioactivities or/and Natural Products
- * @param {*} connection MongoDB connection
- * @return {Promise} Returns ActiveOrNaturals collection
+ * Aggregate all synchronized collections into one collection of
+ * Bioactivities and/or Natural Products.
+ * @param {OctoChemConnection} connection - MongoDB connection wrapper
+ * @returns {Promise<void>}
  */
 export async function aggregate(connection) {
   const collectionNames = [
-    'lotuses',
+    'lotusesV2',
     'npasses',
     'npAtlases',
     'cmaups',
@@ -26,13 +27,15 @@ export async function aggregate(connection) {
     const progress = await connection.getProgress(options.collection);
     const targetCollection = await connection.getCollection(options.collection);
 
-    let { links, collectionSources } = await getCollectionsLinks(
+    const collectionsResult = await getCollectionsLinks(
       connection,
       collectionNames,
     );
+    if (!collectionsResult) return;
+    const { links, collectionSources } = collectionsResult;
     const pubmedProgress = await connection.getProgress('pubmeds');
     collectionSources.push(pubmedProgress.sources);
-    const sources = md5(collectionSources);
+    const sources = md5(collectionSources.join(''));
 
     if (sources !== progress.sources || progress.state !== 'aggregated') {
       const temporaryCollection = await connection.getCollection(
@@ -84,7 +87,7 @@ export async function aggregate(connection) {
     } else {
       debug.info(`Aggregation already up to date`);
     }
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

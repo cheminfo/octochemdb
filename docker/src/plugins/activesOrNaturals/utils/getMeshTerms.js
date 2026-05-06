@@ -1,13 +1,12 @@
 import debugLibrary from '../../../utils/Debug.js';
 
 /**
- * @description Get the mesh terms and dbRef for a given cid inside the pubmeds collection
- * @param {Array} cids CIDs
- * @param {*} collection : PUBMEDS collection
- * @param {*} connection MongoDB connection
- * @returns {Promise} returns an object {meshTerms: array, dbRefs: array}
+ * Retrieve MeSH terms and PubMed IDs linked to the given compound DBRefs.
+ * @param {DbRef[]} cids - compound DBRefs
+ * @param {import('mongodb').Collection} collection - pubmeds collection
+ * @param {OctoChemConnection} connection
+ * @returns {Promise<MeshTermsResult | undefined>}
  */
-
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');
 
@@ -46,11 +45,12 @@ export async function getMeshTerms(cids, collection, connection) {
       pmIds: pmids,
       counterPmids,
     };
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (connection) {
-      await debug.fatal(error, {
+      await debug.fatal(error.message, {
         collection: collection.collectionName,
         connection,
+        stack: error.stack,
       });
     }
   }

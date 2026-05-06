@@ -5,7 +5,7 @@ import { aggregate } from '../../aggregates/aggregateActivesOrNaturals';
 
 test('Aggregation ActivesOrNaturals', async () => {
   const connection = new OctoChemConnection();
-  const lotusesCollection = await connection.getCollection('lotuses');
+  const lotusesV2Collection = await connection.getCollection('lotusesV2');
   const npassesCollection = await connection.getCollection('npasses');
   const npAtlasesCollection = await connection.getCollection('npAtlases');
   const cmaupsCollection = await connection.getCollection('cmaups');
@@ -18,21 +18,70 @@ test('Aggregation ActivesOrNaturals', async () => {
     await connection.getCollection('titleCompounds');
   const compoundPatentsCollection =
     await connection.getCollection('compoundPatents');
+  const requiredCollections = [
+    'lotusesV2',
+    'npasses',
+    'npAtlases',
+    'cmaups',
+    'coconuts',
+    'bioassays',
+    'gnps',
+    'pubmeds',
+    'patents',
+    'titleCompounds',
+    'compoundPatents',
+  ];
+  const /** @type {Record<string, number>} */ expectedCounts = {
+      lotusesV2: 20,
+      npasses: 6,
+      npAtlases: 3,
+      cmaups: 19,
+      coconuts: 20,
+      bioassays: 20,
+      gnps: 2,
+      pubmeds: 7,
+      patents: 255,
+      titleCompounds: 10000,
+      compoundPatents: 4502,
+    };
+  const adminCollection = await connection.getCollection('admin');
+
   while (true) {
-    if (
-      (await lotusesCollection.countDocuments()) === 20 &&
-      (await npassesCollection.countDocuments()) === 6 &&
-      (await npAtlasesCollection.countDocuments()) === 3 &&
-      (await cmaupsCollection.countDocuments()) === 19 &&
-      (await coconutsCollection.countDocuments()) === 20 &&
-      (await bioassaysCollection.countDocuments()) === 20 &&
-      (await gnpsCollection.countDocuments()) === 2 &&
-      (await pubmedsCollection.countDocuments()) === 7 &&
-      (await patentsCollection.countDocuments()) === 255 &&
-      (await titleCompoundsCollection.countDocuments()) === 10000 &&
-      (await compoundPatentsCollection.countDocuments()) === 4502
-    ) {
-      break;
+    let allUpdated = true;
+    const /** @type {Record<string, string | undefined>} */ states = {};
+    for (const name of requiredCollections) {
+      const progress = await adminCollection.findOne({
+        _id: `${name}_progress`,
+      });
+      states[name] = progress?.state;
+      if (progress?.state !== 'updated') {
+        allUpdated = false;
+      }
+    }
+    if (allUpdated) {
+      // Also verify counts to be safe
+      const collections = {
+        lotusesV2: lotusesV2Collection,
+        npasses: npassesCollection,
+        npAtlases: npAtlasesCollection,
+        cmaups: cmaupsCollection,
+        coconuts: coconutsCollection,
+        bioassays: bioassaysCollection,
+        gnps: gnpsCollection,
+        pubmeds: pubmedsCollection,
+        patents: patentsCollection,
+        titleCompounds: titleCompoundsCollection,
+        compoundPatents: compoundPatentsCollection,
+      };
+      let countsMatch = true;
+      for (const [name, col] of Object.entries(collections)) {
+        const count = await col.countDocuments();
+        if (count !== expectedCounts[name]) {
+          countsMatch = false;
+          break;
+        }
+      }
+      if (countsMatch) break;
     }
   }
 
@@ -44,7 +93,7 @@ test('Aggregation ActivesOrNaturals', async () => {
     })
     .limit(1);
 
-  let result = await collectionEntry.next();
+  let /** @type {any} */ result = await collectionEntry.next();
   if (result?._seq) {
     delete result._seq;
   }

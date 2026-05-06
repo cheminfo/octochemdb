@@ -12,7 +12,7 @@ test('Aggregation mfsCHNOSClF', async () => {
   while (true) {
     if (
       (await compoundsCollection.countDocuments()) === 12 &&
-      (await activesOrNaturalsCollection.countDocuments()) === 68
+      (await activesOrNaturalsCollection.countDocuments()) === 70
     ) {
       break;
     }

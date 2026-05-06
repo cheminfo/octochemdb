@@ -75,9 +75,10 @@ export async function* parseMassBank(blob, connection) {
             ionMode: normalizedIonMode,
             adduct: record.meta.Precursor_type,
             collisionEnergy: record.meta.Collision_energy,
-            msLevel: record.meta.Spectrum_type
-              .replace(/MS\/MS|MSMS/i, 'MS2')
-              .replace(/MS/g, ''),
+            msLevel: record.meta.Spectrum_type.replace(
+              /MS\/MS|MSMS/i,
+              'MS2',
+            ).replace(/MS/g, ''),
           };
           result.data.em = mfInfo.monoisotopicMass;
           result.data.mf = mfInfo.mf;

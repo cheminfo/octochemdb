@@ -9,82 +9,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
         "$id": "59478_1",
         "$ref": "bioassays",
       },
-      {
-        "$id": "61929_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "67115_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "68553_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "76598_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "77111_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "77250_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "80565_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "81146_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "84145_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "88579_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "89216_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "90481_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "95282_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "96028_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "96679_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "5351335_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "5351409_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "5351514_1",
-        "$ref": "bioassays",
-      },
-      {
-        "$id": "5351641_1",
-        "$ref": "bioassays",
-      },
     ],
     "bioactive": true,
     "charge": 0,
@@ -107,14 +31,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       "translation",
       "uhts",
     ],
-    "kwTaxonomies": [
-      "viridiplantae",
-      "streptophyta",
-      "magnoliopsida",
-      "cucurbitaceae",
-      "momordica",
-      "charantia",
-    ],
     "mf": "C37H60O8",
     "molecules": [
       {
@@ -128,25 +44,14 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
           },
         ],
       },
-      {
-        "ocl": {
-          "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjkrBHPaTKaRSrUPZSKZWHEXqe@@",
-        },
-        "sources": [
-          {
-            "$id": "LTS0257199",
-            "$ref": "lotuses",
-          },
-        ],
-      },
     ],
-    "naturalProduct": true,
-    "nbActivities": 20,
+    "naturalProduct": false,
+    "nbActivities": 1,
     "nbMassSpectra": 0,
-    "nbMolecules": 2,
+    "nbMolecules": 1,
     "nbPatents": 1,
     "nbPubmeds": 0,
-    "nbTaxonomies": 1,
+    "nbTaxonomies": 0,
     "noStereoOCL": [
       {
         "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
@@ -156,20 +61,6 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       {
         "$id": "EP-2078065-A2",
         "$ref": "patents",
-      },
-    ],
-    "taxonomies": [
-      {
-        "class": "Magnoliopsida",
-        "dbRef": {
-          "$id": "LTS0257199",
-          "$ref": "lotuses",
-        },
-        "family": "Cucurbitaceae",
-        "genus": "Momordica",
-        "kingdom": "Viridiplantae",
-        "phylum": "Streptophyta",
-        "species": "Momordica charantia",
       },
     ],
     "unsaturation": 8,

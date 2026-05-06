@@ -1,9 +1,3 @@
-/**
- * decompress a gziped file and return the path to the unzipped file with the same name
- * @param {string} inputFilename path to the gziped file
- * @returns {string} path to the unzipped file
- */
-
 import { createReadStream, createWriteStream } from 'fs';
 import { join } from 'path';
 import { pipeline } from 'stream';
@@ -19,6 +13,16 @@ const { existsSync } = pkg;
 const pipe = promisify(pipeline);
 const debug = debugLibrary('extractGziped');
 
+/**
+ * Decompresses a `.gz` file to the same path without the `.gz` extension.
+ *
+ * If the output file already exists the decompression step is skipped
+ * (idempotent).  Uses Node streams so that arbitrarily large files can
+ * be decompressed without loading the entire contents into memory.
+ *
+ * @param {string} inputFilename - Absolute or relative path to the `.gz` file.
+ * @returns {Promise<string>} Resolved path of the decompressed output file.
+ */
 export async function decompressGziped(inputFilename) {
   const outputFilename = inputFilename.replace('.gz', '');
   if (!existsSync(outputFilename)) {

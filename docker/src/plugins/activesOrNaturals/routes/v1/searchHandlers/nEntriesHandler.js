@@ -2,14 +2,15 @@ import { getFields, OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 
 /**
- * @description This function search for n entries while skipping the first k entries
- * @param {object} request
- * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
+ * Search for `n` entries while skipping the first `k` entries.
+ * @param {{ query: { n?: number, k?: number, fields?: string } }} request - Fastify request
+ * @returns {Promise<{data: unknown[]} | {errors: Array<{title: string, detail: string}>}>}
  */
 export async function nEntriesHandler(request) {
-  let { n = 1000, k = 0, fields = '' } = request.query;
+  const { n = 1000, k = 0, fields = '' } = request.query;
   const debug = debugLibrary('nEntriesHandler');
 
+  /** @type {OctoChemConnection | undefined} */
   let connection;
   try {
     connection = new OctoChemConnection();
@@ -22,7 +23,7 @@ export async function nEntriesHandler(request) {
       .project(formattedFields)
       .toArray();
     return { data: results };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

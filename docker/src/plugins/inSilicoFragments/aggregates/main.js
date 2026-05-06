@@ -4,7 +4,6 @@ import { Worker } from 'worker_threads';
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
-const connection = new OctoChemConnection();
 export async function main(links) {
   const debug = debugLibrary('improveInSilicoFragments Main');
 
@@ -62,13 +61,18 @@ export async function main(links) {
           }),
       ),
     );
-  } catch (e) {
-    if (connection) {
-      await debug.fatal(e.message, {
-        collection: 'inSilicoFragments',
-        connection,
-        stack: e.stack,
-      });
+
+    // Terminate workers to close their open MongoDB connections
+    for (const worker of workers) {
+      await worker.terminate();
     }
+  } catch (/** @type {any} */ e) {
+    const connection = new OctoChemConnection();
+    await debug.fatal(e.message, {
+      collection: 'inSilicoFragments',
+      connection,
+      stack: e.stack,
+    });
+    await connection.close();
   }
 }

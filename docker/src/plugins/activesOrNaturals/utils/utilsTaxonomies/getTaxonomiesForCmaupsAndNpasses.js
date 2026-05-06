@@ -1,11 +1,12 @@
 import { searchTaxonomies } from './searchTaxonomies.js';
 /**
- * @description get standardized taxonomies for Cmaups and Npasses
- * @param {*} entry The data from aggregation process
- * @param {*} taxonomiesCollection The taxonomies collection
- * @param {*} oldToNewTaxIDs The newId to oldId map
- * @param {*} collectionName The name of the collection
- * @returns {Promise} The standardized taxonomies
+ * Resolve and standardize taxonomies for CMAUP and NPASS entries by searching
+ * the taxonomies collection with species/genus/family IDs or names.
+ * @param {Record<string, any>} entry - source document from the aggregation
+ * @param {import('mongodb').Collection} taxonomiesCollection
+ * @param {Record<string, string>} oldToNewTaxIDs - deprecated taxon ID to current ID map
+ * @param {string} collectionName - name of the source collection (for DBRef)
+ * @returns {Promise<TaxonomyResult[]>} standardized taxonomy objects
  */
 export async function getTaxonomiesForCmaupsAndNpasses(
   entry,
@@ -51,7 +52,7 @@ export async function getTaxonomiesForCmaupsAndNpasses(
 
         if (taxons.genus) {
           searchParameter = {
-            'data.genus': taxons.genusID,
+            'data.genus': taxons.genus,
           };
           type.genus = searchParameter;
         }

@@ -1,20 +1,31 @@
-// query for molecules from monoisotopic mass
 import { OctoChemConnection, getFields } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('search');
 
+/**
+ * Handler for the PubMed full-text search route.
+ *
+ * Supports filtering by PMID list and/or keyword text search (using
+ * MongoDB's `$text` operator).  When keywords are supplied, results are
+ * scored by text relevance and filtered by `minScore`.
+ *
+ * @param {import('fastify').FastifyRequest} request - Fastify request with
+ *   `query.ids`, `query.keywords`, `query.fields`, `query.minScore`,
+ *   and `query.limit`.
+ * @returns {Promise<{ data: object[] } | { errors: object[] }>}
+ */
 export async function searchHandler(request) {
-  let data = getRequestQuery(request);
-  let {
+  const data = getRequestQuery(request);
+  const {
     ids = '',
     keywords = '',
     fields = 'data',
     minScore = 0,
     limit = 100,
   } = data;
-  let formattedFields = getFields(fields);
+  const formattedFields = getFields(fields);
   let connection;
   try {
     connection = new OctoChemConnection();

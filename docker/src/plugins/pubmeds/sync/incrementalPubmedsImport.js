@@ -7,16 +7,29 @@ import { importPubmedFiles } from './utils/importPubmedFiles.js';
 import { syncPubmedFolder } from './utils/syncPubmedFolder.js';
 
 /**
- * @description performs the incremental import of pubmeds
- * @param {*} connection - mongo connection
- * @returns {Promise} pubmeds collection
+ * Applies incremental PubMed update files on top of the baseline import.
+ *
+ * Workflow:
+ * 1. Fetch the current progress document.
+ * 2. In test mode, use a local fixture; otherwise synchronise the remote
+ *    PubMed `updatefiles/` folder to local storage.
+ * 3. Determine which update files still need to be applied.
+ * 4. Guard: only proceed when the update interval has elapsed **and**
+ *    there are new files not yet processed — or when running in test mode.
+ * 5. Download the CID→PMID mapping, then import every pending update
+ *    file (upserts + deletes) into the `pubmeds` collection.
+ * 6. Persist the end timestamp on the progress document.
+ *
+ * @param {OctoChemConnection} connection - Active database connection.
+ * @returns {Promise<void>}
  */
 async function incrementalPubmedImport(connection) {
   const debug = debugLibrary('incrementalPubmedImport');
   try {
-    // get progress
     const progress = await connection.getProgress('pubmeds');
-    // get all files to import
+
+    // In test mode use a local fixture; in production sync the remote folder
+    /** @type {{ name: string; path: string }[]} */
     let allFiles;
     if (process.env.NODE_ENV === 'test') {
       allFiles = [
@@ -26,33 +39,41 @@ async function incrementalPubmedImport(connection) {
         },
       ];
     } else {
-      // get all files to import
       allFiles = await syncPubmedFolder(connection, 'incremental');
     }
+
     const { files, lastDocument } = await getFilesToImport(
       connection,
       progress,
       allFiles,
       'incremental',
     );
+
+    // Convert the update interval from days to milliseconds
+    const updateIntervalMs =
+      Number(process.env.PUBMED_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000;
+
+    // Record a fresh start timestamp if enough time has elapsed
     if (
       progress.dateEnd !== 0 &&
-      Date.now() - progress.dateEnd >
-        Number(process.env.PUBMED_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000 &&
+      Date.now() - progress.dateEnd > updateIntervalMs &&
       !files.includes(progress.sources)
     ) {
       progress.dateStart = Date.now();
       await connection.setProgress(progress);
     }
 
-    if (
+    // Only proceed when there are unprocessed files and the interval has passed
+    const shouldUpdate =
       (!files.includes(progress.sources) &&
         progress.state === 'updated' &&
-        Date.now() - progress.dateEnd >
-          Number(process.env.PUBMED_UPDATE_INTERVAL) * 24 * 60 * 60 * 1000) ||
-      process.env.NODE_ENV === 'test'
-    ) {
-      let options = {
+        Date.now() - progress.dateEnd > updateIntervalMs) ||
+      process.env.NODE_ENV === 'test';
+
+    if (shouldUpdate) {
+      // Download the CID→PMID mapping so articles can reference compounds
+      /** @type {SyncOptions} */
+      const options = {
         collectionSource:
           'https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-PMID.gz',
         destinationLocal: `../originalData//pubmeds/cidToPmid`,
@@ -60,14 +81,17 @@ async function incrementalPubmedImport(connection) {
         filenameNew: 'cidToPmid',
         extensionNew: 'gz',
       };
+
       let cidToPmidPath;
       if (process.env.NODE_ENV === 'test') {
         cidToPmidPath = `../docker/src/plugins/pubmeds/sync/utils/__tests__/data/cidToPmidTest.gz`;
       } else {
         cidToPmidPath = await getLastFileSync(options);
       }
+
       const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
-      // import files
+
+      // Process every pending incremental file (upserts and deletes)
       await importPubmedFiles(
         connection,
         progress,
@@ -76,14 +100,16 @@ async function incrementalPubmedImport(connection) {
         pmidToCid,
         'incremental',
       );
+
       progress.dateEnd = Date.now();
     }
   } catch (e) {
     if (connection) {
-      await debug.fatal(e.message, {
+      const err = e instanceof Error ? e : new Error(String(e));
+      await debug.fatal(err.message, {
         collection: 'pubmeds',
         connection,
-        stack: e.stack,
+        stack: err.stack,
       });
     }
   }

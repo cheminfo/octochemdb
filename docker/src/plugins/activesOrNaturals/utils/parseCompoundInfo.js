@@ -4,13 +4,14 @@ import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js
 
 import getCIDs from './getCIDs.js';
 /**
- * @description parses compound information for activesOrNaturals plugin
- * @param {Object} compoundInfo - compound information from compounds collection
- * @param {String} noStereoTautomerID - noStereoTautomerID of the compound
- * @param {*} connection - mongo connection
- * @param {Object} entry - entry to be updated
- * @param {Array<Object>} data - array of data from all collections for the current noStereoTautomerID
- * @returns {Promise<Object>} returns parsed compound information
+ * Parse and enrich compound information (OCL, CAS, PubMed IDs, MeSH terms,
+ * molecular formula, etc.) for the activesOrNaturals aggregation.
+ * @param {Record<string, any> | null} compoundInfo - compound document from the compounds collection (may be null)
+ * @param {string} noStereoTautomerID
+ * @param {OctoChemConnection} connection
+ * @param {ActiveOrNaturalEntry} entry - aggregation entry (mutated in place)
+ * @param {Array<Record<string, any>>} data - documents from all source collections
+ * @returns {Promise<ParsedCompoundInfo>}
  */
 export default async function parseCompoundInfo(
   compoundInfo,

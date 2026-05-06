@@ -4,20 +4,22 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 import { getMatchParameters } from '../utils/getMatchParameters.js';
 
 /**
- * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
- * @param {object} request
- * @returns {Promise<object>} Entries who match the query parameters inside the activeOrNaturals collection
+ * Search for compounds by monoisotopic mass, taxonomies, bioassays, and keywords.
+ * @param {{ query: Record<string, unknown>, body?: Record<string, unknown> }} request - Fastify request
+ * @returns {Promise<{data: unknown[]} | {errors: Array<{title: string, detail: string}>}>}
  */
 export async function searchHandler(request) {
   const debug = debugLibrary('entriesSearch');
 
-  let data = getRequestQuery(request);
-  let { limit = 1e3, fields = 'data.em,data.mf' } = data;
+  const data = getRequestQuery(request);
+  let limit = Number(data.limit ?? 1e3);
+  const fields = /** @type {string} */ (data.fields ?? 'data.em,data.mf');
 
   // define lower and upper bounds of the returned results limit
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
 
+  /** @type {OctoChemConnection | undefined} */
   let connection;
   try {
     connection = new OctoChemConnection();
@@ -37,7 +39,7 @@ export async function searchHandler(request) {
       ])
       .toArray();
     return { data: results };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

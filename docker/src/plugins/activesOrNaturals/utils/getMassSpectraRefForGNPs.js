@@ -1,9 +1,9 @@
 import debugLibrary from '../../../utils/Debug.js';
 /**
- * Get DbRefs of mass spectra in gnps collection
- * @param {*} connection - mongo connection
- * @param {*} noStereoTautomerID - noStereoTautomerID
- * @returns {Promise} - DbRefs of mass spectra in gnps collection
+ * Get DBRefs of mass spectra in the GNPS collection.
+ * @param {OctoChemConnection} connection
+ * @param {string} noStereoTautomerID
+ * @returns {Promise<MassSpectraDbRef[] | undefined>}
  */
 export async function getMassSpectraRefForGNPs(connection, noStereoTautomerID) {
   const debug = debugLibrary('getMassSpectra');
@@ -25,7 +25,7 @@ export async function getMassSpectraRefForGNPs(connection, noStereoTautomerID) {
       ])
       .toArray();
     return massSpectra;
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'gnps',

@@ -1,13 +1,13 @@
-/* eslint-disable no-unused-vars */
-
 import { createInterface } from 'readline';
 
 import { fileCollectionFromPath } from 'filelist-utils';
 
 import readStreamInZipFolder from '../../../../utils/readStreamInZipFolder.js';
+
 /**
- * @description Get an object with oldIds as properties and newIds as values
- * @returns {Promise<Object>} Object {oldID: newID, ...}
+ * Parse the NCBI `merged.dmp` file and return a map of deprecated taxonomy IDs
+ * to their current replacement IDs.
+ * @returns {Promise<Record<string, string>>} `{ oldTaxId: newTaxId, ... }`
  */
 export async function taxonomySynonyms() {
   let path;
@@ -39,8 +39,7 @@ export async function taxonomySynonyms() {
   const lines = createInterface({ input: readStream });
 
   for await (let line of lines) {
-    const [idOld, nothing, idNew] = line.split('\t');
-    Number(idOld);
+    const [idOld, , idNew] = line.split('\t');
     newIDs[idOld] = idNew;
   }
 

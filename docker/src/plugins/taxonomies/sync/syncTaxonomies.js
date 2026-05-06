@@ -98,7 +98,11 @@ export async function sync(connection) {
       }
       debug.info('start parsing taxonomies');
       // Iterate over all parsed taxonomy entries from rankedlineage.dmp
-      for await (const entry of parseTaxonomies(arrayBuffer, nodes, connection)) {
+      for await (const entry of parseTaxonomies(
+        arrayBuffer,
+        nodes,
+        connection,
+      )) {
         counter++;
         if (process.env.NODE_ENV === 'test' && counter > 20) break;
         if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {

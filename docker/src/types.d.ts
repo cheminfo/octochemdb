@@ -1130,6 +1130,169 @@ declare global {
   }
 
   // ---------------------------------------------------------------------------
+  // LotusesV2 (Wikidata SPARQL)
+  // ---------------------------------------------------------------------------
+
+  /**
+   * A single taxon entry in the in-memory taxa map built during the
+   * lotusesV2 SPARQL sync. Populated from the `QUERY_TAXA` results and
+   * iteratively enriched by `fetchMissingParents`.
+   */
+  interface LotusV2TaxaMapEntry {
+    /** Scientific names associated with this taxon (may have multiple). */
+    names: string[];
+    /** Taxonomic rank (e.g. `"genus"`, `"species"`). */
+    rank: string | undefined;
+    /** NCBI taxonomy ID, when available from Wikidata. */
+    ncbiId: string | undefined;
+    /** Wikidata Q-ID of the parent taxon, for tree walking. */
+    parentId: string | undefined;
+  }
+
+  /**
+   * A reference entry in the in-memory references map built during sync.
+   */
+  interface LotusV2ReferenceMapEntry {
+    /** DOIs associated with this article. */
+    dois: string[];
+    /** Article title, when available. */
+    title: string | undefined;
+  }
+
+  /**
+   * A compound-reference-taxon link parsed from the CRT SPARQL query.
+   */
+  interface LotusV2CrtLink {
+    /** Wikidata Q-ID of the taxon. */
+    taxonId: string;
+    /** Wikidata Q-ID of the reference article, if available. */
+    referenceId: string | undefined;
+  }
+
+  /**
+   * Grouped SMILES variants for a single compound in the compounds map.
+   */
+  interface LotusV2CompoundVariants {
+    canonicalSmiles: string[];
+    isomericSmiles: string[];
+    inchis: string[];
+    inchiKeys: string[];
+  }
+
+  /**
+   * Reference information attached to a LotusesV2 taxonomy entry.
+   */
+  interface LotusV2TaxonomyReference {
+    /** Wikidata Q-ID of the reference article. */
+    wikidataId: string;
+    /** DOIs from the reference, when available. */
+    dois?: string[];
+    /** Article title, when available. */
+    title?: string;
+  }
+
+  /**
+   * A raw taxonomy entry built by `parseLotusesV2` from Wikidata SPARQL
+   * data, before enrichment by `getTaxonomiesForLotusesV2`.
+   */
+  interface LotusV2RawTaxonomy {
+    /** Wikidata Q-ID of the taxon. */
+    wikidataId?: string;
+    /** NCBI taxonomy ID, when resolved from Wikidata. */
+    ncbiId?: number;
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    /** Taxonomic rank (used in fallback path). */
+    rank?: string;
+    /** Article reference linking this compound to this taxon. */
+    reference?: LotusV2TaxonomyReference;
+  }
+
+  /**
+   * A fully-resolved taxonomy record produced by `getTaxonomiesForLotusesV2`
+   * after searching the `taxonomies` MongoDB collection.
+   */
+  interface LotusV2ResolvedTaxonomy {
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    /** Wikidata Q-ID of the taxon. */
+    wikidataId?: string;
+    /** Taxonomic rank (preserved from fallback path). */
+    rank?: string;
+    /** Article reference linking this compound to this taxon. */
+    reference?: LotusV2TaxonomyReference;
+    /** Back-reference to the owning `lotusesV2` document. */
+    dbRef?: { $ref: string; $id: string };
+    [key: string]: unknown;
+  }
+
+  /**
+   * Data payload of a single LotusesV2 entry stored in MongoDB.
+   */
+  interface LotusV2EntryData {
+    /** OCL structural representation. */
+    ocl?: OclData;
+    /** InChIKey identifier, when available. */
+    inchiKey?: string;
+    /** Isomeric SMILES (only stored when different from canonical). */
+    isomericSmiles?: string;
+    /**
+     * Taxonomy information. Before enrichment this holds `LotusV2RawTaxonomy[]`;
+     * after `getTaxonomiesForLotusesV2` it is replaced with `LotusV2ResolvedTaxonomy[]`.
+     */
+    taxonomies?: LotusV2RawTaxonomy[] | LotusV2ResolvedTaxonomy[];
+  }
+
+  /**
+   * A single document yielded by `parseLotusesV2` and upserted into the
+   * `lotusesV2` MongoDB collection.
+   */
+  interface LotusV2Entry {
+    /** Wikidata compound Q-ID, used as the MongoDB `_id`. */
+    _id: string;
+    /** Monotonically increasing sequence counter stamped by the sync loop. */
+    _seq?: number;
+    /** Payload containing structural, taxonomic, and identifier data. */
+    data: LotusV2EntryData;
+  }
+
+  /**
+   * Options accepted by `parseLotusesV2`.
+   */
+  interface LotusV2ParserOptions {
+    /** Pre-built test data to use instead of querying Wikidata SPARQL. */
+    testData?: LotusV2TestData;
+  }
+
+  /**
+   * Shape of the test data object returned by `getTestData()` for lotusesV2.
+   */
+  interface LotusV2TestData {
+    compounds: LotusV2SparqlBinding[];
+    taxa: LotusV2SparqlBinding[];
+    references: LotusV2SparqlBinding[];
+    compoundReferenceTaxon: LotusV2SparqlBinding[];
+  }
+
+  /**
+   * A single SPARQL result binding row (test data format).
+   * Each field has `{ value, type }` structure.
+   */
+  interface LotusV2SparqlBinding {
+    [key: string]: { value: string; type: string } | undefined;
+  }
+
+  // ---------------------------------------------------------------------------
   // MassBank
   // ---------------------------------------------------------------------------
 
@@ -1647,5 +1810,174 @@ declare global {
     data: {
       title: string;
     };
+  }
+
+  // ---------------------------------------------------------------------------
+  // ActivesOrNaturals
+  // ---------------------------------------------------------------------------
+
+  /** Reference to a source collection entry (collection name + document id). */
+  interface CollectionSource {
+    id: string;
+    collection: string;
+  }
+
+  /** A noStereoTautomerID with its originating source references. */
+  interface CollectionLink {
+    id: string;
+    sources: CollectionSource[];
+  }
+
+  /** Map of noStereoTautomerID → link descriptor, built by `getCollectionsLinks`. */
+  type CollectionLinksMap = Record<string, CollectionLink>;
+
+  /** Result returned by `getCollectionsLinks`. */
+  interface CollectionLinksResult {
+    links: CollectionLinksMap;
+    collectionSources: string[];
+  }
+
+  /** MongoDB DBRef-style cross-collection pointer. */
+  interface DbRef {
+    $ref: string;
+    $id: unknown;
+  }
+
+  /** Result of `getActivitiesInfo`. */
+  interface ActivitiesInfoResult {
+    activityInfos: ActivityInfo[];
+    activityDBRef: DbRef[];
+  }
+
+  /** A single activity record from the aggregation pipeline. */
+  interface ActivityInfo {
+    assay?: string;
+    targetTaxonomies?: Record<string, string>[] | Record<string, string>;
+    [key: string]: unknown;
+  }
+
+  /** Result of `getMeshTerms`. */
+  interface MeshTermsResult {
+    meshTermsForCid: string[];
+    pmIds: string[];
+    counterPmids: number;
+  }
+
+  /** Result of `getCIDs`. */
+  interface CIDsResult {
+    cids: number[];
+    cidsDBRef: DbRef[];
+    dbRefsMolecules: MoleculeInfo[];
+    titles: string[];
+  }
+
+  /** Molecule structure info with OCL data, titles, and source refs. */
+  interface MoleculeInfo {
+    ocl: {
+      idCode: string;
+      coordinates?: string;
+    };
+    titles?: string[];
+    sources: DbRef[];
+  }
+
+  /** Result of `parseCompoundInfo`. */
+  interface ParsedCompoundInfo {
+    entry: ActiveOrNaturalEntry;
+    compoundsIds: number[];
+    casNumbers: string[];
+    meshTerms: string[];
+    pmids: string[];
+    cidsDBRef: DbRef[];
+    dbRefsMolecules: MoleculeInfo[];
+    titles: string[];
+  }
+
+  /** An entry being built during the activesOrNaturals aggregation. */
+  interface ActiveOrNaturalEntry {
+    data: ActiveOrNaturalData;
+  }
+
+  /** Data payload of an activesOrNaturals entry. */
+  interface ActiveOrNaturalData {
+    naturalProduct?: boolean;
+    bioactive?: boolean;
+    em?: number;
+    charge?: number;
+    unsaturation?: number;
+    mf?: string;
+    noStereoOCL?: Array<{ idCode: string; coordinates?: string }>;
+    molecules?: MoleculeInfo[];
+    nbMolecules?: number;
+    compounds?: DbRef[];
+    cas?: string[];
+    pmids?: string[];
+    meshTerms?: string[];
+    kwMeshTerms?: string[];
+    kwBioassays?: string[];
+    kwActiveAgainst?: string[];
+    kwTaxonomies?: string[];
+    kwTitles?: string[];
+    titles?: string[];
+    activities?: DbRef[];
+    nbActivities?: number;
+    taxonomies?: TaxonomyResult[];
+    nbTaxonomies?: number;
+    pubmeds?: DbRef[];
+    nbPubmeds?: number;
+    massSpectra?: DbRef[];
+    nbMassSpectra?: number;
+    patents?: DbRef[];
+    nbPatents?: number;
+    bioassaysPubChem?: unknown;
+    [key: string]: unknown;
+  }
+
+  /** A standardized taxonomy result from the aggregation pipeline. */
+  interface TaxonomyResult {
+    superkingdom?: string;
+    kingdom?: string;
+    phylum?: string;
+    class?: string;
+    order?: string;
+    family?: string;
+    genus?: string;
+    species?: string;
+    dbRef?: DbRef;
+    [key: string]: unknown;
+  }
+
+  /** DBRef for a mass spectrum entry. */
+  interface MassSpectraDbRef {
+    dbRef: DbRef;
+  }
+
+  /** Keywords search parameters for activesOrNaturals queries. */
+  interface KeywordsSearchParams {
+    kwTitles?: string;
+    kwBioassays?: string;
+    kwActiveAgainst?: string;
+    kwTaxonomies?: string;
+    kwMeshTerms?: string;
+  }
+
+  /** Molecular search parameters for activesOrNaturals queries. */
+  interface MolecularSearchParams {
+    em?: string;
+    mf?: string;
+    noStereoTautomerID?: string;
+    precision: number;
+  }
+
+  /** Min/max range descriptor used in `prepareMinMaxQuery`. */
+  interface MinMaxRange {
+    min?: number;
+    max?: number;
+  }
+
+  /** Worker thread message sent from the main thread. */
+  interface WorkerMessage {
+    links: CollectionLink[];
+    workerID: number;
   }
 }

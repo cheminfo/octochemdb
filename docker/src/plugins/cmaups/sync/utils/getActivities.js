@@ -37,8 +37,12 @@ export function getActivities(activity, targetInfo) {
       proteinName: targetActivity?.Protein_Name
         ? targetActivity.Protein_Name
         : undefined,
-      uniprotId: targetActivity?.Uniprot_ID ? targetActivity.Uniprot_ID : undefined,
-      chemblId: targetActivity?.ChEMBL_ID ? targetActivity.ChEMBL_ID : undefined,
+      uniprotId: targetActivity?.Uniprot_ID
+        ? targetActivity.Uniprot_ID
+        : undefined,
+      chemblId: targetActivity?.ChEMBL_ID
+        ? targetActivity.ChEMBL_ID
+        : undefined,
       ttdId: targetActivity?.TTD_ID ? targetActivity.TTD_ID : undefined,
 
       targetClassLevel1: targetActivity?.Target_Class_Level1

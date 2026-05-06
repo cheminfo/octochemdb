@@ -3,11 +3,12 @@ import debugLibrary from '../../../utils/Debug.js';
 import { sortTaxonomies } from './utilsTaxonomies/sortTaxonomies.js';
 
 const debug = debugLibrary('getActivityInfo');
+
 /**
- * @description Get unique activities from bioassays, npasses and cmaups collections
- * @param {*} data Array of data from aggregation process
- * @param {*} connection OctoChem connection
- * @returns {Promise} Returns the array of activities
+ * Collect activity information from bioassays, npasses and cmaups entries.
+ * @param {Array<Record<string, any>>} data - documents from the aggregation pipeline
+ * @param {OctoChemConnection} connection
+ * @returns {Promise<ActivitiesInfoResult | undefined>}
  */
 export default async function getActivitiesInfo(data, connection) {
   try {
@@ -53,7 +54,7 @@ export default async function getActivitiesInfo(data, connection) {
     let activityDBRef = [...new Set(activityDBRefs)];
 
     return { activityInfos, activityDBRef };
-  } catch (e) {
+  } catch (/** @type {any} */ e) {
     if (connection) {
       await debug.fatal(e.message, {
         collection: 'activesOrNaturals',

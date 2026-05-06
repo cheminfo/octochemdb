@@ -1,0 +1,33 @@
+import { OctoChemConnection } from '../../../../../server/utils.js';
+import debugLibrary from '../../../../../utils/Debug.js';
+import { getStats } from '../../../../../utils/getStats.js';
+
+const debug = debugLibrary('stats');
+
+/**
+ * Returns statistics about the lotusesV2 collection.
+ *
+ * @returns {Promise<{data: any} | {errors: Array<{title: string, detail: string}>}>}
+ */
+export async function statsHandler() {
+  let connection;
+  try {
+    connection = new OctoChemConnection();
+
+    const results = await getStats(connection, 'lotusesV2');
+
+    return { data: results };
+  } catch (/** @type {any} */ e) {
+    if (connection) {
+      await debug.error(e.message, {
+        collection: 'lotusesV2',
+        connection,
+        stack: e.stack,
+      });
+    }
+    return { errors: [{ title: e.message, detail: e.stack }] };
+  } finally {
+    debug.trace('Closing connection');
+    if (connection) await connection.close();
+  }
+}
