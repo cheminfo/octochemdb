@@ -1,0 +1,100 @@
+# Cloudflare Tunnel deployment — no port published on the host.
+#
+# Cloudflare dashboard (https://dash.cloudflare.com):
+#   Networking → Tunnels → Create a tunnel → Cloudflared connector →
+#   copy the token into .env as TUNNEL_TOKEN=... → open the tunnel →
+#   Published applications tab → add application with
+#   Service = HTTP, URL = octochemdb:${PORT:-11015}, hostname = octochemdb.lactame.com.
+#
+# Copy this file to compose.yaml and run: docker compose up -d
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    init: true
+    volumes:
+      - ./data/mongodb:/data/db
+      - ./mongo-tools:/tools
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  import:
+    image: ghcr.io/cheminfo/octochemdb:latest
+    build: .
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    ulimits:
+      core: 0
+    mem_limit: 32g
+    cpus: 12
+    env_file: .env
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - ORIGINAL_DATA_PATH=/app/data/originalData
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    volumes:
+      - ./data:/app/data
+    command: npm run cron
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  octochemdb:
+    image: ghcr.io/cheminfo/octochemdb:latest
+    build: .
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    ulimits:
+      core: 0
+    mem_limit: 32g
+    env_file: .env
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 64
+    ulimits:
+      core: 0
+    mem_limit: 128m
+    cpus: 1
+    env_file: .env
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+    depends_on:
+      - octochemdb
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '20m'

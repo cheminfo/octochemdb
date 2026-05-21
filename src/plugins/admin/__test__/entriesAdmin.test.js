@@ -1,0 +1,48 @@
+import { expect, test } from 'vitest';
+
+import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
+import entries from '../routes/v1/entriesAdmin.js';
+
+test('search compounds', async () => {
+  const connection = new OctoChemConnection();
+
+  while (true) {
+    const collection = await connection.getCollection('compounds');
+    if ((await collection.countDocuments()) === 12) {
+      break;
+    }
+  }
+  const request = {
+    query: {
+      collectionToSearch: 'compounds',
+    },
+  };
+
+  const results = await entries.handler(request);
+  // fix date values for test
+  results.data[0].dateStart = 0;
+  results.data[0].dateEnd = 1;
+  // remove storageSize and freeStorageSize for test
+  delete results.data[0].storageSize;
+  delete results.data[0].freeStorageSize;
+  delete results.data[0].seq;
+
+  expect(results.data).toMatchInlineSnapshot(`
+    [
+      {
+        "_id": "compounds_progress",
+        "avgObjSize": 18284,
+        "capped": false,
+        "count": 12,
+        "dateEnd": 1,
+        "dateStart": 0,
+        "ns": "octochemdb.compounds",
+        "size": 219418,
+        "sources": "src/plugins/compounds/sync/utils/__tests__/data/compoundsIncrementalTest.sdf.gz",
+        "state": "updated",
+      },
+    ]
+  `);
+
+  await connection.close();
+});

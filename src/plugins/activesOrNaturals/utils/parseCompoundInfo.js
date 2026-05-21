@@ -1,0 +1,133 @@
+import OCL from 'openchemlib';
+
+import { getCompoundsData } from '../../compounds/sync/utils/getCompoundsData.js';
+
+import getCIDs from './getCIDs.js';
+/**
+ * Parse and enrich compound information (OCL, CAS, PubMed IDs, MeSH terms,
+ * molecular formula, etc.) for the activesOrNaturals aggregation.
+ * @param compoundInfo - compound document from the compounds collection (may be null)
+ * @param noStereoTautomerID
+ * @param connection
+ * @param entry - aggregation entry (mutated in place)
+ * @param data - documents from all source collections
+ * @returns
+ */
+export default async function parseCompoundInfo(
+  compoundInfo,
+  noStereoTautomerID,
+  connection,
+  entry,
+  data,
+) {
+  let cas = {};
+  let pmids = [];
+  let meshTerms = [];
+  let ocl = [];
+  let { cids, cidsDBRef, dbRefsMolecules, titles } = await getCIDs(
+    connection,
+    noStereoTautomerID,
+    data,
+  );
+
+  for (const oneDataEntry of data) {
+    if (oneDataEntry.data.pmids) {
+      for (const k of oneDataEntry.data.pmids) {
+        if (!pmids.includes(k)) {
+          pmids.push(k);
+        }
+      }
+    }
+    if (oneDataEntry.data.meshTerms) {
+      for (const k of oneDataEntry.data.meshTerms) {
+        if (!meshTerms.includes(k)) {
+          meshTerms.push(k);
+        }
+      }
+    }
+
+    if (oneDataEntry.data.cas) {
+      cas[oneDataEntry.data.cas] = true;
+    }
+
+    if (
+      oneDataEntry.data.ocl.noStereoID !== undefined &&
+      oneDataEntry.data.ocl.coordinates !== undefined
+    ) {
+      // i need to check if noStereoID already exists in ocl array to avoid duplicates
+      let exists = false;
+      for (const oclEntry of ocl) {
+        if (oclEntry.idCode === oneDataEntry.data.ocl.noStereoID) {
+          exists = true;
+          break;
+        }
+      }
+      if (exists) {
+        continue;
+      }
+      ocl.push({
+        coordinates: oneDataEntry.data.ocl.coordinates,
+        idCode: oneDataEntry.data.ocl.noStereoID,
+      });
+    } else {
+      let idCode = oneDataEntry.data.ocl.idCode;
+      let molecule = OCL.Molecule.fromIDCode(idCode);
+      molecule.stripStereoInformation();
+      // need to check if noStereoID already exists in ocl array to avoid duplicates
+      let noStereoID = molecule.getIDCodeAndCoordinates().idCode;
+      let exists = false;
+      for (const oclEntry of ocl) {
+        if (oclEntry.idCode === noStereoID) {
+          exists = true;
+          break;
+        }
+      }
+      if (exists) {
+        continue;
+      }
+      ocl.push({
+        idCode: noStereoID,
+        coordinates: molecule.getIDCodeAndCoordinates().coordinates,
+      });
+    }
+  }
+
+  if (compoundInfo?.data?.em === undefined) {
+    let idToSearch;
+    for (const oneDataEntry of data) {
+      if (oneDataEntry.data.ocl.idCode) {
+        idToSearch = oneDataEntry.data.ocl.idCode;
+        break;
+      }
+    }
+
+    let compoundData = await getCompoundsData(
+      { idCode: idToSearch },
+      { indexRequired: false },
+    );
+    entry.data.em = compoundData?.data.em;
+    entry.data.charge = compoundData?.data.charge;
+    entry.data.unsaturation = compoundData?.data.unsaturation;
+    entry.data.mf = compoundData?.data.mf;
+    entry.data.bioactive = false;
+  } else {
+    entry.data.em = compoundInfo.data.em;
+    entry.data.charge = compoundInfo.data.charge;
+    entry.data.unsaturation = compoundInfo.data.unsaturation;
+    entry.data.mf = compoundInfo.data.mf;
+    entry.data.bioactive = false;
+  }
+  let casNumbers = Object.keys(cas);
+  entry.data.noStereoOCL = ocl;
+  const parsedCompoundInfo = {
+    entry,
+    compoundsIds: cids,
+    casNumbers,
+    meshTerms,
+    pmids,
+    cidsDBRef,
+    dbRefsMolecules,
+    titles,
+  };
+  return parsedCompoundInfo;
+}

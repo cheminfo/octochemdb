@@ -1,0 +1,131 @@
+import path from 'node:path';
+
+import csvParser from 'csv-parser';
+import { fileCollectionFromPath } from 'filelist-utils';
+import OCL from 'openchemlib';
+import unzipper from 'unzipper'; // Using unzipper to extract the contents of the ZIP
+
+import debugLibrary from '../../../../utils/Debug.js';
+import { getNoStereosFromCache } from '../../../../utils/getNoStereosFromCache.js';
+
+const debug = debugLibrary('parseCoconuts');
+
+/**
+ * Parses the COCONUT CSV file embedded in a ZIP archive and yields one
+ * `CoconutEntry` document per row, ready to be upserted into MongoDB.
+ *
+ * For each CSV row the function:
+ *  1. Resolves the OCL structural representation (idCode, noStereoTautomerID,
+ *     coordinates) from the `canonical_smiles` string via `getNoStereosFromCache`.
+ *  2. Splits the pipe-separated `organisms` column into lightweight
+ *     `CoconutRawTaxonomy` objects.
+ *  3. Assembles the result document and yields it to the caller.
+ *
+ * Per-row errors (e.g. an unparseable SMILES) are logged via `debug.error`
+ * and the row is skipped; they are not re-thrown so that a single bad row
+ * cannot abort the whole import.
+ * @param zipPath - Path to the COCONUT ZIP file (or its parent folder
+ *   in test mode).
+ * @param connection - Active database connection wrapper.
+ * @yields {CoconutEntry}
+ * @returns
+ */
+export async function* parseCoconuts(zipPath, connection) {
+  try {
+    const folderPath =
+      process.env.NODE_ENV === 'test'
+        ? zipPath.replace(/data\/.*/, 'data/')
+        : zipPath.replace(/full\/.*/, 'full/');
+
+    // Get the file collection from the path
+    const fileCollection = await fileCollectionFromPath(folderPath, {
+      unzip: { zipExtensions: [] }, // Ensuring it's not trying to unzip directly
+    });
+
+    // Sort files by last modified and select the most recent one
+    const fileToRead = fileCollection.files.sort(
+      (a, b) => (b.lastModified || 0) - (a.lastModified || 0),
+    )[0];
+
+    // Adjust relativePath based on environment
+    if (process.env.NODE_ENV === 'test') {
+      fileToRead.relativePath =
+        folderPath.replace('data/', '') + fileToRead.relativePath;
+    } else {
+      fileToRead.relativePath =
+        folderPath.replace('full/', '') + fileToRead.relativePath;
+    }
+
+    // Extract the ZIP file using unzipper
+    const zipFilePath = path.resolve(fileToRead.relativePath);
+    const directory = await unzipper.Open.file(zipFilePath);
+
+    // Find the CSV file inside the ZIP
+    const csvFile = directory.files.find((file) => file.path.endsWith('.csv'));
+
+    if (!csvFile) {
+      throw new Error('CSV file not found in ZIP archive');
+    }
+
+    // Open the CSV file as a stream
+    const csvStream = csvFile.stream().pipe(csvParser());
+
+    // Parsing each row in the CSV stream
+    for await (const row of csvStream) {
+      try {
+        // Skip if required fields are missing
+        if (!row.identifier || !row.canonical_smiles) continue;
+        // Parse the molecule using OpenChemLib
+
+        const oclMolecule = OCL.Molecule.fromSmiles(row.canonical_smiles);
+        const ocl = await getNoStereosFromCache(
+          oclMolecule,
+          connection,
+          'coconuts',
+        );
+
+        // Process taxonomies and comments
+        /** @type {CoconutTaxonomy[]} */
+        const taxonomies = [];
+        if (row.organisms !== '') {
+          const organismsList = row.organisms.split('|');
+          for (const entry of organismsList) {
+            taxonomies.push({ species: entry });
+          }
+        }
+
+        // Prepare the result document
+        /** @type {CoconutEntry} */
+        const result = {
+          _id: row.identifier,
+          data: {
+            ocl,
+          },
+        };
+
+        if (row.cas !== '') result.data.cas = row.cas;
+        if (row.iupac_name) result.data.iupacName = row.iupac_name;
+        if (taxonomies.length > 0) result.data.taxonomies = taxonomies;
+        if (row.name !== '') result.data.name = row.name;
+
+        yield result;
+      } catch (error) {
+        const err = error instanceof Error ? error : new Error(String(error));
+        debug.error(`Error processing row ${row.identifier}: ${err.message}`, {
+          collection: 'coconuts',
+          connection,
+          stack: err.stack,
+        });
+      }
+    }
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    if (connection) {
+      await debug.fatal(err.message, {
+        collection: 'coconuts',
+        connection,
+        stack: err.stack,
+      });
+    }
+  }
+}

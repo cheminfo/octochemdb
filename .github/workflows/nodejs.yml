@@ -7,32 +7,30 @@ on:
   pull_request:
 
 jobs:
-  nodejs:
+  lint:
+    uses: zakodium/workflows/.github/workflows/nodejs.yml@nodejs-v1
+    with:
+      disable-test-package: true
+      disable-tests: true
+
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
-        mongodb-version: ['6.0']
-    defaults:
-      run:
-        working-directory: './docker'
+        node-version: [22.x, 24.x]
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
     steps:
-      - name: Git checkout
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.8.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-
-      - run: npm install
-
-      - run: npm test
+          cache: npm
+      - run: npm ci
+      - run: npm run test-only
         env:
-          CI: true
+          MONGODB_URL: mongodb://localhost:27017

@@ -1,0 +1,78 @@
+# OctoChemDB — base compose example.
+#
+# Copy this file to compose.yaml and run:
+#   cp .env.example .env
+#   docker compose pull && docker compose up -d   # released image
+#   docker compose up -d --build                  # build from this checkout
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    init: true
+    volumes:
+      - ./data/mongodb:/data/db
+      - ./mongo-tools:/tools
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  import:
+    # Use the released image by default. To build locally instead, run:
+    #   docker compose up -d --build
+    image: ghcr.io/cheminfo/octochemdb:latest
+    build: .
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    ulimits:
+      core: 0
+    mem_limit: 32g
+    cpus: 12
+    env_file: .env
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - ORIGINAL_DATA_PATH=/app/data/originalData
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    volumes:
+      - ./data:/app/data
+    command: npm run cron
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  octochemdb:
+    image: ghcr.io/cheminfo/octochemdb:latest
+    build: .
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    ulimits:
+      core: 0
+    mem_limit: 32g
+    env_file: .env
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    ports:
+      - '127.0.0.1:${PORT:-11015}:${PORT:-11015}'
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
