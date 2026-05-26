@@ -34,3 +34,4 @@ jobs:
       - run: npm run test-only
         env:
           MONGODB_URL: mongodb://localhost:27017
+          MONGO_DB_NAME: octochemdb
