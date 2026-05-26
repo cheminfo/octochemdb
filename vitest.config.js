@@ -20,6 +20,13 @@
  *  5. syncCompoundPatents – patent ↔ compound relations.
  *  6. syncGNPS            – must finish before aggregation plugins read it.
  *  7. Other sync plugins  – no hard ordering between them.
+ *  7.5 aggregateActivesOrNaturals – produces the activesOrNaturals
+ *                           collection that lookup tests and
+ *                           inSilicoFragments read from.
+ *  7.7 getMeshTerms      – has the side effect of writing
+ *                           `data.compounds` onto every pubmeds doc
+ *                           (via `updateMany`), which the pubmeds
+ *                           id/ids/search snapshots depend on.
  *  8. Read/lookup tests   – id/ids/search/fromEM/fromMF/admin/etc. that
  *                           query already-populated collections.
  *  9. inSilicoFragments   – aggregate that depends on compounds + spectra.
@@ -39,10 +46,11 @@ const orderingRules = [
   },
   { priority: 6, pattern: /\/gnps\/.*\/syncGNPS\.test\.js$/ },
   { priority: 7, pattern: /\/sync[A-Z][^/]*\.test\.js$/ },
+  { priority: 7.5, pattern: /\/aggregateActivesOrNaturals\.test\.js$/ },
+  { priority: 7.7, pattern: /getMeshTerms\.test\.js$/ },
   { priority: 9, pattern: /\/inSilicoFragments\//i },
   { priority: 10, pattern: /\/aggregate[^/]*\.test\.js$/i },
   { priority: 10, pattern: /\/aggregates\// },
-  { priority: 10, pattern: /getMeshTerms\.test\.js$/ },
   { priority: 8, pattern: /OctoChemConnection\.test\.js$/ },
   { priority: 8, pattern: /entriesAdmin\.test\.js$/ },
   {
