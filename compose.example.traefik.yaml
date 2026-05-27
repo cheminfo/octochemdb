@@ -1,0 +1,86 @@
+# Traefik deployment — host already runs Traefik on an external Docker network
+# named `traefik` with a `websecure` entrypoint and a `letsencrypt` cert resolver.
+# No port is published on the host; Traefik routes on the shared network.
+#
+# Copy this file to compose.yaml and run: docker compose up -d
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    init: true
+    volumes:
+      - ./data/mongodb:/data/db
+      - ./mongo-tools:/tools
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  import:
+    image: ghcr.io/cheminfo/octochemdb:latest
+    build: .
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    ulimits:
+      core: 0
+    mem_limit: 32g
+    cpus: 12
+    env_file: .env
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - ORIGINAL_DATA_PATH=/app/data/originalData
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    volumes:
+      - ./data:/app/data
+    command: npm run cron
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+  octochemdb:
+    image: ghcr.io/cheminfo/octochemdb:latest
+    build: .
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - 'no-new-privileges:true'
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    ulimits:
+      core: 0
+    mem_limit: 32g
+    env_file: .env
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    networks:
+      - default
+      - traefik
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.octochemdb.rule=Host(`octochemdb.cheminfo.org`)'
+      - 'traefik.http.routers.octochemdb.entrypoints=websecure'
+      - 'traefik.http.routers.octochemdb.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.octochemdb.loadbalancer.server.port=${PORT:-11015}'
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '50m'
+
+networks:
+  traefik:
+    external: true
