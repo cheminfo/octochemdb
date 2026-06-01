@@ -14,12 +14,12 @@ test('checkCoconutLink', async () => {
 
   expect(result).toMatchInlineSnapshot(`
     [
-      "https://coconut.s3.uni-jena.de/prod/downloads/2026-05/coconut_sdf_2d_lite-05-2026.zip",
-      "https://coconut.s3.uni-jena.de/prod/downloads/2026-05/coconut_sdf_2d-05-2026.zip",
-      "https://coconut.s3.uni-jena.de/prod/downloads/2026-05/coconut_sdf_3d-05-2026.zip",
-      "https://coconut.s3.uni-jena.de/prod/downloads/2026-05/coconut-dump-05-2026.sql",
-      "https://coconut.s3.uni-jena.de/prod/downloads/2026-05/coconut_csv_lite-05-2026.zip",
-      "https://coconut.s3.uni-jena.de/prod/downloads/2026-05/coconut_csv-05-2026.zip",
+      "https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut_sdf_2d_lite-06-2026.zip",
+      "https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut_sdf_2d-06-2026.zip",
+      "https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut_sdf_3d-06-2026.zip",
+      "https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut-dump-06-2026.sql",
+      "https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut_csv_lite-06-2026.zip",
+      "https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut_csv-06-2026.zip",
     ]
   `);
 
