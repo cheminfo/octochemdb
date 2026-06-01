@@ -9,6 +9,10 @@ import DebugLibrary from '../../../../utils/Debug.js';
 const debug = DebugLibrary('improveSubstancePool');
 const url = new URL('improveSubstance.js', import.meta.url);
 let nbCPU = cpus().length;
+const cpuLimit = Number.parseInt(process.env.IMPORT_CPUS, 10);
+if (Number.isFinite(cpuLimit) && cpuLimit > 0) {
+  nbCPU = Math.min(nbCPU, cpuLimit);
+}
 if (process.env.NODE_ENV === 'test') {
   nbCPU = 1;
 }
