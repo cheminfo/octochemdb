@@ -34,7 +34,7 @@ services:
     ulimits:
       core: 0
     mem_limit: 32g
-    cpus: 12
+    cpus: ${IMPORT_CPUS:-6}
     env_file: .env
     environment:
       - MONGODB_URL=mongodb://mongo:27017

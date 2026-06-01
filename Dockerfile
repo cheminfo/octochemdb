@@ -2,6 +2,10 @@ FROM node:22-slim AS deps
 
 WORKDIR /app
 
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends python3 make g++ libexpat1-dev ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 

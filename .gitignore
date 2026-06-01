@@ -13,3 +13,4 @@ src/sync/http/utils/__tests__/data/testResult.2021-09-07.txt
 src/plugins/uspPatents/sync/utils/__tests__/data/cidToPatentsTest.sorted
 
 compose.yaml
+docker/.env
