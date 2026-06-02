@@ -51,5 +51,6 @@ export async function syncPubmedFolder(connection, importType) {
         stack: err.stack,
       });
     }
+    return [];
   }
 }

@@ -54,7 +54,13 @@ async function syncFolder(source, destinationFolder, options = {}) {
     if (existsSync(targetFile)) {
       const fileInfo = statSync(targetFile);
       let trueFileSize = await fileSize(file);
-      if (fileInfo.size !== trueFileSize) {
+      // If the server didn't expose a size, keep what we already have:
+      // discarding the local file on hearsay would waste bandwidth and
+      // restart partial imports we already paid for.
+      if (
+        Number.isFinite(trueFileSize) &&
+        fileInfo.size !== trueFileSize
+      ) {
         if (process.env.NODE_ENV === 'test') {
           continue;
         }
@@ -103,12 +109,19 @@ async function syncFolder(source, destinationFolder, options = {}) {
 
 export default syncFolder;
 
-async function fileSize(file) {
-  const response = await fetch(file.url);
-
-  const headers = Array.from(response.headers);
-  let newFileSize = Number(
-    headers.find((row) => row[0] === 'content-length')[1],
-  );
-  return newFileSize;
+export async function fileSize(file) {
+  // Use HEAD to avoid downloading the whole file just for its size.
+  let response = await fetch(file.url, { method: 'HEAD' });
+  // Some servers (or some files) don't expose content-length on HEAD;
+  // fall back to a GET in that case.
+  let contentLength = response.headers.get('content-length');
+  if (contentLength === null) {
+    response = await fetch(file.url);
+    contentLength = response.headers.get('content-length');
+  }
+  if (contentLength === null) {
+    debug.warn(`No content-length header for ${file.url}`);
+    return Number.NaN;
+  }
+  return Number(contentLength);
 }

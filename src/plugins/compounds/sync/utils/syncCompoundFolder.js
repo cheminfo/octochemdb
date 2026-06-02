@@ -75,11 +75,14 @@ export async function syncCompoundFolder(connection, importType) {
     }
   } catch (error) {
     if (connection) {
-      await debug.trace(error.message, {
+      await debug.fatal(error.message, {
         collection: 'compounds',
         connection,
         stack: error.stack,
       });
     }
+    // Return an empty list so the downstream `for await` doesn't crash
+    // with "Cannot read properties of undefined".
+    return [];
   }
 }

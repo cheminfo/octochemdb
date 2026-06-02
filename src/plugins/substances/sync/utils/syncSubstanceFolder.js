@@ -70,5 +70,6 @@ export async function syncSubstanceFolder(connection, importType) {
         stack: error.stack,
       });
     }
+    return [];
   }
 }
