@@ -34,5 +34,5 @@ test('local fallback matches cache output for the same substance', async () => {
   delete cacheResult.data.ocl.coordinates;
   delete localResult.data.ocl.coordinates;
 
-  expect(localResult).toEqual(cacheResult);
+  expect(localResult).toStrictEqual(cacheResult);
 });

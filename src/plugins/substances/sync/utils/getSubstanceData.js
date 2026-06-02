@@ -1,5 +1,5 @@
-import { MF } from 'mass-tools';
 import delay from 'delay';
+import { MF } from 'mass-tools';
 import fetch from 'node-fetch';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';

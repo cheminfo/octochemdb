@@ -6,6 +6,7 @@ import improveCompoundPool from '../improveCompoundPool';
 dotenv.config();
 
 const SMALL_MOLECULE = { smiles: 'CCO' };
+const swallow = () => undefined;
 
 test('improveCompoundPool applies backpressure on pending downstream work', async () => {
   // In test mode nbCPU is forced to 1, so the threshold is 1 * 5 = 5,
@@ -23,18 +24,22 @@ test('improveCompoundPool applies backpressure on pending downstream work', asyn
     return handle;
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 50));
+  await new Promise((resolve) => {
+    setTimeout(resolve, 50);
+  });
+
   expect(nextAcquired).toBe(false);
 
   acquired[0].done();
   const next = await nextPromise;
+
   expect(nextAcquired).toBe(true);
 
   for (let i = 1; i < acquired.length; i++) acquired[i].done();
   next.done();
   await Promise.all([
-    ...acquired.map((h) => h.promise.catch(() => {})),
-    next.promise.catch(() => {}),
+    ...acquired.map((h) => h.promise.catch(swallow)),
+    next.promise.catch(swallow),
   ]);
 });
 
@@ -46,6 +51,7 @@ test('improveCompoundPool error', async () => {
   let { promise, done } = await improveCompoundPool(molecule, { timeout: 1 });
 
   await expect(promise).resolves.toMatchInlineSnapshot('undefined');
+
   done();
 });
 

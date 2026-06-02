@@ -1,5 +1,5 @@
-import { MF } from 'mass-tools';
 import delay from 'delay';
+import { MF } from 'mass-tools';
 import fetch from 'node-fetch';
 import OCL from 'openchemlib';
 import { getMF } from 'openchemlib-utils';
@@ -12,7 +12,7 @@ const debug = debugLibrary('getCompoundsData');
  * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
  * @param molecule - molecule from pubchem file
  * @param options
- * @returns  compounds properties
+ * @returns compounds properties
  */
 export async function getCompoundsData(molecule, options = {}) {
   //console.log(OCL.Molecule.fromIDCode(molecule.idCode));

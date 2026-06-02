@@ -30,5 +30,5 @@ test('local fallback matches cache output', async () => {
   delete cacheResult.coordinates;
   delete localResult.coordinates;
 
-  expect(localResult).toEqual(cacheResult);
+  expect(localResult).toStrictEqual(cacheResult);
 });
