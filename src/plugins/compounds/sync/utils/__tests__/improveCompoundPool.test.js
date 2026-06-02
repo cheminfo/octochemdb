@@ -60,7 +60,9 @@ test('improveCompoundPool working', async () => {
     idCode: String.raw`ekTpA@@@LAEMGLn\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@`,
   };
 
-  let { promise, done } = await improveCompoundPool(molecule, { timeout: 60000 });
+  let { promise, done } = await improveCompoundPool(molecule, {
+    timeout: 60000,
+  });
   const result = await promise;
   if (result?.data?.ocl) {
     delete result.data.ocl.coordinates;

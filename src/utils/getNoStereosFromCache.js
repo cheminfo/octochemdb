@@ -53,9 +53,7 @@ export async function getNoStereosFromCache(
       return ocl;
     }
 
-    debug.warn(
-      `OCL cache unreachable for ${oclID.idCode}, computing locally`,
-    );
+    debug.warn(`OCL cache unreachable for ${oclID.idCode}, computing locally`);
     return computeNoStereosLocally(molecule, oclID);
   } catch (error) {
     if (connection) {

@@ -59,7 +59,9 @@ test('improveSubstancePool working', async () => {
     idCode: String.raw`ekTpA@@@LAEMGLn\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@`,
   };
 
-  let { promise, done } = await improveSubstancePool(molecule, { timeout: 60000 });
+  let { promise, done } = await improveSubstancePool(molecule, {
+    timeout: 60000,
+  });
   const result = await promise;
   done();
 

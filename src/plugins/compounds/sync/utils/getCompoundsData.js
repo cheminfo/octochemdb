@@ -95,9 +95,7 @@ export async function getCompoundsData(molecule, options = {}) {
       return result;
     }
 
-    debug.warn(
-      `OCL cache unreachable for ${oclID.idCode}, computing locally`,
-    );
+    debug.warn(`OCL cache unreachable for ${oclID.idCode}, computing locally`);
     return computeCompoundsDataLocally(oclMolecule, oclID, options);
   } catch (error) {
     debug.fatal(error);

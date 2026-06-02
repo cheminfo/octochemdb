@@ -89,9 +89,7 @@ export async function getSubstanceData(molecule) {
       return result;
     }
 
-    debug.warn(
-      `OCL cache unreachable for ${oclID.idCode}, computing locally`,
-    );
+    debug.warn(`OCL cache unreachable for ${oclID.idCode}, computing locally`);
     return computeSubstanceDataLocally(oclMolecule, oclID);
   } catch (error) {
     debug.fatal(error);
@@ -126,9 +124,10 @@ export function computeSubstanceDataLocally(oclMolecule, oclID) {
       mw: mfInfo.mass,
       nbFragments,
       unsaturation: mfInfo.unsaturation,
-      atoms: mfInfo.atoms && Object.keys(mfInfo.atoms).length > 0
-        ? mfInfo.atoms
-        : {},
+      atoms:
+        mfInfo.atoms && Object.keys(mfInfo.atoms).length > 0
+          ? mfInfo.atoms
+          : {},
     },
   };
 }
