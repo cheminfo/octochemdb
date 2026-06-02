@@ -75,53 +75,35 @@ export default async function importOneCompoundFile(
         }
       }
       try {
-        const { promise } = await improveCompoundPool(compound);
+        const { promise, done } = await improveCompoundPool(compound);
+        const downstream = promise
+          .then((result) => {
+            if (result === undefined) {
+              return;
+            }
+            if (result) {
+              result._seq = ++progress.seq;
+              return collection.updateOne(
+                { _id: result._id },
+                { $set: result },
+                { upsert: true },
+              );
+            }
+          })
+          .then(() => {
+            progress.sources = file.path.replace(
+              process.env.ORIGINAL_DATA_PATH,
+              '',
+            );
+            progress.dateEnd = Date.now();
+            return connection.setProgress(progress);
+          })
+          .catch((error) => {
+            debug.fatal(error.message ?? String(error));
+          })
+          .finally(done);
         if (process.env.NODE_ENV === 'test') {
-          await promise
-            .then((result) => {
-              if (result === undefined) {
-                return;
-              }
-              if (result) {
-                result._seq = ++progress.seq;
-                return collection.updateOne(
-                  { _id: result._id },
-                  { $set: result },
-                  { upsert: true },
-                );
-              }
-            })
-            .then(() => {
-              progress.sources = file.path.replace(
-                process.env.ORIGINAL_DATA_PATH,
-                '',
-              );
-              progress.dateEnd = Date.now();
-              return connection.setProgress(progress);
-            });
-        } else {
-          promise
-            .then((result) => {
-              if (result === undefined) {
-                return;
-              }
-              if (result) {
-                result._seq = ++progress.seq;
-                return collection.updateOne(
-                  { _id: result._id },
-                  { $set: result },
-                  { upsert: true },
-                );
-              }
-            })
-            .then(() => {
-              progress.sources = file.path.replace(
-                process.env.ORIGINAL_DATA_PATH,
-                '',
-              );
-              progress.dateEnd = Date.now();
-              return connection.setProgress(progress);
-            });
+          await downstream;
         }
       } catch (error) {
         if (connection) {

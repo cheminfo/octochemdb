@@ -22,22 +22,38 @@ const piscina = new Piscina({
   idleTimeout: 1000,
 });
 
+// Number of compounds that have left the Piscina queue but whose downstream
+// resolution (mongo upsert, progress update) hasn't completed yet. Backpressure
+// must cover this stage too — bounding only piscina.queueSize lets the
+// producer outrun mongo and grow the heap until OOM.
+let pendingResolutions = 0;
+
 /**
  * @description Multithread import of compounds
  * @param molecule
  * @param [options={}]
- * @returns result to be imported
+ * @returns result to be imported, plus a `settled` hook the producer
+ *   resolves when its own downstream work (upsert, progress write) is done
+ *   so the pool can release the backpressure slot for this compound.
  */
 export default async function improveCompoundPool(molecule, options = {}) {
   const timeForTimeout = options.timeout || 60000;
   const abortController = new AbortController();
   const timeout = setTimeout(() => abortController.abort(), timeForTimeout);
-  // if in the queue we have over twice the number of cpu we wait
-  while (piscina.queueSize > nbCPU * 5) {
+  while (piscina.queueSize + pendingResolutions > nbCPU * 5) {
     await delay(1);
   }
 
-  let promise = piscina
+  pendingResolutions++;
+  let releaseSlot;
+  const settled = new Promise((resolve) => {
+    releaseSlot = () => {
+      pendingResolutions--;
+      resolve();
+    };
+  });
+
+  const promise = piscina
     .run(molecule, { signal: abortController.signal })
     .then((info) => {
       clearTimeout(timeout);
@@ -48,5 +64,7 @@ export default async function improveCompoundPool(molecule, options = {}) {
     });
   return {
     promise,
+    settled,
+    done: releaseSlot,
   };
 }

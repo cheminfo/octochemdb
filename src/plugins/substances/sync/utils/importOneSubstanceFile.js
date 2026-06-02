@@ -77,65 +77,41 @@ export default async function importOneSubstanceFile(
           continue;
         }
         try {
-          const { promise } = await improveSubstancePool(substance);
+          const { promise, done } = await improveSubstancePool(substance);
+          const downstream = promise
+            .then((result) => {
+              if (result === undefined) {
+                return;
+              }
+              if (result) {
+                if (result.data.taxonomyIDs) {
+                  result = getTaxonomiesSubstances(
+                    result,
+                    collectionTaxonomies,
+                  );
+                }
+                result._seq = ++progress.seq;
+                return collection.updateOne(
+                  { _id: result._id },
+                  { $set: result },
+                  { upsert: true },
+                );
+              }
+            })
+            .then(() => {
+              progress.sources = file.path.replace(
+                process.env.ORIGINAL_DATA_PATH,
+                '',
+              );
+              progress.dateEnd = Date.now();
+              return connection.setProgress(progress);
+            })
+            .catch((error) => {
+              debug.fatal(error.message ?? String(error));
+            })
+            .finally(done);
           if (process.env.NODE_ENV === 'test') {
-            await promise
-              .then((result) => {
-                if (result) {
-                  if (result === undefined) {
-                    return;
-                  }
-                  if (result.data.taxonomyIDs) {
-                    result = getTaxonomiesSubstances(
-                      result,
-                      collectionTaxonomies,
-                    );
-                  }
-                  result._seq = ++progress.seq;
-                  return collection.updateOne(
-                    { _id: result._id },
-                    { $set: result },
-                    { upsert: true },
-                  );
-                }
-              })
-              .then(() => {
-                progress.sources = file.path.replace(
-                  process.env.ORIGINAL_DATA_PATH,
-                  '',
-                );
-                progress.dateEnd = Date.now();
-                return connection.setProgress(progress);
-              });
-          } else {
-            // In production, fire-and-forget: do not await the upsert promise
-            promise
-              .then((result) => {
-                if (result === undefined) {
-                  return;
-                }
-                if (result) {
-                  if (result.data.taxonomyIDs) {
-                    result = getTaxonomiesSubstances(
-                      result,
-                      collectionTaxonomies,
-                    );
-                  }
-                  result._seq = ++progress.seq;
-                  return collection.updateOne(
-                    { _id: result._id },
-                    { $set: result },
-                    { upsert: true },
-                  );
-                }
-              })
-              .then(() => {
-                progress.sources = file.path.replace(
-                  process.env.ORIGINAL_DATA_PATH,
-                  '',
-                );
-                return connection.setProgress(progress);
-              });
+            await downstream;
           }
         } catch (error) {
           const err = error instanceof Error ? error : new Error(String(error));

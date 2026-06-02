@@ -5,14 +5,46 @@ import improveSubstancePool from '../improveSubstancePool';
 
 dotenv.config();
 
+test('improveSubstancePool applies backpressure on pending downstream work', async () => {
+  // In test mode nbCPU is forced to 1, so the threshold is 1 * 5 = 5.
+  // Acquiring 6 without releasing exhausts the budget; the next call must
+  // block until a slot is released via `done()`.
+  const small = { smiles: 'CCO' };
+  const acquired = [];
+  for (let i = 0; i < 6; i++) {
+    acquired.push(await improveSubstancePool(small));
+  }
+
+  let nextAcquired = false;
+  const nextPromise = improveSubstancePool(small).then((handle) => {
+    nextAcquired = true;
+    return handle;
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 50));
+  expect(nextAcquired).toBe(false);
+
+  acquired[0].done();
+  const next = await nextPromise;
+  expect(nextAcquired).toBe(true);
+
+  for (let i = 1; i < acquired.length; i++) acquired[i].done();
+  next.done();
+  await Promise.all([
+    ...acquired.map((h) => h.promise.catch(() => {})),
+    next.promise.catch(() => {}),
+  ]);
+});
+
 test('improveSubstancePool error', async () => {
   let molecule = {
     idCode: String.raw`ekTpA@@@LAEMGLn\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@`,
   };
 
-  let { promise } = await improveSubstancePool(molecule, { timeout: 1 });
+  let { promise, done } = await improveSubstancePool(molecule, { timeout: 1 });
 
   await expect(promise).resolves.toMatchInlineSnapshot('undefined');
+  done();
 });
 
 test('improveSubstancePool working', async () => {
@@ -20,8 +52,9 @@ test('improveSubstancePool working', async () => {
     idCode: String.raw`ekTpA@@@LAEMGLn\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@`,
   };
 
-  let { promise } = await improveSubstancePool(molecule, { timeout: 60000 });
+  let { promise, done } = await improveSubstancePool(molecule, { timeout: 60000 });
   const result = await promise;
+  done();
 
   expect(result.data).toMatchInlineSnapshot(`
     {
