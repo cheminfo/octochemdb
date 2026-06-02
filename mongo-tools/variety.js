@@ -126,8 +126,7 @@ Released by Maypop Inc, © 2012-2018, under the MIT License. */
     ) {
       result[item + '.'] = true;
       return result;
-    },
-    {});
+    }, {});
 
     return config;
   };
@@ -536,4 +535,4 @@ Released by Maypop Inc, © 2012-2018, under the MIT License. */
   } else {
     print(createAsciiTable(varietyResults)); // output nice ascii table with results
   }
-}.bind(this)()); // end strict mode
+}).bind(this)(); // end strict mode
