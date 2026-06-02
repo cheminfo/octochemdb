@@ -1,5 +1,6 @@
 import delay from 'delay';
 import fetch from 'node-fetch';
+import OCL from 'openchemlib';
 
 import debugLibrary from './Debug.js';
 
@@ -42,10 +43,7 @@ export async function getNoStereosFromCache(
       }
       count++;
     }
-    if (!success) {
-      throw new Error('Failed to fetch data');
-    }
-    if (dataCompound?.status === 200) {
+    if (success && dataCompound?.status === 200) {
       let data = await dataCompound.json();
       let ocl = {
         idCode: data.result.idCode,
@@ -53,9 +51,12 @@ export async function getNoStereosFromCache(
         noStereoTautomerID: data.result.noStereoTautomerID,
       };
       return ocl;
-    } else {
-      debug.fatal(`Error: ${dataCompound?.status} ${dataCompound}`);
     }
+
+    debug.warn(
+      `OCL cache unreachable for ${oclID.idCode}, computing locally`,
+    );
+    return computeNoStereosLocally(molecule, oclID);
   } catch (error) {
     if (connection) {
       await debug.fatal(error.message, {
@@ -65,4 +66,15 @@ export async function getNoStereosFromCache(
       });
     }
   }
+}
+
+export function computeNoStereosLocally(molecule, oclID) {
+  return {
+    idCode: oclID.idCode,
+    coordinates: oclID.coordinates,
+    noStereoTautomerID: OCL.CanonizerUtil.getIDCode(
+      molecule,
+      OCL.CanonizerUtil.NOSTEREO_TAUTOMER,
+    ),
+  };
 }

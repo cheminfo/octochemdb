@@ -1,6 +1,8 @@
+import { MF } from 'mass-tools';
 import delay from 'delay';
 import fetch from 'node-fetch';
 import OCL from 'openchemlib';
+import { getMF } from 'openchemlib-utils';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
@@ -56,10 +58,7 @@ export async function getSubstanceData(molecule) {
       }
       count++;
     }
-    if (!success) {
-      throw new Error('Failed to fetch data');
-    }
-    if (dataSubstance?.status === 200) {
+    if (success && dataSubstance?.status === 200) {
       const data = await dataSubstance.json();
       const result = {
         data: {
@@ -88,10 +87,48 @@ export async function getSubstanceData(molecule) {
         result.data.atoms = {};
       }
       return result;
-    } else {
-      debug.fatal(`Error: ${dataSubstance?.status} ${dataSubstance}`);
     }
+
+    debug.warn(
+      `OCL cache unreachable for ${oclID.idCode}, computing locally`,
+    );
+    return computeSubstanceDataLocally(oclMolecule, oclID);
   } catch (error) {
     debug.fatal(error);
   }
+}
+
+export function computeSubstanceDataLocally(oclMolecule, oclID) {
+  const mfString = getMF(oclMolecule).parts.sort().join('.');
+  const mfInfo = new MF(mfString).getInfo();
+  const fragmentMap = [];
+  const nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
+
+  let noStereoTautomerID = oclID.idCode;
+  const small = mfInfo.atoms?.C === undefined || mfInfo.atoms.C <= 50;
+  if (small) {
+    noStereoTautomerID = OCL.CanonizerUtil.getIDCode(
+      oclMolecule,
+      OCL.CanonizerUtil.NOSTEREO_TAUTOMER,
+    );
+  }
+
+  return {
+    data: {
+      ocl: {
+        idCode: oclID.idCode,
+        coordinates: oclID.coordinates,
+        noStereoTautomerID,
+      },
+      mf: mfInfo.mf,
+      em: mfInfo.monoisotopicMass,
+      charge: mfInfo.charge,
+      mw: mfInfo.mass,
+      nbFragments,
+      unsaturation: mfInfo.unsaturation,
+      atoms: mfInfo.atoms && Object.keys(mfInfo.atoms).length > 0
+        ? mfInfo.atoms
+        : {},
+    },
+  };
 }

@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getNoStereosFromCache returns expected shape 1`] = `
+{
+  "idCode": "deVH@FCIEDhbLtE@@@@",
+  "noStereoTautomerID": "deVH@FCIEDhbLuUUPAkrXsEX[GXGDxRLZmcxX~F@",
+}
+`;

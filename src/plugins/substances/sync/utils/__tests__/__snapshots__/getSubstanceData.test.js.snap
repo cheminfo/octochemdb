@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getSubstanceData returns expected shape 1`] = `
+{
+  "data": {
+    "atoms": {
+      "C": 37,
+      "H": 60,
+      "O": 8,
+    },
+    "charge": 0,
+    "em": 632.42881889036,
+    "mf": "C37H60O8",
+    "mw": 632.868912817097,
+    "nbFragments": 1,
+    "ocl": {
+      "idCode": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+      "noStereoTautomerID": "ekTpA@@@LAEMGLn\\dTTRbRfLbteRrRTfbqbtRthdRjZFFfNnAQjjjjjjjfjjjjjijjh@@",
+    },
+    "unsaturation": 8,
+  },
+}
+`;

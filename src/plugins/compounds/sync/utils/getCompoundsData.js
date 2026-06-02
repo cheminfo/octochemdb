@@ -1,6 +1,8 @@
+import { MF } from 'mass-tools';
 import delay from 'delay';
 import fetch from 'node-fetch';
 import OCL from 'openchemlib';
+import { getMF } from 'openchemlib-utils';
 
 import debugLibrary from '../../../../utils/Debug.js';
 
@@ -61,10 +63,7 @@ export async function getCompoundsData(molecule, options = {}) {
       count++;
     }
 
-    if (!success) {
-      throw new Error('Failed to fetch data');
-    }
-    if (dataCompound?.status === 200) {
+    if (success && dataCompound?.status === 200) {
       let data = await dataCompound.json();
       let result = {
         data: {
@@ -94,10 +93,58 @@ export async function getCompoundsData(molecule, options = {}) {
         result.data.ocl.index = data.result.ssIndex;
       }
       return result;
-    } else {
-      debug.fatal(`Error: ${dataCompound?.status} ${dataCompound}`);
     }
+
+    debug.warn(
+      `OCL cache unreachable for ${oclID.idCode}, computing locally`,
+    );
+    return computeCompoundsDataLocally(oclMolecule, oclID, options);
   } catch (error) {
     debug.fatal(error);
   }
+}
+
+export function computeCompoundsDataLocally(oclMolecule, oclID, options = {}) {
+  const properties = new OCL.MoleculeProperties(oclMolecule);
+  const mfString = getMF(oclMolecule).parts.sort().join('.');
+  const mfInfo = new MF(mfString).getInfo();
+  const fragmentMap = [];
+  const nbFragments = oclMolecule.getFragmentNumbers(fragmentMap, false, false);
+
+  let noStereoTautomerID = oclID.idCode;
+  const small = mfInfo.atoms?.C === undefined || mfInfo.atoms.C <= 50;
+  if (small) {
+    noStereoTautomerID = OCL.CanonizerUtil.getIDCode(
+      oclMolecule,
+      OCL.CanonizerUtil.NOSTEREO_TAUTOMER,
+    );
+  }
+
+  const result = {
+    data: {
+      ocl: {
+        idCode: oclID.idCode,
+        coordinates: oclID.coordinates,
+        noStereoTautomerID,
+        acceptorCount: properties.acceptorCount,
+        donorCount: properties.donorCount,
+        logP: properties.logP,
+        logS: properties.logS,
+        polarSurfaceArea: properties.polarSurfaceArea,
+        rotatableBondCount: properties.rotatableBondCount,
+        stereoCenterCount: properties.stereoCenterCount,
+      },
+      mf: mfInfo.mf,
+      em: mfInfo.monoisotopicMass,
+      charge: mfInfo.charge,
+      mw: mfInfo.mass,
+      nbFragments,
+      atoms: mfInfo.atoms,
+      unsaturation: mfInfo.unsaturation,
+    },
+  };
+  if (options.indexRequired) {
+    result.data.ocl.index = [...oclMolecule.getIndex()];
+  }
+  return result;
 }
