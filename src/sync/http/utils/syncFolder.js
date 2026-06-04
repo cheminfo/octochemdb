@@ -57,10 +57,7 @@ async function syncFolder(source, destinationFolder, options = {}) {
       // If the server didn't expose a size, keep what we already have:
       // discarding the local file on hearsay would waste bandwidth and
       // restart partial imports we already paid for.
-      if (
-        Number.isFinite(trueFileSize) &&
-        fileInfo.size !== trueFileSize
-      ) {
+      if (Number.isFinite(trueFileSize) && fileInfo.size !== trueFileSize) {
         if (process.env.NODE_ENV === 'test') {
           continue;
         }
