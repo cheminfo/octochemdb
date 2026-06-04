@@ -55,7 +55,8 @@ const orderingRules = [
   { priority: 8, pattern: /entriesAdmin\.test\.js$/ },
   {
     priority: 8,
-    pattern: /\/(id|ids|search|fromEM|fromMF|fromSmiles|nEntries)\.test\.js$/,
+    pattern:
+      /\/(id|ids|search|fromEM|fromMF|fromSmiles|nEntries|stats)\.test\.js$/,
   },
 ];
 
