@@ -6,7 +6,7 @@ import { expect, test } from 'vitest';
 
 import { decompressAll } from '../decompressAll.js';
 
-test.skip('(decompressAll): unzip and ungzip', async () => {
+test('(decompressAll): unzip and ungzip', async () => {
   let fileList = await fileCollectionFromPath(join(__dirname, 'data'), {
     unzip: { zipExtensions: [] },
     ungzip: { gzipExtensions: [] },

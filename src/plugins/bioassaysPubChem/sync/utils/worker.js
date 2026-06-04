@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { parentPort } from 'node:worker_threads';
+import { gunzipSync } from 'node:zlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
@@ -7,6 +8,7 @@ import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 import { parseBioassaysPubChem } from './parseBioassaysPubChem.js';
 
 const debug = debugLibrary('WorkerProcess');
+
 parentPort?.on('message', async (dataEntry) => {
   const connection = new OctoChemConnection();
 
@@ -15,17 +17,26 @@ parentPort?.on('message', async (dataEntry) => {
   try {
     const { fileList, workerID } = dataEntry;
     debug.trace(`Worker ${workerID} started`);
-    // get worker number
     const temporaryCollection =
       await connection.getCollection(`bioassaysPubChem_tmp`);
     let count = 0;
     let start = Date.now();
     for (const file of fileList) {
       try {
-        const data = readFileSync(file, 'utf8');
-        const json = JSON.parse(data);
+        const raw = readFileSync(file);
+        // PubChem ships every assay as a gzipped JSON inside the per-range zip.
+        const jsonString = file.endsWith('.gz')
+          ? gunzipSync(raw).toString('utf8')
+          : raw.toString('utf8');
+        const json = JSON.parse(jsonString);
 
         const entry = await parseBioassaysPubChem(json, connection);
+
+        // Downstream aggregation joins assays to compounds via associatedCIDs;
+        // skip entries we could not resolve to keep the collection useful.
+        if (!entry?.data?.associatedCIDs?.length) {
+          continue;
+        }
 
         await temporaryCollection.updateOne(
           { _id: entry._id },

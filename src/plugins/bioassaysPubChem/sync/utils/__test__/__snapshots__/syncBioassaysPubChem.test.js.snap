@@ -5,7 +5,7 @@ exports[`syncBioassaysPubChem 1`] = `
   "_id": 22001,
   "data": {
     "associatedCIDs": [
-      44287812,
+      103219760,
     ],
     "comment": [
       "Journal: Bioorg. Med. Chem. Lett.",

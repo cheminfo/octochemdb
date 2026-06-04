@@ -6,18 +6,31 @@ import md5 from 'md5';
 import getLastDocumentImported from '../../../sync/http/utils/getLastDocumentImported.js';
 import syncFolder from '../../../sync/http/utils/syncFolder.js';
 import debugLibrary from '../../../utils/Debug.js';
+import createIndexes from '../../../utils/createIndexes.js';
 import { shouldUpdate } from '../../../utils/shouldUpdate.js';
 
 import { decompressAll } from './utils/decompressAll.js';
 import { main } from './utils/main.js';
 
-//***************
-// NOT FINISHED *
-//***************
-
 const debug = debugLibrary('syncBioassaysPubChem');
+
+/**
+ * Synchronises the `bioassaysPubChem` collection from the PubChem FTP server.
+ *
+ * Downloads (or reuses a cached copy of) every PubChem bioassay JSON dump,
+ * decompresses each AID range archive, then hands the resulting list of
+ * `.json.gz` files to a worker pool that parses each assay and upserts it
+ * into a temporary MongoDB collection. Once the import is complete the
+ * temporary collection atomically replaces the live one and the indexes
+ * are rebuilt.
+ *
+ * The sync is skipped when `shouldUpdate()` determines that neither the
+ * source files nor the update interval have changed since the last
+ * successful run.
+ * @param connection - Active OctoChemDB connection used throughout the sync.
+ */
 export async function sync(connection) {
-  let options = {
+  const options = {
     collectionSource: 'https://ftp.ncbi.nlm.nih.gov/pubchem/Bioassay/JSON/',
     destinationLocal: `data/originalData/bioassaysPubChem/full`,
     collectionName: 'bioassaysPubChem',
@@ -61,12 +74,12 @@ export async function sync(connection) {
         sourceFiles =
           'src/plugins/bioassaysPubChem/sync/utils/__test__/data/syncData/';
       }
-      let fileList = await fileCollectionFromPath(sourceFiles, {
+      const fileList = await fileCollectionFromPath(sourceFiles, {
         unzip: { zipExtensions: [] },
         ungzip: { gzipExtensions: [] },
       });
       let jsonFilesPaths = [];
-      for (let file of fileList.files) {
+      for (const file of fileList.files) {
         if (file.name.endsWith('.zip')) {
           const newJsonFilesPaths = await decompressAll(
             join(sourceFiles, file.name),
@@ -75,44 +88,47 @@ export async function sync(connection) {
         }
       }
 
-      // set progress to updating, if fail importation, a new try will be done 24h later
+      // Set progress to 'updating'; if the import fails a retry will occur after the next interval.
       progress.state = 'updating';
       await connection.setProgress(progress);
 
-      /// Start import
+      // Workers populate a temporary collection so the live one stays usable during import.
       await main(jsonFilesPaths);
-      ///
-      // Temporary collection to store the new data
+
+      // Atomically replace the live collection with the freshly populated one.
       const temporaryCollection = await connection.getCollection(
         `${options.collectionName}_tmp`,
       );
-      // Once it is finished, the temporary collection replace the old collection
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });
 
-      // update progress with the new progress
+      // Persist the updated progress document.
       progress.sources = md5(JSON.stringify(sources));
       progress.dateEnd = Date.now();
       progress.state = 'updated';
       await connection.setProgress(progress);
-      // Indexing of properties in collection
+
+      // Rebuild indexes on the new collection.
       const collection = await connection.getCollection(options.collectionName);
-      await collection.createIndex({ 'data.comment': 1 });
-      await collection.createIndex({ 'data.description': 1 });
-      await collection.createIndex({ 'data.name': 1 });
-      await collection.createIndex({ 'data.results': 1 });
-      await collection.createIndex({ 'data.sids': 1 });
-      await collection.createIndex({ 'data.associatedCIDs': 1 });
+      await createIndexes(collection, [
+        { 'data.name': 1 },
+        { 'data.description': 1 },
+        { 'data.comment': 1 },
+        { 'data.sids': 1 },
+        { 'data.associatedCIDs': 1 },
+        { 'data.results.sid': 1 },
+      ]);
     } else {
       debug.info(`collection already updated`);
     }
   } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
     if (connection) {
-      await debug.fatal(error.stack, {
-        collection: options.collectionName,
+      await debug.fatal(err.message, {
+        collection: 'bioassaysPubChem',
         connection,
-        stack: error.stack,
+        stack: err.stack,
       });
     }
   }
