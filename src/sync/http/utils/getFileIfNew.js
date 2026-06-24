@@ -7,6 +7,7 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 
+import delay from 'delay';
 import { fileCollectionFromPath } from 'filelist-utils';
 import pkg from 'fs-extra';
 import fetch from 'node-fetch'; //ATTENTION: node-fetch is not the same as fetch
@@ -15,6 +16,43 @@ import debugLibrary from '../../../utils/Debug.js';
 
 const { mkdirpSync } = pkg;
 const debug = debugLibrary('getFileIfNew');
+
+// Number of times a single file fetch is retried before giving up. The PubChem
+// FTP server intermittently answers automated sequential requests with a
+// non-200 status (throttling/transient errors) even though the file exists, so
+// a single failed fetch must not abort the whole import.
+const MAX_FETCH_ATTEMPTS = 5;
+const RETRY_DELAY = 10000; // ms between attempts
+
+/**
+ * Fetch a URL, retrying on network errors or non-200 responses. Mirrors the
+ * retry behaviour already used when listing remote directories so that a
+ * transient failure on one file does not crash the sync.
+ * @param url - URL to fetch.
+ * @param init - fetch() options (e.g. the abort signal).
+ * @returns A successful (status 200) fetch Response.
+ */
+async function fetchWithRetry(url, init) {
+  let lastError;
+  for (let attempt = 1; attempt <= MAX_FETCH_ATTEMPTS; attempt++) {
+    try {
+      const response = await fetch(url, init);
+      if (response.status === 200) return response;
+      lastError = new Error(
+        `Could not fetch file: ${url} (status ${response.status})`,
+      );
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+    if (attempt < MAX_FETCH_ATTEMPTS) {
+      debug.warn(
+        `Fetch attempt ${attempt}/${MAX_FETCH_ATTEMPTS} failed for ${url}: ${lastError.message}. Retrying in ${RETRY_DELAY}ms`,
+      );
+      await delay(RETRY_DELAY);
+    }
+  }
+  throw lastError;
+}
 
 /**
  * We will extract the date of last modification of the file and only copy if new.
@@ -32,15 +70,14 @@ async function getFileIfNew(file, targetFolder, options = {}) {
   let target;
 
   try {
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), 1800 * 1000); // 30 minutes
     if (process.env.NODE_ENV !== 'test') {
       mkdirpSync(targetFolder);
     }
-    const response = await fetch(file.url, { signal: controller.signal });
-    if (response.status !== 200) {
-      throw new Error(`Could not fetch file: ${file.url}`);
-    }
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 1800 * 1000); // 30 minutes
+    const response = await fetchWithRetry(file.url, {
+      signal: controller.signal,
+    });
     const headers = Array.from(response.headers);
     let lastMofidied =
       headers.find((row) => row[0] === 'last-modified') ||
