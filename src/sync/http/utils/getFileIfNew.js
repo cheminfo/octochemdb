@@ -6,6 +6,7 @@ import {
   utimesSync,
 } from 'node:fs';
 import { join } from 'node:path';
+import { pipeline } from 'node:stream/promises';
 
 import delay from 'delay';
 import { fileCollectionFromPath } from 'filelist-utils';
@@ -24,16 +25,40 @@ const debug = debugLibrary('getFileIfNew');
 const MAX_FETCH_ATTEMPTS = 8;
 const RETRY_BASE_DELAY = 10000; // ms; first backoff, doubled each attempt
 const RETRY_MAX_DELAY = 120000; // ms; cap on a single backoff wait
+const REQUEST_TIMEOUT = 1800 * 1000; // ms; per-attempt abort (30 minutes)
+// Minimum gap between outgoing requests. Spacing requests out keeps us under
+// the PubChem server's rate limit so we provoke far fewer 503s in the
+// first place, rather than only reacting to them with retries.
+const MIN_REQUEST_GAP = 500; // ms
+
+let lastRequestAt = 0;
 
 /**
- * Fetch a URL, retrying on network errors or non-200 responses. Mirrors the
- * retry behaviour already used when listing remote directories so that a
- * transient failure on one file does not crash the sync.
+ * Resolve once at least MIN_REQUEST_GAP has elapsed since the previous
+ * reserved slot, throttling the global outgoing request rate. The next slot is
+ * reserved synchronously before awaiting so concurrent callers queue in order
+ * instead of racing on a stale timestamp.
+ */
+async function throttle() {
+  const now = Date.now();
+  const slot = Math.max(now, lastRequestAt + MIN_REQUEST_GAP);
+  lastRequestAt = slot;
+  const wait = slot - now;
+  if (wait > 0) await delay(wait);
+}
+
+/**
+ * Fetch a URL, retrying on network errors or non-200 responses with
+ * exponential backoff (honouring a Retry-After header when present), so a
+ * transient throttle on one file does not crash the whole sync. A fresh
+ * AbortController is created per attempt so a stuck connection cannot block
+ * the retry loop forever.
  * @param url - URL to fetch.
- * @param init - fetch() options (e.g. the abort signal).
+ * @param [method] - HTTP method ('HEAD' to read headers only, 'GET' to
+ *   download the body).
  * @returns A successful (status 200) fetch Response.
  */
-async function fetchWithRetry(url, init) {
+async function fetchWithRetry(url, method = 'GET') {
   let lastError;
   for (let attempt = 1; attempt <= MAX_FETCH_ATTEMPTS; attempt++) {
     // Exponential backoff: 10s, 20s, 40s, ... capped at RETRY_MAX_DELAY.
@@ -41,9 +66,14 @@ async function fetchWithRetry(url, init) {
       RETRY_BASE_DELAY * 2 ** (attempt - 1),
       RETRY_MAX_DELAY,
     );
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
     try {
-      const response = await fetch(url, init);
+      await throttle();
+      const response = await fetch(url, { method, signal: controller.signal });
       if (response.status === 200) return response;
+      // Drain the body of a non-200 so the socket can be reused.
+      response.body?.resume?.();
       lastError = new Error(
         `Could not fetch file: ${url} (status ${response.status})`,
       );
@@ -55,6 +85,8 @@ async function fetchWithRetry(url, init) {
       }
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
+    } finally {
+      clearTimeout(timer);
     }
     if (attempt < MAX_FETCH_ATTEMPTS) {
       debug.warn(
@@ -85,103 +117,85 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     if (process.env.NODE_ENV !== 'test') {
       mkdirpSync(targetFolder);
     }
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), 1800 * 1000); // 30 minutes
-    const response = await fetchWithRetry(file.url, {
-      signal: controller.signal,
-    });
-    const headers = Array.from(response.headers);
-    let lastMofidied =
-      headers.find((row) => row[0] === 'last-modified') ||
-      headers.find((row) => row[0] === 'date');
 
-    let contentLength = headers.find((row) => {
-      return row[0]?.toLocaleLowerCase() === 'content-length';
-    });
-
-    debug.trace(`${filename}: New file size: ${contentLength}`);
-    let newFileSize = contentLength ? Number(contentLength[1]) : -1;
-    let fileList = (
+    // Inspect the local copy first so we can skip the network entirely when
+    // nothing changed. Scan the destination folder a single time.
+    const fileList = (
       await fileCollectionFromPath(targetFolder, {
         ungzip: { gzipExtensions: [] },
         unzip: { zipExtensions: [] },
       })
     ).files.filter(
-      (file) =>
-        (file.name.includes('.zip') ||
-          file.name.includes('.txt') ||
-          file.name.includes('.json') ||
-          file.name.includes('.gz') ||
-          file.name.includes('.msp') ||
-          file.name.includes('.tsv.gz')) &&
-        file.name.includes(filename) &&
-        !file.relativePath.includes('old'),
+      (localFile) =>
+        (localFile.name.includes('.zip') ||
+          localFile.name.includes('.txt') ||
+          localFile.name.includes('.json') ||
+          localFile.name.includes('.gz') ||
+          localFile.name.includes('.msp') ||
+          localFile.name.includes('.tsv.gz')) &&
+        localFile.name.includes(filename) &&
+        !localFile.relativePath.includes('old'),
     );
-    let lastFilesSize;
+    let lastFilesSize = 0;
     let lastFileTargetLocal;
-    if (fileList.length > 0) {
-      lastFilesSize = fileList.sort((a, b) => a.size - b.size)[0].size;
-      lastFileTargetLocal = fileList.find(
-        (file) => file.size === lastFilesSize,
-      ).name;
-    } else {
-      lastFilesSize = 0;
+    for (const localFile of fileList) {
+      if (lastFileTargetLocal === undefined || localFile.size < lastFilesSize) {
+        lastFilesSize = localFile.size;
+        lastFileTargetLocal = localFile.name;
+      }
     }
 
-    if (lastFilesSize !== newFileSize) {
-      let modificationDate = new Date(lastMofidied[1])
-        .toISOString()
-        .slice(0, 10);
-      debug.trace(`Last modification date: ${modificationDate}`);
-      // in case of test we do not want to write to disk
-      if (process.env.NODE_ENV === 'test') {
-        return `${filename}.${modificationDate}.${extension}`;
-      }
-      if (
-        !existsSync(join(targetFolder, 'old', modificationDate)) &&
-        process.env.NODE_ENV !== 'test'
-      ) {
-        mkdirpSync(join(targetFolder, 'old', modificationDate));
-      }
-      for (const file of fileList) {
-        renameSync(
-          join(targetFolder, file.name),
-          join(targetFolder, 'old', `${modificationDate}`, file.name),
-        );
-      }
+    // Read the remote metadata with a cheap HEAD request (no body) instead of
+    // opening a full GET against a multi-hundred-MB file just to read its
+    // size. This is what kept triggering the server's 503 throttling.
+    const headResponse = await fetchWithRetry(file.url, 'HEAD');
+    const lastModified =
+      headResponse.headers.get('last-modified') ||
+      headResponse.headers.get('date');
+    const contentLength = headResponse.headers.get('content-length');
+    const newFileSize = contentLength ? Number(contentLength) : -1;
+    debug.trace(
+      `${filename}: remote size ${newFileSize} / local ${lastFilesSize}`,
+    );
 
-      const targetFile = join(
-        targetFolder,
-        `${filename}.${modificationDate}.${extension}`,
-      );
-      target = targetFile;
-      debug.trace(`targetFile: ${targetFile}`);
-
-      debug.trace(
-        `New file size do not match local one:${newFileSize}/${lastFilesSize}`,
-      );
-      const body = response.body;
-      const encoding = body._readableState.defaultEncoding;
-
-      const writeStream = createWriteStream(targetFile, encoding);
-      for await (let part of body) {
-        writeStream.write(part);
-      }
-      writeStream.close();
-      if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
-
-      debug.trace(`Downloaded: ${options.filename}`);
-
-      return targetFile;
-    } else {
-      const targetFile = join(targetFolder, lastFileTargetLocal);
-      debug.trace(
-        `${filename}: New file size match local one (no need to fetch):${
-          newFileSize === 0 ? 'undefined' : newFileSize
-        }/${lastFilesSize}`,
-      );
-      return targetFile;
+    if (lastFilesSize === newFileSize) {
+      // Local copy is up to date — no download needed.
+      debug.trace(`${filename}: up to date (${newFileSize}), no download`);
+      return join(targetFolder, lastFileTargetLocal);
     }
+
+    const modificationDate = new Date(lastModified).toISOString().slice(0, 10);
+    debug.trace(`${filename}: changed, last modification ${modificationDate}`);
+    // in case of test we do not want to write to disk
+    if (process.env.NODE_ENV === 'test') {
+      return `${filename}.${modificationDate}.${extension}`;
+    }
+
+    // Archive any previous local copies before downloading the new one.
+    if (!existsSync(join(targetFolder, 'old', modificationDate))) {
+      mkdirpSync(join(targetFolder, 'old', modificationDate));
+    }
+    for (const localFile of fileList) {
+      renameSync(
+        join(targetFolder, localFile.name),
+        join(targetFolder, 'old', modificationDate, localFile.name),
+      );
+    }
+
+    const targetFile = join(
+      targetFolder,
+      `${filename}.${modificationDate}.${extension}`,
+    );
+    target = targetFile;
+    debug.trace(`${filename}: downloading to ${targetFile}`);
+
+    // Only now do the heavy GET to stream the body to disk.
+    const response = await fetchWithRetry(file.url, 'GET');
+    await pipeline(response.body, createWriteStream(targetFile));
+    if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
+
+    debug.trace(`${filename}: downloaded`);
+    return targetFile;
   } catch (error) {
     debug.fatal(`ERROR downloading: ${filename}`);
     debug.fatal(error);
