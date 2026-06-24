@@ -31,10 +31,10 @@ let pendingResolutions = 0;
 /**
  * @description Multithread import of compounds
  * @param molecule
- * @param [options={}]
+ * @param [options]
  * @returns result to be imported, plus a `settled` hook the producer
- *   resolves when its own downstream work (upsert, progress write) is done
- *   so the pool can release the backpressure slot for this compound.
+ * resolves when its own downstream work (upsert, progress write) is done
+ * so the pool can release the backpressure slot for this compound.
  */
 export default async function improveCompoundPool(molecule, options = {}) {
   const timeForTimeout = options.timeout || 60000;
