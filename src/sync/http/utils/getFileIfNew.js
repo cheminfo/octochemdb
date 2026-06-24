@@ -17,12 +17,13 @@ import debugLibrary from '../../../utils/Debug.js';
 const { mkdirpSync } = pkg;
 const debug = debugLibrary('getFileIfNew');
 
-// Number of times a single file fetch is retried before giving up. The PubChem
-// FTP server intermittently answers automated sequential requests with a
-// non-200 status (throttling/transient errors) even though the file exists, so
-// a single failed fetch must not abort the whole import.
-const MAX_FETCH_ATTEMPTS = 5;
-const RETRY_DELAY = 10000; // ms between attempts
+// The PubChem FTP server answers rapid sequential automated requests with a
+// 503 (throttling) even though the file exists, and the throttle window can
+// last a while. A single failed fetch must not abort the whole import, so we
+// retry with exponential backoff (capped) until the server lets us through.
+const MAX_FETCH_ATTEMPTS = 8;
+const RETRY_BASE_DELAY = 10000; // ms; first backoff, doubled each attempt
+const RETRY_MAX_DELAY = 120000; // ms; cap on a single backoff wait
 
 /**
  * Fetch a URL, retrying on network errors or non-200 responses. Mirrors the
@@ -35,7 +36,11 @@ const RETRY_DELAY = 10000; // ms between attempts
 async function fetchWithRetry(url, init) {
   let lastError;
   for (let attempt = 1; attempt <= MAX_FETCH_ATTEMPTS; attempt++) {
-    let waitTime = RETRY_DELAY;
+    // Exponential backoff: 10s, 20s, 40s, ... capped at RETRY_MAX_DELAY.
+    let waitTime = Math.min(
+      RETRY_BASE_DELAY * 2 ** (attempt - 1),
+      RETRY_MAX_DELAY,
+    );
     try {
       const response = await fetch(url, init);
       if (response.status === 200) return response;
