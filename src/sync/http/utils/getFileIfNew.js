@@ -35,20 +35,27 @@ const RETRY_DELAY = 10000; // ms between attempts
 async function fetchWithRetry(url, init) {
   let lastError;
   for (let attempt = 1; attempt <= MAX_FETCH_ATTEMPTS; attempt++) {
+    let waitTime = RETRY_DELAY;
     try {
       const response = await fetch(url, init);
       if (response.status === 200) return response;
       lastError = new Error(
         `Could not fetch file: ${url} (status ${response.status})`,
       );
+      // The PubChem server throttles with 503 + a Retry-After header telling
+      // us how long to back off; honour it so we stop hammering the server.
+      const retryAfter = Number(response.headers.get('retry-after'));
+      if (Number.isFinite(retryAfter) && retryAfter > 0) {
+        waitTime = retryAfter * 1000;
+      }
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
     }
     if (attempt < MAX_FETCH_ATTEMPTS) {
       debug.warn(
-        `Fetch attempt ${attempt}/${MAX_FETCH_ATTEMPTS} failed for ${url}: ${lastError.message}. Retrying in ${RETRY_DELAY}ms`,
+        `Fetch attempt ${attempt}/${MAX_FETCH_ATTEMPTS} failed for ${url}: ${lastError.message}. Retrying in ${waitTime}ms`,
       );
-      await delay(RETRY_DELAY);
+      await delay(waitTime);
     }
   }
   throw lastError;
@@ -87,7 +94,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       return row[0]?.toLocaleLowerCase() === 'content-length';
     });
 
-    debug.trace(`New file size: ${contentLength}`);
+    debug.trace(`${filename}: New file size: ${contentLength}`);
     let newFileSize = contentLength ? Number(contentLength[1]) : -1;
     let fileList = (
       await fileCollectionFromPath(targetFolder, {
@@ -164,7 +171,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     } else {
       const targetFile = join(targetFolder, lastFileTargetLocal);
       debug.trace(
-        `New file size match local one (no need to fetch):${
+        `${filename}: New file size match local one (no need to fetch):${
           newFileSize === 0 ? 'undefined' : newFileSize
         }/${lastFilesSize}`,
       );
