@@ -7,7 +7,7 @@ import {
   getCompoundsData,
 } from '../getCompoundsData';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('getCompoundsData', async () => {
   let molecule = {

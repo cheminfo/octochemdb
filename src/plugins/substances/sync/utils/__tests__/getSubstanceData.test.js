@@ -7,7 +7,7 @@ import {
   getSubstanceData,
 } from '../getSubstanceData';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('getSubstanceData returns expected shape', async () => {
   const molecule = {

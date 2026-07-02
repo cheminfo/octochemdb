@@ -6,7 +6,7 @@ import { expect, test } from 'vitest';
 
 import { parseMassBank } from '../parseMassBank';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('parseMassBank', async () => {
   const blob = readFileSync(join(__dirname, 'data/massBank.msp'));

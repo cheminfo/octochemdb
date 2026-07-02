@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 
 import getFile from '../getFile.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('getFile', async () => {
   const targetFile = '';

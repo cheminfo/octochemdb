@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 
 import debugLibrary from './Debug.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const debug = debugLibrary('OctoChemConnection');
 

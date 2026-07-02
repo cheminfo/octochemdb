@@ -4,7 +4,7 @@ import { expect, test } from 'vitest';
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { checkGNPSLink } from '../checkGNPSLink.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('checkGNPSLink', async () => {
   const previousLinks = [

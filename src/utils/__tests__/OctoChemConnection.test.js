@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 
 import { OctoChemConnection } from '../OctoChemConnection';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('connection to DB', async () => {
   const connection = new OctoChemConnection();

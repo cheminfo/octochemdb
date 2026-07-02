@@ -7,7 +7,7 @@ import {
   getNoStereosFromCache,
 } from '../getNoStereosFromCache.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('getNoStereosFromCache returns expected shape', async () => {
   const oclMolecule = OCL.Molecule.fromSmiles('CCOc1ccccc1N');

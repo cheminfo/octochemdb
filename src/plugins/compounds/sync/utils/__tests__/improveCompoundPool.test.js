@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 
 import improveCompoundPool from '../improveCompoundPool';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const SMALL_MOLECULE = { smiles: 'CCO' };
 const swallow = () => undefined;

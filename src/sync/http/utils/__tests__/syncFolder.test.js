@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 
 import syncFolder from '../syncFolder';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('syncFolder', async () => {
   const destination = 'src/sync/http/utils/__tests__/data/';
