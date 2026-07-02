@@ -7,6 +7,21 @@ export async function shouldUpdate(
   collectionUpdateInterval,
   connection,
 ) {
+  // A missing *_UPDATE_INTERVAL env var makes the interval check NaN upstream,
+  // which leaves `sources` undefined and used to blow up here with a cryptic
+  // "Illegal argument undefined" from md5. Fail with an actionable message
+  // instead so the misconfiguration is obvious.
+  if (
+    collectionUpdateInterval === undefined ||
+    collectionUpdateInterval === ''
+  ) {
+    throw new Error(
+      'shouldUpdate: update interval is not set (check the *_UPDATE_INTERVAL env var for this plugin)',
+    );
+  }
+  if (sources === undefined) {
+    throw new Error('shouldUpdate: "sources" is undefined');
+  }
   sources = md5(JSON.stringify(sources));
   const timeElapsed = Date.now() - progress.dateEnd;
   const minInterval = Number(collectionUpdateInterval) * 24 * 60 * 60 * 1000;
