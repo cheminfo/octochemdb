@@ -115,6 +115,15 @@ export async function sync(connection) {
         );
         imported++;
       }
+      // Guard the destructive swap: an empty parse must not rename an empty
+      // temp collection over the live one (data loss + false 'updated').
+      if (imported === 0) {
+        await debug.fatal(
+          'lotuses parse produced 0 documents; aborting swap to protect existing data',
+          { collection: options.collectionName, connection },
+        );
+        return;
+      }
       // Atomically replace the live collection with the temporary one
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,

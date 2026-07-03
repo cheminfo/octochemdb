@@ -126,6 +126,18 @@ export async function sync(connection) {
 
         imported++;
       }
+      // Guard the destructive swap: if the parse produced nothing (e.g. an
+      // empty/unreadable source, or the SMILES parser aborting the generator),
+      // do NOT rename the empty temp collection over the live one — that would
+      // wipe all existing npasses data and still report success. Abort instead,
+      // leaving the current collection and progress state untouched.
+      if (imported === 0) {
+        await debug.fatal(
+          'npasses parse produced 0 documents; aborting swap to protect existing data',
+          { collection: 'npasses', connection },
+        );
+        return;
+      }
       // Atomic swap: rename temp collection → final (drops the old npasses)
       await temporaryCollection.rename('npasses', {
         dropTarget: true,
