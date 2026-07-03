@@ -1,5 +1,20 @@
 import md5 from 'md5';
 
+/**
+ * Decide whether a plugin's collection needs to be (re)imported. Returns true
+ * when the source fingerprint changed, the configured update interval has
+ * elapsed, or a previous import was left incomplete. Throws with an actionable
+ * message when the update interval is unset (missing `*_UPDATE_INTERVAL` env
+ * var) or `sources` is undefined.
+ * @param progress - The plugin's progress document from the admin collection.
+ * @param sources - Current source descriptors; hashed to detect changes.
+ * @param lastDocumentImported - Last document imported on the previous run, or
+ *   null if none (forces an import).
+ * @param collectionUpdateInterval - Minimum days between imports (from the
+ *   plugin's `*_UPDATE_INTERVAL` env var).
+ * @param connection - Active DB connection wrapper (used to persist progress).
+ * @returns True if an import should run, false otherwise.
+ */
 export async function shouldUpdate(
   progress,
   sources,

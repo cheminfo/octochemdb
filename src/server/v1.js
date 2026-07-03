@@ -1,5 +1,15 @@
 import { recursiveDir } from '../utils/recursiveDir.js';
 
+/**
+ * Fastify plugin that auto-registers every v1 route. It scans `src/plugins/`
+ * for modules under a `routes/` path whose default export has a `schema`
+ * object, derives the route URL from the file path, and registers it. Modules
+ * without a schema (helpers, handlers) are skipped.
+ * @param fastify - Fastify instance to register routes on.
+ * @param _ - Plugin options (unused).
+ * @param done - Callback invoked once all routes are registered.
+ * @returns {Promise<void>}
+ */
 export default async function v1(fastify, _, done) {
   const url = new URL('../plugins/', import.meta.url);
   const routeURLs = (await recursiveDir(url)).filter((file) =>

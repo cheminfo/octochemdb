@@ -215,6 +215,12 @@ for (let toIgnore of toIgnores) {
   ignoreSet.add(toIgnore);
 }
 
+/**
+ * Return true if a keyword should be ignored when building search keywords
+ * (stop-words, units, punctuation, etc.). Case-insensitive.
+ * @param keyword - The candidate keyword.
+ * @returns True if the keyword is in the ignore set.
+ */
 export function isIgnoreKeyword(keyword) {
   return ignoreSet.has(keyword.toLowerCase());
 }

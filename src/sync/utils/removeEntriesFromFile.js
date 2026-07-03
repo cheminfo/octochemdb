@@ -4,6 +4,15 @@ import debugLibrary from '../../utils/Debug.js';
 
 const debug = debugLibrary('removeEntriesFromFile');
 
+/**
+ * Apply a "killed entries" file to a collection: read the list of IDs to
+ * remove/tombstone from `file` and update the corresponding documents in the
+ * named collection.
+ * @param connection - Active DB connection wrapper.
+ * @param collectionName - Collection to update.
+ * @param file - File descriptor whose `path` points to the kill-list.
+ * @returns {Promise<void>}
+ */
 export default async function removeEntriesFromFile(
   connection,
   collectionName,

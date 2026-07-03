@@ -106,6 +106,13 @@ async function syncFolder(source, destinationFolder, options = {}) {
 
 export default syncFolder;
 
+/**
+ * Return the remote size in bytes of a file, using a HEAD request to avoid
+ * downloading it. Falls back gracefully when the server omits Content-Length
+ * on HEAD responses.
+ * @param file - File descriptor with a `url` property.
+ * @returns The file size in bytes (or as resolved by the fallback path).
+ */
 export async function fileSize(file) {
   // Use HEAD to avoid downloading the whole file just for its size.
   let response = await fetch(file.url, { method: 'HEAD' });

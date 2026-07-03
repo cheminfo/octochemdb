@@ -6,6 +6,18 @@ import debugLibrary from './Debug.js';
 
 const debug = debugLibrary('fetchNoStereosFromCache');
 
+/**
+ * Resolve a molecule's idCode, coordinates and stereo-independent tautomer ID.
+ * Queries the OCL cache service (retried up to 3 times); if the cache is
+ * unreachable, falls back to computing the same values locally
+ * (`computeNoStereosLocally`) — the two are guaranteed to agree, so the
+ * `noStereoTautomerID` join key is stable either way.
+ * @param molecule - An OpenChemLib molecule instance.
+ * @param connection - Active DB connection wrapper (used for error logging).
+ * @param currentCollection - Collection name, for error attribution.
+ * @returns `{ idCode, coordinates, noStereoTautomerID }`, or undefined on a
+ *   fatal error.
+ */
 export async function getNoStereosFromCache(
   molecule,
   connection,
@@ -66,6 +78,14 @@ export async function getNoStereosFromCache(
   }
 }
 
+/**
+ * Compute idCode, coordinates and stereo-independent tautomer ID locally with
+ * OpenChemLib. Used as the fallback when the OCL cache is unreachable; produces
+ * the same `noStereoTautomerID` as the cache.
+ * @param molecule - An OpenChemLib molecule instance.
+ * @param oclID - Result of `molecule.getIDCodeAndCoordinates()`.
+ * @returns `{ idCode, coordinates, noStereoTautomerID }`.
+ */
 export function computeNoStereosLocally(molecule, oclID) {
   return {
     idCode: oclID.idCode,
