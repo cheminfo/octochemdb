@@ -65,7 +65,9 @@ export async function* parseNpasses(
         oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
       } catch (error) {
         const err = error instanceof Error ? error : new Error(String(error));
-        debug.warn(`npasses ${item.np_id}: skipping bad SMILES (${err.message})`);
+        debug.warn(
+          `npasses ${item.np_id}: skipping bad SMILES (${err.message})`,
+        );
         continue;
       }
       // Compute the stereo-independent tautomer ID (cached for performance)
