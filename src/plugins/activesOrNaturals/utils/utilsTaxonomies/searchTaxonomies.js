@@ -1,6 +1,6 @@
 /**
  * Search the taxonomies collection for a single matching document.
- * @param taxonomiesCollection
+ * @param taxonomiesCollection - taxonomies collection.
  * @param searchParameter - MongoDB filter (e.g. `{ _id: 12345 }`)
  * @returns at most one matching document
  */

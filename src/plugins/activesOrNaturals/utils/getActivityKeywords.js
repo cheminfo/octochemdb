@@ -2,7 +2,7 @@ import { isIgnoreKeyword } from '../../../utils/isIgnoreKeyword.js';
 /**
  * Extract lowercased keyword tokens from the assay names in the activities array,
  * filtering out ignored keywords and numeric tokens.
- * @param activities
+ * @param activities - activity objects, each holding an `assay` name.
  * @returns deduplicated array of activity keywords
  */
 export default function getActivityKeywords(activities) {

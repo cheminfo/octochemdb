@@ -1,3 +1,14 @@
+/**
+ * Ensures a progress entry exists for each collection and augments each with storage statistics.
+ *
+ * For every collection (or only `collectionToSearch` when provided) a placeholder
+ * "not started" progress entry is added when none is present, then each matching
+ * progress entry is enriched with `$collStats` storage statistics.
+ * @param connection - Active OctoChemDB connection used to list collections and read their stats.
+ * @param results - Existing progress entries to enrich; missing ones are appended.
+ * @param collectionToSearch - When non-empty, limits processing to this single collection.
+ * @returns The results array with placeholder entries added and storage statistics merged in.
+ */
 export async function getEntriesStats(connection, results, collectionToSearch) {
   let names = await connection.getCollectionNames();
   if (collectionToSearch !== '') {

@@ -1,6 +1,6 @@
 /**
  * Extract lowercased keyword tokens from molecule titles.
- * @param molecules
+ * @param molecules - molecule objects, each optionally holding a `titles` array.
  * @returns deduplicated array of title keywords
  */
 export function getTitlesKeywords(molecules) {

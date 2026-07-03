@@ -2,9 +2,9 @@ import { searchTaxonomies } from './searchTaxonomies.js';
 /**
  * Resolve and standardize taxonomies for CMAUP and NPASS entries by searching
  * the taxonomies collection with species/genus/family IDs or names.
- * @param entry - source document from the aggregation
- * @param taxonomiesCollection
- * @param oldToNewTaxIDs - deprecated taxon ID to current ID map
+ * @param entry - source document from the aggregation.
+ * @param taxonomiesCollection - taxonomies collection.
+ * @param oldToNewTaxIDs - deprecated taxon ID to current ID map.
  * @param collectionName - name of the source collection (for DBRef)
  * @returns standardized taxonomy objects
  */

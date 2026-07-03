@@ -5,6 +5,11 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves MassBank entries matching a list of MassBank IDs.
+ * @param request - Fastify request whose query provides `ids` (comma/space/semicolon separated IDs) and optional `fields` (projection).
+ * @returns An object `{ data }` with the array of matching entries, or `{ errors }` on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

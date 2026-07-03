@@ -4,6 +4,13 @@ import { Worker } from 'node:worker_threads';
 import debugLibrary from '../../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../../utils/OctoChemConnection.js';
 
+/**
+ * Distribute the assay files across a pool of worker threads that parse and
+ * upsert each assay into the temporary bioassaysPubChem collection.
+ * Splits the file list into roughly equal chunks (one per worker, using half the
+ * available CPUs), logs import progress, and terminates the workers once done.
+ * @param fileList - Array of paths to the decompressed assay files to import.
+ */
 export async function main(fileList) {
   const debug = debugLibrary('bioassaysPubChem Main');
 

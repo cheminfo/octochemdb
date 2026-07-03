@@ -6,9 +6,9 @@ const debug = debugLibrary('getActivityInfo');
 
 /**
  * Collect activity information from bioassays, npasses and cmaups entries.
- * @param data - documents from the aggregation pipeline
- * @param connection
- * @returns
+ * @param data - documents from the aggregation pipeline.
+ * @param connection - MongoDB connection wrapper.
+ * @returns object with `activityInfos` and `activityDBRef` arrays.
  */
 export default async function getActivitiesInfo(data, connection) {
   try {

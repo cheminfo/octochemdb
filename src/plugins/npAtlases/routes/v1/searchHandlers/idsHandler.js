@@ -5,6 +5,13 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Route handler that retrieves npAtlases entries matching the given IDs.
+ * @param request - Incoming request whose query provides `ids` (a delimited
+ *   list of npAtlases IDs) and `fields` (the fields to project).
+ * @returns Object with a `data` array of matching entries, or an `errors`
+ *   array when the query fails.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

@@ -27,7 +27,8 @@ const debug = debugLibrary('syncTaxonomies');
  *    e. Atomically rename `taxonomies_tmp` → `taxonomies`.
  *    f. Persist progress and rebuild indexes on all standard ranks.
  * @param connection - Active database connection.
- * @returns
+ * @returns Resolves once the synchronisation run completes (or is skipped
+ *   because the source is already up to date); errors are caught and logged.
  */
 export async function sync(connection) {
   const options = {

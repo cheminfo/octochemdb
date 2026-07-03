@@ -1,6 +1,9 @@
 import { searchHandler } from './searchHandler/searchHandler.js';
 
 // export the handler
+/**
+ * Fastify route definition for searching in silico mass spectra by a range of m/z values, exact mass, or molecular formula, with configurable ionization mode/source, precision, limit and returned fields.
+ */
 const searchInSilicoFragments = {
   method: ['GET', 'POST'],
   schema: {

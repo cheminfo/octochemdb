@@ -21,7 +21,7 @@ const debug = debugLibrary('addNbCompoundsToPatents');
  * @async
  * @param connection
  *   An active OctoChemConnection instance.
- * @returns
+ * @returns Resolves once every patent document has a defined `data.nbCompounds`; errors are reported via debug.fatal rather than thrown.
  */
 export default async function addNbCompoundsToPatents(connection) {
   try {

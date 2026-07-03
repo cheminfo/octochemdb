@@ -11,6 +11,14 @@ import { getRecords } from './getRecords.js';
 import { getReferences } from './getReferences.js';
 import { recursiveLowerCase } from './recursiveLowerCase.js';
 
+/**
+ * Streams and parses an LCCS XML file, yielding a structured data record per CID entry with GHS classification and safety sections.
+ * @param filePath - Path to the LCCS XML file to parse.
+ * @param root0 - GHS code lookup tables.
+ * @param root0.hCodes - Lookup table of hazard (H) codes to their details.
+ * @param root0.pCodes - Lookup table of precautionary (P) codes to their statement text.
+ * @yields A record object `{ _id, data }` for each CID entry.
+ */
 export async function* parseLccs(filePath, { hCodes, pCodes }) {
   const fileStream = await open(filePath, 'r');
   const readableStream = fileStream.readableWebStream();

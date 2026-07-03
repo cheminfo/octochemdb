@@ -1,3 +1,8 @@
+/**
+ * Extracts the list of precautionary (P) statement codes from a classification entry.
+ * @param entry - Precautionary Statement Codes classification entry containing stringwithmarkup statements.
+ * @returns An array of unique precautionary statement codes.
+ */
 export function getPStatements(entry) {
   const statements = entry.value.stringwithmarkup;
   let codes = {};

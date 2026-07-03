@@ -5,6 +5,14 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves taxonomy entries for a list of NCBI taxonomy IDs, projecting only
+ * the requested fields.
+ * @param request - Fastify request whose query provides comma/space-separated
+ *   `ids` and an optional `fields` selection (defaults to `data`).
+ * @returns An object with a `data` array of matching documents, or an `errors`
+ *   array if the query failed.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

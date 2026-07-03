@@ -1,5 +1,9 @@
 import { idsHandler } from './searchHandler/idsHandler.js';
 
+/**
+ * Fastify route definition that retrieves taxonomy entries for a list of NCBI
+ * taxonomy IDs via the `idsHandler`.
+ */
 const searchIDs = {
   method: ['GET', 'POST'],
   schema: {

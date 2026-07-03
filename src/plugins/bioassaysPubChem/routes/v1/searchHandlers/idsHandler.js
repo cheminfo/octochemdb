@@ -4,6 +4,13 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Search the bioassaysPubChem collection by AID(s) and return the matching assays.
+ * Splits the comma/whitespace-separated `ids` query into numeric AIDs, matches them
+ * against the numeric `_id`, projects the requested `fields`, and returns the results.
+ * @param request - Fastify request whose query provides `ids` (comma-separated AIDs) and `fields`.
+ * @returns Object with a `data` array of matching assay documents, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   const data = getRequestQuery(request);
   const { ids = '', fields = 'data' } = data;

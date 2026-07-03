@@ -30,7 +30,7 @@ const debug = debugLibrary('parseGNPs');
  * @param jsonPath - Path to the GNPS JSON library dump file.
  * @param connection - Active database connection wrapper.
  * @yields {GnpsEntry}
- * @returns
+ * @returns An async generator that yields one `GnpsEntry` document per valid spectrum record.
  */
 export async function* parseGNPs(jsonPath, connection) {
   const jsonStream = StreamArray.withParserAsStream();

@@ -6,8 +6,7 @@ import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
 /**
  * Split `links` into chunks and process them in parallel using worker threads.
- * @param links - map of noStereoTautomerID to source references
- * @returns
+ * @param links - map of noStereoTautomerID to source references.
  */
 export async function main(links) {
   const debug = debugLibrary('improveActivesOrNaturals Main');

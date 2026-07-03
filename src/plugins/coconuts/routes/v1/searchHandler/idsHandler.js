@@ -5,6 +5,11 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Handles ID-based search requests for the coconuts collection.
+ * @param request - Fastify request object carrying the `ids` and `fields` query parameters.
+ * @returns An object with a `data` array of matching documents, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

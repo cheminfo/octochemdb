@@ -4,6 +4,11 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves LCCS records for a single compound ID from the lccs collection.
+ * @param request - Fastify request whose query provides `id` (a single compound ID or comma/space-separated list) and `fields` (fields to project).
+ * @returns An object `{ data }` with the matching records, or `{ errors }` on failure.
+ */
 export async function idHandler(request) {
   let { id = '', fields = 'data' } = request.query;
 

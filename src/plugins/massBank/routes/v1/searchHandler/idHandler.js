@@ -3,6 +3,11 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromID');
 
+/**
+ * Retrieves a single MassBank entry by its exact `_id`.
+ * @param request - Fastify request whose query provides `id` (MassBank ID) and optional `fields` (projection).
+ * @returns An object `{ data }` with the matching entry (or `null`), or `{ errors }` on failure.
+ */
 export async function idHandler(request) {
   let { id = '', fields = 'data.ocl.noStereoTautomerID' } = request.query;
 

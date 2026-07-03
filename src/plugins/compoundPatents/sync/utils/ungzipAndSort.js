@@ -21,7 +21,7 @@ const debug = debugLibrary('ungzipAndSort');
  * @param source - Absolute or relative path to the `.gz` input file.
  * @param destination - Path where the sorted plain-text output is
  *   written. The file is created or overwritten.
- * @returns
+ * @returns Resolves once the decompress-and-sort pipeline has written the destination file.
  */
 export default async function ungzipAndSort(source, destination) {
   debug.trace(`Ungzip and sorting file: ${source}`);

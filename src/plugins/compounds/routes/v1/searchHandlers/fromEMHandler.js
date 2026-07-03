@@ -4,6 +4,11 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromEM');
 
+/**
+ * Searches the compounds collection for entries whose monoisotopic mass falls within a ppm tolerance of the requested mass.
+ * @param request - Fastify request; query may contain em (target monoisotopic mass), precision (ppm tolerance), limit (max results, clamped to 1..1e4) and fields (comma-separated projection).
+ * @returns Object with a `data` array of matching compounds, or an `errors` array on failure.
+ */
 export async function fromEMHandler(request) {
   let {
     em = 0,

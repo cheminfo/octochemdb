@@ -16,8 +16,10 @@ import debugLibrary from '../../../../../utils/Debug.js';
  * @async
  * @param url - Base URL of the PubChem patent RDF directory,
  *   e.g. `https://ftp.ncbi.nlm.nih.gov/pubchem/RDF/patent/`.
- * @param [options={}] - Optional filter settings.
- * @returns
+ * @param [options={}] - Optional settings; `options.fileFilter` is a predicate
+ *   receiving each parsed file descriptor and returning whether to keep it.
+ * @returns Object with `abstracts2Download` and `titles2Download` arrays of
+ *   file descriptors, or `undefined` if an error occurs.
  */
 async function getFileListPatents(url, options = {}) {
   const debug = debugLibrary('getFileListPatents');

@@ -23,7 +23,6 @@ const massBankSource =
  * MSP record via {@link parseMassBank}, upserts into a temporary collection,
  * then atomically renames it and rebuilds indexes.
  * @param connection - Database connection instance
- * @returns
  */
 export async function sync(connection) {
   try {

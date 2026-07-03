@@ -1,5 +1,9 @@
 import { idHandler } from './searchHandler/idHandler.js';
 
+/**
+ * Fastify route definition that retrieves a taxonomy by its NCBI taxonomy ID
+ * via the `idHandler`.
+ */
 const taxonomyFromID = {
   method: 'GET',
   schema: {

@@ -4,7 +4,7 @@ import debugLibrary from '../../../../../utils/Debug.js';
 /**
  * Search for `n` entries while skipping the first `k` entries.
  * @param request - Fastify request
- * @returns
+ * @returns object with the retrieved entries under `data`, or `errors` on failure.
  */
 export async function nEntriesHandler(request) {
   const { n = 1000, k = 0, fields = '' } = request.query;

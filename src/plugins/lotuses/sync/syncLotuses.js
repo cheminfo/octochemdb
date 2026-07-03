@@ -28,7 +28,7 @@ import { parseLotuses } from './utils/parseLotuses.js';
  * Errors are persisted to the admin MongoDB collection via `debug.fatal` and
  * are not re-thrown.
  * @param connection - Active database connection wrapper.
- * @returns
+ * @returns Resolves when the sync completes; errors are logged, not thrown.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncLotuses');

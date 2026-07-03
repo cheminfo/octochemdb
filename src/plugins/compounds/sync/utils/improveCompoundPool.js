@@ -30,8 +30,8 @@ let pendingResolutions = 0;
 
 /**
  * @description Multithread import of compounds
- * @param molecule
- * @param [options]
+ * @param molecule - molecule from pubchem file to improve in a worker thread.
+ * @param [options] - options such as timeout (ms) before aborting the worker run.
  * @returns result to be imported, plus a `settled` hook the producer
  * resolves when its own downstream work (upsert, progress write) is done
  * so the pool can release the backpressure slot for this compound.

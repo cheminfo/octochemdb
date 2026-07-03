@@ -4,6 +4,11 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromMF');
 
+/**
+ * Searches the compounds collection for entries matching an exact molecular formula.
+ * @param request - Fastify request; query may contain mf (molecular formula), limit (max results, clamped to 1..5e4) and fields (comma-separated projection).
+ * @returns Object with a `data` array of matching compounds, or an `errors` array on failure.
+ */
 export async function fromMFHandler(request) {
   let {
     mf = '',

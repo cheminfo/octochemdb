@@ -5,6 +5,16 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('fromEM');
 
+/**
+ * Route handler that finds molecular formulae matching one or more
+ * monoisotopic masses within a given ppm precision.
+ * @param request - Incoming request whose query provides `em` (delimited
+ *   monoisotopic masses), `minCount` (minimum PubChem occurrences),
+ *   `precision` (mass tolerance in ppm), `limit` (max results, capped at
+ *   10000) and `fields` (the fields to project).
+ * @returns Object with a `data` array of matching molecular formulae, or an
+ *   `errors` array when the query fails.
+ */
 export async function fromEMHandler(request) {
   let data = getRequestQuery(request);
   let {

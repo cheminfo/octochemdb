@@ -21,9 +21,7 @@ const debug = debugLibrary('insertTitle');
  * the `compoundPatents` collection has been fully synced.
  * @async
  * @param filneName - Path to the gzipped TTL input file.
- * @param connection
- *   An active OctoChemConnection instance.
- * @returns
+ * @param connection - An active OctoChemConnection instance.
  */
 export default async function insertTitle(filneName, connection) {
   try {

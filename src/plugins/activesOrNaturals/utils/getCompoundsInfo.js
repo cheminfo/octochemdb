@@ -7,12 +7,12 @@ const debug = debugLibrary('getCompoundsInfo');
 /**
  * Enrich `entry` with compound information (patents, molecules, CAS, etc.)
  * from the compounds and compoundPatents collections.
- * @param entry - aggregation entry (mutated in place)
- * @param data - documents from source collections
- * @param compoundsCollection
- * @param noStereoTautomerID
- * @param connection
- * @param compoundPatentsCollection
+ * @param entry - aggregation entry (mutated in place).
+ * @param data - documents from source collections.
+ * @param compoundsCollection - compounds collection.
+ * @param noStereoTautomerID - stereo/tautomer-agnostic compound identifier.
+ * @param connection - MongoDB connection wrapper.
+ * @param compoundPatentsCollection - compoundPatents collection.
  * @returns the enriched entry
  */
 export default async function getCompoundsInfo(

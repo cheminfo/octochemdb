@@ -1,6 +1,6 @@
 /**
  * Extract lowercased keyword tokens from taxonomy rank fields.
- * @param taxonomies
+ * @param taxonomies - taxonomy objects with rank fields (superkingdom through species).
  * @returns deduplicated array of taxonomy keywords
  */
 export default function getTaxonomyKeywords(taxonomies) {

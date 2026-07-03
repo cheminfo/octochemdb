@@ -5,8 +5,8 @@ import { getStats } from '../../../../../utils/getStats.js';
 const debug = debugLibrary('stats');
 // export default searchHandler;
 /**
- * @description get the stats of the cmaups collection
- * @returns returns the stats of the cmaups collection
+ * Returns statistics about the cmaups collection.
+ * @returns An object with a `data` field holding the collection stats, or an `errors` array on failure.
  */
 
 export async function statsHandler() {

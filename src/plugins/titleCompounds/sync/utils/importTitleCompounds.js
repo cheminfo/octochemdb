@@ -18,7 +18,7 @@ const debug = debugLibrary('importTitleCompounds');
  * ```
  * @param filneName - Path to the decompressed TSV file.
  * @param connection - Active database connection.
- * @returns
+ * @returns Resolves once all mappings are imported and the collection is renamed; errors are caught and logged rather than thrown.
  */
 export default async function importTitleCompounds(filneName, connection) {
   try {

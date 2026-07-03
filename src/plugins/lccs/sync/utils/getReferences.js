@@ -1,6 +1,11 @@
 import debugLibrary from '../../../../utils/Debug.js';
 import { parseHtmlEntities } from '../../../patents/sync/utils/parseHtmlEntities.js';
 
+/**
+ * Builds a lookup table of references keyed by reference number.
+ * @param entry - Array of reference objects containing referencenumber, sourcename, sourceid, url, name, and description.
+ * @returns An object mapping each reference number to its parsed details, or undefined on error.
+ */
 export function getReferences(entry) {
   const debug = debugLibrary('getReferences');
   try {

@@ -32,7 +32,7 @@ import { parseNpasses } from './utils/parseNpasses.js';
  * 4. If the data is already up-to-date the function exits early.
  * @param connection - Active database connection
  *   providing access to collections, progress documents, and error logging.
- * @returns
+ * @returns Resolves once the sync completes; performs its work as side effects and returns no value.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncNpasses');

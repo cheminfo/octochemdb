@@ -11,7 +11,7 @@ const debug = debugLibrary('getCompoundsData');
 /**
  * @description Calculate compounds properties (e.g. charge, OCL ID, molecular formula, etc.)
  * @param molecule - molecule from pubchem file
- * @param options
+ * @param options - computation options (e.g. indexRequired to include the structure search index).
  * @returns compounds properties
  */
 export async function getCompoundsData(molecule, options = {}) {
@@ -102,6 +102,13 @@ export async function getCompoundsData(molecule, options = {}) {
   }
 }
 
+/**
+ * Compute compounds properties locally when the OCL cache is unreachable.
+ * @param oclMolecule - OpenChemLib molecule instance.
+ * @param oclID - object with the molecule idCode and coordinates.
+ * @param options - computation options (e.g. indexRequired to include the structure search index).
+ * @returns compounds properties.
+ */
 export function computeCompoundsDataLocally(oclMolecule, oclID, options = {}) {
   const properties = new OCL.MoleculeProperties(oclMolecule);
   const mfString = getMF(oclMolecule).parts.sort().join('.');

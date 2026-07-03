@@ -26,7 +26,7 @@ import { parseNpatlases } from './utils/parseNpatlases.js';
  *    d. Atomically rename `npAtlases_tmp` → `npAtlases`.
  *    e. Persist progress and rebuild indexes.
  * @param connection - Active database connection.
- * @returns
+ * @returns Resolves when the sync completes; errors are logged, not thrown.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncNpAtlases');

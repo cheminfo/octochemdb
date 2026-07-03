@@ -8,9 +8,9 @@ import { fragmentationOptions } from '../../../aggregates/fragmentationOptions.j
 const debug = debugLibrary('inSilicoFragments');
 
 /**
- * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
- * @param request
- * @returns Entries who match the query parameters inside the activeOrNaturals collection
+ * Searches the inSilicoFragments collection for mass spectra matching a list of experimental masses, an exact mass and/or molecular formula, filtered by ionization source and mode.
+ * @param request - Fastify request whose query provides em, mf, masses, precision, limit, fields, source and mode.
+ * @returns Object with the matching entries and the fragmentation options used, or an errors array on failure.
  */
 export async function searchHandler(request) {
   let data = getRequestQuery(request);

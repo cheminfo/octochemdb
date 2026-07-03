@@ -1,9 +1,9 @@
 import debugLibrary from '../../../utils/Debug.js';
 /**
  * Get DBRefs of mass spectra in the MassBank collection.
- * @param connection
- * @param noStereoTautomerID
- * @returns
+ * @param connection - MongoDB connection wrapper.
+ * @param noStereoTautomerID - stereo/tautomer-agnostic compound identifier.
+ * @returns array of objects each holding a `dbRef` to a MassBank document.
  */
 export async function getMassSpectraRefForMassBank(
   connection,

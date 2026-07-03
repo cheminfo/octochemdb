@@ -5,6 +5,11 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves bioassay documents matching the requested bioassay IDs.
+ * @param request - The incoming request; its query may contain `ids` (comma/space/semicolon/tab/newline-separated bioassay IDs) and `fields` (fields to project).
+ * @returns An object with a `data` array of matching bioassay documents, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

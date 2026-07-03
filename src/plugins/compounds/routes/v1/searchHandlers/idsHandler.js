@@ -5,6 +5,11 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves compounds from the collection by a list of compound IDs, reading the query from GET or POST via getRequestQuery.
+ * @param request - Fastify request; query may contain ids (delimiter-separated list of numeric IDs) and fields (comma-separated projection).
+ * @returns Object with a `data` array of matching compounds, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

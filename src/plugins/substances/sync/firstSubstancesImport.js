@@ -16,7 +16,6 @@ import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
  * 4. Import substances from each file and upsert them into MongoDB.
  * 5. Create indexes on the substances collection.
  * @param connection - MongoDB connection wrapper
- * @returns
  */
 async function firstSubstanceImport(connection) {
   const debug = debugLibrary('firstSubstanceImport');

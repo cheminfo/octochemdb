@@ -4,9 +4,9 @@ const debug = debugLibrary('getCollectionLinks');
 
 /**
  * Build a map of noStereoTautomerID to source references across all collections.
- * @param connection
- * @param collectionNames - names of the source collections to scan
- * @returns
+ * @param connection - MongoDB connection wrapper.
+ * @param collectionNames - names of the source collections to scan.
+ * @returns object with the `links` map and the `collectionSources` array.
  */
 export default async function getCollectionsLinks(connection, collectionNames) {
   try {

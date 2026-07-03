@@ -30,7 +30,7 @@ const debug = debugLibrary('parseBioactivities');
  * @param collectionTaxonomies - MongoDB collection storing taxonomy documents (keyed by numeric taxon ID).
  * @param oldToNewTaxIDs - Map of deprecated taxonomy IDs (keys) to their current replacement IDs (values).
  * @yields {BioactivityEntry} One document per active compound–assay pair.
- * @returns
+ * @returns An async generator yielding one BioactivityEntry per active compound–assay pair.
  */
 async function* parseBioactivities(
   bioActivitiesFilePath,

@@ -1,6 +1,6 @@
 /**
  * Extract lowercased taxonomy keywords from the `targetTaxonomies` of each activity.
- * @param activities
+ * @param activities - activity objects, each optionally holding `targetTaxonomies`.
  * @returns deduplicated array of active-against keywords
  */
 export default function getActiveAgainstKeywords(activities) {

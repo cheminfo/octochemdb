@@ -1,3 +1,10 @@
+/**
+ * Extracts GHS hazard (H) codes from a classification entry and maps each to its description.
+ * @param entry - GHS Hazard Statements classification entry containing the stringwithmarkup value(s).
+ * @param hCodes - Lookup table of known H codes to their details.
+ * @param hCodesDescription - Accumulator object of H code descriptions to populate.
+ * @returns The updated hCodesDescription object with an entry per hazard code found.
+ */
 export function getHStatements(entry, hCodes, hCodesDescription) {
   const stringMarkup = entry.value.stringwithmarkup;
   if (Array.isArray(stringMarkup)) {

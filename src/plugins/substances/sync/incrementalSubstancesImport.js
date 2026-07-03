@@ -16,7 +16,6 @@ import { syncSubstanceFolder } from './utils/syncSubstanceFolder.js';
  *    (controlled by PUBCHEM_UPDATE_INTERVAL env var) or in test mode.
  * 5. Import substances and update the progress document.
  * @param connection - MongoDB connection wrapper
- * @returns
  */
 async function incrementalSubstanceImport(connection) {
   const debug = debugLibrary('incrementalSubstanceImport');

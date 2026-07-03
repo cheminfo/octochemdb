@@ -4,6 +4,13 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('taxonomyFromID');
 
+/**
+ * Retrieves a single taxonomy entry from the `taxonomies` collection by its
+ * NCBI taxonomy ID.
+ * @param request - Fastify request whose query contains the numeric `id`.
+ * @returns An object with a `data` property holding the matching document
+ *   (or `null` if not found), or an `errors` array if the query failed.
+ */
 export async function idHandler(request) {
   let { id } = request.query;
 

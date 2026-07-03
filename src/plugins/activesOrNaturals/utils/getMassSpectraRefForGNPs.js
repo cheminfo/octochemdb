@@ -1,9 +1,9 @@
 import debugLibrary from '../../../utils/Debug.js';
 /**
  * Get DBRefs of mass spectra in the GNPS collection.
- * @param connection
- * @param noStereoTautomerID
- * @returns
+ * @param connection - MongoDB connection wrapper.
+ * @param noStereoTautomerID - stereo/tautomer-agnostic compound identifier.
+ * @returns array of objects each holding a `dbRef` to a GNPS document.
  */
 export async function getMassSpectraRefForGNPs(connection, noStereoTautomerID) {
   const debug = debugLibrary('getMassSpectra');

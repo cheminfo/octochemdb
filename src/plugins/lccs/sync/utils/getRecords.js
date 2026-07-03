@@ -1,6 +1,12 @@
 import debugLibrary from '../../../../utils/Debug.js';
 import { parseHtmlEntities } from '../../../patents/sync/utils/parseHtmlEntities.js';
 
+/**
+ * Builds a structured record from a section entry, extracting its title, description, and information values with resolved references.
+ * @param entry - Section entry containing tocheading, description, and information (single or array).
+ * @param reference - Lookup table of reference numbers to reference details.
+ * @returns A record object with `title`, optional `description`, and a `values` array of extracted information, or undefined on error.
+ */
 export function getRecords(entry, reference) {
   const debug = debugLibrary('getRecords');
   try {
