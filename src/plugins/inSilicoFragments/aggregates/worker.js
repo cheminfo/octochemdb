@@ -74,15 +74,23 @@ parentPort?.on('message', async (dataEntry) => {
             let mode = ['positive', 'negative'];
             for (const ionSource of ionSources) {
               for (const ionMode of mode) {
+                // Query by the actual stored shape: documents are written with
+                // these values nested inside `_id` (see the upsert below), with
+                // different key names (mode/ionization). Querying top-level
+                // noStereoId/ionMode/ionSource never matched, so this findOne
+                // always returned null — defeating the dedup (every molecule
+                // re-fragmented every run) and forcing a full collection scan.
                 let entry = await currentCollection.findOne({
-                  noStereoId: idCodeObj.noStereoId,
-                  ionMode,
-                  ionSource,
+                  _id: {
+                    noStereoId: idCodeObj.noStereoId,
+                    mode: ionMode,
+                    ionization: ionSource,
+                  },
                 });
 
                 if (
-                  entry === undefined ||
-                  entry?.data.fragmentationDbHash !==
+                  !entry ||
+                  entry.data.fragmentationDbHash !==
                     databases[ionSource][ionMode]
                 ) {
                   fragmentationOptions.ionizations = [ionSource];
