@@ -37,6 +37,13 @@ async function getFileListPatents(url, options = {}) {
         if (response?.status === 200) {
           break;
         }
+        // Non-200 (e.g. PubChem 503/429 throttling) does NOT throw, so it would
+        // otherwise fall through and re-request with no pause — a tight loop that
+        // hammers the server and worsens the throttling. Delay before retrying,
+        // same as the thrown-error path. We intentionally keep retrying forever:
+        // the goal is to import the collection, not to skip it.
+        debug.warn(`patent listing HTTP ${response?.status}; retrying`);
+        await delay(10000);
       } catch (error_) {
         if (counter++ > 10) {
           const error =
