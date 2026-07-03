@@ -6,6 +6,7 @@ import {
 } from 'node:fs';
 import { createInterface } from 'node:readline';
 
+import delay from 'delay';
 import OCL from 'openchemlib';
 
 import debugLibrary from '../../../../utils/Debug.js';
@@ -254,44 +255,80 @@ SELECT ?taxon_id ?taxon_name ?taxon_rank ?parent_id {
   OPTIONAL { ?taxon_id wdt:P171 ?parent_id. }
 }
 `;
-      try {
-        const response = await fetch(
-          `${WIKIDATA_SPARQL_ENDPOINT}?query=${encodeURIComponent(query)}`,
-          {
-            headers: {
-              Accept: 'application/sparql-results+json',
-              'User-Agent':
-                'OctoChemDB/1.0 (https://github.com/cheminfo/octochemdb)',
+      // Wikidata's public SPARQL endpoint throttles/errors frequently. Never
+      // skip a chunk on a transient failure — that would leave the taxonomy
+      // tree permanently incomplete. Retry the SAME chunk with backoff
+      // (honouring Retry-After) until it succeeds. Only after MAX_CHUNK_RETRIES
+      // consecutive failures do we give up on that single chunk, so one truly
+      // malformed chunk can't block the whole tree.
+      const MAX_CHUNK_RETRIES = 20;
+      let json;
+      for (let attempt = 0; ; attempt++) {
+        try {
+          const response = await fetch(
+            `${WIKIDATA_SPARQL_ENDPOINT}?query=${encodeURIComponent(query)}`,
+            {
+              headers: {
+                Accept: 'application/sparql-results+json',
+                'User-Agent':
+                  'OctoChemDB/1.0 (https://github.com/cheminfo/octochemdb)',
+              },
             },
-          },
-        );
-        if (!response.ok) {
-          debug.warn(`  Parent taxa query failed: ${response.status}`);
-          continue;
+          );
+          if (!response.ok) {
+            if (attempt >= MAX_CHUNK_RETRIES) {
+              debug.warn(
+                `  Parent taxa chunk still HTTP ${response.status} after ${attempt} retries; skipping this chunk`,
+              );
+              break;
+            }
+            const retryAfter = Number(response.headers.get('retry-after'));
+            const wait =
+              Number.isFinite(retryAfter) && retryAfter > 0
+                ? retryAfter * 1000
+                : 5000;
+            debug.warn(
+              `  Parent taxa HTTP ${response.status}; waiting ${wait}ms and retrying same chunk (attempt ${attempt + 1})`,
+            );
+            await delay(wait);
+            continue;
+          }
+          json = await response.json();
+          break;
+        } catch (/** @type {any} */ error) {
+          if (attempt >= MAX_CHUNK_RETRIES) {
+            debug.warn(
+              `  Parent taxa chunk still failing after ${attempt} retries (${error.message}); skipping this chunk`,
+            );
+            break;
+          }
+          debug.warn(
+            `  Error fetching parent taxa chunk: ${error.message}; retrying same chunk (attempt ${attempt + 1})`,
+          );
+          await delay(5000);
         }
-        const json = await response.json();
-        for (const row of json.results.bindings) {
-          const id = getIdFromIRI(row.taxon_id.value);
-          if (!taxaMap.has(id)) {
-            taxaMap.set(id, {
-              names: [],
-              rank: undefined,
-              ncbiId: undefined,
-              parentId: undefined,
-            });
-          }
-          const entry = taxaMap.get(id);
-          const name = row.taxon_name?.value;
-          if (name && !entry.names.includes(name)) entry.names.push(name);
-          if (!entry.rank && row.taxon_rank?.value) {
-            entry.rank = row.taxon_rank.value;
-          }
-          if (!entry.parentId && row.parent_id?.value) {
-            entry.parentId = getIdFromIRI(row.parent_id.value);
-          }
+      }
+      // Chunk exhausted its retries without a usable response; move on.
+      if (!json) continue;
+      for (const row of json.results.bindings) {
+        const id = getIdFromIRI(row.taxon_id.value);
+        if (!taxaMap.has(id)) {
+          taxaMap.set(id, {
+            names: [],
+            rank: undefined,
+            ncbiId: undefined,
+            parentId: undefined,
+          });
         }
-      } catch (/** @type {any} */ error) {
-        debug.warn(`  Error fetching parent taxa chunk: ${error.message}`);
+        const entry = taxaMap.get(id);
+        const name = row.taxon_name?.value;
+        if (name && !entry.names.includes(name)) entry.names.push(name);
+        if (!entry.rank && row.taxon_rank?.value) {
+          entry.rank = row.taxon_rank.value;
+        }
+        if (!entry.parentId && row.parent_id?.value) {
+          entry.parentId = getIdFromIRI(row.parent_id.value);
+        }
       }
     }
   }
