@@ -5,6 +5,15 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieve substances entries for the given substance IDs.
+ *
+ * Parses the `ids` query parameter (whitespace/comma/semicolon separated),
+ * matches the corresponding documents in the substances collection and
+ * projects the requested `fields`.
+ * @param request - Fastify request whose query contains `ids` and `fields`.
+ * @returns an object with a `data` array of matching substances, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

@@ -5,6 +5,14 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves compoundPatents entries for the requested compound IDs.
+ * Parses the `ids` and `fields` query parameters, matches documents whose
+ * `_id` is in the provided list (or all documents when no ids are given),
+ * projects the requested fields, and returns them.
+ * @param request - The Fastify request whose query provides `ids` (comma/space/semicolon separated) and `fields`.
+ * @returns An object with a `data` array of matching documents, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

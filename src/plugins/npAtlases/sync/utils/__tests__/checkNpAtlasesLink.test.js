@@ -4,7 +4,7 @@ import { expect, test } from 'vitest';
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { checkNpAtlasesLink } from '../checkNpAtlasesLink.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('checkNpAtlasesLink', async () => {
   const previousLinks = [

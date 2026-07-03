@@ -1,12 +1,13 @@
 import debugLibrary from '../../../../utils/Debug.js';
 
 import { getCompoundsData } from './getCompoundsData.js';
-/**
- * @description Parse molecule from pubchem file
- * @param {*} molecule - molecule from pubchem file
- * @returns {Promise<object>} result to be imported
- */
+
 const debug = debugLibrary('improveCompound');
+/**
+ * Parse a molecule from a PubChem file into the compound document to import.
+ * @param molecule - Molecule record from the PubChem file.
+ * @returns The result object to be imported.
+ */
 export default async function improveCompound(molecule) {
   try {
     let dataCompound = await getCompoundsData(molecule);

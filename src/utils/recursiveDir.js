@@ -1,5 +1,12 @@
 import { lstat, readdir } from 'node:fs/promises';
 
+/**
+ * Recursively walk a directory and return every regular file it contains.
+ * Used by cron/route discovery to find plugin sync, aggregate and route
+ * modules under `src/plugins/`.
+ * @param url - Directory URL to walk.
+ * @returns URLs of every file found (depth-first).
+ */
 export async function recursiveDir(url) {
   const files = [];
   await recursiveDirSS(url, files);

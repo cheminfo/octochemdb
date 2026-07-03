@@ -67,6 +67,10 @@ export default async function importOneSubstanceFile(
 
       if (process.env.NODE_ENV === 'test') substances = substances.slice(0, 10);
 
+      // In-flight downstream chains (upsert + setProgress). Awaited before
+      // returning so no writes are still pending when the caller closes the
+      // connection or resumes from progress.seq.
+      const pending = [];
       for (const substance of substances) {
         if (!shouldImport) {
           if (substance.PUBCHEM_SUBSTANCE_ID !== lastDocument._id) {
@@ -79,13 +83,13 @@ export default async function importOneSubstanceFile(
         try {
           const { promise, done } = await improveSubstancePool(substance);
           const downstream = promise
-            .then((result) => {
+            .then(async (result) => {
               if (result === undefined) {
                 return;
               }
               if (result) {
                 if (result.data.taxonomyIDs) {
-                  result = getTaxonomiesSubstances(
+                  result = await getTaxonomiesSubstances(
                     result,
                     collectionTaxonomies,
                   );
@@ -110,6 +114,7 @@ export default async function importOneSubstanceFile(
               debug.fatal(error.message ?? String(error));
             })
             .finally(done);
+          pending.push(downstream);
           if (process.env.NODE_ENV === 'test') {
             await downstream;
           }
@@ -127,6 +132,7 @@ export default async function importOneSubstanceFile(
         newSubstances++;
       }
 
+      await Promise.all(pending);
       debug.trace(`${newSubstances} substances processed`);
       return substances.length;
     }

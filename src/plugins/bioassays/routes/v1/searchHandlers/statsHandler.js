@@ -6,10 +6,9 @@ import { getStats } from '../../../../../utils/getStats.js';
 const debug = debugLibrary('stats');
 // export default searchHandler;
 /**
- * @description get the global statistics from the bioassays collection
- * @returns Returns statistics about the collection
+ * Retrieves the global statistics for the bioassays collection.
+ * @returns An object with a `data` field holding the collection statistics, or an `errors` array on failure.
  */
-
 export async function statsHandler() {
   let connection;
   try {

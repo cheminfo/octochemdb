@@ -2,10 +2,10 @@ import debugLibrary from '../../../utils/Debug.js';
 
 /**
  * Retrieve MeSH terms and PubMed IDs linked to the given compound DBRefs.
- * @param cids - compound DBRefs
- * @param collection - pubmeds collection
- * @param connection
- * @returns
+ * @param cids - compound DBRefs.
+ * @param collection - pubmeds collection.
+ * @param connection - MongoDB connection wrapper.
+ * @returns object with `meshTermsForCid`, `pmIds` and `counterPmids`.
  */
 export async function getMeshTerms(cids, collection, connection) {
   const debug = debugLibrary('getMeshTerms');

@@ -7,6 +7,11 @@ import getCollectionsLinks from '../utils/getCollectionsLinks.js';
 
 import { main } from './main.js';
 
+/**
+ * Runs the in silico fragmentation aggregation for the inSilicoFragments collection, re-fragmenting molecules when the source collection changed or the collection is not up to date, then rebuilds indexes and updates progress.
+ * @param connection - OctoChem database connection used to read progress and collections and write results.
+ * @returns Resolves when the aggregation finishes or is skipped because it is already up to date.
+ */
 export async function aggregate(connection) {
   const debug = debugLibrary('inSilicoFragments');
   try {

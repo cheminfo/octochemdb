@@ -4,7 +4,7 @@ import { expect, test } from 'vitest';
 import { OctoChemConnection } from '../../../../../utils/OctoChemConnection.js';
 import { checkCmaupLink } from '../checkCmaupLink.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('checkCmaupLink', async () => {
   const previousLinks = [

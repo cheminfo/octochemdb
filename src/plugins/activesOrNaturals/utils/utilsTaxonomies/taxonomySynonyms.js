@@ -21,7 +21,8 @@ export async function taxonomySynonyms() {
     await fileCollectionFromPath(`${path}`, { unzip: { zipExtensions: [] } })
   ).files.find((file) => {
     return (
-      file.relativePath.includes('zip') && !file.relativePath.includes('old')
+      file.relativePath.includes('zip') &&
+      !file.relativePath.includes('previous')
     );
   });
   // replace full/ with relative path

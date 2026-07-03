@@ -3,11 +3,10 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 import { getEntriesStats } from './getEntriesStats.js';
 /**
- * @description Search handler for the entries admin
- * @param request - the request object 'state,seq,date,sources,logs'
- * @returns the result of the search
+ * Retrieves admin/progress entries (optionally for a single collection) enriched with per-collection storage statistics.
+ * @param request - The incoming request; its query may contain `collectionToSearch` (restrict to one collection) and `fields` (fields to project).
+ * @returns An object with a `data` array of progress entries plus their stats, or an `errors` array on failure.
  */
-
 export async function entriesAdminHandler(request) {
   const debug = debugLibrary('entries Admin');
 

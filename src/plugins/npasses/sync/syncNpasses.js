@@ -32,7 +32,7 @@ import { parseNpasses } from './utils/parseNpasses.js';
  * 4. If the data is already up-to-date the function exits early.
  * @param connection - Active database connection
  *   providing access to collections, progress documents, and error logging.
- * @returns
+ * @returns Resolves once the sync completes; performs its work as side effects and returns no value.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncNpasses');
@@ -125,6 +125,18 @@ export async function sync(connection) {
         );
 
         imported++;
+      }
+      // Guard the destructive swap: if the parse produced nothing (e.g. an
+      // empty/unreadable source, or the SMILES parser aborting the generator),
+      // do NOT rename the empty temp collection over the live one — that would
+      // wipe all existing npasses data and still report success. Abort instead,
+      // leaving the current collection and progress state untouched.
+      if (imported === 0) {
+        await debug.fatal(
+          'npasses parse produced 0 documents; aborting swap to protect existing data',
+          { collection: 'npasses', connection },
+        );
+        return;
       }
       // Atomic swap: rename temp collection → final (drops the old npasses)
       await temporaryCollection.rename('npasses', {

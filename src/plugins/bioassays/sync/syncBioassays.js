@@ -23,7 +23,7 @@ const debug = debugLibrary('syncBioassays');
  * The sync is skipped when `shouldUpdate()` determines that neither the source
  * files nor the update interval have changed since the last successful run.
  * @param connection - Active OctoChemDB connection used throughout the sync.
- * @returns
+ * @returns Resolves once the sync completes (or is skipped); does not return a value.
  */
 export async function sync(connection) {
   /** @type {SyncOptions} */

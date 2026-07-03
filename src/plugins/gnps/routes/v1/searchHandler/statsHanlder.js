@@ -5,8 +5,8 @@ import { getStats } from '../../../../../utils/getStats.js';
 
 const debug = debugLibrary('stats');
 /**
- * Returns statistics about the collection GNPS
- * @returns
+ * Returns global statistics about the GNPS collection.
+ * @returns An object with `data` set to the collection statistics, or `errors` on failure.
  */
 
 export async function statsHandler() {

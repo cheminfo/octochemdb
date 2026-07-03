@@ -1,9 +1,9 @@
 /**
  * Retrieve CIDs, molecule structures, and titles for a given noStereoTautomerID.
- * @param connection
- * @param noStereoTautomerID
- * @param data - documents from source collections
- * @returns
+ * @param connection - MongoDB connection wrapper.
+ * @param noStereoTautomerID - stereo/tautomer-agnostic compound identifier.
+ * @param data - documents from source collections.
+ * @returns object with `cids`, `cidsDBRef`, `dbRefsMolecules` and `titles`.
  */
 export default async function getCIDs(connection, noStereoTautomerID, data) {
   let compoundsCollection = await connection.getCollection('compounds');
@@ -42,11 +42,7 @@ export default async function getCIDs(connection, noStereoTautomerID, data) {
       };
     }
     let titleEntry = await titleCollection.findOne({ _id: Number(cid.cid) });
-    if (
-      titleEntry &&
-      titleEntry.data.title.length < 30 &&
-      !titleEntry.data.title.match(/CID /)
-    ) {
+    if (titleEntry && !titleEntry.data.title.match(/CID /)) {
       if (!molecules[cid.idCode].titles) {
         molecules[cid.idCode].titles = [];
       }

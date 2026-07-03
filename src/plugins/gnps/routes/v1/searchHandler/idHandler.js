@@ -3,6 +3,11 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('fromID');
 
+/**
+ * Retrieves a single GNPS entry matching the given GNPS ID.
+ * @param request - Fastify request whose query provides `id` and optional `fields`.
+ * @returns An object with `data` set to the matching entry, or `errors` on failure.
+ */
 export async function idHandler(request) {
   let { id = '', fields = 'data.ocl.noStereoTautomerID' } = request.query;
 

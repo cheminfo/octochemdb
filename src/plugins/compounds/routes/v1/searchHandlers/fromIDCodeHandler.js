@@ -8,6 +8,11 @@ import { getNoStereosFromCache } from '../../../../../utils/getNoStereosFromCach
 
 const debug = debugLibrary('fromIDCode');
 
+/**
+ * Searches the compounds collection for a single idCode (or noStereoTautomerID) and joins the matching lccs data.
+ * @param request - Fastify request; query may contain idCode, noStereoTautomerID, stereo (when false, resolves the noStereoTautomerID via cache), limit (max results, clamped to 1..1e4), fields (comma-separated compounds projection) and lccsFields (comma-separated lccs projection).
+ * @returns Object with a `data` array of matching compounds (each with joined `lccsData`), or an `errors` array on failure.
+ */
 export async function fromIDCodeHandler(request) {
   let {
     idCode = '',
@@ -94,6 +99,13 @@ export async function fromIDCodeHandler(request) {
   }
 }
 
+/**
+ * Adds lookup fields to a projection object, prefixing each with the lookup variable name.
+ * @param lookupVariable - Name of the joined field (e.g. 'lccsData') used as the projection prefix.
+ * @param fields - Existing projection object to extend.
+ * @param lookupFields - Comma-separated field names to include from the looked-up document.
+ * @returns The projection object extended with the prefixed lookup fields.
+ */
 function getFieldsWithLookUp(lookupVariable, fields, lookupFields) {
   for (let field of lookupFields.split(',').filter(Boolean)) {
     fields[`${lookupVariable}.${field}`] = 1;

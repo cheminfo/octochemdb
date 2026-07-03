@@ -29,7 +29,7 @@ const debug = debugLibrary('syncGNPs');
  * Errors are persisted to the admin MongoDB collection via `debug.fatal` and
  * are not re-thrown.
  * @param connection - Active database connection wrapper.
- * @returns
+ * @returns Resolves when the sync completes; errors are logged and not re-thrown.
  */
 export async function sync(connection) {
   try {

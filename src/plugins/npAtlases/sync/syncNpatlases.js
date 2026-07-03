@@ -26,7 +26,7 @@ import { parseNpatlases } from './utils/parseNpatlases.js';
  *    d. Atomically rename `npAtlases_tmp` → `npAtlases`.
  *    e. Persist progress and rebuild indexes.
  * @param connection - Active database connection.
- * @returns
+ * @returns Resolves when the sync completes; errors are logged, not thrown.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncNpAtlases');
@@ -124,6 +124,15 @@ export async function sync(connection) {
           { upsert: true },
         );
         imported++;
+      }
+      // Guard the destructive swap: an empty parse must not rename an empty
+      // temp collection over the live one (data loss + false 'updated').
+      if (imported === 0) {
+        await debug.fatal(
+          'npAtlases parse produced 0 documents; aborting swap to protect existing data',
+          { collection: options.collectionName, connection },
+        );
+        return;
       }
       // Atomic swap: rename temp collection → final (drops the old npAtlases)
       await temporaryCollection.rename(options.collectionName, {

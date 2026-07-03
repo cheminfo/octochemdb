@@ -7,9 +7,9 @@ import { prepareSpectraQuery } from '../utils/prepareSpectraQuery.js';
 const debug = debugLibrary('searchGNPS');
 
 /**
- * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
- * @param request
- * @returns Entries who match the query parameters inside the activeOrNaturals collection
+ * Searches the GNPS collection for mass spectra matching a list of experimental masses, an exact mass (em), and/or a molecular formula (mf).
+ * @param request - Fastify request whose query provides `em`, `mf`, `masses`, `precision`, `limit` and optional `fields`.
+ * @returns An object with `data` set to the array of matching entries, or `errors` on failure.
  */
 export async function searchHandler(request) {
   let data = getRequestQuery(request);

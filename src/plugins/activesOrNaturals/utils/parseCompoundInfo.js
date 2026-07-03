@@ -6,12 +6,12 @@ import getCIDs from './getCIDs.js';
 /**
  * Parse and enrich compound information (OCL, CAS, PubMed IDs, MeSH terms,
  * molecular formula, etc.) for the activesOrNaturals aggregation.
- * @param compoundInfo - compound document from the compounds collection (may be null)
- * @param noStereoTautomerID
- * @param connection
- * @param entry - aggregation entry (mutated in place)
- * @param data - documents from all source collections
- * @returns
+ * @param compoundInfo - compound document from the compounds collection (may be null).
+ * @param noStereoTautomerID - stereo/tautomer-agnostic compound identifier.
+ * @param connection - MongoDB connection wrapper.
+ * @param entry - aggregation entry (mutated in place).
+ * @param data - documents from all source collections.
+ * @returns object with `entry`, `compoundsIds`, `casNumbers`, `meshTerms`, `pmids`, `cidsDBRef`, `dbRefsMolecules` and `titles`.
  */
 export default async function parseCompoundInfo(
   compoundInfo,

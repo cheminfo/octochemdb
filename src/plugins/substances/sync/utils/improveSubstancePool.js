@@ -31,8 +31,8 @@ let pendingResolutions = 0;
 
 /**
  * @description Multithread import of substances
- * @param molecule
- * @param [options={}]
+ * @param molecule - parsed SDF substance record to enrich in a worker thread.
+ * @param [options={}] - options; `timeout` sets the per-molecule abort timeout in ms.
  * @returns result to be imported, plus a `done` callback the producer
  *   calls when its own downstream work (upsert, progress write) is done
  *   so the pool can release the backpressure slot for this substance.

@@ -7,9 +7,9 @@ import { prepareSpectraQuery } from '../../../../gnps/routes/v1/utils/prepareSpe
 const debug = debugLibrary('fromMasses');
 
 /**
- * @description Search for compounds from a monoisotopic mass, target taxonomies, source taxonomies and bioassays
- * @param request
- * @returns Entries who match the query parameters inside the activeOrNaturals collection
+ * Searches MassBank for mass spectra by a range of experimental masses, an exact mass (em) or a molecular formula (mf).
+ * @param request - Fastify request whose query provides `em`, `mf`, `masses`, `precision`, `limit` and optional `fields` (projection).
+ * @returns An object `{ data }` with the array of matching MassBank entries, or `{ errors }` on failure.
  */
 export async function searchHandler(request) {
   let data = getRequestQuery(request);

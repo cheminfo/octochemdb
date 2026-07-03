@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 
 import getFileIfNew from '../getFileIfNew';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 test('getFileIfNew', async () => {
   const destination = 'src/sync/http/utils/__tests__/';

@@ -4,6 +4,15 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('ids');
 
+/**
+ * Retrieves multiple patents matching a list of IDs from the `patents`
+ * collection, projecting only the requested fields.
+ * @param request - Fastify request whose query provides `ids` (patent IDs
+ *   separated by spaces, commas, semicolons, tabs or newlines) and `fields`
+ *   (comma-separated list of fields to return).
+ * @returns Object with a `data` array of matching patents, or an `error`/
+ *   `errors` array when no IDs are provided or the query fails.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

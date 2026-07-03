@@ -1,5 +1,10 @@
 import { idsHandler } from './searchHandlers/idsHandler.js';
 
+/**
+ * Fastify route definition for retrieving titleCompounds entries by
+ * compound IDs. Accepts GET and POST requests with `ids` and `fields`
+ * query parameters and delegates handling to `idsHandler`.
+ */
 const searchIDs = {
   method: ['GET', 'POST'],
   schema: {

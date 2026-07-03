@@ -1,7 +1,7 @@
 /**
  * Sort taxonomies alphabetically by rank fields (superKingdom through species).
  * Empty-string placeholders introduced for sorting are cleaned up afterwards.
- * @param taxonomies
+ * @param taxonomies - taxonomy objects with rank fields (superKingdom through species).
  * @returns sorted taxonomies (same array reference)
  */
 export function sortTaxonomies(taxonomies) {

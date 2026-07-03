@@ -31,6 +31,12 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
       "translation",
       "uhts",
     ],
+    "kwTitles": [
+      "1-propanaminium",
+      "2-(acetyloxy)-3-carboxy-n,n,n-trimethyl-",
+      "inner",
+      "salt",
+    ],
     "mf": "C37H60O8",
     "molecules": [
       {
@@ -42,6 +48,9 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
             "$id": 59478,
             "$ref": "compounds",
           },
+        ],
+        "titles": [
+          "1-Propanaminium, 2-(acetyloxy)-3-carboxy-N,N,N-trimethyl-, inner salt",
         ],
       },
     ],
@@ -62,6 +71,9 @@ exports[`Aggregation ActivesOrNaturals 1`] = `
         "$id": "EP-2078065-A2",
         "$ref": "patents",
       },
+    ],
+    "titles": [
+      "1-Propanaminium, 2-(acetyloxy)-3-carboxy-N,N,N-trimethyl-, inner salt",
     ],
     "unsaturation": 8,
   },

@@ -6,8 +6,9 @@ import { getStats } from '../../../../../utils/getStats.js';
 const debug = debugLibrary('stats');
 
 /**
- * Returns statistics about the collection
- * @returns returns a promise with the statistics
+ * Route handler that returns global statistics for the lotuses collection.
+ * @returns Object with a `data` field holding the statistics, or an `errors`
+ *   array when the query fails.
  */
 
 export async function statsHandler() {

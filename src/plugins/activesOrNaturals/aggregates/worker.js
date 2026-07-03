@@ -28,170 +28,181 @@ parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
     let count = 0;
     let start = Date.now();
     for (const link of links) {
-      let noStereoTautomerID = link.id;
-      let sources = link.sources;
-      /** @type {ActiveOrNaturalEntry} */
-      let entry = { data: { naturalProduct: false } };
-      // get all documents from all collections
-      let data = [];
-      for (const source of sources) {
-        if (
-          [
-            'npasses',
-            'cmaups',
-            'coconuts',
-            'lotusesV2',
-            'npAtlases',
-            'gnps',
-          ].includes(source.collection)
-        ) {
-          entry.data.naturalProduct = true;
-        }
+      // Per-record guard: a single bad link (failed mongo op, bad
+      // parseCompoundInfo, etc.) must skip only that record — not abort the
+      // rest of the worker's chunk. Keeps the loop running so the worker
+      // always reaches the terminal 'done' message below (no parent hang).
+      try {
+        let noStereoTautomerID = link.id;
+        let sources = link.sources;
+        /** @type {ActiveOrNaturalEntry} */
+        let entry = { data: { naturalProduct: false } };
+        // get all documents from all collections
+        let data = [];
+        for (const source of sources) {
+          if (
+            [
+              'npasses',
+              'cmaups',
+              'coconuts',
+              'lotusesV2',
+              'npAtlases',
+              'gnps',
+            ].includes(source.collection)
+          ) {
+            entry.data.naturalProduct = true;
+          }
 
-        const collection = await connection.getCollection(source.collection);
-        let partialData = await collection.findOne({ _id: source.id });
-        if (partialData) {
-          partialData.collection = source.collection;
-          data.push(partialData);
+          const collection = await connection.getCollection(source.collection);
+          let partialData = await collection.findOne({ _id: source.id });
+          if (partialData) {
+            partialData.collection = source.collection;
+            data.push(partialData);
+          }
         }
-      }
-      let compoundsCollection = await connection.getCollection('compounds');
-      let compoundPatentsCollection =
-        await connection.getCollection('compoundPatents');
-      let dbRefsMs = [];
-      let taxons = await getTaxonomiesInfo(data, connection);
-      // get unique activities from all collections for the current noStereoTautomerIDs
-      let { activityInfos, activityDBRef } = await getActivitiesInfo(
-        data,
-        connection,
-      );
-      // get unique compound information from all collections for the current noStereoTautomerIDs
-      entry =
-        (await getCompoundsInfo(
-          entry,
+        let compoundsCollection = await connection.getCollection('compounds');
+        let compoundPatentsCollection =
+          await connection.getCollection('compoundPatents');
+        let dbRefsMs = [];
+        let taxons = await getTaxonomiesInfo(data, connection);
+        // get unique activities from all collections for the current noStereoTautomerIDs
+        let { activityInfos, activityDBRef } = await getActivitiesInfo(
           data,
-          compoundsCollection,
+          connection,
+        );
+        // get unique compound information from all collections for the current noStereoTautomerIDs
+        entry =
+          (await getCompoundsInfo(
+            entry,
+            data,
+            compoundsCollection,
+            noStereoTautomerID,
+            connection,
+            compoundPatentsCollection,
+          )) ?? entry;
+        let massSpectraRefsForGNPs = await getMassSpectraRefForGNPs(
+          connection,
           noStereoTautomerID,
-          connection,
-          compoundPatentsCollection,
-        )) ?? entry;
-      let massSpectraRefsForGNPs = await getMassSpectraRefForGNPs(
-        connection,
-        noStereoTautomerID,
-      );
-      for (const ref of massSpectraRefsForGNPs) {
-        dbRefsMs.push(ref.dbRef);
-      }
-      let massSpectraRefsForMassBank = await getMassSpectraRefForMassBank(
-        connection,
-        noStereoTautomerID,
-      );
-      for (const ref of massSpectraRefsForMassBank) {
-        dbRefsMs.push(ref.dbRef);
-      }
-      entry.data.nbPubmeds = 0;
-      entry.data.nbMassSpectra = 0;
-      entry.data.nbTaxonomies = 0;
-      entry.data.nbActivities = 0;
-      if (entry.data.compounds) {
-        const uniqueMeshTerms = {};
-        const uniquePmIds = {};
-        let nbPubmeds = 0;
-        const pubmedCollection = await connection.getCollection('pubmeds');
-
-        const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
-          entry.data.compounds,
-          pubmedCollection,
-          connection,
         );
-        delete entry.data.compounds;
-        nbPubmeds += Number(counterPmids);
-        for (const term of meshTermsForCid) {
-          uniqueMeshTerms[term] = true;
+        for (const ref of massSpectraRefsForGNPs) {
+          dbRefsMs.push(ref.dbRef);
         }
-        for (const id of pmIds) {
-          uniquePmIds[id] = true;
-        }
-
-        let dbRefs = Object.keys(uniquePmIds).map((id) => ({
-          $ref: 'pubmeds',
-          $id: id,
-        }));
-
-        const meshTerms = Object.keys(uniqueMeshTerms);
-
-        if (meshTerms.length > 0) {
-          // sort mesh terms by alphabetical order
-          meshTerms.sort();
-          entry.data.kwMeshTerms = meshTerms;
-        }
-        if (dbRefs.length > 0) {
-          entry.data.pubmeds = dbRefs;
-        }
-        entry.data.nbPubmeds += nbPubmeds;
-      }
-
-      if (dbRefsMs.length > 0) {
-        entry.data.massSpectra = dbRefsMs;
-        entry.data.nbMassSpectra += dbRefsMs.length;
-      }
-      // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
-      if (activityInfos?.length > 0) {
-        entry.data.bioactive = true;
-        const keywordsActivities = getActivityKeywords(activityInfos);
-        if (keywordsActivities.length > 0) {
-          keywordsActivities.sort();
-          entry.data.kwBioassays = keywordsActivities;
-        }
-        const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfos);
-
-        if (keywordsActiveAgainst.length > 0) {
-          keywordsActiveAgainst.sort();
-          entry.data.kwActiveAgainst = keywordsActiveAgainst;
-        }
-      }
-      // if taxons is not empty, get unique keywords of taxonomies for the current noStereoTautomerID
-      if (taxons.length > 0) {
-        const keywordsTaxonomies = getTaxonomyKeywords(taxons);
-        if (keywordsTaxonomies.length > 0) {
-          entry.data.kwTaxonomies = keywordsTaxonomies;
-        }
-      }
-      // get kwTitles
-      let kwTitles;
-      if (entry.data?.molecules?.length > 0) {
-        kwTitles = getTitlesKeywords(entry.data.molecules);
-        if (kwTitles?.length > 0) {
-          entry.data.kwTitles = kwTitles;
-        }
-      }
-      // if activityInfo is not empty, define entry.data.activities
-      if (activityDBRef.length > 0) {
-        entry.data.activities = activityDBRef;
-        entry.data.nbActivities += activityInfos.length;
-      }
-      // if taxons is not empty, define entry.data.taxonomies
-      if (taxons.length > 0) {
-        entry.data.taxonomies = taxons;
-        entry.data.nbTaxonomies += taxons.length;
-      }
-
-      if (entry) {
-        await temporaryCollection.updateOne(
-          { _id: noStereoTautomerID },
-          { $set: entry },
-          { upsert: true },
+        let massSpectraRefsForMassBank = await getMassSpectraRefForMassBank(
+          connection,
+          noStereoTautomerID,
         );
-
-        count++;
-        if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-          parentPort?.postMessage({
-            workerID,
-            currentCount: count,
-            status: 'running',
-          });
-          start = Date.now();
+        for (const ref of massSpectraRefsForMassBank) {
+          dbRefsMs.push(ref.dbRef);
         }
+        entry.data.nbPubmeds = 0;
+        entry.data.nbMassSpectra = 0;
+        entry.data.nbTaxonomies = 0;
+        entry.data.nbActivities = 0;
+        if (entry.data.compounds) {
+          const uniqueMeshTerms = {};
+          const uniquePmIds = {};
+          let nbPubmeds = 0;
+          const pubmedCollection = await connection.getCollection('pubmeds');
+
+          const { meshTermsForCid, pmIds, counterPmids } = await getMeshTerms(
+            entry.data.compounds,
+            pubmedCollection,
+            connection,
+          );
+          delete entry.data.compounds;
+          nbPubmeds += Number(counterPmids);
+          for (const term of meshTermsForCid) {
+            uniqueMeshTerms[term] = true;
+          }
+          for (const id of pmIds) {
+            uniquePmIds[id] = true;
+          }
+
+          let dbRefs = Object.keys(uniquePmIds).map((id) => ({
+            $ref: 'pubmeds',
+            $id: id,
+          }));
+
+          const meshTerms = Object.keys(uniqueMeshTerms);
+
+          if (meshTerms.length > 0) {
+            // sort mesh terms by alphabetical order
+            meshTerms.sort();
+            entry.data.kwMeshTerms = meshTerms;
+          }
+          if (dbRefs.length > 0) {
+            entry.data.pubmeds = dbRefs;
+          }
+          entry.data.nbPubmeds += nbPubmeds;
+        }
+
+        if (dbRefsMs.length > 0) {
+          entry.data.massSpectra = dbRefsMs;
+          entry.data.nbMassSpectra += dbRefsMs.length;
+        }
+        // if activityInfo is not empty, get unique keywords of activities and target taxonomies for the current noStereoTautomerID
+        if (activityInfos?.length > 0) {
+          entry.data.bioactive = true;
+          const keywordsActivities = getActivityKeywords(activityInfos);
+          if (keywordsActivities.length > 0) {
+            keywordsActivities.sort();
+            entry.data.kwBioassays = keywordsActivities;
+          }
+          const keywordsActiveAgainst = getActiveAgainstKeywords(activityInfos);
+
+          if (keywordsActiveAgainst.length > 0) {
+            keywordsActiveAgainst.sort();
+            entry.data.kwActiveAgainst = keywordsActiveAgainst;
+          }
+        }
+        // if taxons is not empty, get unique keywords of taxonomies for the current noStereoTautomerID
+        if (taxons.length > 0) {
+          const keywordsTaxonomies = getTaxonomyKeywords(taxons);
+          if (keywordsTaxonomies.length > 0) {
+            entry.data.kwTaxonomies = keywordsTaxonomies;
+          }
+        }
+        // get kwTitles
+        let kwTitles;
+        if (entry.data?.molecules?.length > 0) {
+          kwTitles = getTitlesKeywords(entry.data.molecules);
+          if (kwTitles?.length > 0) {
+            entry.data.kwTitles = kwTitles;
+          }
+        }
+        // if activityInfo is not empty, define entry.data.activities
+        if (activityDBRef.length > 0) {
+          entry.data.activities = activityDBRef;
+          entry.data.nbActivities += activityInfos.length;
+        }
+        // if taxons is not empty, define entry.data.taxonomies
+        if (taxons.length > 0) {
+          entry.data.taxonomies = taxons;
+          entry.data.nbTaxonomies += taxons.length;
+        }
+
+        if (entry) {
+          await temporaryCollection.updateOne(
+            { _id: noStereoTautomerID },
+            { $set: entry },
+            { upsert: true },
+          );
+
+          count++;
+          if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
+            parentPort?.postMessage({
+              workerID,
+              currentCount: count,
+              status: 'running',
+            });
+            start = Date.now();
+          }
+        }
+      } catch (/** @type {any} */ linkError) {
+        const err =
+          linkError instanceof Error ? linkError : new Error(String(linkError));
+        debug.warn(`activesOrNaturals ${link.id}: skipping (${err.message})`);
+        continue;
       }
     }
     parentPort?.postMessage({ workerID, currentCount: count, status: 'done' });

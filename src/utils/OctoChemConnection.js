@@ -4,10 +4,17 @@ import { MongoClient } from 'mongodb';
 
 import debugLibrary from './Debug.js';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const debug = debugLibrary('OctoChemConnection');
 
+/**
+ * Constructor for the shared MongoDB connection wrapper used across sync,
+ * aggregate and route code. Creates a MongoClient (with long connect/socket
+ * timeouts suited to long-running imports) but does not connect until the
+ * first `getDatabase`/`getCollection` call. Provides progress-document helpers
+ * on the admin collection. Use with `new`.
+ */
 export function OctoChemConnection() {
   // @ts-ignore
   this.client = new MongoClient(process.env.MONGODB_URL, {

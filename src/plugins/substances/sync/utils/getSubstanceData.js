@@ -96,6 +96,17 @@ export async function getSubstanceData(molecule) {
   }
 }
 
+/**
+ * Compute substance descriptors locally with OpenChemLib and mass-tools
+ * when the OCL-cache service is unavailable.
+ *
+ * Derives the molecular formula, exact mass, charge, molecular weight,
+ * fragment count, unsaturation, atom counts and a no-stereo tautomer ID
+ * (only computed for small molecules with 50 or fewer carbons).
+ * @param oclMolecule - parsed OpenChemLib molecule.
+ * @param oclID - object with the molecule `idCode` and `coordinates`.
+ * @returns substance data payload matching the OCL-cache response shape.
+ */
 export function computeSubstanceDataLocally(oclMolecule, oclID) {
   const mfString = getMF(oclMolecule).parts.sort().join('.');
   const mfInfo = new MF(mfString).getInfo();

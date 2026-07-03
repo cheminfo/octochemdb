@@ -24,9 +24,8 @@ const debug = debugLibrary('getTitlesAndAbstracts');
  *    by scanning the destination subdirectories with `fileCollectionFromPath`.
  * @param source - Base URL of the PubChem patent RDF directory.
  * @param destinationFolder - Local directory that receives the files.
- * @returns
- *   Resolves with the paths of all available files, or `undefined` if an error
- *   occurs or no files are ready.
+ * @returns Object with `abstractsDownloaded` and `titlesDownloaded` arrays of
+ *   file paths, or `undefined` if an error occurs or no files are ready.
  */
 async function getTitlesAndAbstracts(source, destinationFolder) {
   try {

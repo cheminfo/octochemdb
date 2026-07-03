@@ -5,6 +5,11 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves GNPS entries matching a list of GNPS IDs.
+ * @param request - Fastify request whose query provides a comma/space separated `ids` string and optional `fields`.
+ * @returns An object with `data` set to the array of matching entries, or `errors` on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

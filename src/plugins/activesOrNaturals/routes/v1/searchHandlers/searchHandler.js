@@ -6,7 +6,7 @@ import { getMatchParameters } from '../utils/getMatchParameters.js';
 /**
  * Search for compounds by monoisotopic mass, taxonomies, bioassays, and keywords.
  * @param request - Fastify request
- * @returns
+ * @returns object with the matching compounds under `data`, or `errors` on failure.
  */
 export async function searchHandler(request) {
   const debug = debugLibrary('entriesSearch');

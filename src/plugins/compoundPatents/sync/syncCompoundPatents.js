@@ -32,7 +32,7 @@ const { existsSync, rmSync } = pkg;
  * 7. Removes the temporary sorted file from disk.
  * @async
  * @param connection - An active OctoChemConnection instance.
- * @returns
+ * @returns Resolves once the sync completes or is skipped; errors are reported via debug.fatal rather than thrown.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncCompoundPatents');

@@ -28,7 +28,7 @@ import { parseLotuses } from './utils/parseLotuses.js';
  * Errors are persisted to the admin MongoDB collection via `debug.fatal` and
  * are not re-thrown.
  * @param connection - Active database connection wrapper.
- * @returns
+ * @returns Resolves when the sync completes; errors are logged, not thrown.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncLotuses');
@@ -114,6 +114,15 @@ export async function sync(connection) {
           { upsert: true },
         );
         imported++;
+      }
+      // Guard the destructive swap: an empty parse must not rename an empty
+      // temp collection over the live one (data loss + false 'updated').
+      if (imported === 0) {
+        await debug.fatal(
+          'lotuses parse produced 0 documents; aborting swap to protect existing data',
+          { collection: options.collectionName, connection },
+        );
+        return;
       }
       // Atomically replace the live collection with the temporary one
       await temporaryCollection.rename(options.collectionName, {

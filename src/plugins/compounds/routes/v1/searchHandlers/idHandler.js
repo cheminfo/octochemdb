@@ -4,6 +4,11 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves compounds from the collection by one or more compound IDs (used as `_id`).
+ * @param request - Fastify request; query may contain id (delimiter-separated list of numeric IDs) and fields (comma-separated projection).
+ * @returns Object with a `data` array of matching compounds, or an `errors` array on failure.
+ */
 export async function idHandler(request) {
   let { id = '', fields = 'data' } = request.query;
 

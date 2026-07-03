@@ -5,7 +5,7 @@ const debug = debugLibrary('stats');
 
 /**
  * Get global statistics from the activesOrNaturals collection.
- * @returns
+ * @returns object with the collection statistics under `data`, or `errors` on failure.
  */
 export async function statsHandler() {
   /** @type {OctoChemConnection | undefined} */

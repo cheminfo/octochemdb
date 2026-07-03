@@ -27,7 +27,7 @@ const { existsSync, rmSync } = pkg;
  *    c. Create an index on `data.title`.
  *    d. Persist progress metadata and clean up the extracted file.
  * @param connection - Active database connection.
- * @returns
+ * @returns Resolves once the sync completes; errors are caught and logged rather than thrown.
  */
 export async function sync(connection) {
   const debug = debugLibrary('syncTitleCompounds');

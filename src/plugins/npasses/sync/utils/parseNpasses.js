@@ -55,9 +55,21 @@ export async function* parseNpasses(
       if (property?.SMILES === undefined) {
         continue;
       }
-      // Convert SMILES to an OpenChemLib molecule object
+      // Convert SMILES to an OpenChemLib molecule object. A malformed SMILES
+      // (e.g. "unknown element label") makes fromSmiles throw; catch it per
+      // record so one bad compound is skipped instead of aborting the whole
+      // generator (which would yield 0 documents for the entire run).
       const smilesDb = property.SMILES;
-      const oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
+      let oclMolecule;
+      try {
+        oclMolecule = OCL.Molecule.fromSmiles(smilesDb);
+      } catch (error) {
+        const err = error instanceof Error ? error : new Error(String(error));
+        debug.warn(
+          `npasses ${item.np_id}: skipping bad SMILES (${err.message})`,
+        );
+        continue;
+      }
       // Compute the stereo-independent tautomer ID (cached for performance)
       const ocl = await getNoStereosFromCache(
         oclMolecule,

@@ -2,6 +2,15 @@ import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomi
 
 import { getCIDfromSID } from './getCIDfromSID.js';
 
+/**
+ * Parse a single PubChem bioassay JSON entry into a bioassaysPubChem document.
+ * Extracts assay metadata (name, description, protocol, comment), the per-result
+ * value descriptions with their constraints and units, and any taxonomy-resolved
+ * targets, then builds the assay results and resolves the associated CIDs from SIDs.
+ * @param jsonEntry - Parsed PubChem assay JSON (PC_AssaySubmit structure).
+ * @param connection - Active OctoChemDB connection used to look up taxonomies.
+ * @returns The assembled assay document keyed by AID (`_id`) with its `data` payload.
+ */
 export async function parseBioassaysPubChem(jsonEntry, connection) {
   const assayDescription = jsonEntry.PC_AssaySubmit.assay.descr;
   const dataTable = jsonEntry.PC_AssaySubmit.data;

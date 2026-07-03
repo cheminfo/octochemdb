@@ -5,6 +5,11 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves LCCS records for multiple compound IDs from the lccs collection.
+ * @param request - Fastify request (GET or POST) whose query provides `ids` (comma/space-separated compound IDs) and `fields` (fields to project).
+ * @returns An object `{ data }` with the matching records, or `{ errors }` on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

@@ -6,8 +6,8 @@ const debug = debugLibrary('getTaxonomiesInfo');
 
 /**
  * Collect and deduplicate taxonomies from aggregation data, then sort them.
- * @param data - documents from the aggregation pipeline
- * @param connection
+ * @param data - documents from the aggregation pipeline.
+ * @param connection - MongoDB connection wrapper.
  * @returns sorted unique taxonomies
  */
 export default async function getTaxonomiesInfo(data, connection) {

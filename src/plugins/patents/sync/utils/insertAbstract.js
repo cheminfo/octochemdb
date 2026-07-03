@@ -22,7 +22,6 @@ const debug = debugLibrary('insertAbstract');
  * @async
  * @param filneName - Path to the gzipped TTL input file.
  * @param connection - An active OctoChemConnection instance.
- * @returns
  */
 export default async function insertAbstract(filneName, connection) {
   try {

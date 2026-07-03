@@ -13,7 +13,7 @@ import { parseCoconuts } from './utils/parseCoconuts.js';
 const coconutsTestSource =
   'src/plugins/coconuts/sync/utils/__tests__/data/coconuts_test.zip';
 const coconutsSource =
-  'https://coconut.s3.uni-jena.de/prod/downloads/2026-06/coconut_csv-06-2026.zip';
+  'https://coconut.s3.uni-jena.de/prod/downloads/2026-07/coconut_csv-07-2026.zip';
 
 /**
  * Synchronises the `coconuts` MongoDB collection with the latest upstream
@@ -119,6 +119,15 @@ export async function sync(connection) {
         imported++;
       }
 
+      // Guard the destructive swap: an empty parse must not rename an empty
+      // temp collection over the live one (data loss + false 'updated').
+      if (imported === 0) {
+        await debug.fatal(
+          'coconuts parse produced 0 documents; aborting swap to protect existing data',
+          { collection: options.collectionName, connection },
+        );
+        return;
+      }
       await temporaryCollection.rename(options.collectionName, {
         dropTarget: true,
       });

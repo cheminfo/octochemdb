@@ -1,3 +1,11 @@
+/**
+ * Return storage statistics for a collection via the `$collStats` aggregation
+ * stage (namespace, document count, sizes, capped flag).
+ * @param connection - Active DB
+ * connection wrapper.
+ * @param collectionName - Collection to inspect.
+ * @returns Flattened subset of the collection storage stats.
+ */
 export async function getStats(connection, collectionName) {
   const collection = await connection.getCollection(collectionName);
   const query = await collection.aggregate([

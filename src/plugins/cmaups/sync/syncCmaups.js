@@ -121,6 +121,15 @@ export async function sync(connection) {
         );
         imported++;
       }
+      // Guard the destructive swap: an empty parse must not rename an empty
+      // temp collection over the live one (data loss + false 'updated').
+      if (imported === 0) {
+        await debug.fatal(
+          'cmaups parse produced 0 documents; aborting swap to protect existing data',
+          { collection: 'cmaups', connection },
+        );
+        return;
+      }
       // Once it is finished, the temporary collection replace the old collection
       await temporaryCollection.rename('cmaups', {
         dropTarget: true,

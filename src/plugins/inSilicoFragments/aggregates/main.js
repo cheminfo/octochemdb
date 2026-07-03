@@ -4,6 +4,11 @@ import { Worker } from 'node:worker_threads';
 import debugLibrary from '../../../utils/Debug.js';
 import { OctoChemConnection } from '../../../utils/OctoChemConnection.js';
 
+/**
+ * Fragments all molecules in parallel by splitting the links into chunks and dispatching them to worker threads, logging aggregate progress until every worker reports done.
+ * @param links - Map of noStereoTautomerID to arrays of idCode objects to fragment.
+ * @returns Resolves once all workers have finished and been terminated.
+ */
 export async function main(links) {
   const debug = debugLibrary('improveInSilicoFragments Main');
 

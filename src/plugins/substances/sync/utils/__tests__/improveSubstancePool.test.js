@@ -3,7 +3,7 @@ import { expect, test } from 'vitest';
 
 import improveSubstancePool from '../improveSubstancePool';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const swallow = () => undefined;
 

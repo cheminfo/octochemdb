@@ -15,14 +15,14 @@
     "url": "git+https://github.com/cheminfo/octochemdb.git"
   },
   "scripts": {
-    "cron": "DEBUG=* node -r dotenv/config src/sync/cron",
-    "crontest": "DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
-    "dev": "DEBUG=* LOGGER_PRETTY_PRINT=true node --watch -r dotenv/config src/server/index.js",
+    "cron": "DOTENV_CONFIG_QUIET=true DEBUG=* node -r dotenv/config src/sync/cron",
+    "crontest": "DOTENV_CONFIG_QUIET=true DEBUG=* TEST=true node -r dotenv/config src/sync/cron",
+    "dev": "DOTENV_CONFIG_QUIET=true DEBUG=* LOGGER_PRETTY_PRINT=true node --watch -r dotenv/config src/server/index.js",
     "eslint": "eslint src",
     "eslint-fix": "eslint src --fix",
     "prettier": "prettier --check src",
     "prettier-write": "prettier --write src",
-    "start": "DEBUG=* node -r dotenv/config src/server/index.js",
+    "start": "DOTENV_CONFIG_QUIET=true DEBUG=* node -r dotenv/config src/server/index.js",
     "test": "npm run test-only && npm run eslint && npm run prettier",
     "test-only": "vitest run --coverage --test-timeout=80000 --no-file-parallelism"
   },
@@ -72,6 +72,7 @@
     "xml2json": "^0.12.0"
   },
   "devDependencies": {
+    "@types/node": "^26.1.0",
     "@vitest/coverage-v8": "^4.1.5",
     "benchmark": "^2.1.4",
     "eslint": "^9.39.4",

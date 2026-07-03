@@ -1,4 +1,4 @@
-import { rmSync } from 'node:fs';
+import { existsSync, rmSync } from 'node:fs';
 import { open } from 'node:fs/promises';
 
 import { parseStream } from 'arraybuffer-xml-parser';
@@ -41,13 +41,15 @@ export default async function importOnePubmedFile(
   langPubmeds,
 ) {
   const debug = debugLibrary('importOnePubmedFile');
+  let filePath;
+  let fileStream;
   try {
     const collection = await connection.getCollection('pubmeds');
     debug.trace(`Importing: ${file.name}`);
 
     // Decompress the .gz file and open the resulting XML for streaming
-    const filePath = await decompressGziped(file.path);
-    const fileStream = await open(filePath, 'r');
+    filePath = await decompressGziped(file.path);
+    fileStream = await open(filePath, 'r');
     const readableStream = fileStream.readableWebStream();
 
     let { shouldImport, lastDocument } = options;
@@ -83,9 +85,6 @@ export default async function importOnePubmedFile(
     await connection.setProgress(progress);
     debug.trace(`${imported} articles processed`);
 
-    // Clean up the decompressed XML file to reclaim disk space
-    await fileStream.close();
-    rmSync(filePath, { recursive: true });
     return imported;
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
@@ -94,5 +93,14 @@ export default async function importOnePubmedFile(
       connection,
       stack: err.stack,
     });
+  } finally {
+    // Always reclaim disk space: only the compressed .gz is kept, never the
+    // decompressed XML — even when the import fails part-way through (an
+    // interrupted run would otherwise leave the decompressed file behind,
+    // and decompressGziped would then skip re-decompressing it).
+    if (fileStream) await fileStream.close();
+    if (filePath && existsSync(filePath)) {
+      rmSync(filePath, { recursive: true });
+    }
   }
 }

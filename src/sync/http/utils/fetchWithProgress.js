@@ -1,3 +1,12 @@
+/**
+ * Fetch a URL and stream the body into a single Uint8Array, invoking a
+ * progress callback as bytes arrive (used to report download progress).
+ * @param url - Resource to download.
+ * @param options - Options object.
+ * @param options.callback - Called as `(receivedBytes, totalBytes)` after each
+ * chunk; `totalBytes` comes from the Content-Length header (0 if absent).
+ * @returns The full response body as a byte array.
+ */
 export async function fetchWithProgress(url, options) {
   const { callback } = options;
   const response = await fetch(url);

@@ -26,7 +26,7 @@ const debug = debugLibrary('parseLotuses');
  *   ZIP file (or its parent folder in test mode).
  * @param filename - Name of the BSON file inside the ZIP archive.
  * @param connection - Active database connection wrapper.
- * @yields {LotusEntry}
+ * @yields {LotusEntry} One assembled document per valid compound.
  * @returns
  */
 export async function* parseLotuses(lotusFilePath, filename, connection) {

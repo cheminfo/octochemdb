@@ -61,6 +61,10 @@ export default async function importOneCompoundFile(
     debug.trace(`Need to process ${compounds.length} compounds`);
     // the array action will contain the promises to be resolved
     let start = Date.now();
+    // In-flight downstream chains (upsert + setProgress). Awaited before
+    // returning so no writes are still pending when the caller closes the
+    // connection or resumes from progress.seq.
+    const pending = [];
     for (const compound of compounds) {
       // skip till CID corresponds to the last document imported ID
       if (!shouldImport) {
@@ -102,6 +106,7 @@ export default async function importOneCompoundFile(
             debug.fatal(error.message ?? String(error));
           })
           .finally(done);
+        pending.push(downstream);
         if (process.env.NODE_ENV === 'test') {
           await downstream;
         }
@@ -118,6 +123,7 @@ export default async function importOneCompoundFile(
       newCompounds++;
     }
 
+    await Promise.all(pending);
     debug.trace(`${newCompounds} compounds processed`);
     return compounds.length;
   }

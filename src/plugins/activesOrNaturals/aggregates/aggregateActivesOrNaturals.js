@@ -8,8 +8,7 @@ import { main } from './main.js';
 /**
  * Aggregate all synchronized collections into one collection of
  * Bioactivities and/or Natural Products.
- * @param connection - MongoDB connection wrapper
- * @returns
+ * @param connection - MongoDB connection wrapper.
  */
 export async function aggregate(connection) {
   const collectionNames = [

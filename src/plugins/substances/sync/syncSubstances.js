@@ -10,7 +10,6 @@ import incrementalSubstancesImport from './incrementalSubstancesImport.js';
  * 2. Run an incremental import that applies weekly delta files
  *    (new substances and killed-SID removals).
  * @param connection - MongoDB connection wrapper
- * @returns
  */
 export async function sync(connection) {
   await firstSubstancesImport(connection);

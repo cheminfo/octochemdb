@@ -6,6 +6,11 @@ import { getNoStereosFromCache } from '../../../../../utils/getNoStereosFromCach
 
 const debug = debugLibrary('fromSmiles');
 
+/**
+ * Searches the compounds collection for entries matching a SMILES, optionally ignoring stereochemistry.
+ * @param request - Fastify request; query may contain smiles, stereo (when false, matches by noStereoTautomerID via cache), limit (max results, clamped to 1..1e4) and fields (comma-separated projection).
+ * @returns Object with a `data` array of matching compounds, or an `errors` array on failure.
+ */
 export async function fromSmilesHandler(request) {
   let {
     smiles = '',

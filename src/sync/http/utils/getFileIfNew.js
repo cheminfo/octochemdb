@@ -1,8 +1,10 @@
 import {
   createWriteStream,
   existsSync,
+  readdirSync,
   renameSync,
   rmSync,
+  statSync,
   utimesSync,
 } from 'node:fs';
 import { join } from 'node:path';
@@ -17,6 +19,36 @@ import debugLibrary from '../../../utils/Debug.js';
 
 const { mkdirpSync } = pkg;
 const debug = debugLibrary('getFileIfNew');
+
+// Name of the sub-folder that holds archived (previous) versions of the data.
+const PREVIOUS_FOLDER = 'previous';
+// How many previous versions to keep. A single version may consist of several
+// files, all grouped under one dated sub-folder, so retention is counted by
+// dated sub-folder (i.e. by version) rather than by individual file. Plugins
+// that update incrementally never reach this code path (they use syncFolder
+// instead of getFileIfNew), so their full historical set is always preserved.
+const MAX_PREVIOUS_VERSIONS = 3;
+
+/**
+ * Keep only the most recent {@link MAX_PREVIOUS_VERSIONS} archived versions in
+ * `<targetFolder>/<PREVIOUS_FOLDER>`, deleting older ones. Each version is a
+ * dated sub-folder (named after the file's modification date) that may contain
+ * one or more files, so pruning is done per sub-folder, not per file.
+ * @param targetFolder - Folder whose `previous` sub-folder is pruned.
+ */
+function prunePreviousVersions(targetFolder) {
+  const previousFolder = join(targetFolder, PREVIOUS_FOLDER);
+  if (!existsSync(previousFolder)) return;
+  const versions = readdirSync(previousFolder)
+    .filter((name) => statSync(join(previousFolder, name)).isDirectory())
+    // Dated folder names (YYYY-MM-DD) sort chronologically as strings.
+    .toSorted();
+  const toRemove = versions.slice(0, -MAX_PREVIOUS_VERSIONS);
+  for (const version of toRemove) {
+    debug.trace(`Pruning old version: ${join(previousFolder, version)}`);
+    rmSync(join(previousFolder, version), { recursive: true, force: true });
+  }
+}
 
 // The PubChem FTP server answers rapid sequential automated requests with a
 // 503 (throttling) even though the file exists, and the throttle window can
@@ -134,7 +166,7 @@ async function getFileIfNew(file, targetFolder, options = {}) {
           localFile.name.includes('.msp') ||
           localFile.name.includes('.tsv.gz')) &&
         localFile.name.includes(filename) &&
-        !localFile.relativePath.includes('old'),
+        !localFile.relativePath.includes(PREVIOUS_FOLDER),
     );
     let lastFilesSize = 0;
     let lastFileTargetLocal;
@@ -172,15 +204,17 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     }
 
     // Archive any previous local copies before downloading the new one.
-    if (!existsSync(join(targetFolder, 'old', modificationDate))) {
-      mkdirpSync(join(targetFolder, 'old', modificationDate));
+    if (!existsSync(join(targetFolder, PREVIOUS_FOLDER, modificationDate))) {
+      mkdirpSync(join(targetFolder, PREVIOUS_FOLDER, modificationDate));
     }
     for (const localFile of fileList) {
       renameSync(
         join(targetFolder, localFile.name),
-        join(targetFolder, 'old', modificationDate, localFile.name),
+        join(targetFolder, PREVIOUS_FOLDER, modificationDate, localFile.name),
       );
     }
+    // Retain only the latest few archived versions to bound disk usage.
+    prunePreviousVersions(targetFolder);
 
     const targetFile = join(
       targetFolder,

@@ -5,6 +5,14 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves npasses documents matching the requested npasses IDs.
+ * Splits the comma/whitespace-separated `ids` query parameter and matches
+ * them against the `_id` field of the `npasses` collection, projecting only
+ * the requested `fields`.
+ * @param request - Incoming HTTP request whose query provides `ids` (npasses IDs) and `fields` (fields to return, defaults to `data`).
+ * @returns Object with a `data` array of matching documents, or an `errors` array on failure.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

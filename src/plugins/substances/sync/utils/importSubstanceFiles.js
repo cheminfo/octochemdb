@@ -16,7 +16,6 @@ import importOneSubstanceFile from './importOneSubstanceFile.js';
  * @param files - list of substance files
  * @param options - import options (`lastDocument`, `shouldImport`)
  * @param importType - import mode
- * @returns
  */
 export async function importSubstanceFiles(
   connection,

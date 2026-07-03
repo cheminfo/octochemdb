@@ -4,7 +4,7 @@ import { MF } from 'mf-parser';
  * Populate `matchParameter` with molecular-level filters (em, mf, noStereoTautomerID).
  * Mutates `matchParameter` in place.
  * @param matchParameter - MongoDB match object
- * @param molecularInfo
+ * @param molecularInfo - molecular query values (mf, em, noStereoTautomerID, precision).
  */
 export function getMolecularMatchParameter(matchParameter, molecularInfo) {
   const {

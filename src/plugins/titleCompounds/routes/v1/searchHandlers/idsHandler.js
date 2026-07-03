@@ -5,6 +5,14 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves titleCompounds entries for the requested compound IDs.
+ * Parses the space/comma/semicolon/whitespace-separated `ids` query
+ * parameter, matches those `_id` values in the `titleCompounds`
+ * collection, and projects the requested `fields`.
+ * @param request - Fastify request whose query provides `ids` (compound IDs) and `fields` (fields to return, defaults to `data`).
+ * @returns An object with a `data` array of matching documents, or an `errors` array if the query fails.
+ */
 export async function idsHandler(request) {
   let data = getRequestQuery(request);
   let { ids = '', fields = 'data' } = data;

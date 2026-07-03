@@ -4,6 +4,16 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Performs a full-text search over patent titles and abstracts, optionally
+ * restricted to a set of patent IDs, and returns the matching patents.
+ * @param request - Fastify request whose query provides `patentsIDs`
+ *   (optional list of IDs to restrict the search), `keywords` (text searched in
+ *   title and abstract), `fields` (fields to return), `minScore` (minimum text
+ *   search score) and `limit` (maximum number of results).
+ * @returns Object with a `data` array of matching patents (including a `score`
+ *   field when keywords are used), or an `errors` array if the query fails.
+ */
 export async function searchHandler(request) {
   let data = getRequestQuery(request);
   let {

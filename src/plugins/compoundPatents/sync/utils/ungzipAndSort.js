@@ -1,3 +1,5 @@
+import { dirname } from 'node:path';
+
 import { exec } from 'node-exec-promise';
 
 import debugLibrary from '../../../../utils/Debug.js';
@@ -19,17 +21,16 @@ const debug = debugLibrary('ungzipAndSort');
  * @param source - Absolute or relative path to the `.gz` input file.
  * @param destination - Path where the sorted plain-text output is
  *   written. The file is created or overwritten.
- * @returns
+ * @returns Resolves once the decompress-and-sort pipeline has written the destination file.
  */
 export default async function ungzipAndSort(source, destination) {
   debug.trace(`Ungzip and sorting file: ${source}`);
-  // sort --parallel 8
-  return exec(`gzip -dc "${source}" | sort -n  > "${destination}"`).then(
-    (out) => {
-      debug.trace(out.stdout, { stderr: out.stderr });
-    },
-    (error) => {
-      debug.error(error);
-    },
+  // `sort` spills large inputs to temporary files. Inside the read-only
+  // container /tmp is not writable, so point sort at the destination's
+  // directory (which lives on the writable data volume) via -T.
+  const tmpDir = dirname(destination);
+  const out = await exec(
+    `gzip -dc "${source}" | sort -n -T "${tmpDir}" > "${destination}"`,
   );
+  debug.trace(out.stdout, { stderr: out.stderr });
 }

@@ -2,6 +2,11 @@ import debugLibrary from '../../../utils/Debug.js';
 
 const debug = debugLibrary('getCollectionLinks');
 
+/**
+ * Loads noStereo idCodes from the activesOrNaturals collection and groups them by noStereoTautomerID into a map used to feed the fragmentation workers. In test mode the results are restricted to a fixed set of tautomer IDs.
+ * @param connection - OctoChem database connection used to read the activesOrNaturals collection.
+ * @returns A map from noStereoTautomerID to an array of objects holding noStereoId and noStereoTautomerID.
+ */
 export default async function getCollectionsLinks(connection) {
   try {
     const links = {};

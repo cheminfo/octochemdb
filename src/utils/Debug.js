@@ -14,7 +14,7 @@ const levels = {
   debug: 20,
   trace: 10,
 };
-configDotenv();
+configDotenv({ quiet: true });
 // @ts-ignore
 const minLevelTelegram = levels[process.env.TELEGRAM_DEBUG_LEVEL];
 

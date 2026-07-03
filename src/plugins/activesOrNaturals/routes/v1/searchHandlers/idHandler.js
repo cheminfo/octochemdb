@@ -4,7 +4,7 @@ import debugLibrary from '../../../../../utils/Debug.js';
 /**
  * Retrieve the entry for a given noStereoTautomerID.
  * @param request - Fastify request
- * @returns
+ * @returns object with the matching entry under `data`, or `errors` on failure.
  */
 export async function idHandler(request) {
   const { id = '', fields = 'data' } = request.query;

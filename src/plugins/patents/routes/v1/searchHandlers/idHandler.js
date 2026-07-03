@@ -3,6 +3,14 @@ import debugLibrary from '../../../../../utils/Debug.js';
 
 const debug = debugLibrary('searchIDs');
 
+/**
+ * Retrieves a single patent by its ID from the `patents` collection, projecting
+ * only the requested fields.
+ * @param request - Fastify request whose query provides `id` (patent ID) and
+ *   `fields` (comma-separated list of fields to return).
+ * @returns Object with a `data` array holding the matching patent, or an
+ *   `errors` array if the query fails.
+ */
 export async function idHandler(request) {
   let { id = '', fields = 'data' } = request.query;
   let formattedFields = getFields(fields);

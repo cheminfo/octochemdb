@@ -19,9 +19,11 @@ export function parseHtmlEntities(str) {
   str = str.replaceAll(
     /\\u(?<unicode>[\d\w]{4})|&#(?<htmlEntity>[0-9]{1,3});/gi,
     /**
-     * @param match
-     * @param unicode
-     * @param htmlEntity
+     * Replaces a matched escape sequence with its decoded character.
+     * @param match - The full matched substring.
+     * @param unicode - Captured 4-hex-digit Unicode escape, if present.
+     * @param htmlEntity - Captured numeric HTML entity code, if present.
+     * @returns The decoded character, or the original match if neither group matched.
      */
     (match, unicode, htmlEntity) => {
       if (unicode) {

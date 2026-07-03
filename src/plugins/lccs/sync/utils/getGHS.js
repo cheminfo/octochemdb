@@ -1,6 +1,11 @@
 import { createReadStream } from 'node:fs';
 import { createInterface } from 'node:readline';
 
+/**
+ * Parses the PubChem GHS code reference file into hazard (H) and precautionary (P) code lookup tables.
+ * @param path - Path to the tab-separated GHS code file.
+ * @returns An object `{ hCodes, pCodes }` mapping each H code to its statement/classification details and each P code to its precautionary statement text.
+ */
 export async function getGHS(path) {
   let hCodes = {};
   let pCodes = {};

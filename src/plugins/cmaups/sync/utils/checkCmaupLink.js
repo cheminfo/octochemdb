@@ -15,7 +15,7 @@ const debug = debugLibrary('CMAUP');
  */
 export async function checkCmaupLink(previousLinks, connection) {
   try {
-    const response = await fetch('https://www.bidd.group/CMAUP/download.html');
+    const response = await fetch('https://bidd.group/CMAUP/download.html');
     const text = await response.text();
 
     // Extract all href values from <a> tags with download attribute
