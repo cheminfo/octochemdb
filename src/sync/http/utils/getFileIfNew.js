@@ -192,13 +192,30 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       `${filename}: remote size ${newFileSize} / local ${lastFilesSize}`,
     );
 
-    if (lastFilesSize === newFileSize) {
-      // Local copy is up to date — no download needed.
+    if (newFileSize !== -1 && lastFilesSize === newFileSize) {
+      // Local copy is up to date (matched by size) — no download needed.
       debug.trace(`${filename}: up to date (${newFileSize}), no download`);
       return join(targetFolder, lastFileTargetLocal);
     }
 
     const modificationDate = new Date(lastModified).toISOString().slice(0, 10);
+
+    // Some servers (e.g. bidd.group / NPASS) do not send a content-length, so
+    // the size check above can never match and every run would re-download the
+    // full file. Fall back to the last-modified date: the local file is named
+    // `<filename>.<YYYY-MM-DD>.<ext>`, so if a local copy already carries the
+    // remote's modification date, it is up to date and we can skip the download.
+    if (
+      newFileSize === -1 &&
+      lastFileTargetLocal &&
+      lastFileTargetLocal.includes(modificationDate)
+    ) {
+      debug.trace(
+        `${filename}: up to date (last-modified ${modificationDate}), no download`,
+      );
+      return join(targetFolder, lastFileTargetLocal);
+    }
+
     debug.trace(`${filename}: changed, last modification ${modificationDate}`);
     // in case of test we do not want to write to disk
     if (process.env.NODE_ENV === 'test') {
