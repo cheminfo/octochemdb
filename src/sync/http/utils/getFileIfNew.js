@@ -102,7 +102,18 @@ async function fetchWithRetry(url, method = 'GET') {
     const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
     try {
       await throttle();
-      const response = await fetch(url, { method, signal: controller.signal });
+      // For the HEAD size-check, ask for an uncompressed response. Some servers
+      // (e.g. bidd.group / NPASS) gzip the body when the client accepts gzip,
+      // and a gzipped response carries no Content-Length — which made the size
+      // check read -1 and re-download the file on every run. Requesting
+      // `identity` encoding forces the server to report the real Content-Length.
+      const headers =
+        method === 'HEAD' ? { 'Accept-Encoding': 'identity' } : undefined;
+      const response = await fetch(url, {
+        method,
+        headers,
+        signal: controller.signal,
+      });
       if (response.status === 200) return response;
       // Drain the body of a non-200 so the socket can be reused.
       response.body?.resume?.();
