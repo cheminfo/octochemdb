@@ -32,6 +32,13 @@ export default async function npassStartSync(connection) {
     const npassesFiles = /** @type {any} */ (
       await getNpassesLastFiles(connection)
     );
+    // getNpassesLastFiles returns undefined when the remote files could not be
+    // fetched (e.g. bidd.group unreachable). Skip this cycle cleanly instead of
+    // crashing on a destructure of undefined; the cron retries next time.
+    if (!npassesFiles) {
+      debug.warn('npasses: source files unavailable, skipping this cycle');
+      return;
+    }
     const {
       lastFile,
       lastFileActivity,
@@ -62,6 +69,10 @@ export default async function npassStartSync(connection) {
         connection,
       )
     );
+    if (!parsedFiles) {
+      debug.warn('npasses: source files could not be parsed, skipping cycle');
+      return;
+    }
     const {
       general,
       activities,

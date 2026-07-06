@@ -166,6 +166,8 @@ async function getFileIfNew(file, targetFolder, options = {}) {
           localFile.name.includes('.msp') ||
           localFile.name.includes('.tsv.gz')) &&
         localFile.name.includes(filename) &&
+        // Ignore leftover partial downloads from an interrupted run.
+        !localFile.name.endsWith('.download') &&
         !localFile.relativePath.includes(PREVIOUS_FOLDER),
     );
     let lastFilesSize = 0;
@@ -203,29 +205,45 @@ async function getFileIfNew(file, targetFolder, options = {}) {
       return `${filename}.${modificationDate}.${extension}`;
     }
 
-    // Archive any previous local copies before downloading the new one.
+    const targetFile = join(
+      targetFolder,
+      `${filename}.${modificationDate}.${extension}`,
+    );
+
+    // Download to a temporary path FIRST, and only archive the old copy once
+    // the download has fully succeeded. This keeps the operation atomic: if the
+    // remote fetch fails (bidd.group and the PubChem FTP are both flaky, and a
+    // missing content-length makes every run look "changed"), the existing good
+    // local copy is left untouched instead of being moved into the previous/
+    // folder and then lost when the download never completes.
+    const downloadTmp = `${targetFile}.download`;
+    target = downloadTmp;
+    debug.trace(`${filename}: downloading to ${downloadTmp}`);
+
+    // The heavy GET streams the body to a temp file.
+    const response = await fetchWithRetry(file.url, 'GET');
+    await pipeline(response.body, createWriteStream(downloadTmp));
+
+    // Download succeeded — now it is safe to archive the previous copies.
     if (!existsSync(join(targetFolder, PREVIOUS_FOLDER, modificationDate))) {
       mkdirpSync(join(targetFolder, PREVIOUS_FOLDER, modificationDate));
     }
     for (const localFile of fileList) {
+      const src = join(targetFolder, localFile.name);
+      // A prior interrupted run can leave a listed file that no longer exists
+      // on disk; skip it instead of throwing ENOENT and aborting the sync.
+      if (!existsSync(src)) continue;
       renameSync(
-        join(targetFolder, localFile.name),
+        src,
         join(targetFolder, PREVIOUS_FOLDER, modificationDate, localFile.name),
       );
     }
     // Retain only the latest few archived versions to bound disk usage.
     prunePreviousVersions(targetFolder);
 
-    const targetFile = join(
-      targetFolder,
-      `${filename}.${modificationDate}.${extension}`,
-    );
+    // Move the freshly downloaded temp file into its final name.
+    renameSync(downloadTmp, targetFile);
     target = targetFile;
-    debug.trace(`${filename}: downloading to ${targetFile}`);
-
-    // Only now do the heavy GET to stream the body to disk.
-    const response = await fetchWithRetry(file.url, 'GET');
-    await pipeline(response.body, createWriteStream(targetFile));
     if (file.epoch) utimesSync(targetFile, file.epoch, file.epoch);
 
     debug.trace(`${filename}: downloaded`);

@@ -37,6 +37,16 @@ import { parseNpasses } from './utils/parseNpasses.js';
 export async function sync(connection) {
   const debug = debugLibrary('syncNpasses');
   try {
+    const startResult = /** @type {NpassesStartSyncResult} */ (
+      await npassesStartSync(connection)
+    );
+    // npassesStartSync returns undefined when the source files could not be
+    // fetched/parsed (e.g. bidd.group unreachable). Skip this cycle cleanly
+    // rather than crashing on a destructure of undefined.
+    if (!startResult) {
+      debug.warn('npasses: prerequisites unavailable, skipping this cycle');
+      return;
+    }
     const {
       lastDocumentImported,
       progress,
@@ -48,9 +58,7 @@ export async function sync(connection) {
       speciesPair,
       speciesInfo,
       targetInfo,
-    } = /** @type {NpassesStartSyncResult} */ (
-      await npassesStartSync(connection)
-    );
+    } = startResult;
     // Check whether the source fingerprint has changed since the last run
     let isTimeToUpdate = await shouldUpdate(
       progress,
