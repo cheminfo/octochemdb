@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve a patent abstract and title from a patent ID',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      id: {
-        type: 'string',
-        description: 'patents ID',
-        example: 'CN101597246A',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          description: 'patents ID',
+          example: 'CN101597246A',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

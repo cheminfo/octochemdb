@@ -10,11 +10,14 @@ const taxonomyFromID = {
     summary: 'Retrieve taxonomy from ncbi taxonomy ID',
     description: 'Allows to search for the taxonomy from ncbi taxonomy ID.',
     querystring: {
-      id: {
-        type: 'number',
-        description: 'ncbi taxonomy ID',
-        example: 662756,
-        default: 562,
+      type: 'object',
+      properties: {
+        id: {
+          type: 'number',
+          description: 'ncbi taxonomy ID',
+          example: 662756,
+          default: 562,
+        },
       },
     },
   },

@@ -10,16 +10,19 @@ const fromPMID = {
     summary: 'Retrieve article from a PubMed ID',
     description: 'Allows to search for an article from PubMed using PMID',
     querystring: {
-      id: {
-        type: 'number',
-        description: 'PubMed ID',
-        example: 1,
-        default: 1,
-      },
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+      type: 'object',
+      properties: {
+        id: {
+          type: 'number',
+          description: 'PubMed ID',
+          example: 1,
+          default: 1,
+        },
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

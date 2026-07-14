@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve LCCS information for given compound ID',
     description: 'Allows to search for compound data',
     querystring: {
-      id: {
-        type: 'string',
-        description: 'compound ID ',
-        example: '2',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          description: 'compound ID ',
+          example: '2',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },
