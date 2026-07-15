@@ -10,8 +10,8 @@ import debugLibrary from '../../../../utils/Debug.js';
  * @param connection - Active database connection
  *   (used only for error logging on failure).
  * @param importType - Which remote folder to sync.
- * @returns Sorted
- *   array of file descriptors, or `undefined` if a fatal error occurred.
+ * @returns Sorted array of file descriptors. Throws if the folder sync fails,
+ *   so the caller aborts instead of importing (and marking 'updated') nothing.
  */
 export async function syncPubmedFolder(connection, importType) {
   const debug = debugLibrary('syncFullPubmedFolder');
@@ -43,14 +43,18 @@ export async function syncPubmedFolder(connection, importType) {
       return 0;
     });
   } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
     if (connection) {
-      const err = error instanceof Error ? error : new Error(String(error));
       await debug.fatal(err.message, {
         collection: 'pubmeds',
         connection,
         stack: err.stack,
       });
     }
-    return [];
+    // Propagate the failure. Returning [] here (a refactor-era change) turns a
+    // failed folder sync into "0 files to import", which then lets the caller
+    // mark the collection 'updated' with nothing imported. Throwing aborts the
+    // run so it is retried on the next cron tick instead of falsely completing.
+    throw err;
   }
 }

@@ -86,6 +86,14 @@ async function firstPubmedImport(connection) {
     }
 
     const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
+    // Defence in depth: getCidFromPmid now throws on failure, but never import
+    // against a missing map — every article would crash on lookup (or import
+    // with no compound links), so abort loudly with the real cause instead.
+    if (!pmidToCid) {
+      throw new Error(
+        `Failed to build PMID→CID map from ${cidToPmidPath}; aborting pubmeds import`,
+      );
+    }
 
     // Process every pending baseline file sequentially
     await importPubmedFiles(
@@ -97,13 +105,24 @@ async function firstPubmedImport(connection) {
       'first',
     );
 
+    // Do not declare the baseline "updated" unless articles were actually
+    // stored. importPubmedFiles/importOnePubmedFile swallow per-file errors, so
+    // a run that imported nothing (e.g. a broken CID→PMID map) would otherwise
+    // be marked complete and never retried. Require a non-empty collection.
+    const collection = await connection.getCollection('pubmeds');
+    const importedCount = await collection.estimatedDocumentCount();
+    if (importedCount === 0) {
+      throw new Error(
+        'Baseline pubmeds import produced 0 documents; refusing to mark as updated',
+      );
+    }
+
     // Finalise progress: record end timestamp and mark as done
     progress.state = 'updated';
     progress.dateEnd = Date.now();
     await connection.setProgress(progress);
 
     // Rebuild indexes on the freshly-populated collection
-    const collection = await connection.getCollection('pubmeds');
     await createIndexes(collection, [
       { 'data.meshHeadings': 1 },
       { 'data.compounds': 1 },

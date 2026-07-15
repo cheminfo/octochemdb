@@ -16,14 +16,19 @@ import debugLibrary from '../../../../utils/Debug.js';
  * @param filePath - Path to the `CID-PMID.gz` file.
  * @param connection - Active database connection
  *   (used only for error logging on failure).
- * @returns PMID → CID[]
- *   map, or `undefined` if a fatal error occurred.
+ * @returns PMID → CID[] map. Throws if the file cannot be read or is not a
+ *   valid/complete gzip (rather than silently returning `undefined`).
  */
 export async function getCidFromPmid(filePath, connection) {
   const debug = debugLibrary('getCidFromPmid');
   try {
     const readStream = createReadStream(filePath);
-    const stream = readStream.pipe(createGunzip());
+    const gunzip = createGunzip();
+    // Forward source-stream errors (e.g. ENOENT/EISDIR) into the gunzip stream
+    // so the `for await` below rejects and they are caught here, instead of
+    // surfacing as an unhandled 'error' event that hard-aborts the process.
+    readStream.on('error', (streamError) => gunzip.destroy(streamError));
+    const stream = readStream.pipe(gunzip);
     /** @type {Record<string, number[]>} */
     const data = {};
 
@@ -59,13 +64,19 @@ export async function getCidFromPmid(filePath, connection) {
 
     return data;
   } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
+    // A truncated or non-gzip file throws here (Z_BUF_ERROR "unexpected end of
+    // file" / Z_DATA_ERROR "incorrect header check"). Name the file and the
+    // real cause, then RETHROW: returning undefined would let every article
+    // crash later on `pmidToCid[pmid]` and the import be falsely marked done.
+    const message = `Failed to build PMID→CID map from ${filePath}: ${err.message}`;
     if (connection) {
-      const err = error instanceof Error ? error : new Error(String(error));
-      await debug.fatal(err.message, {
+      await debug.fatal(message, {
         collection: 'pubmeds',
         connection,
         stack: err.stack,
       });
     }
+    throw new Error(message, { cause: error });
   }
 }

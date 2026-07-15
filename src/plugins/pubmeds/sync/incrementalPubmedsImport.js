@@ -89,6 +89,14 @@ async function incrementalPubmedImport(connection) {
       }
 
       const pmidToCid = await getCidFromPmid(cidToPmidPath, connection);
+      // getCidFromPmid swallows its errors and returns undefined; without the
+      // map every article would crash on lookup (or import with no compound
+      // links), so abort loudly with the real cause instead.
+      if (!pmidToCid) {
+        throw new Error(
+          `Failed to build PMID→CID map from ${cidToPmidPath}; aborting pubmeds import`,
+        );
+      }
 
       // Process every pending incremental file (upserts and deletes)
       await importPubmedFiles(

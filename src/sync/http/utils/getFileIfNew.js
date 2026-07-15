@@ -55,6 +55,11 @@ function prunePreviousVersions(targetFolder) {
 // last a while. A single failed fetch must not abort the whole import, so we
 // retry with exponential backoff (capped) until the server lets us through.
 const MAX_FETCH_ATTEMPTS = 8;
+// A 200 response whose body ends early (the server closed the connection before
+// sending the whole file) is NOT a fetch error — stream.pipeline() accepts it —
+// so fetchWithRetry cannot catch it. We re-download the whole file until its
+// size matches the server's advertised size, up to this many times.
+const MAX_DOWNLOAD_ATTEMPTS = 5;
 const RETRY_BASE_DELAY = 10000; // ms; first backoff, doubled each attempt
 const RETRY_MAX_DELAY = 120000; // ms; cap on a single backoff wait
 const REQUEST_TIMEOUT = 1800 * 1000; // ms; per-attempt abort (30 minutes)
@@ -184,7 +189,11 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     let lastFilesSize = 0;
     let lastFileTargetLocal;
     for (const localFile of fileList) {
-      if (lastFileTargetLocal === undefined || localFile.size < lastFilesSize) {
+      // Pick the LARGEST local copy: it is the one most likely to be complete.
+      // Selecting the smallest would prefer a truncated/partial download and,
+      // because that size feeds the up-to-date short-circuit below, re-serve
+      // the corrupt file on every run without ever re-downloading it.
+      if (lastFileTargetLocal === undefined || localFile.size > lastFilesSize) {
         lastFilesSize = localFile.size;
         lastFileTargetLocal = localFile.name;
       }
@@ -246,11 +255,55 @@ async function getFileIfNew(file, targetFolder, options = {}) {
     // folder and then lost when the download never completes.
     const downloadTmp = `${targetFile}.download`;
     target = downloadTmp;
-    debug.trace(`${filename}: downloading to ${downloadTmp}`);
 
-    // The heavy GET streams the body to a temp file.
-    const response = await fetchWithRetry(file.url, 'GET');
-    await pipeline(response.body, createWriteStream(downloadTmp));
+    // Download until the file on disk is COMPLETE, retrying in-run. A streamed
+    // download can fail two server-agnostic ways, and this loop covers both:
+    //   1. The connection errors or drops mid-body — stream.pipeline() rejects,
+    //      so we catch, delete the partial, back off and retry. Needs no
+    //      Content-Length, so it protects downloads from any server.
+    //   2. The server answers 200 then ends the body early WITHOUT an error —
+    //      pipeline() resolves on that short body, so when the server told us
+    //      the size up front we additionally require the bytes on disk to equal
+    //      it. This is the "same size as the source file" guarantee.
+    // The old (pre-regression) code streamed with a write loop that threw on an
+    // early close; the refactor-era switch to a bare pipeline() dropped that,
+    // letting a truncated CID-PMID.gz be accepted and poison the whole import.
+    let downloadError;
+    let downloaded = false;
+    for (let attempt = 1; attempt <= MAX_DOWNLOAD_ATTEMPTS; attempt++) {
+      try {
+        debug.trace(
+          `${filename}: downloading to ${downloadTmp} (attempt ${attempt}/${MAX_DOWNLOAD_ATTEMPTS})`,
+        );
+        const response = await fetchWithRetry(file.url, 'GET');
+        await pipeline(response.body, createWriteStream(downloadTmp));
+        const downloadedSize = statSync(downloadTmp).size;
+        if (newFileSize !== -1 && downloadedSize !== newFileSize) {
+          throw new Error(
+            `incomplete body: ${downloadedSize}/${newFileSize} bytes`,
+          );
+        }
+        downloaded = true;
+        break;
+      } catch (error) {
+        downloadError =
+          error instanceof Error ? error : new Error(String(error));
+        debug.warn(
+          `${filename}: download attempt ${attempt}/${MAX_DOWNLOAD_ATTEMPTS} failed: ${downloadError.message}`,
+        );
+        rmSync(downloadTmp, { force: true });
+        if (attempt < MAX_DOWNLOAD_ATTEMPTS) {
+          await delay(
+            Math.min(RETRY_BASE_DELAY * 2 ** (attempt - 1), RETRY_MAX_DELAY),
+          );
+        }
+      }
+    }
+    if (!downloaded) {
+      throw new Error(
+        `Could not fully download ${filename} after ${MAX_DOWNLOAD_ATTEMPTS} attempts: ${downloadError?.message}`,
+      );
+    }
 
     // Download succeeded — now it is safe to archive the previous copies.
     if (!existsSync(join(targetFolder, PREVIOUS_FOLDER, modificationDate))) {
