@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import debugLibrary from '../../../../utils/Debug.js';
 /**
  * @description get associated CIDs from SIDs
- * @param sids  - array of SIDs
+ * @param sids - array of SIDs
  * @returns array of CIDs associated to the SIDs (meaning also parents CIDs like deprotonated forms)
  */
 export async function getCIDfromSID(sids) {
@@ -32,14 +32,14 @@ export async function getCIDfromSID(sids) {
 
         if (process.env.NODE_ENV === 'test') {
           dataSubstance = await fetch(
-            `https://octo.cheminfo.org/substances/v1/ids?ids=${urlSIDs}`,
+            `https://octochemdb-master4.epfl.ch/substances/v1/ids?ids=${urlSIDs}`,
             {
               signal: controller.signal,
             },
           );
         } else {
           dataSubstance = await fetch(
-            `https://octo.cheminfo.org/substances/v1/ids?ids=${urlSIDs}`,
+            `https://octochemdb-master4.epfl.ch/substances/v1/ids?ids=${urlSIDs}`,
             {
               signal: controller.signal,
             },

@@ -10,10 +10,18 @@ const sleepTime = 24; // in hours
 
 // Sync plugins run in this order. Plugins not listed run after these,
 // in alphabetical order. Mirrors the dependency graph used by tests.
+//
+// substances and bioassaysPubChem are ordered explicitly: bioassaysPubChem
+// resolves SIDs -> CIDs through the substances API (getCIDfromSID), which
+// serves the `substances` collection. That collection is itself built from
+// `compounds`. So both compounds and substances must finish importing before
+// bioassaysPubChem runs, otherwise the SID lookups fail or return stale data.
 const SYNC_PRIORITY = [
   'taxonomies',
   'compounds',
+  'substances',
   'bioassays',
+  'bioassaysPubChem',
   'patents',
   'compoundPatents',
   'gnps',
