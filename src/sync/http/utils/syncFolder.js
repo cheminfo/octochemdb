@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 
+import delay from 'delay';
 import { fileCollectionFromPath } from 'filelist-utils';
 import FSExtra from 'fs-extra';
 
@@ -45,7 +46,9 @@ async function syncFolder(source, destinationFolder, options = {}) {
   let start = Date.now();
   for (const file of allFiles) {
     if (Date.now() - start > Number(process.env.DEBUG_THROTTLING)) {
-      debug.trace(`Downloaded from: ${lastFileName} till ${file.name}`);
+      // Progress ticker: this fires while skipping already-present files too,
+      // so say "Processed" rather than "Downloaded" (most of these are skips).
+      debug.trace(`Processed from: ${lastFileName} till ${file.name}`);
       start = Date.now();
       lastFileName = file.name;
     }
@@ -114,18 +117,39 @@ export default syncFolder;
  * @returns The file size in bytes (or as resolved by the fallback path).
  */
 export async function fileSize(file) {
-  // Use HEAD to avoid downloading the whole file just for its size.
-  let response = await fetch(file.url, { method: 'HEAD' });
-  // Some servers (or some files) don't expose content-length on HEAD;
-  // fall back to a GET in that case.
-  let contentLength = response.headers.get('content-length');
-  if (contentLength === null) {
-    response = await fetch(file.url);
-    contentLength = response.headers.get('content-length');
+  // syncFolder calls this once per already-present file (potentially thousands
+  // on a resumed import). A single transient network blip here must NOT abort
+  // the whole folder sync, so retry a few times and, if the size still can't be
+  // read, return NaN — the caller then keeps the local copy (see the callers'
+  // `Number.isFinite` guard), which is the safe choice.
+  const MAX_ATTEMPTS = 4;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      // Use HEAD to avoid downloading the whole file just for its size.
+      let response = await fetch(file.url, { method: 'HEAD' });
+      // Some servers (or some files) don't expose content-length on HEAD;
+      // fall back to a GET in that case.
+      let contentLength = response.headers.get('content-length');
+      if (contentLength === null) {
+        response = await fetch(file.url);
+        // Drain the body so the socket can be reused.
+        response.body?.resume?.();
+        contentLength = response.headers.get('content-length');
+      }
+      if (contentLength === null) {
+        debug.warn(`No content-length header for ${file.url}`);
+        return Number.NaN;
+      }
+      return Number(contentLength);
+    } catch (error) {
+      debug.warn(
+        `fileSize attempt ${attempt}/${MAX_ATTEMPTS} failed for ${file.url}: ${error.message}`,
+      );
+      if (attempt < MAX_ATTEMPTS) await delay(2000 * attempt);
+    }
   }
-  if (contentLength === null) {
-    debug.warn(`No content-length header for ${file.url}`);
-    return Number.NaN;
-  }
-  return Number(contentLength);
+  // Persistent failure: treat the size as unknown so the existing local file is
+  // kept and the sync moves on instead of aborting the entire import.
+  debug.warn(`Could not determine remote size for ${file.url}; keeping local copy`);
+  return Number.NaN;
 }

@@ -16,9 +16,9 @@ import debugLibrary from '../../../../utils/Debug.js';
  * @param allFiles - Complete sorted
  *   file list from the remote folder.
  * @param importType - Import mode.
- * @returns
- *   Subset of files to import and the last-imported document, or
- *   `undefined` if a fatal error occurred.
+ * @returns Subset of files to import and the last-imported document. Throws on
+ *   a fatal error so the caller aborts cleanly instead of destructuring
+ *   `undefined`.
  */
 export async function getFilesToImport(
   connection,
@@ -62,8 +62,13 @@ export async function getFilesToImport(
       debug.trace(`starting with file ${progress.sources}`);
       return { files: allFiles.slice(firstIndex), lastDocument };
     } else if (importType === 'incremental') {
+      // No imported document yet — e.g. the baseline import has not finished so
+      // the collection is still empty. There is nothing to resume from, so
+      // return all files for a full catch-up rather than throwing. The caller's
+      // shouldUpdate gate still decides whether to actually import.
       if (!lastDocument) {
-        throw new Error('This should never happen');
+        debug.trace('No last document yet; returning all incremental files');
+        return { files: allFiles, lastDocument: {} };
       }
       debug.trace(`last file processed: ${progress.sources}`);
 
@@ -88,13 +93,17 @@ export async function getFilesToImport(
       return { lastDocument, files: allFiles.slice(firstIndex) };
     }
   } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error));
     if (connection) {
-      const err = error instanceof Error ? error : new Error(String(error));
       await debug.fatal(err.message, {
         collection: 'pubmeds',
         connection,
         stack: err.stack,
       });
     }
+    // Rethrow: returning undefined makes the caller crash on
+    // `const { files, lastDocument } = await getFilesToImport(...)`. Propagating
+    // lets the import abort cleanly (and retry next tick) with the real cause.
+    throw err;
   }
 }

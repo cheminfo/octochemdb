@@ -1,11 +1,33 @@
+import delay from 'delay';
+
 import debugLibrary from '../../../utils/Debug.js';
 
 const debug = debugLibrary('getFilesList');
 
 async function getFilesList(url, options = {}) {
   const { fileFilter = () => true, md5 = false } = options;
-  const response = await fetch(url);
-  const text = await response.text();
+  // The directory listing is a single request the whole sync depends on, so a
+  // transient network blip must not abort it — retry with backoff before giving
+  // up (in which case the error propagates and the run is retried next tick).
+  let text;
+  let lastError;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Unexpected status ${response.status} for ${url}`);
+      }
+      text = await response.text();
+      break;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      debug.warn(
+        `getFilesList attempt ${attempt}/4 failed for ${url}: ${lastError.message}`,
+      );
+      if (attempt < 4) await delay(3000 * attempt);
+    }
+  }
+  if (text === undefined) throw lastError;
   let files = text
     .split(/\r?\n/)
     .filter((line) => line.match(/^<a/))
