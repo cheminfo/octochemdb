@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve lotusesV2 entries for given Wikidata compound IDs',
     description: 'Allows to search for compounds data from LOTUS Wikidata',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'Wikidata compound IDs',
-        example: 'Q27109816, Q312266',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'Wikidata compound IDs',
+          example: 'Q27109816, Q312266',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

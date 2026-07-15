@@ -8,16 +8,19 @@ const entriesAdmin = {
     description:
       'This route retrieves the entries from the admin collection. This can be integrated in a monitoring system to keep under control the collection state and the last 50 logs.',
     querystring: {
-      collectionToSearch: {
-        type: 'string',
-        description: 'Collection progress',
-        example: 'bioassays',
-        default: '',
-      },
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: '_id,state,seq,dateStart,dateEnd,logs,sources',
+      type: 'object',
+      properties: {
+        collectionToSearch: {
+          type: 'string',
+          description: 'Collection progress',
+          example: 'bioassays',
+          default: '',
+        },
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: '_id,state,seq,dateStart,dateEnd,logs,sources',
+        },
       },
     },
   },

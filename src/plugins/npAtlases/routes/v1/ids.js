@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve npAtlases entries for given npAtlases IDs',
     description: 'Allows to search for compounds data',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'npAtlases IDs ',
-        example: 'NPA000001, NPA000003',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'npAtlases IDs ',
+          example: 'NPA000001, NPA000003',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

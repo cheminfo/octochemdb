@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve compounds for given compounds IDs',
     description: 'Allows to search for compounds data',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'compounds IDs ',
-        example: '102126174,102126173',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'compounds IDs ',
+          example: '102126174,102126173',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

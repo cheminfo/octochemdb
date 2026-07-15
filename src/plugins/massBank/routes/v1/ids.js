@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve massBank entries for given massBank IDs',
     description: 'Allows to search for compounds data',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'massBank IDs ',
-        example: 'MSBNK-AAFC-AC000292,MSBNK-AAFC-AC000854',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'massBank IDs ',
+          example: 'MSBNK-AAFC-AC000292,MSBNK-AAFC-AC000854',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

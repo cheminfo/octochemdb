@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve gnps entries for given gnps IDs',
     description: 'Allows to search for compounds data',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'gnps IDs ',
-        example: 'CCMSLIB00000001548, CCMSLIB00000001547',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'gnps IDs ',
+          example: 'CCMSLIB00000001548, CCMSLIB00000001547',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

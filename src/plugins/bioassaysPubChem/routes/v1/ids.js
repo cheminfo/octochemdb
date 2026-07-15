@@ -8,17 +8,20 @@ const searchIDs = {
     description:
       'Allows to search for PubChem bioassay descriptions by AID. Returns the full assay metadata stored in the bioassaysPubChem collection.',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'PubChem AIDs (comma-separated)',
-        example: '22001,22002',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'PubChem AIDs (comma-separated)',
+          example: '22001,22002',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

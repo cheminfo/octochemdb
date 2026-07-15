@@ -7,17 +7,20 @@ const searchIDs = {
     summary: 'Retrieve cmaups entries for given cmaups IDs',
     description: 'Allows to search for compounds data',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'cmaups IDs ',
-        example: 'NPC222524,NPC26601',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'cmaups IDs ',
+          example: 'NPC222524,NPC26601',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

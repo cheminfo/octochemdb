@@ -25,12 +25,6 @@ export async function fromEMHandler(request) {
     fields = 'data',
   } = data;
 
-  // Fastify doesn't coerce these, so they arrive as strings; Mongo then matches
-  // nothing when a numeric field is compared with $gte against a string.
-  minCount = Number(minCount);
-  precision = Number(precision);
-  limit = Number(limit);
-
   if (limit > 1e4) limit = 1e4;
   if (limit < 1) limit = 1;
 

@@ -7,16 +7,19 @@ const searchIDs = {
       'Retrieve articles which title or abstract contains the given text',
     description: 'Allows to search for articles Title and Abstract.',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'patents IDs',
-        example: 'EP-2078065-A2, EP-1293521-A2',
-        default: '',
-      },
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'patents IDs',
+          example: 'EP-2078065-A2, EP-1293521-A2',
+          default: '',
+        },
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },

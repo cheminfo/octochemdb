@@ -7,40 +7,43 @@ const fromIDCodes = {
     description:
       'Retrieve entry in compounds collection from a idCodes. This route can take into account the stereochemistry.',
     querystring: {
-      idCodes: {
-        type: 'string',
-        description: 'idCode',
-        example: 'dgnBBAAJdYR[YVZZjij`@, gJY@BDfZjQ@',
-        default: '',
-      },
-      stereo: {
-        type: 'boolean',
-        description:
-          'Take into account the stereochemistry (only when idCode is provided)',
-        default: true,
-      },
-      noStereoTautomerIDs: {
-        type: 'string',
-        description: 'noStereoTautomerIDs',
-        example:
-          'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@, gJY@BDfZh@',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        idCodes: {
+          type: 'string',
+          description: 'idCode',
+          example: 'dgnBBAAJdYR[YVZZjij`@, gJY@BDfZjQ@',
+          default: '',
+        },
+        stereo: {
+          type: 'boolean',
+          description:
+            'Take into account the stereochemistry (only when idCode is provided)',
+          default: true,
+        },
+        noStereoTautomerIDs: {
+          type: 'string',
+          description: 'noStereoTautomerIDs',
+          example:
+            'dgnBBNBcoirQQQHrJUUUUPAkQXkGXwAxQLjicxX~FNicxX~F@, gJY@BDfZh@',
+          default: '',
+        },
 
-      limit: {
-        type: 'number',
-        description: 'Maximum number of results to return',
-        default: 1000,
-      },
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data.em,data.mf,data.total,data.atom,data.unsaturation',
-      },
-      lccsFields: {
-        type: 'string',
-        description: 'Fields to retrieve from lccs',
-        default: 'data',
+        limit: {
+          type: 'number',
+          description: 'Maximum number of results to return',
+          default: 1000,
+        },
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data.em,data.mf,data.total,data.atom,data.unsaturation',
+        },
+        lccsFields: {
+          type: 'string',
+          description: 'Fields to retrieve from lccs',
+          default: 'data',
+        },
       },
     },
   },

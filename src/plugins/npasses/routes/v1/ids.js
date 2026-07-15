@@ -6,17 +6,20 @@ const searchIDs = {
     summary: 'Retrieve npasses for given npasses IDs',
     description: 'Allows to search for npasses data',
     querystring: {
-      ids: {
-        type: 'string',
-        description: 'npasses IDs ',
-        example: 'NPC100096,NPC100079',
-        default: '',
-      },
+      type: 'object',
+      properties: {
+        ids: {
+          type: 'string',
+          description: 'npasses IDs ',
+          example: 'NPC100096,NPC100079',
+          default: '',
+        },
 
-      fields: {
-        type: 'string',
-        description: 'Fields to retrieve',
-        default: 'data',
+        fields: {
+          type: 'string',
+          description: 'Fields to retrieve',
+          default: 'data',
+        },
       },
     },
   },
