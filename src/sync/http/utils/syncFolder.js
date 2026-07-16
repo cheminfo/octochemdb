@@ -150,6 +150,8 @@ export async function fileSize(file) {
   }
   // Persistent failure: treat the size as unknown so the existing local file is
   // kept and the sync moves on instead of aborting the entire import.
-  debug.warn(`Could not determine remote size for ${file.url}; keeping local copy`);
+  debug.warn(
+    `Could not determine remote size for ${file.url}; keeping local copy`,
+  );
   return Number.NaN;
 }

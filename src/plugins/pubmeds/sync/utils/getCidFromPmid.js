@@ -29,8 +29,18 @@ export async function getCidFromPmid(filePath, connection) {
     // surfacing as an unhandled 'error' event that hard-aborts the process.
     readStream.on('error', (streamError) => gunzip.destroy(streamError));
     const stream = readStream.pipe(gunzip);
-    /** @type {Record<string, number[]>} */
+    /** @type {Record<string, number[] | null>} — null tombstones over-capped PMIDs */
     const data = {};
+
+    // PMIDs that reference more than this many CIDs are too generic to be
+    // useful and are dropped. Enforce the cap DURING ingestion, not after: a
+    // handful of PMIDs (database-dump references) map to tens of millions of
+    // CIDs, and letting a single array grow unbounded spikes memory and
+    // eventually throws "Invalid array length" once it exceeds V8's maximum
+    // array size. Once a PMID crosses the cap we tombstone it with `null` so we
+    // stop collecting and never re-grow the array. Consumers treat a missing or
+    // falsy entry as "no compounds", so `null` is handled like a dropped PMID.
+    const MAX_CIDS_PER_PMID = 1000;
 
     let date = Date.now();
     let counter = 0;
@@ -39,10 +49,18 @@ export async function getCidFromPmid(filePath, connection) {
     for await (const line of lines) {
       counter++;
       const [cid, pmid] = line.split('\t');
-      if (!data[pmid]) {
-        data[pmid] = [];
+      const cids = data[pmid];
+      if (cids === undefined) {
+        data[pmid] = [Number(cid)];
+      } else if (cids === null) {
+        // Already over the cap and dropped — ignore further CIDs.
+        continue;
+      } else if (cids.length >= MAX_CIDS_PER_PMID) {
+        // Crossed the cap: drop this PMID entirely.
+        data[pmid] = null;
+      } else {
+        cids.push(Number(cid));
       }
-      data[pmid].push(Number(cid));
 
       // Throttled progress logging
       if (Date.now() - date > Number(process.env.DEBUG_THROTTLING)) {
@@ -52,13 +70,6 @@ export async function getCidFromPmid(filePath, connection) {
             Object.keys(data).length
           }, CIDs processed: ${counter}`,
         );
-      }
-    }
-
-    // Drop overly-generic PMIDs that reference more than 1 000 compounds
-    for (const key in data) {
-      if (data[key].length > 1000) {
-        data[key].length = 0;
       }
     }
 
