@@ -15,7 +15,7 @@ import { toCamelCase } from './toCamelCase.js';
  * pre-built PMID→CID lookup map so that each article links to the
  * PubChem compounds it describes.
  * @param entry - Raw `PubmedArticle` element from the XML parser.
- * @param pmidToCid - PMID → CID[] lookup map.
+ * @param pmidToCid - `Map<number, number[] | null>` PMID → CID[] lookup.
  * @param langPubmeds - ISO-639 code → full name map.
  * @returns
  *   Normalised PubMed document.
@@ -25,7 +25,9 @@ export async function improvePubmed(entry, pmidToCid, langPubmeds) {
 
   const medlineCitation = entry.MedlineCitation;
   const pmid = medlineCitation.PMID['#text'];
-  const cids = pmidToCid[pmid];
+  // `pmidToCid` is a Map keyed by numeric PMID; `Number(pmid)` keeps the lookup
+  // type-consistent with how the map was built (see getCidFromPmid).
+  const cids = pmidToCid.get(Number(pmid));
 
   /** @type {{ _id: number; _seq: number; data: Record<string, unknown> }} */
   const result = {
