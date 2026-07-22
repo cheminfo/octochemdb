@@ -45,7 +45,7 @@ parentPort?.on('message', async (/** @type {WorkerMessage} */ dataEntry) => {
               'npasses',
               'cmaups',
               'coconuts',
-              'lotusesV2',
+              'lotuses',
               'npAtlases',
               'gnps',
             ].includes(source.collection)

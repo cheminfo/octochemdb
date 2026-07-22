@@ -1,166 +1,100 @@
 import { searchTaxonomies } from '../../../activesOrNaturals/utils/utilsTaxonomies/searchTaxonomies.js';
 
 /**
- * Resolves and standardises taxonomy data for a single LOTUS entry by
- * searching the `taxonomies` MongoDB collection.
+ * Resolves enriched taxonomy data for a LOTUS V2 entry by looking up each
+ * taxon in the `taxonomies` MongoDB collection (NCBI taxonomy).
  *
- * The function preferentially resolves from the `"ncbi"` source using the
- * organism ID, then falls back to species-name lookup. For non-NCBI sources
- * it tries genus, then family. When no match is found the original parsed
- * taxonomy fields are kept in a normalised format.
+ * The lookup strategy mirrors the old lotuses plugin (`getTaxonomiesForLotuses`):
+ *  1. If the taxon has an NCBI ID, look up directly by `_id`.
+ *  2. If not found, try by species name (`data.species`).
+ *  3. If still not found, try by genus (`data.genus`).
+ *  4. If still not found, try by family (`data.family`).
+ *  5. When found, the full taxonomy tree (kingdom, phylum, class, family,
+ *     genus, species) is merged from the NCBI record.
+ *  6. When not found, keeps the raw Wikidata taxonomy fields.
  *
  * Every returned taxonomy object carries a `dbRef` back-link to the owning
  * `lotuses` document.
- * @param entry - The LOTUS entry whose taxonomies are being resolved.
- * @param taxonomiesCollection - The `taxonomies` MongoDB collection.
- * @param oldToNewTaxIDs - Map of deprecated taxonomy IDs to
- *   their current replacement IDs.
- * @returns Resolved taxonomy records.
+ * @param entry - A LOTUS V2 entry with optional raw taxonomies.
+ * @param taxonomiesCollection - The `taxonomies`
+ *   MongoDB collection.
+ * @returns The enriched taxonomy array.
  */
-export async function getTaxonomiesForLotuses(
-  entry,
-  taxonomiesCollection,
-  oldToNewTaxIDs,
-) {
+export async function getTaxonomiesForLotuses(entry, taxonomiesCollection) {
   /** @type {LotusResolvedTaxonomy[]} */
-  const taxonomiesLotuses = [];
-  if (entry.data?.taxonomies) {
-    /** @type {LotusRawTaxonomies} */
-    const rawTaxonomies = /** @type {LotusRawTaxonomies} */ (
-      entry.data.taxonomies
-    );
-    const taxonomiesSources = Object.keys(rawTaxonomies);
-    let sourceToBeUsed;
-    const oldIDs = Object.keys(oldToNewTaxIDs);
-    // Lotuses taxonomies came sometimes from different sources, so we will preferentially use the source that comes from NCBI
-    // we use first the _id of the taxonomy, if nothing is found we try to retrieve the taxonomy using the species name
-    if (taxonomiesSources.includes('ncbi')) {
-      sourceToBeUsed = 'ncbi';
-    } else {
-      sourceToBeUsed = taxonomiesSources[0].toString();
-    }
-    for (let i = 0; i < (rawTaxonomies[sourceToBeUsed] ?? []).length; i++) {
-      const taxons = /** @type {LotusParsedTaxonomy} */ (
-        rawTaxonomies[sourceToBeUsed]?.[i]
-      );
-      let shouldImport = true;
-      if (shouldImport && taxons?.organismID && sourceToBeUsed === 'ncbi') {
-        const searchParameter = {
-          _id: Number(taxons.organismID),
-        };
-        const result = await searchTaxonomies(
-          taxonomiesCollection,
-          searchParameter,
-        );
-        if (result.length > 0) {
-          const finalTaxonomy = result[0].data;
+  const taxonomies = [];
+  if (!entry.data?.taxonomies) return taxonomies;
 
-          finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
-          taxonomiesLotuses.push(finalTaxonomy);
-          shouldImport = false;
-        }
-        if (result.length === 0 && oldIDs.includes(taxons.organismID)) {
-          const searchParameter = {
-            _id: Number(oldToNewTaxIDs[taxons.organismID]),
-          };
-          const result = await searchTaxonomies(
-            taxonomiesCollection,
-            searchParameter,
-          );
-          if (result.length > 0) {
-            const finalTaxonomy = result[0].data;
+  const rawTaxonomies = /** @type {LotusRawTaxonomy[]} */ (
+    entry.data.taxonomies
+  );
+  for (let i = 0; i < rawTaxonomies.length; i++) {
+    const rawTaxon = rawTaxonomies[i];
+    const speciesName = rawTaxon.species;
+    const genus = speciesName ? speciesName.split(' ')[0] : undefined;
 
-            finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
-            taxonomiesLotuses.push(finalTaxonomy);
-            shouldImport = false;
-          }
-        }
-      }
-      if (shouldImport && taxons?.species && sourceToBeUsed === 'ncbi') {
-        const searchParameter = {
-          'data.species': taxons.species,
-        };
-        const result = await searchTaxonomies(
-          taxonomiesCollection,
-          searchParameter,
-        );
-        if (result.length > 0) {
-          const finalTaxonomy = result[0].data;
+    /** @type {LotusResolvedTaxonomy | undefined} */
+    let finalTaxonomy;
 
-          finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
-          taxonomiesLotuses.push(finalTaxonomy);
-          shouldImport = false;
-        }
-      }
-      // If the source is not NCBI, we will use the first other source
-      // we try to retrieve the taxonomy using the genus and the family
-      if (shouldImport && sourceToBeUsed !== 'ncbi' && taxons.genus) {
-        const searchParameter = {
-          'data.genus': taxons.genus,
-        };
-        const result = await searchTaxonomies(
-          taxonomiesCollection,
-          searchParameter,
-        );
-        if (result.length > 0) {
-          const finalTaxonomy = result[0].data;
-          delete finalTaxonomy.species;
-          if (taxons.species) {
-            finalTaxonomy.species = taxons.species;
-          }
-          finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
-          taxonomiesLotuses.push(finalTaxonomy);
-          shouldImport = false;
-        }
-      }
-      if (shouldImport && sourceToBeUsed !== 'ncbi' && taxons.family) {
-        const searchParameter = {
-          'data.family': taxons.family,
-        };
-        const result = await searchTaxonomies(
-          taxonomiesCollection,
-          searchParameter,
-        );
-        if (result.length > 0) {
-          const finalTaxonomy = result[0].data;
-          if (taxons.genus) {
-            finalTaxonomy.genus = taxons.genus;
-          }
-          if (taxons.species) {
-            finalTaxonomy.species = taxons.species;
-          }
-          finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
-          taxonomiesLotuses.push(finalTaxonomy);
-          shouldImport = false;
-        }
-      }
-      // if we failed to find a taxonomy, we keep the original one in a standardized format
-      if (shouldImport) {
-        /** @type {LotusResolvedTaxonomy} */
-        const finalTaxonomy = {};
-        if (taxons.kingdom) {
-          finalTaxonomy.kingdom = taxons.kingdom;
-        }
-        if (taxons.phylum) {
-          finalTaxonomy.phylum = taxons.phylum;
-        }
-        if (taxons.class) {
-          finalTaxonomy.class = taxons.class;
-        }
-        if (taxons.family) {
-          finalTaxonomy.family = taxons.family;
-        }
-        if (taxons.genus) {
-          finalTaxonomy.genus = taxons.genus;
-        }
-        if (taxons.species) {
-          finalTaxonomy.species = taxons.species;
-        }
-        finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
-        taxonomiesLotuses.push(finalTaxonomy);
+    // 1. Try NCBI ID lookup (most reliable)
+    if (rawTaxon.ncbiId) {
+      const result = await searchTaxonomies(taxonomiesCollection, {
+        _id: rawTaxon.ncbiId,
+      });
+      if (result.length > 0) {
+        finalTaxonomy = { ...result[0].data };
+        if (speciesName) finalTaxonomy.species = speciesName;
       }
     }
+
+    // 2. Try species name lookup
+    if (!finalTaxonomy && speciesName) {
+      const result = await searchTaxonomies(taxonomiesCollection, {
+        'data.species': speciesName,
+      });
+      if (result.length > 0) {
+        finalTaxonomy = { ...result[0].data };
+      }
+    }
+
+    // 3. Try genus lookup
+    if (!finalTaxonomy && genus) {
+      const result = await searchTaxonomies(taxonomiesCollection, {
+        'data.genus': genus,
+      });
+      if (result.length > 0) {
+        finalTaxonomy = { ...result[0].data };
+        delete finalTaxonomy.species;
+        if (speciesName) finalTaxonomy.species = speciesName;
+      }
+    }
+
+    // 4. Fallback: keep raw Wikidata data (preserve full hierarchy)
+    if (!finalTaxonomy) {
+      finalTaxonomy = /** @type {LotusResolvedTaxonomy} */ ({});
+      if (rawTaxon.kingdom) finalTaxonomy.kingdom = rawTaxon.kingdom;
+      if (rawTaxon.phylum) finalTaxonomy.phylum = rawTaxon.phylum;
+      if (rawTaxon.class) finalTaxonomy.class = rawTaxon.class;
+      if (rawTaxon.order) finalTaxonomy.order = rawTaxon.order;
+      if (rawTaxon.family) finalTaxonomy.family = rawTaxon.family;
+      if (rawTaxon.genus) finalTaxonomy.genus = rawTaxon.genus;
+      if (speciesName) finalTaxonomy.species = speciesName;
+      if (rawTaxon.rank) finalTaxonomy.rank = rawTaxon.rank;
+    }
+
+    // Preserve Wikidata taxon ID
+    if (rawTaxon.wikidataId) {
+      finalTaxonomy.wikidataId = rawTaxon.wikidataId;
+    }
+
+    // Preserve reference information
+    if (rawTaxon.reference) {
+      finalTaxonomy.reference = rawTaxon.reference;
+    }
+
+    finalTaxonomy.dbRef = { $ref: 'lotuses', $id: entry._id };
+    taxonomies.push(finalTaxonomy);
   }
 
-  return taxonomiesLotuses;
+  return taxonomies;
 }

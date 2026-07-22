@@ -3,15 +3,15 @@ import { idsHandler } from './searchHandlers/idsHandler.js';
 const searchIDs = {
   method: ['GET', 'POST'],
   schema: {
-    summary: 'Retrieve lotuses entries for given lotuses IDs',
-    description: 'Allows to search for compounds data',
+    summary: 'Retrieve lotuses entries for given Wikidata compound IDs',
+    description: 'Allows to search for compounds data from LOTUS Wikidata',
     querystring: {
       type: 'object',
       properties: {
         ids: {
           type: 'string',
-          description: 'lotuses IDs ',
-          example: 'LTS0043466, LTS0256604',
+          description: 'Wikidata compound IDs',
+          example: 'Q27109816, Q312266',
           default: '',
         },
 

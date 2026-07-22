@@ -1,4 +1,3 @@
-// query for molecules from monoisotopic mass
 import { OctoChemConnection } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getStats } from '../../../../../utils/getStats.js';
@@ -6,11 +5,9 @@ import { getStats } from '../../../../../utils/getStats.js';
 const debug = debugLibrary('stats');
 
 /**
- * Route handler that returns global statistics for the lotuses collection.
- * @returns Object with a `data` field holding the statistics, or an `errors`
- *   array when the query fails.
+ * Returns statistics about the lotuses collection.
+ * @returns
  */
-
 export async function statsHandler() {
   let connection;
   try {
@@ -19,7 +16,7 @@ export async function statsHandler() {
     const results = await getStats(connection, 'lotuses');
 
     return { data: results };
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (connection) {
       await debug.error(error.message, {
         collection: 'lotuses',

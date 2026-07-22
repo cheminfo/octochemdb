@@ -1,4 +1,3 @@
-// query for molecules from monoisotopic mass
 import { OctoChemConnection, getFields } from '../../../../../server/utils.js';
 import debugLibrary from '../../../../../utils/Debug.js';
 import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
@@ -6,23 +5,21 @@ import { getRequestQuery } from '../../../../../utils/getRequestQuery.js';
 const debug = debugLibrary('searchIDs');
 
 /**
- * Route handler that retrieves lotuses entries matching the given IDs.
- * @param request - Incoming request whose query provides `ids` (a delimited
- *   list of lotuses IDs) and `fields` (the fields to project).
- * @returns Object with a `data` array of matching entries, or an `errors`
- *   array when the query fails.
+ * Handles ID-based search requests for the lotuses collection.
+ * @param request - Fastify request object.
+ * @returns
  */
 export async function idsHandler(request) {
-  let data = getRequestQuery(request);
-  let { ids = '', fields = 'data' } = data;
+  const data = getRequestQuery(request);
+  const { ids = '', fields = 'data' } = data;
 
-  let formattedFields = getFields(fields);
+  const formattedFields = getFields(fields);
   let connection;
   try {
     connection = new OctoChemConnection();
     const collection = await connection.getCollection('lotuses');
-    let matchParameters = {};
-    let aggregateParameters;
+    /** @type {Record<string, any>} */
+    const matchParameters = {};
 
     if (ids !== '') {
       matchParameters._id = {
@@ -30,7 +27,7 @@ export async function idsHandler(request) {
       };
     }
 
-    aggregateParameters = [
+    const aggregateParameters = [
       {
         $match: matchParameters,
       },
@@ -40,7 +37,7 @@ export async function idsHandler(request) {
     const result = await collection.aggregate(aggregateParameters).toArray();
 
     return { data: result };
-  } catch (error) {
+  } catch (/** @type {any} */ error) {
     if (connection) {
       await debug.fatal(error.message, {
         collection: 'lotuses',

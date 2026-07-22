@@ -977,168 +977,15 @@ declare global {
   }
 
   // ---------------------------------------------------------------------------
-  // Lotuses
-  // ---------------------------------------------------------------------------
-
-  /**
-   * A single BSON record from the LOTUS MongoDB dump file, as iterated by
-   * `bson-iterator`. Each entry corresponds to one natural-product compound.
-   *
-   * Key fields used during the sync:
-   *  - `lotus_id`                   – unique identifier; becomes the MongoDB `_id`.
-   *  - `smiles`                     – SMILES string parsed by OCL.
-   *  - `iupac_name`                 – optional IUPAC name.
-   *  - `taxonomyReferenceObjects`   – nested taxonomy data keyed by source.
-   */
-  interface LotusBsonEntry {
-    /** LOTUS compound identifier, e.g. `"LTS0257199"`. */
-    lotus_id: string;
-    /** SMILES string for the compound. */
-    smiles: string;
-    /** IUPAC systematic name, when available. */
-    iupac_name?: string;
-    /**
-     * Taxonomy references keyed by an opaque top-level key, beneath which
-     * lie source-name keys (`"NCBI"`, `"GBIF Backbone Taxonomy"`, etc.)
-     * mapping to arrays of taxonomy rows.
-     */
-    taxonomyReferenceObjects?: Record<string, LotusTaxonomySources>;
-    /** Allow additional BSON fields. */
-    [key: string]: unknown;
-  }
-
-  /**
-   * Map of taxonomy source names to their respective taxonomy row arrays,
-   * parsed from a single LOTUS BSON entry's `taxonomyReferenceObjects`.
-   */
-  interface LotusTaxonomySources {
-    NCBI?: LotusTaxonomySourceRow[];
-    'GBIF Backbone Taxonomy'?: LotusTaxonomySourceRow[];
-    iNaturalist?: LotusTaxonomySourceRow[];
-    'Open Tree of Life'?: LotusTaxonomySourceRow[];
-    ITIS?: LotusTaxonomySourceRow[];
-    [source: string]: LotusTaxonomySourceRow[] | undefined;
-  }
-
-  /**
-   * A single taxonomy row from a LOTUS taxonomy source. Field names match
-   * the keys found in the BSON dump (e.g. `classx` for taxonomic class).
-   */
-  interface LotusTaxonomySourceRow {
-    /** Organism ID cleaned during LOTUS curation. */
-    cleaned_organism_id?: string;
-    kingdom?: string;
-    phylum?: string;
-    /** Taxonomic class (named `classx` to avoid the JS reserved word). */
-    classx?: string;
-    family?: string;
-    genus?: string;
-    species?: string;
-    [key: string]: string | undefined;
-  }
-
-  /**
-   * A parsed taxonomy record built by `parseLotuses` from a
-   * `LotusTaxonomySourceRow`. Uses normalised field names (e.g. `class`
-   * instead of `classx`).
-   */
-  interface LotusParsedTaxonomy {
-    organismID?: string;
-    kingdom?: string;
-    phylum?: string;
-    class?: string;
-    family?: string;
-    genus?: string;
-    species?: string;
-    [key: string]: string | undefined;
-  }
-
-  /**
-   * The grouped raw taxonomies object built by `parseLotuses` and stored
-   * temporarily on `LotusEntry.data.taxonomies` before enrichment by
-   * `getTaxonomiesForLotuses`. Each key is a source name and the value
-   * is an array of parsed taxonomy rows.
-   */
-  interface LotusRawTaxonomies {
-    ncbi?: LotusParsedTaxonomy[];
-    gBifBackboneTaxonomy?: LotusParsedTaxonomy[];
-    iNaturalist?: LotusParsedTaxonomy[];
-    openTreeOfLife?: LotusParsedTaxonomy[];
-    iTIS?: LotusParsedTaxonomy[];
-    [source: string]: LotusParsedTaxonomy[] | undefined;
-  }
-
-  /**
-   * A fully-resolved taxonomy record produced by `getTaxonomiesForLotuses`
-   * after searching the `taxonomies` MongoDB collection.
-   */
-  interface LotusResolvedTaxonomy {
-    kingdom?: string;
-    phylum?: string;
-    class?: string;
-    family?: string;
-    genus?: string;
-    species?: string;
-    /** Back-reference to the owning `lotuses` document. */
-    dbRef?: { $ref: string; $id: string };
-    [key: string]: unknown;
-  }
-
-  /**
-   * Data payload of a single LOTUS entry stored in MongoDB.
-   */
-  interface LotusEntryData {
-    /** OCL structural representation. */
-    ocl?: OclData;
-    /** IUPAC systematic name, when available. */
-    iupacName?: string;
-    /**
-     * Taxonomy information. Before enrichment this holds `LotusRawTaxonomies`;
-     * after `getTaxonomiesForLotuses` it is replaced with an array of
-     * `LotusResolvedTaxonomy`.
-     */
-    taxonomies?: LotusRawTaxonomies | LotusResolvedTaxonomy[];
-  }
-
-  /**
-   * A single document yielded by `parseLotuses` and upserted into the
-   * `lotuses` MongoDB collection.
-   */
-  interface LotusEntry {
-    /** LOTUS compound identifier, used as the MongoDB `_id`. */
-    _id: string;
-    /** Monotonically increasing sequence counter stamped by the sync loop. */
-    _seq?: number;
-    /** Payload containing structural, taxonomic, and naming data. */
-    data: LotusEntryData;
-  }
-
-  /**
-   * Options object passed to `getLastFileSync` to download a LOTUS file.
-   */
-  interface LotusSyncOptions {
-    /** Full URL of the remote LOTUS MongoDB dump. */
-    collectionSource: string;
-    /** Local directory where the downloaded file is stored. */
-    destinationLocal: string;
-    /** MongoDB collection name (`"lotuses"`). */
-    collectionName: string;
-    /** Base filename for the locally cached file. */
-    filenameNew: string;
-    /** File extension for the locally cached file. */
-    extensionNew: string;
-  }
-
-  // ---------------------------------------------------------------------------
-  // LotusesV2 (Wikidata SPARQL)
+  // Lotuses (Wikidata SPARQL)
   // ---------------------------------------------------------------------------
 
   /**
    * A single taxon entry in the in-memory taxa map built during the
-   * lotusesV2 SPARQL sync. Populated from the `QUERY_TAXA` results and
+   * lotuses SPARQL sync. Populated from the `QUERY_TAXA` results and
    * iteratively enriched by `fetchMissingParents`.
    */
-  interface LotusV2TaxaMapEntry {
+  interface LotusTaxaMapEntry {
     /** Scientific names associated with this taxon (may have multiple). */
     names: string[];
     /** Taxonomic rank (e.g. `"genus"`, `"species"`). */
@@ -1152,7 +999,7 @@ declare global {
   /**
    * A reference entry in the in-memory references map built during sync.
    */
-  interface LotusV2ReferenceMapEntry {
+  interface LotusReferenceMapEntry {
     /** DOIs associated with this article. */
     dois: string[];
     /** Article title, when available. */
@@ -1162,7 +1009,7 @@ declare global {
   /**
    * A compound-reference-taxon link parsed from the CRT SPARQL query.
    */
-  interface LotusV2CrtLink {
+  interface LotusCrtLink {
     /** Wikidata Q-ID of the taxon. */
     taxonId: string;
     /** Wikidata Q-ID of the reference article, if available. */
@@ -1172,7 +1019,7 @@ declare global {
   /**
    * Grouped SMILES variants for a single compound in the compounds map.
    */
-  interface LotusV2CompoundVariants {
+  interface LotusCompoundVariants {
     canonicalSmiles: string[];
     isomericSmiles: string[];
     inchis: string[];
@@ -1180,9 +1027,9 @@ declare global {
   }
 
   /**
-   * Reference information attached to a LotusesV2 taxonomy entry.
+   * Reference information attached to a Lotuses taxonomy entry.
    */
-  interface LotusV2TaxonomyReference {
+  interface LotusTaxonomyReference {
     /** Wikidata Q-ID of the reference article. */
     wikidataId: string;
     /** DOIs from the reference, when available. */
@@ -1192,10 +1039,10 @@ declare global {
   }
 
   /**
-   * A raw taxonomy entry built by `parseLotusesV2` from Wikidata SPARQL
-   * data, before enrichment by `getTaxonomiesForLotusesV2`.
+   * A raw taxonomy entry built by `parseLotuses` from Wikidata SPARQL
+   * data, before enrichment by `getTaxonomiesForLotuses`.
    */
-  interface LotusV2RawTaxonomy {
+  interface LotusRawTaxonomy {
     /** Wikidata Q-ID of the taxon. */
     wikidataId?: string;
     /** NCBI taxonomy ID, when resolved from Wikidata. */
@@ -1210,14 +1057,14 @@ declare global {
     /** Taxonomic rank (used in fallback path). */
     rank?: string;
     /** Article reference linking this compound to this taxon. */
-    reference?: LotusV2TaxonomyReference;
+    reference?: LotusTaxonomyReference;
   }
 
   /**
-   * A fully-resolved taxonomy record produced by `getTaxonomiesForLotusesV2`
+   * A fully-resolved taxonomy record produced by `getTaxonomiesForLotuses`
    * after searching the `taxonomies` MongoDB collection.
    */
-  interface LotusV2ResolvedTaxonomy {
+  interface LotusResolvedTaxonomy {
     kingdom?: string;
     phylum?: string;
     class?: string;
@@ -1230,16 +1077,16 @@ declare global {
     /** Taxonomic rank (preserved from fallback path). */
     rank?: string;
     /** Article reference linking this compound to this taxon. */
-    reference?: LotusV2TaxonomyReference;
-    /** Back-reference to the owning `lotusesV2` document. */
+    reference?: LotusTaxonomyReference;
+    /** Back-reference to the owning `lotuses` document. */
     dbRef?: { $ref: string; $id: string };
     [key: string]: unknown;
   }
 
   /**
-   * Data payload of a single LotusesV2 entry stored in MongoDB.
+   * Data payload of a single Lotuses entry stored in MongoDB.
    */
-  interface LotusV2EntryData {
+  interface LotusEntryData {
     /** OCL structural representation. */
     ocl?: OclData;
     /** InChIKey identifier, when available. */
@@ -1247,48 +1094,48 @@ declare global {
     /** Isomeric SMILES (only stored when different from canonical). */
     isomericSmiles?: string;
     /**
-     * Taxonomy information. Before enrichment this holds `LotusV2RawTaxonomy[]`;
-     * after `getTaxonomiesForLotusesV2` it is replaced with `LotusV2ResolvedTaxonomy[]`.
+     * Taxonomy information. Before enrichment this holds `LotusRawTaxonomy[]`;
+     * after `getTaxonomiesForLotuses` it is replaced with `LotusResolvedTaxonomy[]`.
      */
-    taxonomies?: LotusV2RawTaxonomy[] | LotusV2ResolvedTaxonomy[];
+    taxonomies?: LotusRawTaxonomy[] | LotusResolvedTaxonomy[];
   }
 
   /**
-   * A single document yielded by `parseLotusesV2` and upserted into the
-   * `lotusesV2` MongoDB collection.
+   * A single document yielded by `parseLotuses` and upserted into the
+   * `lotuses` MongoDB collection.
    */
-  interface LotusV2Entry {
+  interface LotusEntry {
     /** Wikidata compound Q-ID, used as the MongoDB `_id`. */
     _id: string;
     /** Monotonically increasing sequence counter stamped by the sync loop. */
     _seq?: number;
     /** Payload containing structural, taxonomic, and identifier data. */
-    data: LotusV2EntryData;
+    data: LotusEntryData;
   }
 
   /**
-   * Options accepted by `parseLotusesV2`.
+   * Options accepted by `parseLotuses`.
    */
-  interface LotusV2ParserOptions {
+  interface LotusParserOptions {
     /** Pre-built test data to use instead of querying Wikidata SPARQL. */
-    testData?: LotusV2TestData;
+    testData?: LotusTestData;
   }
 
   /**
-   * Shape of the test data object returned by `getTestData()` for lotusesV2.
+   * Shape of the test data object returned by `getTestData()` for lotuses.
    */
-  interface LotusV2TestData {
-    compounds: LotusV2SparqlBinding[];
-    taxa: LotusV2SparqlBinding[];
-    references: LotusV2SparqlBinding[];
-    compoundReferenceTaxon: LotusV2SparqlBinding[];
+  interface LotusTestData {
+    compounds: LotusSparqlBinding[];
+    taxa: LotusSparqlBinding[];
+    references: LotusSparqlBinding[];
+    compoundReferenceTaxon: LotusSparqlBinding[];
   }
 
   /**
    * A single SPARQL result binding row (test data format).
    * Each field has `{ value, type }` structure.
    */
-  interface LotusV2SparqlBinding {
+  interface LotusSparqlBinding {
     [key: string]: { value: string; type: string } | undefined;
   }
 

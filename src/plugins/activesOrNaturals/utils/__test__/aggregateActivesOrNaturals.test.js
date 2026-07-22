@@ -5,7 +5,7 @@ import { aggregate } from '../../aggregates/aggregateActivesOrNaturals';
 
 test('Aggregation ActivesOrNaturals', async () => {
   const connection = new OctoChemConnection();
-  const lotusesV2Collection = await connection.getCollection('lotusesV2');
+  const lotusesCollection = await connection.getCollection('lotuses');
   const npassesCollection = await connection.getCollection('npasses');
   const npAtlasesCollection = await connection.getCollection('npAtlases');
   const cmaupsCollection = await connection.getCollection('cmaups');
@@ -19,7 +19,7 @@ test('Aggregation ActivesOrNaturals', async () => {
   const compoundPatentsCollection =
     await connection.getCollection('compoundPatents');
   const requiredCollections = [
-    'lotusesV2',
+    'lotuses',
     'npasses',
     'npAtlases',
     'cmaups',
@@ -32,7 +32,7 @@ test('Aggregation ActivesOrNaturals', async () => {
     'compoundPatents',
   ];
   const /** @type {Record<string, number>} */ expectedCounts = {
-      lotusesV2: 20,
+      lotuses: 20,
       npasses: 6,
       npAtlases: 3,
       cmaups: 19,
@@ -61,7 +61,7 @@ test('Aggregation ActivesOrNaturals', async () => {
     if (allUpdated) {
       // Also verify counts to be safe
       const collections = {
-        lotusesV2: lotusesV2Collection,
+        lotuses: lotusesCollection,
         npasses: npassesCollection,
         npAtlases: npAtlasesCollection,
         cmaups: cmaupsCollection,

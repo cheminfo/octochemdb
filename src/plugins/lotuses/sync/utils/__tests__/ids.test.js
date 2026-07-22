@@ -14,28 +14,30 @@ test('ids search (lotuses)', async () => {
   }
   const request = {
     query: {
-      ids: 'LTS0256604, LTS0043466',
+      ids: 'Q60235, Q312266',
       fields: 'data',
     },
   };
   const results = await search.handler(request);
 
-  // @ts-ignore
-  expect(Object.keys(results.data[0].data)).toMatchInlineSnapshot(`
+  expect('data' in results).toBe(true);
+
+  if (!('data' in results)) throw new Error('Expected data in results');
+  const /** @type {any} */ data = results.data;
+
+  expect(Object.keys(data[0].data)).toMatchInlineSnapshot(`
     [
       "ocl",
-      "iupacName",
+      "inchiKey",
       "taxonomies",
     ]
   `);
 
-  if (results?.data) {
-    for (const entry of results.data) {
-      delete entry.data.ocl.coordinates;
-    }
+  for (const entry of data) {
+    delete entry.data.ocl.coordinates;
   }
 
-  expect(results.data).toMatchSnapshot();
+  expect(data).toMatchSnapshot();
 
   await connection.close();
 });
